@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <!-- 项目根目录 - 自动检测 -->
+    <ProjectRoot>$(MSBuildProjectDirectory)\..</ProjectRoot>
+
+    <!-- 输出目录配置 -->
+    <BinaryRoot>$(ProjectRoot)\Bin</BinaryRoot>
+    <LibraryRoot>$(ProjectRoot)\Lib</LibraryRoot>
+    <DllRoot>$(ProjectRoot)\DLL</DllRoot>
+    <ObjectRoot>$(ProjectRoot)\Obj</ObjectRoot>
+
+    <!-- 第三方SDK路径 -->
+    <!-- DirectX SDK June 2010 -->
+    <DirectXSdkPath Condition="'$(DirectXSdkPath)'==''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectX SDK@InstalledPath)</DirectXSdkPath>
+    <DirectXSdkPath Condition="'$(DirectXSdkPath)'==''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectX SDK@InstalledPath)</DirectXSdkPath>
+    <DirectXSdkPath Condition="'$(DirectXSdkPath)'==''">C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)</DirectXSdkPath>
+
+    <!-- Windows SDK -->
+    <WindowsSdkPath>$(WindowsSdkDir)</WindowsSdkPath>
+
+    <!-- 共享头文件目录 -->
+    <SharedHeaderPath>$(ProjectRoot)\[CC]Header</SharedHeaderPath>
+    <YhLibraryPath>$(ProjectRoot)\[Lib]YHLibrary</YhLibraryPath>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <PlatformShortName>x86</PlatformShortName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <PlatformShortName>x64</PlatformShortName>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- 预处理器定义 -->
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <!-- 通用包含目录 -->
+      <AdditionalIncludeDirectories>
+        $(SharedHeaderPath);
+        $(YhLibraryPath);
+        $(DirectXSdkPath)\Include;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+
+      <!-- 警告级别 -->
+      <WarningLevel>Level3</WarningLevel>
+
+      <!-- 多处理器编译 -->
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+
+      <!-- 语言标准 (VS2022) -->
+      <LanguageStandard Condition="'$(MSBuildVersion)' > '17.0'">stdcpp17</LanguageStandard>
+    </ClCompile>
+
+    <Link>
+      <!-- 通用库目录 -->
+      <AdditionalLibraryDirectories>
+        $(LibraryRoot)\$(Platform)\$(Configuration);
+        $(DllRoot)\$(Platform)\$(Configuration);
+        $(DirectXSdkPath)\Lib\$(PlatformShortName);
+        %(AdditionalLibraryDirectories)
+      </AdditionalLibraryDirectories>
+
+      <!-- 生成调试信息 -->
+      <GenerateDebugInformation Condition="'$(Configuration)'=='Debug'">true</GenerateDebugInformation>
+      <GenerateDebugInformation Condition="'$(Configuration)'=='Release'">false</GenerateDebugInformation>
+    </Link>
+
+    <Lib>
+      <OutputFile>$(LibraryRoot)\$(Platform)\$(Configuration)\$(TargetName).lib</OutputFile>
+    </Lib>
+
+  </ItemDefinitionGroup>
+
+  <!-- 根据项目类型设置输出 -->
+  <ItemDefinitionGroup Condition="'$(ConfigurationType)'=='Application'">
+    <Link>
+      <OutputFile>$(BinaryRoot)\$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(BinaryRoot)\$(Platform)\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(ConfigurationType)'=='DynamicLibrary'">
+    <Link>
+      <OutputFile>$(DllRoot)\$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(DllRoot)\$(Platform)\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(LibraryRoot)\$(Platform)\$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+
+</Project>
