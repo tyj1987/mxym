@@ -621,3 +621,10 @@ Server/
 
 # Source file list
 source_files.xml
+
+# Developer working directory
+DeveloperWorking/
+
+# Keep main scripts
+!start_system.ps1
+!stop_system.ps1

@@ -1,111 +1,178 @@
-# MHGame - 韩式MMORPG游戏系统
+# MHGame - Korean MMORPG Game System
 
-## 快速开始
+A large-scale Korean MMORPG game development project with client, server, and game library components.
 
-### 1. 系统检查
-```batch
-D:\mxym\启动完整系统.bat
+## Quick Start
+
+### Prerequisites
+
+- **Visual Studio 2022** - For compilation
+- **DirectX SDK June 2010** - Graphics rendering
+- **Windows 10/11 SDK** - Platform SDK
+- **SQL Server Express** (optional) - For server database
+
+### 1. Build the Project
+
+```powershell
+# Build all modules in correct order
+.\build_all.ps1 -All
+
+# Or build specific phases
+.\build_all.ps1 -Phase 1  # Base libraries
+.\build_all.ps1 -Phase 4  # Servers
 ```
 
-### 2. 测试客户端（离线模式）
-```batch
-双击: D:\mxym\PlayDH\MHExecuter.exe
+### 2. Verify Build
+
+```powershell
+.\verify_system.ps1
 ```
 
-### 3. GM管理工具
-```batch
-python D:\mxym\GMTools\GM命令系统.py
+### 3. Start the System
+
+```powershell
+# Start all servers and client
+.\start_system.ps1
+
+# Start servers only
+.\start_system.ps1 -SkipClient
+
+# Stop all servers
+.\stop_system.ps1
 ```
 
-### 4. 自定义配置
+### 4. Manual Server Startup (Alternative)
+
 ```batch
-python D:\mxym\CustomLauncher\launcher_config.py
+cd Server
+StartServers.bat
 ```
 
-## 测试账号
-
-| 账号 | 密码 | GM等级 | 说明 |
-|------|------|--------|------|
-| admin | admin123 | 9 | 超级管理员 |
-| gm | gm123 | 5 | GM助手 |
-| test | test123 | 0 | 普通玩家 |
-
-## 系统要求
-
-- Windows 7/10/11
-- DirectX 9.0c
-- SQL Server Express (服务器端，可选)
-- Python 3.8+ (工具脚本)
-
-## 文档
-
-- [完整项目文档](完整项目文档.md) - 详细说明
-- [项目构建方案](PROJECT_PLAN.md) - 开发计划
-- [CLAUDE.md](CLAUDE.md) - 代码架构
-
-## 功能特性
-
-### ✅ 已实现
-- 客户端编译和运行
-- SQLite数据库系统
-- GM命令系统
-- 自定义启动器配置
-- 官网和注册页面定制
-
-### 🔄 进行中
-- SQL Server数据库集成
-- 服务器完整启动
-- 客户端-服务器连接
-
-### 📋 计划中
-- Web注册页面
-- GM Web管理面板
-- 自动更新系统
-- 游戏监控面板
-
-## 目录结构
+## Project Structure
 
 ```
 D:\mxym\
-├── PlayDH/          # 客户端运行目录
-├── Server/          # 服务器运行目录
-├── Database/        # 数据库
-├── GMTools/         # GM工具
-├── CustomLauncher/  # 自定义启动器
-├── [Client]MH/      # 客户端源代码
-├── [Server]*/       # 服务器源代码
-├── [CC]*/           # 共享代码
-└── [Lib]*/          # 库文件
+├── [CC]Header/          # Shared header files
+├── [CC]Ability/         # Ability system
+├── [CC]Skill/           # Skill system
+├── [CC]BattleSystem/    # Battle system
+├── [CC]Quest/           # Quest system
+├── [Lib]YHLibrary/      # Core library
+├── [Lib]BaseNetwork/    # Network library
+├── [Server]Map/         # Map server
+├── [Server]Agent/       # Agent server
+├── [Client]MH/          # Client source
+├── Server/              # Server deployment
+├── PlayDH/              # Client deployment
+└── Database/            # Database files
 ```
 
-## 故障排除
+## Server Architecture
 
-### 服务器无法启动
-- 检查数据库连接 (Server/masInfo.ini)
-- 安装SQL Server Express
-- 查看 Server/Log/ 日志
+| Server | Port | Description |
+|--------|------|-------------|
+| MonitoringServer | 20001 | Monitoring agent |
+| AgentServer | 17001 | Client connections |
+| MapServer | 18001 | Game logic |
+| DistributeServer | 16001 | Server communication (optional) |
 
-### 客户端无法连接
-- 检查服务器是否运行
-- 检查 PlayDH/server.txt 配置
-- 检查防火墙设置
+**Startup Order**: MonitoringServer → AgentServer → MapServer → DistributeServer
 
-### GM命令不工作
-- 验证GM账号等级
-- 检查命令拼写
-- 查看服务器日志
+## Build Order
 
-## 开发团队
+```
+Layer 1: Base Static Libraries
+  └── YHLibrary, HSEL, ZipArchive
 
-- 源代码: 韩式MMORPG
-- 编译修复: Claude AI
-- 系统集成: Claude AI
+Layer 2: Base DLLs
+  └── BaseNetwork, DBThread
 
-## 许可证
+Layer 3: Game Core Libraries
+  └── Ability, Skill, BattleSystem, Quest, Suryun
 
-私有项目，仅供学习使用。
+Layer 4: Server Applications
+  └── Monitoring, Agent, Map, Distribute
+
+Layer 5: Client Application
+  └── MHClient
+```
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [CLAUDE.md](CLAUDE.md) | Main development guide |
+| [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | Command reference |
+| [BUILD_GUIDE.md](BUILD_GUIDE.md) | Detailed build instructions |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Error resolution |
+| [TESTING_GUIDE.md](TESTING_GUIDE.md) | Testing procedures |
+| [REGRESSION_TEST.md](REGRESSION_TEST.md) | Regression testing workflow |
+
+## Test Accounts
+
+| Account | Password | GM Level | Description |
+|---------|----------|----------|-------------|
+| admin | admin123 | 9 | Super admin |
+| gm | gm123 | 5 | GM assistant |
+| test | test123 | 0 | Regular player |
+
+## Configuration Files
+
+- `Server/masInfo.ini` - Monitoring agent config
+- `Server/msInfo.ini` - Monitoring server config
+- `Server/ServerInfo.ini` - Server information
+- `Server/serverset/serverset.txt` - Server set number
+- `PlayDH/server.txt` - Client server config
+
+## Troubleshooting
+
+### Build Errors
+
+- Ensure DirectX SDK is installed and `DXSDK_DIR` is set
+- Build modules in correct dependency order
+- Check library paths in project settings
+
+### Server Won't Start
+
+- Check if ports are already in use: `netstat -an | findstr "17001"`
+- Check log files in `Server/Log/`
+- Verify database connection in config files
+
+### Client Can't Connect
+
+- Verify servers are running: `tasklist | findstr "Server"`
+- Check `PlayDH/server.txt` has correct IP
+- Check firewall settings
+
+## Development Notes
+
+### Coding Style
+
+- Hungarian notation: `m_` prefix for members, `p` for pointers
+- Singleton pattern: `USINGTON(ClassName)->Method()`
+- Memory management: `SAFE_DELETE(ptr)`, `SAFE_RELEASE(pInterface)`
+
+### Key Macros
+
+```cpp
+USINGTON(ClassName)->Method();  // Singleton access
+GAMERESRCMNGR->LoadData();      // Resource manager
+SAFE_DELETE(ptr);               // Safe delete
+ASSERT(condition);              // Assertion
+```
+
+## Modernization
+
+The project is being modernized:
+- DirectX 8 → DirectX 12 migration (`4DYUCHIGX_RENDER_D3D12/`)
+- VS2008 → VS2022 compatibility
+- C++17 standard
+
+## License
+
+Private project for educational purposes.
 
 ---
 
-**最后更新**: 2026-02-10
-**状态**: 核心系统完成，等待数据库集成
+**Last Updated**: 2026-02-20
+**Status**: Active development
