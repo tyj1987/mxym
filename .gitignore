@@ -628,3 +628,6 @@ DeveloperWorking/
 # Keep main scripts
 !start_system.ps1
 !stop_system.ps1
+!restore_database.ps1
+!setup_database.sql
+!SETUP.md
