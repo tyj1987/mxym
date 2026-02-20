@@ -1,31 +1,25 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HSEL", "HSEL.vcproj", "{33CB1F1A-A354-47D2-80EA-31AAC8263A51}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HSEL", "HSEL.vcxproj", "{33CB1F1A-A354-47D2-80EA-31AAC8263A51}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccLocalPath0 = .
-		CanCheckoutShared = true
-		SolutionUniqueID = {A4C7865D-B58D-44EE-BF1B-C5B9866CD99A}
-		SccProjectUniqueName1 = HSEL.vcproj
-		SccLocalPath1 = .
-		CanCheckoutShared = true
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Debug|x86.ActiveCfg = Debug|Win32
+		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Debug|x86.Build.0 = Debug|Win32
+		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Release|x86.ActiveCfg = Release|Win32
+		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Debug.ActiveCfg = Debug|Win32
-		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Debug.Build.0 = Debug|Win32
-		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Release.ActiveCfg = Release|Win32
-		{33CB1F1A-A354-47D2-80EA-31AAC8263A51}.Release.Build.0 = Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {F5AB537C-1E4C-4329-9C2B-F55251F381D5}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

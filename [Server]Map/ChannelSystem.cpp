@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "ChannelSystem.h"
 #include "MHFile.h"
 #include "BattleSystem_Server.h"
@@ -59,16 +60,16 @@ void CChannelSystem::LoadChannelInfo()
 	}
 
 #ifdef _KOR_LOCAL_
-	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	//Load default
 	char buf[1024];
-	file.GetLine(buf, 1024);		//ÁÖ¼®
+	file.GetLine(buf, 1024);		//ï¿½Ö¼ï¿½
 	CHANNEL_INFO defaultInfo;
 	defaultInfo.RegenRate = file.GetFloat();
 	defaultInfo.DropRate = file.GetFloat();
 	defaultInfo.bBattleChannel = file.GetBool();
 
-	file.GetLine(buf, 1024);		//ÁÖ¼®
+	file.GetLine(buf, 1024);		//ï¿½Ö¼ï¿½
 
 	char temp[64] = {0,};
 	while(!file.IsEOF())
@@ -83,7 +84,7 @@ void CChannelSystem::LoadChannelInfo()
 				num = file.GetByte();
 				CreateChannel(Kind, num);
 
-				//±âº»°ª ¼¼ÆÃ
+				//ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				for( int i = 0; i < num; ++i)
 				{
 					m_Channel[i]->m_ChannelInfo.RegenRate = defaultInfo.RegenRate;
@@ -91,7 +92,7 @@ void CChannelSystem::LoadChannelInfo()
 					m_Channel[i]->m_ChannelInfo.bBattleChannel = defaultInfo.bBattleChannel;
 				}
 
-				//Ã¤³Îº° Á¤º¸ ¼¼ÆÃ
+				//Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				DWORD ChannelCnt = 0;
 				DWORD ChannelIDX = 0;
 				while(!file.IsLineEnd())
@@ -129,7 +130,7 @@ void CChannelSystem::LoadChannelInfo()
 	{
 		if(file.IsEOF())
 			break;
-/*		//2008. 5. 7. CBH - Ã¤³ÎÀÌµ¿ ±â´É Ãß°¡ °ü·Ã ½ºÅ©¸³Æ® ¼öÁ¤
+/*		//2008. 5. 7. CBH - Ã¤ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 #ifdef _KOR_LOCAL_
 		wMapNum = file.GetWord();
 		Kind = file.GetByte();
@@ -166,8 +167,8 @@ void CChannelSystem::LoadChannelInfo()
 	file.Release();
 
 #ifdef _KOR_LOCAL_
-	//2008. 5. 13. CBH - ChannelInfo.bin ÆÄÀÏ¿¡ Ã¤³Î Á¤º¸°¡ ¾ø¾î¼­ »ý¼ºÀÌ
-	//µÇÁö ¾Ê¾Ò´Ù¸é Default·Î Ã¤³Î 1°³ »ý¼ºÇÑ´Ù.
+	//2008. 5. 13. CBH - ChannelInfo.bin ï¿½ï¿½ï¿½Ï¿ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ Defaultï¿½ï¿½ Ã¤ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if(m_dwCount == 0)
 		CreateChannel(0, 1);
 #endif
@@ -177,7 +178,7 @@ void CChannelSystem::CreateChannel(BYTE Kind, BYTE num)
 {
 	for(BYTE i=0; i<num; ++i)
 	{			
-		 DWORD ChannelIDX = BATTLESYSTEM->CreateChannel(); // ±×¸®µå ¾ÆÀÌµð == ChannelIDX
+		 DWORD ChannelIDX = BATTLESYSTEM->CreateChannel(); // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ == ChannelIDX
 		 m_Channel[i] = new CChannel;
 		 m_Channel[i]->SetChannelID(ChannelIDX);
 	} 
@@ -284,7 +285,8 @@ DWORD CChannelSystem::CreateQuestMapChannel()
 	if( !m_bQuestMap )	return 0;
 
 	DWORD ChannelIDX = BATTLESYSTEM->CreateChannel();
-	for( int i = 0; i < 1000; ++i )
+	int i;
+	for( i = 0; i < 1000; ++i )
 	{
 		if( m_QMChannel[i].GetChannelID() == 0 )
 			break;
@@ -347,7 +349,7 @@ DWORD CChannelSystem::GetLastChannelID()
 	return m_Channel[m_dwCount-1]->GetChannelID();
 }
 
-//2008. 5. 8. CBH - ¸Ê ÀÌµ¿ Ã¤³ÎÁ¤º¸ °ü·Ã Ã³¸® ÇÔ¼ö
+//2008. 5. 8. CBH - ï¿½ï¿½ ï¿½Ìµï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CChannelSystem::SendMapChangeChannelInfo(MSG_DWORD3* pInfo, DWORD dwConnectionIndex)
 {
 	if(g_pServerSystem->GetStart() == FALSE || m_bQuestMap )
@@ -379,7 +381,7 @@ void CChannelSystem::SendMapChangeChannelInfo(MSG_DWORD3* pInfo, DWORD dwConnect
 	g_Network.Send2Server(dwConnectionIndex,(char*)&msg,sizeof(msg));
 }
 
-//SW080515 Ã¤³Îº° ¼¼ÆÃ
+//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 float CChannelSystem::GetRegenRate( DWORD ChannelID )
 {
 	if( m_bQuestMap )	return 1.0f;

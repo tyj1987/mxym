@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "TileManager.h"
 #include "Tile.h"
 #include "FixedTile.h"
@@ -132,7 +133,7 @@ CTileManager::CTileManager()
 				float fx,fz;
 				fx = temp.nx*cosf(angle) - temp.nz*sinf(angle);
 				fz = temp.nx*sinf(angle) + temp.nz*cosf(angle);
-				// float °è»ê ¿ÀÂ÷¶§¹®¿¡
+				// float  
 				m_AddPos[n][i].nx = int(fx + (fx>0?0.1f:-0.1f));
 				m_AddPos[n][i].nz = int(fz + (fz>0?0.1f:-0.1f));
 	
@@ -190,7 +191,7 @@ TILEINDEX CTileManager::GetTileIndex(float fx, float fz)
 		rt.nz > m_nTileHeight ||
 		rt.nx < 0 || rt.nz < 0 )
 	{
-		//ASSERTMSG(0,"ÁÂÇ¥°¡ ÀÌ»óÇÕ´Ï´Ù[CTileManager]");
+		//ASSERTMSG(0,"Ç¥ Ì»Õ´Ï´[CTileManager]");
 		rt.nx = 0;
 		rt.nz = 0;
 		return rt;
@@ -274,7 +275,7 @@ BOOL CTileManager::LoadFixedTileInfo(MAPTYPE MapNum, char* pMapFile)
 	}
 
 
-	//¼Ó¼ºÆÄÀÏ Çì´õ ÀÐ¾îµå¸²...
+	//Ó¼  Ð¾å¸²...
 	bResult = ReadFile(hFile, &m_nTileWidth, sizeof(m_nTileWidth), &dwRead, NULL);
 	ASSERT(bResult);
 	bResult = ReadFile(hFile, &m_nTileHeight, sizeof(m_nTileHeight), &dwRead, NULL);
@@ -282,7 +283,7 @@ BOOL CTileManager::LoadFixedTileInfo(MAPTYPE MapNum, char* pMapFile)
 	
 	m_pTile = new CTile[ m_nTileWidth * m_nTileHeight ];
 
-	//¼Ó¼º Á¤º¸ ÀÐ¾îµå¸² 
+	//Ó¼  Ð¾å¸² 
 	CTile *pTile;
 	TILE_ATTR Attr;
 	for(int i=0; i< (m_nTileHeight * m_nTileWidth); i++)
@@ -331,7 +332,7 @@ void CTileManager::ReadMapFile(MAPTYPE MapNum, char* filename)
 		return;
 	}
 	
-	//¼Ó¼ºÆÄÀÏ Çì´õ ÀÐ¾îµå¸²...
+	//Ó¼  Ð¾å¸²...
 	bResult = ReadFile(hFile, &nTileWidth, sizeof(nTileWidth), &dwRead, NULL);
 	ASSERT(bResult);
 	bResult = ReadFile(hFile, &nTileHeight, sizeof(nTileHeight), &dwRead, NULL);
@@ -339,7 +340,7 @@ void CTileManager::ReadMapFile(MAPTYPE MapNum, char* filename)
 	
 	CFixedTileInfo* pFixedTileInfo = new CFixedTileInfo;
 	pFixedTileInfo->Init(nTileWidth, nTileHeight);
-	//¼Ó¼º Á¤º¸ ÀÐ¾îµå¸² 
+	//Ó¼  Ð¾å¸² 
 	CFixedTile *pTile;
 	FIXEDTILE_ATTR Attr;
 	for(int i=0; i< (nTileHeight * nTileWidth); i++)
@@ -378,7 +379,7 @@ void CTileManager::DeleteTileGroup(DWORD TileGroupID)
 {
 	CTileGroup* pTileGroup = GetTileGroup(TileGroupID);
 	ASSERT(pTileGroup);
-	//Å¸ÀÏ Áö¿ï¶§ Â¼±¸Â¼±¸
+	//Å¸ ï¶§ Â¼Â¼
 	m_TileGroupTable.Remove(TileGroupID);
 	delete pTileGroup;
 }
@@ -389,7 +390,7 @@ CTileGroup* CTileManager::GetTileGroup(CObject* pObject)
 	CTileGroup* pInfo = m_TileGroupTable.GetData(TGID);
 //	ASSERT(pInfo);
 
-	// ÀÓ½Ã
+	// Ó½
 	if(pInfo == NULL)
 		pInfo = m_TileGroupTable.GetData((DWORD)0);
 
@@ -400,7 +401,7 @@ CTileGroup* CTileManager::GetTileGroup(DWORD TileGroupID)
 	CTileGroup* pInfo = m_TileGroupTable.GetData(TileGroupID);
 //	ASSERT(pInfo);
 	
-	// ÀÓ½Ã
+	// Ó½
 	if(pInfo == NULL)
 		pInfo = m_TileGroupTable.GetData((DWORD)0);
 
@@ -559,7 +560,7 @@ BOOL CTileManager::CollisionCheck(VECTOR3* pStart,VECTOR3* pEnd,VECTOR3* pRtColl
 	if( pStart->x >= 51200 || pStart->x < 0 ||
 		pStart->z >= 51200 || pStart->z < 0 )
 	{
-//		ASSERTMSG(0,"ÀÌµ¿¿µ¿ªÀ» ¹þ¾î³µ½À´Ï´Ù.");
+//		ASSERTMSG(0,"Ìµ î³µÏ´.");
 		pRtCollisonPos->x = 25000;
 		pRtCollisonPos->z = 25000;
 		return TRUE;
@@ -705,7 +706,7 @@ BOOL CTileManager::CollisionCheck(VECTOR3* pStart,VECTOR3* pEnd,VECTOR3* pRtColl
 	if( pStart->x >= 51200 || pStart->x < 0 ||
 		pStart->z >= 51200 || pStart->z < 0 )
 	{
-		ASSERTMSG(0,"ÀÌµ¿¿µ¿ªÀ» ¹þ¾î³µ½À´Ï´Ù.");
+		ASSERTMSG(0,"Ìµ î³µÏ´.");
 		pRtCollisonPos->x = 25000;
 		pRtCollisonPos->z = 25000;
 		return TRUE;
@@ -836,7 +837,7 @@ BOOL CTileManager::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObjec
 	{
 		ObjectCurTilePos = pObject->GetPreoccupiedTileIndex();
 		
-		// ÀÚ¸®¸¦ ¹ï´Ù°¡
+		// Ú¸ Ù°
 		for(int n=0;n<TM_ObjectRegionNum[size];++n)
 		{
 			CurTileIndex = ObjectCurTilePos + m_ppObjectSizeRegion[size][n];
@@ -845,7 +846,7 @@ BOOL CTileManager::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObjec
 		}
 	}
 
-	// °Ë»ç¸¦ ÇÏ°í
+	// Ë»ç¸¦ Ï°
 	for(int n=0;n<TM_ObjectRegionNum[size];++n)
 	{
 		CurTileIndex = *pCenterTile + m_ppObjectSizeRegion[size][n];
@@ -859,7 +860,7 @@ BOOL CTileManager::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObjec
 
 	if(pObject)
 	{
-		// ´Ù½Ã Ã¤¿ö³Ö´Â´Ù.
+		// Ù½ Ã¤Ö´Â´.
 		for(int n=0;n<TM_ObjectRegionNum[size];++n)
 		{
 			CurTileIndex = ObjectCurTilePos + m_ppObjectSizeRegion[size][n];
@@ -943,7 +944,7 @@ VECTOR3 CTileManager::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECT
 	/*
 	int size = pObject->GetObjectTileSize();
 		//////////////////////////////////////////////////////////////////////////
-		// ¹æÇâ ±¸ÇÏ±â
+		//  Ï±
 		int dir;
 		VECTOR3 vdir =  *pCurPos - *pTargetPos;
 		float angle = RADTODEG(VECTORTORAD(vdir));
@@ -966,7 +967,7 @@ VECTOR3 CTileManager::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECT
 			}
 			if(m_AddDistance[n] > limitDist)
 			{
-				n = MAX_ADDPos - 1;			// °Å¸®°¡ ¸Ö¸é ±×³É ¸¶Áö¸·À¸·Î ³Ñ°Ü¹ö¸²
+				n = MAX_ADDPos - 1;			// Å¸ Ö¸ ×³  Ñ°Ü¹
 				EmptyTile = m_AddPos[dir][n] + TargetIndex;
 			}
 			
@@ -977,7 +978,7 @@ VECTOR3 CTileManager::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECT
 		}
 		
 		//////////////////////////////////////////////////////////////////////////
-		// 50cm Å¸ÀÏÀÇ Áß¾Ó¿¡ ¼­°Ô ÇÑ´Ù.
+		// 50cm Å¸ ß¾Ó¿  Ñ´.
 		float TileWidth = 50;
 		VECTOR3 EmptyPos;
 		EmptyPos.x = EmptyTile.nx * TileWidth + TileWidth * 0.5f;

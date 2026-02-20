@@ -1,11 +1,14 @@
 #ifndef _ABILITYHEADER_
 #define _ABILITYHEADER_
 
+#include "..\[CC]Header\CommonGameDefine.h"
+#include "..\[CC]Header\CommonGameStruct.h"  // æ·»åŠ æ­¤è¡Œä»¥èŽ·å–ATTRIBUTE_VALæ¨¡æ¿å®šä¹‰
+
 WORD GetAbilityIndex_WithKindPosition(BYTE Kind,BYTE Position);
 void GetKindPosition_WithAbilityIndex(WORD AbilityIndex,BYTE* pOutKind,BYTE* pOutPosition);
 BYTE GetAbilityLevel_WithDBValue(BYTE DBValue);
-// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-// ÀÌ ÇÔ¼ö¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù
+// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
 //WORD GetAbilityQuickPosition(BYTE DBValue);
 
 #define ABILITYUPDATE_CHARACTERLEVEL_CHANGED			0x00000001
@@ -19,15 +22,15 @@ BYTE GetAbilityLevel_WithDBValue(BYTE DBValue);
 
 enum eAbilityGradeUpMethod
 {
-	eAGM_OnOff,		//0: 1È¸¼º ¼ºÀåÇü : ÇÑ¹ø ¼ö·ÃÇÏ¿© ÀÍÈ÷¸é È¿°ú¸¦ °¡Áö°Ô µÇ¸ç ±× ÀÌ»óÀÇ È¿°úÁõÁøÀº ¾ø´Ù. (On/OffÇü)
-	eAGM_GradeUp,	//1: µî±Þ ¼ºÀåÇü : Æ¯±âÄ¡¸¦ »ç¿ëÇÏ¿© °è¼ÓÇØ¼­ ¼ºÀåÇØ ³ª°¥¼ö ÀÖ´Â ÇüÅÂ
-	eAGM_Restrict,	//2: Á¦ÇÑ ¼ºÀåÇü : Æ¯Á¤ Æ¯±â°¡ ÇØ´ç ·¹º§¿¡ µµ´ÞÇÏ±â Àü¿¡´Â Æ¯±â¸¦ ¼ºÀå½ÃÅ³¼ö ¾ø´Â ÇüÅÂ
+	eAGM_OnOff,		//0: 1È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. (On/Offï¿½ï¿½)
+	eAGM_GradeUp,	//1: ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : Æ¯ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eAGM_Restrict,	//2: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : Æ¯ï¿½ï¿½ Æ¯ï¿½â°¡ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 };
 
 enum eAbilityUseType
 {
-	eAUT_Use,		//0: 1È¸¼º Å¸ÀÔ
-	eAUT_Passive,	//1: ÆÐ½Ãºê Å¸ÀÔ
+	eAUT_Use,		//0: 1È¸ï¿½ï¿½ Å¸ï¿½ï¿½
+	eAUT_Passive,	//1: ï¿½Ð½Ãºï¿½ Å¸ï¿½ï¿½
 	eAUT_Active,	//2: ON/OFF
 };
 
@@ -73,16 +76,16 @@ struct ABILITY_STATS
 	DWORD UngiUpVal;
 
 	// Change Stage
-	DWORD StatGen;	// ±Ù
-	DWORD StatMin;	// ¹Î
+	DWORD StatGen;	// ï¿½ï¿½
+	DWORD StatMin;	// ï¿½ï¿½
 	DWORD StatChe;	// Ã¼
-	DWORD StatSim;	// ½É
-	float Kyunggong;	// °æ½Å¹ý
+	DWORD StatSim;	// ï¿½ï¿½
+	float Kyunggong;	// ï¿½ï¿½Å¹ï¿½
 	WORD  KyunggongLevel;
-	float fNoAttrib;	// ¹«Çã°ø
-	DWORD SkillDamage;	// ¹«°øµ¥¹ÌÁö
-	DWORD CriticalDamage;	// ÀÏ°Ýµ¥¹ÌÁö
-	DWORD dwTitanRidingPlusTime;	//2007. 11. 6. CBH - Å¸ÀÌÅº Å¾½Â ½Ã°£
+	float fNoAttrib;	// ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD SkillDamage;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD CriticalDamage;	// ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD dwTitanRidingPlusTime;	//2007. 11. 6. CBH - Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½Ã°ï¿½
 
 	DWORD GetPhyAttackUp(WORD WeaponKind)
 	{
@@ -100,20 +103,20 @@ struct ABILITY_STATS
 
 struct ABILITY_CALC
 {
-	DWORD	dwPhyAttack;	// ¹°¸® °ø°Ý
-	float	fAttribAttack;	// ¼Ó¼º °ø°Ý
-	float	fAttribRegist;	// ¼Ó¼º ÀúÇ×
-	DWORD	dwLife;			// »ý¸í·Â
-	DWORD	dwDeffence;		// ¹æ¾î·Â
-	DWORD	dwNearyuk;		// ³»·Â
-	DWORD	dwShield;		// È£½Å
-	DWORD	dwUngi;			// ¿î±â
-	DWORD	dwStat;			// ±Ù, ¹Î, Ã¼, ½É
-	float	fKyunggong;		// °æ°ø½ºÇÇµå
-	float	fNoAttrib;		// ¹«Çã°ø
-	DWORD	dwSkillDamage;	// ¹«°øµ¥¹ÌÁö
-	DWORD	dwCriticalDamage;	// ÀÏ°Ýµ¥¹ÌÁö
-	DWORD	dwTitanRidingPlusTime;	//2007. 11. 6. CBH - Å¸ÀÌÅº Å¾½Â ½Ã°£
+	DWORD	dwPhyAttack;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float	fAttribAttack;	// ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float	fAttribRegist;	// ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwLife;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwDeffence;		// ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwNearyuk;		// ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwShield;		// È£ï¿½ï¿½
+	DWORD	dwUngi;			// ï¿½ï¿½ï¿½
+	DWORD	dwStat;			// ï¿½ï¿½, ï¿½ï¿½, Ã¼, ï¿½ï¿½
+	float	fKyunggong;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½
+	float	fNoAttrib;		// ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwSkillDamage;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwCriticalDamage;	// ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwTitanRidingPlusTime;	//2007. 11. 6. CBH - Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½Ã°ï¿½
 };
 
 enum eABILITY_USE_KIND
@@ -130,45 +133,45 @@ enum eABILITY_USE_KIND
 	eAUK_MAXSHIELD,
 	eAUK_UNGISPEED,
 
-	eAUK_SOCIETY = 10,	//ÀÌ°Ç 10ÀÌ¶ó°í Á¤Çß´Ù.
+	eAUK_SOCIETY = 10,	//ï¿½Ì°ï¿½ 10ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½.
 	eAUK_PET	= 11,	//11 abilitybaseinfo.bin -> effect_kind
 };
 
-enum eABILITY_USE_KIND_STAGE	// ÀüÁ÷½Ã È¿°úµé 11~100
+enum eABILITY_USE_KIND_STAGE	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ 11~100
 {
-	eAUK_STAT1				= 11,	// ±Ù
-	eAUK_STAT2				= 12,	// ¹Î
+	eAUK_STAT1				= 11,	// ï¿½ï¿½
+	eAUK_STAT2				= 12,	// ï¿½ï¿½
 	eAUK_STAT3				= 13,	// Ã¼
-	eAUK_STAT4				= 14,	// ½É
-	eAUK_KYUNGGONG_SPEED	= 15,	// °æ½Å¹ý
-	eAUK_JUSOOL				= 16,	// ÁÖ¼ú
-	eAUK_NOATTRIB			= 17,	// ¹«Çã°ø
-	eAUK_SKILL_DAMAGE		= 18,	// ¹«°øµ¥¹ÌÁö
-	eAUK_CRITICAL_DAMAGE	= 19,	// ÀÏ°Ýµ¥¹ÌÁö
+	eAUK_STAT4				= 14,	// ï¿½ï¿½
+	eAUK_KYUNGGONG_SPEED	= 15,	// ï¿½ï¿½Å¹ï¿½
+	eAUK_JUSOOL				= 16,	// ï¿½Ö¼ï¿½
+	eAUK_NOATTRIB			= 17,	// ï¿½ï¿½ï¿½ï¿½ï¿½
+	eAUK_SKILL_DAMAGE		= 18,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eAUK_CRITICAL_DAMAGE	= 19,	// ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 enum eABILITY_USE_JOB
 {
-	eAUKJOB_Ungijosik = 101,	// ¿î±âÁ¶½Ä
-	eAUKJOB_Vimu = 102,			// ºñ¹«½ÅÃ»
-	eAUKJOB_Party = 103,		// ¹æÆÄÃ¢¼³
-	eAUKJOB_Guild = 104,		// ¹®ÆÄÃ¢¼³
-	eAUKJOB_Deal = 105,			// °Å·¡
-	eAUKJOB_StreetStall = 106,  // ³ëÁ¡»ó°³¼³
+	eAUKJOB_Ungijosik = 101,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_Vimu = 102,			// ï¿½ñ¹«½ï¿½Ã»
+	eAUKJOB_Party = 103,		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
+	eAUKJOB_Guild = 104,		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
+	eAUKJOB_Deal = 105,			// ï¿½Å·ï¿½
+	eAUKJOB_StreetStall = 106,  // ï¿½ï¿½ï¿½ï¿½ï¿½ó°³¼ï¿½
 
-	eAUKJOB_Restraint = 108,	// °ßÁ¦
-	eAUKJOB_Attack = 109,		// °ø°Ý
+	eAUKJOB_Restraint = 108,	// ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_Attack = 109,		// ï¿½ï¿½ï¿½ï¿½
 
-	eAUKJOB_StallFind = 110,	// ³ëÁ¡»ó °Ë»ö by Stiner(8)
-	eAUKJOB_AutoNote = 111,	// ¿ÀÅä³ëÆ®
-	eAUKJOB_PartyFind = 112,	//2008. 6. 4. CBH - ¹æÆÄ Ã£±â Ãß°¡
+	eAUKJOB_StallFind = 110,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ by Stiner(8)
+	eAUKJOB_AutoNote = 111,	// ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	eAUKJOB_PartyFind = 112,	//2008. 6. 4. CBH - ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ß°ï¿½
 
-	eAUKJOB_TitanExpert = 120,	//Å¸ÀÌÅº ¼÷·Ã
+	eAUKJOB_TitanExpert = 120,	//Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 
-	eAUKJOB_Upgrade = 201,		//µî±Þ¾÷
-	eAUKJOB_Mix = 202,			//Á¶ÇÕ
-	eAUKJOB_Reinforce = 203,	//°­È­
-	eAUKJOB_Dissolve = 204,		//ºÐÇØ
+	eAUKJOB_Upgrade = 201,		//ï¿½ï¿½Þ¾ï¿½
+	eAUKJOB_Mix = 202,			//ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_Reinforce = 203,	//ï¿½ï¿½È­
+	eAUKJOB_Dissolve = 204,		//ï¿½ï¿½ï¿½ï¿½
 };
 
 enum eABILITY_USE_PET
@@ -182,20 +185,20 @@ enum eABILITY_USE_PET
 
 enum eABILITY_USE_SOCIETY
 {
-	eAUKJOB_Bow		= 301,		// ÀÎ»ç(Æ÷±Ç)
-	eAUKJOB_Happy	= 302,		// ±â»Ý
-	eAUKJOB_Sad		= 303,		// ½½ÇÄ
-	eAUKJOB_Yes		= 304,		// ±àÁ¤
-	eAUKJOB_No		= 305,		// ºÎÁ¤
-	eAUKJOB_Sit		= 306,		// ¾É±â/ÀÏ¾î³ª±â
-//	eAUKJOB_Stand	= 307,		// ÀÏ¾î³ª±â
-	eAUKJOB_BigBow	= 307,		// °Ý½ÄÀÎ»ç
+	eAUKJOB_Bow		= 301,		// ï¿½Î»ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	eAUKJOB_Happy	= 302,		// ï¿½ï¿½ï¿½
+	eAUKJOB_Sad		= 303,		// ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_Yes		= 304,		// ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_No		= 305,		// ï¿½ï¿½ï¿½ï¿½
+	eAUKJOB_Sit		= 306,		// ï¿½É±ï¿½/ï¿½Ï¾î³ªï¿½ï¿½
+//	eAUKJOB_Stand	= 307,		// ï¿½Ï¾î³ªï¿½ï¿½
+	eAUKJOB_BigBow	= 307,		// ï¿½Ý½ï¿½ï¿½Î»ï¿½
 };
 
 enum eAbilityIconState
 {
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// º¸ÀÌ´Â Á¶°Ç º¯°æ
+	// 06. 01. ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	eAIS_NotUsable,
 	eAIS_NotAvailable,
 	eAIS_OnlyVisible,
@@ -205,48 +208,48 @@ enum eAbilityIconState
 
 enum AbilityAcquireKind
 {
-	eAAK_Item,				//¾ÆÀÌÅÛÀ» »ç¿ëÇÏ¿© Æ¯±â¸¦ ¾òÀ½
-	eAAK_Quest,				//Äù½ºÆ®¸¦ ÅëÇÏ¿© Æ¯±â¸¦ ¾òÀ½
-	eAAK_OtherAbility,		//Æ¯Á¤ Æ¯±â°¡ ÀÏÁ¤ µî±Þ ÀÌ»óÀÌ µµ´ÞÇÏ¸é ¾ò´Â´Ù.
-	eAAK_CharacterLevel,	//Ä³¸¯ÅÍÀÇ ·¹º§ÀÌ Æ¯Á¤´Ü°è¿¡ µµ´ÞÇÏ¸é ½Àµæ
-	eAAK_CharacterStage,	//ÀüÁ÷ÇßÀ»°æ¿ì ½Àµæ
+	eAAK_Item,				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ Æ¯ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½
+	eAAK_Quest,				//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ Æ¯ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½
+	eAAK_OtherAbility,		//Æ¯ï¿½ï¿½ Æ¯ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Â´ï¿½.
+	eAAK_CharacterLevel,	//Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½Ü°è¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eAAK_CharacterStage,	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	eAAK_Max,
 };
 
 
-#define ABILITYINDEX_UNGI	401	//¿î±âÁ¶½Ä
-#define ABILITYINDEX_VIMU	402	//ºñ¹«½ÅÃ»
-#define ABILITYINDEX_PARTY	403	//¹æÆÄÃ¢¼³
-#define ABILITYINDEX_GUILD	404	//¹®ÆÄÃ¢¼³
-#define ABILITYINDEX_EXCHANGE	405	//°Å·¡
-#define ABILITYINDEX_STALL	406	//³ëÁ¡»ó°³¼³
+#define ABILITYINDEX_UNGI	401	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ABILITYINDEX_VIMU	402	//ï¿½ñ¹«½ï¿½Ã»
+#define ABILITYINDEX_PARTY	403	//ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
+#define ABILITYINDEX_GUILD	404	//ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
+#define ABILITYINDEX_EXCHANGE	405	//ï¿½Å·ï¿½
+#define ABILITYINDEX_STALL	406	//ï¿½ï¿½ï¿½ï¿½ï¿½ó°³¼ï¿½
 
 
-#define ABILITYINDEX_ITEMUPGRADE	407	//¾ÆÀÌÅÛµî±Þ¾÷
-#define ABILITYINDEX_ITEMMIX		408	//¾ÆÀÌÅÛÁ¶ÇÕ
-#define ABILITYINDEX_ITEMREINFORCE	409	//¾ÆÀÌÅÛ°­È­
-#define ABILITYINDEX_ITEMDISSOLVE	410	//¾ÆÀÌÅÛºÐÇØ
-#define ABILITYINDEX_LEADERSHIP		411	//Áöµµ·Â
-#define	ABILITYINDEX_RESTRAINT		412	// °ßÁ¦
+#define ABILITYINDEX_ITEMUPGRADE	407	//ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½Þ¾ï¿½
+#define ABILITYINDEX_ITEMMIX		408	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ABILITYINDEX_ITEMREINFORCE	409	//ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½È­
+#define ABILITYINDEX_ITEMDISSOLVE	410	//ï¿½ï¿½ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½
+#define ABILITYINDEX_LEADERSHIP		411	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	ABILITYINDEX_RESTRAINT		412	// ï¿½ï¿½ï¿½ï¿½
 
-/*DB ÀÛ¾÷ÈÄ
-#define ABILITYINDEX_PETSTATE		501	//Æê»óÅÂÁ¤º¸
-#define ABILITYINDEX_PETINVEN		502	//ÆêÀÎº¥Åä¸®
-#define ABILITYINDEX_PETSKILL		503	//Æê½ºÅ³
-#define ABILITYINDEX_PETREST		504	//ÆêÈÞ½Ä»óÅÂ
-#define ABILITYINDEX_PETSEAL		505	//ÆêºÀÀÎ
+/*DB ï¿½Û¾ï¿½ï¿½ï¿½
+#define ABILITYINDEX_PETSTATE		501	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ABILITYINDEX_PETINVEN		502	//ï¿½ï¿½ï¿½Îºï¿½ï¿½ä¸®
+#define ABILITYINDEX_PETSKILL		503	//ï¿½ê½ºÅ³
+#define ABILITYINDEX_PETREST		504	//ï¿½ï¿½ï¿½Þ½Ä»ï¿½ï¿½ï¿½
+#define ABILITYINDEX_PETSEAL		505	//ï¿½ï¿½ï¿½ï¿½ï¿½
 */
-//ÀÓ½Ã
-#define ABILITYINDEX_PETSTATE		450	//Æê»óÅÂÁ¤º¸
-#define ABILITYINDEX_PETINVEN		451	//ÆêÀÎº¥Åä¸®
-#define ABILITYINDEX_PETSKILL		452	//Æê½ºÅ³
-#define ABILITYINDEX_PETREST		453	//ÆêÈÞ½Ä»óÅÂ
-#define ABILITYINDEX_PETSEAL		454	//ÆêºÀÀÎ
+//ï¿½Ó½ï¿½
+#define ABILITYINDEX_PETSTATE		450	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ABILITYINDEX_PETINVEN		451	//ï¿½ï¿½ï¿½Îºï¿½ï¿½ä¸®
+#define ABILITYINDEX_PETSKILL		452	//ï¿½ê½ºÅ³
+#define ABILITYINDEX_PETREST		453	//ï¿½ï¿½ï¿½Þ½Ä»ï¿½ï¿½ï¿½
+#define ABILITYINDEX_PETSEAL		454	//ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define ABILITYINDEX_TACTIC_HWA		122	//ÀüÅõ-Áø¹ý(ÁÖ¼ú)
-#define ABILITYINDEX_TACTIC_GEUK	128	//ÀüÅõ-Áø¹ý(ÁÖ¼ú)
-#define ABILITYINDEX_TACTIC_MUSSANG	129 //¹«½Ö
+#define ABILITYINDEX_TACTIC_HWA		122	//ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½(ï¿½Ö¼ï¿½)
+#define ABILITYINDEX_TACTIC_GEUK	128	//ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½(ï¿½Ö¼ï¿½)
+#define ABILITYINDEX_TACTIC_MUSSANG	129 //ï¿½ï¿½ï¿½ï¿½
 
 
 #endif

@@ -4,7 +4,8 @@
 
 #include "stdafx.h"
 #include "SkillObjectStateUnit_TieUp.h"
-#include "ObjectStateManager.h"
+#include "..\\[Client]MH\\ObjectStateManager.h"
+#include "..\\[Client]MH\\Object.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -29,7 +30,7 @@ void CSkillObjectStateUnit_TieUp::Init(CSkillInfo* pSkillInfo,WORD SkillLevel,CO
 	m_SkillTime = pSkillInfo->GetSkillContinueTime() + pSkillInfo->GetSkillInfo()->SkillAdditionalTime[SkillLevel-1];
 
 #ifdef _MHCLIENT_
-	//지속효과표시
+	//효표
 	if(m_TieUpType == 2)
 	{
 		m_StateEffectNum[0] = pSkillInfo->GetSkillInfo()->EffectMineOperate;
@@ -46,9 +47,9 @@ void CSkillObjectStateUnit_TieUp::Init(CSkillInfo* pSkillInfo,WORD SkillLevel,CO
 		m_StateIconNum[0] = eStatusIcon_TieUpAll;
 	}
 /*
-659	결박 (공격)		결박 (2: 공격)
-662	결박 (이동)		결박 (1: 이동)
-665	결박 (전부)		결박 (3: 전부)
+659	 ()		 (2: )
+662	 (絹)		 (1: 絹)
+665	 ()		 (3: )
 */
 #endif
 }
@@ -78,7 +79,7 @@ void CSkillObjectStateUnit_TieUp::DoEndState(CObject* pObject)
 #else
 
 #include "EFFECT/EffectManager.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 #include "SkillObject_client.h"
 #include "StatusIconDlg.h"
 

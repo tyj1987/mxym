@@ -25,7 +25,8 @@
 #include "WindowIDEnum.h"
 #include "./Interface/cWindowManager.h"
 #include "mugongManager.h"
-#include "ItemManager.h"
+#include "../[Client]MH/ItemManager.h"
+#include "../[Client]MH/MHNetwork.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -89,7 +90,7 @@ void CSuryunManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			MAPCHANGE->SetGameInInitKind(eGameInInitKind_SuryunLeave);
 			DWORD MapNum = pmsg->dwData;
 			MAINGAME->SetGameState(eGAMESTATE_MAPCHANGE,&MapNum,4);
-			USERINFOMGR->SetMapChage(TRUE); //¼ö·ÃÀå µé¾î°¥ ¶§ false ³ª¿Ã ¶§ true			
+			USERINFOMGR->SetMapChage(TRUE); // î°¥  false   true			
 				
 		yCASE(MP_SURYUN_SUCCESSPERCENT)
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -137,21 +138,21 @@ WORD CSuryunManager::GoSuryunChk()
 	SURYUNINFO* pSInfo = GetMissionInfo(pMugong->GetItemIdx())->GetSuryunInfo(pMugong->GetSung());
 	if(pSInfo->LimitTime == 0 || pSInfo->RegenNum == 0 || pSInfo->MonNum == 0)
 		return 0;
-	//µ·Àº ÀÖ´ÂÁö
+	// Ö´
 	if(HERO->GetMoney() < GetSuryunFee(pSInfo))
 	{
 		CHATMGR->AddMsg(CTC_SYSMSG, CHATMGR->GetChatMsg(117));
 		return 0;
 	}
 
-	// magi82 - Titan(070911) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+	// magi82 - Titan(070911) Å¸Åº Æ®
 	if( pMugong->m_pSkillInfo->GetSkillKind() == SKILLKIND_TITAN )
 	{
 		WINDOWMGR->MsgBox( MBI_MPNOTICE_NOTFIT, MBT_OK, CHATMGR->GetChatMsg(1659) );
 		return 0;
 	}
 
-	//ÀåÂø¾ÆÀÌÅÛ°ú ¸Â´ÂÁö
+	//Û° Â´
 	if((HERO->GetWeaponEquipType() != pMugong->m_pSkillInfo->GetWeaponType()) &&
 			(pMugong->m_pSkillInfo->GetSkillKind() == SKILLKIND_OUTERMUGONG))
 	{

@@ -26,6 +26,7 @@ CFriendDialog::CFriendDialog()
 
 CFriendDialog::~CFriendDialog()
 {
+int i;
 
 }
 
@@ -37,8 +38,9 @@ void CFriendDialog::Init(LONG x, LONG y, WORD wid, WORD hei, cImage * basicImage
 
 void CFriendDialog::Linking()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	m_pFriendListLCtl = (cListCtrl*)GetWindowForID(FRI_FRIENDLISTLCTL);
-	for(int i=0; i<MAX_FRIEND_PAGE; ++i)
+	for( i=0; i<MAX_FRIEND_PAGE; ++i)
 	{
 		m_FriendPageBtn[i] = (cButton*)GetWindowForID(FRI_PAGE1BTN+i);
 	}
@@ -74,7 +76,7 @@ DWORD CFriendDialog::ActionEvent(CMouse * mouseInfo)
 		cRITEMEx * pRItem = (cRITEMEx *)m_pFriendListLCtl->GetRItem(m_pFriendListLCtl->GetSelectedRowIdx());
 		if(pRItem != NULL)
 		{
-			if(pRItem->dwID) //ÀÚµ¿ ÂÊÁö ±â´É Ãß°¡.
+			if(pRItem->dwID) //ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
 			{
 				GAMEIN->GetMiniNoteDialog()->SetActive(TRUE);
 				GAMEIN->GetMiniNoteDialog()->SetMiniNote(pRItem->pString[0], "", 0);
@@ -222,7 +224,7 @@ void CFriendDialog::RefreshDlg()
 				{
 					if(m_LogInGroup == FALSE)
 					{
-						strcpy(ritem->pString[1], "¿Â¶óÀÎ");
+						strcpy(ritem->pString[1], "ï¿½Â¶ï¿½ï¿½ï¿½");
 						m_LogInGroup = TRUE;
 					}
 					else
@@ -232,7 +234,7 @@ void CFriendDialog::RefreshDlg()
 				{
 					if(m_LogOutGroup == FALSE)
 					{
-						strcpy(ritem->pString[1], "¿ÀÇÁ¶óÀÎ");
+						strcpy(ritem->pString[1], "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 						m_LogOutGroup = TRUE;
 					}
 					else
@@ -254,11 +256,12 @@ void CFriendDialog::RefreshDlg()
 
 void CFriendDialog::CheckedDelFriend()
 {
+int i;
 	DWORD IDs[MAX_FRIEND_LIST];
 	cCheckBox* pChkArray[MAX_FRIEND_LIST];
 	memset(IDs,0,sizeof(DWORD)*MAX_FRIEND_LIST);
 
-	for(int i=0; i<MAX_FRIEND_LIST; ++i)
+	for( i=0; i<MAX_FRIEND_LIST; ++i)
 	{
 		pChkArray[i] = (cCheckBox*)GetWindowForID(FRI_FRIENDLISTCHK1+i);	
 		if(pChkArray[i]->IsChecked())

@@ -6,8 +6,8 @@
 #include "AbilityUpdater_ApplyData.h"
 #include "AbilityGroup.h"
 #include "AbilityCommonHeader.h"
-#include "Player.h"
-#include "CharacterCalcManager.h"
+#include "..\[Server]Map\Player.h"
+#include "..\[Server]Map\CharacterCalcManager.h"
 #include "AbilityManager.h"
 
 #ifdef _MHCLIENT_
@@ -77,31 +77,31 @@ void CAbilityUpdater_ApplyData::Update(DWORD& UpdateCmd,DWORD Param,CAbilityGrou
 			yCASE(eAUK_UNGISPEED)
 				pStats->UngiUpVal = pCalcInfo->dwUngi;
 
-			yCASE(eAUK_STAT1)	// ±Ù
+			yCASE(eAUK_STAT1)	// 
 				pStats->StatGen = pCalcInfo->dwStat;
 
-			yCASE(eAUK_STAT2)	// ¹Î
+			yCASE(eAUK_STAT2)	// 
 				pStats->StatMin = pCalcInfo->dwStat;
 
 			yCASE(eAUK_STAT3)	// Ã¼
 				pStats->StatChe = pCalcInfo->dwStat;
 
-			yCASE(eAUK_STAT4)	// ½É
+			yCASE(eAUK_STAT4)	// 
 				pStats->StatSim = pCalcInfo->dwStat;
 
-			yCASE(eAUK_KYUNGGONG_SPEED)	// °æ½Å¹ý
+			yCASE(eAUK_KYUNGGONG_SPEED)	// Å¹
 				pStats->Kyunggong = pCalcInfo->fKyunggong;
 				pStats->KyunggongLevel = AbilLevel;
 
-			yCASE(eAUK_NOATTRIB)	// ¹«Çã°ø
+			yCASE(eAUK_NOATTRIB)	// 
 				pStats->fNoAttrib = pCalcInfo->fNoAttrib;
 
-			yCASE(eAUK_SKILL_DAMAGE)	// ¹«°øµ¥¹ÌÁö
+			yCASE(eAUK_SKILL_DAMAGE)	// 
 				pStats->SkillDamage = pCalcInfo->dwSkillDamage;
 
-			yCASE(eAUK_CRITICAL_DAMAGE)	// ÀÏ°Ýµ¥¹ÌÁö
+			yCASE(eAUK_CRITICAL_DAMAGE)	// Ï°Ýµ
 				pStats->CriticalDamage = pCalcInfo->dwCriticalDamage;
-			yCASE(eAUKJOB_TitanExpert)	//2007. 11. 6. CBH - Å¸ÀÌÅº Å¾½Â ½Ã°£
+			yCASE(eAUKJOB_TitanExpert)	//2007. 11. 6. CBH - Å¸Åº Å¾ Ã°
 				pStats->dwTitanRidingPlusTime = pCalcInfo->dwTitanRidingPlusTime;
 
 		yENDSWITCH

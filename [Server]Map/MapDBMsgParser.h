@@ -1,13 +1,14 @@
 
 #ifndef __MAPDBMSGPARSER_H__
 #define __MAPDBMSGPARSER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-//#include ".\module\db.h"
-//#include "CommonDBMsgParser.h"
+#include "..\[CC]ServerModule\DB.h"
+#include "..\[CC]ServerModule\CommonDBMsgParser.h"
 //#include "Player.h"
 
 class CPlayer;
@@ -15,28 +16,28 @@ class CParty;
 class CAbilityGroup;
 
 //////////////////////////////////////////////////////////////////////////
-// DB¢¯¢® b¨ùOCO ID/PW ¨ù¡¾¨ú©£
+// DBï¿½ï¿½ï¿½ï¿½ bï¿½ï¿½OCO ID/PW ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 //////////////////////////////////////////////////////////////////////////
-// DB¡¤I ¨¬IAI ¢¬¨­¨öAAo¢¬| ©ö¨­;¢Ò¡× ¡¾¢¬¨¬¨¢CO ID dAC
+// DBï¿½ï¿½I ï¿½ï¿½IAI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AAoï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CO ID dAC
 enum   DBMESSAGEIDFUNC 
 {
 	eNull,
-	eCharacterInfoQuery,		/// CI©ø¨£AC A©ø¢¬?d¨¬¢¬¢¬©£¥ìI¢¬| ¨úo¨úi¢¯A¢¥U.
-	eCharacterMugongQuery,		/// ©ö¡ì¡Æ©ªd¨¬¢¬¢¬| ¨úo¨úi¢¯A¢¥U
+	eCharacterInfoQuery,		/// CIï¿½ï¿½ï¿½ï¿½AC Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½| ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½Aï¿½ï¿½U.
+	eCharacterMugongQuery,		/// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½Aï¿½ï¿½U
 	eCharacterItemSlotQuery,	
-	eCharacterItemQuery,		/// ¨ú¨¡AIAU d¨¬¢¬¢¬| ¨úo¨úi¢¯A¢¥U
+	eCharacterItemQuery,		/// ï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½Aï¿½ï¿½U
 	eCharacterItemOptionQuery, 
 	eCharacterItemOptionDeleteQuery,
 	eCharacterItemRareOptionQuery,
 	eCharacterItemRareOptionDeleteQuery,
 	ePyogukItemOptionQuery,
 	ePyogukItemRareOptionQuery,
-	eShopItemInfoQuery,			// ItemMall ItemÄõ¸®
+	eShopItemInfoQuery,			// ItemMall Itemï¿½ï¿½ï¿½ï¿½
 	//ePetInfoQuery,				// CharacterPetInfo
 
-	eSSItemInsert,				/// ©øea¡ío¢¯¢®¨ù¡© ¨ú¨¡AIAU ¡íy¨ù¨¬
+	eSSItemInsert,				/// ï¿½ï¿½eaï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
 	eItemOptionInsert,
 	eItemRareInsert,		// RareItem	
 	/* New Item Work */
@@ -76,24 +77,24 @@ enum   DBMESSAGEIDFUNC
 	eMugongUpdate2,
 	eMugongMoveUpdate2,
 	eMugongInsert,
-	eMugongDelete,				/// ©ö¡ì¡Æ©ª¡íef
+	eMugongDelete,				/// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½ï¿½ï¿½ef
 
-	eBaseEconomy,				/// ¡¾aA¨ª¨öA¨ù¨ùC¡ÍAo¢¬¢ç
-	eAuctionRegist,				/// ¡Æ©¡¢¬A¥ìi¡¤ICwI¨öAn
-	eCharacterUpdate,			/// A©ø¢¬?d¨¬¢¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç
-	eHeroInfoUpdate,			/// HeroInfo ¨ú¡À¥ì¡ÍAI¨¡¢ç
-	eTotalInfoUpdate,			/// TotalInfo ¨ú¡À¥ì¡ÍAI¨¡¢ç
+	eBaseEconomy,				/// ï¿½ï¿½aAï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½Aoï¿½ï¿½ï¿½ï¿½
+	eAuctionRegist,				/// ï¿½Æ©ï¿½ï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½ICwIï¿½ï¿½An
+	eCharacterUpdate,			/// Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+	eHeroInfoUpdate,			/// HeroInfo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+	eTotalInfoUpdate,			/// TotalInfo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
 	eBadFameUpdate,
 	
 	eAuctionCheck,
 	eAuctionPageList,
 	eAuctionConfirm,
-	ePartyRegistMapServer,		//¢¬E¨ù¡©©öo A¡¿; ¢Ò¡× ¨¡A¨¡¨ù¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U. 
-	ePartyInfoByUserLogin,		///Au¡Æ¢® ¡¤I¡¾¡¿AI CI¢¬e ¨¡A¨¡¨ù d¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U.
+	ePartyRegistMapServer,		//ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o Aï¿½ï¿½; ï¿½Ò¡ï¿½ ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U. 
+	ePartyInfoByUserLogin,		///Auï¿½Æ¢ï¿½ ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI CIï¿½ï¿½e ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U.
 	ePartyCreate,
 	ePartyBreakup,
-	ePartyCharacterTbUpdate,	//A©ø¢¬?AI A¡¿AI¨¬iAC ¨¡A¨¡¨ù AI¥ì|¨ö¨¬¢¬| 08¡¤I ¢¬¢¬¥ìc¢¥U.
-	ePartyAddMember,			//¢¬a©öoA©¬¡Æ¢®
+	ePartyCharacterTbUpdate,	//Aï¿½ï¿½ï¿½ï¿½?AI Aï¿½ï¿½AIï¿½ï¿½iAC ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ AIï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| 08ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½U.
+	ePartyAddMember,			//ï¿½ï¿½aï¿½ï¿½oAï¿½ï¿½ï¿½Æ¢ï¿½
 	ePartyDelMember,
 	ePartyChangeMaster,
 
@@ -101,7 +102,7 @@ enum   DBMESSAGEIDFUNC
 	eSaveMapChangePoint,		// MapChange
 	
 /*
-	eMunpaLoad,					//©ö¢ç¨¡A 1
+	eMunpaLoad,					//ï¿½ï¿½ï¿½ç¨¡A 1
 	eMunpaItemLoad,
 	eMunpaItemOption, 
 	eMunpaLoadSyn,
@@ -152,7 +153,7 @@ enum   DBMESSAGEIDFUNC
 	eWantedMyList,
 	eWantedSearch,
 	
-	eQuestTotalInfo,	// AE¨¬¢¬AU ¡Æ¢®AI¥ìa
+	eQuestTotalInfo,	// AEï¿½ï¿½ï¿½ï¿½AU ï¿½Æ¢ï¿½AIï¿½ï¿½a
 	eQuestUpdate,
 	eQuestMainQuestLoad,
 	eQuestSubQuestLoad,
@@ -177,7 +178,7 @@ enum   DBMESSAGEIDFUNC
 	eJournalSaveUpdate,
 	eJournalDelete,
 	/////////////////////////////////////////////
-	// Log ¡Æu¡¤A
+	// Log ï¿½ï¿½uï¿½ï¿½A
 	eLogCharacter,
 	eLogExp,
 	eLogMoney,
@@ -299,7 +300,7 @@ enum   DBMESSAGEIDFUNC
 	eGuildItemRareOptionInNeed,
 	eCharacterExpFlag,	// magi82
 
-	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 	eGuildTraineeInfo,
 	eGuildTraineeInsert,
 	eGuildTraineeDelete,
@@ -313,13 +314,13 @@ enum   DBMESSAGEIDFUNC
 
 	//////////////////////////////////////////////////////////////////////////
 	
-	//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+	//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 	eGuildStudentLvUpCount,	
 	eGuildStudentLvUpInfoInit,
 
 	eTitanWearItemInfo,	// magi82 - Titan(070209)
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	eCharacterTitanInfoQuery,	//CharacterTitanInfo
 	eCharacterTitanEquipItemEnduranceInfoQuery,	//TitanEquipItemEnduranceInfo
 	eTitanInsert,
@@ -334,7 +335,7 @@ enum   DBMESSAGEIDFUNC
 	eTestGameQuery,
 	eTestLogQuery,
 
-	ePyogukTitanEnduranceOptionQuery,	// magi82 - Titan(071015) Ã¢°í¿¡ Å¸ÀÌÅº Àåºñ °ü·Ã
+	ePyogukTitanEnduranceOptionQuery,	// magi82 - Titan(071015) Ã¢ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	eQuest_EndQuest_New,
 	eQuest_DeleteQuest_New,
@@ -343,11 +344,11 @@ enum   DBMESSAGEIDFUNC
 	eTitanEquipInfoInsertException,	// magi82(33)
 	eTitanEquipInfoInsertExceptionPyoguk,	// magi82(33)
 
-	eCharacterSkinInfoUpdate,			//2007. 12. 10. CBH - Ä³¸¯ÅÍ ½ºÅ² Á¤º¸
+	eCharacterSkinInfoUpdate,			//2007. 12. 10. CBH - Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 
-	eCharacterUpdateResetStatusPoint,	// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
+	eCharacterUpdateResetStatusPoint,	// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
 
-	eCharacterSkinInfo,			//2008. 1. 23. CBH - Ä³¸¯ÅÍ ½ºÅ² Á¤º¸
+	eCharacterSkinInfo,			//2008. 1. 23. CBH - Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 
 	eItemLimitInfoLoadAll,	// tamoo
 	eItemLimitInfoUpdate,	// tamoo
@@ -355,7 +356,7 @@ enum   DBMESSAGEIDFUNC
 	eAutoNoteListLoad,		// tamoo
 	eAutoNoteListAdd,
 
-	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/28)-MapItemDrop
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/28)-MapItemDrop
 	eMapItemDropListSelect,
 	eMapItemDropListUpdate,
 	eMapItemDropListInit,
@@ -374,49 +375,49 @@ enum   DBMESSAGEIDFUNC
 
 //////////////////////////////////////////////////////////////////////////
 
-// DB¡¤I ©ø?¢¬¡¾ Stored Procedure ¢ÒC¢¥A Query ©ö¢ç dAC
+// DBï¿½ï¿½I ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ Stored Procedure ï¿½ï¿½Cï¿½ï¿½A Query ï¿½ï¿½ï¿½ï¿½ dAC
 #define STORED_TEST_QUERY	"UP_GAME_TEST_QUERY"
-#define STORED_CHARACTER_SELECT				"dbo.MP_CHARACTER_SelectByCharacterIDX"		// ¨ù¡¾AACN A©ø¢¬?d¨¬¢¬ ¨úo=
-#define STORED_CHARACTER_KYUNGGONG			"dbo.MP_CHARACTER_KyungGong"				// ¡Æ©¡¡Æ©ªd¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
-#define STORED_CHARACTER_NAEGONG			"dbo.MP_CHARACTER_NaeGong"					// ©ø¡í¡Æ©ªd¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
-#define STORED_CHARACTER_MUGONGINFO			"dbo.MP_CHARACTER_MugongInfo"				// ©ö¡ì¡Æ©ªd¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
+#define STORED_CHARACTER_SELECT				"dbo.MP_CHARACTER_SelectByCharacterIDX"		// ï¿½ï¿½ï¿½ï¿½AACN Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½o=
+#define STORED_CHARACTER_KYUNGGONG			"dbo.MP_CHARACTER_KyungGong"				// ï¿½Æ©ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
+#define STORED_CHARACTER_NAEGONG			"dbo.MP_CHARACTER_NaeGong"					// ï¿½ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
+#define STORED_CHARACTER_MUGONGINFO			"dbo.MP_CHARACTER_MugongInfo"				// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
 #define STORED_CHARACTER_ITEMSLOTINFO		"dbo.MP_CHARACTER_ItemSlotInfo_JP"			// ItemSlotInfo
-#define STORED_CHARACTER_ITEMINFO			"dbo.MP_CHARACTER_ItemInfo"					// ¨ú¨¡AIAU d¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
+#define STORED_CHARACTER_ITEMINFO			"dbo.MP_CHARACTER_ItemInfo"					// ï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
 #define STORED_CHARACTER_ITEMRAREOPTIONINFO	"dbo.MP_CHARACTER_ItemRareOptionInfo"
-#define STORED_CHARACTER_ITEMOPTIONINFO		"dbo.MP_CHARACTER_ItemOptionInfo"			// ¨ú¨¡AIAU ¢¯E¨ùCd¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
-#define STORED_CHARACTER_SKILLINFO			"dbo.MP_CHARACTER_SkillInfo"				// ¨ö¨¬A©ø d¨¬¢¬¢¬| ©ö¨­¨ú¨¡¢¯A¢¥U
+#define STORED_CHARACTER_ITEMOPTIONINFO		"dbo.MP_CHARACTER_ItemOptionInfo"			// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½Cdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
+#define STORED_CHARACTER_SKILLINFO			"dbo.MP_CHARACTER_SkillInfo"				// ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½U
 
 // magi82 //////////////////////////////////////////////////////////////////////////
 #define STORED_CHARACTER_EXPFLAG			"dbo.MP_CHARACTER_UpdateExpFlag"
 ////////////////////////////////////////////////////////////////////////////////////
 
-//#define STORED_CHARACTER_MUGONGWEAR			"MP_CHARACTER_MugongWear"				// ©ö¡ì¡Æ©ªAaA©ª¨öA CwI¨öAn
-//#define STORED_CHARACTER_GROUNDFROMSERVER	"MP_CHARACTER_ItemGroundDrop"			// ¢¬E¨ù¡©©öi¨¬¨úi¡¾¨ù¡© ¨ú¨¡AIAU A©¬¡Æ¢®
-//#define STORED_CHARACTER_MUGONGTOINVENTORY	"MP_CHARACTER_MugongToInventory"		// ©ö¡ì¡Æ©ªA¡Ë¢¯¢®¨ù¡© AI¨¬¡ÍAa¢¬¢ç¡¤I 
-//#define STORED_CHARACTER_MUGINGDELETE		"MP_CHARACTER_MugongDelete"				// ©ö¡ì¡Æ©ª¡íef
-#define STORED_CHARACTER_BASEECONOMY		"dbo.MP_MAP_BaseEconomy"					// ¢¬E¨¬¡Æ¡¾aA¨ª¨öA¨ù¨ùAo¢¬¢ç
-#define STORED_CHARACTER_AUCTIONREGIST		"dbo.MP_Auction_Regist"						// ¡Æ©¡¢¬A¥ìi¡¤I
-#define STORED_CHARACTER_AUCTIONONEPAGE		"dbo.MP_Auction_PageCalculate"				// ¡Æ©¡¢¬A¢¬¢ç¨ö¨¬¨¡¢ç CO¨¡aAIAoAo¢¬¢ç
-//#define	STORED_CHARACTER_MUGONGUPDATE		"MP_CHARACTER_MugongUpdate"				// ©ö¡ì¡Æ©ªd¨¬¢¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç
-//#define	STORED_CHARACTER_MUGONGMOVEUPDATE	"MP_CHARACTER_MugongMoveUpdate"			// ©ö¡ì¡Æ©ªd¨¬¢¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç
-//#define	STORED_CHARACTER_CHARACTERUPDATE	"MP_CHARACTER_Update"					// A©ø¢¬?d¨¬¢¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç
+//#define STORED_CHARACTER_MUGONGWEAR			"MP_CHARACTER_MugongWear"				// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½AaAï¿½ï¿½ï¿½ï¿½A CwIï¿½ï¿½An
+//#define STORED_CHARACTER_GROUNDFROMSERVER	"MP_CHARACTER_ItemGroundDrop"			// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAU Aï¿½ï¿½ï¿½Æ¢ï¿½
+//#define STORED_CHARACTER_MUGONGTOINVENTORY	"MP_CHARACTER_MugongToInventory"		// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½Aï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AIï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½ï¿½ç¡¤I 
+//#define STORED_CHARACTER_MUGINGDELETE		"MP_CHARACTER_MugongDelete"				// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½ï¿½ï¿½ef
+#define STORED_CHARACTER_BASEECONOMY		"dbo.MP_MAP_BaseEconomy"					// ï¿½ï¿½Eï¿½ï¿½ï¿½Æ¡ï¿½aAï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Aoï¿½ï¿½ï¿½ï¿½
+#define STORED_CHARACTER_AUCTIONREGIST		"dbo.MP_Auction_Regist"						// ï¿½Æ©ï¿½ï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½I
+#define STORED_CHARACTER_AUCTIONONEPAGE		"dbo.MP_Auction_PageCalculate"				// ï¿½Æ©ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ COï¿½ï¿½aAIAoAoï¿½ï¿½ï¿½ï¿½
+//#define	STORED_CHARACTER_MUGONGUPDATE		"MP_CHARACTER_MugongUpdate"				// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+//#define	STORED_CHARACTER_MUGONGMOVEUPDATE	"MP_CHARACTER_MugongMoveUpdate"			// ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+//#define	STORED_CHARACTER_CHARACTERUPDATE	"MP_CHARACTER_Update"					// Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
 #define STORED_CHARACTER_HEROINFOUPDATE		"dbo.MP_CHARACTER_HeroInfoUpdate"
 #define STORED_CHARACTER_TOTALINFOUPDATE	"dbo.MP_CHARACTER_TotalInfoUpdate"
 #define STORED_CHARACTER_BADFAMEUPDATE		"dbo.MP_CHARACTER_BadFameUpdate"
-#define STORED_CHARACTER_REGISTLOGINMAPINFO "dbo.MP_LogInMapInfo_Regist"				//¡¤I¡¾¡¿AI¨öA  ¢¬E AuAa ©öy¨ù¢ç¨ú¨ú Ao¢¯iAo ¢¬¢Ò¨ù¨ù¢¯a!
-#define STORED_CHARACTER_UNREGISTLOGINMAPINFO "dbo.MP_LogInMapInfo_UnRegist"			//¡¤I¡¾¡¿¨ú¨¡¢¯o  ¢¬E A¡þ¢¬¢ç¨úi ©öy¨ù¢ç¨ú¨ú Ao¢¯iAo ¢¬¢Ò¨ù¨ù¢¯a!
+#define STORED_CHARACTER_REGISTLOGINMAPINFO "dbo.MP_LogInMapInfo_Regist"				//ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½A  ï¿½ï¿½E AuAa ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aoï¿½ï¿½iAo ï¿½ï¿½ï¿½Ò¨ï¿½ï¿½ï¿½ï¿½ï¿½a!
+#define STORED_CHARACTER_UNREGISTLOGINMAPINFO "dbo.MP_LogInMapInfo_UnRegist"			//ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o  ï¿½ï¿½E Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½i ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aoï¿½ï¿½iAo ï¿½ï¿½ï¿½Ò¨ï¿½ï¿½ï¿½ï¿½ï¿½a!
 #define STORED_CHARACTER_SAVEINFOBEFORELOGOUT "dbo.MP_CHARACTER_SaveInfoBeforeLogOut"
 /*
-#define STORED_CHARACTER_ITEMUPDATE			"MP_CHARACTER_ItemUpdate"				// ¨ú¨¡AIAU ¨ú¡À¥ì¡ÍAI¨¡¢ç
-#define STORED_CHARACTER_ITEMTOTALUPDATE	"MP_CHARACTER_ItemTotalUpdate"			// AI¨¬¡Í ¢¬©£¥ìc ¨ú¨¡AIAU d¨¬¢¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç
-#define STORED_CHARACTER_ITEMBUY			"MP_CHARACTER_ItemBuy"					// ¨ú¨¡AIAU ¡íc¡¾a
-#define STORED_CHARACTER_ITEMINSERT			"MP_CHARACTER_ItemInsert"				// ¨ú¨¡AIAU ¡íy¨ù¨¬
-#define STORED_CHARACTER_ITEMDELETE			"MP_CHARACTER_ItemDelete"				// ¨ú¨¡AIAU ¡íef
-#define STORED_CHARACTER_ITEMDIVIDE			"MP_CHARACTER_ItemDivide"				// ¨ú¨¡AIAU ©ø¨£¢¥¨Ï¡¾a
+#define STORED_CHARACTER_ITEMUPDATE			"MP_CHARACTER_ItemUpdate"				// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+#define STORED_CHARACTER_ITEMTOTALUPDATE	"MP_CHARACTER_ItemTotalUpdate"			// AIï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
+#define STORED_CHARACTER_ITEMBUY			"MP_CHARACTER_ItemBuy"					// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½cï¿½ï¿½a
+#define STORED_CHARACTER_ITEMINSERT			"MP_CHARACTER_ItemInsert"				// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+#define STORED_CHARACTER_ITEMDELETE			"MP_CHARACTER_ItemDelete"				// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ef
+#define STORED_CHARACTER_ITEMDIVIDE			"MP_CHARACTER_ItemDivide"				// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½a
 #define STORED_CHARACTER_ITEMHUNT			"MP_CHARACTER_ItemHunt"
 */
 
-/* New Item CwI¨öAn */
+/* New Item CwIï¿½ï¿½An */
 #define STORED_ITEM_UPDATE					"dbo.MP_ITEM_Update"
 //#define STORED_ITEM_PYOGUKMUNPA_UPDATE		"dbo.MP_ITEM_PyogukMunpaUpdate"
 #define STORED_ITEM_COMBINEUPDATE			"dbo.MP_ITEM_CombineUpdate"
@@ -431,27 +432,27 @@ enum   DBMESSAGEIDFUNC
 #define STORED_ITEM_OPTION_DELETE			"dbo.MP_ITEM_OPTION_Delete"
 
 
-/* New Mugong CwI¨öAn */
+/* New Mugong CwIï¿½ï¿½An */
 #define STORED_MUGONG_UPDATE				"dbo.MP_MUGONG_Update"
 #define STORED_MUGONG_MOVEUPDATE			"dbo.MP_MUGONG_MoveUpdate"
 #define STORED_MUGONG_INSERT				"dbo.MP_MUGONG_Insert"
 #define STORED_MUGONG_DELETE				"dbo.MP_MUGONG_Delete"
 
-//pjs ¢¯¨Ï¡¾a¢¯¢® AUCTION¢¯¢® ¡ÆuCN AuAa CwI¨öAn A©¬¡Æ¢® C¨ª¨ú©¬ CN¢¥U..
-//¡Æ©¡¢¬A ¡Æa¡Æu¡Æ¢® AO¢¥AAo ¡ÆE¡íc 
+//pjs ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½ï¿½ï¿½ AUCTIONï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uCN AuAa CwIï¿½ï¿½An Aï¿½ï¿½ï¿½Æ¢ï¿½ Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CNï¿½ï¿½U..
+//ï¿½Æ©ï¿½ï¿½ï¿½A ï¿½ï¿½aï¿½ï¿½uï¿½Æ¢ï¿½ AOï¿½ï¿½AAo ï¿½ï¿½Eï¿½ï¿½c 
 #define STORED_AUCTION_CHECK		"dbo.MP_AUCTION_CHECK"
-//A¡¿AI¨¬i¢¯¢®¨ù¡© v¡ÆC ¡ÆE¡íoCO¢Ò¡× ¨ú¥ì CwI¨öAn	//¡¾¡¿¡¤©ø ¡Æ©¡¢¯iAC ¨ùo¢¬| ¢¬¢¬¥ìe¨úi¨ú©¬ ¡ÆU¢¥U.
+//Aï¿½ï¿½AIï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ vï¿½ï¿½C ï¿½ï¿½Eï¿½ï¿½oCOï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ CwIï¿½ï¿½An	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ©ï¿½ï¿½ï¿½iAC ï¿½ï¿½oï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Uï¿½ï¿½U.
 #define STORED_AUCTION_SEARCH		"dbo.MP_AUCTION_SEARCH"
-//A¡¿AI¨¬i; v¡ÆC d¡¤ACO¢Ò¡× ¨ú¥ì CwI¨öAn	//¡¾¡¿¡¤©ø ¡Æ©¡¢¯iAC ¨ùo¢¬| ¢¬¢¬¥ìe¨úi¨ú©¬ ¡ÆU¢¥U 
+//Aï¿½ï¿½AIï¿½ï¿½i; vï¿½ï¿½C dï¿½ï¿½ACOï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ CwIï¿½ï¿½An	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ©ï¿½ï¿½ï¿½iAC ï¿½ï¿½oï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Uï¿½ï¿½U 
 #define STORED_AUCTION_SORT			"dbo.MP_AUCTION_SORT"
-//¡Æ©¡¢¬A ¥ìi¡¤ICO¢Ò¡× ¨ú¥ì CwI¨öAn 
+//ï¿½Æ©ï¿½ï¿½ï¿½A ï¿½ï¿½iï¿½ï¿½ICOï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ CwIï¿½ï¿½An 
 #define STORED_AUCTION_REGISTER		"dbo.MP_AUCTION_REGISTER"
-//¡Æ©¡¢¬A Ao¢¯©ªCO¢Ò¡× ¨ú¥ì CwI¨öAn 
+//ï¿½Æ©ï¿½ï¿½ï¿½A Aoï¿½ï¿½ï¿½ï¿½COï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ CwIï¿½ï¿½An 
 #define STORED_AUCTION_JOIN			"dbo.MP_AUCTION_JOIN"
-//¡Æ©¡¢¬A ¥ìi¡¤I,Ao¢¯©ª  Ae¨ùO¢¯¢® ¨ú¥ì CwI¨öAn // ¡¾¡¿¡¤©ø ¡Æ©¡¢¯iAC ¨ùo¢¬| ¢¬¢¬¥ìe¨úi¨ú©¬ ¡ÆU¢¥U
+//ï¿½Æ©ï¿½ï¿½ï¿½A ï¿½ï¿½iï¿½ï¿½I,Aoï¿½ï¿½ï¿½ï¿½  Aeï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ CwIï¿½ï¿½An // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ©ï¿½ï¿½ï¿½iAC ï¿½ï¿½oï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Uï¿½ï¿½U
 #define STORED_AUCTION_CANCEL		"dbo.MP_AUCTION__REGISTER_CANCEL"
 
-//¨¡A¨¡¨ù
+//ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
 #define STORED_PARTY_REGIST_MAPSERVER	"dbo.MP_PARTY_Regist"
 #define STORED_PARTY_INFO_BY_USERLOGIN	"dbo.MP_PARTY_PartyInfoByUserLogin"
 #define STORED_PARTY_CREATE				"dbo.MP_PARTY_CreateParty"
@@ -462,11 +463,11 @@ enum   DBMESSAGEIDFUNC
 #define STORED_PARTY_DELMEMBER			"dbo.MP_PARTY_DelMember"
 #define STORED_PARTY_CHANGEMASTER		"dbo.MP_PARTY_ChangeMaster"
 
-//©ö¢ç¨¡A 
+//ï¿½ï¿½ï¿½ç¨¡A 
 /*w
 #define STORED_MUNPA_SEARCHMUNPA		"dbo.MP_MUNPA_SearchMunpa"
 #define STORED_MUNPA_CREATE				"dbo.MP_MUNPA_CreateMunpa"
-#define STORED_MUNPA_BREAKUP			"dbo.MP_MUNPA_BreakupMunpa" //©ö¢ç¨¡A¢¯©ª¥ìe ¢¬¢çAI
+#define STORED_MUNPA_BREAKUP			"dbo.MP_MUNPA_BreakupMunpa" //ï¿½ï¿½ï¿½ç¨¡Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½e ï¿½ï¿½ï¿½ï¿½AI
 #define STORED_MUNPA_BREAKUPMEMBERS		"dbo.MP_MUNPA_BreakupMembers"
 #define STORED_MUNPA_BREAKUPCLEAR		"dbo.MP_MUNPA_BreakupClear"
 #define	STORED_MUNPA_BANMEMBER			"dbo.MP_MUNPA_BanMember"
@@ -521,7 +522,7 @@ enum   DBMESSAGEIDFUNC
 #define STORED_GUILD_MONEYUPDATE		"dbo.MP_GUILD_MoneyUpdate"
 #define STORED_GUILD_ITEMOPTION			"dbo.MP_GUILD_ItemOption_Info"
 #define STORED_GUILD_MARKREGIST			"dbo.MP_GUILD_MarkRegist"
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 #define STORED_GUILD_TRAINEE_INFO		"dbo.MP_GUILD_TRAINEE_Info"
 #define STORED_GUILD_TRAINEE_INSERT		"dbo.MP_GUILD_TRAINEE_Insert"
 #define STORED_GUILD_TRAINEE_DELETE		"dbo.MP_GUILD_TRAINEE_Delete"
@@ -540,17 +541,17 @@ enum   DBMESSAGEIDFUNC
 #define	STORED_TITAN_WEARITEMINFO	"dbo.MP_TITAN_WearItemInfo"	// magi82 - Titan(070209)
 
 
-//C¡Í¡¾©ö
+//Cï¿½Í¡ï¿½ï¿½ï¿½
 #define STORED_PYOGUK_BUYPYOGUK			"dbo.MP_PYOGUK_Buy"
 #define STORED_PYOGUK_MONEYUPDATE		"dbo.MP_PYOGUK_MoneyUpdate"
-#define STORED_PYOGUK_TITAN_ENDURANCE_INFO	"dbo.MP_PYOGUK_Titan_Endurance_Info"	// magi82 - Titan(071015) Ã¢°í¿¡ Å¸ÀÌÅº Àåºñ °ü·Ã
+#define STORED_PYOGUK_TITAN_ENDURANCE_INFO	"dbo.MP_PYOGUK_Titan_Endurance_Info"	// magi82 - Titan(071015) Ã¢ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-/* C¡Í¡¾©ö ¨ùod AU¨ú¡À */
+/* Cï¿½Í¡ï¿½ï¿½ï¿½ ï¿½ï¿½od AUï¿½ï¿½ï¿½ï¿½ */
 #define STORED_PYOGUK_INFO				"dbo.MP_PYOGUK_Info"
 #define STORED_PYOGUK_ITEMINFO			"dbo.MP_PYOGUK_ItemInfo"
 #define STORED_PYOGUK_MONEYUPDATE		"dbo.MP_PYOGUK_MoneyUpdate"
 
-//A¡Ì¡¾¢¬
+//Aï¿½Ì¡ï¿½ï¿½ï¿½
 #define STORED_FRIEND_NOTIFYLOGOUT		"dbo.MP_FRIEND_NotifyLogout"
 
 // ItemMall Item
@@ -578,15 +579,15 @@ enum   DBMESSAGEIDFUNC
 #define STORED_SHOPITEM_UPDAETALL		"dbo.MP_SHOPITEM_UpdateAll"
 
 
-//¢¬i¨ù¨¬ ¨ú¡À¥ì¡ÍAI¨¡¢ç 
+//ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ 
 //#define STORED_FAME_MUNPAUPDATE			"dbo.MP_FAME_MunpaUpdate"
 #define STORED_FAME_CHARACTERUPDATE		"dbo.MP_FAME_CharacterUpdate"
 
-//¨úC¢¬i ¨ú¡À¥ì¡ÍAI¨¡¢ç
+//ï¿½ï¿½Cï¿½ï¿½i ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½
 #define STORED_BADFAME_CHARACTERUPDATE	"dbo.MP_BADFAME_CharacterUpdate"
 #define STORED_PK_CHARACTERUPDATE		"dbo.MP_PK_CharacterUpdate"
 
-// Co¡ío¡¾Y
+// Coï¿½ï¿½oï¿½ï¿½Y
 #define STORED_WANTED_LOAD				"dbo.MP_WANTED_LoadList"
 #define STORED_WANTED_INFO				"dbo.MP_WANTED_InfoByUserLogIn"
 #define STORED_WANTED_BUYRIGHT			"dbo.MP_WANTED_BuyRight"
@@ -621,14 +622,14 @@ enum   DBMESSAGEIDFUNC
 #define STROED_JOURNAL_SAVEUPDATE		"dbo.MP_JOURNAL_SaveUpdate"
 #define STROED_JOURNAL_DELETE			"dbo.MP_JOURNAL_Delete"
 
-// ¢¬EAuE? A©ø¢¬?d¨¬¢¬
+// ï¿½ï¿½EAuE? Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½
 #define STORED_MAPCHANGE_CHARINFO		"dbo.MP_MAPCHANGE_CharInfo"
 #define STORED_MAPCHANGE_MUGONGINFO		"dbo.MP_CHARACTER_MugongInfo"
 
 #define STORED_SAVE_MAPCHAGEPOINT		"dbo.MP_CHARACTER_MapchangePointUpdate"
 #define STORED_SAVE_MAPCHAGEPOINTRET	"dbo.MP_CHARACTER_MapchangePointReturn"
 #define STORED_SAVE_LOGINPOINT			"dbo.MP_CHARACTER_LoginPointUpdate"
-// AI¨¬¡ÍAa¢¬¢ç ¨ú¨¡AIAU ¡í©£AO
+// AIï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½AO
 //#define STORED_CHARACTER_ITEMINSERT		"MP_CHARACTER_ItemInsert"
 
 // Quest
@@ -645,9 +646,9 @@ enum   DBMESSAGEIDFUNC
 #define STORED_GT_GUILDINFO_DELETE		"dbo.MP_GT_Delete"
 #define STORED_GT_GUILDINFO_UPDATE		"dbo.MP_GT_Update"
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­SiegeWar													  ¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½SiegeWar													  ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define STORED_SIEGE_INFOLOAD			"dbo.MP_SIEGEWAR_InfoLoad"
 #define STORED_SIEGE_INFOINSERT			"dbo.MP_SIEGEWAR_InfoInsert"
 #define STORED_SIEGE_INFOUPDATE			"dbo.MP_SIEGEWAR_InfoUpdate"
@@ -656,10 +657,10 @@ enum   DBMESSAGEIDFUNC
 #define STORED_SIEGE_GUILDUPDATE		"dbo.MP_SIEGEWAR_GuildInfoUpdate"
 #define STORED_SIEGE_GUILDDELETE		"dbo.MP_SIEGEWAR_GuildInfoDelete"
 
-//2007. 12. 10. CBH - Ä³¸¯ÅÍ ½ºÅ²
+//2007. 12. 10. CBH - Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å²
 #define STORED_CHARACTER_SKININFO		"dbo.MP_CHARACTER_UpdateSkinInfo"
 
-// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
+// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
 #define STORED_CHARACTER_UPDATE_RESETSTATUSPOINT	"dbo.MP_CHARACTER_UpdateResetStatusPoint"
 
 //////////////////////////////////////////////////////////////////////////
@@ -667,17 +668,17 @@ enum   DBMESSAGEIDFUNC
 
 
 //////////////////////////////////////////////////////////////////////////
-//pjs ¢¯¨Ï¡¾a¢¥A ©ø¡í¡Æ¢® ¡ÆiAA¨ú©¬ ¡ÆU¢¥U..
-enum AuctionPage			// ¡Æ©¡¢¬A¢¬¢ç¨ö¨¬¨¡¢ç ©ö¨­;¢Ò¡× ¡íc¢¯e
+//pjs ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½Æ¢ï¿½ ï¿½ï¿½iAAï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Uï¿½ï¿½U..
+enum AuctionPage			// ï¿½Æ©ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½e
 {
 	eAT_DBIdx, eAT_ItemDBIdx, eAT_ItemIdx, eAT_SellNum,  eAT_SellerID, eAT_EndDate, eAT_EndTime,
 	eAT_StartPrice, eAT_ImmediatePrice, eAT_CurrentPrice, eAT_BidderNum, eAT_CurrentBidder, eAT_RegDate
 };
-//DB¡¤I ¨¬IAI ©ö¨­¢¥A AU¡¤a¢¬| 'CN dAC
+//DBï¿½ï¿½I ï¿½ï¿½IAI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A AUï¿½ï¿½aï¿½ï¿½| 'CN dAC
 //eAuctionPageLIst
-// AI©öIAo 1> ¡Æ©¡¢¬A ©ö©ªE¡Ì, ©ö¡ÆC¡Æ¢¬i, ¨ùo¡¤¢ç, AO¡Æi ¡Æ¢®¡ÆY, Ai¨öA ¡¾¢¬¢¬A¡Æ¢®¡ÆY, ¢¬¢Ò¡Æ¡§¨öA¡Æ¡Ì, ©ø¡ìAu/¡¤AAU, Au¢¯¨Ï¨ùo 
-// AI©öIAo 3> ©ø©÷:¨öA¡Æ¡Ì, ¡Æ©¡¢¬AAU
-// ¨ú¨¡AIAUAC AI¥ì|¨ö¨¬, 
+// AIï¿½ï¿½IAo 1> ï¿½Æ©ï¿½ï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Cï¿½Æ¢ï¿½i, ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½, AOï¿½ï¿½i ï¿½Æ¢ï¿½ï¿½ï¿½Y, Aiï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Æ¢ï¿½ï¿½ï¿½Y, ï¿½ï¿½ï¿½Ò¡Æ¡ï¿½ï¿½ï¿½Aï¿½Æ¡ï¿½, ï¿½ï¿½ï¿½ï¿½Au/ï¿½ï¿½AAU, Auï¿½ï¿½ï¿½Ï¨ï¿½o 
+// AIï¿½ï¿½IAo 3> ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½Aï¿½Æ¡ï¿½, ï¿½Æ©ï¿½ï¿½ï¿½AAU
+// ï¿½ï¿½ï¿½ï¿½AIAUAC AIï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½, 
 enum AuctionList
 {
 	ePRO_NAME, ePRO_Amount, eBID_High_Price, eBID_Immediate_Price, eBID_DueDate, eHigh_Price_Name, eJOIN_Amount, 
@@ -685,8 +686,8 @@ enum AuctionList
 };
 
 //eAuctionSuccess
-// AI©öIAo 4> ¡Æ©¡¢¬A©ö¡Æ, ¡Æ©ö¨ùo, ¡Æ¡í¢¬AAU 
-// ¨ú¨¡AIAUAC AI¥ì|¨ö¨¬, ¡Æ©¡¢¬A ¥ìi¡¤I ©ö©ªE¡Ì ???
+// AIï¿½ï¿½IAo 4> ï¿½Æ©ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½, ï¿½Æ©ï¿½ï¿½ï¿½o, ï¿½Æ¡ï¿½ï¿½ï¿½AAU 
+// ï¿½ï¿½ï¿½ï¿½AIAUAC AIï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½, ï¿½Æ©ï¿½ï¿½ï¿½A ï¿½ï¿½iï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ ???
 enum AuctionSuccess
 {
 	sePRO_NAME, sePRO_Amount, seAuctioneer,
@@ -700,8 +701,8 @@ enum AuctionConfirm
 };
 
 // magi82 - add /////////////////////////////////////////////////////////////////////
-// DB¢¯¢®¨ù¡© ¨ú©÷AI¢¥A ¨ùoA¢®A¢®E?.
-enum CHSelectInfo	// A©ø¢¬?d¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¨ú¢¬
+// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½A ï¿½ï¿½oAï¿½ï¿½Aï¿½ï¿½E?.
+enum CHSelectInfo	// Aï¿½ï¿½ï¿½ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½
 {
 	eCS_ObjectID = 0, eCS_UserID, eCS_PartyID,eCS_Gender, eCS_Gengoal, eCS_Life, eCS_Shield, eCS_Energe, eCS_Dex, eCS_Sta, eCS_Simmak, eCS_Fame, 
 	eCS_Karma, eCS_Name, eCS_Repute, eCS_Stage, eCS_Grade, eCS_Expoint, eCS_GradeUpPoint, eCS_Money, 
@@ -712,17 +713,17 @@ enum CHSelectInfo	// A©ø¢¬?d¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¨ú¢¬
 };
 ////////////////////////////////////////////////////////////////////////////////////
 
-enum CHMugong		// A©ø¢¬?©ö¡ì¡Æ©ªd¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¨ú¢¬
+enum CHMugong		// Aï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½Æ©ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½
 {
 	eCM_ObjectID = 0, eCM_DBIDX, eCM_IDX, eCM_ExpPoint, eCM_Sung, eCM_Position, eCM_QPosition, eCM_Wear, eCM_Option
 };
 
-enum CHItem			// A©ø¢¬?AI ¨ú¨¡AIAU d¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¡íc¢¯e
+enum CHItem			// Aï¿½ï¿½ï¿½ï¿½?AI ï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½e
 {
 	eCI_ObjectID = 0, eCI_DBIDX, eCI_IDX, eCI_Position, eCI_QPosition, eCI_Durability, eCI_Param, eCI_RareIdx,
 };
 
-enum CHItemRare	//!!!ÀÓ½Ã DB¿¡ ¸Â°Ô ÀçÀÛ¾÷ ÇÊ¿ä
+enum CHItemRare	//!!!ï¿½Ó½ï¿½ DBï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½Û¾ï¿½ ï¿½Ê¿ï¿½
 {
 	eCIR_ObjectID, eCIR_ItemIdx, eCIR_Position, eCIR_RareID, eCIR_ItemDBID, /*eCIR_Durability, eCIR_QPosition, eCIR_Param,*/
 	eCIR_GenGol, eCIR_MinChub, eCIR_CheRyuk, eCIR_SimMek, eCIR_Life, eCIR_NaeRyuk, eCIR_Shield, 
@@ -732,7 +733,7 @@ enum CHItemRare	//!!!ÀÓ½Ã DB¿¡ ¸Â°Ô ÀçÀÛ¾÷ ÇÊ¿ä
 	eCIR_PhyDefense 
 };
 
-enum CHItemOption	// ¨ú¨¡AIAU ¢¯E¨ùC
+enum CHItemOption	// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½C
 {
 	eCIO_ObjectID, eCIO_ItemIdx, eCIO_OptionID, eCIO_ItemDBID, eCIO_GenGol, eCIO_MinChub, eCIO_CheRyuk, eCIO_SimMek, eCIO_Life, eCIO_NaeRyuk, eCIO_Shield, 
 	eCIO_FireAttrRegist, eCIO_WaterAttrRegist, eCIO_TreeAttrRegist,  eCIO_GoldAttrRegist, eCIO_EarthAttrRegist,
@@ -749,7 +750,7 @@ enum CHItemRareOptionInfo
 	eCIRO_FireAttrAttack, eCIRO_WaterAttrAttack, eCIRO_TreeAttrAttack,  eCIRO_GoldAttrAttack, eCIRO_EarthAttrAttack,
 	eCIRO_PhyDefense 
 };
-enum CHItemOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
+enum CHItemOptionInfo	// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½C
 {
 	eCIOI_ObjectID, eCIOI_OptionID, eCIOI_ItemDBID, eCIOI_GenGol, eCIOI_MinChub, eCIOI_CheRyuk, eCIOI_SimMek, eCIOI_Life, eCIOI_NaeRyuk, eCIOI_Shield, 
 	eCIOI_FireAttrRegist, eCIOI_WaterAttrRegist, eCIOI_TreeAttrRegist,  eCIOI_GoldAttrRegist, eCIOI_EarthAttrRegist,
@@ -758,7 +759,7 @@ enum CHItemOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
 	eCIOI_PhyDefense 
 };
 
-enum CPyogukItemRareOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
+enum CPyogukItemRareOptionInfo	// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½C
 {
 	ePROI_RareOptionID, ePROI_ItemDBID, ePROI_GenGol, ePROI_MinChub, ePROI_CheRyuk, ePROI_SimMek, ePROI_Life, ePROI_NaeRyuk, ePROI_Shield, 
 	ePROI_FireAttrRegist, ePROI_WaterAttrRegist, ePROI_TreeAttrRegist,  ePROI_GoldAttrRegist, ePROI_EarthAttrRegist,
@@ -767,7 +768,7 @@ enum CPyogukItemRareOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
 	ePROI_PhyDefense 
 };
 
-enum CPyogukItemOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
+enum CPyogukItemOptionInfo	// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½C
 {
 	ePOI_OptionID, ePOI_ItemDBID, ePOI_GenGol, ePOI_MinChub, ePOI_CheRyuk, ePOI_SimMek, ePOI_Life, ePOI_NaeRyuk, ePOI_Shield, 
 	ePOI_FireAttrRegist, ePOI_WaterAttrRegist, ePOI_TreeAttrRegist,  ePOI_GoldAttrRegist, ePOI_EarthAttrRegist,
@@ -775,7 +776,7 @@ enum CPyogukItemOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
 	ePOI_FireAttrAttack, ePOI_WaterAttrAttack, ePOI_TreeAttrAttack,  ePOI_GoldAttrAttack, ePOI_EarthAttrAttack,
 	ePOI_PhyDefense 
 };
-enum CMunpaItemOptionInfo	// ¨ú¨¡AIAU ¢¯E¨ùC
+enum CMunpaItemOptionInfo	// ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½C
 {
 	eMOI_OptionID, eMOI_ItemDBID, eMOI_GenGol, eMOI_MinChub, eMOI_CheRyuk, eMOI_SimMek, eMOI_Life, eMOI_NaeRyuk, eMOI_Shield, 
 	eMOI_FireAttrRegist, eMOI_WaterAttrRegist, eMOI_TreeAttrRegist,  eMOI_GoldAttrRegist, eMOI_EarthAttrRegist,
@@ -813,7 +814,7 @@ enum eGuildItemRareOptionInfo
 	eGIROI_PhyDefense
 };
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 enum eGuildTraineeInfoIndex
 {
     eGTII_DBIdx, eGTII_GuildIdx, eGTII_UserIdx, eGTII_UserName, eGTII_JoinTime
@@ -890,17 +891,17 @@ enum Guild_UseGuildPoint
 	eGUGP_UsePoint, eGUGP_TotalPoint, eGUGP_UseKind, eGUGP_KindIdx, eGUGP_Endtime,
 };
 
-enum CHSkill		// A©ø¢¬?AI ¨ö¨¬A©ø d¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¡íc¢¯e
+enum CHSkill		// Aï¿½ï¿½ï¿½ï¿½?AI ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½e
 {
 	eCK_ObjectID = 0, eCK_DBIDX, eCK_IDX, eCK_Position, eCK_QPosition, eCK_Durability
 };
 
-enum CHItemGroundDrop		// ¨ù¡©©öi¨¬¨úi¡¾¨ù¡© ¢¬E¢¯¢® ¨ú¨¡AIAU A©¬¡Æ¢®EA d¨¬¢¬¢¬| ©ö¨­;¢Ò¡× ¡íc¢¯e
+enum CHItemGroundDrop		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAU Aï¿½ï¿½ï¿½Æ¢ï¿½EA dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½e
 {
 	eIG_ObjectID, eIG_DBIDX, eIG_IDX, eIG_POSX, eIG_POSZ
 };
 
-enum MMapBaseEconomy			// ¢¬E¨¬¡Æ ¡¾aA¨ª¨öA¨ù¨ù¢¬| ©ö¨­;¢Ò¡× ¡íc¢¯e
+enum MMapBaseEconomy			// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½aAï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½;ï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½e
 {
 	eME_MEPNUM, eME_ORIGINNUM, eME_ORIGINPRICE, eME_ORIGINAMOUNT, eME_REQUIRENUM, eME_REQUIREPRICE, eME_REQUIREAMOUNT,
 	eME_BUYRATES, eME_SELLRATES 
@@ -913,7 +914,7 @@ enum PartyInfoMap
 enum Partyinfobyuserlogin
 {
 	ePA_LIMemberId, ePA_LIMemberName, ePA_LIMemberCurrentMap, ePA_LIMemberLevel, ePA_LIOption,
-	//2008. 5. 22. CBH - ¹æÆÄ Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+	//2008. 5. 22. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ePA_MinLevel, ePA_MaxLevel, ePA_Public, ePA_LimitCount, ePA_Theme,
 };
 enum Partychangemaster
@@ -924,14 +925,14 @@ enum Partychangemaster
 enum PartyMember 
 {
 	 ePA_ERR,ePA_PARTYID, ePA_MASTER, ePA_OPTION,
-	 //2008. 5. 22. CBH - ¹æÆÄ Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+	 //2008. 5. 22. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 ePA_MINLEVEL, ePA_MAXLEVEL, ePA_PUBLIC, ePA_LIMITCOUNT, ePA_THEME,
 };
 enum Partydelmember
 {
 	ePA_DMErr, ePA_DMTargetID,
 };
-enum Munpainfo //¢¬E¨ù¡©©öo¡Æ¢® ¨öAAUCO ¢Ò¡× ©ö¨­¢¥A ©ö¢ç¨¡A d¨¬¢¬ 
+enum Munpainfo //ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Æ¢ï¿½ ï¿½ï¿½AAUCO ï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½ï¿½ç¨¡A dï¿½ï¿½ï¿½ï¿½ 
 {
 	eMu_MunpaID, eMunpaMasterID, eMu_MunpaName, eFamous, eMemberNum, eMunpaRank, eMunpaMoney
 };
@@ -1110,7 +1111,7 @@ enum Guildload
 };
 enum Guildloadmember
 {
-	eGu_LMIdx, eGu_LMName, eGu_LMLevel, eGu_LMGuildIdx, eGu_LMRank, //È£Äª Ãß°¡
+	eGu_LMIdx, eGu_LMName, eGu_LMLevel, eGu_LMGuildIdx, eGu_LMRank, //È£Äª ï¿½ß°ï¿½
 };
 enum Guilcreate
 {
@@ -1150,7 +1151,7 @@ enum eGuildNotice
 	eGu_GNDBIdx, eGu_GNGuildIdx, eGu_GNGuildNotice,
 };
 
-enum eMapDropItem	// ¸Ê µå¶ø ¾ÆÀÌÅÛ DB°ü·Ã Ãß°¡ by Stiner(2008/06/05)-MapDropItem
+enum eMapDropItem	// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/06/05)-MapDropItem
 {
 	eMdi_MapNum, eMdi_Channel, eMdi_ItemIDX, eMdi_DropCount, eMdi_MaxDropCount
 };
@@ -1159,7 +1160,7 @@ enum eMapDropItem	// ¸Ê µå¶ø ¾ÆÀÌÅÛ DB°ü·Ã Ãß°¡ by Stiner(2008/06/05)-MapDropIte
 
 //////////////////////////////////////////////////////////////////////////
 
-// DB¡¤I Query©ö¢ç; ©ø?¢¬¡¾¢Ò¡× ¨ú©÷¢¥A CO¨ùo¥ìe dAC
+// DBï¿½ï¿½I Queryï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A COï¿½ï¿½oï¿½ï¿½e dAC
 void TestQuery();
 void CharacterNumSendAndCharacterInfo(DWORD CharacterIDX, DWORD Protocol);
 void CharacterNumSendAndCharacterInfo2(DWORD CharacterIDX, DWORD dwTeam);
@@ -1206,7 +1207,7 @@ void ItemMoveUpdateToDB(DWORD CharacterIDX, DWORD dwfromDBIdx, POSTYPE frompos, 
 void ItemMovePyogukUpdateToDB(DWORD CharacterIDX, DWORD UserIDX, DWORD dwfromDBIdx, POSTYPE frompos, DWORD dwtoDBIdx, POSTYPE topos);
 void ItemMoveGuildUpdateToDB(DWORD CharacterIDX, DWORD MunpaIDX, DWORD dwfromDBIdx, POSTYPE frompos, DWORD dwtoDBIdx, POSTYPE topos);
 void ItemMovePetInvenUpdateToDB(DWORD CharacterIDX, DWORD dwfromDBIdx, POSTYPE frompos, DWORD dwtoDBIdx, POSTYPE topos);
-//SW050920 RareIdx Ãß°¡
+//SW050920 RareIdx ï¿½ß°ï¿½
 void ItemInsertToDB(DWORD CharacterIdx, WORD wItemIdx, DURTYPE Durability, POSTYPE bPosition, DWORD dwKey, WORD bSeal=0);
 void ItemDeleteToDB(DWORD dwDBIdx);
 void ItemOptionInsertToDB(DWORD CharacterIdx, WORD wItemIdx, POSTYPE Pos, ITEM_OPTION_INFO * pOptionInfo);
@@ -1246,7 +1247,7 @@ void MugongInsertToDB(DWORD CharacterIDX, WORD MugongIDX, POSTYPE MugongPos, BYT
 void MugongDeleteToDB(DWORD dwDBIdx);
 
 
-//pjs ¢¯¨Ï¡¾a¢¯¢®¢¥A ACUTION¢¯¢® ¡¾¡©¡¤A¥ìC Ai¢Ò¡Ëi¨ú©ö¢ç ©öYE? A©ø¢¬¢ç CO¨ùo ¨ù¡¾¨ú©£
+//pjs ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A ACUTIONï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½C Aiï¿½Ò¡ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½YE? Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ COï¿½ï¿½o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void CheckAuction(MSGBASE* msg);
 void AuctionSearch(SEARCHLIST* msg);
 void AuctionSort(SORTLIST* sort);
@@ -1254,11 +1255,11 @@ void AuctionRegister(REGISTERAUCTION* msg);
 void AuctionJoin(JOINAUCTION* msg);
 void AuctionCancel(AUCTIONCANCEL *msg);
 //////////////////////////////////////////////////////////////////////////
-// ¨¡A¨¡¨ù ¡Æu¡¤A DBAo¢¬¢ç
+// ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½A DBAoï¿½ï¿½ï¿½ï¿½
 void PartyLoad(DWORD PartyIDX);
 void PartyInfoByUserLogin(DWORD PartyIDX, DWORD CharacterIDX);
 void PartyBreakup(DWORD PartyIDX);
-//2008. 5. 21. CBH - ¹æÆÄ »ý¼º ¿É¼Ç Ãß°¡ °ü·Ã ÇÔ¼ö ¼öÁ¤
+//2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 //void PartyCreate(DWORD MasterIDX, BYTE Option);
 void PartyCreate(DWORD MasterIDX, PARTY_ADDOPTION* pAddOption);
 ///////////////////////////////////////////////////////////////
@@ -1272,7 +1273,7 @@ void PartyChangeMaster(DWORD PartyID, DWORD PlayerID, DWORD TargetPlayerID);
 void ChangeMapGetCharacterInfo(DWORD CharacterIDX, DWORD dwConnectionIndex);
 void ChangeMapGetCharacterMugongInfo(DWORD CharacterIDX, DWORD dwConnectionIndex);
 //////////////////////////////////////////////////////////////////////////
-//©ö¢ç¨¡A ¡Æu¡¤A DB Ao¢¬¢ç
+//ï¿½ï¿½ï¿½ç¨¡A ï¿½ï¿½uï¿½ï¿½A DB Aoï¿½ï¿½ï¿½ï¿½
 /*
 void MunpaLoad(DWORD MapNum, DWORD StartMunpaID);
 void MunpaItemLoad(DWORD MapNum, DWORD StartItemDBIDx);
@@ -1326,30 +1327,30 @@ void GuildItemOption(DWORD MapNum, DWORD StartDBIdx);
 void GuildItemRareOption(DWORD MapNum, DWORD StartDBIdx);
 void GuildMoneyUpdate(DWORD GuildIdx, MONEYTYPE Money);
 void GuildGiveMemberNickName(DWORD TargetId, char * NickName);
-//SW060526 ¹®ÆÄÃ¢°í ¾ÆÀÌÅÛ Á¤º¸ÀúÀå ½ÃÁ¡ º¯°æ
+//SW060526 ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void GuildItemLoadInNeed(DWORD MapNum, DWORD GuildIdx);
 void GuildItemOptionInNeed(DWORD MapNum, DWORD GuildIdx,DWORD StartDBIdx);
 void GuildItemRareOptionInNeed(DWORD MapNum, DWORD GuildIdx, DWORD StartDBIdx);
 void RGuildItemLoadInNeed( LPQUERY pData, LPDBMESSAGE pMessage );
 void RGuildItemOptionInNeed(LPQUERY pData, LPDBMESSAGE pMessage);
 void RGuildItemRareOptionInNeed(LPQUERY pData, LPDBMESSAGE pMessage);
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void GuildLoadNotice(DWORD StartDBIdx);
 void GuildUpdateNotice(DWORD GuildIdx, char* Notice);
 
-//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
-//void GuildHuntedMonsterCountLastDBUpdateDate(WORD MapNum);	//¸Ê ¼­¹ö ºÎÆÃ½Ã ÃÖÁ¾ Á¤»êÀÏÀ» °¡Á®¿Í m_wCurDateCheckForConverCount ¼¼ÆÃÇÑ´Ù.
+//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+//void GuildHuntedMonsterCountLastDBUpdateDate(WORD MapNum);	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ m_wCurDateCheckForConverCount ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //void RGuildHuntedMonsterCountLastDBUpdateDate();	
-void GuildLoadGuildPointInfo(DWORD startGuildDBIdx);	//Á¤ÆÀÀå´ÔÁö½Ã ¹®ÆÄDBÀÎµ¦½º
+void GuildLoadGuildPointInfo(DWORD startGuildDBIdx);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½DBï¿½Îµï¿½ï¿½ï¿½
 void GuildLoadGuildPlustimeInfo(DWORD startDBIdx);
 void RGuildLoadGuildPointInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 void RGuildLoadGuildPlustimeInfo(LPQUERY pData, LPDBMESSAGE pMessage);
-void GuildAddHuntedMonsterCount(DWORD GuildIdx, DWORD MonsterCount);	//10ºÐ ¸¶´Ù Á¤º¸ °»½Å
-void GuildGetHuntedMonsterTotalCountWithInit(DWORD GuildIdx);	//¸ÅÀÏ ÀÚÁ¤ ¹®ÆÄÆ÷ÀÎÆ®·Î Á¤»ê
+void GuildAddHuntedMonsterCount(DWORD GuildIdx, DWORD MonsterCount);	//10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+void GuildGetHuntedMonsterTotalCountWithInit(DWORD GuildIdx);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void RGuildAddHuntedMonsterCount(LPQUERY pData, LPDBMESSAGE pMessage);
 void RGuildGetHuntedMonsterTotalCountWithInit(LPQUERY pData, LPDBMESSAGE pMessage);
 
-void GuildAddGuildPoint(DWORD GuildIdx, DWORD rAddPoint, DWORD rAddKind, DWORD rAdditionalData);	//¹®ÆÄ Æ÷ÀÎÆ® Ãß°¡ r# ±×´ë·Î ¸®ÅÏ¹Þ¾Æ ¾µ º¯¼ö
+void GuildAddGuildPoint(DWORD GuildIdx, DWORD rAddPoint, DWORD rAddKind, DWORD rAdditionalData);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½ r# ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹Þ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void RGuildAddGuildPoint(LPQUERY pData, LPDBMESSAGE pMessage);
 void GuildUseGuildPoint(DWORD GuildIdx, DWORD rUsePoint, DWORD rUseKind, DWORD rKindIdx, DWORD rEndtime);
 void RGuildUseGuildPoint(LPQUERY pData, LPDBMESSAGE pMessage);
@@ -1358,21 +1359,21 @@ void RGuildPlustimeEnd(LPQUERY pData, LPDBMESSAGE pMessage);
 
 void LogGuildPoint(DWORD GuildIdx, DWORD TotalGuildPoint, BOOL bAdd, int eKind, DWORD GuildPoint, DWORD AddData, DWORD CharacterIdx);
 //////////////////////////////////////////////////////////////////////////
-//C¡Í¡¾©ö
+//Cï¿½Í¡ï¿½ï¿½ï¿½
 void PyogukBuyPyoguk(DWORD PlayerIDX);
 
 
-/* C¡Í¡¾©ö d¨¬¢¬ Qurey ¨ùod */
+/* Cï¿½Í¡ï¿½ï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ Qurey ï¿½ï¿½od */
 void CharacterPyogukInfo(DWORD UserIdx, DWORD CharacterIdx);
 void CharacterPyogukItemInfo(DWORD CharacterIdx, DWORD StartDBIdx);
 void PyogukMoneyUpdateToDB(DWORD UserIdx, MONEYTYPE PyogukMoney);
 
 
 //////////////////////////////////////////////////////////////////////////
-//A¡Ì¡¾¢¬
+//Aï¿½Ì¡ï¿½ï¿½ï¿½
 void FriendNotifyLogouttoClient(DWORD PlayerID);
 //////////////////////////////////////////////////////////////////////////
-//¢¬i¨ù¨¬
+//ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½
 //void FameMunpaUpdate(DWORD StartMunpaIDX, DWORD MapNum);
 void FameCharacterUpdate(DWORD PlayerIDX, FAMETYPE val);
 void BadFameCharacterUpdate(DWORD PlayerIDX, FAMETYPE val);
@@ -1381,10 +1382,10 @@ void PKCharacterUpdate(DWORD PlayerIDX, DWORD val);
 // SavePoint
 void SavePointUpdate(DWORD CharacterIDX, WORD LoginPoint_Idx, WORD MapNum);
 void SaveMapChangePointUpdate(DWORD CharacterIDX, WORD MapChangePoint_Idx);
- //¸Ê ÀÌµ¿½Ã ³Ê¹« ´À·Á ÇÃ·¹ÀÌ¾î°¡ ´Ù¸¥ ¸Ê¿¡ µé¾î°¡±â Àü¿¡ ¾÷µ¥ÀÌÆ® È®ÀÎ ÈÄ ¸Ê Ã¤ÀÎÁö ÇÁ·ÎÅäÄÝÀ» º¸³¿
+ //ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ù¸ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void SaveMapChangePointReturn(DWORD CharacterIDX, WORD MapChangePoint_Idx, DWORD dwConnectionIdx, LEVELTYPE lvl, EXPTYPE ExpPoint, MONEYTYPE PyogukMoney);
 //////////////////////////////////////////////////////////////////////////
-//Co¡ío¡¾Y
+//Coï¿½ï¿½oï¿½ï¿½Y
 void WantedLoad(WANTEDTYPE StartWantedIDX);
 void WantedInfoByUserLogIn(DWORD CharacterIDX);
 void WantedBuyRight(DWORD CharacterIDX, WANTEDTYPE WantedIDX, MONEYTYPE AddPrize);
@@ -1396,7 +1397,7 @@ void WantedOrderedList(DWORD CharacterIDX, DWORD Page, char* OrderType, BYTE Pag
 void WantedMyList(DWORD CharacterIDX, DWORD Page, BYTE PageUnit);
 void WantedSearch(DWORD CharacterIDX, char* WantedName, DWORD Page, BYTE PageUnit);
 //////////////////////////////////////////////////////////////////////////
-// Update©ö¢ç
+// Updateï¿½ï¿½ï¿½ï¿½
 //void CharacterMugongUpdate(MUGONGBASE* msg);
 //void CharacterMugongMoveUpdate(DWORD toDBIdx, POSTYPE toPos, DWORD fromDBIdx, POSTYPE fromPos);
 //void CharacterInfoUpdate(CPlayer* pPlayer, DWORD dwConnectionIndex);
@@ -1413,7 +1414,7 @@ void CharacterLvlExpUpdate(DWORD PlayerID, LEVELTYPE level, EXPTYPE exppoint);
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-// Au¨ö¨¬¨¡¢ç (AE¨¬¢¬AU ¡Æ¢®AI¥ìa ¨¡¡ÀCO)
+// Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (AEï¿½ï¿½ï¿½ï¿½AU ï¿½Æ¢ï¿½AIï¿½ï¿½a ï¿½ï¿½ï¿½ï¿½CO)
 void QuestTotalInfo(DWORD PlayerID);
 void QuestUpdateToDB(DWORD PlayerID, DWORD QuestIdx, QSTATETYPE State, BYTE bEnd);
 //RaMa
@@ -1475,7 +1476,7 @@ void ShopItemAllUseInfoUpdateToDB( DWORD ItemDBIdx, DWORD CharacterIdx, WORD Ite
 
 
 //////////////////////////////////////////////////////////////////////////
-// Log ¡Æu¡¤A E¡ÌAa CO¨ùo
+// Log ï¿½ï¿½uï¿½ï¿½A Eï¿½ï¿½Aa COï¿½ï¿½o
 void InsertLogCharacter( DWORD charIdx, LEVELTYPE level, HERO_TOTALINFO* pTotalInfo );
 void InsertLogExp( BYTE bType, DWORD charIdx, LEVELTYPE level, DWORD changeValue, EXPTYPE NowExp, WORD MurdererKind, DWORD MurdererIdx, DWORD CurAbilPoint);
 void InsertLogMoney( BYTE type, DWORD charIdx, MONEYTYPE InvenMoney, MONEYTYPE ChangeValue, DWORD TargetID, MONEYTYPE TargetMoney );
@@ -1498,7 +1499,7 @@ void LogGMToolUse( DWORD CharacterIdx, DWORD GMLogtype, DWORD Logkind, DWORD Par
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-// ¨öA¡Æ¡Ì¨¬¡Æ ¨ú¡À¥ì¡ÍAI¨¡¢ç CO¨ùo
+// ï¿½ï¿½Aï¿½Æ¡Ì¨ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ COï¿½ï¿½o
 void UpdateCharacterInfoByTime(DWORD charIdx, EXPTYPE exp, DWORD abilityExp, MONEYTYPE money, DWORD time, DWORD LastPKEndTime );
 void UpdateMugongExpByTime(DWORD charIdx, DWORD DBIdx, EXPTYPE exp);
 
@@ -1507,7 +1508,7 @@ void InsertSpeedHackCheck(DWORD charIdx, char* charName, DWORD Distance, DWORD s
 
 
 //////////////////////////////////////////////////////////////////////////
-// DB¡¤I¨¬IAI ¢¬¨­¨öAAo¢¬| ©ö¨­¨ú¨¡¨ù¡© A©ø¢¬¢çCI¢¥A CO¨ùo¥ìe.
+// DBï¿½ï¿½Iï¿½ï¿½IAI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AAoï¿½ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CIï¿½ï¿½A COï¿½ï¿½oï¿½ï¿½e.
 void ReceiveMessageFromDB(LPQUERY pData,  LPDBMESSAGE pMessage);
 void RTestQuery(LPQUERY pData, LPDBMESSAGE pMessage);
 void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage);
@@ -1563,14 +1564,14 @@ void RPetInsert(LPQUERY pData, LPDBMESSAGE pMessage);
 /* New Mugong Return Func */
 void RMugongInsert(LPQUERY pData, LPDBMESSAGE pMessage);
 
-//pjs ¢¯¨Ï¡¾a¢¯¢®¢¥A ACUTION¢¯¢® ¡¾¡©¡¤A¥ìC Ai¢Ò¡Ëi¨ú©ö¢ç ©öYE? A©ø¢¬¢ç CO¨ùo ¨ù¡¾¨ú©£..
+//pjs ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A ACUTIONï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½C Aiï¿½Ò¡ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½YE? Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ COï¿½ï¿½o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 void RAuctionCheck(LPQUERY pData, LPDBMESSAGE pMessage);
 void RAuctionPageList(LPQUERY pData, LPDBMESSAGE pMessage);
 void RAuctionConfirm(LPQUERY pData, LPDBMESSAGE pMessage);
 //////////////////////////////////////////////////////////////////////////
-//¨¡A¨¡¨ù
+//ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
 void RPartyLoad(LPQUERY pData, LPDBMESSAGE pMessage);
-//--- 2008. 5. 21. CBH - ¹æÆÄ »ý¼º Ãß°¡ ¿É¼Ç °ü·Ã Ã³¸® ¼öÁ¤ -------
+//--- 2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -------
 //void RPartyCreate(LPQUERY pData, LPDBMESSAGE pMessage);
 //void RPartyInfoByUserLogin(LPQUERY pData, LPDBMESSAGE pMessage);
 void RPartyCreate(LPMIDDLEQUERY pData, LPDBMESSAGE pMessage);
@@ -1584,7 +1585,7 @@ void RCharacterStatsHistory(LPQUERY pData, LPDBMESSAGE pMessage);
 void RSavePointUpdate(LPQUERY pData, LPDBMESSAGE pMessage);
 
 //////////////////////////////////////////////////////////////////////////
-//©ö¢ç¨¡A 
+//ï¿½ï¿½ï¿½ç¨¡A 
 /*
 void RMunpaLoad(LPQUERY pData, LPDBMESSAGE pMessage);
 void RMunpaItemLoad(LPQUERY pData, LPDBMESSAGE pMessage);
@@ -1635,7 +1636,7 @@ void RGuildItemRareOption(LPQUERY pData, LPDBMESSAGE pMessage);
 void RGuildMarkRegist(LPLARGEQUERY pData, LPDBMESSAGE pMessage);
 void RGuildLoadNotice(LPMIDDLEQUERY pData, LPDBMESSAGE pMessage);
 //////////////////////////////////////////////////////////////////////////
-//C¡Í¡¾©ö
+//Cï¿½Í¡ï¿½ï¿½ï¿½
 void RCharacterPyogukInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 //SW050920 Rare
@@ -1643,15 +1644,15 @@ void RPyogukItemRareOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 void RPyogukItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 
 //////////////////////////////////////////////////////////////////////////
-//A¡Ì¡¾¢¬
+//Aï¿½Ì¡ï¿½ï¿½ï¿½
 void RFriendNotifyLogouttoClient(LPQUERY pData, LPDBMESSAGE pMessage);
 
 //////////////////////////////////////////////////////////////////////////
-//¢¬i¨ù¨¬
+//ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½
 //void RFameMunpaUpdate(LPQUERY pData, LPDBMESSAGE pMessage);
 
 //////////////////////////////////////////////////////////////////////////
-//Co¡ío¡¾Y
+//Coï¿½ï¿½oï¿½ï¿½Y
 void RWantedLoad(LPQUERY pData, LPDBMESSAGE pMessage);
 void RWantedInfoByUserLogIn(LPQUERY pData, LPDBMESSAGE pMessage);
 void RWantedRegist(LPQUERY pData, LPDBMESSAGE pMessage);
@@ -1661,7 +1662,7 @@ void RWantedOrderedList(LPQUERY pData, LPDBMESSAGE pMessage);
 void RWantedMyList(LPQUERY pData, LPDBMESSAGE pMessage);
 void RWantedSearch(LPQUERY pData, LPDBMESSAGE pMessage);
 //////////////////////////////////////////////////////////////////////////
-// Au¨ö¨¬¨¡¢ç (AE¨¬¢¬AU ¡Æ¢®AI¥ìa ¨¡¡ÀCO)
+// Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (AEï¿½ï¿½ï¿½ï¿½AU ï¿½Æ¢ï¿½AIï¿½ï¿½a ï¿½ï¿½ï¿½ï¿½CO)
 void RQuestTotalInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 void RQuestMainQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage);
 void RQuestSubQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage);
@@ -1730,9 +1731,9 @@ void GuildUnionSecedeGuild( DWORD dwGuildUnionIdx, int nIndex, DWORD dwGuildIdx,
 void GuildUnionMarkRegist( DWORD dwCharacterIdx, DWORD dwMarkIdx, DWORD dwGuildUnionIdx, char* pImgData );
 void RGuildUnionMarkRegist( LPLARGEQUERY pData, LPDBMESSAGE pMessage );
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­SiegeWar													  ¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½SiegeWar													  ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void SiegeWarInfoLoad( DWORD MapNum );
 void RSiegeWarInfoLoad( LPQUERY pData, LPDBMESSAGE pMessage );
 void SiegeWarInfoInsert( DWORD SiegeWarIdx, DWORD RegistTime, DWORD SiegeWarTime, DWORD Level, DWORD MapNum );
@@ -1765,14 +1766,14 @@ void RQuestEventCheck( LPQUERY pData, LPDBMESSAGE pMessage );
 
 void QuestEventEnd( DWORD dwUserIdx, DWORD dwCharacterIdx, char* pTime );
 
-// event 060627 - ¿î¿µÆÀ ÀÌº¥Æ®
+// event 060627 - ï¿½î¿µï¿½ï¿½ ï¿½Ìºï¿½Æ®
 void GMEvent01( DWORD dwUserIdx, DWORD dwCharacterIdx, DWORD dwLevel, int nServerSetNum );
 
 // magi82 //////////////////////////////////////////////////////////////////////////
 void UCharacterExpFlag(DWORD CharacterIDX, BYTE ExpFlag);
 ////////////////////////////////////////////////////////////////////////////////////
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ ///////////////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ ///////////////////////////////////////////////////
 void GuildTraineeInfo(DWORD StartDBIdx);
 void RGuildTraineeInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 void GuildTraineeInsert(DWORD GuildIdx, DWORD UserIdx, char UserName[], DWORD JoinTime);
@@ -1795,8 +1796,8 @@ void RGuildTraineeGuildIntroInfo(LPMIDDLEQUERY pData, LPDBMESSAGE pMessage);
 void GuildTraineeGuildIntroUpdate(DWORD GuildIdx, char* GuildIntro);
 ////////////////////////////////////////////////////////////////////////////////////
 
-//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±	//¹®ÇÏ»ý ·¾¾÷¿¡ µû¸¥ Æ÷ÀÎÆ® ´©Àû. ÃàÇÏ±Ý
-void GuildStudentLvUpCtUpdate(DWORD GuildIdx, DWORD AddPoint, DWORD ToPoint);	//AddPoint - °¡»êÁ¡, ToPoint - ºñ±³Á¡
+//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½	//ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ï±ï¿½
+void GuildStudentLvUpCtUpdate(DWORD GuildIdx, DWORD AddPoint, DWORD ToPoint);	//AddPoint - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ToPoint - ï¿½ï¿½ï¿½ï¿½
 void RGuildStudentLvUpCtUpdate(LPQUERY pData, LPDBMESSAGE pMessage);
 
 void GuildStudentLvUpCtInit(DWORD GuildIdx, DWORD MasterIDX);
@@ -1813,16 +1814,16 @@ void TestLogQuery( DWORD CharacterIdx );
 void RTestLogQuery( LPQUERY pData, LPDBMESSAGE pMessage );
 
 
-void PyogukTitanEnduranceInfo(DWORD CharacterIdx, DWORD UserIdx, DWORD StartDBIdx);	// magi82 - Titan(071015) Ã¢°í¿¡ Å¸ÀÌÅº Àåºñ °ü·Ã
+void PyogukTitanEnduranceInfo(DWORD CharacterIdx, DWORD UserIdx, DWORD StartDBIdx);	// magi82 - Titan(071015) Ã¢ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void RPyogukTitanEnduranceInfo( LPQUERY pData, LPDBMESSAGE pMessage );
 
-//2007. 12. 10. CBH - ½ºÅ² ÀúÀå
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 void CharacterSkinInfoUpdate(CPlayer* pPlayer);
-//2008. 1. 23. CBH - ½ºÅ² ·Îµå
+//2008. 1. 23. CBH - ï¿½ï¿½Å² ï¿½Îµï¿½
 void CharacterSkinInfo(DWORD dwCharacterIndex);
 void RCharacterSkinInfo(LPQUERY pData, LPDBMESSAGE pMessage);
 
-// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
+// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
 void CharacterUpdateResetStatusPoint(DWORD dwCharacterIDX, DWORD dwStatusPoint);
 
 // itemlimit
@@ -1837,7 +1838,7 @@ void RAutoNoteListLoad( LPQUERY pData, LPDBMESSAGE pMessage );
 void AutoNoteListAdd( DWORD dwCharacterIdx, DWORD dwAutoUserIdx, DWORD dwAutoCharacterIdx, char* pStrAutoName );
 void RAutoNoteListAdd( LPQUERY pData, LPDBMESSAGE pMessage );
 
-// ¸Ê µå¶ø ¾ÆÀÌÅÛ Ãß°¡ by Stiner(2008/05/29)-MapDropItem
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapDropItem
 void MapItemDropLog( WORD wUserIDX, WORD wCharacterIDX, WORD wItemIDX, WORD wMap, WORD wChannel, WORD wDropCount, WORD wMaxDropCount );
 void MapItemDropListSelect( WORD wMapNum );
 void MapItemDropListUpdate( DWORD dwCharacterIdx, WORD wMapNum, WORD wChannel, WORD wItemIDX, WORD wDropCount, WORD wMaxDropCount );
@@ -1845,7 +1846,7 @@ void MapItemDropListInit( WORD wMapNum );
 void RMapItemDropListSelect( LPQUERY pData, LPDBMESSAGE pMessage );
 void RMapItemDropListUpdate( LPQUERY pData, LPDBMESSAGE pMessage );
 
-// ¿ä»õÀü
+// ï¿½ï¿½ï¿½ï¿½ï¿½
 void FortWarInfoLoad();
 void RFortWarInfoLoad( LPQUERY pData, LPDBMESSAGE pMessage );
 void FortWarInfoUpdate( int nWarIDX, DWORD dwCharacterIdx, char* pCharacterName, DWORD dwGuildIdx );

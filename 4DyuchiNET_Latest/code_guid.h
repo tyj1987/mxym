@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "stdafx.h"
 // {824CF1EC-0124-4cc2-BE55-E9FAFB5FB36D}

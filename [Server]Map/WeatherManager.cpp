@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "WeatherManager.h"
 #include "Player.h"
 #include "MhFile.h"
@@ -149,10 +150,10 @@ void CWeatherManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 	
-	if( !pPlayer )	// ¾ø´Â »ç¶÷ÀÌ º¸³Â´Ù... ¸»ÀÌ µÇ³ª;;;
+	if( !pPlayer )	//   Â´...  Ç³;;;
 		return;
 	
-	if( pPlayer->GetUserLevel() > eUSERLEVEL_GM ) // GMÀÌ ¾Æ´Ñ »ç¶÷ÀÌ º¸³Â´Ù... È¤½Ã³ª...
+	if( pPlayer->GetUserLevel() > eUSERLEVEL_GM ) // GM Æ´  Â´... È¤Ã³...
 		return;
 
 	switch( Protocol )
@@ -214,13 +215,13 @@ void CWeatherManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 
 void CWeatherManager::Process()
 {
-	// 1ºÐ¿¡ ÇÑ¹ø¾¿ ÇÏÀÚ
+	// 1Ð¿ Ñ¹ 
 	if(gCurTime - m_dwLastCheckTime < 60000)
 		return;
 
 	m_dwLastCheckTime = gCurTime;
 
-	if( m_bExecution ) // GM¿¡ ÀÇÇÑ °­Á¦ Àû¿ë½Ã ½ºÄÉÁì ¹«½Ã
+	if( m_bExecution ) // GM     
 		return;
 
 	stWeatherTime* pData = NULL;
@@ -232,32 +233,32 @@ void CWeatherManager::Process()
 	
 	m_WeatherSchedule.SetPositionHead();
 	
-	// ¼­¹ö¿¡ ±âº» ¼ÂÆÃµÈ ½ºÄÉÁì
+	//  âº» Ãµ 
 	while( pData = m_WeatherSchedule.GetData() )
 	{
-		// ½ÃÀÛ Àü »óÈ²...
-		// ½ÃÀÛ ¿äÀÏ Àü
+		//   È²...
+		//   
 		if( pData->StartDay > cTime.wDayOfWeek )
 			continue;
 		
-		// ½ÃÀÛ ½Ã°£ Àü
+		//  Ã° 
 		if( pData->StartDay == cTime.wDayOfWeek && pData->StartHour > cTime.wHour )
 			continue;
 		
-		// ½ÃÀÛ ºÐ Àü
+		//   
 		if( pData->StartHour == cTime.wHour && pData->StartMinute > cTime.wMinute )
 			continue;
 		
-		// ÀÌ¹Ì Áö³­ »óÈ²...
-		// ¿äÀÏÀ» Áö³µ´Ù
+		// Ì¹  È²...
+		//  
 		if( pData->EndDay < cTime.wDayOfWeek )
 			continue;
 		
-		// ½Ã°£À» Áö³µ´Ù
+		// Ã° 
 		if( pData->EndDay == cTime.wDayOfWeek && pData->EndHour < cTime.wHour )
 			continue;
 		
-		// ºÐÀ» Áö³µ´Ù
+		//  
 		if( pData->EndHour == cTime.wHour && pData->EndMinute < cTime.wMinute )
 			continue;		
 		
@@ -267,40 +268,40 @@ void CWeatherManager::Process()
 	
 	m_EventSchedule.SetPositionHead();
 	
-	// GM¿¡ ÀÇÇØ ¼ÂÆÃµÈ ½ºÄÉÁì
+	// GM  Ãµ 
 	while( pData = m_EventSchedule.GetData() )
 	{
 		BOOL bPassed = FALSE;
 		
-		// ½ÃÀÛ Àü »óÈ²...
-		// ½ÃÀÛ ¿äÀÏ Àü
+		//   È²...
+		//   
 		if( pData->StartDay > cTime.wDayOfWeek )
 			continue;
 		
-		// ½ÃÀÛ ½Ã°£ Àü
+		//  Ã° 
 		if( pData->StartDay == cTime.wDayOfWeek && pData->StartHour > cTime.wHour )
 			continue;
 		
-		// ½ÃÀÛ ºÐ Àü
+		//   
 		if( pData->StartHour == cTime.wHour && pData->StartMinute > cTime.wMinute )
 			continue;
 		
-		// ÀÌ¹Ì Áö³­ »óÈ²...
-		// ¿äÀÏÀ» Áö³µ´Ù
+		// Ì¹  È²...
+		//  
 		if( pData->EndDay < cTime.wDayOfWeek )
 			bPassed = TRUE;
 		
-		// ½Ã°£À» Áö³µ´Ù
+		// Ã° 
 		if( pData->EndDay == cTime.wDayOfWeek && pData->EndHour < cTime.wHour )
 			bPassed = TRUE;
 		
-		// ºÐÀ» Áö³µ´Ù
+		//  
 		if( pData->EndHour == cTime.wHour && pData->EndMinute < cTime.wMinute )
 			bPassed = TRUE;
 		
 		if( bPassed )
 		{
-			// Áö³­ ½ºÄÉÁìÀÌ¸é »èÁ¦ ÇÑ´Ù
+			//  Ì¸  Ñ´
 			m_EventSchedule.Remove( pData->Index );
 			
 			continue;
@@ -310,11 +311,11 @@ void CWeatherManager::Process()
 		bState = TRUE;
 	}
 	
-	// ½ºÄÉÁì¿¡ ÀÇÇØ Àû¿ëµÉ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é ¸¼À½À¸·Î ¼³Á¤
+	// ì¿¡   Í°   
 	if( !bState )
 		wState = eWS_None;
 
-	// ±â»ó »óÅÂ°¡ ¹Ù²î¾úÀ¸¸é ÀüÃ¼¿¡°Ô º¸³»ÁØ´Ù
+	//  Â° Ù² Ã¼ Ø´
 	if(wState != m_wState)
 	{
 		m_wState = wState;
@@ -347,10 +348,10 @@ void CWeatherManager::SendWeather(CPlayer* pPlayer)
 	msg.wData = m_wState;
 	
 	pPlayer->SendMsg( &msg , sizeof( msg ) );
-	// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀåÂø½Ã¿¡ ¾Æ¹ÙÅ¸ ¿É¼ÇÀ» Àç°è»êÇØÁÖ¾î¾ß ÇÑ´Ù
+	// ÌºÆ®  Ã¿ Æ¹Å¸ É¼ Ö¾ Ñ´
 	WORD* pAvatar = pPlayer->GetShopItemStats()->Avatar;
 
-	/* //SW º¢²É ÀÌº¥Æ® °ü·Ã ÀÓ½Ã ÇÏµå ÄÚµå
+	/* //SW  ÌºÆ®  Ó½ Ïµ Úµ
 	if(	(pAvatar[eAvatar_Dress] == EVENT_SHOPITEM_SNOWMAN_DRESS && pAvatar[eAvatar_Hat] == EVENT_SHOPITEM_SNOWMAN_HAT) ||
 		(pAvatar[eAvatar_Dress] ==  EVENT_SHOPITEM_RUDOLP_DRESS && pAvatar[eAvatar_Hat] ==  EVENT_SHOPITEM_RUDOLP_HAT) ||
 		(pAvatar[eAvatar_Dress] == EVENT_SHOPITEM_SNOWMAN_DRESS2 && pAvatar[eAvatar_Hat] == EVENT_SHOPITEM_SNOWMAN_HAT2) ||

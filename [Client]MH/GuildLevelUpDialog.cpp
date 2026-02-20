@@ -17,17 +17,20 @@
 
 CGuildLevelUpDialog::CGuildLevelUpDialog()
 {
+int i;
 	m_type = WT_GUILDLEVELUPDLG;
 }
 
 CGuildLevelUpDialog::~CGuildLevelUpDialog()
 {
+int i;
 
 }
 
 void CGuildLevelUpDialog::Linking()
 {
-	for(int i=0; i<4; ++i)
+	int i;  // 修复C2065: 在函数作用域声明i
+	for( i=0; i<4; ++i)
 	{
 		m_pLevelupNotComplete[i] = (cStatic*)GetWindowForID(GD_LU1NOTCOMPLETE+i);
 		m_pLevelupComplete[i] = (cStatic*)GetWindowForID(GD_LU1COMPLETE+i);
@@ -40,8 +43,9 @@ void CGuildLevelUpDialog::SetLevel(BYTE level)
 {
 	ASSERT(level>=0);
 	ASSERT(level<=5);
+	int i;  // 修复C2065: 在函数作用域声明i
 	BYTE lvl = level - 1;
-	for(int i=0; i<lvl; ++i)
+	for( i=0; i<lvl; ++i)
 	{
 		m_pLevelupNotComplete[i]->SetActive(FALSE);
 		m_pLevelupComplete[i]->SetActive(TRUE);

@@ -124,7 +124,7 @@ void CCharacterDoc::OpenData()
 	memcpy( &m_sPyoguk, &m_sPyoguk_org, sizeof(PHYOKUK_TOTALINFO) );
 	memcpy( &m_sAbility, &m_sAbility_org, sizeof(ABILITY_TOTALINFO) );
 
-	// ÄÁÆ®·Ñ ÃÊ±âÈ­ Áö½Ã..
+	// ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½..
 	CCharacterView* pView = (CCharacterView*)GetView(0);
 	pView->GetCharacterInfoPage()->InitControl(this);
 }
@@ -362,14 +362,14 @@ void CCharacterDoc::OpenCharacterInfo(DWORD dwServer, DWORD dwUserIdx, DWORD dwC
 
 	m_bReadOnly = bReadOnly;
 
-	// Ä³¸¯ÅÍ Á¤º¸ ¿äÃ»..
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»..
 	TMSG_DWORD3 Msg;
 	Msg.Category = MP_RMTOOL_CHARACTER;
 	Msg.Protocol = MP_RMTOOL_CHARACTERINFO_SYN;
 	Msg.dwTemplateIdx = m_dwDocumentIdx;
-	Msg.dwData1 = dwServer;			//¼­¹ö Á¤º¸
-	Msg.dwData2 = dwUserIdx;		//À¯Àú ÀÎµ¦½º
-	Msg.dwData3 = dwCharIdx;		//Ä³¸¯ÅÍ ÀÎµ¦½º
+	Msg.dwData1 = dwServer;			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	Msg.dwData2 = dwUserIdx;		//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	Msg.dwData3 = dwCharIdx;		//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
 	NETWORK->Send(&Msg, sizeof(Msg));
 }
@@ -474,7 +474,7 @@ void CCharacterDoc::SetCharacterItemOptionInfo(WORD wCount, ITEM_OPTION_INFO* in
 		m_ItemOptionInfo_org.Add(pOption, pOption->dwOptionIdx);
 	}
 
-	for(i=0;i<wCount;++i)
+	for(int i=0;i<wCount;++i)
 	{
 		pOption = new ITEM_OPTION_INFO;
 		memcpy(pOption, &info[i], sizeof(ITEM_OPTION_INFO));

@@ -7,9 +7,9 @@
 #include "SkillInfo.h"
 
 #ifdef _MAPSERVER_
-#include "AttackManager.h"
+#include "..\[Server]Map\AttackManager.h"
 #include "skillmanager_server.h"
-#include "TacticManager.h"
+#include "..\[Server]Map\TacticManager.h"
 #endif
 
 #ifdef _MHCLIENT_
@@ -114,8 +114,8 @@ void CSkillObjectFirstUnit_Recover::StartFirstEffect(CObject* pOperator,CTargetL
 	
 	m_hEff = EFFECTMGR->StartEffectProcessWithTargetList(m_pSkillInfoData->EffectUse,pOperator,pTList,pMainTarget,EffectFlag);
 
-	ASSERTMSG(m_hEff,"무공 시작 이펙트에 오류가 있습니다.");
-	if(pTList)		// 회복은 이펙트에서 처리 안해주기 때문에 무조건 해야 한다.
+	ASSERTMSG(m_hEff,"  트  笭求.");
+	if(pTList)		// 회 트 처 殮   瞞 磯.
 	{
 		CTargetListIterator iter(pTList);
 		CObject* pObject;

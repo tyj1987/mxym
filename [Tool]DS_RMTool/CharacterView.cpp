@@ -102,7 +102,7 @@ void CCharacterView::OnInitialUpdate()
 	}
 
 	//
-	for(i=eCharPage_Max-1;i>=0;--i)
+	for(int i=eCharPage_Max-1;i>=0;--i)
 		m_pSheet->SetActivePage(i);
 
 // fit the property sheet into the place holder window, and show it

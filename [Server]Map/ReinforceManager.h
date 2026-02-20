@@ -4,13 +4,14 @@
 
 #if !defined(AFX_REINFORCEMANAGER_H__52980508_F9A4_4852_82C0_2E5F39ED8B33__INCLUDED_)
 #define AFX_REINFORCEMANAGER_H__52980508_F9A4_4852_82C0_2E5F39ED8B33__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
 
-#define MAX_REINFORCE		50		//강화해서 나올 수 있는 값
+#define MAX_REINFORCE		50		//화漫   獵 
 #define MAX_RTL_ABILITY		30
 #define MAX_RTL_MATERIAL	100
 #define MAX_RTL_ITEMLEVEL	100
@@ -39,7 +40,7 @@ protected:
 	CYHHashTable<sITEM_REINFORCE_INFO> m_ReinforceItemInfoList;
 	CYHHashTable<sITEM_RAREREINFORCE_INFO> m_RareReinforceItemInfoList;
 
-	DWORD m_dwRareMaterialTotalGravity;	//레어 아이템 강화 재료의 총 비중 (100 이하여야 한다.)
+	DWORD m_dwRareMaterialTotalGravity;	//  화    (100 臼 磯.)
 
 public:
 
@@ -55,20 +56,20 @@ public:
 
 	sITEM_REINFORCE_INFO* GetReinforceInfo( WORD wItemIdx );
 
-	//SW051021 수정
+	//SW051021 
 	BOOL CheckValidMaterial( WORD wReinforceItemIdx, WORD wMaterialItemIdx, WORD eItemOption = eIOK_Normal );
 	float GetReinforceWithMetariel( ITEM_OPTION_INFO* pOption, DWORD MaterialItemIdx, WORD eItemOption = eIOK_Normal );
 
 	//SW051021
-	BOOL LoadRareReinforceInfo();	//레어 아이템 강화 정보 로드
+	BOOL LoadRareReinforceInfo();	//  화  琯
 	sITEM_RAREREINFORCE_INFO* GetRareReinforceInfo( WORD wItemIdx );
 	BOOL CheckMaterialTotalGravity(WORD wMaterialItemIdx, WORD wMaterialCount, WORD eItemOption);
 	void InitGravity() {m_dwRareMaterialTotalGravity=0;}
 
-	WORD GetValueForAbility( WORD wAbilGrade );		//@안쓰는 Func
-	WORD GetValueForMaterialNum( WORD wMaterialNum );		//@안쓰는 Func
-	WORD GetValueForItemLevel( WORD wItemLevel );		//@안쓰는 Func
-	WORD GetAdjustValue();		//@안쓰는 Func
+	WORD GetValueForAbility( WORD wAbilGrade );		//@횡 Func
+	WORD GetValueForMaterialNum( WORD wMaterialNum );		//@횡 Func
+	WORD GetValueForItemLevel( WORD wItemLevel );		//@횡 Func
+	WORD GetAdjustValue();		//@횡 Func
 };
 
 #endif // !defined(AFX_REINFORCEMANAGER_H__52980508_F9A4_4852_82C0_2E5F39ED8B33__INCLUDED_)

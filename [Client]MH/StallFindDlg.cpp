@@ -1,12 +1,12 @@
 //----------------------------------------------------------------------------------------------------
-//  StallFindDlg   version:  1.0   ¡¤  date: 03/31/2008
+//  StallFindDlg   version:  1.0   ï¿½ï¿½  date: 03/31/2008
 //
 //  Copyright (C) 2008 - All Rights Reserved
 //----------------------------------------------------------------------------------------------------
 ///	Index	Stiner(8)
 ///	@file	StallFindDlg.cpp
-///	@author	ÀÌ¼º¹Î
-///	@brief	³ëÁ¡ °Ë»öÀ» À§ÇÑ ´ÙÀÌ¾ó·Î±×
+///	@author	ï¿½Ì¼ï¿½ï¿½ï¿½
+///	@brief	ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½
 //----------------------------------------------------------------------------------------------------
 #include "stdafx.h"
 #include ".\stallfinddlg.h"
@@ -79,14 +79,14 @@ CStallFindDlg::~CStallFindDlg(void)
 void CStallFindDlg::LoadItemList()
 {
 	CMHFile	fp;
-	// ¾ÆÀÌÅÛ ¸®½ºÆ® ½ºÅ©¸³Æ® ·Îµù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Îµï¿½
 #ifdef _FILE_BIN_
 	if( !fp.Init( "./Resource/Client/SFList.bin", "rb" ) )	return;
 #else
 	if( !fp.Init( ".\\Resource\\SFList.txt", "rt" ) )	return;
 #endif
 
-	// ¾ÆÀÌÅÛ ¸®½ºÆ® ÆÄ½Ì
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ä½ï¿½
 	while( !fp.IsEOF() )
 	{
 		TItemInfo * itemInfo = new TItemInfo();
@@ -105,7 +105,7 @@ void CStallFindDlg::LoadItemList()
 
 void CStallFindDlg::Linking()
 {
-	int i;	// for¹®À» À§ÇÑ º¯¼ö ¤Ñ,.¤Ña
+	int i;	// forï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½,.ï¿½ï¿½a
 	m_pItemTypeCombo = (cComboBox*)GetWindowForID(SFR_TYPECOMBO);
 
 	for( i = 0 ; i < ITEM_TYPE_COUNT ; i++ )
@@ -149,7 +149,7 @@ void CStallFindDlg::SetSearchType(DWORD val)
 
 void CStallFindDlg::SetStallPriceInfo( SEND_STREETSTALL_INFO * pStallInfo )
 {
-	// ³ëÁ¡»ó °Ë»ö °á°ú°¡ ¾øÀ»¶§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pStallInfo->wCount <= 0 )
 	{
 		if( m_bSearchedAll )
@@ -158,27 +158,27 @@ void CStallFindDlg::SetStallPriceInfo( SEND_STREETSTALL_INFO * pStallInfo )
 			WINDOWMGR->MsgBox( MBI_OK, MBT_OK, CHATMGR->GetChatMsg(1695) );
 	}
 
-	// ±âÁ¸ÀÇ ³ëÁ¡»ó ¸®½ºÆ®¿Í ÆäÀÌÁö ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	m_pStallList->RemoveAll();
 	m_nCurrentPage = -1;
 
-	// ±âÁ¸¿¡ °¡Áö°í ÀÖ´Â ¹è¿­ ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½è¿­ ï¿½Ê±ï¿½È­
 	ZeroMemory( m_arrStallInfo, MAX_STALLITEM_NUM * sizeof(STREETSTALL_PRICE_INFO) );
 	m_nStallCount = pStallInfo->wCount;
 
-	// µ¥ÀÌÅÍ º¹»ç
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for( int i = 0 ; i < m_nStallCount ; i++ )
 		m_arrStallInfo[i] = pStallInfo->sInfo[i];
 
-	// µ¥ÀÌÅÍ Á¤·Ä
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SortStallList( ( m_dwSearchType == eSK_BUY ) ? TRUE : FALSE );
 
-	// ÀüÃ¼ ÆäÀÌÁö ¼³Á¤
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_nMaxPage = m_nStallCount / MAX_LINE_PER_PAGE - 1;
 	if( m_nStallCount % MAX_LINE_PER_PAGE )
 		++m_nMaxPage;
 
-	// 0¹ø ÆäÀÌÁö·Î
+	// 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SetPage(0);
 }
 
@@ -186,7 +186,7 @@ void CStallFindDlg::UpdateItemList()
 {
 	char buf[32] = {0,};
 
-	// Å¸ÀÌÅº µî±Þ ¸®½ºÆ® °»½Å
+	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	m_pClassList->RemoveAll();
 	if( m_nItemType < ACCESSORY )
 	{
@@ -198,7 +198,7 @@ void CStallFindDlg::UpdateItemList()
 	}
 	else if( m_nItemType == TITAN_ITEM )
 	{
-		// Å¸ÀÌÅº ¾ÆÀÌÅÛÁß ±âÅ¸¿¡ ¼ÓÇÑ °ÍÀº µî±ÞÀÌ ¾øÀ½
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( m_nItemDetailType != 2 )
 			for( int i = 0 ; i < 4 ; i++ )
 			{
@@ -208,12 +208,12 @@ void CStallFindDlg::UpdateItemList()
 	}
 	m_pClassList->ResetGuageBarPos();
 
-	// ¾ÆÀÌÅÛ ¸®½ºÆ® ¸ñ·Ï °»½Å
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_pItemList->RemoveAll();
 	PTRLISTSEARCHSTART(m_ptrItemInfo, TItemInfo*, pItemInfo);
-	if( m_nItemType + 1 == pItemInfo->Type ) // ÄÞº¸¹Ú½º ÀÎµ¦½º°ªÀÌ 0ÀÏ¶§ +1·Î ÇØÁÜ, 0°ªÀº ¾È¾²ÀÓ
+	if( m_nItemType + 1 == pItemInfo->Type ) // ï¿½Þºï¿½ï¿½Ú½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ï¶ï¿½ +1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 0ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ï¿½
 	{
-		if( m_nItemDetailType + 1 == pItemInfo->DetailType ) // ÄÞº¸¹Ú½º ÀÎµ¦½º°ªÀÌ 0ÀÏ¶§ +1·Î ÇØÁÜ, 0°ªÀº ¾È¾²ÀÓ
+		if( m_nItemDetailType + 1 == pItemInfo->DetailType ) // ï¿½Þºï¿½ï¿½Ú½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ï¶ï¿½ +1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 0ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ï¿½
 		{
 			ITEM_INFO * pItem = ITEMMGR->GetItemInfo( pItemInfo->ItemIdx );
 			m_pItemList->AddItem( pItem->ItemName, RGB_HALF(255, 255, 255) );
@@ -225,10 +225,10 @@ void CStallFindDlg::UpdateItemList()
 
 void CStallFindDlg::UpdateStallList()
 {
-	// ¸®½ºÆ® ºñ¿ì±â
+	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	m_pStallList->RemoveAll();
 
-	// È­¸é¿¡ º¸ÀÏ°Íµé¸¸ ¸®½ºÆ®¿¡ Ãß°¡
+	// È­ï¿½é¿¡ ï¿½ï¿½ï¿½Ï°Íµé¸¸ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
 	int nCount = 0;
 	int nViewStartIndex = MAX_LINE_PER_PAGE * m_nCurrentPage;
 
@@ -248,6 +248,7 @@ void CStallFindDlg::UpdateStallList()
 
 void CStallFindDlg::SortStallList(BOOL flag)
 {
+	int k;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Žk
 	STREETSTALL_PRICE_INFO temp;
 	for( int nIncrement = m_nStallCount ; nIncrement > 0 ; nIncrement /= 2 )
 	{
@@ -257,14 +258,14 @@ void CStallFindDlg::SortStallList(BOOL flag)
 
 			for( int k = j ; k >= nIncrement ; k -= nIncrement )
 			{
-				if( flag )	// ¿À¸§Â÷¼ø
+				if( flag )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					if( temp.dwPrice > m_arrStallInfo[ k - nIncrement ].dwPrice )
 						m_arrStallInfo[k] = m_arrStallInfo[ k - nIncrement ];
 					else
 						break;
 				}
-				else		// ³»¸²Â÷¼ø
+				else		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					if( temp.dwPrice < m_arrStallInfo[ k - nIncrement ].dwPrice )
 						m_arrStallInfo[k] = m_arrStallInfo[ k - nIncrement ];
@@ -305,13 +306,13 @@ BOOL CStallFindDlg::CheckDelay(DWORD dwDelayTime, int nID)
 		dwPrevTime[nID] = gCurTime;
 	else
 	{
-		// dwDelayTime ÀÌÈÄ
+		// dwDelayTime ï¿½ï¿½ï¿½ï¿½
 		if( ( gCurTime - dwPrevTime[nID] ) > dwDelayTime )
 		{
 			dwPrevTime[nID] = 0;
 			return TRUE;
 		}
-		// dwDelayTime ÀÌÀü
+		// dwDelayTime ï¿½ï¿½ï¿½ï¿½
 		else	
 		{
 			return FALSE;
@@ -354,7 +355,7 @@ void CStallFindDlg::SetPage( int index )
 	else
 		m_parrPageUpDownBtn[1]->SetActive( FALSE );
 
-	// °°Àº ÆäÀÌÁö¹øÈ£¸¦ ´­·¶À»¶§
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( ( m_nBasePage + index ) == m_nCurrentPage )
 		return;
 
@@ -450,31 +451,31 @@ void CStallFindDlg::OnActionEvent( LONG lId, void * p, DWORD we )
 
 void CStallFindDlg::OnClickSearchBtn()
 {
-	// ¿­·ÁÀÖ´Â ¾ÆÀÌÅÛ ºä Ã¢ ´Ý±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ ï¿½Ý±ï¿½
 	if( TRUE == GAMEIN->GetStreetStallItemViewDlg()->IsActive() )
 		GAMEIN->GetStreetStallItemViewDlg()->SetActive( FALSE );
 
 	PTRLISTPOS pos = m_pItemList->GetListItem()->FindIndex( m_nSelectedItemListIdx );
-	if( !pos )	// ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎ
+	if( !pos )	// ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	{
-		// ¾ÆÀÌÅÛÀÌ ¼±ÅÃÀÌ ¾ÈµÇ¾î ÀÖÀ½.. ¸Þ¼¼Áö ¹Ú½º ¶ç¿ì±â..
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½.. ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 		WINDOWMGR->MsgBox( MBI_OK, MBT_OK, CHATMGR->GetChatMsg(1691) );
 		return;
 	}
 
-	// µî±ÞÀÌ ¾ø´Â ¾ÆÀÌÅÛÀº µî±ÞÀ» 0À¸·Î ÃÊ±âÈ­
-	// È¤½Ã³ª ÇØ¼­ ÇÑ¹ø´õ!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	// È¤ï¿½Ã³ï¿½ ï¿½Ø¼ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½!
 	if( m_nItemType >= ACCESSORY && m_nItemType != TITAN_ITEM )
 		m_nSelectedClassListIdx = 0;
 
 	if( m_nSelectedClassListIdx == -1 )
 	{
-		// µî±ÞÀÌ ¼±ÅÃÀÌ ¾ÈµÇ¾î ÀÖÀ½.. ¸Þ¼¼Áö ¹Ú½º ¶ç¿ì±â..
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½.. ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 		WINDOWMGR->MsgBox( MBI_OK, MBT_OK, CHATMGR->GetChatMsg(1691) );
 		return;
 	}
 
-	// µô·¹ÀÌ Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( CheckDelay( SEARCH_DELAY, 0 ) == FALSE )
 	{
 		WINDOWMGR->MsgBox( MBI_OK, MBT_OK, CHATMGR->GetChatMsg(1694) );
@@ -485,7 +486,7 @@ void CStallFindDlg::OnClickSearchBtn()
 	if( !pItem )
 		ASSERT( !pos );
 
-	// ¾ÆÀÌÅÛ Á¤º¸ ¾ò±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	ITEM_INFO *pItemInfo;
 	if( m_nSelectedClassListIdx > 0 && m_nSelectedClassListIdx < 10 )
 	{
@@ -499,7 +500,7 @@ void CStallFindDlg::OnClickSearchBtn()
 
 	if( pItemInfo )
 	{
-		// ¼­¹ö·Î ¸Þ¼¼Áö Àü¼Û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD2	msg;
 		ZeroMemory( &msg, sizeof(MSG_DWORD2) );
 		msg.Category = MP_STREETSTALL;
@@ -509,10 +510,10 @@ void CStallFindDlg::OnClickSearchBtn()
 		msg.dwData2 = m_dwSearchType;
 		NETWORK->Send( &msg, sizeof(MSG_DWORD2) );
 
-		// ÀüÃ¼°Ë»öÀÌ ¾Æ´ÔÀ¸·Î ¼¼ÆÃ
+		// ï¿½ï¿½Ã¼ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_bSearchedAll = FALSE;
 
-		// ÀÀ´ä ¼ö½ÅÇÒ¶§±îÁö´Â Disable
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Disable
 		SetDisable( TRUE );
 	}
 }
@@ -520,45 +521,45 @@ void CStallFindDlg::OnClickSearchBtn()
 
 void CStallFindDlg::OnClickSearchAllBtn()
 {
-	// ¿­·ÁÀÖ´Â ¾ÆÀÌÅÛ ºä Ã¢ ´Ý±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ ï¿½Ý±ï¿½
 	if( TRUE == GAMEIN->GetStreetStallItemViewDlg()->IsActive() )
 		GAMEIN->GetStreetStallItemViewDlg()->SetActive( FALSE );
 
-	// µô·¹ÀÌ Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( CheckDelay( SEARCH_DELAY, 0 ) == FALSE )
 	{
 		WINDOWMGR->MsgBox( MBI_OK, MBT_OK, CHATMGR->GetChatMsg(1694) );
 		return;
 	}
 
-	// ÀüÁ¦°Ë»ö¿ë ¸Þ¼¼Áö ÇÁ·ÎÅäÄÝ »ý¼ºÈÄ Àü¼Û
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD2	msg;
 	ZeroMemory( &msg, sizeof(MSG_DWORD2) );
 	msg.Category = MP_STREETSTALL;
 	msg.Protocol = MP_STREETSTALL_FINDITEM_SYN;
 	msg.dwObjectID = HEROID;
-	msg.dwData1 = NULL;		// ÀüÃ¼°Ë»ö½Ã ¾ÆÀÌÅÛ ÀÎµ¦½º °ªÀ» NULL·Î Àü¼Û
+	msg.dwData1 = NULL;		// ï¿½ï¿½Ã¼ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NULLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	msg.dwData2 = m_dwSearchType;
 	NETWORK->Send( &msg, sizeof(MSG_DWORD2) );
 
-	// ÀüÃ¼°Ë»öÀ¸·Î ¼¼ÆÃ
+	// ï¿½ï¿½Ã¼ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_bSearchedAll =  TRUE;
 
-	// ÀÀ´ä ¼ö½ÅÇÒ¶§±îÁö´Â Disable
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Disable
 	SetDisable( TRUE );
 }
 
 void CStallFindDlg::OnClickFindTypeBtn(LONG lId, void * p, DWORD we)
 {
-	// ¶óµð¿À ¹öÆ° Ã³¸®
-	if( we & WE_PUSHUP )	// ´­¸°°É ¶Ç ´©¸¦¶§
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Ã³ï¿½ï¿½
+	if( we & WE_PUSHUP )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if( lId == SFR_PB_SELLMODE )
 			m_pSellModeRadioBtn->SetPush( TRUE );
 		if( lId == SFR_PB_BUYMODE )
 			m_pBuyModeRadioBtn->SetPush( TRUE );
 	}
-	else if( we & WE_PUSHDOWN )	// ´Ù¸¥°É ´©¸¦¶§
+	else if( we & WE_PUSHDOWN )	// ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if( lId == SFR_PB_SELLMODE )
 			m_pBuyModeRadioBtn->SetPush( FALSE );
@@ -566,12 +567,12 @@ void CStallFindDlg::OnClickFindTypeBtn(LONG lId, void * p, DWORD we)
 			m_pSellModeRadioBtn->SetPush( FALSE );
 	}
 
-	// »óÁ¡ ¸®½ºÆ®ÀÇ ÅØ½ºÆ® º¯°æ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	if( lId == SFR_PB_BUYMODE )
 	{
 		m_dwSearchType = eSK_BUY;
 
-		// static ÅØ½ºÆ® º¯°æ
+		// static ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 		m_pNameStatic->SetStaticText( RESRCMGR->GetMsg( 1024 ) );
 		m_pPriceStatic->SetStaticText( RESRCMGR->GetMsg( 1027 ) );
 	}
@@ -579,19 +580,19 @@ void CStallFindDlg::OnClickFindTypeBtn(LONG lId, void * p, DWORD we)
 	{
 		m_dwSearchType = eSK_SELL;
 
-		// static ÅØ½ºÆ® º¯°æ
+		// static ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 		m_pNameStatic->SetStaticText( RESRCMGR->GetMsg( 1023 ) );
 		m_pPriceStatic->SetStaticText( RESRCMGR->GetMsg( 1026 ) );
 	}
 
-	// ±âÁ¸ÀÇ ³ëÁ¡»ó ¸®½ºÆ®¿Í ÆäÀÌÁö ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	m_pStallList->RemoveAll();
 	m_nStallCount = 0;
 	m_nCurrentPage = -1;
 	m_nMaxPage = -1;
 	m_nBasePage = 0;
 
-	// ±âÁ¸¿¡ °¡Áö°í ÀÖ´Â ¹è¿­ ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½è¿­ ï¿½Ê±ï¿½È­
 	ZeroMemory( m_arrStallInfo, MAX_STALLITEM_NUM * sizeof(STREETSTALL_PRICE_INFO) );
 
 	SetPage(0);
@@ -599,7 +600,7 @@ void CStallFindDlg::OnClickFindTypeBtn(LONG lId, void * p, DWORD we)
 
 void CStallFindDlg::OnEventTypeCombo(LONG lId, void * p, DWORD we)
 {
-	// ÀÌÀü¿¡ ¼±ÅÃ µÇ¾ú´ø ¸®½ºÆ® ÀÎµ¦½º °ªÀ» ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	m_nSelectedClassListIdx = -1;
 	m_nSelectedItemListIdx = -1;
 	m_nItemDetailType = 0;
@@ -612,7 +613,7 @@ void CStallFindDlg::OnEventTypeCombo(LONG lId, void * p, DWORD we)
 		m_arrItemDetailTypeCombo[nPrevItemType]->SetActive(FALSE);
 		m_nItemType = m_pItemTypeCombo->GetCurSelectedIdx();
 
-		// Ã¹ ´ÙÀÌ¾ó·Î±× Ã¢ ¶ã¶§ °Á ÄÞº¸¹öÆ°¸¸ ´©¸£¸é -1°ªÀ¸·Î ¸®ÅÏÀÌ µÇ¹ö¸², ±×°ÍÀ» ºÐ·ùÇØ ÁÜ
+		// Ã¹ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ Ã¢ ï¿½ã¶§ ï¿½ï¿½ ï¿½Þºï¿½ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½, ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½ï¿½
 		if( m_nItemType != -1 )
 		{
 			m_arrItemDetailTypeCombo[m_nItemType]->SetActive(TRUE);
@@ -726,14 +727,14 @@ void CStallFindDlg::OnClickPageUpDonwBtn(LONG lId)
 
 void CStallFindDlg::OnClose()
 {
-	// ¿­·ÁÀÖ´Â ¾ÆÀÌÅÛ ºä Ã¢ ´Ý±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ ï¿½Ý±ï¿½
 	if( TRUE == GAMEIN->GetStreetStallItemViewDlg()->IsActive() )
 		GAMEIN->GetStreetStallItemViewDlg()->SetActive( FALSE );
 
-	// ÀüºÎ »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_pStallList->RemoveAll();
 
-	// ¼±ÅÃÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½È­
 	m_pItemTypeCombo->SelectComboText( 0 );
 	for( int i = 0 ; i < ITEM_TYPE_COUNT ; i++ )
 	{
@@ -741,19 +742,19 @@ void CStallFindDlg::OnClose()
 		m_arrItemDetailTypeCombo[i]->SelectComboText( 0 );
 	}
 
-	// ÆäÀÌÁö ¹öÆ° ºñÈ°¼ºÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­
 	for( int j = 0 ; j < MAX_RESULT_PAGE ; j++ )
 		m_parrPageBtn[j]->SetActive( FALSE );
 
 	m_parrPageUpDownBtn[0]->SetActive( FALSE );
 	m_parrPageUpDownBtn[1]->SetActive( FALSE );
 
-	// ¶óµð¿À ¹öÆ° ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ê±ï¿½È­
 	m_pSellModeRadioBtn->SetPush(TRUE);
 	m_pBuyModeRadioBtn->SetPush(FALSE);
 	m_dwSearchType = eSK_SELL;
 
-	// StaticÅØ½ºÆ® ÃÊ±âÈ­
+	// Staticï¿½Ø½ï¿½Æ® ï¿½Ê±ï¿½È­
 	m_pNameStatic->SetStaticText( RESRCMGR->GetMsg( 1023 ) );
 	m_pPriceStatic->SetStaticText( RESRCMGR->GetMsg( 1026 ) );
 
@@ -788,7 +789,7 @@ DWORD CStallFindDlg::ActionEvent(CMouse * mouseInfo)
 
 		if( ( m_nSelectedStallListIdx = m_pStallList->GetCurSelectedRowIdx() ) != -1 )
 		{
-			// ¼±ÅÃµÈ ³ëÁ¡»ó ¸»Ç³¼± ÀÌ¹ÌÁö º¯°æ
+			// ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç³ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( 0 < m_dwSelectedObjectIndex )
 			{
 				CPlayer* pPlayer = (CPlayer*)OBJECTMGR->GetObject(m_dwSelectedObjectIndex);
@@ -806,7 +807,7 @@ DWORD CStallFindDlg::ActionEvent(CMouse * mouseInfo)
 			if( pPlayer )
 				pPlayer->SetStreetStallBalloonImage( m_dwPrevSelectedType, TRUE );
 
-			// ¸Þ¼¼Áö Àü¼Û
+			// ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			SendItemViewMsg();
 		}
 	}
@@ -816,13 +817,13 @@ DWORD CStallFindDlg::ActionEvent(CMouse * mouseInfo)
 
 void CStallFindDlg::SendItemViewMsg()
 {
-	// ³ëÁ¡»óÀÌ ¼±ÅÃÀÌ ¾ÈµÇ¾î ÀÖÀ½..
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½..
 	if( m_nSelectedStallListIdx == -1 )
 		return;
 
 	int nStallArrayIndex = MAX_LINE_PER_PAGE * m_nCurrentPage + m_nSelectedStallListIdx;
 
-	// ¼­¹ö·Î ¸Þ¼¼Áö Àü¼Û
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD	msg;
 	ZeroMemory( &msg, sizeof(MSG_DWORD) );
 	msg.Category = MP_STREETSTALL;
@@ -831,6 +832,6 @@ void CStallFindDlg::SendItemViewMsg()
 	msg.dwData = m_arrStallInfo[nStallArrayIndex].dwOwnerIdx;
 	NETWORK->Send( &msg, sizeof(MSG_DWORD) );
 
-	// ÀÀ´ä ¼ö½ÅÇÒ¶§±îÁö´Â Disable
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Disable
 	SetDisable( TRUE );
 }

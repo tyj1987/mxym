@@ -1,6 +1,7 @@
 
 #ifndef __COMMONNETWORKMSGPARSER_H__
 #define __COMMONNETWORKMSGPARSER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 
 

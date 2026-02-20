@@ -47,9 +47,10 @@ CBuyRegDialog::~CBuyRegDialog()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//±¸¸Å ¾ÆÀÌÅÛ ¸®½ºÆ® ·Îµù
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½
 void CBuyRegDialog::LoadItemList()
 {
+	int i;
 	CMHFile fp;
 	
 #ifdef _FILE_BIN_
@@ -93,7 +94,7 @@ void CBuyRegDialog::LoadItemList()
 			break;
 	}
 
-	for(int i = 0; i < ITEM_TYPE_COUNT; i++)
+	for(i = 0; i < ITEM_TYPE_COUNT; i++)
 		m_pItemList[i]->ResetGuageBarPos();
 
 	fp.Release();
@@ -158,21 +159,21 @@ void CBuyRegDialog::Linking()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//¾ÆÀÌÅÛ Á¾·ù °»½Å
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CBuyRegDialog::UpdateType()
 {
 	if(m_nType != m_pTypeList->GetCurSelectedRowIdx())
 	{
-		m_pItemList[m_nType]->SetActive(FALSE);					//¼±ÅÃµÇ¾î ÀÖ´ø ¾ÆÀÌÅÛ ¸®½ºÆ®¸¦ ºñÈ°¼ºÈ­
+		m_pItemList[m_nType]->SetActive(FALSE);					//ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
 
-		m_nType = m_pTypeList->GetCurSelectedRowIdx();			//¼±ÅÃµÈ ¾ÆÀÌÅÛ Á¾·ù¸¦ °¡Á®¿Â´Ù
+		m_nType = m_pTypeList->GetCurSelectedRowIdx();			//ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 
-		m_nItem = 0;											//¾ÆÀÌÅÛ ¸®½ºÆ® ¹øÈ£ ÃÊ±âÈ­
+		m_nItem = 0;											//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£ ï¿½Ê±ï¿½È­
 		m_pItemList[m_nType]->SetCurSelectedRowIdx(m_nItem);
 
-		m_pItemList[m_nType]->SetActive(TRUE);					//¼±ÅÃµÈ ¾ÆÀÌÅÛ ¸®½ºÆ® È°¼ºÈ­
+		m_pItemList[m_nType]->SetActive(TRUE);					//ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® È°ï¿½ï¿½È­
 				
-		//¼±ÅÃµÈ ¾ÆÀÌÅÛ ¸®½ºÆ®°¡ µî±ÞÀÌ ¾ø´Â ¾ÆÀÌÅÛ Á¾·ùÀÌ¸é µî±Þ ¸®½ºÆ®¸¦ ºñÈ°¼ºÈ­
+		//ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
 		if(m_nType < ACCESSORY)
 		{
 			m_nClass = 0;
@@ -222,8 +223,8 @@ void CBuyRegDialog::UpdateType()
 
 void CBuyRegDialog::UpdateItem()
 {
-	//±âÁ¸¿¡ ¼±ÅÃµÇ¾îÁø ¾ÆÀÌÅÛ°ú ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ¼±ÅÃ µÇ¾ú´Ù¸é
-	//¼±ÅÃ°ªÀ» ¹Ù²Ù°í µî±Þ ¸®½ºÆ®¸¦ ¸®¼Â ÇÑ´Ù
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½
+	//ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½
 	if(m_nItem != m_pItemList[m_nType]->GetCurSelectedRowIdx())
 	{
 		m_nItem = m_pItemList[m_nType]->GetCurSelectedRowIdx();
@@ -264,7 +265,7 @@ void CBuyRegDialog::Show()
 	
 	m_pTypeList->SetCurSelectedRowIdx(m_nType);
 
-	//µî±ÞÀÌ ÀÖ´Â ¾ÆÀÌÅÛ¸¸ µî±Þ ¸®½ºÆ®¸¦ º¸¿©ÁØ´Ù
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 	if(m_nType < ACCESSORY)
 	{
 		m_pClassList->SetActive(TRUE);
@@ -294,7 +295,7 @@ void CBuyRegDialog::Show()
 	
 	m_pVolumeEdit->SetDisable(FALSE);
 
-	// ¼ö·®ÀÌ 1°³·Î Á¦ÇÑµÇ´Â ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÑµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(m_nType < POTION)
 	{	
 		m_nVolume = 1;
@@ -303,7 +304,7 @@ void CBuyRegDialog::Show()
 	}
 	
 
-	//¼±ÅÃµÈ ¾ÆÀÌÅÛ ¸®½ºÆ®¸¸ È°¼ºÈ­
+	//ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È°ï¿½ï¿½È­
 	for(int i = 0; i < ITEM_TYPE_COUNT; i++)
 		if(i == m_nType)
 		{
@@ -396,26 +397,26 @@ BOOL CBuyRegDialog::GetBuyRegInfo(BUY_REG_INFO& BuyInfo)
 	m_nVolume = (WORD)atoi(RemoveComma(m_pVolumeEdit->GetEditText()));
 	m_nMoney = (DWORD)atol(RemoveComma(m_pMoneyEdit->GetEditText()));
 
-	if(m_nVolume < 1)	// ¼ö·®ÀÌ 1°³ ¹Ì¸¸ÀÏ¶§ ¿À·ù ¸Þ¼¼Áö
+	if(m_nVolume < 1)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	{
 		cMsgBox* pMsgBox = WINDOWMGR->MsgBox(MBI_BUYREG, MBT_OK, CHATMGR->GetChatMsg(1209));
 		return FALSE;
 	}
-	else if(m_nVolume > 20)	// ¼ö·®ÀÌ 20°³ ÀÌ»óÀÏ¶§ ¿À·ù ¸Þ¼¼Áö
+	else if(m_nVolume > 20)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 20ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	{
 		cMsgBox* pMsgBox = WINDOWMGR->MsgBox(MBI_BUYREG, MBT_OK, CHATMGR->GetChatMsg(1210));
 		m_nVolume = 20;
 		m_pVolumeEdit->SetEditText( MAX_VOLUME_TEXT );
 		return FALSE;
 	}
-	else if( m_nMoney < 1)	// ±Ý¾×ÀÌ 0¿ø ÀÌÇÏÀÏ¶§ ¿À·ù ¸Þ¼¼Áö
+	else if( m_nMoney < 1)	// ï¿½Ý¾ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	{
 		cMsgBox* pMsgBox = WINDOWMGR->MsgBox(MBI_BUYREG, MBT_OK, CHATMGR->GetChatMsg(1207));
 		m_nMoney = 0;
 		m_pMoneyEdit->SetEditText( DEFAULT_MONEY_TEXT );
 		return FALSE;
 	}
-	else if( m_nMoney > 1000000000 )	//±Ý¾×ÀÌ 10¾ï ÀÌ»óÀÏ¶§ ¿À·ù ¸Þ¼¼Áö
+	else if( m_nMoney > 1000000000 )	//ï¿½Ý¾ï¿½ï¿½ï¿½ 10ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	{
 		cMsgBox* pMsgBox = WINDOWMGR->MsgBox(MBI_BUYREG, MBT_OK, CHATMGR->GetChatMsg(1208));
 		m_nMoney = 0;
@@ -433,7 +434,7 @@ BOOL CBuyRegDialog::GetBuyRegInfo(BUY_REG_INFO& BuyInfo)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ¼±ÅÃµÈ Á¤º¸µé·Î ¾ÆÀÌÅÛ Á¤º¸¸¦ Ã£´Â ÇÔ¼ö
+// ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ô¼ï¿½
 ITEM_INFO* CBuyRegDialog::GetSelectItemInfo()
 {
 	PTRLISTPOS pos = m_pItemList[m_nType]->GetListItem()->FindIndex(m_nItem);
@@ -442,8 +443,8 @@ ITEM_INFO* CBuyRegDialog::GetSelectItemInfo()
 	if(!pItem)
 		return NULL;
 
-	//µî±ÞÀÌ ¾ø´Â ¾ÆÀÌÅÛÀº µî±ÞÀ» 0À¸·Î ÃÊ±âÈ­
-	//È¤½Ã³ª ÇØ¼­ ÇÑ¹ø´õ!
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	//È¤ï¿½Ã³ï¿½ ï¿½Ø¼ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½!
 	if(m_nType >= ACCESSORY)
 		m_nClass = 0;
 

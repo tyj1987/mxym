@@ -64,7 +64,7 @@ void CMHMap::InitMap(MAPTYPE MapNum)
 	
 	DIRECTORYMGR->SetLoadMode(eLM_Map);
 	{
-		// ÀÓ½Ã
+		// ï¿½Ó½ï¿½
 		LOGFILE("map.Init(mapDesc->MapFileName)");
 		BOOL rt;
 		rt = map.Init(mapDesc->MapFileName);
@@ -91,7 +91,7 @@ void CMHMap::InitMap(MAPTYPE MapNum)
 	LOGFILE("ApplyMapDesc()");
 	ApplyMapDesc();
 
-	// ¸ó½ºÅÍ ¹Ì¸® ·Îµù
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Îµï¿½
 //	PreLoadData();
 	LoadPreData(MapNum);
 }
@@ -99,16 +99,18 @@ void CMHMap::InitMap(MAPTYPE MapNum)
 /*
 void CMHMap::PreLoadData()
 {
+int i;
 	BASE_MONSTER_LIST* pMonsterInfo = GAMERESRCMNGR->GetMonsterListInfo(13);
 
 }
 */
 
 void CMHMap::LoadPreData(MAPTYPE MapNum)
-{	
+{
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
 	sPRELOAD_INFO* pPreLoadInfo = GAMERESRCMNGR->GetPreDataInfo(MapNum);
 	if(!pPreLoadInfo)		return;
-	
+
 	//
 	BASE_MONSTER_LIST* pBMonInfo = NULL;
 
@@ -117,7 +119,7 @@ void CMHMap::LoadPreData(MAPTYPE MapNum)
 	//----------------------------------------------------------------
 	DIRECTORYMGR->SetLoadMode(eLM_Monster);
 
-	for(int i=0; i<pPreLoadInfo->Count[ePreLoad_Monster]; i++)
+	for( i=0; i<pPreLoadInfo->Count[ePreLoad_Monster]; i++)
 	{
 		pBMonInfo = GAMERESRCMNGR->GetMonsterListInfo(pPreLoadInfo->Kind[ePreLoad_Monster][i]);
 		if(pBMonInfo)
@@ -189,8 +191,8 @@ void CMHMap::LoadPreData(MAPTYPE MapNum)
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
-	// 06. 04. PreLoadData Ãß°¡±â´É - ÀÌ¿µÁØ
-	// ¾ÆÀÌÅÛ PreLoad
+	// 06. 04. PreLoadData ï¿½ß°ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PreLoad
 	WORD* ItemList = GAMERESRCMNGR->GetPreLoadItemlist();
 
 	if(ItemList)
@@ -221,8 +223,8 @@ void CMHMap::LoadPreData(MAPTYPE MapNum)
 	///////////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////////
-	// 06. 05. PreLoadData Ãß°¡±â´É - ÀÌ¿µÁØ
-	// ÀÌÆåÆ® PreLoad
+	// 06. 05. PreLoadData ï¿½ß°ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½Æ® PreLoad
 	sPRELOAD_EFFECT_INFO* pPreLoadEffectInfo = GAMERESRCMNGR->GetPreEffectInfo(MapNum);
 	if(!pPreLoadEffectInfo)		return;
 
@@ -267,7 +269,7 @@ void CMHMap::ApplyMapDesc()
 
 	if(mapDesc->fogdesc.bEnable)
 	{
-		// ÀÓ½Ã
+		// ï¿½Ó½ï¿½
 		g_pExecutive->GetGeometry()->EnableFog(0);
 		g_pExecutive->GetGeometry()->SetFog(&mapDesc->fogdesc,0);
 	}
@@ -299,7 +301,7 @@ void CMHMap::ApplyMapDesc()
 //	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¹æÇâ¼º ¶óÀÌÆ®
+	// ï¿½ï¿½ï¿½â¼º ï¿½ï¿½ï¿½ï¿½Æ®
 	g_pExecutive->GetGeometry()->EnableDirectionalLight(0);
 	
 	DIRECTIONAL_LIGHT_DESC LightDesc;
@@ -314,7 +316,7 @@ void CMHMap::ApplyMapDesc()
 	
 
 	//////////////////////////////////////////////////////////////////////////
-	// ±×¸²ÀÚ
+	// ï¿½×¸ï¿½ï¿½ï¿½
 	if(GAMERESRCMNGR->m_GameDesc.bShadow == MHSHADOW_DETAIL)
 	{
 		VECTOR3 to;
@@ -329,7 +331,7 @@ void CMHMap::ApplyMapDesc()
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÇØ ¿Í ´Þ
+	// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 	if(mapDesc->bSun)
 	{
 		DIRECTORYMGR->SetLoadMode(eLM_Map);
@@ -339,7 +341,7 @@ void CMHMap::ApplyMapDesc()
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// ±¸¸§
+	// ï¿½ï¿½ï¿½ï¿½
 	if(mapDesc->CloudNum)
 	{
 		CEngineCloud::LoadCloudList(mapDesc->CloudListFile);
@@ -556,12 +558,12 @@ void CMHMap::ToggleSunPosForShadow( BOOL bTitan )
 	float dist = VECTOR3Length( &mapDesc->SunPos );
 	if( bTitan )
 	{
-		m_SunPosForShadow = mapDesc->SunPos / dist * 2200;	//°Å¸®´Â Ãµ? //¹Ý°æº¸´Ù Âª¾Æ¾ß?
+		m_SunPosForShadow = mapDesc->SunPos / dist * 2200;	//ï¿½Å¸ï¿½ï¿½ï¿½ Ãµ? //ï¿½Ý°æº¸ï¿½ï¿½ Âªï¿½Æ¾ï¿½?
 		m_SunPosForShadow.y += 1600;
 	}
 	else
 	{
-		m_SunPosForShadow = mapDesc->SunPos / dist * 2000;	//°Å¸®´Â Ãµ? //¹Ý°æº¸´Ù Âª¾Æ¾ß?
+		m_SunPosForShadow = mapDesc->SunPos / dist * 2000;	//ï¿½Å¸ï¿½ï¿½ï¿½ Ãµ? //ï¿½Ý°æº¸ï¿½ï¿½ Âªï¿½Æ¾ï¿½?
 		m_SunPosForShadow.y += 1000;
 	}
 }
@@ -674,7 +676,7 @@ BOOL CMHMap::LoadMapDesc(MAPTYPE MapNum)
 			mapDesc->SunPos.z = file.GetFloat();
 
 			float dist = VECTOR3Length( &mapDesc->SunPos );
-			m_SunPosForShadow = mapDesc->SunPos / dist * 2000;	//°Å¸®´Â Ãµ? //¹Ý°æº¸´Ù Âª¾Æ¾ß?
+			m_SunPosForShadow = mapDesc->SunPos / dist * 2000;	//ï¿½Å¸ï¿½ï¿½ï¿½ Ãµ? //ï¿½Ý°æº¸ï¿½ï¿½ Âªï¿½Æ¾ï¿½?
 			m_SunPosForShadow.y += 1000;
 			
 		}
@@ -798,7 +800,7 @@ void CMHMap::LoadStaticNpc(MAPTYPE MapNum)
 			tinfo.NpcJob = 0;
 		}
 		
-		//jopÀÌ 0ÀÌ¸é ÀÌ¸§À» Áö¿ìÀÚ.
+		//jopï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		if( tinfo.NpcJob == 0 )
 		{
 			binfo.ObjectName[0] = 0;
@@ -810,7 +812,7 @@ void CMHMap::LoadStaticNpc(MAPTYPE MapNum)
 		
 		CNpc* pNpc = OBJECTMGR->AddNpc(&binfo,&minfo,&tinfo);
 
-		//¹æÇâ.....
+		//ï¿½ï¿½ï¿½ï¿½.....
 		float fDir = file.GetFloat();
 		pNpc->SetAngle( DEGTORAD( fDir ) );
 		
@@ -819,8 +821,8 @@ void CMHMap::LoadStaticNpc(MAPTYPE MapNum)
 		// Npc Add
 		QUESTMGR->SetNpcData( pNpc );
 
-		//SW061205 ±ê¹ß NPC
-		//¿ì¼± ±ê¹ßNPCÀÌ¸é ÃÊ±â »óÅÂ¸¦ HIDE·Î..
+		//SW061205 ï¿½ï¿½ï¿½ NPC
+		//ï¿½ì¼± ï¿½ï¿½ï¿½NPCï¿½Ì¸ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ HIDEï¿½ï¿½..
 		if( 65 <= tinfo.NpcKind && tinfo.NpcKind <= 70 )
 		{
 			pNpc->GetEngineObject()->Hide();
@@ -828,7 +830,7 @@ void CMHMap::LoadStaticNpc(MAPTYPE MapNum)
 
 	}
 	
-	//SW061205 ±ê¹ß NPC
+	//SW061205 ï¿½ï¿½ï¿½ NPC
 	//SYSTEMTIME st;
 	//GetLocalTime(&st);
 	//WORD day = st.wDayOfWeek;
@@ -883,7 +885,7 @@ void CMHMap::AddQuestNpc( QUESTNPCINFO* pInfo )
 
 	CNpc* pNpc = OBJECTMGR->AddNpc(&binfo,&minfo,&tinfo);
 
-	//¹æÇâ.....
+	//ï¿½ï¿½ï¿½ï¿½.....
 	float fDir = pInfo->fDir;
 
 	pNpc->SetAngle( DEGTORAD( fDir ) );
@@ -912,10 +914,10 @@ BOOL CMHMap::CheckMapKindIs(int eMapkind)
 	return (m_iMapKind & eMapkind);
 }
 
-///////// 2007. 6. 19. CBH - ÇöÀç ¸ÊÀÌ Å¸ÀÌÅº ¸ÊÀÎÁö ±¸ºÐÇÏ´Â ÇÔ¼ö Ãß°¡ ////////
+///////// 2007. 6. 19. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½ ////////
 BOOL CMHMap::IsTitanMap()
 {
-	//¸Ê¹øÈ£°¡ 100 ÀÌ»óÀÌ¸é Å¸ÀÌÅº ¸ÊÀÌ´Ù.
+	//ï¿½Ê¹ï¿½È£ï¿½ï¿½ 100 ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½Ì´ï¿½.
 	if( ( GAMEIN->GetInitForGame() ) && (m_MapNum > TITANMAP_START_INDEX ) )
 	{
 		return TRUE;
@@ -925,13 +927,13 @@ BOOL CMHMap::IsTitanMap()
 }
 ////////////////////////////////////////////////////////////////////////////
 
-// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
-char temp[64];	// ¿¹¿ÜÃ³¸®¿ë Àü¿ªº¯¼ö
+// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+char temp[64];	// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 char* CMHMap::GetMapName(DWORD dwMapNum)
 {
 	if(dwMapNum == 0)
-		dwMapNum = m_MapNum;	// m_MapNum ¿¡´Â ÇöÀç ÀÚ½ÅÀÌ ÀÖ´Â ¸ÊÀÇ ¹øÈ£°¡ ÀÖ´Ù.
+		dwMapNum = m_MapNum;	// m_MapNum ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö´ï¿½.
 
 	stMAPKINDINFO* pInfo = GAMERESRCMNGR->GetMapKindInfo(dwMapNum);
 	if( !pInfo )
@@ -972,7 +974,7 @@ DWORD CMHMap::GetMapNumForName(char* strName)
 BOOL CMHMap::IsMapKind(DWORD dwMapKind, DWORD dwMapNum)
 {
 	if(dwMapNum == 0)
-		dwMapNum = m_MapNum;	// m_MapNum ¿¡´Â ÇöÀç ÀÚ½ÅÀÌ ÀÖ´Â ¸ÊÀÇ ¹øÈ£°¡ ÀÖ´Ù.
+		dwMapNum = m_MapNum;	// m_MapNum ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö´ï¿½.
 
 	stMAPKINDINFO* pInfo = GAMERESRCMNGR->GetMapKindInfo(dwMapNum);
 	if( !pInfo )
@@ -989,7 +991,7 @@ BOOL CMHMap::IsMapKind(DWORD dwMapKind, DWORD dwMapNum)
 BOOL CMHMap::IsMapSame(DWORD dwMapKind, DWORD dwMapNum)
 {
 	if(dwMapNum == 0)
-		dwMapNum = m_MapNum;	// m_MapNum ¿¡´Â ÇöÀç ÀÚ½ÅÀÌ ÀÖ´Â ¸ÊÀÇ ¹øÈ£°¡ ÀÖ´Ù.
+		dwMapNum = m_MapNum;	// m_MapNum ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö´ï¿½.
 
 	stMAPKINDINFO* pInfo = GAMERESRCMNGR->GetMapKindInfo(dwMapNum);
 	if( !pInfo )
@@ -1000,12 +1002,12 @@ BOOL CMHMap::IsMapSame(DWORD dwMapKind, DWORD dwMapNum)
 		return FALSE;
 	}
 
-	DWORD MapKind = pInfo->dwMapStateBItFlag;	// ½ºÅ©¸³Æ® »óÀÇ ºñÆ®ÇÃ·¡±×
-	DWORD CurMap = dwMapKind;	// Ã¼Å©ÇØ¾ßÇÒ ºñÆ®ÇÃ·¡±×
+	DWORD MapKind = pInfo->dwMapStateBItFlag;	// ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ã·ï¿½ï¿½ï¿½
+	DWORD CurMap = dwMapKind;	// Ã¼Å©ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ã·ï¿½ï¿½ï¿½
 
-	DWORD nHighBit = MapKind & CurMap;	// »óÀ§ ºñÆ®
-	DWORD nSubBit = MapKind - CurMap;	// »óÀ§ ºñÆ®¸¦ »« ³ª¸ÓÁö(ÇÏÀ§ºñÆ® Æ÷ÇÔ)
-	DWORD CheckFlag = 0x000003F;	// ÇÏÀ§ºñÆ® Ã¼Å©¸¦ À§ÇÑ ÇÃ·¡±×
+	DWORD nHighBit = MapKind & CurMap;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®
+	DWORD nSubBit = MapKind - CurMap;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½)
+	DWORD CheckFlag = 0x000003F;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 	DWORD nLowBit = ( nSubBit & CheckFlag );
 
 	return ( (nHighBit == CurMap) & !nLowBit);

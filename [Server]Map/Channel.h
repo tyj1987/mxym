@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHANNEL_H__918176B3_280E_483C_B0D1_7D9DE9CBC256__INCLUDED_)
 #define AFX_CHANNEL_H__918176B3_280E_483C_B0D1_7D9DE9CBC256__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -41,7 +42,7 @@ public:
 	void IncreaseNum()				{ m_ChannelInfo.PlayerNum++; }
 	void DecreaseNum()				{ m_ChannelInfo.PlayerNum--; }
 
-	//SW080515 채널별 세팅
+	//SW080515 채觀 
 	float	GetRegenRate()			{ return m_ChannelInfo.RegenRate;	}
 	float	GetDropRate()			{ return m_ChannelInfo.DropRate;	}
 	BOOL	IsBattleChannel()		{ return m_ChannelInfo.bBattleChannel;	}

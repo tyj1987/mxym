@@ -1,7 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 void InitializeTimer();
 DWORD AddTimer(DWORD dwPerioedTime,HANDLE hEvent,DWORD dwTimerIndex);

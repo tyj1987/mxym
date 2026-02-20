@@ -1,10 +1,13 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #include "SkillObjectFirstUnit.h"
 #include "ValueInSung.h"
 
 ////////////////////////////////////////////////////////////////////////////////////
-// 06. 06. 2차 전직 - 이영준
-// 상태변화
+// 06. 06. 2  - 結
+// 쨘화
 
 class CSkillObjectFirstUnit_SingleSpecialState :
 	public CSkillObjectFirstUnit

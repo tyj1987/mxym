@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Monster.h"
 #include "CharMove.h"
 #include "PackedData.h"
@@ -86,7 +87,7 @@ void CMonster::InitMonster(MONSTER_TOTALINFO* pTotalInfo)
 {
 	m_KillerPlayer = 0;
 	memcpy(&m_MonsterInfo,pTotalInfo,sizeof(MONSTER_TOTALINFO));
-	// ¸ó½ºÅÍ ½ºÅÝ Á¤º¸ ÀÔ·Â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
 	GAMERESRCMNGR->GetMonsterStats(GetMonsterKind(), &m_mon_stats);
 
 
@@ -150,7 +151,7 @@ void CMonster::MoveStop()
 	PACKEDDATA_OBJ->QuickSend(this,&msg,sizeof(msg));
 }
 
-// µ¥¹ÌÁö ÀÔÈù °´Ã¼ °ü¸® //////////////////////////////
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ //////////////////////////////
 void CMonster::AddDamageObject(CPlayer* pPlayer, DWORD damage, DWORD plusdamage)
 {
 	if( damage )
@@ -214,16 +215,16 @@ void CMonster::AddSpeech( DWORD SpeechType, DWORD SpeechIdx )
 	msg.Protocol = MP_CHAT_MONSTERSPEECH;
 	msg.dwObjectID = GetID();
 
-	if( SpeechType == eMSpch_Balloon || SpeechType == eMSpch_BallonChat )	//¸»Ç³¼± or ¸»Ç³¼±+Ã¤ÆÃÃ¢
+	if( SpeechType == eMSpch_Balloon || SpeechType == eMSpch_BallonChat )	//ï¿½ï¿½Ç³ï¿½ï¿½ or ï¿½ï¿½Ç³ï¿½ï¿½+Ã¤ï¿½ï¿½Ã¢
 	{
 		msg.dwData1 = SpeechType;
 		msg.dwData2 = SpeechIdx;
-		msg.dwData3 = 0;	//»ç¿ë¾ÈÇÔ
+		msg.dwData3 = 0;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		PACKEDDATA_OBJ->QuickSend(this,&msg,sizeof(MSG_DWORD4));
 
 		return;
 	}
-	else if( SpeechType == eMSpch_SmallShout )	//¿ÜÄ¡±â SMALLSHOUT
+	else if( SpeechType == eMSpch_SmallShout )	//ï¿½ï¿½Ä¡ï¿½ï¿½ SMALLSHOUT
 	{
 		msg.dwData1 = SpeechType;
 		msg.dwData2 = SpeechIdx;
@@ -257,8 +258,8 @@ void CMonster::OnStartObjectState(BYTE State,DWORD dwParam)
 	case eObjectState_Die:
 		m_KillerPlayer = dwParam;
 		break;
-	case eObjectState_TiedUp_CanSkill:	// ÀÌµ¿ °á¹Ú
-	case eObjectState_TiedUp:	// ÀÌµ¿,°ø°Ý ¸ðµÎ °á¹Ú
+	case eObjectState_TiedUp_CanSkill:	// ï¿½Ìµï¿½ ï¿½ï¿½ï¿½
+	case eObjectState_TiedUp:	// ï¿½Ìµï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		OnStop();
 		break;
 	}
@@ -285,7 +286,7 @@ void CMonster::StateProcess()
 	{
 	case eObjectState_Die:
 		{
-			// 2007. 7. 9. CBH - Àü¹®±â¼ú Àü¿ë ¸ó½ºÅÍ¸é Á×¾úÀ»¶§ ¾ÆÀÌÅÆ µå·Ó ¸·´Â´Ù.			
+			// 2007. 7. 9. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.			
 			if( GetObjectKindGroup(this->GetObjectKind()) == eOBJECTKINDGROUP_NONE )
 			{
 				DWORD RemainTime;
@@ -331,10 +332,10 @@ BOOL CMonster::SetTObject( CPlayer * pNewTPlayer )
 
 	if(pNewTPlayer)
 	{
-		// µ¥¹ÌÁö ¹Þ¾Æ »õ·Î¿î ÃßÀûÀÚ ¼³Á¤
-		// °Ë»öµÈ ¸ó½ºÅÍ°¡ À¯Àú ÃßÀû
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-/*//oldplayer´Â °ü½É¾ø´Âµ¥..
+/*//oldplayerï¿½ï¿½ ï¿½ï¿½ï¿½É¾ï¿½ï¿½Âµï¿½..
 		if((m_pOldTPlayer && !m_pOldTPlayer->GetInited() )|| (m_pOldTPlayer && m_pOldTPlayer->GetState() == eObjectState_Die) )
 		{
 			MHERROR->OutputFile("Debug.txt", 
@@ -372,7 +373,7 @@ BOOL CMonster::SetTObject( CPlayer * pNewTPlayer )
 		pNewTPlayer->AddFollowList(this);
 */
 
-//KES ¸ÕÀú ³Ö°í! ³ªÁß¿¡ ºñÁßÀ» °è»êÇÏµµ·Ï º¯°æÇÏÀÚ.
+//KES ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½! ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 		if( pNewTPlayer->AddFollowList(this) == TRUE )
 		{
@@ -387,18 +388,18 @@ BOOL CMonster::SetTObject( CPlayer * pNewTPlayer )
 			if(dwGravity > 100)
 			{
 				if( pNewTPlayer->RemoveFollowAsFarAs(dwGravity, this) )
-					return FALSE;	//ÀÚ½ÅÀÌ Áö¿öÁ³´Ù.
+					return FALSE;	//ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			}
 
-			//¶³¾îÁ® ³ª°£ ¸ó½ºÅÍ°¡ ÀÚ½ÅÀÏ ¼öµµ ÀÖ´Ù!
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½!
 			
-			//SW050903	¸ó½ºÅÍ´ë»ç °ü·Ã
+			//SW050903	ï¿½ï¿½ï¿½Í´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MonSpeechInfo* pTemp = NULL;
-			if(m_pSInfo->bForeAttack)	// ¼±°ø¸÷ÀÏ °æ¿ì¿¡¸¸
+			if(m_pSInfo->bForeAttack)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 			{
 				pTemp = MON_SPEECHMGR->GetCurStateSpeechIndex( GetMonsterKind(), eMon_Speech_ForeAtk );
 			}
-			else if( !m_pSInfo->bForeAttack && m_stateParam.stateNew == eMA_ATTACK )//!ºñ¼±°øÀÌ¸é¼­ ÇïÆÛ¸÷ÀÌ¸é.. ÇïÆÛ ±¸ºÐÀ» ¾î¶»°Ô ÇØ¾ßÇÒ°ÍÀÎ°¡..
+			else if( !m_pSInfo->bForeAttack && m_stateParam.stateNew == eMA_ATTACK )//!ï¿½ñ¼±°ï¿½ï¿½Ì¸é¼­ ï¿½ï¿½ï¿½Û¸ï¿½ï¿½Ì¸ï¿½.. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ò°ï¿½ï¿½Î°ï¿½..
 			{
 				pTemp = MON_SPEECHMGR->GetCurStateSpeechIndex( GetMonsterKind(), eMon_Speech_AboutHelp );
 			}
@@ -413,8 +414,8 @@ BOOL CMonster::SetTObject( CPlayer * pNewTPlayer )
 	else
 	{
 		// pNewTPlayer == NULL
-		// ¸ó½ºÅÍ°¡ ÃßÀû Æ÷±â(rest, walkaround, stand) => ÃßÀû ÇÃ·¹ÀÌ¾î ÁÙÀÓ
-		// ¸ó½ºÅÍ Á×¾úÀ»¶§ => ÃßÀû ÇÃ·¹ÀÌ¾î ÁÙÀÓ
+		// ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(rest, walkaround, stand) => ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ => ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(m_pOldTPlayer)
 		{
 			m_pOldTPlayer->RemoveFollowList(GetID());
@@ -437,8 +438,8 @@ void CMonster::DoDamage(CObject* pAttacker,RESULTINFO* pDamageInfo,DWORD beforeL
 	}
 	DWORD plusdamage = 0;
 
-//---Ã¹»§
-	// ÇÊµåº¸½º´Â Á¦¿Ü
+//---Ã¹ï¿½ï¿½
+	// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(GetObjectKind() != eObjectKind_FieldBossMonster)
 		if(beforeLife == GetSMonsterList()->Life && pDamageInfo->RealDamage > 0 )
 		{
@@ -454,7 +455,7 @@ void CMonster::DoDamage(CObject* pAttacker,RESULTINFO* pDamageInfo,DWORD beforeL
 
 		if( m_stateParam.stateCur == eMA_REST || m_stateParam.stateCur == eMA_RUNAWAY) return ;
 
-		// µµ¸Á?
+		// ï¿½ï¿½ï¿½ï¿½?
 //		WORD RunawayType = 0;
 //		if(CAIManager::IsRunawayStateChange(this, (CPlayer *)pAttacker))
 //		{
@@ -469,9 +470,9 @@ void CMonster::DoDamage(CObject* pAttacker,RESULTINFO* pDamageInfo,DWORD beforeL
 		}
 	}
 
-	// µµ¿ò ¿äÃ» 
-	// YH ÇïÇÁ ¹ÞÀ¸¸é ¶Ç ÇïÇÁÇÏ°í ¶Ç ÇïÇÁ ÇÏ°í ÇÏ´Â °æ¿ì°¡ ¹ß»ý
-	// ÇïÇÁ¸¦ ¹Þ¾ÒÀ»¶§³ª ¹Ì½º(°ø°Ý°Å¸®)¶§´Â ÇÛÇÁ¿äÃ» ¾ÈÇÔ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» 
+	// YH ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ì°¡ ï¿½ß»ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì½ï¿½(ï¿½ï¿½ï¿½Ý°Å¸ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
 	if(pDamageInfo->RealDamage != 0)
 		CHelpRequestManager::MonsterRequestProcess(this);
 
@@ -529,7 +530,7 @@ void CMonster::DoDie(CObject* pAttacker)
 
 		SWPROFITMGR->AddProfitFromMonster( (CPlayer*)pAttacker, this );
 
-		//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+		//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		GUILDMGR->AddGuildHuntedMonsterCount( (CPlayer*)pAttacker, this );
 	}
 	
@@ -538,14 +539,14 @@ void CMonster::DoDie(CObject* pAttacker)
 	if( pTemp )
 		this->AddSpeech( pTemp->SpeechType, pTemp->SpeechIndex );
 
-	//SW051112 ¹«½Ö¸ðµå
-	//m_pLastAttackPlayer ´ë½Å pAttacker ·Î..
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+	//m_pLastAttackPlayer ï¿½ï¿½ï¿½ pAttacker ï¿½ï¿½..
 	if( pAttacker && pAttacker->GetObjectKind()==eObjectKind_Player )
 	{
 #ifdef _JAPAN_LOCAL_
 		((CPlayer*)pAttacker)->AddMussangPointFromLevel(GetLevel());
 #else
-		// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+		// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 		if(!(ABILITYMGR->GetAbilityLevel(ABILITYINDEX_TACTIC_MUSSANG, ((CPlayer*)pAttacker)->GetAbilityGroup())  < 1))
 			((CPlayer*)pAttacker)->AddMussangPointFromLevel(GetLevel());
 #endif
@@ -616,7 +617,7 @@ void CMonster::OnMove( VECTOR3 * pPos )
 
 	ASSERT(GetState() != eObjectState_Die);
 
-	// °á¹Ú »óÅÂÀÌ±â¶§¹®¿¡ ¸ø ¿òÁ÷ÀÌ°Ô ÇÔ
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½
 	if( GetState() == eObjectState_TiedUp_CanSkill ||
 		GetState() == eObjectState_TiedUp )
 		return;
@@ -631,7 +632,7 @@ void CMonster::OnMove( VECTOR3 * pPos )
 		return;
 
 	//////////////////////////////////////////////////////////////////////////
-	// Å¸ÀÏ ¹× Ãæµ¹..
+	// Å¸ï¿½ï¿½ ï¿½ï¿½ ï¿½æµ¹..
 	VECTOR3 tPos;
 	BOOL preo = g_pServerSystem->GetMap()->GetTileManager()->IsPreoccupied(this,pPos);
 	if(preo)
@@ -726,7 +727,7 @@ BOOL CMonster::DoAttack( WORD attackNum )
 		GetState() == eObjectState_TiedUp )
 		return TRUE;
 
-	// LBS ÀÏ´Ü ¸·¾Æº¾´Ï´Ù.
+	// LBS ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Æºï¿½ï¿½Ï´ï¿½.
 	if( GetGridID() != m_pTObject->GetGridID() )
 	{
 //		ASSERT(0);
@@ -735,8 +736,8 @@ BOOL CMonster::DoAttack( WORD attackNum )
 
 	if(GetObjectKind() == eObjectKind_FieldBossMonster)
 	{
-		// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-		// ¸ó½ºÅÍ°¡ ¹üÀ§ °ø°ÝÀ» »ç¿ëÇÒ¼ö ÀÖ°Ô º¯°æ
+		// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		CSkillInfo* pSkillInfo = SKILLMGR->GetSkillInfo(attackNum);
 		VECTOR3 TargetPos, MonPos;
 		GetPosition(&MonPos);
@@ -769,7 +770,7 @@ BOOL CMonster::DoWalkAround()
 	VECTOR3 * pThisPos = CCharMove::GetPosition(this);
 	//VECTOR3 domainPoint = RESPAWNMGR->GetOBJ_REGEN(GetID())->vPos;
 	//VECTOR3 domainPoint = *GROUPMGR->GetRegenObject(GetMonsterGroupNum(), GetBattleID(), GetID())->GetPos();
-	// YH ÀÌº¥Æ®¸®ÄÝÀÌ³ª ¼ö·ÃÀåµî¿¡¼± ProtoType ¾È³Ö¾îÁÖ´Â°ÍÀ¸·Î ¼öÁ¤
+	// YH ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ProtoType ï¿½È³Ö¾ï¿½ï¿½Ö´Â°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CRegenPrototype* pProtoType = REGENMGR->GetPrototype(GetSubID());
 	VECTOR3 domainPoint = pProtoType ? pProtoType->vPos : *pThisPos;
 	VECTOR3 decisionPoint;
@@ -796,7 +797,7 @@ BOOL CMonster::DoWalkAround()
 	else if(Target.z > 51200.0f)
 		Target.z = 51200.0f;
 	
-	//taiyo ÀÓ½ÃÃ³¸® 
+	//taiyo ï¿½Ó½ï¿½Ã³ï¿½ï¿½ 
 	VECTOR3 CollisonPos;
 	
 	MAPTYPE MapNum = GAMERESRCMNGR->GetLoadMapNum();
@@ -891,7 +892,7 @@ void CMonster::DoRunaway()
 	else if(Target.z > 51200.0f)
 		Target.z = 51200.0f;
 
-	//taiyo ÀÓ½ÃÃ³¸® 
+	//taiyo ï¿½Ó½ï¿½Ã³ï¿½ï¿½ 
 	VECTOR3 CollisonPos;
 	
 	MAPTYPE MapNum = GAMERESRCMNGR->GetLoadMapNum();
@@ -975,8 +976,8 @@ void CMonster::DistributePerDamage()
 	m_Distributer.DistributePerDamage(this);
 }
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ÇÊµåº¸½º¿ë ¾ÆÀÌÅÛ ºÐ¹è ÇÔ¼ö È£ÃâÇÔ
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ï¿½ï¿½
 void CMonster::DistributeItemPerDamage()
 {
 	m_Distributer.DistributeItemPerDamage(this);

@@ -143,7 +143,7 @@
 
 #include "ProgressBarDlg.h"
 
-//½ºÅ©¸°¼¦
+//ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½
 #include "ScreenShotDlg.h"
 #include "SurvivalModeManager.h"
 
@@ -187,7 +187,7 @@ CBossMonster * g_pBossMonster = NULL;
 
 #endif
 
-DWORD g_TempHeroID;	//¼ö·ÃÀå¿¡¼­ ¾¸
+DWORD g_TempHeroID;	//ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½
 extern HWND _g_hWnd;
 
 GLOBALTON(CGameIn)
@@ -206,15 +206,15 @@ CGameIn::CGameIn()
 	m_pTitanPartsMakeDlg = NULL;	// magi82 - Titan(070112)
 	// magi82 - Titan(070119) ////////////////////////////////////////////////
 	m_pTitanMixDlg			= NULL;	
-	m_pTitanRepairDlg		= NULL;	//2007. 9. 11. CBH - Å¸ÀÌÅº ¼ö¸®Ã¢
-	m_pTitanRecallDlg		= NULL;	//2007. 9. 13. CBH - Å¸ÀÌÅº ¼ÒÈ¯ °ÔÀÌÁö
+	m_pTitanRepairDlg		= NULL;	//2007. 9. 11. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½Ã¢
+	m_pTitanRecallDlg		= NULL;	//2007. 9. 13. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pTitanUpgradeDlg		= NULL;
 	m_pTitanBreakDlg		= NULL;
 	//////////////////////////////////////////////////////////////////////////
 	m_pTitanChangePreViewDlg = NULL;	// magi82 - Titan(070212)
 	m_pTitanInventoryDlg = NULL;		// magi82 - Titan(070222)
 	m_pTitanGuageDlg	= NULL;			// magi82 - Titan(070305)
-	//m_pTitanMugongMixDlg	= NULL;		// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+	//m_pTitanMugongMixDlg	= NULL;		// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 	m_pTitanRegisterDlg		= NULL;		// magi82 - Titan(070320)
 	m_pTitanDissolutionDlg	= NULL;		// magi82 - Titan(070321)
 	m_pDealDlg			= NULL;
@@ -223,7 +223,7 @@ CGameIn::CGameIn()
 //	m_pJackpotDlg		= NULL;
 	m_pMainDlg			= NULL;
 	m_pDebugDlg			= NULL;
-// LYJ 051017 ±¸ÀÔ³ëÁ¡»ó Ãß°¡
+// LYJ 051017 ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	m_pStallKindSelectDlg	= NULL;
 	m_pStreetStallDlg	= NULL;
 	m_pNpcScriptDlg		= NULL;
@@ -289,7 +289,7 @@ CGameIn::CGameIn()
 
 	m_pCharChangeDlg	= NULL;
 
-	m_pSkillPointResetDlg	= NULL;	// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)	
+	m_pSkillPointResetDlg	= NULL;	// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)	
 
 	m_pNumberPadDlg = NULL;
 
@@ -297,8 +297,8 @@ CGameIn::CGameIn()
 	m_pStreetStallItemViewDlg = NULL;
 
 	/////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	m_pSkillOptionChangeDlg = NULL;
 	m_pSkillOptionClearDlg = NULL;
 	/////////////////////////////////////////////////////////////
@@ -307,7 +307,7 @@ CGameIn::CGameIn()
 	m_nCountInBossMap = 0;
 	m_dwTimeInBossMap = 0;
 	
-	//Ä³¸¯ÅÍ ·Î±×ÀÎ ½Ã°£º¯¼ö(¼­¹ö,Å¬¶óÀÌ¾ðÆ®) ÃÊ±âÈ­
+	//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½,Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®) ï¿½Ê±ï¿½È­
 	memset(&GameinServerTime, 0, sizeof(GameinServerTime));
 	m_Clientdate = 0;
 	m_Clienttime = 0;
@@ -318,7 +318,7 @@ CGameIn::CGameIn()
 	m_pSkinSelectDlg = NULL;
 	m_pCostumeSkinSelectDlg = NULL;
 
-	m_pStallFindDlg = NULL; // ³ëÁ¡»ó °Ë»ö Ãß°¡ by Stiner(8)
+	m_pStallFindDlg = NULL; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ß°ï¿½ by Stiner(8)
 }
 
 CGameIn::~CGameIn()
@@ -352,7 +352,7 @@ void InitForTestClient()
 	LOGFILE("GAMERESRCMNGR->LoadNpcChxList()");
 	GAMERESRCMNGR->LoadNpcChxList();
 
-	// magi82(44) - ³ëÁ¡»ó ²Ù¹Ì±â ¾÷µ¥ÀÌÆ®
+	// magi82(44) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	LOGFILE("GAMERESRCMNGR->LoadItemChxList()");
 	GAMERESRCMNGR->LoadItemChxList();
 
@@ -365,7 +365,7 @@ void InitForTestClient()
 	LOGFILE("ITEMMGR->LoadItemList()");
 	ITEMMGR->LoadItemList();
 	LOGFILE("ITEMMGR->LoadSetItemOption()");
-	ITEMMGR->LoadSetItemOption();			//2007. 6. 14. CBH - ¼¼Æ®¾ÆÀÌÅÆ µ¥ÀÌÅÍ ·Îµù Ãß°¡
+	ITEMMGR->LoadSetItemOption();			//2007. 6. 14. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ß°ï¿½
 	LOGFILE("ITEMMGR->LoadItemTooltipList()");
 	ITEMMGR->LoadItemToolTipList();
 	LOGFILE("ITEMMGR->LoadRareItemInfo()");
@@ -419,7 +419,7 @@ BOOL CGameIn::InitForGame()
 //	HELPDICMGR->Init();
 //----------
 
-//¢¥UAaA¡Æ A©ª¨¡A¨ù©øA¢´A¡×C¨ª¨ù¡©. ¢¬AA¨Ï¡¤IinitAIEA E¡ÌAa.
+//ï¿½ï¿½UAaAï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Aï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½AAï¿½Ï¡ï¿½IinitAIEA Eï¿½ï¿½Aa.
 	if( GetMainInterfaceDialog() )
 		GetMainInterfaceDialog()->Refresh();
 	if( GetCharStateDialog() )
@@ -440,7 +440,7 @@ BOOL CGameIn::InitForGame()
 	GUILDUNION->Clear();
 
 
-	//SW050825 ±×·¡ÇÈ¿É¼ÇTab: GraphicAutoCtrlProcess()
+	//SW050825 ï¿½×·ï¿½ï¿½È¿É¼ï¿½Tab: GraphicAutoCtrlProcess()
 	OPTIONMGR->InitForGameIn();
 
 	return TRUE;
@@ -478,8 +478,8 @@ BOOL CGameIn::Init(void* pInitParam)
 		MAP->LoadStaticNpc(MAP->GetMapNum());
 
 
-	VIMUMGR->Init();		//AE¡¾aE¡©
-	EXCHANGEMGR->Init();	//AE¡¾aE¡©
+	VIMUMGR->Init();		//AEï¿½ï¿½aEï¿½ï¿½
+	EXCHANGEMGR->Init();	//AEï¿½ï¿½aEï¿½ï¿½
 	STREETSTALLMGR->Init();
 	FRIENDMGR->Init();
 	WANTEDMGR->Init();
@@ -671,7 +671,7 @@ BOOL CGameIn::Init(void* pInitParam)
 		ASSERT(0);
 	}
 
-	// debug¿ë
+	// debugï¿½ï¿½
 	ITEMMGR->m_nItemUseCount = 0;
 	SKILLMGR->m_nSkillUseCount = 0;
 
@@ -696,15 +696,15 @@ void CGameIn::ReleaseForGame()
 	m_pTitanPartsMakeDlg	= NULL;	// magi82 - Titan(070112)
 	// magi82 - Titan(070119) ////////////////////////////////////////////////
 	m_pTitanMixDlg			= NULL;	
-	m_pTitanRepairDlg		= NULL;	//2007. 9. 11. CBH - Å¸ÀÌÅº ¼ö¸®Ã¢
-	m_pTitanRecallDlg		= NULL;	//2007. 9. 13. CBH - Å¸ÀÌÅº ¼ÒÈ¯ °ÔÀÌÁö
+	m_pTitanRepairDlg		= NULL;	//2007. 9. 11. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½Ã¢
+	m_pTitanRecallDlg		= NULL;	//2007. 9. 13. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pTitanUpgradeDlg		= NULL;
 	m_pTitanBreakDlg		= NULL;
 	//////////////////////////////////////////////////////////////////////////
 	m_pTitanChangePreViewDlg = NULL;	// magi82 - Titan(070212)
 	m_pTitanInventoryDlg	= NULL;		// magi82 - Titan(070222)
 	m_pTitanGuageDlg		= NULL;		// magi82 - Titan(070305)
-	//m_pTitanMugongMixDlg	= NULL;		// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+	//m_pTitanMugongMixDlg	= NULL;		// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 	m_pTitanRegisterDlg		= NULL;		// magi82 - Titan(070320)
 	m_pTitanDissolutionDlg	= NULL;		// magi82 - Titan(070321)
 	m_pDealDlg				= NULL;
@@ -713,7 +713,7 @@ void CGameIn::ReleaseForGame()
 //	m_pJackpotDlg			= NULL;
 	m_pMainDlg				= NULL;
 	m_pDebugDlg				= NULL;
-// LYJ 051017 ±¸ÀÔ³ëÁ¡»ó Ãß°¡
+// LYJ 051017 ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	m_pStallKindSelectDlg	= NULL;
 	m_pStreetStallDlg		= NULL;
 	m_pNpcScriptDlg			= NULL;
@@ -764,15 +764,15 @@ void CGameIn::ReleaseForGame()
 	m_pUniqueItemCurseCancellationDlg = NULL;	// magi82 - UniqueItem(070703)
 	m_pUniqueItemMixDlg = NULL;	// magi82 - UniqueItem(070709)
 
-	m_pUniqueItemMixProgressBarDlg = NULL;		//2007. 10. 22. CBH - À¯´ÏÅ© ¾ÆÀÌÅÆ Á¶ÇÕ Ã³¸® ¹Ù °ÔÀÌÁö
-	m_pTitanMixProgressBarDlg = NULL;		//2007. 10. 22. CBH - Å¸ÀÌÅº Á¶ÇÕ Ã³¸® ¹Ù °ÔÀÌÁö
-	m_pTitanPartsProgressBarDlg = NULL;		//2007. 10. 23. CBH - Å¸ÀÌÅº ÆÄÃ÷ Á¶ÇÕ Ã³¸® ¹Ù °ÔÀÌÁö
+	m_pUniqueItemMixProgressBarDlg = NULL;		//2007. 10. 22. CBH - ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	m_pTitanMixProgressBarDlg = NULL;		//2007. 10. 22. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	m_pTitanPartsProgressBarDlg = NULL;		//2007. 10. 23. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	m_pSkillPointResetDlg	= NULL;	// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
+	m_pSkillPointResetDlg	= NULL;	// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)
 
 	// magi82(47)
 	m_pStreetStallItemViewDlg = NULL;
-	m_pStallFindDlg = NULL; // ³ëÁ¡»ó °Ë»ö Ãß°¡ by Stiner(8)
+	m_pStallFindDlg = NULL; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ß°ï¿½ by Stiner(8)
 }
 
 void CGameIn::Release(CGameState* pNextGameState)
@@ -790,12 +790,12 @@ void CGameIn::Release(CGameState* pNextGameState)
 
 	STATUSICONDLG->Release();
 	
-	//KES 020828 AO¨öA¡¤I...
+	//KES 020828 AOï¿½ï¿½Aï¿½ï¿½I...
 //	WINDOWMGR->GetMouseWindow()->SetActive( TRUE );
 	CURSOR->SetActive( FALSE );
 	CHATMGR->SetChatDialog( NULL );
 
-	///¢¯¨Ï¡¾a¡¾iAo AO¨öA
+	///ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½iAo AOï¿½ï¿½A
 	AUDIOMGR->StopAll();
 	QUICKMGR->Release();
 	ITEMMGR->Release();
@@ -806,7 +806,7 @@ void CGameIn::Release(CGameState* pNextGameState)
 //	MINIMAP->Release();
 	
 	if(m_GameInInitKind != eGameInInitKind_SuryunEnter && m_GameInInitKind != eGameInInitKind_EventMapEnter)
-		USERINFOMGR->SaveUserInfo( eUIK_USERSTATE | eUIK_INTERFACE );	//HERO¡Æ¢® ¨ú©ª¨úiAo¡¾a Au¢¯¢®.
+		USERINFOMGR->SaveUserInfo( eUIK_USERSTATE | eUIK_INTERFACE );	//HEROï¿½Æ¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iAoï¿½ï¿½a Auï¿½ï¿½ï¿½ï¿½.
 
 	EFFECTMGR->RemoveAllEffect();
 	OBJECTMGR->RemoveAllObject();
@@ -847,7 +847,7 @@ void CGameIn::Release(CGameState* pNextGameState)
 	
 //RESRCMGR->ReleaseResource();
 	
-	g_pExecutive->UnloadAllPreLoadedGXObject(0);	//NULLA©¬¡Æ¢®
+	g_pExecutive->UnloadAllPreLoadedGXObject(0);	//NULLAï¿½ï¿½ï¿½Æ¢ï¿½
 
 	g_TempHeroID = HEROID;
 	HEROID = 0;
@@ -900,11 +900,11 @@ void CGameIn::Process()
 
 	////////////////////////////////////////////////////////////////////////
 	////061009 BB
-	////10ÃÊ´ç ÇÁ·¹ÀÓ Ã¼Å©
+	////10ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	//m_uiCurrentTime = timeGetTime();
 	//m_iMilliSecend += ( m_uiCurrentTime - m_uiPreTime );
 
-	//if( m_iMilliSecend >= 10000 ) //1ÃÊ = 1000
+	//if( m_iMilliSecend >= 10000 ) //1ï¿½ï¿½ = 1000
 	//{
 	//	m_fFramePerSec = (float)m_iFPSCnt;
 	//	m_iFPSCnt = m_iMilliSecend = 0;
@@ -946,7 +946,7 @@ void CGameIn::Process()
 	ProcessInBossMap();
 	//WEATHERMGR->Process();
 	
-	//SW050825 ±×·¡ÇÈ¿É¼ÇTab: GraphicAutoCtrlProcess()
+	//SW050825 ï¿½×·ï¿½ï¿½È¿É¼ï¿½Tab: GraphicAutoCtrlProcess()
 
 	OPTIONMGR->GraphicAutoCtrlProcess();
 
@@ -963,7 +963,7 @@ void CGameIn::AfterRender()
 	{
 		EFFECTMGR->Process(gCurTime);
 
-//		STATUSICONDLG->Render();	//windowmanager¿¡¼­ ÇØÁØ´Ù(ÅøÆÁ¶§¹®¿¡)
+//		STATUSICONDLG->Render();	//windowmanagerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 		BATTLESYSTEM->Render();
 		WEATHERMGR->Render();
 		WINDOWMGR->Render();
@@ -977,7 +977,7 @@ void CGameIn::AfterRender()
 
 void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 {
-	switch(Category)	//¢¯i¨ù¡¾¨ù©ªA¡×¢¬|....
+	switch(Category)	//ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½×¢ï¿½|....
 	{
 	case MP_MOVE:			MOVEMGR->NetworkMsgParse(Protocol, pMsg);				break;
 	case MP_SKILL:			SKILLMGR->NetworkMsgParse(Protocol, pMsg);				break;
@@ -1015,16 +1015,16 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						CPet* pPet = ((CPlayer*)pObject)->GetPet();
 						if(pPet)
 						{
-							pPet->SetMaster(NULL);	//Æê ¿ÀºêÁ§Æ®´Â ÁÖÀÎÁ¤º¸¸¦ °¡Áö°í ÀÖ¾î¾ß ÁÖÀÎ GridIn ½Ã Á¦´ë·Î Çàµ¿.
+							pPet->SetMaster(NULL);	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ GridIn ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿.
 						}*/
 						((CPlayer*)pObject)->SetPet(NULL);
 
-						// magi82(44) - ³ëÁ¡»ó ²Ù¹Ì±â ¾÷µ¥ÀÌÆ®
-						// ÇÃ·¹ÀÌ¾î°¡ Remove µÉ¶§ ²Ù¹Ì±â °´Ã¼µµ °°ÀÌ Áö¿öÁØ´Ù.
+						// magi82(44) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+						// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ Remove ï¿½É¶ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 						OBJECTMGR->RemoveDecoration((CPlayer*)pObject);
 					}
 
-					//!!!º¸ºÎ»ó °Å·¡ Áß »óÅÂÇØÁ¦ ¾ÈµÇ´Â Çö»ó ¹ß»ý½Ã ³ÖÀ» ÄÚµå
+					//!!!ï¿½ï¿½ï¿½Î»ï¿½ ï¿½Å·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 					/*if( pObject->GetObjectKind() == eObjectKind_Npc )
 					{
 						if( ((CNpc*)pObject)->GetNpcJob() == BOBUSANG_ROLE )
@@ -1100,7 +1100,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 //					CMonster* pMon = (CMonster*)pObject;
 //					if( HERO->GetLevel() - pMon->GetLevel() < 6 )
 //					//HERE cObjectManager.h
-//					//virtual LEVELTYPE GetLevel(){ return m_pSInfo->Level; } CMonster.h Ãß°¡¿ä¸Á
+//					//virtual LEVELTYPE GetLevel(){ return m_pSInfo->Level; } CMonster.h ï¿½ß°ï¿½ï¿½ï¿½ï¿½
 //					JACKPOTMGR->AddFakeMoneyForDraw();
 				}
 				break;
@@ -1226,7 +1226,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					SEND_HERO_TOTALINFO * pmsg = (SEND_HERO_TOTALINFO *)pMsg;
 					ASSERT(!(pmsg->SendMoveInfo.CurPos.wx == 0 && pmsg->SendMoveInfo.CurPos.wz == 0));
 
-					//Ä³¸¯ÅÍ ¼­¹ö ·Î±×ÀÎ½Ã°£, Ä³¸¯ÅÍ Å¬¶óÀÌ¾ðÆ® ·Î±×ÀÎ½Ã°£ ±â·Ï
+					//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Î½Ã°ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½Î±ï¿½ï¿½Î½Ã°ï¿½ ï¿½ï¿½ï¿½
 					GAMEIN->SetLoginTime(pmsg->ServerTime);
 					GAMEIN->SetClientLoginTime(MHTIMEMGR->GetMHDate(), MHTIMEMGR->GetMHTime());
 
@@ -1244,7 +1244,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					EFFECTMGR->StartHeroEffectProcess(eEffect_NewCharacter);
 
 					//option setting
-					OPTIONMGR->ApplySettings();	//¨öA¨ú©¬..
+					OPTIONMGR->ApplySettings();	//ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½..
 					OPTIONMGR->SendOptionMsg();
 
 					FRIENDMGR->LogInNotify();
@@ -1258,7 +1258,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 //					GAMEEVENTMGR->AddEvent(eGameEvent1_GameIn, MAP->GetMapNum());
 					GAMEEVENTMGR->AddEvent(eGameEvent_MapChange, MAP->GetMapNum());
 
-					//SW061124 ¹«°ø ºñ½Àµæ ÃÊº¸ÀÚ µµ¿ò¸»
+					//SW061124 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					if( HERO->GetLevel() > 4 && !MUGONGMGR->GetMugongNum())
 					{
 						GAMEEVENTMGR->AddEvent(eGameEvent_LevelUp, /*HEROLevel*/6);
@@ -1282,7 +1282,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 							GAMEIN->GetEventNotifyDialog()->SetTitle( NOTIFYMGR->GetEventNotifyTitle() );
 							GAMEIN->GetEventNotifyDialog()->SetContext( NOTIFYMGR->GetEventNotifyContext() );
 							GAMEIN->GetEventNotifyDialog()->SetActive( TRUE );
-							//»ç¿îµå?
+							//ï¿½ï¿½ï¿½ï¿½?
 							NOTIFYMGR->SetEventNotifyChanged( FALSE );
 						}
 						else
@@ -1309,7 +1309,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					CAMERA->SetTargetAngleX(0,29.9f,0);
 					//CAMERA->SetTargetAngleX(0,5.f,1500);
 #ifdef _JAPAN_LOCAL_
-//===ÇÏµåÄÚµù T_T
+//===ï¿½Ïµï¿½ï¿½Úµï¿½ T_T
 					GetInventoryDialog()->SetActive( GetInventoryDialog()->IsActive() );
 					GetMugongDialog()->SetActive( GetMugongDialog()->IsActive() );
 #endif
@@ -1329,7 +1329,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 				return;
 			case MP_USERCONN_GAMEIN_NACK:
 				{
-					__asm int 3;
+					__debugbreak();
 				}
 				return;
 
@@ -1363,16 +1363,16 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 
 					CPlayer* pPlayer = OBJECTMGR->AddPlayerThroughCache(&pmsg->BaseObjectInfo,&moveInfo,&pmsg->TotalInfo,&pmsg->ShopItemOption, pmsg);
 
-					//SW071129 Ãß°¡. ³ª¶õÈ÷ ÇÑ¹æÇâ º¸°í ¾É¾ÆÀÖ´Â ³ëÁ¡ Á¦°Å!
+					//SW071129 ï¿½ß°ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 					VECTOR3 temp;
 					temp.x = pmsg->MoveInfo.Move_Direction.x;
 					temp.z = pmsg->MoveInfo.Move_Direction.y;
 					float fDirDeg = RADTODEG(VECTORTORAD(temp));
 					MOVEMGR->SetAngle(pPlayer, fDirDeg, 0);
 					
-					// Add Player°¡ ¿Ï·áµÈ ½ÃÁ¡¿¡¼­ PostAddPlayer()°¡ È£ÃâµË´Ï´Ù. 
-					// EffectµîÀ» ºÙÀÏ ¶§ Player model À» ¹Ì¸® ºÒ·¯¹ö¸®´Â Åë¿¡ 
-					// ¾îÂ¿ ¼ö ¾øÀÌ Èå¸§À» ¹Ù²å½À´Ï´Ù. ¾çÇØÇØ ÁÖ½Ê½Ã¿À. 
+					// Add Playerï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PostAddPlayer()ï¿½ï¿½ È£ï¿½ï¿½Ë´Ï´ï¿½. 
+					// Effectï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Player model ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë¿¡ 
+					// ï¿½ï¿½Â¿ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½å¸§ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½Ê½Ã¿ï¿½. 
 									
 
 					// eventmap
@@ -1382,7 +1382,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					if(pPet)
 					{
 						//pPet
-						//pPet->SetPetMasterName(pPlayer->GetID());	//ÁÖÀÎ ¼³Á¤
+						//pPet->SetPetMasterName(pPlayer->GetID());	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						pPlayer->SetPet(pPet);
 						pPet->SetMaster(pPlayer);
 					}
@@ -1435,7 +1435,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						iter.ShiftToNextData();
 					}
 
-					//SW070127 Å¸ÀÌÅº
+					//SW070127 Å¸ï¿½ï¿½Åº
 					if( bInTitan = pmsg->bInTitan )
 					{
 						pPlayer->RidingTitan(bInTitan);
@@ -1459,7 +1459,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						}
 					}
 
-					//SW051112 ¹«½Ö¸ðµå
+					//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 					if((pPlayer->GetCharacterTotalInfo()->bVisible == FALSE)
 						||(!pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide)))
 					{
@@ -1469,7 +1469,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 							OBJECTEFFECTDESC desc(FindEffectNum("maintain_mussang.beff"));
 							pPlayer->AddObjectEffect( MUSSANG_EFFECT_ID, &desc, 1, pPlayer);
 #else
-							// 06. 03. ±¹³»¹«½Ö - ÀÌ¿µÁØ
+							// 06. 03. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 							switch(pPlayer->GetStage())
 							{
 							case eStage_Normal:	
@@ -1525,12 +1525,12 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 							if(pPlayer->InTitan())
 							{
 								OBJECTEFFECTDESC desc(FindEffectNum("t_eff_bmu_A_s.beff"));
-								pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HERO´Â ¿É¼Ç ¼³Á¤ ¹«°üÇÏ°Ô ÀÌÆåÆ® »ý¼ºÀ» À§ÇÑ..¼³Á¤
+								pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HEROï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½
 							}
 							else
 							{
 								OBJECTEFFECTDESC desc(FindEffectNum("eff_bmu_A_s.beff"));
-								pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HERO´Â ¿É¼Ç ¼³Á¤ ¹«°üÇÏ°Ô ÀÌÆåÆ® »ý¼ºÀ» À§ÇÑ..¼³Á¤
+								pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HEROï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½
 							}
 						}
 						else if( pmsg->BaseObjectInfo.BattleTeam == eBattleTeam2 )
@@ -1627,7 +1627,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						{
 							PETMGR->SetCurSummonPet(pPet);
 
-							//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+							//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 							PETMGR->SetCurSummonPetKind(pPet);
 							if( PETMGR->CheckCurSummonPetKindIs(ePK_EventPet) )
 							{
@@ -1640,9 +1640,9 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 
 							//CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1259) );
 							//PETMGR->OpenPetStateDlg();
-							PETMGR->SetPetStateDlgInfo(pPet);	//Æê»óÅÂÃ¢(Å«) Á¤º¸ ¼¼ÆÃ.
-							PETMGR->SetPetStateMiniDlgInfo(pPet);	//Æê»óÅÂÃ¢(ÀÛ) Á¤º¸ ¼¼ÆÃ.
-							PETMGR->SetPetStateDlgUseRestInfo(pPet);	//Æê »ç¿ë/ÈÞ½Ä ¼¼ÆÃ.
+							PETMGR->SetPetStateDlgInfo(pPet);	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢(Å«) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+							PETMGR->SetPetStateMiniDlgInfo(pPet);	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+							PETMGR->SetPetStateDlgUseRestInfo(pPet);	//ï¿½ï¿½ ï¿½ï¿½ï¿½/ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 							//PETMGR->InitPetSkillGuage();
 							PETMGR->SetCurPetRest(pmsg->TotalInfo.bRest);
 							PETMGR->SetPetStateDlgUseRestInfo(pPet);
@@ -1655,9 +1655,9 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						//pPet->SetMaster(NULL);
 					}
 
-					pPet->SetMasterID(pmsg->MasterID);	//»ý¼ºµÈ ÆêÀº °°Àº ±×¸®µå³»¿¡ ÁÖÀÎ À¯¹«¿Í »ó°ü ¾øÀÌ ÁÖÀÎID Á¤º¸ °¡Áö°í ÀÖ´Â´Ù. ÁÖÀÎ Ãß°¡½Ã ¾²ÀÓ.
+					pPet->SetMasterID(pmsg->MasterID);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å³»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ID ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-					//Æê »ý¼º½Ã ÁÖÀÎ°ú ±×¸®µå¸¦ ºñ±³ÇØ¼­ ±×¸®µå°¡ ´Ù¸£¸é °°Àº ±×¸®µå·Î °­Á¦ ¼¼ÆÃÇÏ´Â °Íµµ ¹æ¹ýÀÏ °ÍÀÌ´Ù!
+					//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½×¸ï¿½ï¿½å°¡ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½!
 					/*
 					if(pmsg->bLogin)
 					{
@@ -1704,7 +1704,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					}
 					
 #ifdef TAIWAN_LOCAL
-					//ÀÓ½Ã·Î! ¸ó½ºÅÍÀÌ¸§À» ¼­¹ö¿¡¼­ ¾Èº¸³»ÁÖµµ·Ï ÇÏÀÚ!
+					//ï¿½Ó½Ã·ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èºï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 					SafeStrCpy( pmsg->BaseObjectInfo.ObjectName,
 						GAMERESRCMNGR->GetMonsterListInfo( pmsg->TotalInfo.MonsterKind )->Name,
 						MAX_NAME_LENGTH+1 );
@@ -1754,7 +1754,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					}
 					
 #ifdef TAIWAN_LOCAL
-					//ÀÓ½Ã·Î! ¸ó½ºÅÍÀÌ¸§À» ¼­¹ö¿¡¼­ ¾Èº¸³»ÁÖµµ·Ï ÇÏÀÚ!
+					//ï¿½Ó½Ã·ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èºï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 					SafeStrCpy( pmsg->BaseObjectInfo.ObjectName,
 						GAMERESRCMNGR->GetMonsterListInfo( pmsg->TotalInfo.MonsterKind )->Name,
 						MAX_NAME_LENGTH+1 );
@@ -1902,7 +1902,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 				{
 
 					WINDOWMGR->AddListDestroyWindow( WINDOWMGR->GetWindowForID( MBI_NOBTNMSGBOX ) );
-					OBJECTSTATEMGR->EndObjectState( HERO, eObjectState_Enter );//AO¨öA
+					OBJECTSTATEMGR->EndObjectState( HERO, eObjectState_Enter );//AOï¿½ï¿½A
 				}
 				break;
 			case MP_USERCONN_MAPDESC:
@@ -1911,11 +1911,11 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					MAP->SetVillage( pmsg->wData1 );
 					PKMGR->SetPKAllow( pmsg->wData2 );
 //!!					
-//					//SW050907 ¸¶À»/ÇÊµå ÃÊ±â ÆòÈ­»óÅÂ ¼³Á¤
+//					//SW050907 ï¿½ï¿½ï¿½ï¿½/ï¿½Êµï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //					HERO->SetPeaceMode( pmsg->wData1 );
 //					PEACEWARMGR->Peace_WarMode(HERO, pmsg->wData1);
 					
-					// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ GetMapName( MAP->GetMapNum() ) ¼öÁ¤
+					// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GetMapName( MAP->GetMapNum() ) ï¿½ï¿½ï¿½ï¿½
 #ifdef TAIWAN_LOCAL					
 					if( MAP->GetMapNum() == EVENTMAPNUM || MAP->GetMapNum() == Tournament || 
 						MAP->GetMapNum() == QuestRoom )
@@ -1957,10 +1957,10 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					if( PKMGR->IsPKAllow() )
 					{
 						CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg( 558 ) );
-						//PKÇã¿ë ±ÝÁö ¹Ì´Ï¸Ê¿¡ Ç¥½ÃÇØÁÖ±â
+						//PKï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì´Ï¸Ê¿ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 					}
 
-					// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+					// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 					if(HERO->GetGuildIdx() && GUILDMGR->GetGuildNotice())
 						CHATMGR->AddMsg(CTC_GUILD_NOTICE, CHATMGR->GetChatMsg(1280), GUILDMGR->GetGuildNotice());
 				}
@@ -1969,7 +1969,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 				{
 					MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 					CObject* pObj = OBJECTMGR->GetObject(pmsg->dwData1);
-					if( !pObj ) // AI¨¬I¨¬¨¢¢¯¢®¨ù¡© NULL¡Æ¨£ AuA¢Ò(E¢çAI¢¯a!)
+					if( !pObj ) // AIï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NULLï¿½Æ¨ï¿½ AuAï¿½ï¿½(Eï¿½ï¿½AIï¿½ï¿½a!)
 					{
 						ASSERT(0);
 						return;
@@ -2061,7 +2061,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					if( pmsg->dwData != 0 )
                         CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1178) );
 					else
-						CHATMGR->AddMsg( CTC_SYSMSG, "Çà¿î»óÀÚ ÄíÆù 50ÀåÀ» ¸ðµÎ µî·ÏÇÏ¿´½À´Ï´Ù." );	// ÀÌº¥Æ® °ü·Ã ÀÓ½Ã·Î ³ÖÀ½...
+						CHATMGR->AddMsg( CTC_SYSMSG, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." );	// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½...
 				}
 				break;
 			case MP_USERCONN_EVENTITEM_USE2:
@@ -2077,7 +2077,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 				}
 				break;
 			case MP_USERCONN_FLAGNPC_ONOFF:
-				{//SW061220 »óÅÂ±ê¹ßNPC°ü·Ã Ãß°¡. //±ê¹ß Ç¥½Ã ¾ÈÇÏ±â À§ÇÑ »óÅÂ.
+				{//SW061220 ï¿½ï¿½ï¿½Â±ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½. //ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 
 					int flg = 0;
@@ -2092,7 +2092,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 
 					OBJECTMGR->SetWeekData(flg);
 
-					//SW061205 ±ê¹ß NPC
+					//SW061205 ï¿½ï¿½ï¿½ NPC
 					SYSTEMTIME st;
 					GetLocalTime(&st);
 					WORD day = st.wDayOfWeek;
@@ -2105,7 +2105,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					OBJECTMGR->ChangeFlagNPC(eSGFlg, SGFlg);
 				}
 				break;
-			case MP_USERCONN_CHANGEMAP_CHANNELINFO_ACK:	//2008. 5. 8. CBH - ÀÌµ¿ÇÒ ¸Ê Ã¤³ÎÁ¤º¸¸¦ ¹Þ´Â ÇÁ·ÎÅäÄÝ Ãß°¡
+			case MP_USERCONN_CHANGEMAP_CHANNELINFO_ACK:	//2008. 5. 8. CBH - ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				{
 					MSG_CHANNEL_INFO * pmsg = (MSG_CHANNEL_INFO*)pMsg;
 
@@ -2114,7 +2114,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 					{
 						pChannelDlg->SetChannelList(pmsg);
 
-						// Ã¼³ÎÀÌ ÇÏ³ªÀÌ¸é ¹Ù·Î µé¾î°¡°Ô ÇÔ
+						// Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Ì¸ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½
 						if(pmsg->Count == 1)
 						{							
 							pChannelDlg->MapChange();
@@ -2124,7 +2124,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 				}
 				break;
 
-			case MP_USERCONN_CHANGEMAP_CHANNELINFO_NACK:	//2008. 5. 8. CBH - ÀÌµ¿ÇÒ ¸Ê Ã¤³ÎÁ¤º¸¸¦ ¹Þ´Â ÇÁ·ÎÅäÄÝ Ãß°¡
+			case MP_USERCONN_CHANGEMAP_CHANNELINFO_NACK:	//2008. 5. 8. CBH - ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				{
 					MSG_BYTE* msg = (MSG_BYTE*)pMsg;
 					if( msg->bData == 0 )
@@ -2253,7 +2253,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 
 #ifndef TAIWAN_LOCAL
 							int nLen = strlen( pNpc->GetObjectName() ) - 6;
-							if( nLen > 0 && strcmp( pNpc->GetObjectName() + nLen, "°¡´Â±æ" ) == 0 )
+							if( nLen > 0 && strcmp( pNpc->GetObjectName() + nLen, "ï¿½ï¿½ï¿½Â±ï¿½" ) == 0 )
 							{
 								strncpy( buf, pNpc->GetObjectName(), nLen );
 								buf[nLen] = 0;
@@ -2263,8 +2263,8 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 								strcpy( buf, pNpc->GetObjectName() );
 							}
 #else
-							int nLen = strlen( pNpc->GetObjectName() ) - 4; //"¡À¡¿E¢Ò"A|¢¯U
-							if( nLen > 0 && strncmp( pNpc->GetObjectName(), "Í¨Íù", 4 ) == 0 )
+							int nLen = strlen( pNpc->GetObjectName() ) - 4; //"ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½"A|ï¿½ï¿½U
+							if( nLen > 0 && strncmp( pNpc->GetObjectName(), "Í¨ï¿½ï¿½", 4 ) == 0 )
 							{
 								strncpy( buf, pNpc->GetObjectName()+4, nLen );
 								buf[nLen] = 0;
@@ -2277,19 +2277,19 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 							
 
 							//060607 - fixed by wonju----------------------------------------------------------------------------
-							//¸ÊÀÌµ¿½Ã Ä³¸¯ÅÍÀÇ ·¹º§ÀÌ ÃÖÀú ·¹º§ ¸ó½ºÅÍÀÇ ·¹º§º¸´Ù 15ÀÌ»ó Â÷ÀÌ³¯ °æ¿ì
+							//ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 15ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½
 
-							//ÇöÀç Ä³¸¯ÅÍÀÇ ·¹º§À» ¾Ë¾Æ³½´Ù.
+							//ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 							unsigned int CharLevel = HERO->GetLevel();
 
-							//npcÀÇ uniqueÁ¤º¸¸¦ ÀÌ¿ëÇÏ¿© ÀÌµ¿ÇÒ ¸ÊÀÇ ¹øÈ£¸¦ ¾Ë¾Æ³½´Ù.
+							//npcï¿½ï¿½ uniqueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 
 							WORD uniquenum = pNpc->GetNpcUniqueIdx();
 							MAPCHANGE_INFO* pMCInfo = NULL;
 							
 							pMCInfo = GAMERESRCMNGR->GetMapChangeInfo(uniquenum);
 
-							if(pMCInfo == NULL) ASSERTMSG(0,"¿Ã¹Ù¸¥ Á¤º¸¸¦ ¾òÀ» ¼ö ¾ø½À´Ï´Ù.");
+							if(pMCInfo == NULL) ASSERTMSG(0,"ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 							int destmapnumber = pMCInfo->MoveMapNum;
 
@@ -2299,12 +2299,12 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 #else
 							unsigned int MinMonsterLevel = 0;
 
-							//¸Ê¿¡¼­ °¡Àå ·¹º§ÀÌ ÀÛÀº ¸ó½ºÅÍÀÇ ·¹º§À» Ã£´Â´Ù.
+							//ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 							MinMonsterLevel = GAMERESRCMNGR->GetMinMonsterLvInMap(destmapnumber);
 
-							//if(MinMonsterLevel == 0) //Á¤»óÀûÀÎ ½ºÅ©¸³Æ® ±â·Ï ¿À·ù							
+							//if(MinMonsterLevel == 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½							
 
-							//ÃÖ¼Ò ¸ó½ºÅÍ ·¹º§ÀÌ 15º¸´Ù ÀÛ´Ù¸é 14°¡ µÈ´Ù.
+							//ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù¸ï¿½ 14ï¿½ï¿½ ï¿½È´ï¿½.
 							if(MinMonsterLevel < 15) MinMonsterLevel = 14;
 
 							if(CharLevel <= (MinMonsterLevel - 14) )
@@ -2336,7 +2336,7 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 						break;
 					case 23:  // bomul
 						{	
-							// 06.12.21 - RaMa : Å¬¸¯ÇÏ¸é ¾ÈµÇ´Â º¸¹°»óÀÚ.
+							// 06.12.21 - RaMa : Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 							VECTOR3 pos;
 							pNpc->GetPosition( &pos );
 							if( pos.x == 0 && pos.z == 0 )
@@ -2349,10 +2349,10 @@ void CGameIn::NetworkMsgParse(BYTE Category,BYTE Protocol,void* pMsg)
 							GAMEEVENTMGR->AddEvent(eGameEvent_NpcClick);	
 						}
 						break; 
-					case 16:		// °ø¼º¸Ê °¢ÀÎ »óÂ¡¹°
+					case 16:		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¡ï¿½ï¿½
 						{
 							CGuild* pGuild = NULL;
-							// °¢ÀÎ½ÃÀÛ		
+							// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½		
 							if( HERO->GetGuildMemberRank() != GUILD_MASTER )
 							{
 								CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1010) );								
@@ -2378,7 +2378,7 @@ EngraveFailed:
 									OBJECTSTATEMGR->EndObjectState(HERO, eObjectState_Deal);
 						}
 						break;
-					case 17:	// ¿ä»õÀü °¢ÀÎ »óÂ¡¹°
+					case 17:	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¡ï¿½ï¿½
 						{
 							WINDOWMGR->MsgBox( MBI_FT_ENGRAVE_START_SYN, MBT_YESNO, CHATMGR->GetChatMsg(1046) );
 						}
@@ -2463,13 +2463,13 @@ EngraveFailed:
 				break;
 			case MP_SIGNAL_SYSTEM:
 				break;
-			case MP_SIGNAL_BATTLE:	//AO¨öA
+			case MP_SIGNAL_BATTLE:	//AOï¿½ï¿½A
 //				{
 //					TESTMSG *data = (TESTMSG *)pMsg;
 //					CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(24), data->Msg );
 //				}
 				break;
-			case MP_SIGNAL_VIMU_RESULT:	//AO¨öA
+			case MP_SIGNAL_VIMU_RESULT:	//AOï¿½ï¿½A
 				{
 					MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 					CObject* pWinner = OBJECTMGR->GetObject(pmsg->dwData1);
@@ -2552,7 +2552,7 @@ EngraveFailed:
 			JACKPOTMGR->NetworkMsgParse( Protocol, pMsg );
 		}
 		break;
-	//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå
+	//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½
 	case MP_SURVIVAL:
 		{
 			if(GAMEIN->GetSurvivalCountDlg())
@@ -2586,9 +2586,9 @@ EngraveFailed:
 					MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 					ITEM_INFO* pInfo = ITEMMGR->GetItemInfo( pmsg->dwData );
 					if( pInfo )
-                        CHATMGR->AddMsg( CTC_ALERT_YELLOW, "%s ¾ÆÀÌÅÛ Á¦ÇÑÀ¸·Î ´õÀÌ»ó ¾òÀ» ¼ö ¾ø½À´Ï´Ù.", pInfo->ItemName );
+                        CHATMGR->AddMsg( CTC_ALERT_YELLOW, "%s ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.", pInfo->ItemName );
 					else
-						CHATMGR->AddMsg( CTC_ALERT_YELLOW, "¾ÆÀÌÅÛ[%d] Á¦ÇÑÀ¸·Î ´õÀÌ»ó ¾òÀ» ¼ö ¾ø½À´Ï´Ù.", pmsg->dwData );
+						CHATMGR->AddMsg( CTC_ALERT_YELLOW, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[%d] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.", pmsg->dwData );
 				}
 				break;
 			}
@@ -2602,7 +2602,7 @@ EngraveFailed:
 void CGameIn::OnDisconnect()
 {
 	m_bDisconnected = TRUE;
-	if( cMsgBox::IsInit() )	//¡ÆOAOA¢´AoCE¢¯a? confirm
+	if( cMsgBox::IsInit() )	//ï¿½ï¿½OAOAï¿½ï¿½AoCEï¿½ï¿½a? confirm
 	{
 		if( HACKCHECK->IsHackUser() )
 		{
@@ -2640,7 +2640,7 @@ void CGameIn::ProcessInBossMap()
 }
 
 
-//Ä³¸¯ÅÍ ¼­¹ö ·Î±×ÀÎ ½Ã°£
+//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 void	CGameIn::SetLoginTime(SYSTEMTIME Time)
 {
 	GameinServerTime = Time;
@@ -2651,7 +2651,7 @@ SYSTEMTIME	CGameIn::GetLoginTime()
 	return GameinServerTime;
 }
 
-//Ä³¸¯ÅÍ Å¬¶óÀÌ¾ðÆ® ·Î±×ÀÎ ½Ã°£
+//Ä³ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 void	CGameIn::GetClientLoginTime(DWORD& date, DWORD& time)
 {
 	date = m_Clientdate;
@@ -2670,7 +2670,7 @@ void	CGameIn::SetClientLoginTime(DWORD date, DWORD time)
 void InitTestHero()
 {
 	DWORD id = 1;
-	{	// AOAI¡Æ©ª
+	{	// AOAIï¿½Æ©ï¿½
 		SEND_HERO_TOTALINFO info;
 		memset(&info,0,sizeof(info));
 		info.BaseObjectInfo.dwObjectID = id++;
@@ -2774,7 +2774,8 @@ void InitTestMonster()
 
 
 	DWORD temp =0;
-	for(int n=0;n<GAMERESRCMNGR->m_TestClientInfo.MonsterNum;++n)
+	int n;
+	for(n=0;n<GAMERESRCMNGR->m_TestClientInfo.MonsterNum;++n)
 	{
 		SEND_MONSTER_TOTALINFO info;
 		memset(&info,0,sizeof(info));

@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Player.h"
 #include "Monster.h"
 #include "StatsCalcManager.h"
@@ -112,16 +113,16 @@ void CPlayer::InitClearData()
 	memset(&m_HeroInfo,0,sizeof(HERO_TOTALINFO));
 	memset(&m_HeroMugongInfo, 0, sizeof(MUGONG_TOTALINFO));
 	memset(&m_itemStats,0,sizeof(m_itemStats));
-	memset(&m_setItemStats,0,sizeof(m_setItemStats));		// 2007. 6. 12. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ ±¸Á¶Ã¼ ÃÊ±âÈ­ Ãß°¡.
-	// RaMa - 04.11.08 ( ShopItemÀ¸·Î Ãß°¡µÇ´Â ¿É¼Ç )
+	memset(&m_setItemStats,0,sizeof(m_setItemStats));		// 2007. 6. 12. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½Ê±ï¿½È­ ï¿½ß°ï¿½.
+	// RaMa - 04.11.08 ( ShopItemï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½É¼ï¿½ )
 	memset(&m_ShopItemOption,0,sizeof(SHOPITEMOPTION));
 	for(int i=eAvatar_Weared_Hair; i<eAvatar_Max; i++)
 		m_ShopItemOption.Avatar[i]=1;
 	memset(&m_AvatarOption, 0 , sizeof(AVATARITEMOPTION));
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	memset(&m_SkillStatsOption, 0, sizeof(SKILLSTATSOPTION));
 	memset(&(m_BaseObjectInfo.SingleSpecialState), 0, sizeof(bool) * eSingleSpecialState_Max);
 	//////////////////////////////////////////////////////////////////////////
@@ -145,7 +146,7 @@ void CPlayer::InitClearData()
 	//m_pCurPet = NULL;
 	m_wKillMonsterLevel = 0;
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
 	m_dwMussangTime = 0;
 	m_wMussangStat = 0;
@@ -194,7 +195,7 @@ BOOL CPlayer::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObject
 	m_bExit			= FALSE;
 	m_bNormalExit	= FALSE;
 //
-	CObject::Init(kind, AgentNum, pBaseObjectInfo); //¢¯¨Ï¡¾a¨ù¡©¢¥A eObjectState_NoneA¢¬¡¤I ¢¬¢¬¥ìc¢¥U.
+	CObject::Init(kind, AgentNum, pBaseObjectInfo); //ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A eObjectState_NoneAï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½U.
 
 //KES 040827
 	OBJECTSTATEMGR_OBJ->StartObjectState( this, eObjectState_Immortal, 0 );
@@ -240,7 +241,7 @@ BOOL CPlayer::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObject
 	m_bDieForGFW = FALSE;
 	m_bDieInSpecialMap = FALSE;
 	
-	//SW051112 ¹«½Ö¸ðµå
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿
 	InitMussangPoint();
 	m_dwMussangStartTime = 0;
 	m_bIsMussangReady = FALSE;
@@ -254,7 +255,7 @@ BOOL CPlayer::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObject
 */
 	m_bWaitExitPlayer = TRUE;
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
 	m_dwMussangTime = 0;
 	m_wMussangStat = 0;
@@ -263,13 +264,13 @@ BOOL CPlayer::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObject
 	m_bWaitExitPlayer = TRUE;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	memset(&m_SkillStatsOption, 0, sizeof(SKILLSTATSOPTION));
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	memset(&(m_BaseObjectInfo.SingleSpecialState), 0, sizeof(bool) * eSingleSpecialState_Max);
 	//////////////////////////////////////////////////////////////////////////
 
@@ -289,7 +290,7 @@ BOOL CPlayer::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObject
 	m_SkillFailCount = 0;
 	m_FullMoonEventHCt = 0;
 	m_fFullMoonEventTime = 0.f;
-	m_dwHpMpBitFlag = 0x00;	// magi82	°æÇèÄ¡¸¶´Ù »óÅÂÈ¸º¹ °ü·Ã ÇÃ·¡±× ÃÊ±âÈ­
+	m_dwHpMpBitFlag = 0x00;	// magi82	ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
 	m_CristmasEventSnowIdx = 0;
 
@@ -381,7 +382,7 @@ BOOL CPlayer::RemoveItemRareOption(DWORD dwRareIdx)
 // 	SAFE_DELETE( pRareInfo );
 // 	m_ItemRareOptionList.Remove(dwRareIdx);
 
-	//SW060203 Assert ÅðÄ¡!
+	//SW060203 Assert ï¿½ï¿½Ä¡!
 	ITEM_RARE_OPTION_INFO* pRareInfo = NULL;
 	if( pRareInfo = m_ItemRareOptionList.GetData(dwRareIdx) )
 	{
@@ -438,7 +439,7 @@ BOOL CPlayer::RemoveItemOption(DWORD dwOptionIdx)
 // 		ASSERTMSG( 0, buf );
 // 	}
 
-	//SW060203 Assert ÅðÄ¡!
+	//SW060203 Assert ï¿½ï¿½Ä¡!
 	if( pNewInfo )
 	{
 		SAFE_DELETE(pNewInfo);
@@ -469,7 +470,7 @@ DWORD CPlayer::GetGravity()
 	m_FollowMonsterList.SetPositionHead();
 	while(pObject = m_FollowMonsterList.GetData())
 	{
-//		if( pObject->GetLastAttackPlayer() != this )//³»°¡ °ø°ÝÇÑ ¸ó½ºÅÍ°¡ ¾Æ´Ñ°æ¿ì¸¸
+//		if( pObject->GetLastAttackPlayer() != this )//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Æ´Ñ°ï¿½ì¸
 			totalG += pObject->GetGravity();
 	}
 //	ASSERT(totalG <= 100);
@@ -489,9 +490,9 @@ BOOL CPlayer::AddFollowList(CMonster * pMob)
 //										GetGravity(), 
 //										pMob->GetGravity()));
 //	}
-//KES ¸ÕÀú ³Ö°í! ³ªÁß¿¡ ºñÁßÀ» °è»êÇÏµµ·Ï º¯°æÇÏÀÚ.
+//KES ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½! ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //	if( GetGravity() + pMob->GetGravity() <= 100 )
-	if( m_FollowMonsterList.GetDataNum() < 50 )		//max 50¸¶¸®
+	if( m_FollowMonsterList.GetDataNum() < 50 )		//max 50ï¿½ï¿½ï¿½ï¿½
 	{
 		m_FollowMonsterList.Add(pMob, pMob->GetID());
 		return TRUE;
@@ -596,7 +597,7 @@ void CPlayer::InitHeroTotalInfo(HERO_TOTALINFO* pHeroInfo)
 	/* Money Setting */
 	m_ItemContainer.GetSlot(eItemTable_Inventory)->CreatePurse(&m_InventoryPurse, this, m_HeroInfo.Money, MAX_INVENTORY_MONEY);
 	/* BadFame Reduce Time Init*/
-	m_dwLastReduceHour = ( m_HeroInfo.Playtime - m_HeroInfo.LastPKModeEndTime ) / 3600; //¨öA¡Æ¡Ì
+	m_dwLastReduceHour = ( m_HeroInfo.Playtime - m_HeroInfo.LastPKModeEndTime ) / 3600; //ï¿½ï¿½Aï¿½Æ¡ï¿½
 }
 
 void CPlayer::InitMugongTotalInfo(MUGONG_TOTALINFO* pMugongInfo)
@@ -613,7 +614,7 @@ void CPlayer::InitItemTotalInfo(ITEM_TOTALINFO* pItemInfo)
 	m_ItemContainer.GetSlot(eItemTable_Inventory)->SetItemInfoAll(pItemInfo->Inventory);	
 	m_ItemContainer.GetSlot(eItemTable_Weared)->SetItemInfoAll(pItemInfo->WearedItem);
 
-	// µû·ÎÇØÁÖÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//m_ItemContainer.GetSlot(eItemTable_ShopInven)->SetItemInfoAll(pItemInfo->ShopInventory);
 }
 
@@ -773,7 +774,7 @@ void CPlayer::InitShopItemInfo(SHOP_ITEM* pItemInfo)
 
 			ITEM_INFO * pItemListInfo = ITEMMGR->GetItemInfo(pItemInfo->Item[i].wIconIdx);
 
-			//SW060328 ¾ÆÀÌÅÛ¸ô Æê »ý¼º
+			//SW060328 ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(pItemListInfo)
 			{
 				if( pItemListInfo->ItemKind == eSHOP_ITEM_PET )
@@ -897,7 +898,7 @@ void CPlayer::SetAddMsg(char* pAddMsg,WORD* pMsgLen,DWORD dwReceiverID,BOOL bLog
 	pMsg->Category = MP_USERCONN;
 	pMsg->Protocol = MP_USERCONN_CHARACTER_ADD;
 	pMsg->dwObjectID = dwReceiverID;
-	GetSendMoveInfo(&pMsg->MoveInfo,&pMsg->AddableInfo,TRUE);	//SW071129 ¹æÇâ Ãß°¡
+	GetSendMoveInfo(&pMsg->MoveInfo,&pMsg->AddableInfo,TRUE);	//SW071129 ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	pMsg->MoveInfo.AbilityKyungGongLevel = GetAbilityStats()->KyunggongLevel;
 	GetBaseObjectInfo(&pMsg->BaseObjectInfo);
 	GetCharacterTotalInfo(&pMsg->TotalInfo);	
@@ -917,7 +918,7 @@ void CPlayer::SetAddMsg(char* pAddMsg,WORD* pMsgLen,DWORD dwReceiverID,BOOL bLog
 			pMsg->AddableInfo.AddInfo(CAddableInfoList::StreetBuyStall,strlen(StallTitle)+1,StallTitle);
 	}
 
-	if( GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET )	//¡§¡þn¨Ïo¢®iA¨Ï¡þAI ¡ËO¢®¡¿
+	if( GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET )	//ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½oï¿½ï¿½iAï¿½Ï¡ï¿½AI ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
 	{
 		COMPRESSEDPOS VimuPos;
 
@@ -957,7 +958,7 @@ void CPlayer::SetAddMsg(char* pAddMsg,WORD* pMsgLen,DWORD dwReceiverID,BOOL bLog
 	pMsg->bInTitan = InTitan();
 
 	TITAN_APPEARANCEINFO TitanAppearanceInfo;
-	// Å¸ÀÌÅº ¸Å´ÏÁ®¿¡ ¼¼ÆÃµÈ ÀåÂøÀÎµ¦½º Á¤º¸.
+	// Å¸ï¿½ï¿½Åº ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	m_TitanManager.GetAppearanceInfo(&TitanAppearanceInfo);
 	pMsg->AddableInfo.AddInfo(CAddableInfoList::TitanAppearanceInfo, sizeof(TITAN_APPEARANCEINFO), &TitanAppearanceInfo);
 
@@ -983,15 +984,15 @@ void CPlayer::DoSetInited()
 {
 	STATSMGR->CalcItemStats(this);	
 	
-	// ¡Ë¡þEAI¡Íi¡Ë?CI¢®¨¡A¨Ï©ª¡§¡Ì C¡§¨£¡Íi¡Íi ¢®iy¡Ë¡þi¢®¢´A ¡§uEA¢®A¢®¨¡O
+	// ï¿½Ë¡ï¿½EAIï¿½ï¿½iï¿½ï¿½?CIï¿½ï¿½ï¿½ï¿½Aï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½i ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½uEAï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½O
 	SetLife(m_HeroCharacterInfo.Life);
 	SetShield(m_HeroCharacterInfo.Shield);
 	SetNaeRyuk(m_HeroInfo.wNaeRyuk);
 
-	// ¢®¢´I¢®¨ú¢®¢¯AI C¨Ï¡þ; ¡ËO¢®¡¿ d¡§¡þ¡Ë¡þ¡Ë¡þ| A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¡Ë?
+	// ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI Cï¿½Ï¡ï¿½; ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½?
 	SetPlayerLevelUpPoint(GetPlayerLevelUpPoint());
 
-	// ¡§oA¢®¨¡¢®I¢®¨¡¡§¡Ì AE¢®¨úaE¢®¨Ï
+	// ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AEï¿½ï¿½ï¿½ï¿½aEï¿½ï¿½ï¿½ï¿½
 //	m_dwStartTime = gCurTime;
 	m_dwProgressTime = gCurTime;
 }
@@ -1000,12 +1001,12 @@ void CPlayer::CalcState()
 {
 	STATSMGR->CalcItemStats(this);	
 
-	// ¡Ë¡þEAI¡Íi¡Ë?CI¢®¨¡A¨Ï©ª¡§¡Ì C¡§¨£¡Íi¡Íi ¢®iy¡Ë¡þi¢®¢´A ¡§uEA¢®A¢®¨¡O
+	// ï¿½Ë¡ï¿½EAIï¿½ï¿½iï¿½ï¿½?CIï¿½ï¿½ï¿½ï¿½Aï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½i ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½uEAï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½O
 	SetLife(m_HeroCharacterInfo.Life);
 	SetShield(m_HeroCharacterInfo.Shield);
 	SetNaeRyuk(m_HeroInfo.wNaeRyuk);
 
-//	// ¢®¢´I¢®¨ú¢®¢¯AI C¨Ï¡þ; ¡ËO¢®¡¿ d¡§¡þ¡Ë¡þ¡Ë¡þ| A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¡Ë?
+//	// ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI Cï¿½Ï¡ï¿½; ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½?
 //	SetPlayerLevelUpPoint(GetPlayerLevelUpPoint());
 }
 
@@ -1077,8 +1078,8 @@ HUNTITEM_FAILED:
 	return FALSE;
 }
 */
-// LBS 03.11.04 flagA¢®¢´¢®¨¡¡Ë¢ç ¨Ïo¢®¨¡¢®¨¡C¢®ic¢®¨úa¡Ë?I ¡§¢®E¢®¨úa¢®¨ú¡Ë¡þ¡§¡þ¡§¡Ë (CoAc) 0:¡§¢®E¢®¨úa, 1:¢®ic¢®¨úa, 
-// 3:(DB¡§u¢®ACI¢®¨¡i, A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç ¡§uE¡Ë¡þ¡Ëc¡Ë¡þe¡§u¢®¨Ï ¡Ë¡þ¡§¡©¡§u¡§uAo¡Ë¡þ| ¡ËOc¡Ë?iAo ¡§uE¡Ë¡ÍA¡Ë¡ÍU.)
+// LBS 03.11.04 flagAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿ ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½icï¿½ï¿½ï¿½ï¿½aï¿½ï¿½?I ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (CoAc) 0:ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½a, 1:ï¿½ï¿½icï¿½ï¿½ï¿½ï¿½a, 
+// 3:(DBï¿½ï¿½uï¿½ï¿½ACIï¿½ï¿½ï¿½ï¿½i, Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uEï¿½Ë¡ï¿½ï¿½ï¿½cï¿½Ë¡ï¿½eï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uAoï¿½Ë¡ï¿½| ï¿½ï¿½Ocï¿½ï¿½?iAo ï¿½ï¿½uEï¿½Ë¡ï¿½Aï¿½Ë¡ï¿½U.)
 
 void CPlayer::MoneyUpdate( MONEYTYPE money )
 {	
@@ -1099,7 +1100,7 @@ void CPlayer::SetMoneyNoMsg(DWORD money)
 {	
 	m_HeroInfo.Money = money;	
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 }
 */
@@ -1111,11 +1112,11 @@ void CPlayer::SetMoneyNoMsgNoUpdate(DWORD money)
 }
 */
 /*
-void CPlayer::ObtainMoney(DWORD addmoney)		//¡Ë¡þ¢®AA¢®¢¯¡Ë?¡§I¡§u¢®¨Ï ¡§uo¡§uu;¡ËO¢®¡¿¡Ë¡þ¡Ë¡þ E¢®IAa
+void CPlayer::ObtainMoney(DWORD addmoney)		//ï¿½Ë¡ï¿½ï¿½ï¿½AAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½Iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uoï¿½ï¿½uu;ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ Eï¿½ï¿½IAa
 {
 	m_HeroInfo.Money += addmoney;	
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 
 	MSG_DWORD msg;
@@ -1132,7 +1133,7 @@ void CPlayer::SetGenGol(WORD val)
 
 	STATSMGR->CalcCharStats(this);
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 
 	MSG_DWORD msg;
@@ -1149,7 +1150,7 @@ void CPlayer::SetMinChub(WORD val)
 
 	STATSMGR->CalcCharStats(this);
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 
 	MSG_DWORD msg;
@@ -1163,10 +1164,10 @@ void CPlayer::SetCheRyuk(WORD val)
 {
 	m_HeroInfo.wCheRyuk = val;
 
-	// ¢®iy¡Ë¡þi¢®¢´A, ¨Ïo¨Ï¢®¡§ui¢®¢´A; ¡Ë¡ÍU¡§oA ¢®¨¡e¢®ie
+	// ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A, ï¿½ï¿½oï¿½Ïï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½A; ï¿½Ë¡ï¿½Uï¿½ï¿½oA ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ie
 	STATSMGR->CalcCharStats(this);
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 
 	MSG_DWORD msg;
@@ -1180,10 +1181,10 @@ void CPlayer::SetSimMek(WORD val)
 {
 	m_HeroInfo.wSimMek = val;
 
-	// ¨Ï©ª¢®i¢®¢´A; ¡Ë¡ÍU¡§oA ¢®¨¡e¢®ie
+	// ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½A; ï¿½Ë¡ï¿½Uï¿½ï¿½oA ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ie
 	STATSMGR->CalcCharStats(this);
 
-	// DB¡Ë?¡Ë¢ç ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	CharacterHeroInfoUpdate(this);
 
 	MSG_DWORD msg;
@@ -1200,24 +1201,24 @@ BOOL CPlayer::UseItem(WORD abs_pos)
 	return TRUE;
 }
 
-// AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc, AaA¨Ï¨£A¢®E, ¡Ë¡ÍUAaA¢®E
+// AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½c, AaAï¿½Ïï¿½Aï¿½ï¿½E, ï¿½Ë¡ï¿½UAaAï¿½ï¿½E
 BOOL CPlayer::UseConsumptionItem(WORD abs_pos)
 {
-	// ¡§uO¡Ë¡þ¨Ï¡Ì¡§u¡§¡þ ¡§u¡§¢®AIAU
+	// ï¿½ï¿½uOï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU
 
 	return TRUE;
 }
 
 BOOL CPlayer::UseEquipItem(WORD abs_pos)
 {
-	// ¡§u¡§¢®AIAU
+	// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU
 
 	return TRUE;
 }
 
 BOOL CPlayer::UseMugongItem(WORD abs_pos)
 {
-	// ¡§u¡§¢®AIAU
+	// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU
 
 	return TRUE;
 }
@@ -1273,7 +1274,7 @@ CItemSlot * CPlayer::GetSlot(eITEMTABLE tableIdx)
 	return NULL;
 }
 
-// ¨Ïo¢®i¢®¨¡¨Ï¨£¡§u¢®¨úAA¡Ë¡þ¡Ë¡þ ¡Ë?E
+// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AAï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½?E
 /*
 BOOL CPlayer::UseQuickItem(WORD rel_pos)
 {
@@ -1301,7 +1302,7 @@ void CPlayer::SetQuickSelectIdx(WORD idx)
 	//m_quick_info.cur_selected_abs_idx = 
 }
 */
-//---------------------- ¡§uoA¡Ë¢ç  ---------------------------------------------------
+//---------------------- ï¿½ï¿½uoAï¿½Ëï¿  ---------------------------------------------------
 void CPlayer::SetLife(DWORD val,BOOL bSendMsg) 
 {
 	if(GetState() == eObjectState_Die)
@@ -1311,7 +1312,7 @@ void CPlayer::SetLife(DWORD val,BOOL bSendMsg)
 	if(val > maxlife)
 		val = maxlife;
 	
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( InTitan() && val )
 	{
 		DWORD lifeRate = val * 100 / maxlife;
@@ -1322,11 +1323,11 @@ void CPlayer::SetLife(DWORD val,BOOL bSendMsg)
 		}
 	}
 
-	if(m_HeroCharacterInfo.Life != val)	// ¡Íi¢®I¨ÏoIAo AI¢®¨¡¨Ï¢®¡Ë?i¡Ë?¡Ë¢ç¡Ë¡ÍA ¡Ë?¢®©­Aa¡Ë?¡Ë¢ç¡§u¢®¨Ï ¢®i¡§IA¡§¨£¡Ë¡ÍU.
+	if(m_HeroCharacterInfo.Life != val)	// ï¿½ï¿½iï¿½ï¿½Iï¿½ï¿½oIAo AIï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿?iï¿½ï¿½?ï¿½Ëï¿½Ë¡ï¿½A ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iï¿½ï¿½IAï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 	{
 		if(bSendMsg == TRUE)
 		{
-			// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+			// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 			MSG_INT msg;
 			msg.Category = MP_CHAR;
 			msg.Protocol = MP_CHAR_LIFE_ACK;
@@ -1372,9 +1373,9 @@ void CPlayer::SetShield(DWORD val,BOOL bSendMsg)
 	if(val > maxShield)
 		val = maxShield;
 	
-	if(bSendMsg == TRUE)	// ¡Íi¢®I¨ÏoIAo AI¢®¨¡¨Ï¢®¡Ë?i¡Ë?¡Ë¢ç¡Ë¡ÍA ¡Ë?¢®©­Aa¡Ë?¡Ë¢ç¡§u¢®¨Ï ¢®i¡§IA¡§¨£¡Ë¡ÍU.
+	if(bSendMsg == TRUE)	// ï¿½ï¿½iï¿½ï¿½Iï¿½ï¿½oIAo AIï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿?iï¿½ï¿½?ï¿½Ëï¿½Ë¡ï¿½A ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iï¿½ï¿½IAï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 	{
-		// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+		// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 		MSG_INT msg;
 		msg.Category = MP_CHAR;
 		msg.Protocol = MP_CHAR_SHIELD_ACK;
@@ -1391,7 +1392,7 @@ void CPlayer::SetShield(DWORD val,BOOL bSendMsg)
 
 void CPlayer::SendPlayerShieldToParty(DWORD val, DWORD PartyID)
 {	
-	// A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç¡§u¢®¨Ï ¡§¡þ¡Ë¡þ¡Ë?¡§IAO¡Ë¡ÍA¢®¨¡O ¡§u¨Ï¨£¡Ë¡ÍA¡Íi¢®I ¡Ë?O A¨Ï¡þ¢®¨¡¡Ë¢çC¨Ï¡þ;¢®¨úi¨Ï©ª¡§¡Ì... hs
+	// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½?ï¿½ï¿½IAOï¿½Ë¡ï¿½Aï¿½ï¿½ï¿½ï¿½O ï¿½ï¿½uï¿½Ïï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I ï¿½ï¿½?O Aï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿½Cï¿½Ï¡ï¿½;ï¿½ï¿½ï¿½ï¿½iï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½... hs
 /*
 		CParty* pParty = PARTYMGR->GetParty(PartyID);
 		if(pParty == NULL)
@@ -1415,7 +1416,7 @@ void CPlayer::SetNaeRyuk(DWORD val,BOOL bSendMsg)
 	if(val > MaxNaeryuk)
 		val = MaxNaeryuk;
 
-	// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+	// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 	if( m_HeroInfo.wNaeRyuk != val)
 	{
 		if(bSendMsg)
@@ -1473,7 +1474,7 @@ void CPlayer::SetMaxLife(DWORD val)
 {
 	m_HeroCharacterInfo.MaxLife = val;
 
-	// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+	// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 	MSG_DWORD msg;
 	msg.Category = MP_CHAR;
 	msg.Protocol = MP_CHAR_MAXLIFE_NOTIFY;
@@ -1485,7 +1486,7 @@ void CPlayer::SetMaxShield(DWORD val)
 {
 	m_HeroCharacterInfo.MaxShield = val;
 
-	// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+	// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 	MSG_DWORD msg;
 	msg.Category = MP_CHAR;
 	msg.Protocol = MP_CHAR_MAXSHIELD_NOTIFY;
@@ -1497,7 +1498,7 @@ void CPlayer::SetMaxNaeRyuk(DWORD val)
 {
 	m_HeroInfo.wMaxNaeRyuk= val;
 
-	// To A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc -------------------------------
+	// To Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c -------------------------------
 	MSG_DWORD msg;
 	msg.Category = MP_CHAR;
 	msg.Protocol = MP_CHAR_MAXNAERYUK_NOTIFY;
@@ -1533,15 +1534,15 @@ void CPlayer::SetPlayerLevelUpPoint(LEVELTYPE val)
 	SendMsg(&msg,sizeof(msg));
 }
 /*****************************************************************/
-/* 1. AE¢®¨úa¡Ë?¡Ë¢ç A¨Ï©ª¡Ë¡þ?AI¢®¨¡¡Ë¢ç ¢®iy¡§u¡§¡þ¡ÍiC¡§uu;¡ËO¢®¡¿ from DBResultQuery
-/* 2. SetPlayerExpPoint()¡Ë?¡Ë¢ç¡§u¢®¨Ï AO¡Ë¡Íe ¢®¨¡¨Ï¢®CeA¡Ë¢ç¡Ë¡þ| ¨Ï©ªN¡§ui ¡§u¨Ïo; ¡ËO¢®¡¿ call¡ÍiE
+/* 1. AEï¿½ï¿½ï¿½ï¿½aï¿½ï¿½?ï¿½Ëï¿ Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?AIï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿ ï¿½ï¿½iyï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iCï¿½ï¿½uu;ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ from DBResultQuery
+/* 2. SetPlayerExpPoint()ï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ AOï¿½Ë¡ï¿½e ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½CeAï¿½Ëï¿½Ë¡ï¿½| ï¿½Ï©ï¿½Nï¿½ï¿½ui ï¿½ï¿½uï¿½ï¿½o; ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ callï¿½ï¿½iE
 /*
 /*
 /*****************************************************************/
 
 void CPlayer::SetLevel(LEVELTYPE level)
 {
-	if(level >= MAX_CHARACTER_LEVEL_NUM ) //MAX_PLAYERLEVEL_NUM ÕâÀï½«µÈ¼¶ÏÞÖÆÈ¥µô
+	if(level >= MAX_CHARACTER_LEVEL_NUM ) //MAX_PLAYERLEVEL_NUM ï¿½ï¿½ï¿½ï½«ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½
 	{
 		ASSERT(0);
 		return;
@@ -1555,8 +1556,8 @@ void CPlayer::SetLevel(LEVELTYPE level)
 		{
 			m_HeroInfo.MaxLevel = level;
 			/////////////////////////////////////////////////////////////
-			// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-			// 70ÀÌ»ó ·¹º§¾÷½Ã È¹µæ ½ºÅÈ Áõ°¡
+			// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+			// 70ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( level > 70 )
 				SetPlayerLevelUpPoint(GetPlayerLevelUpPoint()+4);	// magi82
 			else
@@ -1564,7 +1565,7 @@ void CPlayer::SetLevel(LEVELTYPE level)
 			/////////////////////////////////////////////////////////////
 
 #ifdef _KOR_LOCAL_
-			// Event¿ë , ´õºí¾÷ÀÌº¥Æ®
+			// Eventï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 			static LEVELTYPE lvtbl[8] = { 10, 15, 20, 25, 30, 35, 40, 45 };
 			for( int i=0; i<8; ++i )
 			{
@@ -1580,13 +1581,13 @@ void CPlayer::SetLevel(LEVELTYPE level)
                 GMEvent01( GetUserID(), GetID(), m_HeroInfo.MaxLevel, g_nServerSetNum );
 #endif
 
-			// °ÔÀÓÀÌº¥Æ®·Î ¾ÆÀÌÅÛ ¾ò´Â´Ù...
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿...
 			GAMEEVENTMGR->ProcessLevelUpEvent( this, m_HeroInfo.MaxLevel );
 
-			//SW060719 ¹®ÆÄÆ÷ÀÎÆ®	//¹®ÆÄ¿ø ·¾¾÷¿¡ µû¸¥ °¡»ê.
+			//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®	//ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			GUILDMGR->GuildMemberLevelUpToGuildPoint(this);
 
-			//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±	//¹®ÇÏ»ý ·¾¾÷¿¡ µû¸¥ Æ÷ÀÎÆ® ´©Àû. ÃàÇÏ±Ý
+			//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½	//ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ï±ï¿½
 			GUILDMGR->GuildStudentLvUpPointDBUpdate(this);
 		}
 		
@@ -1600,10 +1601,10 @@ void CPlayer::SetLevel(LEVELTYPE level)
 		SetNaeRyuk(GetMaxNaeRyuk());
 		SetMussangMaxPoint();
 		
-		// Journal DB¿¡ Ãß°¡
+		// Journal DBï¿½ï¿½ ï¿½ß°ï¿½
 		JournalInsertLevel(GetID(), eJournal_Levelup, level);
 
-		// Client¿¡ ¾Ë¸²
+		// Clientï¿½ï¿½ ï¿½Ë¸ï¿½
 		SEND_JOURNALINFO msg;
 		msg.Category = MP_JOURNAL;
 		msg.Protocol = MP_JOURNAL_ADD;
@@ -1632,7 +1633,7 @@ void CPlayer::SetLevel(LEVELTYPE level)
 
 		QUESTMGR->AddQuestEvent( this, &CQuestEvent( eQuestEvent_Level, level, 1 ) );
 // jsd quest
-// ¡Ë?¡§I¢®¨úa¡§u¢®¨Ï levelup event¨Ïo¨Ï¡þ¢®iy
+// ï¿½ï¿½?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½aï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ levelup eventï¿½ï¿½oï¿½Ï¡ï¿½ï¿½ï¿½iy
 //	QUESTEVENT qe;
 //	qe.Init( (void*)this, eQuestEvent_LevelUp, m_HeroCharacterInfo.Level, 0 );
 //	QUESTEVENTMGR->AddQuestEvent( qe );
@@ -1667,7 +1668,7 @@ void CPlayer::SetPlayerExpPoint(EXPTYPE point,BYTE bDie)
 	ASSERT(GetLevel() <= MAX_CHARACTER_LEVEL_NUM);
 	if(GetLevel() == MAX_CHARACTER_LEVEL_NUM)
 		return;
-	// ¢®¢´¨Ïo¡§¡þ¢®¡¿¡§u¢®A ¡§¢®¢®AAI¡§¢®¡Ëc AIAo A¡§uA¡§I!!!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c AIAo Aï¿½ï¿½uAï¿½ï¿½I!!!
 	EXPTYPE pointForLevel = GAMERESRCMNGR->GetMaxExpPoint(GetLevel());
 
 	if(point >= pointForLevel)
@@ -1679,7 +1680,7 @@ void CPlayer::SetPlayerExpPoint(EXPTYPE point,BYTE bDie)
 		
 //		LEVELTYPE aftermaxLevel = GetMaxLevel();
 
-		// magi82 LevelUp ±¸°£È­ ¼öÁ¤ -> ·¹º§¾÷À» ÇßÀ»¶§ ÃÖ°í·¹º§°ú µ¿ÀÏÇØ¾ß¸¸ ½ºÅÝ ÇÃ·¡±×¸¦ ÃÊ±âÈ­(2·¹º§ ´Ù¿îÈÄ 1·¹º§¾÷ ÇßÀ»¶§ ÃÊ±âÈ­µÇ¸é ¾ÈµÇ¹Ç·Î ÀÛ¾÷ÇÔ)
+		// magi82 LevelUp ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½×¸ï¿½ ï¿½Ê±ï¿½È­(2ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ç¸ï¿½ ï¿½ÈµÇ¹Ç·ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½)
 		LEVELTYPE maxLevel = GetMaxLevel();
 		//LEVELTYPE curLevel = GetLevel();
 		SetLevel(m_HeroCharacterInfo.Level+1);
@@ -1689,12 +1690,12 @@ void CPlayer::SetPlayerExpPoint(EXPTYPE point,BYTE bDie)
 		{
 //		if( maxLevel == curLevel )
 //		{
-			// ·¹º§¾÷ÇßÀ»¶§ÀÇ ½ºÅÝ ÁÖ´Â ÇÔ¼ö
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½
 			SetLevelUpStatPoint(); // magi82
 
-			// ·¾¾÷À» ÇßÀ¸¹Ç·Î flag¸¦ ¸ðµÎ ÃÊ±âÈ­(´Ù½Ã 20% 40% 60% 80% ÀÏ¶§ ½ºÅÝ°ú »óÅÂÈ¸º¹À» Áà¾ßÇÏ´Ï±î..)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ flagï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½Ê±ï¿½È­(ï¿½Ù½ï¿½ 20% 40% 60% 80% ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Ï±ï¿..)
 //			m_HeroInfo.ExpFlag = 0x00;
-//			SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ±¸°£È­ ¼öÁ¤
+//			SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
 //			UCharacterExpFlag(GetID(), m_HeroInfo.ExpFlag);
 //			m_dwHpMpBitFlag = 0x00;
 		}
@@ -1705,17 +1706,17 @@ void CPlayer::SetPlayerExpPoint(EXPTYPE point,BYTE bDie)
 		
 		// character info log
 		InsertLogCharacter( GetID(), m_HeroCharacterInfo.Level, &m_HeroInfo );
-		//LEVEL downA¨¬ reduceexppoint¢¯¢®¨ù¡© ©ø©÷¡¾e
+		//LEVEL downAï¿½ï¿½ reduceexppointï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½e
 		InsertLogExp( eExpLog_LevelUp, GetID(), GetLevel(), 0, GetPlayerExpPoint(), 0, 0, GetPlayerAbilityExpPoint());
 
-		// Object AI¡§¡þ¢®I¡§¢®¡Ëc¡Ë?¡Ë¢ç ¡Ë¡ÍeCN A¡§uA¡§I¡Ë¡þ| CN¡Ë¡ÍU.
+		// Object AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ëï¿ ï¿½Ë¡ï¿½eCN Aï¿½ï¿½uAï¿½ï¿½Iï¿½Ë¡ï¿½| CNï¿½Ë¡ï¿½U.
 		CObjectEvent::ObjectEvent(this, OE_LEVELUP, &m_HeroCharacterInfo.Level);
 	}
 	else
 	{
 		m_HeroInfo.ExpPoint = point;
 
-		// °æÇèÄ¡°¡ 20% 40% 60% 80% µÇ¾úÀ»¶§ ½ºÅÝÁÖ´Â ºÎºÐ
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ 20% 40% 60% 80% ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Îºï¿½
 		LEVELTYPE maxLevel = GetMaxLevel();
 		LEVELTYPE curLevel = GetLevel();
 		if( maxLevel == curLevel )
@@ -1742,7 +1743,7 @@ void CPlayer::SetPlayerExpPoint(EXPTYPE point,BYTE bDie)
 
 void CPlayer::SetLevelUpStatPoint()
 {
-	// ·¾¾÷ÇßÀ»°æ¿ì ·¾¾÷ÇÏ±âÀü ½ºÅÝÀ» ¸ø¹ÞÀº¸¸Å­ ¹ÞÀ½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
 	for( int i = 0; i < 4; i++ )
 	{
 		if(!CheckBit(m_HeroInfo.ExpFlag, i))
@@ -1750,13 +1751,13 @@ void CPlayer::SetLevelUpStatPoint()
 	}
 
 	m_HeroInfo.ExpFlag = 0x00;
-	SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ±¸°£È­ ¼öÁ¤
+	SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
 	UCharacterExpFlag(GetID(), m_HeroInfo.ExpFlag);
 	m_dwHpMpBitFlag = 0x00;	// magi82
 
 	EXPTYPE maxexp = GAMERESRCMNGR->GetMaxExpPoint(GetLevel()+1);
 
-	// ·¾¾÷ÈÄ¿¡ ³ª¸ÓÁö °æÇèÄ¡µéÀÌ ¿Ã¶úÀ»¶§ ½ºÅÝÆ÷ÀÎÆ® Á¦°øÇØÁÖ´Â ºÎºÐ(20% 40% 60% 80%)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Îºï¿½(20% 40% 60% 80%)
 	int count = int(( ( (float)m_HeroInfo.ExpPoint / (float)maxexp ) * 100 ) / 20);
 
 	for( int i = 0; i < count; i++ )
@@ -1778,7 +1779,7 @@ void CPlayer::SetNormalStatPoint()
 {
 	EXPTYPE maxexp = GAMERESRCMNGR->GetMaxExpPoint( GetLevel() );
 
-	// °æÇèÄ¡ ¿Ã¶úÀ»¶§ ½ºÅÝÆ÷ÀÎÆ® Á¦°øÇØÁÖ´Â ºÎºÐ(20% 40% 60% 80%)
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Îºï¿½(20% 40% 60% 80%)
 	int count = int((((float)m_HeroInfo.ExpPoint / (float)maxexp)*100) / 20);
 
 	for( int i = 0; i < count; i++ )
@@ -1795,7 +1796,7 @@ void CPlayer::SetNormalStatPoint()
 
 	for( int i = 0; i < 4; i++ )
 	{
-		// 20 40 60 80 ÀÌ ³Ñ¾úÀ»¶§ Àû¿ëÇØÁÖ¸é¼­ TRUE
+		// 20 40 60 80 ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸é¼­ TRUE
 		if(count == i+1 && !CheckBit(m_dwHpMpBitFlag, i))
 		{
 			SetLife(GetMaxLife());
@@ -1805,7 +1806,7 @@ void CPlayer::SetNormalStatPoint()
 			for( int j = 0; j < count; j++ )
                 SetOnBit(&m_dwHpMpBitFlag, i);
 		}
-		// Á×¾î¼­ °æÇèÄ¡°¡ ³»·Á°¬À»¶§ FALSE
+		// ï¿½×¾î¼­ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FALSE
 		if(count == i && CheckBit(m_dwHpMpBitFlag, i))
 		{
 			m_dwHpMpBitFlag = 0x00;
@@ -1830,7 +1831,7 @@ void CPlayer::ReduceExpPoint(EXPTYPE minusExp, BYTE bLogType)
 	LEVELTYPE minuslevel = 0;
 	EXPTYPE CurExp = GetPlayerExpPoint();
 
-	if(GetLevel() <= 1 && CurExp < minusExp)	//¡¤©ö¨¬¡×1A¨¬ 0¡¾iAo¢¬¢¬ ¡¾iAI¢¥U.
+	if(GetLevel() <= 1 && CurExp < minusExp)	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1Aï¿½ï¿½ 0ï¿½ï¿½iAoï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iAIï¿½ï¿½U.
 		minusExp = CurExp;
 
 	InsertLogExp( bLogType, GetID(), GetLevel(), (DWORD)minusExp, GetPlayerExpPoint(), m_MurdererKind, m_MurdererIDX, GetPlayerAbilityExpPoint());
@@ -1842,8 +1843,8 @@ void CPlayer::ReduceExpPoint(EXPTYPE minusExp, BYTE bLogType)
 			minusExp -= CurExp;
 			++minuslevel;
 			CurExp = GAMERESRCMNGR->GetMaxExpPoint(GetLevel()-minuslevel) - 1;
-			ASSERT(minuslevel<2);	//E¢´¨öA©ø¨£ C¨ª¨ù¡©
-			if(minuslevel > 3)		//E¢´¨öA©ø¨£ CI¢¥A... ©ö¡ìCN¡¤cCA ©ö©¡Ao¢¯e
+			ASSERT(minuslevel<2);	//Eï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if(minuslevel > 3)		//Eï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ CIï¿½ï¿½A... ï¿½ï¿½ï¿½ï¿½CNï¿½ï¿½cCA ï¿½ï¿½ï¿½ï¿½Aoï¿½ï¿½e
 				break;
 		}
 		else
@@ -1857,15 +1858,15 @@ void CPlayer::ReduceExpPoint(EXPTYPE minusExp, BYTE bLogType)
 	{
 		SetLevel(m_HeroCharacterInfo.Level-minuslevel);
 		
-		// ·¹º§´Ù¿î ´çÇßÀ»¶§ÀÇ Ã³¸®
-		// (´Ù¿î´çÇÑ ·¹º§¶§ÀÇ ½ºÅÝÀº ¹Ì¸® ´Ù ¹Þ¾ÒÀ¸¹Ç·Î
-		// Flag¸¦ True·Î ÇÑ´Ù.)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+		// (ï¿½Ù¿ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+		// Flagï¿½ï¿½ Trueï¿½ï¿½ ï¿½Ñ´ï¿½.)
 
 		//m_HeroInfo.ExpFlag = 0x0F; // magi82
-		//SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ±¸°£È­ ¼öÁ¤
+		//SetOnBit(&m_HeroInfo.ExpFlag, 4);	// magi82 LevelUp ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
 		//UCharacterExpFlag(GetID(), m_HeroInfo.ExpFlag);	// magi82
 
-		// »óÅÂÈ¸º¹ ¿ª½Ã ¸¶Âù°¡Áö·Î ¹Ì¸® ¹Þ¾ÒÀ¸¹Ç·Î Flag¸¦ True·Î ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ Flagï¿½ï¿½ Trueï¿½ï¿½ ï¿½Ñ´ï¿½.
 		m_dwHpMpBitFlag = 0x0F;	// magi82
 
 		// character info log
@@ -1878,8 +1879,8 @@ void CPlayer::ReduceExpPoint(EXPTYPE minusExp, BYTE bLogType)
 
 void CPlayer::SetPlayerAbilityExpPoint(DWORD point,BOOL bUse) 
 {
-	// 2005 Å©¸®½º¸¶½º ÀÌº¥Å© ÄÚµå
-	// ´« ³»¸±¶§´Â ¼ö·ÃÄ¡ 10 Áõ°¡
+	// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Å© ï¿½Úµï¿½
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ 10 ï¿½ï¿½ï¿½ï¿½
 	if( WEATHERMGR->GetWeatherState() == eWS_Snow )
 		point += 10;
 
@@ -1918,7 +1919,7 @@ void CPlayer::AddAbilityExp(DWORD AbilityExp)
 
 DWORD CPlayer::AddExpPointToMugong(WORD MugongIdx,DWORD exp,BOOL bSuryunComplete)
 {
-	// 10000À» ³ÑÀ¸¸é Å¸ÀÌÅº ½ºÅ³ Á¤º¸ÀÌ¹Ç·Î »©Áà¾ßÇÔ
+	// 10000ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	//if(MugongIdx >= SKILLNUM_TO_TITAN)
 	//{
 	//	MugongIdx = MugongIdx - SKILLNUM_TO_TITAN;
@@ -1933,7 +1934,7 @@ DWORD CPlayer::AddExpPointToMugong(WORD MugongIdx,DWORD exp,BOOL bSuryunComplete
 	DWORD point =0;
 	pMugong->ExpPoint += exp;
 
-	//¨ú¡À¥ì¡ÍAI¨¡¢ç CE¢¯aCI¢¥U¡Æi C¡Í¨öA
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ CEï¿½ï¿½aCIï¿½ï¿½Uï¿½ï¿½i Cï¿½Íï¿½A
 	pMugong->bWear = TRUE;
 	
 	CSkillInfo* pSkillInfo = SKILLMGR->GetSkillInfo(pMugong->wIconIdx);
@@ -1996,10 +1997,10 @@ void CPlayer::SetPlayerMugongSung(POSTYPE abspos, BYTE sung, WORD Reason)
 	msg1.dwObjectID = GetID();
 	PACKEDDATA_OBJ->QuickSendExceptObjectSelf( this, &msg1, sizeof(msg1) );
 
-	//db ¡§uod¡Ë?a
+	//db ï¿½ï¿½uodï¿½ï¿½?a
 	MugongUpdateToDB(pMugong, "MUGONGSUNG");
 
-	// Log ¨Ïo¢®i¢®¨¡¨Ï¨£¡§u¡§¡þAC ¡§¡þ?E¢®¨Ï
+	// Log ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AC ï¿½ï¿½ï¿½ï¿½?Eï¿½ï¿½ï¿½ï¿½
 	InsertLogMugong( Reason, GetID(), pMugong->wIconIdx, pMugong->dwDBIdx, sung, pMugong->ExpPoint );
 
 //	CharacterMugongUpdate(pMugong);
@@ -2032,7 +2033,7 @@ void CPlayer::MugongLevelDown(WORD MugongIdx, WORD Reason)
 		pMugong->ExpPoint = newExp;
 		SetPlayerMugongSung(pMugong->Position,newSung,Reason);
 	}
-	//¨ú¡À¥ì¡ÍAI¨¡¢ç CE¢¯aCI¢¥U¡Æi C¡Í¨öA
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ CEï¿½ï¿½aCIï¿½ï¿½Uï¿½ï¿½i Cï¿½Íï¿½A
 	pMugong->bWear = TRUE;
 }
 
@@ -2083,7 +2084,7 @@ WORD CPlayer::GetWeaponEquipType()
 		return WP_GWUN;
 	ITEM_INFO * pItemInfo = ITEMMGR->GetItemInfo(WeaponItemIdx);
 
-	// ÀÏ´Ü ¼­¹ö Á×´Â°Å ¶«½Ã ¸·À½... tamoo
+	// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½... tamoo
 	if( pItemInfo )
 		return pItemInfo->WeaponType;
 	return 0;
@@ -2124,7 +2125,7 @@ void CPlayer::Revive()
 	
 	msg.cpos.Compress(&pos);
 	
-	//A¨Ï©ª¡Ë¡þ?AI ¢®iy¡Ë¡þi¢®¢´A Full¢®¢´I A¡Ë¢¥¡Ë?o
+	//Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?AI ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A Fullï¿½ï¿½ï¿½ï¿½I Aï¿½Ëï¿½ï¿½ï¿?o
 	SetLife(m_HeroCharacterInfo.MaxLife);
 	
 	CCharMove::SetPosition(this,&pos);
@@ -2155,7 +2156,7 @@ void CPlayer::ReviveAfterVimu( BOOL bSendMsg )
 
 	m_YYLifeRecoverTime.bStart = FALSE;
 	m_YYNaeRyukRecoverTime.bStart = FALSE;
-	SetLife( GetMaxLife() * 30 / 100 );	//¡§uoA¡Ë¢ç ¡§ui¡ËO¢®i¢®¨¡O CO¢®¨úi.
+	SetLife( GetMaxLife() * 30 / 100 );	//ï¿½ï¿½uoAï¿½Ëï¿ ï¿½ï¿½uiï¿½ï¿½Oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½O COï¿½ï¿½ï¿½ï¿½i.
 }
 
 
@@ -2173,7 +2174,7 @@ void CPlayer::RevivePresentSpot()
 		return;
 	}
 
-	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//¢®¢´c¡§¢®AA¨Ï¡þ¡Ë?¢®I
+	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAï¿½Ï¡ï¿½ï¿½ï¿½?ï¿½ï¿½I
 	{
 		MSG_BYTE msg;
 		msg.Category	= MP_USERCONN;
@@ -2219,7 +2220,7 @@ void CPlayer::RevivePresentSpot()
 	//if( g_pServerSystem->GetMapNum() != nakyang_siege &&
 	//	g_pServerSystem->GetMapNum() != Tournament )
 	DWORD dwCheckBit = eSiegeWarMap | eTournament | eEventMap | eQuestRoom | eSurvivalMap;
-	if( !(CHANNELSYSTEM->IsBattleChannel(GetChannelID()) && IsDieForBattleChannel()) )	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	if( !(CHANNELSYSTEM->IsBattleChannel(GetChannelID()) && IsDieForBattleChannel()) )	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( FALSE == g_pServerSystem->GetMap()->IsMapKind(dwCheckBit) )
 	//if( !EVENTMAPMGR->IsEventMap() &&
 	//	!QUESTMAPMGR->IsQuestMap() &&
@@ -2232,7 +2233,7 @@ void CPlayer::RevivePresentSpot()
 //		&& !g_pServerSystem->CheckMapKindIs(eSurvival) )
 	if(GetLevel() >= 5 && m_bDieForGFW == FALSE )
 	{
-		// RaMa -> °æÇèÄ¡+µ·º¸È£
+		// RaMa -> ï¿½ï¿½ï¿½ï¿½Ä¡+ï¿½ï¿½ï¿½ï¿½È£
 		DWORD ItemIdx = 0;
 		SHOPITEMWITHTIME* pShopItem = NULL;
 		if( GetShopItemStats()->ProtectCount )		
@@ -2244,7 +2245,7 @@ void CPlayer::RevivePresentSpot()
 			if( !pShopItem )
 				goto ProtectAll_UseFail;
 
-			// LogÃß°¡
+			// Logï¿½ß°ï¿½
 			LogItemMoney( GetID(), GetObjectName(), 0, "",
 				eLog_ShopItemProtectAll, GetMoney(eItemTable_Inventory), 0, 0,
 				ItemIdx, pShopItem->ShopItem.ItemBase.dwDBIdx, pShopItem->ShopItem.ItemBase.Position, 0, pShopItem->ShopItem.ItemBase.Durability, GetPlayerExpPoint());
@@ -2259,7 +2260,7 @@ void CPlayer::RevivePresentSpot()
 			}
 			else
 			{
-				// DB¿¡ ¾÷µ¥ÀÌÆ®
+				// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				ShopItemUseParamUpdateToDB( 0,  GetID(), ItemIdx, GetShopItemStats()->ProtectCount );
 			}
 			m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_PROTECTALL, GetShopItemStats()->ProtectCount);
@@ -2267,7 +2268,7 @@ void CPlayer::RevivePresentSpot()
 		else
 		{
 ProtectAll_UseFail:
-			// RaMa -> µ·º¸È£ ÁÖ¹®¼­
+			// RaMa -> ï¿½ï¿½ï¿½ï¿½È£ ï¿½Ö¹ï¿½ï¿½ï¿½
 			if( m_ShopItemManager.GetUsingItemInfo( eIncantation_MoneyProtect ) )
 			{
 				m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_MONEYPROTECT, eIncantation_MoneyProtect);
@@ -2286,7 +2287,7 @@ ProtectAll_UseFail:
 //					SetMoney((MONEYTYPE)(CurMoney*0.06), MONEY_SUBTRACTION, MF_LOST, eItemTable_Inventory, eMoneyLog_LoseDie, 0);
 			}
 			
-			// RaMa -> °æÇèÄ¡º¸È£ ÁÖ¹®¼­
+			// RaMa -> ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½È£ ï¿½Ö¹ï¿½ï¿½ï¿½
 			if( m_ShopItemManager.GetUsingItemInfo( eIncantation_ExpProtect ) )
 			{
 				m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_EXPPROTECT, eIncantation_ExpProtect);
@@ -2319,7 +2320,7 @@ ProtectAll_UseFail:
 
 				ReduceExpPoint(minusExp, eExpLog_LosebyRevivePresent);
 
-				//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+				//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿
 				m_PetManager.ReducePetFriendshipWithMastersRevive();
 			}
 		}
@@ -2340,7 +2341,7 @@ ProtectAll_UseFail:
 	m_YYNaeRyukRecoverTime.bStart = FALSE;
 	ClearMurderIdx();
 
-	m_bDieForBattleChannel = FALSE;	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	m_bDieForBattleChannel = FALSE;	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_bDieForGFW = FALSE;
 	m_bDieInSpecialMap = FALSE;
 }
@@ -2359,7 +2360,7 @@ void CPlayer::ReviveLogIn()
 		return;
 	}
 	
-	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//¢®¢´c¡§¢®AA¨Ï¡þ¡Ë?¢®I
+	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAï¿½Ï¡ï¿½ï¿½ï¿½?ï¿½ï¿½I
 	{
 		MSG_BYTE msg;
 		msg.Category	= MP_USERCONN;
@@ -2439,7 +2440,7 @@ void CPlayer::ReviveLogIn()
 #endif
 
 	
-//30AE¡Æ¡Ì ©ö¡ìAu
+//30AEï¿½Æ¡ï¿½ ï¿½ï¿½ï¿½ï¿½Au
 	OBJECTSTATEMGR_OBJ->StartObjectState(this,eObjectState_Immortal,0);
 	// 06.08.29. RaMa.
 #ifdef _HK_LOCAL_
@@ -2471,8 +2472,8 @@ void CPlayer::ReviveLogIn()
 
 void CPlayer::ReviveLogInPenelty()
 {
-	// RaMa -04.11.24   ->ÇÁ¸®¹Ì¾ö ¾ÆÀÌÅÛÀº ÆÐ³ÎÆ¼ ¾øÀ½.
-	// RaMa -04.12.14¼öÁ¤   ->°æÇèÄ¡¿Í µ·À¸·Î ³ª´©°í, °á°ú¸¦ Client·Î º¸³¿
+	// RaMa -04.11.24   ->ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½.
+	// RaMa -04.12.14ï¿½ï¿½ï¿½ï¿½   ->ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿ Clientï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	//if( g_pServerSystem->GetMapNum() != nakyang_siege &&
 	//	g_pServerSystem->GetMapNum() != Tournament )
@@ -2483,12 +2484,12 @@ void CPlayer::ReviveLogInPenelty()
 	//	!g_pServerSystem->CheckMapKindIs(eSurvival) )
 
 	DWORD dwCheckBit = eSiegeWarMap | eTournament | eEventMap | eQuestRoom | eSurvivalMap;
-	if( !(CHANNELSYSTEM->IsBattleChannel(GetChannelID()) && IsDieForBattleChannel()) )	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	if( !(CHANNELSYSTEM->IsBattleChannel(GetChannelID()) && IsDieForBattleChannel()) )	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( FALSE == g_pServerSystem->GetMap()->IsMapKind(dwCheckBit) )
 	if(GetLevel() >= 5 && m_bDieForGFW == FALSE )
 	{		
 		BOOL bExchanged = FALSE;
-		// RaMa -> °æÇèÄ¡+µ·º¸È£
+		// RaMa -> ï¿½ï¿½ï¿½ï¿½Ä¡+ï¿½ï¿½ï¿½ï¿½È£
 		DWORD ItemIdx = 0;
 		SHOPITEMWITHTIME* pShopItem = NULL;
 		if( GetShopItemStats()->ProtectCount )		
@@ -2500,7 +2501,7 @@ void CPlayer::ReviveLogInPenelty()
 			if( !pShopItem )
 				goto ProtectAll_UseFail;
 
-			// LogÃß°¡
+			// Logï¿½ß°ï¿½
 			LogItemMoney( GetID(), GetObjectName(), 0, "",
 				eLog_ShopItemProtectAll, GetMoney(eItemTable_Inventory), 0, 0,
 				ItemIdx, pShopItem->ShopItem.ItemBase.dwDBIdx, pShopItem->ShopItem.ItemBase.Position, 0, pShopItem->ShopItem.ItemBase.Durability, GetPlayerExpPoint());
@@ -2515,7 +2516,7 @@ void CPlayer::ReviveLogInPenelty()
 			}
 			else
 			{
-				// DB¿¡ ¾÷µ¥ÀÌÆ®
+				// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				ShopItemUseParamUpdateToDB( 0, GetID(), ItemIdx, GetShopItemStats()->ProtectCount );
 			}
 			m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_PROTECTALL, GetShopItemStats()->ProtectCount);
@@ -2540,7 +2541,7 @@ ProtectAll_UseFail:
 //					SetMoney( (MONEYTYPE)(CurMoney*0.04), MONEY_SUBTRACTION, MF_LOST , eItemTable_Inventory, eMoneyLog_LoseDie, 0 );
 			}
 
-			// RaMa - 04.12.28     ->ÁÖ¹®¼­Ãß°¡
+			// RaMa - 04.12.28     ->ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 			if( m_ShopItemManager.GetUsingItemInfo( eIncantation_ExpProtect ) )
 			{
 				m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_EXPPROTECT, eIncantation_ExpProtect);
@@ -2571,12 +2572,12 @@ ProtectAll_UseFail:
 
 				ReduceExpPoint(minusExp, eExpLog_LosebyReviveLogIn);
 
-				//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+				//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿
 				m_PetManager.ReducePetFriendshipWithMastersRevive();
 			}
 		}
 
-		// RaMa - ÃßÈÄÃß°¡
+		// RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 /*		if( bExchanged && m_ShopItemOption.ExpPeneltyPoint==0 && m_ShopItemOption.MoneyPeneltyPoint==0 )
 		{
 			MSG_DWORD msg;
@@ -2595,7 +2596,7 @@ ProtectAll_UseFail:
 	SetShield((DWORD)(CurShield*0.3));
 	ClearMurderIdx();
 
-	m_bDieForBattleChannel = FALSE;	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	m_bDieForBattleChannel = FALSE;	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_bDieForGFW = FALSE;
 }
 
@@ -2604,9 +2605,9 @@ void CPlayer::DoDie(CObject* pAttacker)
 	OBJECTSTATEMGR_OBJ->StartObjectState(this,eObjectState_Die,pAttacker->GetID());
 
 	////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å / Çý¾È
-	// »ç¸Á½Ã ÇØÁ¦
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½
 
 	for(WORD State = eSingleSpecialState_Hide; State < eSingleSpecialState_Max; State++)
 	{
@@ -2625,7 +2626,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 		pPet->GetRandMotionNSpeech(ePM_MASTER_DIE, ePMF_ALWAYS);
 	}
 	
-	//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+	//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿
 	m_PetManager.SetReduceAmountPetFriendship(pAttacker);
 
 	if(pAttacker->GetObjectKind() == eObjectKind_Player)
@@ -2633,13 +2634,13 @@ void CPlayer::DoDie(CObject* pAttacker)
 		CPlayer* pAttackPlayer = (CPlayer*)pAttacker;
 		CBattle* pBattle = pAttacker->GetBattle();
 
-		// magi82 - SOS(070726)	pk ´çÇÑ À¯Àú°¡ ¹®ÆÄ°¡ ÀÖÀ»¶§¸¸ Àû¿ë
+		// magi82 - SOS(070726)	pk ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		WORD MapNum = g_pServerSystem->GetMapNum();
 		DWORD dwCheckBit = eBossMap | eEventMap | eTournament | eSurvivalMap;
 		if( GetGuildIdx() > 0 )
 		{
 			//DWORD dwCheckBit = eBossMap | eEventMap | eTournament | eSurvivalMap;
-			// magi82 - SOS(070720) pk ´çÇßÀ»¶§ SOS È£Ãâ
+			// magi82 - SOS(070720) pk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SOS È£ï¿½ï¿½
 			if( IsPKMode() == TRUE
 				|| (GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET && pAttacker->GetBattleID() == GetBattleID())
 				|| MapNum == SIEGEWARMGR->GetSiegeMapNum()
@@ -2657,7 +2658,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 			//////////////////////////////////////////////////////////////////////////
 		}
 
-		//SW080515 Ã¤³Îº° ¼¼ÆÃ
+		//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( CHANNELSYSTEM->IsBattleChannel(GetChannelID()) )
 		{
 			if( IsPKMode() == TRUE
@@ -2674,13 +2675,13 @@ void CPlayer::DoDie(CObject* pAttacker)
 
 		if(pBattle->GetBattleKind() == eBATTLE_KIND_NONE || pAttacker->GetBattleID() != GetBattleID() )
 		{
-			/*//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
-			//SW070109 È«Äá/´ë¸¸ Æê Æä³ÎÆ¼
+			/*//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿
+			//SW070109 È«ï¿½ï¿½/ï¿½ë¸¸ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ
 #ifdef _HK_LOCAL_
 			if(pPet)
 			{
 				WORD wMapNum = g_pServerSystem->GetMapNum();
-				if(wMapNum != Tournament && wMapNum != QUESTMAPNUM1 && wMapNum != QUESTMAPNUM2)		//È­°æ/±Ø¸¶ ÀüÁ÷ ¸Ê 73
+				if(wMapNum != Tournament && wMapNum != QUESTMAPNUM1 && wMapNum != QUESTMAPNUM2)		//È­ï¿½ï¿½/ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 73
 				{
 					int Petfriendly = GAMERESRCMNGR->GetPetRule()->FriendShipPerMasterDie;
 
@@ -2700,8 +2701,8 @@ void CPlayer::DoDie(CObject* pAttacker)
 						Petfriendly /= 2;
 					}
 
-					if( (TRUE == PARTYWARMGR->IsEnemy(this, pAttackPlayer) && FALSE == pAttackPlayer->IsPKMode())		//¹æÆÄÀü »ó´ëÀÌ¸é¼­ »ì±â »óÅÂ°¡ ¾Æ´Ï¸é
-						|| TRUE == GUILDFIELDWARMGR->IsEnemy(this, pAttackPlayer) && FALSE == pAttackPlayer->IsPKMode() )	//¹®ÆÄÀü »ó´ëÀÌ¸é¼­ »ì±â »óÅÂ°¡ ¾Æ´Ï¸é
+					if( (TRUE == PARTYWARMGR->IsEnemy(this, pAttackPlayer) && FALSE == pAttackPlayer->IsPKMode())		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¸é¼ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¸ï¿½
+						|| TRUE == GUILDFIELDWARMGR->IsEnemy(this, pAttackPlayer) && FALSE == pAttackPlayer->IsPKMode() )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¸é¼ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¸ï¿½
 					{
 						//Do nothing
 					}
@@ -2722,7 +2723,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 			{
 				if( PARTYWARMGR->IsinSamePartyWar( this, (CPlayer*)pAttacker ) == FALSE )
 				{
-					//SW060831 ¹æÆÄ ºñ¹« ½Ã //°­Á¦ Á¾·á½Ã Ã¼Å© º¯¼ö
+					//SW060831 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿ Ã¼Å© ï¿½ï¿½ï¿½ï¿½
 					if(PARTYWARMGR->IsMemberInPartyWar( this ))
 					{
 						SetPenaltyByDie(TRUE);
@@ -2762,7 +2763,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 					SetReadyToRevive( FALSE );
 					SetPenaltyByDie( FALSE );
 				}
-				//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå 
+				//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿ 
 				//else if( g_pServerSystem->CheckMapKindIs(eSurvival) )
 				else if( g_pServerSystem->GetMap()->IsMapKind(eSurvivalMap) )
 				{
@@ -2790,7 +2791,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 			if(pPet)
 			{
 				WORD wMapNum = g_pServerSystem->GetMapNum();
-				if(wMapNum != Tournament && wMapNum != QUESTMAPNUM1 && wMapNum != QUESTMAPNUM2)		//È­°æ/±Ø¸¶ ÀüÁ÷ ¸Ê 73
+				if(wMapNum != Tournament && wMapNum != QUESTMAPNUM1 && wMapNum != QUESTMAPNUM2)		//È­ï¿½ï¿½/ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 73
 				{
 					int Petfriendly = GAMERESRCMNGR->GetPetRule()->FriendShipPerMasterDie;
 					pPet->AddFriendship(Petfriendly, TRUE);
@@ -2804,10 +2805,10 @@ void CPlayer::DoDie(CObject* pAttacker)
 
 		SetMurderKind(((CMonster*)pAttacker)->GetMonsterKind());
 			
-		//SW060831 ¹æÆÄ ºñ¹« ½Ã //°­Á¦ Á¾·á½Ã Ã¼Å© º¯¼ö
+		//SW060831 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿ Ã¼Å© ï¿½ï¿½ï¿½ï¿½
 #ifdef _KOR_LOCAL_
 
-		// RaMa 5ÃÊµ¿¾È ·ºÀÌ¶ó°í »ý°¢µÉ °æ¿ì
+		// RaMa 5ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 		if( (gCurTime - m_LastActionTime) > GAMERESRCMNGR->GetPaneltyTime() )
 		{
 			m_bActionPanelty = FALSE;
@@ -2842,15 +2843,15 @@ void CPlayer::DoDie(CObject* pAttacker)
 	}
 	m_FollowMonsterList.RemoveAll();
 
-	//SW051112 ¹«½Ö¸ðµå
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿
 	InitMussangPoint();
 	SendMussangInfo();
 
-	//¹«½Ö¸ðµå »óÅÂÀÏ¶§¸¸ Á¾·á½ÃÄÑÁØ´Ù
+	//ï¿½ï¿½ï¿½Ö¸ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿
 	if(IsMussangMode())
 	{
 		SetMussangMode(FALSE);
-		STATSMGR->CalcItemStats(this);	//¹«½Ö ½ºÅÈ ÃÊ±âÈ­.
+		STATSMGR->CalcItemStats(this);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 		SendMussangEnd();
 	}
 	
@@ -2864,13 +2865,13 @@ void CPlayer::DoDie(CObject* pAttacker)
 	QUESTMAPMGR->DiePlayer( this );
 
 
-	// RaMa - Á×À¸¸é °É·ÁÀÖ´ø ½ºÅ³À» ¸ñ·Ï¿¡¼­ »©ÁØ´Ù.
+	// RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Ø´ï¿½.
 	SKILLOPTION* pSkillOption = NULL;
 	CSkillObject* pSkill = NULL;
 	m_SkillList.SetPositionHead();
 	while( pSkill = m_SkillList.GetData() )	
 	{
-		//2007. 8. 16. CBH - º¯È¯¼® Àû¿ë ½ºÅ³ ¿É¼Ç »èÁ¦ Ãß°¡
+		//2007. 8. 16. CBH - ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		SKILLOBJECT_INFO* pSkillObjInfo = pSkill->GetSkillObjectInfo();
 		if(pSkillObjInfo != NULL)
 		{
@@ -2891,7 +2892,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 	}
 	m_SkillList.RemoveAll();
 
-	//2007. 9. 21. CBH - Å¸ÀÌÅº ¼ÒÈ¯Áß Á×¾úÀ»¶§ Ã³¸®
+	//2007. 9. 21. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	if(this->GetTitanManager()->IsTitanRecall())
 	{
 		this->GetTitanManager()->InitTitanRecall();
@@ -2904,7 +2905,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 		this->SendMsg(&msg, sizeof(msg));
 	}	
 
-	// ¿ä»õÀü
+	// ï¿½ï¿½ï¿½ï¿½ï¿
 	FORTWARMGR->DiePlayer( this );
 }
 
@@ -2919,10 +2920,10 @@ float CPlayer::DoGetMoveSpeed()
 			return 0;
 		float speed = pKGInfo->GetSpeed()+GetAbilityStats()->Kyunggong;
 
-		// ¾Æ¹ÙÅ¸¾ÆÀÌÅÛ °æ°ø¼Óµµ »ó½Â
+		// ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Óµï¿ ï¿½ï¿½ï¿
         speed += m_AvatarOption.KyunggongSpeed;
 
-		// ºÎÀû»ç¿ë °æ°ø¼Óµµ »ó½Â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½Óµï¿ ï¿½ï¿½ï¿
 		speed += m_ShopItemOption.KyungGongSpeed;			
 		return speed;
 	}
@@ -2933,8 +2934,8 @@ float CPlayer::DoGetMoveSpeed()
 		else
 			return WALKSPEED;
 	}*/
-	//SW070127 Å¸ÀÌÅº
-	// Å¸ÀÌÅº Å¾½Â ÁßÀÌ¸é
+	//SW070127 Å¸ï¿½ï¿½Åº
+	// Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
 	float speed = 0;
 	if( InTitan() )
 	{	
@@ -2945,16 +2946,16 @@ float CPlayer::DoGetMoveSpeed()
 			if( !pGradeInfo )
 				return TITAN_WALKSPEED;
 
-			WORD klev = 0;		// ½ÅÇà¹éº¯
+			WORD klev = 0;		// ï¿½ï¿½ï¿½ï¿½éº
 			if( m_MoveInfo.KyungGongIdx == 2602 )
-				klev = 1;		// ÃÊ»óºñ
+				klev = 1;		// ï¿½Ê»ï¿½ï¿
 			else if( m_MoveInfo.KyungGongIdx == 2604 )
 				klev = 2;		// 
 			speed = pGradeInfo->KyungGongSpeed[klev];
 
-			// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ °æ°ø ½ºÇÇµå 
+			// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Çµï¿½ 
 			speed += GetAvatarOption()->KyunggongSpeed;
-			// ºÎÀû °æ°ø ¼Óµµ »ó½Â
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½Óµï¿½ ï¿½ï¿½ï¿
 			speed += GetShopItemStats()->KyungGongSpeed;
 
 			return speed;
@@ -2979,9 +2980,9 @@ float CPlayer::DoGetMoveSpeed()
 
 			speed = pKGInfo->GetSpeed()+GetAbilityStats()->Kyunggong;
 
-			// ¾Æ¹ÙÅ¸¾ÆÀÌÅÛ °æ°ø¼Óµµ »ó½Â
+			// ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Óµï¿ ï¿½ï¿½ï¿
 			speed += m_AvatarOption.KyunggongSpeed;
-			// ºÎÀû»ç¿ë °æ°ø¼Óµµ »ó½Â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½Óµï¿ ï¿½ï¿½ï¿
 			speed += m_ShopItemOption.KyungGongSpeed;			
 			return speed;
 		}
@@ -3006,8 +3007,8 @@ MUGONGBASE * CPlayer::GetMugongBaseByMugongIdx(WORD MugongIdx)
 	MUGONGBASE* pMugong;
 	for(int n=0;n<SLOT_MUGONGTOTAL_NUM;++n)
 	{
-		// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
-		// ½ºÅ³ÀÎµ¦½º°¡ 10000ÀÌ ³ÑÀ¸¸é Å¸ÀÌÅº ½ºÅ³ÀÌ´Ù.
+		// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
+		// ï¿½ï¿½Å³ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ 10000ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½Å³ï¿½Ì´ï¿½.
 		//if(MugongIdx < SKILLNUM_TO_TITAN)
             pMugong = &m_HeroMugongInfo.mugong[n];
 		//else
@@ -3023,11 +3024,11 @@ MUGONGBASE * CPlayer::GetMugongBaseByMugongIdx(WORD MugongIdx)
 
 int CPlayer::GetMugongLevel(WORD MugongIdx)
 {
-	//SW070127 Å¸ÀÌÅº
-		/*if(MugongIdx < 100)	// A¡§¡©¡§¡þ¡Ë¡þAI¡Ë¡þe
+	//SW070127 Å¸ï¿½ï¿½Åº
+		/*if(MugongIdx < 100)	// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½AIï¿½Ë¡ï¿½e
 		return 1;*/
 
-	// !!!!!!!!!!! magi82 - ¿ø·¡´Â Å¸ÀÌÅº ÄÞº¸¸¦ µû·Î ¸¸µé¾î¾ßÇÏÁö¸¸ Áö±ÝÀº ±ÞÇØ¼­ ÀÏ´Ü ÀÌ·¸°Ô ÀÓ½Ã·Î ¾¸ 
+	// !!!!!!!!!!! magi82 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½Þºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ï´ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ 
 	if(MugongIdx < 100 || ( 10000 <= MugongIdx && MugongIdx < 10000 + 100 ))
 		return 1;
 	
@@ -3054,11 +3055,11 @@ int CPlayer::GetMugongNum()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// ¹«°ø º¯È¯ Ãß°¡
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 WORD CPlayer::GetSkillOptionIndex(WORD MugongIdx)
 {
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	//if( MugongIdx > SKILLNUM_TO_TITAN && InTitan() )
 	//	MugongIdx -= SKILLNUM_TO_TITAN;
 
@@ -3091,12 +3092,12 @@ void CPlayer::SetInitedGrid()
 	//Pet SummonningPet
 	//m_PetManager.CheckSummonningPet();
 }
-// RaMa - 04.11.10    -> ShopItemOption Ãß°¡   AvatarOptionÃß°¡(05.02.16)
+// RaMa - 04.11.10    -> ShopItemOption ï¿½ß°ï¿½   AvatarOptionï¿½ß°ï¿½(05.02.16)
 DWORD CPlayer::DoGetCritical()
 {
 	//DWORD cri = GetCharStats()->Critical + GetItemStats()->Critical + GetShopItemStats()->Critical + GetAvatarOption()->Critical;
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	DWORD cri = 0;
 	if( InTitan() )
 	{
@@ -3123,7 +3124,7 @@ DWORD CPlayer::DoGetCritical()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// 06. 07 ³»°ø ÀûÁß(ÀÏ°Ý) - ÀÌ¿µÁØ
+// 06. 07 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ï°ï¿½) - ï¿½Ì¿ï¿½ï¿½ï¿½
 DWORD CPlayer::DoGetDecisive()
 {	
 	DWORD cri = GetCharStats()->Decisive + GetItemStats()->Critical + GetShopItemStats()->Decisive + GetAvatarOption()->Decisive;
@@ -3146,19 +3147,19 @@ DWORD CPlayer::DoGetPhyAttackPowerMin()
 {
 	const player_calc_stats * pChar_stats = GetCharStats();
 	const player_calc_stats * pItem_stats = GetItemStats();	
-	const SET_ITEM_OPTION* pSetItem_Stats = GetSetItemStats(); //2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ Ãß°¡
+	const SET_ITEM_OPTION* pSetItem_Stats = GetSetItemStats(); //2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ß°ï¿½
 	AVATARITEMOPTION* pAvatarOption = GetAvatarOption();
 
 	WORD WeaponKind = GetWeaponEquipType();
 	
-	////	2005 Å©¸®½º¸¶½º ÀÌº¥Æ® ÄÚµå
+	////	2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½
 	//if( WeaponKind == WP_EVENT || WeaponKind == WP_EVENT_HAMMER )
 	//	return 0;
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 	if( WeaponKind == WP_EVENT_HAMMER )
 		return 0;
 
-	// RaMa - 04.11.10    -> ShopItemOption Ãß°¡		AvatarOptionÃß°¡(05.02.16)
+	// RaMa - 04.11.10    -> ShopItemOption ï¿½ß°ï¿½		AvatarOptionï¿½ß°ï¿½(05.02.16)
 	if(WeaponKind == WP_GUNG || WeaponKind == WP_AMGI)
 	{
 		WORD MinChub = (WORD)(pChar_stats->MinChub + GetAbilityStats()->StatMin + pItem_stats->MinChub + GetShopItemStats()->Minchub + pAvatarOption->Minchub + pSetItem_Stats->wMinChub);
@@ -3222,16 +3223,16 @@ DWORD CPlayer::DoGetPhyAttackPowerMax()
 {
 	const player_calc_stats * pChar_stats = GetCharStats();
 	const player_calc_stats * pItem_stats = GetItemStats();
-	const SET_ITEM_OPTION* pSetItem_Stats = GetSetItemStats(); //2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ Ãß°¡
+	const SET_ITEM_OPTION* pSetItem_Stats = GetSetItemStats(); //2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ß°ï¿½
 	AVATARITEMOPTION* pAvatarOption = GetAvatarOption();
 
-	// RaMa - 04.11.10    -> ShopItemOption Ãß°¡		AvatarOptionÃß°¡(05.02.16)
+	// RaMa - 04.11.10    -> ShopItemOption ï¿½ß°ï¿½		AvatarOptionï¿½ß°ï¿½(05.02.16)
 	WORD WeaponKind = GetWeaponEquipType();
 
-	////	2005 Å©¸®½º¸¶½º ÀÌº¥Æ® ÄÚµå
+	////	2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½
 	//if( WeaponKind == WP_EVENT || WeaponKind == WP_EVENT_HAMMER )
 	//	return 0;
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 	if( WeaponKind == WP_EVENT_HAMMER )
 		return 0;
 
@@ -3241,7 +3242,7 @@ DWORD CPlayer::DoGetPhyAttackPowerMax()
 
 #ifdef _JAPAN_LOCAL_
 		
-//--- ÀÏº» ¹æÆÄ½Ã »ó»ý°ü°è¿¡ µû¸¥ °ø°Ý·Â Áõ°¡
+//--- ï¿½Ïºï¿½ ï¿½ï¿½ï¿½Ä½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		WORD RareWeapon = pItem_stats->RangeAttackPowerMax;
 /*
@@ -3299,10 +3300,10 @@ DWORD CPlayer::DoGetPhyAttackPowerMax()
 void CPlayer::DoDamage(CObject* pAttacter,RESULTINFO* pDamageInfo,DWORD beforeLife)
 {
 	////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å / Çý¾È
-	// Àº½Å ÆÐ³ÎÆ¼
-	// °ø°Ý´çÇÒ½Ã Àº½ÅÇØÁ¦
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼
+	// ï¿½ï¿½ï¿½Ý´ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(IsHide())
 	{
 		SetSingleSpecialStateUsedTime(eSingleSpecialState_Hide, gCurTime);
@@ -3318,7 +3319,7 @@ void CPlayer::InitBaseObjectInfo(BASEOBJECT_INFO* pBaseInfo)
 	memcpy(&m_BaseObjectInfo,pBaseInfo,sizeof(BASEOBJECT_INFO));
 }
 
-/* ¡§oC¡§¡þ?E¢®¨Ï¢®¢´¡Ëc Return */
+/* ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½?Eï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½c Return */
 MONEYTYPE CPlayer::SetMoney( MONEYTYPE ChangeValue, BYTE bOper, BYTE MsgFlag, eITEMTABLE tableIdx, BYTE LogType, DWORD TargetIdx )
 {
 	CPurse* pPurse = m_ItemContainer.GetPurse(tableIdx);
@@ -3334,7 +3335,7 @@ MONEYTYPE CPlayer::SetMoney( MONEYTYPE ChangeValue, BYTE bOper, BYTE MsgFlag, eI
 		Real = pPurse->Addition( ChangeValue, MsgFlag );
 	}
 
-	// Log Money AId¢®¢´¡Ëc AI¢®io ¡§¡þ?CO¡ËO¢®¡¿ 
+	// Log Money AIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c AIï¿½ï¿½io ï¿½ï¿½ï¿½ï¿½?COï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ 
 	if( tableIdx == eItemTable_Inventory || tableIdx == eItemTable_ShopInven )
 	{
 		if( Real >= 10000 )
@@ -3344,7 +3345,7 @@ MONEYTYPE CPlayer::SetMoney( MONEYTYPE ChangeValue, BYTE bOper, BYTE MsgFlag, eI
 	return Real;
 }
 
-/* ¡Íi¢®¢´; ¨Ï©ªO; A¨Ï¢®¡§¡þ¡§¡ËCN ¢®¨¡¨Ï¨£¢®¨¡¢®IAI AO¡Ë¡ÍAAo¡Ë¡þ| ¨Ïo?¡Ë¡ÍA¡Ë¡ÍU.*/
+/* ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½; ï¿½Ï©ï¿½O; Aï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CN ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAI AOï¿½Ë¡ï¿½AAoï¿½Ë¡ï¿½| ï¿½ï¿½o?ï¿½Ë¡ï¿½Aï¿½Ë¡ï¿½U.*/
 BOOL CPlayer::IsEnoughAdditionMoney(MONEYTYPE money, eITEMTABLE tableIdx )
 {
 	CPurse* pPurse = m_ItemContainer.GetPurse(tableIdx);
@@ -3363,7 +3364,7 @@ MONEYTYPE CPlayer::GetMaxPurseMoney(eITEMTABLE TableIdx)
 
 void CPlayer::SetMaxPurseMoney(eITEMTABLE TableIdx, DWORD MaxMoney)
 {
-	//C¢®I¢®¨ú¨Ïo; ¢®ic¡Ë¡þe ¡Íi¢®¢´ ¡§¡þ¡Ë¡þ¢®¨¡u ¡Ë¡þ¡§¢®¡§o¡§¡þA¡Ë¢ç¢®¨¡¡Ë¢ç ¡Ë¡ÍA¡§ui¨Ï©ª¢®¨Ï¡Ë¡ÍU.
+	//Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o; ï¿½ï¿½icï¿½Ë¡ï¿½e ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½u ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢çï¿½ï¿½ï¿½Ëï¿ ï¿½Ë¡ï¿½Aï¿½ï¿½uiï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ï¡Ë¡ï¿½U.
 	if(TableIdx != eItemTable_Pyoguk)
 	{
 		ASSERT(0);
@@ -3397,7 +3398,7 @@ BOOL CPlayer::SetQuestState(DWORD QuestIdx, QSTATETYPE value)
 	if( !pQuest ) 
 	{
 //		char buff[256] = {0,};
-//		sprintf(buff, "¡Ë?a¢®¨úa¡Ë¡ÍA Au¡§o¡§¡þ¡§¢®¡Ëc¢®¨¡¡Ë¢ç xAc ¡§uECN¡Ë¡ÍU¨Ï©ª¨Ï¡þ CI¡Ë?¡§I¢®¨¡¢®I ¨Ïoy¡§u¡Ëc¡Ë?¡Ë¢ç¢®¨¡O ¡§uE¢®¢´AAa¡Ë?¢®¨¡ [QUEST ID : %d]", QuestIdx);
+//		sprintf(buff, "ï¿½ï¿½?aï¿½ï¿½ï¿½ï¿½aï¿½Ë¡ï¿½A Auï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿ xAc ï¿½ï¿½uECNï¿½Ë¡ï¿½Uï¿½Ï©ï¿½ï¿½Ï¡ï¿½ CIï¿½ï¿½?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½oyï¿½ï¿½uï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢çï¿½ï¿½O ï¿½ï¿½uEï¿½ï¿½ï¿½ï¿½AAaï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ [QUEST ID : %d]", QuestIdx);
 //		ASSERTMSG(0, buff);
 		return FALSE;
 	}
@@ -3405,7 +3406,7 @@ BOOL CPlayer::SetQuestState(DWORD QuestIdx, QSTATETYPE value)
 	pQuest->SetValue(value);
 	BOOL bEnd = pQuest->IsComplete();
 
-	// DB¡Ë?¡Ë¢ç ¡§uA¡§¢®ACN¡Ë¡ÍU.
+	// DBï¿½ï¿½?ï¿½Ëï¿ ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½ACNï¿½Ë¡ï¿½U.
 	QuestUpdateToDB( GetID(), QuestIdx, value, bEnd );
 
 	if( bEnd )
@@ -3461,7 +3462,7 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		(m_initState & PLAYERINITSTATE_PYOGUK_INFO) &&
 		!(m_initState & PLAYERINITSTATE_SHOPITEM_USEDINFO) )
 	{
-		// Mall ItemÀ» ¹Þ¾Æ¿Àµµ·Ï ÇÑ´Ù.
+		// Mall Itemï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		UsingShopItemInfo( GetID() );
 		SavedMovePointInfo( GetID() );
 		return;
@@ -3478,19 +3479,19 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		(m_initState & PLAYERINITSTATE_PYOGUK_INFO) &&
 		(m_initState & PLAYERINITSTATE_SHOPITEM_USEDINFO) )
 	{
-		//AuAo¡§¢®oE¢®¨Ï¡Ë¡þ¨Ï¡Ì¡Íia
+		//AuAoï¿½ï¿½ï¿½ï¿½oEï¿½ï¿½ï¿½Ï¡Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½ia
 
-		//SW050907 ÀÌ»óÇÑ ÄÚµå ¸·´Â´Ù.
+		//SW050907 ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 		//PWMODMGR_OBJ->Init_PeaceWarMode(this);
 		SetPeaceMode( g_pServerSystem->GetMap()->IsVillage() );
 
-		//SW060718 ¸ÊÀÌµ¿ Æê¼ÒÈ¯ ÁßÀÏ ¶§ À§Ä¡ÀÌµ¿. SetInitedGrid() ¿¡¼­..
+		//SW060718 ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½È ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ìµï¿½. SetInitedGrid() ï¿½ï¿½ï¿½ï¿½..
 		GetPetManager()->CheckSummonningPet();
 
-		//GetTitanManager()->CheckRidingTitan();	//Inited ÀÌÈÄ·Î..
+		//GetTitanManager()->CheckRidingTitan();	//Inited ï¿½ï¿½ï¿½Ä·ï¿½..
 
-		// A¨Ï©ª¡Ë¡þ?d¡§¡þ¡Ë¡þ + ¨Ïo¢®i¢®¨¡¨Ï¨£d¡§¡þ¡Ë¡þ + ¡§u¡§¢®AIAUd¡§¡þ¡Ë¡þ¢®¨¡¡Ë¢ç ¡Ë¡þ¨Ï¡Ì¡ÍiI ¡§uA¡§¢®A¡Íi¡§¢®8¨ÏoC¢®¢´I CA¢®¢´¨ÏoA¡§I¡§uA¡§¢®AEA Send CN¡Ë¡ÍU
-		CalcState(); //¡Ë¡þOAu ¢®¨¡e¢®ie¡§uoA¡Ë¢ç¡Íie; ¢®¨¡e¢®ieCN¡Ë¡ÍU. LBS 03.11.20
+		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ + ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ + ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAUdï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿ ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½iI ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½I CAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½Iï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½AEA Send CNï¿½Ë¡ï¿½U
+		CalcState(); //ï¿½Ë¡ï¿½OAu ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ieï¿½ï¿½uoAï¿½Ëï¿½ï¿½ie; ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ieCNï¿½Ë¡ï¿½U. LBS 03.11.20
 
 		//////////////////////////////////////////////////////////////////////////
 		// WearedItemInfo Check
@@ -3522,7 +3523,7 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		GetCharacterTotalInfo(&msg.ChrTotalInfo);
 		GetHeroTotalInfo(&msg.HeroTotalInfo);
 		GetMugongTotalInfo(&msg.MugongTotalInfo);
-		// MallItemInfo ¾ò¾î´Ù°¡ º¸³»ÁØ´Ù. Ãß°¡                                                                                                                                                                                                                                         
+		// MallItemInfo ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½. ï¿½ß°ï¿½                                                                                                                                                                                                                                         
 		DWORD getItem_Flag;
 		if(protocol == MP_SURYUN_ENTER_SYN)
 			getItem_Flag = GETITEM_FLAG_WEAR;
@@ -3530,7 +3531,7 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 			getItem_Flag = GETITEM_FLAG_INVENTORY | GETITEM_FLAG_WEAR | GETITEM_FLAG_PETWEAR | GETITEM_FLAG_TITANWEAR | GETITEM_FLAG_TITANSHOP;	// magi82 - Titan(070227)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 		GetItemtotalInfo(&msg.ItemTotalInfo,getItem_Flag);
 		GetSendMoveInfo(&msg.SendMoveInfo,NULL);                                                                                                                                                                                                                                                                                                                                                           
-		// ShopItemOption Ãß°¡
+		// ShopItemOption ï¿½ß°ï¿½
 		memcpy(&msg.ShopItemOption, GetShopItemStats(), sizeof(SHOPITEMOPTION));
 		
 
@@ -3544,14 +3545,14 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		msg.ChrTotalInfo.CurMapNum = GAMERESRCMNGR->GetLoadMapNum();
 		msg.UniqueIDinAgent = GetUniqueIDinAgent();
 
-		//SW070127 Å¸ÀÌÅº
+		//SW070127 Å¸ï¿½ï¿½Åº
 		msg.TitanEndrncNum = 0;
 		WORD TitanEndrncNum = 0;
 		TITAN_ENDURANCE_ITEMINFO EndrncInfo[SLOT_INVENTORY_NUM + SLOT_SHOPINVEN_NUM];
 
 		TitanEndrncNum = m_TitanManager.GetTitanEquipItemInfoList(EndrncInfo);
 
-		if(TitanEndrncNum)	//Å¸ÀÌÅº ÀåÂøÅÛ ³»±¸µµ°ü·Ã Á¤º¸
+		if(TitanEndrncNum)	//Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			msg.AddableInfo.AddInfo( CAddableInfoList::TitanEndrncInfo, sizeof(TITAN_ENDURANCE_ITEMINFO)*TitanEndrncNum, EndrncInfo);
 			msg.TitanEndrncNum = TitanEndrncNum;
@@ -3598,11 +3599,11 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		{
 			msg.AddRareOptionInfo(pRInfo);
 		}*/
-		//SW051004 ¼öÁ¤	//¸Þ½ÃÁö Å©±â¸¦ ÁÙÀÌ±â À§ÇÑ ¼öÁ¤ÀÌ´Ù.
-		//°­È­¿É¼Ç
-		msg.OptionNum = 0;	//ÃÊ±âÈ­ ÇÊ
+		//SW051004 ï¿½ï¿½ï¿½ï¿½	//ï¿½Þ½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+		//ï¿½ï¿½È­ï¿½É¼ï¿½
+		msg.OptionNum = 0;	//ï¿½Ê±ï¿½È­ ï¿½ï¿½
 		WORD OptionNum = 0;
-		ITEM_OPTION_INFO OptionInfo[MAX_ITEM_OPTION_NUM+SLOT_PYOGUK_NUM]; //Ã¢°íÀÇ °³¼ö¸¦ ´õÇÏÀÚ2006.4.8
+		ITEM_OPTION_INFO OptionInfo[MAX_ITEM_OPTION_NUM+SLOT_PYOGUK_NUM]; //Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2006.4.8
 		m_ItemOptionList.SetPositionHead();
 		ITEM_OPTION_INFO * pOInfo = NULL;
 		while(pOInfo = m_ItemOptionList.GetData())
@@ -3617,10 +3618,10 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 			msg.AddableInfo.AddInfo( CAddableInfoList::ItemOption, sizeof(ITEM_OPTION_INFO)*OptionNum, OptionInfo );
 			msg.OptionNum = OptionNum;
 		}
-		//·¹¾î¿É¼Ç
-		msg.RareOptionNum = 0;	//ÃÊ±âÈ­ ÇÊ
+		//ï¿½ï¿½ï¿½ï¿½É¼ï¿
+		msg.RareOptionNum = 0;	//ï¿½Ê±ï¿½È­ ï¿½ï¿½
 		OptionNum = 0;
-		ITEM_RARE_OPTION_INFO RareOptionInfo[MAX_ITEM_OPTION_NUM+SLOT_PYOGUK_NUM]; //Ã¢°íÀÇ °³¼ö¸¦ ´õÇÏÀÚ2006.4.8
+		ITEM_RARE_OPTION_INFO RareOptionInfo[MAX_ITEM_OPTION_NUM+SLOT_PYOGUK_NUM]; //Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2006.4.8
 		m_ItemRareOptionList.SetPositionHead();
 		ITEM_RARE_OPTION_INFO* pRInfo = NULL;
 		while(pRInfo = m_ItemRareOptionList.GetData())
@@ -3636,10 +3637,10 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 			msg.RareOptionNum = OptionNum;
 		}
 
-		// magi82 - °³ÀÎÃ¢°í¸¦ ¿­°í ¿¬¹«ÀåÈÄ ´Ù½Ã °³ÀÎÃ¢°í¸¦ ¿­¸é ÃÊ±âÈ­°¡ ¾ÈµÇ¾î ÀÖ¾î¼­ Ä³¸¯ÅÍ°¡ µô»óÅÂ¿¡ °É¸°´Ù..
+		// magi82 - ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ ï¿½Ö¾î¼­ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½É¸ï¿½ï¿½ï¿½..
 		SetGotWarehouseItems( FALSE );
 
-		//Ä³¸¯ÅÍ ¼­¹ö ·Î±×ÀÎ ½Ã°£
+		//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 		GetLocalTime(&msg.ServerTime);
 		
 		msg.Category = MP_USERCONN;
@@ -3666,7 +3667,7 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		}
 
 		WantedInfoByUserLogIn(GetID());
-		//KESA¨Ï¡þ¢®¨¡¡Ë¢ç
+		//KESAï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿
 		MSG_WORD2 msgMapDesc;
 		msgMapDesc.Category		= MP_USERCONN;
 		msgMapDesc.Protocol		= MP_USERCONN_MAPDESC;
@@ -3720,37 +3721,37 @@ void CPlayer::SetInitState(int initstate,DWORD protocol)
 		// fortwar
 		FORTWARMGR->AddPlayer( this );
 
-		//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå 
+		//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿ 
 		//if( g_pServerSystem->CheckMapKindIs(eSurvival) )
 		if( g_pServerSystem->GetMap()->IsMapKind(eSurvivalMap) )
 			SVVMODEMGR->AddSVModeUser(this);
 
-		//SW061220 »óÅÂ±ê¹ßNPC°ü·Ã Ãß°¡. //±ê¹ß Ç¥½Ã ¾ÈÇÏ±â À§ÇÑ »óÅÂ.
+		//SW061220 ï¿½ï¿½ï¿½Â±ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½. //ï¿½ï¿½ï¿ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		SendFlagNPCState();
 
-		//SW070127 Å¸ÀÌÅº
+		//SW070127 Å¸ï¿½ï¿½Åº
 		ApplyTitanWearItem();	// 1/2
 		GetTitanManager()->CheckRidingTitan();	// 2/2
 	}
 }
 
-int CPlayer::CanExitStart()	//~¢®¢´av¢®¨¡C
+int CPlayer::CanExitStart()	//~ï¿½ï¿½ï¿½ï¿½avï¿½ï¿½ï¿½ï¿½C
 {
 //	if( GetState() != eObjectState_None && GetState() != eObjectState_Move )
 //		return FALSE;
 	if( IsPKMode() )
 		return eEXITCODE_PKMODE;
-	if( LOOTINGMGR->IsLootedPlayer(GetID()) )	//PK¢®¢´c¡§¢®A; ¡Ë¡ÍcCI¡Ë¡ÍA A¨Ï¡þAI¢®¨¡¡Ë¢ç?
+	if( LOOTINGMGR->IsLootedPlayer(GetID()) )	//PKï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A; ï¿½Ë¡ï¿½cCIï¿½Ë¡ï¿½A Aï¿½Ï¡ï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿?
 		return eEXITCODE_LOOTING;
 
-	if( GetState() == eObjectState_Exchange )	//¡¾©øE?A©¬¢¯¡Ì A¨ú¡¤aCO ¨ùo ¨ú©ª¢¥U.
+	if( GetState() == eObjectState_Exchange )	//ï¿½ï¿½ï¿½ï¿½E?Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½aCO ï¿½ï¿½o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½U.
 		return eEXITCODE_NOT_ALLOW_STATE;
 
 	if( GetState() == eObjectState_StreetStall_Owner ||
-		GetState() == eObjectState_StreetStall_Guest )	//©øeA¢®A©¬¢¯¡Ì A¨ú¡¤aCO ¨ùo ¨ú©ª¢¥U.
+		GetState() == eObjectState_StreetStall_Guest )	//ï¿½ï¿½eAï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½aCO ï¿½ï¿½o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½U.
 		return eEXITCODE_NOT_ALLOW_STATE;
 
-	if( GetState() == eObjectState_Deal )	//¡íoA¢® AI¢¯eA©¬¢¯¡Ì A¨ú¡¤aCO ¨ùo ¨ú©ª¢¥U.
+	if( GetState() == eObjectState_Deal )	//ï¿½ï¿½oAï¿½ï¿½ AIï¿½ï¿½eAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½aCO ï¿½ï¿½o ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½U.
 		return eEXITCODE_NOT_ALLOW_STATE;
 	
 	return eEXITCODE_OK;
@@ -3765,12 +3766,12 @@ void CPlayer::SetExitStart( BOOL bExit )
 int CPlayer::CanExit()
 {
 	DWORD lCurTime = MHTIMEMGR_OBJ->GetNewCalcCurTime();
-	if( lCurTime - m_dwExitStartTime < EXIT_COUNT*1000 - 2000 )	//8.0	//¹öÆÛ¸¦ ÃæºÐÈ÷ ÀâÀÚ
+	if( lCurTime - m_dwExitStartTime < EXIT_COUNT*1000 - 2000 )	//8.0	//ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½
 		return eEXITCODE_SPEEDHACK;
 
-	if( IsPKMode() )							//PK¡Ë¡þ¨Ï¡Ì¡ÍiaAI¢®¨¡¡Ë¢ç?
+	if( IsPKMode() )							//PKï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½iaAIï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿?
 		return eEXITCODE_PKMODE;
-	if( LOOTINGMGR->IsLootedPlayer(GetID()) )	//PK¢®¢´c¡§¢®A; ¡Ë¡ÍcCI¡Ë¡ÍA A¨Ï¡þAI¢®¨¡¡Ë¢ç?
+	if( LOOTINGMGR->IsLootedPlayer(GetID()) )	//PKï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A; ï¿½Ë¡ï¿½cCIï¿½Ë¡ï¿½A Aï¿½Ï¡ï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½Ëï¿?
 		return eEXITCODE_LOOTING;
 	
 	//KES AUTONOTE
@@ -3796,15 +3797,15 @@ void CPlayer::ExitCancel()
 
 int CPlayer::PKModeOn()
 {
-	if( IsPKMode() ) return ePKCODE_ALREADYPKMODEON;		//AI¨ÏoI PK¡Ë¡þ¨Ï¡Ì¡Íia
-	if( IsVimuing() ) return ePKCODE_VIMUING;		//¡§¡þn¨Ïo¢®iA¨Ï¡þAI¡Ë¡þe ¡§uE¡ÍiE¡Ë¡ÍU
+	if( IsPKMode() ) return ePKCODE_ALREADYPKMODEON;		//AIï¿½ï¿½oI PKï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½ia
+	if( IsVimuing() ) return ePKCODE_VIMUING;		//ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½oï¿½ï¿½iAï¿½Ï¡ï¿½AIï¿½Ë¡ï¿½e ï¿½ï¿½uEï¿½ï¿½iEï¿½Ë¡ï¿½U
 
-	//pk¢¬©£¥ìa A¡Æ¢¬e ©ö¡ìAu¡íoAA C¨ªA|
+	//pkï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a Aï¿½Æï¿½e ï¿½ï¿½ï¿½ï¿½Auï¿½ï¿½oAA Cï¿½ï¿½A|
 	if( GetState() == eObjectState_Immortal )
 		OBJECTSTATEMGR_OBJ->EndObjectState( this, eObjectState_Immortal );
 
 	if( GetState() == eObjectState_Die )
-		return ePKCODE_STATECONFLICT;	//¡Ë¡ÍU¡Ë¡þ¢®I¢®ioAAAI¡ËO¢®¡¿¡Ë¡ÍA ¡§uE¡ÍiE¡Ë¡ÍU.
+		return ePKCODE_STATECONFLICT;	//ï¿½Ë¡ï¿½Uï¿½Ë¡ï¿½ï¿½ï¿½Iï¿½ï¿½ioAAAIï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½A ï¿½ï¿½uEï¿½ï¿½iEï¿½Ë¡ï¿½U.
 	
 	m_HeroCharacterInfo.bPKMode = TRUE;
 	m_dwPKModeStartTime			= gCurTime;
@@ -3841,7 +3842,7 @@ void CPlayer::StateProcess()
 			DWORD dwElapsed = gCurTime - m_ObjectState.State_Start_Time;
 			if( m_bNeedRevive )
 			{
-				//SW080515 Ã¤³Îº° ¼¼ÆÃ
+				//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 				DWORD reviveDelayTime = PLAYERREVIVE_TIME;
 				if( CHANNELSYSTEM->IsBattleChannel(GetChannelID()) && IsDieForBattleChannel() )
 					reviveDelayTime = PLAYERREVIVE_TIME * 2;
@@ -3910,29 +3911,29 @@ void CPlayer::StateProcess()
 	if( GetInited() )
 	if( gCurTime - m_dwProgressTime >= dwInsertLogTime )
 	{
-		// ¡Íi¢®¢´, ¢®¨¡¨Ï¢®CeA¡Ë¢ç, ¨Ïo¢®i¢®¨¡¨Ï¨£¢®¨¡¨Ï¢®CeA¡Ë¢ç
+		// ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½CeAï¿½Ëï¿, ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½CeAï¿½Ëï¿
 		InsertLogExp( eExpLog_Time, GetID(), GetLevel(), 0, GetPlayerExpPoint(), 0, 0, GetPlayerAbilityExpPoint());
 		InsertLogMoney(0, GetID(), GetMoney(), 0, GetUserID(), GetMoney(eItemTable_Pyoguk));
 		
 		if( IsPKMode() ) m_HeroInfo.LastPKModeEndTime = 0;
-		// ¡§oA¢®¨¡¢®I¡§¡þ¢®¨¡ ¡Íi¢®¢´ ¨Ïo¢®¢¯ ¢®¨¡¨Ï¢®CeA¡Ë¢ç AuAa		
+		// ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½CeAï¿½Ëï¿ AuAa		
 		UpdateCharacterInfoByTime(GetID(), GetPlayerExpPoint(), GetPlayerAbilityExpPoint(), GetMoney(), m_HeroInfo.Playtime, m_HeroInfo.LastPKModeEndTime );
 		
 		//pet
 		m_PetManager.UpdateCurPetInfo();
 
-		//SW070127 Å¸ÀÌÅº
+		//SW070127 Å¸ï¿½ï¿½Åº
 		m_TitanManager.UpDateCurTitanAndEquipItemInfo();
 
 		for(int i=0; i<SLOT_MUGONGTOTAL_NUM;++i)
 		{
 			if( m_HeroMugongInfo.mugong[i].dwDBIdx != 0 )
 			{
-				// ¨Ïo¢®i¢®¨¡¨Ï¨£ d¡§¡þ¡Ë¡þ ¢®¢´I¢®¨ú¢®¢¯
+				// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿ dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				InsertLogMugongExp(GetID(), 0, m_HeroMugongInfo.mugong[i].wIconIdx, m_HeroMugongInfo.mugong[i].dwDBIdx, 
 									m_HeroMugongInfo.mugong[i].Sung, m_HeroMugongInfo.mugong[i].ExpPoint, m_HeroMugongInfo.mugong[i].Position );
 
-				// ¡§oA¢®¨¡¢®I¡§¡þ¢®¨¡ ¨Ïo¢®i¢®¨¡¨Ï¨£ d¡§¡þ¡Ë¡þ AuAa
+				// ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿ dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ AuAa
 				UpdateMugongExpByTime(GetID(), m_HeroMugongInfo.mugong[i].dwDBIdx, m_HeroMugongInfo.mugong[i].ExpPoint);				
 			}
 		}
@@ -3941,7 +3942,7 @@ void CPlayer::StateProcess()
 	}
 
 	// Play Time
-	// ¨úiA¡ÀCC ¡¤cCA¥ì¥ì¢¥A¡ÆA ¥ìu¡¤I¢¬¢¬¥ìa¢¥A¢¥I.. ¡ÆA AOA¢¬¢¥I¡¾i ¢¯¨Ï¡¾a¨ù¡© CIAU.. ¢´¡í¢´¡í¢´¡í RaMa
+	// ï¿½ï¿½iAï¿½ï¿½CC ï¿½ï¿½cCAï¿½ï¿½ì¢Aï¿½ï¿½A ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½Aï¿½ï¿½I.. ï¿½ï¿½A AOAï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½i ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½ï¿½ï¿½ CIAU.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ RaMa
 	m_ContinuePlayTime += gTickTime;
 	DWORD dwPT = m_ContinuePlayTime/1000;
 	if(dwPT)
@@ -3956,11 +3957,11 @@ void CPlayer::StateProcess()
 	//SW051129 Pet
 	m_PetManager.PetProcess();
 
-	//SW070127 Å¸ÀÌÅº
-	//SW070912 ±âÈ¹º¯°æ
+	//SW070127 Å¸ï¿½ï¿½Åº
+	//SW070912 ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½
 	m_TitanManager.TitanProcess();
 
-	// ºÎÈ°ÁÖ¹®¼­ »ç¿ë½Ã ½Ã°£Ã¼Å©
+	// ï¿½ï¿½È°ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½Ã¼Å©
 	if( m_ReviveTime )
 	{
 		m_ReviveTime -= gTickTime;
@@ -4000,7 +4001,7 @@ void CPlayer::StateProcess()
 			VECTOR3 mypos, targetpos;
 			GetPosition( &mypos );
 			pTarget->GetPosition( &targetpos );
-			if( CalcDistanceXZ( &mypos, &targetpos ) > (float)(REVIVE_OTHER_DIST + 4000) )	//50m±îÁö
+			if( CalcDistanceXZ( &mypos, &targetpos ) > (float)(REVIVE_OTHER_DIST + 4000) )	//50mï¿½ï¿½ï¿½ï¿½
 			{
 				msg.wData = eShopItemErr_Revive_TooFar;
 				SendMsg( &msg, sizeof(msg) );	
@@ -4012,7 +4013,7 @@ void CPlayer::StateProcess()
 		}
 	}
 
-	// 06.09.25 RaMa - Ãß¼®ÀÌº¥Æ®
+	// 06.09.25 RaMa - ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 	if( m_fFullMoonEventTime > 0 )
 	{
 		m_fFullMoonEventTime -= gTickTime;
@@ -4030,7 +4031,7 @@ void CPlayer::StateProcess()
 		}
 	}
 
-	//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ½Ã°£ Ã³¸®
+	//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ Ã³ï¿½ï¿½
 	SkinDelayTimeProcess();
 }
 
@@ -4038,7 +4039,7 @@ void CPlayer::SetWearedItemIdx(DWORD WearedPosition,WORD ItemIdx)
 {	
 	if(WearedPosition == eWearedItem_Weapon)
 	{
-		// ¨Ïo¢®i¢®¨úa¡Ë¡þ| ¨ÏoU¨Ï¡ÀU¡Ë¡þe Ao¡§¢®¨Ï¨£: ¢®ic¡ËOoA¨Ï¨£¡Ë¡ÍU.
+		// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½aï¿½Ë¡ï¿½| ï¿½ï¿½oUï¿½Ï¡ï¿½Uï¿½Ë¡ï¿½e Aoï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿: ï¿½ï¿½icï¿½ï¿½OoAï¿½Ïï¿½ï¿½Ë¡ï¿½U.
 		GetSpecialStateParam1(eSpecialState_AmplifiedPowerPhy);
 	}
 
@@ -4081,7 +4082,9 @@ BOOL CPlayer::IsWantedOwner(WANTEDTYPE WantedIDX)
 BOOL CPlayer::CheckQuestEnd( DWORD dwMonsterIdx )
 {
 	if( m_pQuest )
+	{
 	if( m_pQuest->m_QuestCondition.dwMonsterIdx == dwMonsterIdx )
+	}
 	if( m_pQuest->m_QuestCondition.dwMonsterNum )
 	{
 		--m_pQuest->m_QuestCondition.dwMonsterNum;
@@ -4108,7 +4111,7 @@ void CPlayer::QuestProcess()
 
 void CPlayer::SetPKModeEndtime()
 {
-	//CA¡¤©öAI¨öA¡Æ¡ÌA¢¬¡¤I ¨ù¨ù¨¡ACN¢¥U.
+	//CAï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½Aï¿½Æ¡ï¿½Aï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ACNï¿½ï¿½U.
 /*	
 	m_HeroInfo.LastPKModeEndTime = GetPlayTime();
 	m_dwLastReduceHour = 0;
@@ -4131,7 +4134,7 @@ void CPlayer::AddBadFameReduceTime()
 	m_HeroInfo.LastPKModeEndTime += gTickTime;
 
 
-	if( GetBadFame() == 0 ) //Çö»ó¼ö¹è  
+	if( GetBadFame() == 0 ) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿  
 	{
 		if(m_HeroInfo.LastPKModeEndTime > WANTED_DESTROYED_TIME)
 		{
@@ -4142,7 +4145,7 @@ void CPlayer::AddBadFameReduceTime()
 		}     
 	}
 //	else if( m_HeroInfo.LastPKModeEndTime > 3*3600*1000 )
-	// ¾Ç¸íÄ¡ °ü·Ã Á¶Á¤ 10ºÐ¿¡ 1¾¿ ±ïÀÌ°Ô...
+	// ï¿½Ç¸ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 10ï¿½Ð¿ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½...
 	else if( m_HeroInfo.LastPKModeEndTime > 600*1000 )
 	{
 //		m_HeroInfo.LastPKModeEndTime -= 3600*1000;
@@ -4166,7 +4169,7 @@ void CPlayer::SpeedHackCheck()
 
 	++m_nHackCount;
 
-	if( gCurTime - m_dwHackStartTime >= 60*1000 )	//1ºÐ
+	if( gCurTime - m_dwHackStartTime >= 60*1000 )	//1ï¿½ï¿½
 	{
 		if( m_nHackCount >= g_nHackCheckWriteNum )
 		{
@@ -4196,7 +4199,7 @@ void CPlayer::ClearMurderIdx()
 
 DWORD CPlayer::Damage(CObject* pAttacker,RESULTINFO* pDamageInfo)
 {
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	DWORD realDamage = pDamageInfo->RealDamage;
 
 	if( InTitan() )
@@ -4208,7 +4211,7 @@ DWORD CPlayer::Damage(CObject* pAttacker,RESULTINFO* pDamageInfo)
 			pDamageInfo->TitanObsorbDamage = titanObsorb;
 		}
 
-		// Ä³¸¯ÅÍ
+		// Ä³ï¿½ï¿½ï¿½ï¿½
 		pDamageInfo->RealDamage =  realDamage - titanObsorb;
 
 		GetCurTitan()->Damage(pAttacker, pDamageInfo);
@@ -4225,7 +4228,7 @@ DWORD CPlayer::Damage(CObject* pAttacker,RESULTINFO* pDamageInfo)
 	{
 		if( GetUserLevel() == eUSERLEVEL_GM ) // && g_pServerSystem->GetNation() == eNATION_KOREA )
 		{
-			life = 1;		//gmÀº µ¥¹ÌÁö´Â ¹Þ¾Æµµ Á×Áö ¾Êµµ·Ï
+			life = 1;		//gmï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½
 		}
 		else
 		{
@@ -4326,7 +4329,7 @@ BOOL CPlayer::IsAbleReviveOther()
 		return FALSE;
 	}
 
-	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//¡¤c¨¡AA©¬¢¯¡Ì
+	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//ï¿½ï¿½cï¿½ï¿½AAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		MSG_BYTE msg;
 		msg.Category	= MP_USERCONN;
@@ -4368,12 +4371,12 @@ BOOL CPlayer::ReviveShopItem( WORD ItemIdx )
 
 /*	if(GetLevel() >= 5)
 	{
-		// µ· ¹ÝÀ¸·Î  0.04->0.02
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  0.04->0.02
 		CItemSlot* pSlot = m_ItemContainer.GetSlot(eItemTable_Inventory);
 		DWORD CurMoney = pSlot->GetMoney();
 		SetMoney( (MONEYTYPE)(CurMoney*0.02), MONEY_SUBTRACTION, MF_LOST , eItemTable_Inventory, eMoneyLog_LoseDie, 0 );
 
-		// °æÇèÄ¡ ¹ÝÀ¸·ç..  0.02->0.01
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..  0.02->0.01
 		EXPTYPE pointForLevel = GAMERESRCMNGR->GetMaxExpPoint(GetLevel());
 		EXPTYPE minusExp = (EXPTYPE)(pointForLevel * 0.01);
 		ReduceExpPoint(minusExp, eExpLog_LosebyReviveReviveOther);
@@ -4425,7 +4428,7 @@ void CPlayer::ReviveVillage()
 		return;
 	}
 	
-	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//¢®¢´c¡§¢®AA¨Ï¡þ¡Ë?¢®I
+	if( LOOTINGMGR->IsLootedPlayer( GetID() ) )	//ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAï¿½Ï¡ï¿½ï¿½ï¿½?ï¿½ï¿½I
 	{
 		MSG_BYTE msg;
 		msg.Category	= MP_USERCONN;
@@ -4450,7 +4453,7 @@ void CPlayer::ReviveVillage()
 
 #ifdef _CHINA_LOCAL_
 
-	// Áß±¹Àº °ø¼º½Ã ÆÐ³ÎÆ¼ ¾ø´Ù.
+	// ï¿½ß±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½.
 
 #elif defined _KOR_LOCAL_
 	if( IsActionPanelty() == FALSE )
@@ -4465,7 +4468,7 @@ void CPlayer::ReviveVillage()
 	if( !EVENTMAPMGR->IsEventMap() )
 	if(GetLevel() >= 5 && m_bDieForGFW == FALSE )
 	{
-		// RaMa -> °æÇèÄ¡+µ·º¸È£
+		// RaMa -> ï¿½ï¿½ï¿½ï¿½Ä¡+ï¿½ï¿½ï¿½ï¿½È£
 		DWORD ItemIdx = 0;
 		SHOPITEMWITHTIME* pShopItem = NULL;
 		if( GetShopItemStats()->ProtectCount )		
@@ -4477,7 +4480,7 @@ void CPlayer::ReviveVillage()
 			if( !pShopItem )
 				goto ProtectAll_UseFail;
 
-			// LogÃß°¡
+			// Logï¿½ß°ï¿½
 			LogItemMoney( GetID(), GetObjectName(), 0, "",
 				eLog_ShopItemProtectAll, GetMoney(eItemTable_Inventory), 0, 0,
 				ItemIdx, pShopItem->ShopItem.ItemBase.dwDBIdx, pShopItem->ShopItem.ItemBase.Position, 0, pShopItem->ShopItem.ItemBase.Durability, GetPlayerExpPoint());
@@ -4492,7 +4495,7 @@ void CPlayer::ReviveVillage()
 			}
 			else
 			{
-				// DB¿¡ ¾÷µ¥ÀÌÆ®
+				// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				ShopItemUseParamUpdateToDB( 0, GetID(), ItemIdx, GetShopItemStats()->ProtectCount );
 			}
 			m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_PROTECTALL, GetShopItemStats()->ProtectCount);
@@ -4500,7 +4503,7 @@ void CPlayer::ReviveVillage()
 		else
 		{
 ProtectAll_UseFail:
-			// RaMa -> µ·º¸È£ ÁÖ¹®¼­
+			// RaMa -> ï¿½ï¿½ï¿½ï¿½È£ ï¿½Ö¹ï¿½ï¿½ï¿½
 			if( m_ShopItemManager.GetUsingItemInfo( eIncantation_MoneyProtect ) )
 			{
 				m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_MONEYPROTECT, eIncantation_MoneyProtect);
@@ -4514,7 +4517,7 @@ ProtectAll_UseFail:
 					SetMoney((MONEYTYPE)(CurMoney*0.04), MONEY_SUBTRACTION, MF_LOST, eItemTable_Inventory, eMoneyLog_LoseDie, 0);
 			}
 			
-			// RaMa -> °æÇèÄ¡º¸È£ ÁÖ¹®¼­
+			// RaMa -> ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½È£ ï¿½Ö¹ï¿½ï¿½ï¿½
 			if( m_ShopItemManager.GetUsingItemInfo( eIncantation_ExpProtect ) )
 			{
 				m_ShopItemManager.SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_EXPPROTECT, eIncantation_ExpProtect);
@@ -4529,7 +4532,7 @@ ProtectAll_UseFail:
 
 				ReduceExpPoint(minusExp, eExpLog_LosebyRevivePresent);
 
-				//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+				//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿
 				m_PetManager.ReducePetFriendshipWithMastersRevive();
 			}
 		}
@@ -4560,7 +4563,7 @@ BOOL CPlayer::CanSocietyAction( DWORD curTime )
 {
 	DWORD dwElapsedTime = curTime - m_dwLastSocietyAction;
 
-	if( dwElapsedTime > 2000 )	//2ÃÊ
+	if( dwElapsedTime > 2000 )	//2ï¿½ï¿½
 	{
 		m_dwLastSocietyAction = curTime;
 		return TRUE;
@@ -4606,8 +4609,8 @@ DWORD CPlayer::DoGetMaxNaeRyuk()
 
 DWORD CPlayer::DoGetPhyDefense()
 { 
-	/*// ¹æ¾î °ø½Ä µû·Î Ã³¸®.
-	//SW070127 Å¸ÀÌÅº
+	/*// ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if(InTitan())
 		return GetCurTitan()->DoGetPhyDefense();
 	else*/
@@ -4624,7 +4627,7 @@ DWORD CPlayer::DoGetPhyDefense()
 
 float CPlayer::DoGetAttDefense(WORD Attrib)
 {
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if(InTitan())
 		return GetCurTitan()->DoGetAttDefense(Attrib);
 	else
@@ -4684,9 +4687,9 @@ void CPlayer::SetStage( BYTE stage )
 //		}
 	}
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
-	//ÀüÁ÷½Ã ¹«½ÖÃÖ´ëÆ÷ÀÎÆ® ¼öÁ¤
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	SetMussangMaxPoint();
 #endif
 }
@@ -4713,7 +4716,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 			if( GUILDFIELDWARMGR->JudgeGuildFieldWar( this, (CPlayer*)pAttacker ) == FALSE )
 			{
 				//PKLooting!
-				//IsLootingSituation¢¯¢®¨ù¡©¢¥A ¨¬n©ö¡ìA©¬AIAo ¡ÆE¡íc ¨úECN¢¥U. ¡¾¡¿¡¤¢®¨ù¡© ¢¯¨Ï¡¾a¢¥U¡Æ¢® ©øO¨úu¢¥U.
+				//IsLootingSituationï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½AIAo ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½ECNï¿½ï¿½U. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¡ï¿½aï¿½ï¿½Uï¿½Æï¿ ï¿½ï¿½Oï¿½ï¿½uï¿½ï¿½U.
 				if( LOOTINGMGR->IsLootingSituation( this, pAttacker ) )
 				{
 					LOOTINGMGR->CreateLootingRoom( this, (CPlayer*)pAttacker );
@@ -4755,7 +4758,7 @@ void CPlayer::DoDie(CObject* pAttacker)
 	//KES PKPlayerPanelty
 	PKMGR->DiePanelty( this, pAttacker );
 
-	// ¨ÏoI¡Ë?i
+	// ï¿½ï¿½oIï¿½ï¿½?i
 	//SetGravity(0);
 	CMonster * pObject = NULL;
 	m_FollowMonsterList.SetPositionHead();
@@ -4945,9 +4948,9 @@ void CPlayer::SetExtraSlotCount( DWORD PyogukSlot, DWORD InvenSlot, DWORD Mugong
 }
 #endif
 
-//SW051112 ¹«½Ö¸ðµå
+//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿
 void CPlayer::SetMussangMaxPoint()
-{//·¹º§ º¯µ¿½Ã¿¡ ¾´´Ù.
+{//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	int iMaxMussangPoint = GetMussangMaxPoint();
 
 	if(iMaxMussangPoint < 0)
@@ -4960,7 +4963,7 @@ void CPlayer::SetMussangMaxPoint()
 	{
 		m_HeroInfo.MaxMussangPoint = iMaxMussangPoint;
 
-		MSG_DWORDBYTE msg;	//SendMussangInfo ¿Í °°ÀÌ ¾´´Ù. ·¾¾÷°ú ¹ßµ¿ÁØºñ°¡ °°ÀÌ ÀÌ·ç¾î Áú¼ö ÀÖ±â¶§¹®¿¡ µû·Î ÇÑ´Ù.
+		MSG_DWORDBYTE msg;	//SendMussangInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		msg.Category = MP_CHAR;
 		msg.Protocol = MP_CHAR_MUSSANG_INFO;
 		msg.dwObjectID = GetID();
@@ -4974,11 +4977,11 @@ void CPlayer::SetMussangMaxPoint()
 void CPlayer::AddMussangPointFromLevel(DWORD dwMonsterLevel)
 {
 	if( m_bIsMussangReady ) return;
-	//°ø½Ä °è»ê
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 	int dwAddPoint = dwMonsterLevel + dwMonsterLevel - GetLevel();
 	//int dwAddPoint = 100;	//!!!test
 
-	//ÃÖ¼Ò 1
+	//ï¿½Ö¼ï¿½ 1
 	if( dwAddPoint < 1 )
 		dwAddPoint = 1;
 	// Rama - 06.06.09
@@ -4996,30 +4999,30 @@ void CPlayer::AddMussangPointFromLevel(DWORD dwMonsterLevel)
 		}
 	}
 
-	//´õÇØÁÖ°í
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 	m_dwMussangPoint += dwAddPoint;	
-	//ÃÖ´ë°ªº¸Á¤
+	//ï¿½Ö´ë°ªï¿½ï¿½ï¿½ï¿½
 	if( m_dwMussangPoint >= m_HeroInfo.MaxMussangPoint )
 	{
 		m_dwMussangPoint = m_HeroInfo.MaxMussangPoint;
 	}
-	//°ªº¸³»±â (ÃÖ´ë°ªÀÌÇÏÀÏ¶§¸¸)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë°ªï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½)
 	if( !m_bIsMussangReady )
 	{
-		//ÃÖ´ë°ªÀÌ¸é ÁØºñ»óÅÂ
+		//ï¿½Ö´ë°ªï¿½Ì¸ï¿½ ï¿½Øºï¿½ï¿½ï¿½ï¿
 		if( m_dwMussangPoint == m_HeroInfo.MaxMussangPoint )
 			m_bIsMussangReady = TRUE;
 		SendMussangInfo();
 	}
 }
 
-DWORD CPlayer::GetMussangMaxPoint()	//Ä³¸¯ÅÍ DBÁ¤º¸ ¸®ÅÏÈÄ »ç¿ë.
+DWORD CPlayer::GetMussangMaxPoint()	//Ä³ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿.
 {
 //	return ( ( GetLevel() + 3 ) * 120 ) - ( ( 30 - GetLevel() ) * 10 );
 #ifdef _JAPAN_LOCAL_
 	return GetLevel()*130 + 60;
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	switch(m_HeroCharacterInfo.Stage)
 	{
 	case eStage_Normal:	
@@ -5038,14 +5041,14 @@ DWORD CPlayer::GetMussangMaxPoint()	//Ä³¸¯ÅÍ DBÁ¤º¸ ¸®ÅÏÈÄ »ç¿ë.
 
 void CPlayer::SendMussangInfo()
 {
-	//ÇöÀç ¹«½Ö Æ÷ÀÎÆ®¸¦ º¸³½´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	MSG_DWORDBYTE msg;
 	msg.Category = MP_CHAR;
 	msg.Protocol = MP_CHAR_MUSSANG_INFO;
 	msg.dwObjectID = GetID();
 	msg.dwData	= m_dwMussangPoint;
 
-	if( m_bIsMussangReady )	m_bMussangFlag |= eMSS_Ready;	//¹«½ÖÀÌ¸é¼­ °ÔÀÌÁö Ç®(´ë±â)»óÅÂÀÏ ¼ö µµÀÖ´Ù. ¹«½Ö »óÅÂ¿¡¼­ °ÔÀÌÁö ´©Àû.
+	if( m_bIsMussangReady )	m_bMussangFlag |= eMSS_Ready;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®(ï¿½ï¿½ï¿)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //	if( m_HeroCharacterInfo.bMussangMode )	m_bMussangFlag |= eMSS_InMode;
 //	else m_bMussangFlag |= eMSS_None;
 
@@ -5066,11 +5069,11 @@ DWORD	CPlayer::StartMussangMode()
 
 	m_HeroCharacterInfo.bMussangMode = TRUE;
 
-	m_bIsMussangReady = FALSE;	// ´ë±â »óÅÂ ÃÊ±â
+	m_bIsMussangReady = FALSE;	// ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½
 
-	InitMussangPoint();	// ¹«½Ö Æ÷ÀÎÆ® ÃÊ±â
+	InitMussangPoint();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½
 
-	SetMussangMode(TRUE);	// ¹«½Ö ¸ðµå
+	SetMussangMode(TRUE);	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 
 	SendMussangInfo();
 	
@@ -5078,7 +5081,7 @@ DWORD	CPlayer::StartMussangMode()
 
 	m_dwMussangTime = 0;
 #ifndef _JAPAN_LOCAL_
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	switch(m_HeroCharacterInfo.Stage)
 	{
 	case eStage_Normal:	
@@ -5105,7 +5108,7 @@ DWORD	CPlayer::StartMussangMode()
 
 	m_dwMussangTime += (m_HeroCharacterInfo.Level / 10) * 10000;
 
-	//SW061120 ½Å±ÔÆê
+	//SW061120 ï¿½Å±ï¿½ï¿½ï¿½
 	DWORD addTime = 0;
 
 	GetPetManager()->GetPetBuffResultRt(ePB_MussangTimeIncrease, &addTime);
@@ -5123,7 +5126,7 @@ DWORD	CPlayer::StartMussangMode()
 
 void CPlayer::CheckMussangTime()
 {
-	if( !m_HeroCharacterInfo.bMussangMode ) return;	//¹«½Ö »óÅÂ°¡ ¾Æ´Ï¸é ¸®ÅÏ
+	if( !m_HeroCharacterInfo.bMussangMode ) return;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #ifdef _JAPAN_LOCAL_
 	if( gCurTime - m_dwMussangStartTime > MUSSANG_VALID_TIME )
@@ -5132,7 +5135,7 @@ void CPlayer::CheckMussangTime()
 		SendMussangEnd();
 	}
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	if( gCurTime - m_dwMussangStartTime > m_dwMussangTime )
 	{
 		SetMussangMode(FALSE);
@@ -5168,7 +5171,7 @@ DWORD CPlayer::CalcShieldDamage(DWORD ShieldDamage)
 {
 	DWORD Shield = GetShield();
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if(InTitan())	return 0;
 
 	if(Shield < ShieldDamage)
@@ -5183,7 +5186,7 @@ DWORD CPlayer::CalcShieldDamage(DWORD ShieldDamage)
 	}
 }
 #else
-// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 DWORD CPlayer::CalcShieldDamage(DWORD ShieldDamage, DWORD &RealShieldDamage)
 {
 	DWORD Shield = GetShield();
@@ -5207,16 +5210,16 @@ DWORD CPlayer::CalcShieldDamage(DWORD ShieldDamage, DWORD &RealShieldDamage)
 #endif
 
 ////////////////////////////////////////////////////////
-//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-//ÀÌÆåÆ® »ý·«(¹«ÃÊ)
+//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 BOOL CPlayer::IsSkipSkill()
 {
-	//Çö°æ Å»¸¶°¡ ¾Æ´Ï¸é »ç¿ë¸øÇÔ
+	//ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(	m_HeroCharacterInfo.Stage != eStage_Hyun &&
 		m_HeroCharacterInfo.Stage != eStage_Tal )
 		return FALSE;
 
-	//¹«ÃÊ»óÅÂ°¡ °É·ÁÀÖ´ÂÁö °Ë»ç
+	//ï¿½ï¿½ï¿½Ê»ï¿½ï¿½Â°ï¿½ ï¿½É·ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	WORD SkipKind = 0;
 
 	PTRLISTSEARCHSTART(m_StatusList,CStatus*,pSL)
@@ -5231,8 +5234,8 @@ BOOL CPlayer::IsSkipSkill()
 ////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// ¹«°ø º¯È¯ Ãß°¡
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 void CPlayer::AddSkillStatsOption(SKILLOPTION *pSkillOption)
 {
 	m_SkillStatsOption.Life += pSkillOption->Life;
@@ -5265,19 +5268,19 @@ void CPlayer::RemoveSkillStatsOption(SKILLOPTION *pSkillOption)
 //////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////
-// 06. 07. »óÅÂ°­Á¦º¯°æ - ÀÌ¿µÁØ
-// ÀÏÁ¤ÀÌ»ó ½ºÅ³ »ç¿ë½ÇÆÐ½Ã Æ¯º°ÇÑ »óÅÂ¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö »óÅÂ´Â ¸ðµÎ ÃÊ±âÈ­
-// Á¤»óÀûÀÎ »óÅÂ¿¡¼­´Â °ªÀ» ÃÊ±âÈ­
-// ½ÇÆÐ°ªÀ» ´©ÀûÇÏÁö ¾Ê´Â´Ù.
-// ¿¬¼Ó ½ÇÆÐ½Ã¿¡¸¸ »óÅÂÇØÁ¦
+// 06. 07. ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ ï¿½ï¿½ï¿ ï¿½Ê±ï¿½È­
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+// ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 BOOL CPlayer::CanSkillState()
 {
-	//¿¬¼Ó 5È¸ ÀÌ»ó ½ÇÆÐ½Ã
+	//ï¿½ï¿½ï¿½ï¿½ 5È¸ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½Ð½ï¿½
 	if(m_SkillFailCount >= 5)
 	{
 		switch(m_BaseObjectInfo.ObjectState)
 		{
-		// ½ºÅ³À» »ç¿ëÇÒ¼ö ÀÖ´Â »óÅÂ¸é °ªÀ» ÃÊ±âÈ­ÇÏ°í TRUE ¸®ÅÏ
+		// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï°ï¿½ TRUE ï¿½ï¿½ï¿½ï¿½
 		case eObjectState_None:
 		case eObjectState_Move:
 		case eObjectState_TiedUp_CanSkill:
@@ -5286,8 +5289,8 @@ BOOL CPlayer::CanSkillState()
 				return TRUE;
 			}
 			break;
-		// ½ºÅ³À» »ç¿ëÇÒ¼ö ¾ø´Â »óÅÂÁß Ç®¾îÁàµµ ¹«¹æÇÑ »óÅÂ¸é °ªÀ» ÃÊ±âÈ­ ÇÏ°í
-		// »óÅÂ¸¦ ÃÊ±âÈ­ ÇÑµÚ TRUE ¸®ÅÏ
+		// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ï°ï¿½
+		// ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ñµï¿½ TRUE ï¿½ï¿½ï¿½ï¿½
 		case eObjectState_SkillStart:
 		case eObjectState_SkillSyn:	
 		case eObjectState_SkillBinding:
@@ -5304,7 +5307,7 @@ BOOL CPlayer::CanSkillState()
 				return TRUE;
 			}
 			break;
-		// ±× ¿ÜÀÇ °æ¿ì¿£ °ªÀ» ÃÊ±âÈ­ ÇÏ°í FALSE ¸®ÅÏ
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ï°ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 		default:
 			{
 				m_SkillFailCount = 0;
@@ -5314,8 +5317,8 @@ BOOL CPlayer::CanSkillState()
 		}
 	}
 
-	// 5È¸ ÀÌÇÏ ÀÏ¶§ ½ºÅ³À» »ç¿ëÇÒ¼ö ¾ø´Â »óÅÂ¸é
-	// °ªÀ» Áõ°¡ÇÏ°í FALSE ¸®ÅÏ
+	// 5È¸ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 	if(m_BaseObjectInfo.ObjectState != eObjectState_None &&
 	   m_BaseObjectInfo.ObjectState != eObjectState_Move &&
 	   m_BaseObjectInfo.ObjectState != eObjectState_TiedUp_CanSkill )
@@ -5324,7 +5327,7 @@ BOOL CPlayer::CanSkillState()
 		return FALSE;
 	}
 
-	// Á¤»ó »óÅÂÀÏ¶§ °ªÀ» ÃÊ±âÈ­ÇÏ°í TRUE ¸®ÅÏ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï°ï¿½ TRUE ï¿½ï¿½ï¿½ï¿½
 	m_SkillFailCount = 0;
 	return TRUE;
 }
@@ -5346,7 +5349,7 @@ void CPlayer::IncreaseEventHammerCount()
 		{
 			m_fFullMoonEventTime = 60000.f;
 
-			// Client·Î º¸³½´Ù.
+			// Clientï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			MSG_BYTE	msg;
 			SetProtocol( &msg, MP_CHAR, MP_CHAR_FULLMOONEVENT_CHANGE );
 			msg.bData = m_HeroCharacterInfo.EventIndex;
@@ -5359,11 +5362,11 @@ void CPlayer::IncreaseEventHammerCount()
 
 void CPlayer::SummonEventPetRndm()
 {
-	//ÇöÀç ¼ÒÈ¯ÁßÀÎ ÆêÀÌ ÀÖÀ¸¸é
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( m_PetManager.GetCurSummonPet() != NULL )
 		return;
 
-	//30% È®·ü·Î Æê ¼ÒÈ¯.
+	//30% È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯.
 #define SUMMONRATE_EVENTPET 10
 	int rnd = rand()%100;
 
@@ -5411,15 +5414,15 @@ BOOL CPlayer::InTitan()
 
 BOOL CPlayer::CanUseTitanSkill()
 {
-	//Å¸ÀÌÅº Å¾½Â ÁßÀÎ°¡
+	//Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½
 	if( FALSE == InTitan() )
 		return FALSE;
 
-	//Å¸ÀÌÅº ³»·ÂÀÌ ÃæºÐÇÑ°¡(½ºÅ³¿¡¼­ °Ë»ç)
+	//Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ°ï¿(ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½)
 
-	//Å¸ÀÌÅº ºÎÇ°Áß ³»±¸µµ 0 À¸·Î ÆÄ±«µÈ °ÍÀÌ ÇÏ³ª¶óµµ ÀÖ´Â°¡.. °¹¼ö È®ÀÎ
+	//Å¸ï¿½ï¿½Åº ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½.. ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	//if( FALSE == m_TitanManager.CheckEquipState() )
-	/*±âÈ¹ º¯°æÀ¸·Î Á¦°Å. ÀåÂøÅÛÀº ¼ÒÈ¯/½ºÅ³»ç¿ë°ú ¹«°ü.
+	/*ï¿½ï¿½È¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯/ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if( FALSE == m_TitanManager.CheckUsingEquipItemNum() )
 		return FALSE;
 
@@ -5443,10 +5446,10 @@ void CPlayer::ApplyTitanWearItem()
 	if(GetInited())
 	{
 		m_TitanManager.SendTitanStats();
-		m_TitanManager.SendTitanPartsChange();	//Å¸ÀÌÅº ºñ¼ÒÈ¯ÀÏ ¶§¸¸ ÆÄÃ÷ º¯°æ°¡´É.
+		m_TitanManager.SendTitanPartsChange();	//Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½Èï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ°¡ï¿½ï¿½.
 	}
 
-	//2007. 10. 5. CBH - Å¸ÀÌÅº Àåºñ Âø¿ë½Ã Å¸ÀÌÅº EP¼öÄ¡ °»½Å
+	//2007. 10. 5. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿ Å¸ï¿½ï¿½Åº EPï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 	if(InTitan() == TRUE)
 	{
 		CTitan* pRidingTitan = m_TitanManager.GetCurRidingTitan();
@@ -5458,48 +5461,48 @@ void CPlayer::ApplyTitanWearItem()
 	}	
 }
 
-///// 2007. 6. 14. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ Ã³¸® ÇÔ¼ö
+///// 2007. 6. 14. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CPlayer::AddSetitemOption(SET_ITEM_OPTION* pSetItemOption)
 {
 	float attrvalue = 0;
 
-	/// ±Ù°ñ
+	/// ï¿½Ù°ï¿½
 	m_setItemStats.wGenGol += pSetItemOption->wGenGol;	
-	//¹ÎÃ¸
+	//ï¿½ï¿½Ã¸
 	m_setItemStats.wMinChub += pSetItemOption->wMinChub;
-	//Ã¼·Â
+	//Ã¼ï¿½ï¿½
 	m_setItemStats.wCheRyuk += pSetItemOption->wCheRyuk;
-	//½É¸Æ
+	//ï¿½É¸ï¿½
 	m_setItemStats.wSimMek += pSetItemOption->wSimMek;
-	//ÃÖ´ë»ý¸í·Â
+	//ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	m_setItemStats.dwLife += pSetItemOption->dwLife;
-	//È£½Å°­±â
+	//È£ï¿½Å°ï¿½ï¿½ï¿½
 	m_setItemStats.dwShield += pSetItemOption->dwShield;
-	//ÃÖ´ë³»·Â
+	//ï¿½Ö´ë³»ï¿½ï¿½
 	m_setItemStats.dwNaeRyuk += pSetItemOption->dwNaeRyuk;
-	//¼Ó¼º ÀúÇ×·Â	
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½	
 	m_setItemStats.AttrRegist.AddATTRIBUTE_VAL(pSetItemOption->AttrRegist,1);	
-	//±Ù°Å¸® ÃÖ¼Ò °ø°Ý·Â
+	//ï¿½Ù°Å¸ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	m_setItemStats.wMeleeAttackMin += pSetItemOption->wMeleeAttackMin;
-	//±Ù°Å¸® ÃÖ´ë °ø°Ý·Â
+	//ï¿½Ù°Å¸ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	m_setItemStats.wMeleeAttackMax += pSetItemOption->wMeleeAttackMax;
-	//¿ø°Å¸® ÃÖ¼Ò °ø°Ý·Â
+	//ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	m_setItemStats.wRangeAttackMin += pSetItemOption->wRangeAttackMin;
-	//¿ø°Å¸® ÃÖ´ë °ø°Ý·Â	
+	//ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½	
 	m_setItemStats.wRangeAttackMax += pSetItemOption->wRangeAttackMax;
-	//Å©¸®Æ¼ÄÃ
+	//Å©ï¿½ï¿½Æ¼ï¿½ï¿½
 	m_setItemStats.wCriticalPercent += pSetItemOption->wCriticalPercent;	
-	//¼Ó¼º °ø°Ý·Â	
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½	
 	m_setItemStats.AttrAttack.AddATTRIBUTE_VAL(pSetItemOption->AttrAttack,1);		
-	//¹°¸®¹æ¾î·Â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_setItemStats.wPhyDef += pSetItemOption->wPhyDef;
-	//»ý¸í·Â È¸º¹ (°íÁ¤)	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)	
 	m_setItemStats.wLifeRecover += pSetItemOption->wLifeRecover;
-	//»ý¸í·Â È¸º¹
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 	m_setItemStats.fLifeRecoverRate += pSetItemOption->fLifeRecoverRate;
-	//³»·Â È¸º¹ (°íÁ¤)
+	//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	m_setItemStats.wNaeRyukRecover += pSetItemOption->wNaeRyukRecover;
-	//³»·Â È¸º¹
+	//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 	m_setItemStats.fNaeRyukRecoverRate += pSetItemOption->fNaeRyukRecoverRate;
 }
 
@@ -5546,21 +5549,21 @@ void CPlayer::AddUniqueItemOption(UNIQUE_ITEM_OPTION_INFO* pUniqueOption)
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ½Ã°£ °ü·Ã ÃÊ±âÈ­
+//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 void CPlayer::InitSkinDelay()	
 {
 	m_dwSkinDelayTime = 0;
 	m_bSkinDelayResult = FALSE;
 }
 
-//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ½ÃÀÛ
+//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CPlayer::StartSkinDelay()
 {
 	m_dwSkinDelayTime = gCurTime + eSkinDelayTime;
 	m_bSkinDelayResult = TRUE;
 }
 
-//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ½Ã°£ Ã³¸®
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ Ã³ï¿½ï¿½
 void CPlayer::SkinDelayTimeProcess()
 {
 	if(m_bSkinDelayResult == TRUE)
@@ -5572,13 +5575,13 @@ void CPlayer::SkinDelayTimeProcess()
 	}
 }
 
-//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌÁßÀÎÁö ¹ÝÈ¯
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 BOOL CPlayer::GetSkinDelayResult()
 {
 	return m_bSkinDelayResult;
 }
 
-//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ³²Àº½Ã°£ ¹ÝÈ¯
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½È¯
 DWORD CPlayer::GetSkinDelayTime()
 {
 	DWORD dwTime = m_dwSkinDelayTime - gCurTime;

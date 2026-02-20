@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "HelpRequestManager.h"
 #include "Monster.h"
 #include "Player.h"
@@ -24,11 +25,11 @@ CHelpRequestManager::~CHelpRequestManager()
 
 }
 
-// µ¥¹ÌÁö¸¦ ¹ÞÀ» ¶§¿¡ È£Ãâ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 void CHelpRequestManager::MonsterRequestProcess(CMonster * pMonster)
 {
 	CRegenObject * pORInfo = GROUPMGR->GetRegenObject(pMonster->GetMonsterGroupNum(), pMonster->GetGridID(), pMonster->GetID());
-	if(!pORInfo) return;/*¼ÒÈ¯µÈ ¸ó½ºÅÍ*/
+	if(!pORInfo) return;/*ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 	switch(pORInfo->GetCurHelpType())
 	{
 	case HELPREQUEST_NONE: { } break;
@@ -36,10 +37,10 @@ void CHelpRequestManager::MonsterRequestProcess(CMonster * pMonster)
 		{
 			if( pMonster->GetLife() < pMonster->GetMaxLife()/2 )
 			{
-				// µµ¿ò ¿äÃ»
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 				//g_pAISystem->SendMsg(eMK_HelpShout, pMonster->GetID(), pMonster->GetID(),0,0);
 				g_pAISystem->SendMsg(eMK_HelpRequest, pMonster->GetID(), 0, 0, 0);
-				// HelpType ÃÊ±âÈ­
+				// HelpType ï¿½Ê±ï¿½È­
 				pORInfo->SetCurHelpType(HELPREQUEST_NONE);
 			}
 		}
@@ -48,7 +49,7 @@ void CHelpRequestManager::MonsterRequestProcess(CMonster * pMonster)
 		{
 			if( pMonster->GetLife() < pMonster->GetMaxLife()*0.3 )
 			{
-				// µµ¿ò ¿äÃ»
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 				//g_pAISystem->SendMsg(eMK_HelpShout, pMonster->GetID(), pMonster->GetID(),0,0);
 				g_pAISystem->SendMsg(eMK_HelpRequest, pMonster->GetID(), 0, 0, 0);
 			}
@@ -59,7 +60,7 @@ void CHelpRequestManager::MonsterRequestProcess(CMonster * pMonster)
 			// taiyo ok?
 			if(pMonster->GetLife() == 0)
 			{
-				// µµ¿ò ¿äÃ»
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 				//g_pAISystem->SendMsg(eMK_HelpShout, pMonster->GetID(), pMonster->GetID(),0,0);
 				g_pAISystem->SendMsg(eMK_HelpRequest, pMonster->GetID(), 0, 0, 0);
 				
@@ -68,7 +69,7 @@ void CHelpRequestManager::MonsterRequestProcess(CMonster * pMonster)
 		break;
 	case HELPREQUEST_ALWAYS: 
 		{
-			// Ç×»ó µµ¿ò ¿äÃ»
+			// ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 			//g_pAISystem->SendMsg(eMK_HelpShout, pMonster->GetID(), pMonster->GetID(),0,0);
 			g_pAISystem->SendMsg(eMK_HelpRequest, pMonster->GetID(), 0, 0, 0);
 		} 
@@ -100,12 +101,12 @@ void CHelpRequestManager::SetHelperMonster(CMonster* pAsker, CMonster * pHelper,
 //		pHelper->SetTObject( pTargeter );
 //		GSTATEMACHINE.SetState(pHelper, eMA_ATTACK);
 
-		//SW060703 Æê¹öÇÁ Ãß°¡
-		//2008. 6. 9. CBH - º¸½º Á¹°³°¡ º®¿¡ ºÙ´Â Çö»ó ‹š¹®¿¡ º¸½º Á¹°³¸¦ ÀÏ¹Ý¸÷À¸·Î
-		//¼öÁ¤ ÈÄ ·ç·çÆÖ¿¡ ¿µÇâ ¹Þ´Â ¹ö±× ¼öÁ¤
+		//SW060703 ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+		//2008. 6. 9. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( FALSE == g_pServerSystem->GetMap()->IsMapKind(eBossMap) )
 		{
-			if( (objectKind == eObjectKind_Monster) || (objectKind == eObjectKind_TitanMonster) )	//ÀÏ¹Ý¸ó½ºÅÍ
+			if( (objectKind == eObjectKind_Monster) || (objectKind == eObjectKind_TitanMonster) )	//ï¿½Ï¹Ý¸ï¿½ï¿½ï¿½
 			{
 				BOOL bNoForeAtk = FALSE;
 				pTargeter->GetPetManager()->GetPetBuffResultRt( ePB_NoForeAtkMonster, & bNoForeAtk );
@@ -116,7 +117,7 @@ void CHelpRequestManager::SetHelperMonster(CMonster* pAsker, CMonster * pHelper,
 			}
 		}
 
-		//¼ø¼­ º¯°æ
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pHelper->SetLastAttackPlayer( pTargeter );
 		GSTATEMACHINE.SetState(pHelper, eMA_ATTACK);
 		pHelper->SetTObject( pTargeter );

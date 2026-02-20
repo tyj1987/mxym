@@ -4,10 +4,10 @@
 
 #include "stdafx.h"
 #include "BattleTeam_MunpaField.h"
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 
 #ifdef _MAPSERVER_
-#include "PackedData.h"
+#include "../[Client]MH/PackedData.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////

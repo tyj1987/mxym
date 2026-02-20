@@ -2,7 +2,7 @@
 #define __NPCSCRIPT_MANAGER__
 
 #include "PtrList.h"
-#include "../MHFile.h"
+#include "MHFile.h"
 
 
 #define NPCSCRIPTMGR USINGTON(cNpcScriptManager)

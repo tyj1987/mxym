@@ -1,10 +1,11 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
-//SW070626 보부상NPC
+//SW070626 貫NPC
 #include "ItemManager.h"
 
 #define BOBUSANG_NPCIDX	74
-#define BOBUSANG_wNpcUniqueIdx	300		//"StaticNpcList.bin 에 비포함"
+#define BOBUSANG_wNpcUniqueIdx	300		//"StaticNpcList.bin  "
 #define BOBUSANGMGR	USINGTON(BobusangManager)
 
 
@@ -33,7 +34,7 @@ struct BOBUSANGTOTALINFO
 
 class BobusangManager
 {
-	BOBUSANGTOTALINFO*	m_pBobusang;	// 채널 갯수 만큼..
+	BOBUSANGTOTALINFO*	m_pBobusang;	// 채  큼..
 
 public:
 	BobusangManager(void);
@@ -43,10 +44,10 @@ public:
 	void	BobusangMgr_Process();
 	void	BobusangMgr_Release();
 
-	// 맵서버에서 생성 메시지를 받아 addobject.
+	// 迦  聘 騁 addobject.
 	BOOL	MakeNewBobusangNpc(BOBUSANGINFO* pBobusangInfo);
 	BOOL	RemoveBobusangNpc(DWORD channelNum);
-	// Agent에서 받은 정보를 세팅한다. 생성시각/유지시간/품목인데스
+	// Agent   磯. 챨/챨/품琯
 	void	SetBobusanInfo(BOBUSANGINFO* pBobusangInfo);			// set struct BobusangInfo(...)
 	BOBUSANGTOTALINFO* GetBobusang(DWORD mapChannelNum);
 	int		GetBobusangSellingRt(DWORD channelNum, DealerItem* pItemList);
@@ -59,7 +60,7 @@ public:
 
 	DealerItem*	GetSellingItem(cPtrList* pSellingItemList, WORD buyItemIdx);
 
-	// 보부상 생성
+	// 貫 
 	void	AppearBobusang(MSG_BOBUSANG_INFO* pmsg);
 	void	DisappearBobusang(MSG_DWORD2* pmsg);
 

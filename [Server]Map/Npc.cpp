@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Npc.h"
 #include "ObjectStateManager.h"
 #include "AISystem.h"
@@ -86,12 +87,14 @@ void CNpc::SetDieTime(DWORD time)
 void CNpc::Process()
 {
 	if( m_NpcInfo.NpcKind != BOBUSANG_NPCIDX )
-	if(m_DieTime)
 	{
-		if(m_DieTime < gCurTime)
-		{			
-			DoDie(NULL);
-			m_DieTime = 0;
+		if(m_DieTime)
+		{
+			if(m_DieTime < gCurTime)
+			{
+				DoDie(NULL);
+				m_DieTime = 0;
+			}
 		}
 	}
 }
@@ -132,10 +135,10 @@ void CNpc::DoJob(CPlayer* pPlayer, DWORD ConnectIdx)
 	WORD job = GetNpcJob();
 	switch(job)
 	{
-	case MAPCHANGE_ROLE://É½ºÓÆ×Àà,µØÍ¼×ª»»npc
+	case MAPCHANGE_ROLE://É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Í¼×ªï¿½ï¿½npc
 		MapChangeRole(pPlayer, ConnectIdx);
 		break;
-	case BOMUL_ROLE://»ÊÁê±¦Îï,Ïä×ÓÀànpc
+	case BOMUL_ROLE://ï¿½ï¿½ï¿½ê±¦ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npc
 		BomulRole(pPlayer); 
 		break;
 	default:
@@ -170,7 +173,7 @@ void CNpc::MapChangeRole(CPlayer* pPlayer, DWORD dwConnectionIndex)
 	EXPTYPE exp = pPlayer->GetPlayerExpPoint();
 	g_pServerSystem->RemovePlayer(pPlayer->GetID());
 	
-	// ¸®ÅÏ ¹ÞÀ¸¸é ¸Ê ¾Æ¿ô ¸Þ½ÃÁö º¸³¿.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	SaveMapChangePointReturn(pPlayer->GetID(), pChangeInfo->Kind, dwConnectionIndex, lvl, exp, pPlayer->GetMoney(eItemTable_Pyoguk));	
 }
 

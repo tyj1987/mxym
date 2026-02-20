@@ -51,7 +51,11 @@ public:
 	char* GetStringInQuotation();
 	void GetStringInQuotation(char* pBuf);
 	char* GetString();
-	int GetString(char* pBuf);
+#ifdef _MAPSERVER_
+	void GetString(char* pBuf);		// Server version - void return
+#else
+	int GetString(char* pBuf);		// Client version - returns string length
+#endif
 	void GetLine(char * pBuf, int len);
 	void GetLineX(char * pBuf, int len);	// ÁÖ¼®Ã³¸® µÈ °÷ ÀÐÀ»¶§ »ç¿ë
 	int GetInt();
@@ -64,8 +68,12 @@ public:
 	BOOL GetHex(DWORD* pOut);
 	DWORD GetExpPoint();
 	EXPTYPE GetExpPoint64();	// magi82 - Exp Variable Type Change(070523)
-	LEVELTYPE GetLevel();
-	
+#ifdef _MAPSERVER_
+	BOOL GetLevel();				// Server version - returns success/failure
+#else
+	LEVELTYPE GetLevel();			// Client version - returns level value
+#endif
+
 	void GetFloat(float* pArray,int count);
 	void GetWord(WORD* pArray,int count);
 	void GetDword(DWORD* pArray,int count);

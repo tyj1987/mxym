@@ -3,6 +3,7 @@
 
 #if !defined(TITANMANAGER_H)
 #define TITANMANAGER_H
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -15,11 +16,11 @@ enum	GetOffKindofReason{eNormal, eFromUser, eMasterLifeRate, eExhaustFuel, eExha
 // magi82(33)
 enum	EnduranceException	{	eExceptionNone, eExceptionInven, eExceptionPyoguk	};
 
-// 장착아이템 내구도
+//  
 enum	{AtAtk, AtDef};
 
 #define MAX_TITANGRADE	3
-#define TITAN_EQUIPITEM_ENDURANCE_MAX	10000000	// 천만
+#define TITAN_EQUIPITEM_ENDURANCE_MAX	10000000	// 천
 class CTitan;
 
 //enum	eTitanEquips{TE_HELMET, TE_ARMOR, TE_GLOVES, TE_LEGS, TE_CLOAK, TE_SHIELD, TE_WEAPON, TE_MAX};	//eTitanWearedItem_Max
@@ -39,11 +40,11 @@ class CTitanManager
 	CPlayer*	m_pMaster;
 	titan_calc_stats	m_titanStats;
 	titan_calc_stats	m_titanItemStats;
-	DWORD		m_dwCurRegistTitanCallItemDBIdx;	//현재 등록상태인 타이탄의 인증서 DBIDX
+	DWORD		m_dwCurRegistTitanCallItemDBIdx;	// 矩 타탄  DBIDX
 	DWORD		m_dwRecallCheckTime;
-	WORD		TitanScaleForNewOne;	// 100 => 클라이언트에서 1.0f.
+	WORD		TitanScaleForNewOne;	// 100 => 클潔트 1.0f.
 	TitanWearedInfo		m_TitanWearedInfo[eTitanWearedItem_Max];
-	BOOL		m_bAvaliableEndurance;	// 내구도 유효성 검사를 위한 상태변수.
+	BOOL		m_bAvaliableEndurance;	//  효 講潁�  쨘.
 	TITAN_SHOPITEM_OPTION m_TitanShopitemOption;	// magi82(26)
 
 	CYHHashTable<TITAN_TOTALINFO>				m_TitanInfoList;
@@ -51,14 +52,14 @@ class CTitanManager
 	CYHHashTable<TITAN_ENDURANCE_ITEMINFO>		m_ItemUsingEnduranceList;
 	CMemoryPoolTempl<TITAN_ENDURANCE_ITEMINFO>	m_ItemEndurancePool;
 
-	// 2007. 9. 14. CBH - 타이탄 소환 시간 관련 변수 추가
+	// 2007. 9. 14. CBH - 타탄 환 챨   煞
 	DWORD m_dwTitanRecallProcessTime;	
 	DWORD m_dwCurrentTime;
 	BOOL m_bTitanRecall;
 	BOOL m_bTitanRecallClient;
 	//////////////////////////////////////////////////////
 
-	// 타이탄 물약 딜레이 시간
+	// 타탄   챨
 	DWORD m_dwTitanEPTime;
 
 	// magi82(23)
@@ -76,12 +77,12 @@ public:
 	void	SetRegistTitanCallItemDBIdx(DWORD itemDBIdx)	{	m_dwCurRegistTitanCallItemDBIdx = itemDBIdx;	}
 	DWORD	GetRegistTitanCallItemDBIdx()	{	return m_dwCurRegistTitanCallItemDBIdx;	}
 	void	RemoveTitan();
-	// 타이탄 정보 관련
+	// 타탄  
 	void	AddTitanTotalInfo(TITAN_TOTALINFO* pTitanInfo, int flagSendMsgTo = eServerOnly);
 	BOOL	AddTitanTotalInfoList(TITAN_TOTALINFO* pTitanInfo);
 	TITAN_TOTALINFO*	GetTitanTotalInfo(DWORD callItemDBIdx);
-	void	RemoveTitanTotalInfo(DWORD callItemDBIdx);	// 교환시 리스트 상에서만 삭제
-	void	DeleteTitanTotalInfo(DWORD callItemDBIdx);	// 소환아이템삭제, 로그아웃시.
+	void	RemoveTitanTotalInfo(DWORD callItemDBIdx);	// 환 트 璨【 
+	void	DeleteTitanTotalInfo(DWORD callItemDBIdx);	// 환芳, 慣類틸.
 	WORD	GetTitanInfoList(TITAN_TOTALINFO* RtInfo);
 
 	void	DeleteTitan(DWORD callItemDBIdx);
@@ -89,55 +90,55 @@ public:
 	void	CreateNewTitan(CPlayer* pMaster, DWORD dwItemIdx, DWORD dwCallItemDBIdx, WORD wTitanKind, WORD wTitanGrade = 1);
 	void	CreateUpgradeTitan(CPlayer* pMaster, DWORD dwItemIdx, DWORD dwCallItemDBIdx);
 
-	void	SetTitanScale(WORD wScale)	{	TitanScaleForNewOne = wScale;	}	// 타이탄 인증서 생성시 사용
+	void	SetTitanScale(WORD wScale)	{	TitanScaleForNewOne = wScale;	}	// 타탄   
 	DWORD	GetTitanScale()	{	return TitanScaleForNewOne;	}
 
-	// 타이탄 프로세스
-	// 마력관련처리
+	// 타탄 關
+	// 째처
 	DWORD	GetTitanSpellDecrease();
 	void	ReduceTitanSpell(DWORD spell);
 
-	// 장착아이템 내구도 처리
+	//   처
 	void	TitanProcess();
 
 	void	UpDateCurTitanAndEquipItemInfo();
 
 	void	UpdateCurTitanInfo();
 
-	// 타이탄 탑승
+	// 타탄 탑
 	BOOL	RideInTitan(DWORD callItemDBIdx, BOOL bSummonFromUser = TRUE);
 
 	void	CheckRidingTitan();
 	void	SetTitanRiding(BOOL bVal);
-	// 타이탄 탑승 조건 검사
+	// 타탄 탑  講
 	BOOL	CheckBeforeRideInTitan(DWORD callItemDBIdx);
 	void	SetRecallCheckTime(DWORD checkTime = 0);
 
 	BOOL	CheckTimeRecallAvailable();
 
-	// 타이탄 탑승/스킬 사용가능 여부. 유효한 파츠가 3개이상 등
+	// 타탄 탑/킬 諛� . 효  3鵑 
 	BOOL	CheckEquipState();
 
-	// 타이탄 탑승해제
+	// 타탄 탑
 	BOOL	GetOffTitan(int reason = eNormal);
 
-	// 타이탄 교환
+	// 타탄 환
 	void	ExchangeTitan(DWORD callItemDBIdx, CPlayer* pNewMaster);
 
-	// 타이탄 등급업
-	// 아이템 관련처리(등급별 아이템이 다름.기존 소환아이템 지우기.다음 등급 소환아이템 생성하기)
-	// 타이탄 등급 가산처리(DB)
+	// 타탄 騁
+	//  처(頻  摸. 환 .  환 歐)
+	// 타탄  처(DB)
 	void	UpgradeTitan(DWORD callItemDBIdx, DWORD newCallItemDBIdx);
 
-	// 타이탄 등록
-	// 타이탄 등록처리(DB)
+	// 타탄 
+	// 타탄 처(DB)
 	BOOL	RegistTitan(DWORD	callItemDBIdx);
 	
-	// 타이탄 등록해제
-	// 타이탄 등록해제처리(DB)
+	// 타탄 
+	// 타탄 처(DB)
 	BOOL	CancleTitanRegister(DWORD callItemDBIdx);
 
-	// 타이탄 연료/마력 관련
+	// 타탄 / 
 	int		ApplyYoungYakItemToCurTitan(ITEM_INFO* pItemInfo);
 	void	AddCurTitanFuel(WORD amount);
 	void	AddCurTitanSpell(WORD amount);
@@ -148,20 +149,20 @@ public:
 	titan_calc_stats*	GetTitanStats()		{	return &m_titanStats;		}
 	titan_calc_stats*	GetTitanItemStats()	{	return &m_titanItemStats;	}
 ///////////////////////////////////////////////////////////////////////////////
-	// 장착아이템 내구도 정보 생성
+	//    
 	void	MakeNewEnduranceInfo(CPlayer* pOwner, ITEMBASE* pItemInfo, EnduranceException eException = eExceptionNone);	// magi82(33)
 	void	DeleteTitanEquip(DWORD itemDBIdx);
 
-	// 타이탄 장착 아이템 데이터 관리
+	// 타탄    
 	void	AddTitanEquipItemEnduranceInfo(TITAN_ENDURANCE_ITEMINFO* pEnduranceInfo, int flagSendMsgTo = eServerOnly);
 	BOOL	AddTitanEquipItemEnduranceInfoList(TITAN_ENDURANCE_ITEMINFO* pEnduranceInfo);
 	TITAN_ENDURANCE_ITEMINFO*	GetTitanItemEnduranceInfo(DWORD equipItemDBIdx);
-	void	RemoveTitanEquipItemInfo(DWORD equipItemDBIdx);	// 교환시 리스트 상에서만 삭제
-	void	DeleteTitanEquipItemInfo(DWORD equipItemDBIdx);	// 장착아이템 파괴, 또는 삭제시.
+	void	RemoveTitanEquipItemInfo(DWORD equipItemDBIdx);	// 환 트 璨【 
+	void	DeleteTitanEquipItemInfo(DWORD equipItemDBIdx);	//  캇, 풔 .
 	WORD	GetTitanEquipItemInfoList(TITAN_ENDURANCE_ITEMINFO* RtInfo);
 	void	DiscardTitanEquipItem(POSTYPE whatPos, WORD whatItemIdx, DWORD titanEquipItemDBIdx);
 
-	// 타이탄 사용중 장착 아이템 관련 (for DBUpdate)
+	// 타탄     (for DBUpdate)
 	void	AddTitanUsingEquipItemList(TITAN_ENDURANCE_ITEMINFO* pEnduranceInfo);
 	void	RemoveTitanUsingEquipItemList(DWORD equipItemDBIdx);
 	void	UpdateUsingEquipItemEnduranceInfo();
@@ -171,7 +172,7 @@ public:
 	BOOL	CheckUsingEquipItemEndurance();
 	BOOL	IsAvaliableEndurance()	{	return m_bAvaliableEndurance;	}
 
-	// 장착아이템 내구도
+	//  
 	void	DoRandomDecrease(int flgPoint);
 	DWORD	GetDecreaseEnduranceFromItemIdx(DWORD itemIdx);
 	void	PlusItemEndurance(DWORD titanEquipItemDBIdx, DWORD increaseAmount);
@@ -180,7 +181,7 @@ public:
 
 	void	SetWearedInfo(WORD wEquipItemKind, ITEMBASE* pItemBase, BOOL bIn);
 	//void	SetWearedInfo(WORD wEquipItemKind, DWORD itemIdx, DWORD itemDBIdx);
-	TitanWearedInfo*	GetWearedInfo(int equipKind);	// 장착 부위를 받아서 정보 리턴.
+	TitanWearedInfo*	GetWearedInfo(int equipKind);	//   騁티  .
 
 	void	ExchangeTitanEquipItem(DWORD dwItemDBIdx, CPlayer* pNewOwner);
 
@@ -193,13 +194,13 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 	///// 2007. 9. 13. CBH
-	BOOL	TitanRecallStartSyn( DWORD callItemDBIdx, BOOL bSummonFromUser = TRUE );	//타이탄 소환 시작
-	void	TitanRecallProcess();														//타이탄 시간 처리 함수
-	void	InitTitanRecall();															//타이탄 소환 관련 초기화 함수
-	void	StartTitanRecall();															//타이탄 소환 시작
-	BOOL	RideInTitan();																//타이탄 탑승
-	BOOL	IsTitanRecall();															//타이탄 소환 상태 반환
-	void	SetRecallProcessTime(DWORD dwRecallProcessTime);							//타이탄 소환 캐스팅 시간 셋팅
+	BOOL	TitanRecallStartSyn( DWORD callItemDBIdx, BOOL bSummonFromUser = TRUE );	//타탄 환 
+	void	TitanRecallProcess();														//타탄 챨 처 獨
+	void	InitTitanRecall();															//타탄 환  珂화 獨
+	void	StartTitanRecall();															//타탄 환 
+	BOOL	RideInTitan();																//타탄 탑
+	BOOL	IsTitanRecall();															//타탄 환  환
+	void	SetRecallProcessTime(DWORD dwRecallProcessTime);							//타탄 환 캐 챨 
 	///////////////////////////////////////////////////////////////////////////
 
 	void	MoveTitanEquipItemUpdateToDB(ITEMBASE* pFromItem, ITEMBASE* pToItem, POSTYPE FromPos, POSTYPE ToPos);

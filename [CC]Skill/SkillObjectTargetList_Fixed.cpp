@@ -1,10 +1,13 @@
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 // SkillObjectTargetList_Fixed.cpp: implementation of the CSkillObjectTargetList_Fixed class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "SkillObjectTargetList_Fixed.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

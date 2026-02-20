@@ -1,18 +1,19 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 #include "object.h"
 #include "..\[CC]Header\GameResourceStruct.h"
 
-#define TITAN_STATE_CHECKTIME	10000		//타이탄 상태 체크 시간, 내력 관련
-//#define TITAN_VAMP_DELAYTIME	60000		//주인 체력 흡수 딜레이
+#define TITAN_STATE_CHECKTIME	10000		//타탄  체크 챨,  
+//#define TITAN_VAMP_DELAYTIME	60000		// 체  
 
 class CTitan : public CObject
 {
 	CPlayer*	m_pOwner;
 	BASE_TITAN_LIST*	m_pBaseInfo;
-	DWORD		m_dwTitanSpellCheckTime;	// 10초 마다 지속적 마력 소모.
-	DWORD		m_dwTitanVampDelayCheckTime;		// 캐릭터 체력 가져오기 60초 딜레이.
+	DWORD		m_dwTitanSpellCheckTime;	// 10    恬.
+	DWORD		m_dwTitanVampDelayCheckTime;		// 캐 체  60 .
 	TITAN_TOTALINFO		m_TitanTotalInfo;
-	BOOL		m_bVamped;		// 소환 후 체력 흡수 여부. 첫 시간 체크시 사용.
+	BOOL		m_bVamped;		// 환  체  . 첫 챨 체크 .
 
 public:
 	CTitan(void);

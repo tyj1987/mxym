@@ -127,9 +127,11 @@ BOOL CExchangeRoom::AddItem( int nPlayerIndex, ITEMBASE* pItemInfo )
 		pItemSlot = (CShopInvenSlot*)m_ExchangeData[nPlayerIndex].pPlayer->GetSlot( eItemTable_ShopInven );
 
 		if( pInfo->ItemType == 11 )
+		{
 		if( !(pItemInfo->ItemParam & ITEM_PARAM_SEAL) )
 			return FALSE;
 		
+		}
 		// 거래불가 아이템
 		if( pInfo->ItemKind == eSHOP_ITEM_EQUIP || pInfo->ItemKind == eSHOP_ITEM_PET_EQUIP )
 		{

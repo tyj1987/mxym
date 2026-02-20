@@ -4,7 +4,11 @@
 
 #include "stdafx.h"
 #include "SkillObjectTargetList_Circle.h"
-#include "Object.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\Object.h"
+#else
+#include "..\\[Client]MH\\Object.h"
+#endif
 #include "SkillObject_server.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -75,4 +79,7 @@ void CSkillObjectTargetList_Circle::GetSkillObjectPosition(VECTOR3* pPos)
 #ifdef _MAPSERVER_
 	*pPos = m_CenterPos;
 #endif
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 }

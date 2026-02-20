@@ -15,10 +15,7 @@
 #include "ItemManager.h"
 #include "ObjectStateManager.h"
 #include "./interface/cWindowManager.h"
-
-#ifdef _KOR_LOCAL_
 #include "ChannelDialog.h"
-#endif
 
 
 
@@ -391,17 +388,12 @@ void CMoveDialog::MapMoveOK()
 		if((i-Startnum) == m_SelectRowIdx)
 		{
 			// magi82(35) MapChange State
-			// ¸ÊÀÌµ¿ ÇÒ¶§ ¾î¶² »óÅÂÀÇ ¸ÊÀÌµ¿ÀÎÁö Ã¼Å©ÇÏ°Ô ¼öÁ¤
-			//2008. 5. 9. CBH - Ã¤³Î º¯°æ ±â´É Ãß°¡ ¼öÁ¤
-#ifdef _KOR_LOCAL_
+			// ç§»åŠ¨æ—¶æ£€æŸ¥å¹¶å¤„ç†ç§»åŠ¨ç›¸å…³åŠŸèƒ½
+			//2008. 5. 9. CBH - æ–°é¢‘é“ç³»ç»Ÿæ·»åŠ çš„ä»£ç 
 			CChannelDialog* pChannelDlg = (CChannelDialog*)WINDOWMGR->GetWindowForID( CHA_CHANNELDLG );
 			if(pChannelDlg != NULL)
 				pChannelDlg->SendMapChannelInfoSYN(pData->MapNum, eMapChange_Item);
-			SetDisable(TRUE);//½«±¾´°¿Ú½ûÖ¹µã»÷
-#else
-			g_UserInput.GetHeroMove()->MapChange( pData->MapNum, m_ItemIdx, m_ItemPos, eMapChange_Item );
-			SetActive( FALSE );			
-#endif
+			SetDisable(TRUE);//ç¦ç”¨æŒ‰é’®
 			break;
 		}
 	}
@@ -456,7 +448,7 @@ void CMoveDialog::LoadTownMovePoint()
 	DWORD PosX, PosZ;
 	char Name[128] = { 0, };
 
-	// ¸¶À»ÀÇ ¸Ê¹øÈ£ -ÇÏµåÄÚµù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½È£ -ï¿½Ïµï¿½ï¿½Úµï¿½
 #ifdef _HK_LOCAL_
 	DWORD Town[10] = { 2006, 2007, 2012, 2017, 2001, 0, };
 #elif defined _TL_LOCAL_
@@ -478,10 +470,10 @@ void CMoveDialog::LoadTownMovePoint()
 		PosX = file.GetDword();		
 		PosZ = file.GetDword();
 		
-		//¹æÇâ.....
+		//ï¿½ï¿½ï¿½ï¿½.....
 		float fDir = file.GetFloat();
 
-		// ¸¶À»ÀÇ ÀúÀåÆ÷ÀÎÆ®
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( NpcUniqueIdx > 2000 )
 		{
 			for(int i=0; i< 10; i++)
@@ -563,8 +555,7 @@ void CMoveDialog::SetTownMoveView( BOOL bTown )
 	}
 }
 
-//2008. 5. 9. CBH - Ã¤³Î ¸ÊÀÌµ¿ ±â´É Ãß°¡
-#ifdef _KOR_LOCAL_
+//2008. 5. 9. CBH - æ–°ç§»åŠ¨é¢‘é“ç³»ç»Ÿç›¸å…³å‡½æ•°
 void CMoveDialog::MapChange(WORD wMoveMapNum)
 {
 	if( m_ItemIdx == 0 || m_ItemPos == 0 )			return;
@@ -578,4 +569,3 @@ void CMoveDialog::MapChange(WORD wMoveMapNum)
 	if( HERO->GetState() == eObjectState_Deal )
 		OBJECTSTATEMGR->EndObjectState(HERO, eObjectState_Deal);
 }
-#endif

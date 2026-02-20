@@ -1,0 +1,60 @@
+<Project DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <WindowsTargetPlatformVersion Value="10.0" />
+  </PropertyGroup>
+  <ItemGroup Label="Source Files">
+    <ClCompile Include="./MiniDumper.cpp" />
+    <ClCompile Include="./MiniDumper.h" />
+    <ClCompile Include="./Noncopyable.h" />
+    <ClCompile Include="CharMake.cpp" />
+    <ClCompile Include="CharMake.h" />
+    <ClCompile Include="CharMakeCamera.cpp" />
+    <ClCompile Include="CharMakeCamera.h" />
+    <ClCompile Include="CharSelect.cpp" />
+    <ClCompile Include="CharSelect.h" />
+    <ClCompile Include="GameIn.cpp" />
+    <ClCompile Include="GameIn.h" />
+    <ClCompile Include="GameInEventFunc.cpp" />
+    <ClCompile Include="GameInEventFunc.h" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameState.h" />
+    <ClCompile Include="GlobalEventFunc.cpp" />
+    <ClCompile Include="GlobalEventFunc.h" />
+    <ClCompile Include="MHClient.cpp" />
+    <ClCompile Include="MNChannelDialog.cpp" />
+    <ClCompile Include="MNChannelDialog.h" />
+    <ClCompile Include="MNCreateDialog.cpp" />
+    <ClCompile Include="MNFrontDialog.cpp" />
+    <ClCompile Include="MNFrontDialog.h" />
+    <ClCompile Include="MNPlayRoomDialog.cpp" />
+    <ClCompile Include="MNPlayRoomDialog.h" />
+    <ClCompile Include="MNStage.cpp" />
+    <ClCompile Include="MNStage.h" />
+    <ClCompile Include="MNStgFront.cpp" />
+    <ClCompile Include="MNStgFront.h" />
+    <ClCompile Include="MNStgPlayRoom.cpp" />
+    <ClCompile Include="MNStgPlayRoom.h" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MainGame.h" />
+    <ClCompile Include="MainTitle.cpp" />
+    <ClCompile Include="MainTitle.h" />
+    <ClCompile Include="MapChange.cpp" />
+    <ClCompile Include="MapChange.h" />
+    <ClCompile Include="MurimNet.cpp" />
+    <ClCompile Include="MurimNet.h" />
+    <ClCompile Include="ReadMe.txt" />
+    <ClCompile Include="ServerConnect.cpp" />
+    <ClCompile Include="ServerConnect.h" />
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="StdAfx.h" />
+    <ClCompile Include="WindowIDEnum.cpp" />
+    <ClCompile Include="WindowIDEnum.h" />
+    <ClCompile Include="WindowIDs.h" />
+    <ClCompile Include="cWindowSystemFunc.cpp" />
+    <ClCompile Include="cWindowSystemFunc.h" />
+    <ClCompile Include="resource.h" />
+  </ItemGroup>
+</Project>

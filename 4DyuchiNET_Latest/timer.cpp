@@ -1,7 +1,7 @@
 //#define _WIN32_WINNT 0x0500
 
 #include "timer.h"
-#include "../4DyuchiNET_Common/net_define.h"
+#include "net_define.h"
 #include <process.h>
 
 DWORD	g_dwTimerNum = 0;

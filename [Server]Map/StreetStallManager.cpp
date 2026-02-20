@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "StreetStall.h"
 #include "StreetStallManager.h"
 #include "usertable.h"
@@ -21,7 +22,7 @@ cStreetStallManager::cStreetStallManager()
 
 	m_StallTable.Initialize(128);
 
-	// magi82 ³ëÁ¡»ó °Ë»ö
+	// magi82  Ë»
     InitStallData();
 }
 
@@ -37,13 +38,13 @@ cStreetStallManager::~cStreetStallManager()
 
 	SAFE_DELETE(m_mpStreetStall);
 
-	// magi82 ³ëÁ¡»ó °Ë»ö
+	// magi82  Ë»
 	ReleaseStallData();
 }
 
 cStreetStall* cStreetStallManager::CreateStreetStall( CPlayer* pOwner, WORD StallKind, char* title )
 {
-	// µ¿ÀÏ ÇÃ·¹ÀÌ¾î°¡ ¸¸µç »óÁ¡ÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇØ¾ßÇÏ³ª ??
+	//  Ã·Ì¾î°¡   Ï´ È®Ø¾Ï³ ??
 	ASSERT( !m_StallTable.GetData(pOwner->GetID()) );
 
 	cStreetStall* pStall = m_mpStreetStall->Alloc();
@@ -69,7 +70,7 @@ void cStreetStallManager::DeleteStreetStall( CPlayer* pOwner )
 	
 	if( pStall )
 	{
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 		if( pStall->GetStallKind() == eSK_SELL )
             ResetStallData( pOwner->GetID(), eFind_Sell);
 		else if( pStall->GetStallKind() == eSK_BUY )
@@ -105,7 +106,7 @@ BOOL cStreetStallManager::GuestIn( CPlayer* pOwner, CPlayer* pGuest )
 
 void cStreetStallManager::GuestOut( DWORD OwnerId, CPlayer* pGuest )
 {
-	CPlayer* pOwner = (CPlayer*)g_pUserTable->FindUser( OwnerId ); // ¿À³Ê°¡ ÀÖ´ÂÁö ¹°¾î º»´Ù.
+	CPlayer* pOwner = (CPlayer*)g_pUserTable->FindUser( OwnerId ); // Ê° Ö´  .
 	if( pOwner == NULL ) return;
 
 	cStreetStall* pStall = m_StallTable.GetData(OwnerId);
@@ -152,10 +153,10 @@ void cStreetStallManager::UserLogOut( CPlayer* pPlayer )
 //m_StallTable.GetData(pOwner->GetID());
 //m_StallTable.GetData(pStall->GetOwner()->GetID()
 
-	if( pGestStall ) // »óÁ¡¿¡ ¼Õ´ÔÀ¸·Î Âü°¡ÇÑ °æ¿ì...
+	if( pGestStall ) //  Õ´  ...
 	{
 		if( IsExist( pGestStall ) )
-			pGestStall->DeleteGuest( pPlayer ); // ¼Õ´ÔÀ¸·Î ÀÖ´Â »óÁ¡¿¡¼­ ³ª¿Â´Ù.
+			pGestStall->DeleteGuest( pPlayer ); // Õ´ Ö´  Â´.
 
 		MSGBASE msg;
 		msg.Category = MP_STREETSTALL;
@@ -165,9 +166,9 @@ void cStreetStallManager::UserLogOut( CPlayer* pPlayer )
 		return;
 	}
 	
-	if( pOwnerStall ) // ¿î¿µÁßÀÎ »óÁ¡ÀÌ ÀÖ´Â °æ¿ì...
+	if( pOwnerStall ) // î¿µ  Ö´ ...
 	{
-		// ³ëÁ¡¸ðµåÁ¾·á¸¦ ¾Ë¸°´Ù.(ÀÚ±âÀÚ½ÅÀÇ »óÅÂº¯È­)
+		// á¸¦ Ë¸.(Ú±Ú½ ÂºÈ­)
 		MSG_STREETSTALL_TITLE msg;
 		msg.Category = MP_STREETSTALL;
 		msg.Protocol = MP_STREETSTALL_END;
@@ -175,7 +176,7 @@ void cStreetStallManager::UserLogOut( CPlayer* pPlayer )
 		msg.dwObjectID = pPlayer->GetID();
 		pPlayer->SendMsg(&msg, sizeof(msg));
 
-		// ¼Õ´Ôµé¿¡°Ô ³ëÁ¡ÀÌ Á¾·áµÇ¾úÀ½À» ¾Ë¸°´Ù.
+		// Õ´Ôµé¿¡  Ç¾ Ë¸.
 		MSGBASE CloseSyn;
 		CloseSyn.Category = MP_STREETSTALL;
 		CloseSyn.Protocol = MP_STREETSTALL_CLOSE;
@@ -191,10 +192,10 @@ void cStreetStallManager::UserLogOut( CPlayer* pPlayer )
 
 BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlayer* pGuest, STREETSTALL_BUYINFO* pBuyInfo )
 {
-	POSTYPE pos = pBuyInfo->StallPos;		// ³ëÁ¡¿¡¼­ÀÇ À§Ä¡
+	POSTYPE pos = pBuyInfo->StallPos;		//  Ä¡
 	sCELLINFO* pItemInfo = pStall->GetCellInfo( pos );
 	ITEMBASE ItemBase = pItemInfo->sItemBase;
-	POSTYPE RealPos = ItemBase.Position;	// ½ÇÁ¦ ¾ÆÀÌÅÛ Æ÷Áö¼Ç
+	POSTYPE RealPos = ItemBase.Position;	//   
 	MONEYTYPE money = pItemInfo->dwMoney;
 
 	// RaMa - ShopItemInven
@@ -219,11 +220,11 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 
 	//
 	
-	MSG_WORD		msgNack; // ¿À·ù ¸Þ¼¼Áö
-	MSG_LINKITEM	DelSyn; // ³ëÁ¡»ó¿¡¼­ÀÇ »èÁ¦ ¸Þ¼¼Áö
-	MSG_SELLITEM	sellMsg; // ÁÖÀÎ¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	//MSG_ITEMEX		buyMsg; // ¼Õ´Ô¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸®
+	MSG_WORD		msgNack; //  Þ¼
+	MSG_LINKITEM	DelSyn; // ó¿¡¼  Þ¼
+	MSG_SELLITEM	sellMsg; // Î¿  Þ¼
+	//MSG_ITEMEX		buyMsg; // Õ´Ô¿  Þ¼
+	//SW070308 ÛºÎ°É¼Çµ 
 	MSG_LINKITEMOPTIONS	buyMsg;
 	MSG_STALLMSG	stallMsg;
 	
@@ -234,7 +235,7 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 	if(CanBuyItem(pOwner, pGuest, pItemInfo, EmptyCellPos, pBuyInfo, &ItemBase, 1) == FALSE)
 		goto ITEMBUY_FAILED;
 
-	absPosOut = EmptyCellPos[0]; // »õ·Î Ã¤¿ö ³ÖÀ» °÷
+	absPosOut = EmptyCellPos[0]; //  Ã¤  
 
 	pInvenItem = pOwnerInventory->GetItemInfoAbs(pItemInfo->sItemBase.Position);
 	
@@ -265,7 +266,7 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 		}
 		goto ITEMBUY_FAILED;
 	}
-	// ¿É¼Ç Á¤º¸ Ãß°¡ ¹× »èÁ¦
+	// É¼  ß°  
 	if( ITEMMGR->IsOptionItem(ItemBase.wIconIdx, ItemBase.Durability ) )
 	{
 		pGuest->AddItemOption(pOwner->GetItemOption(ItemBase.Durability));
@@ -292,11 +293,11 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 	//SW051129 Pet
 	if( ITEMMGR->IsPetSummonItem(ItemBase.wIconIdx) )
 	{
-		BOOL bReduceFriendly = !(ItemBase.ItemParam & ITEM_PARAM_SEAL);	//ºÀÀÎ»óÅÂ¸é FALSE
+		BOOL bReduceFriendly = !(ItemBase.ItemParam & ITEM_PARAM_SEAL);	//Î»Â¸ FALSE
 		pOwner->GetPetManager()->ExchangePet(ItemBase.dwDBIdx, pGuest, bReduceFriendly);
 	}
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸Åº
 	if( ITEMMGR->IsTitanCallItem(ItemBase.wIconIdx) )
 	{
 		pOwner->GetTitanManager()->ExchangeTitan(ItemBase.dwDBIdx, pGuest);
@@ -313,15 +314,15 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 
 	ItemUpdateToDB( pGuest->GetID(), ItemBase.dwDBIdx ,ItemBase.wIconIdx, ItemBase.Durability, absPosOut, 0, ItemBase.RareIdx );
 
-	// Log ÁÖÀÎ
+	// Log 
 	LogItemMoney(pOwner->GetID(), pOwner->GetObjectName(), pGuest->GetID(), pGuest->GetObjectName(),
 		eLog_StreetStallBuyAll, pOwner->GetMoney(), pGuest->GetMoney(), pItemInfo->dwMoney,
 		temp.wIconIdx, temp.dwDBIdx, 0, temp.Position, temp.Durability, pOwner->GetPlayerExpPoint());
 
-	// ³ëÁ¡»ó¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// ó¿¡¼ Ñ´.
 	pStall->EmptyCell( &ItemBase, Table );
 
-	// magi82 ³ëÁ¡»ó °Ë»ö
+	// magi82  Ë»
 	DeleteStallData( pOwner->GetID(), ItemBase.wIconIdx, eFind_Sell );
 	
 	DelSyn.Category = MP_STREETSTALL;
@@ -333,7 +334,7 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 	pStall->SendMsgGuestAll( &DelSyn, sizeof(DelSyn) );
 
 	//////////////////////////////////////////////////////
-	// ÁÖÀÎ¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù./////////////////
+	// Î¿Ô¼    Ö¾ Ø´./////////////////
 	sellMsg.Category = MP_STREETSTALL;
 	sellMsg.Protocol = MP_STREETSTALL_SELLITEM;
 	sellMsg.dwObjectID = pBuyInfo->StallOwnerID;
@@ -346,7 +347,7 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 
 	ItemBase.Position = absPosOut;
 	
-	// ¼Õ´Ô¿¡°Ô ¾ÆÀÌÅÛÀ» Ã·°¡ÇÏ°í µ·À» »«´Ù.////////////////////
+	// Õ´Ô¿  Ã·Ï°  .////////////////////
 	buyMsg.Category = MP_STREETSTALL;
 	buyMsg.Protocol = MP_STREETSTALL_BUYITEM_ACK;
 	buyMsg.dwObjectID = pBuyInfo->dwObjectID;
@@ -372,7 +373,7 @@ BOOL cStreetStallManager::BuyItem( CPlayer* pOwner, cStreetStall* pStall, CPlaye
 		buyMsg.sPetInfo = *(pGuest->GetPetManager()->GetPetTotalInfo(ItemBase.dwDBIdx));
 		buyMsg.PetInfoCount = 1;
 	}*/
-	//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸®
+	//SW070308 ÛºÎ°É¼Çµ 
 	ITEMMGR->SetItemOptionsInfoMsg(pGuest, &ItemBase, (MSG_LINKITEMOPTIONS*)&buyMsg);
 
 	pGuest->SendMsg( &buyMsg, buyMsg.GetSize() );
@@ -404,10 +405,10 @@ ITEMBUY_FAILED:
 
 BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPlayer* pGuest, STREETSTALL_BUYINFO* pBuyInfo )
 {
-	POSTYPE pos = pBuyInfo->StallPos;	// ³ëÁ¡Ã¢¿¡¼­ÀÇ À§Ä¡
+	POSTYPE pos = pBuyInfo->StallPos;	// Ã¢ Ä¡
 	sCELLINFO* pItemInfo = pStall->GetCellInfo( pos );
 	ITEMBASE ItemBase = pItemInfo->sItemBase;
-	POSTYPE RealPos = ItemBase.Position; // ½ÇÁ¦ ¾ÆÀÌÅÛ Æ÷Áö¼Ç
+	POSTYPE RealPos = ItemBase.Position; //   
 	DURTYPE wBuyNum = pBuyInfo->ItemInfo.Durability;
 	MONEYTYPE money = pItemInfo->dwMoney*wBuyNum;
 	
@@ -434,11 +435,11 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 	WORD rt = NOT_ERROR;
 	POSTYPE absPosOut;
 	WORD EmptyCellPos[1];
-	MSG_WORD msgNack; // ¿À·ù ¸Þ¼¼Áö
-	MSG_LINKITEM DelSyn; // ³ëÁ¡»ó¿¡¼­ÀÇ »èÁ¦ ¸Þ¼¼Áö
-	MSG_SELLITEM sellMsg; // ÁÖÀÎ¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	MSG_ITEMEX buyMsg; // ¼Õ´Ô¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	MSG_SELLITEM updateMsg; // °ãÄ¡±â ¾ÆÀÌÅÛÀ» »ç´Â °æ¿ì¿¡ ´ëÇÑ Ã³¸® 
+	MSG_WORD msgNack; //  Þ¼
+	MSG_LINKITEM DelSyn; // ó¿¡¼  Þ¼
+	MSG_SELLITEM sellMsg; // Î¿  Þ¼
+	MSG_ITEMEX buyMsg; // Õ´Ô¿  Þ¼
+	MSG_SELLITEM updateMsg; // Ä¡   ì¿¡  Ã³ 
 	MSG_STALLMSG stallMsg;
 	const ITEMBASE* pInvenItem;
 
@@ -486,10 +487,10 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 		LogItemMoney(pOwner->GetID(), pOwner->GetObjectName(), pGuest->GetID(), pGuest->GetObjectName(),
 			eLog_StreetStallBuyAll, pOwner->GetMoney(), pGuest->GetMoney(), money,
 			temp.wIconIdx, temp.dwDBIdx, temp.Position, absPosOut, temp.Durability, pOwner->GetPlayerExpPoint());
-		// ³ëÁ¡»ó¿¡¼­ »èÁ¦ÇÑ´Ù.
+		// ó¿¡¼ Ñ´.
 		pStall->EmptyCell( &ItemBase, Table );
 
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 		DeleteStallData( pOwner->GetID(), ItemBase.wIconIdx, eFind_Sell );
 		
 		DelSyn.Category = MP_STREETSTALL;
@@ -500,7 +501,7 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 
 		pStall->SendMsgGuestAll( &DelSyn, sizeof(DelSyn) );
 		////////////////////////////////////////////////////// 
-		// ÁÖÀÎ¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù./////////////////
+		// Î¿Ô¼    Ö¾ Ø´./////////////////
 		sellMsg.Category = MP_STREETSTALL;
 		sellMsg.Protocol = MP_STREETSTALL_SELLITEM;
 		sellMsg.dwObjectID = pBuyInfo->StallOwnerID;
@@ -513,7 +514,7 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 		
 		ItemBase.Position = absPosOut;
 		
-		// ¼Õ´Ô¿¡°Ô ¾ÆÀÌÅÛÀ» Ã·°¡ÇÏ°í µ·À» »«´Ù.////////////////////
+		// Õ´Ô¿  Ã·Ï°  .////////////////////
 		buyMsg.Category = MP_STREETSTALL;
 		buyMsg.Protocol = MP_STREETSTALL_BUYITEM_ACK;
 		buyMsg.dwObjectID = pBuyInfo->StallOwnerID;
@@ -524,7 +525,7 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 	}
 	else
 	{
-		// °ãÄ¡±â ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ÁÙÀÎ´Ù. (»óÁ¡)
+		// Ä¡   Î´. ()
 		DURTYPE LeftDurability = ItemBase.Durability - wBuyNum;
 		if( EI_TRUE != pOwnerInventory->UpdateItemAbs(pOwner, RealPos, ItemBase.dwDBIdx, ItemBase.wIconIdx, 0, 0, LeftDurability, UB_DURA, SS_LOCKOMIT|SS_CHKDBIDX ) )
 			goto ITEMBUY_FAILED;
@@ -543,7 +544,7 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 		pStall->SendMsgGuestAll( &updateMsg, sizeof(updateMsg) );
 		
 		//////////////////////////////////////////////////////
-		// ÁÖÀÎ¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù./////////////////
+		// Î¿Ô¼    Ö¾ Ø´./////////////////
 		sellMsg.Category = MP_STREETSTALL;
 		sellMsg.Protocol = MP_STREETSTALL_SELLITEM;
 		sellMsg.dwObjectID = pBuyInfo->StallOwnerID;
@@ -567,8 +568,8 @@ BOOL cStreetStallManager::BuyDupItem( CPlayer* pOwner, cStreetStall* pStall, CPl
 		/////////////////////////////////////////////////////////////
 		
 		/////////////////////////////////////////////////////////////
-		// ¼Õ´Ô¿¡°Ô ¾ÆÀÌÅÛÀ» Ã·°¡ÇÏ°í µ·À» »«´Ù.////////////////////
-		ITEMBASE NewItemBase;  /* ÀÏ´Ü ¾²·¹±â°ªÀ¸·Î ¼ÂÆÃ */
+		// Õ´Ô¿  Ã·Ï°  .////////////////////
+		ITEMBASE NewItemBase;  /* Ï´ â°ª  */
 		NewItemBase.dwDBIdx			= 9;
 		NewItemBase.wIconIdx		= 9;
 		NewItemBase.Position		= absPosOut;
@@ -612,12 +613,12 @@ ITEMBUY_FAILED:
 
 BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlayer* pGuest, STREETSTALL_BUYINFO* pSellInfo )
 {
-	POSTYPE pos = pSellInfo->StallPos;					// ³ëÁ¡Ã¢¿¡¼­ÀÇ À§Ä¡
+	POSTYPE pos = pSellInfo->StallPos;					// Ã¢ Ä¡
 	sCELLINFO* pItemInfo = pStall->GetCellInfo( pos );
 	
-	POSTYPE RealPos = pSellInfo->ItemInfo.Position;		// ½ÇÁ¦ ¾ÆÀÌÅÛ Æ÷Áö¼Ç
+	POSTYPE RealPos = pSellInfo->ItemInfo.Position;		//   
 	
-	ITEMBASE ItemBase = pSellInfo->ItemInfo;			//ÆÇ¸ÅÇÒ ¾ÆÀÌÅÛÀÇ Á¤º¸
+	ITEMBASE ItemBase = pSellInfo->ItemInfo;			//Ç¸  
 	ItemBase.Durability = 0;
 	DURTYPE wSellNum = pSellInfo->ItemInfo.Durability;
 	MONEYTYPE money = pItemInfo->dwMoney*wSellNum;
@@ -645,12 +646,12 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	//
 
 	WORD	rt = NOT_ERROR;
-	MSG_WORD2		msgNack;	// ¿À·ù ¸Þ¼¼Áö
-	MSG_LINKITEM	DelSyn;		// ³ëÁ¡»ó¿¡¼­ÀÇ »èÁ¦ ¸Þ¼¼Áö
-	MSG_SELLITEM	sellMsg;	// ¼Õ´Ô¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	MSG_BUYITEM		buyMsg;		// ÁÖÀÎ¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	MSG_SELLITEM	updateMsg;	// ³ëÁ¡¿¡¼­ ¼ö·®ÀÌ Â÷°¨µÉ¶§
-	MSG_STALLMSG	stallMsg;	// °Å·¡ ³»¿ë ¸Þ¼¼Áö
+	MSG_WORD2		msgNack;	//  Þ¼
+	MSG_LINKITEM	DelSyn;		// ó¿¡¼  Þ¼
+	MSG_SELLITEM	sellMsg;	// Õ´Ô¿  Þ¼
+	MSG_BUYITEM		buyMsg;		// Î¿  Þ¼
+	MSG_SELLITEM	updateMsg;	//   É¶
+	MSG_STALLMSG	stallMsg;	// Å·  Þ¼
 	
 	POSTYPE absPosOut;
 	WORD EmptyCellPos[1];
@@ -659,7 +660,7 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	if(CanSellItem(pOwner, pGuest, pItemInfo, EmptyCellPos, pSellInfo, &ItemBase, 1, rt) == FALSE)
 		goto ITEMSELL_FAILED;
 
-	absPosOut = EmptyCellPos[0]; // »õ·Î Ã¤¿ö ³ÖÀ» °÷
+	absPosOut = EmptyCellPos[0]; //  Ã¤  
 
 	pInvenItem = pGuestInventory->GetItemInfoAbs(RealPos);
 	if( !pInvenItem ) goto ITEMSELL_FAILED;
@@ -672,7 +673,7 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	
 	if( !(pItemKindInfo->ItemKind & eSHOP_ITEM ) )
 	{
-		// °­È­/·¹¾î °Å·¡ ¹æÁö
+		// È­/ Å· 
 		if( ITEMMGR->IsOptionItem(pInvenItem->wIconIdx, pInvenItem->Durability ) )
 		{
 			pItemInfo->bLock = FALSE;
@@ -727,11 +728,11 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 
 		pOwner->GetPetManager()->SendPetInfo(pPetInfo);
         
-		BOOL bReduceFriendly = !(ItemBase.ItemParam & ITEM_PARAM_SEAL);	//ºÀÀÎ»óÅÂ¸é FALSE
+		BOOL bReduceFriendly = !(ItemBase.ItemParam & ITEM_PARAM_SEAL);	//Î»Â¸ FALSE
 		pGuest->GetPetManager()->ExchangePet(ItemBase.dwDBIdx, pOwner, bReduceFriendly);
 	}
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸Åº
 	if( ITEMMGR->IsTitanCallItem(ItemBase.wIconIdx) )
 	{
 		TITAN_TOTALINFO* pTitanInfo = pGuest->GetTitanManager()->GetTitanTotalInfo(ItemBase.dwDBIdx);
@@ -754,17 +755,17 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	
 	ItemUpdateToDB( pOwner->GetID(), ItemBase.dwDBIdx ,ItemBase.wIconIdx, ItemBase.Durability, absPosOut, 0, ItemBase.RareIdx );
 	
-	// Log ÁÖÀÎ
+	// Log 
 	LogItemMoney(pGuest->GetID(), pGuest->GetObjectName(), pOwner->GetID(), pOwner->GetObjectName(),
 		eLog_StreetStallBuyAll, pGuest->GetMoney(), pOwner->GetMoney(), pItemInfo->dwMoney,
 		temp.wIconIdx, temp.dwDBIdx, 0, temp.Position, temp.Durability, pGuest->GetPlayerExpPoint());
 	
 	if(pItemInfo->wVolume == 1)
 	{
-		// ³ëÁ¡»ó¿¡¼­ »èÁ¦ÇÑ´Ù.
+		// ó¿¡¼ Ñ´.
 		pStall->EmptyCell( pos );
 
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 		DeleteStallData( pOwner->GetID(), ItemBase.wIconIdx, eFind_Buy );
 		
 		DelSyn.Category = MP_STREETSTALL;
@@ -780,7 +781,7 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 		pOwner->SendMsg( &DelSyn, sizeof(DelSyn) );
 	}
 	else
-	{	// ³ëÁ¡»ó¿¡¼­ °¹¼ö¸¦ ÁÙÀÎ´Ù.
+	{	// ó¿¡¼  Î´.
 		DURTYPE LeftDurability = pItemInfo->wVolume - wSellNum;
 		pStall->UpdateCell( pos,  LeftDurability);
 		pStall->GetCellInfo(pos)->bLock = FALSE;
@@ -798,7 +799,7 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	}
 	
 	//////////////////////////////////////////////////////
-	// ¼Õ´Ô¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù./////////////////
+	// Õ´Ô¿Ô¼    Ö¾ Ø´./////////////////
 	sellMsg.Category = MP_STREETSTALL;
 	sellMsg.Protocol = MP_STREETSTALL_SELLITEM_ACK;
 	sellMsg.dwObjectID = pOwner->GetID();
@@ -811,14 +812,14 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 	
 	ItemBase.Position = absPosOut;
 	
-	// ÁÖÀÎ¿¡°Ô ¾ÆÀÌÅÛÀ» Ã·°¡ÇÏ°í µ·À» »«´Ù.////////////////////
+	// Î¿  Ã·Ï°  .////////////////////
 	buyMsg.Category = MP_STREETSTALL;
 	buyMsg.Protocol = MP_STREETSTALL_BUYITEM;
 	buyMsg.dwObjectID = pGuest->GetID();
 	buyMsg.ItemInfo = ItemBase;
 	//buyMsg.count = 0;
 	//buyMsg.dwData = pGuest->GetID();
-	buyMsg.dwMoney = pGuest->GetID();	//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸® //buyMsg.dwData Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¾²Áöµµ ¾Ê°í ÀÖ´Ù.
+	buyMsg.dwMoney = pGuest->GetID();	//SW070308 ÛºÎ°É¼Çµ  //buyMsg.dwData Å¬Ì¾Æ®  Ê° Ö´.
 	
 	/*
 	if( ITEMMGR->IsOptionItem(ItemBase.wIconIdx, ItemBase.Durability) )
@@ -838,7 +839,7 @@ BOOL cStreetStallManager::SellItem( CPlayer* pOwner, cStreetStall* pStall, CPlay
 		buyMsg.sPetInfo = *(pOwner->GetPetManager()->GetPetTotalInfo(ItemBase.dwDBIdx));
 		buyMsg.PetInfoCount = 1;
 	}*/
-	//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸®
+	//SW070308 ÛºÎ°É¼Çµ 
 	ITEMMGR->SetItemOptionsInfoMsg(pOwner, &buyMsg.ItemInfo, (MSG_LINKITEMOPTIONS*)&buyMsg);
 
 	pOwner->SendMsg( &buyMsg, sizeof(buyMsg) );
@@ -871,14 +872,14 @@ ITEMSELL_FAILED:
 
 BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CPlayer* pGuest, STREETSTALL_BUYINFO* pSellInfo )
 {
-	POSTYPE pos = pSellInfo->StallPos;					// ³ëÁ¡Ã¢¿¡¼­ÀÇ À§Ä¡
-	sCELLINFO* pItemInfo = pStall->GetCellInfo( pos );	// ³ëÁ¡Á¤º¸
+	POSTYPE pos = pSellInfo->StallPos;					// Ã¢ Ä¡
+	sCELLINFO* pItemInfo = pStall->GetCellInfo( pos );	// 
 
-	POSTYPE RealPos = pSellInfo->ItemInfo.Position;		// ½ÇÁ¦ ¾ÆÀÌÅÛ Æ÷Áö¼Ç
+	POSTYPE RealPos = pSellInfo->ItemInfo.Position;		//   
 
-	ITEMBASE ItemBase = pSellInfo->ItemInfo;			// ÆÇ¸ÅÇÒ ¾ÆÀÌÅÛÀÇ Á¤º¸
-	DURTYPE wSellNum = pSellInfo->ItemInfo.Durability;	// ÆÇ¸Å ¼ö·®
-	DWORD	dwDBIdx = pSellInfo->ItemInfo.dwDBIdx;		// ÆÇ¸ÅÇÏ·Á´Â ¾ÆÀÌÅÛÀÇ DBÀÎµ¦½º
+	ITEMBASE ItemBase = pSellInfo->ItemInfo;			// Ç¸  
+	DURTYPE wSellNum = pSellInfo->ItemInfo.Durability;	// Ç¸ 
+	DWORD	dwDBIdx = pSellInfo->ItemInfo.dwDBIdx;		// Ç¸Ï·  DBÎµ
 	MONEYTYPE money = pItemInfo->dwMoney;
 	
 	// RaMa - ShopItemInven
@@ -904,19 +905,19 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 	WORD rt = NOT_ERROR;
 	POSTYPE absPosOut;
 	WORD EmptyCellPos[1];
-	MSG_WORD2 msgNack;			// ¿À·ù ¸Þ¼¼Áö
+	MSG_WORD2 msgNack;			//  Þ¼
 
-	MSG_LINKITEM DelSyn;		// ³ëÁ¡¿¡¼­ »èÁ¦µÉ¶§
-	MSG_SELLITEM updateMsg;		// ³ëÁ¡¿¡¼­ ¼ö·®ÀÌ Â÷°¨µÉ¶§
+	MSG_LINKITEM DelSyn;		//  É¶
+	MSG_SELLITEM updateMsg;		//   É¶
 	
-	MSG_SELLITEM sellMsg;		// ÆÇ¸ÅÀÚ(°Ô½ºÆ®)¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
-	MSG_BUYITEM buyMsg;			// ±¸¸ÅÀÚ(¿À³Ê)¿¡°Ô º¸³»´Â ¸Þ¼¼Áö
+	MSG_SELLITEM sellMsg;		// Ç¸(Ô½Æ®)  Þ¼
+	MSG_BUYITEM buyMsg;			// ()  Þ¼
 
 	MSG_STALLMSG stallMsg;
 	
-	const ITEMBASE* pInvenItem;	// ÆÇ¸ÅÀÚ(°Ô½ºÆ®)ÀÇ ÀÎº¥¿¡ ÀÖ´Â ½ÇÁ¦ ¾ÆÀÌÅÛ
+	const ITEMBASE* pInvenItem;	// Ç¸(Ô½Æ®) Îº Ö´  
 
-	if(pItemInfo->wVolume == 0)	// ³ëÁ¡¿¡¼­ ÀÌ¹Ì »èÁ¦µÈ ¾ÆÀÌÅÛÀÌ¸é ½ÇÆÐ
+	if(pItemInfo->wVolume == 0)	//  Ì¹  Ì¸ 
 	{
 		rt = NOT_EXIST;
 		goto ITEMSELL_FAILED;
@@ -929,8 +930,8 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 
 	pInvenItem = pGuestInventory->GetItemInfoAbs(RealPos);
 
-	// ÆÈ·Á´Â ¼ö·®ÀÌ ÀÎº¥¿¡ ÀÖ´Â ¼ö·®º¸´Ù Å©´Ù¸é
-	// ÀÎº¥¿¡ ÀÖ´Â ¼ö·®À¸·Î ¼ÂÆÃ
+	// È·  Îº Ö´  Å©Ù¸
+	// Îº Ö´  
 	if(pInvenItem->Durability < wSellNum)
 		wSellNum = pInvenItem->Durability;
 
@@ -953,11 +954,11 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 	}
 	
 	if( pItemInfo->wVolume == wSellNum ) 
-	{	//³ëÁ¡¿¡ ±¸ÀÔµî·ÏµÈ °¹¼ö¿Í ÆÈ·Á´Â ¾ÆÀÌÅÛ °¹¼ö°¡ ÀÏÄ¡ÇÏ¸é
-		//³ëÁ¡¿¡¼­ »èÁ¦ ÇÑ´Ù
+	{	// ÔµÏµ  È·   Ä¡Ï¸
+		//  Ñ´
 		pStall->EmptyCell( pos );
 
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 		DeleteStallData( pOwner->GetID(), ItemBase.wIconIdx, eFind_Buy );
 		
 		DelSyn.Category = MP_STREETSTALL;
@@ -974,8 +975,8 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		
 	}
 	else if(pItemInfo->wVolume > wSellNum)
-	{	//³ëÁ¡¿¡ ±¸ÀÔµî·ÏµÈ °¹¼öº¸´Ù ÆÈ·Á´Â ¾ÆÀÌÅÛ °¹¼ö°¡ ÀûÀ¸¸é
-		//³ëÁ¡¿¡¼­ °¹¼ö¸¦ ÁÙÀÎ´Ù
+	{	// ÔµÏµ  È·   
+		//  Î´
 		DURTYPE LeftDurability = pItemInfo->wVolume - wSellNum;
 		pStall->UpdateCell( pos,  LeftDurability);
 		pStall->GetCellInfo(pos)->bLock = FALSE;
@@ -992,13 +993,13 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		pStall->SendMsgGuestAll( &updateMsg, sizeof(updateMsg) );
 	}
 	else
-	{	//³ëÁ¡¿¡ ±¸ÀÔ µî·ÏµÈ °¹¼öº¸´Ù ÆÈ·Á´Â °¹¼ö°¡ ¸¹À¸¸é
-		//³ëÁ¡¿¡¼­ »èÁ¦ ÇÏ°í ÆÈ·Á´Â °¹¼ö¸¦ Á¶Á¤ÇÑ´Ù
+	{	//  Ïµ  È·  
+		//  Ï° È·  Ñ´
 		wSellNum = pItemInfo->wVolume;
 		
 		pStall->EmptyCell( pos );
 
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 		DeleteStallData( pOwner->GetID(), ItemBase.wIconIdx, eFind_Buy );
 		
 		DelSyn.Category = MP_STREETSTALL;
@@ -1014,11 +1015,11 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		pOwner->SendMsg( &DelSyn, sizeof(DelSyn) );
 	}
 
-	money = money * wSellNum;		// ÆÇ¸Å °¡°Ý
+	money = money * wSellNum;		// Ç¸ 
 	
 	if( wSellNum == pInvenItem->Durability)
-	{	//ÆÈ·Á´Â °¹¼ö¿Í ÀÎº¥ÀÇ °¹¼ö°¡ ÀÏÄ¡ÇÏ¸é
-		//°Ô½ºÆ® ÀÎº¥¿¡¼­ »èÁ¦ÇÏ°í ¿À³ÊÀÇ ÀÎº¥¿¡ ³Ö´Â´Ù
+	{	//È·  Îº  Ä¡Ï¸
+		//Ô½Æ® Îº Ï°  Îº Ö´Â´
 		ITEMBASE temp;
 		if(pGuestInventory->DeleteItemAbs(pGuest, RealPos, &temp, SS_LOCKOMIT) != EI_TRUE)
 		{
@@ -1048,7 +1049,7 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 			temp.wIconIdx, temp.dwDBIdx, temp.Position, absPosOut, temp.Durability, pOwner->GetPlayerExpPoint());
 		
 		//////////////////////////////////////////////////////
-		// ¼Õ´Ô¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù./////////////////
+		// Õ´Ô¿Ô¼    Ö¾ Ø´./////////////////
 		sellMsg.Category = MP_STREETSTALL;
 		sellMsg.Protocol = MP_STREETSTALL_SELLITEM_ACK;
 		sellMsg.dwObjectID = pOwner->GetID();
@@ -1061,7 +1062,7 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		
 		ItemBase.Position = absPosOut;
 		
-		// ÁÖÀÎ¿¡°Ô ¾ÆÀÌÅÛÀ» Ã·°¡ÇÏ°í µ·À» »«´Ù.////////////////////
+		// Î¿  Ã·Ï°  .////////////////////
 		buyMsg.Category = MP_STREETSTALL;
 		buyMsg.Protocol = MP_STREETSTALL_BUYITEM;
 		buyMsg.dwObjectID = pGuest->GetID();
@@ -1073,17 +1074,17 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		/////////////////////////////////////////////////////////////
 	}
 	else
-	{	//ÆÈ·Á´Â °¹¼ö°¡ ÀÎº¥ÀÇ °¹¼öº¸´Ù ÀûÀ¸¸é
-		//°Ô½ºÆ® ÀÎº¥¿¡¼­ ¾ÆÀÌÅÛ °¹¼ö¸¦ ÁÙÀÌ°í ¿À³ÊÀÇ ÀÎº¥¿¡ ³Ö´Â´Ù
+	{	//È·  Îº  
+		//Ô½Æ® Îº   Ì°  Îº Ö´Â´
 		DURTYPE LeftDurability = pInvenItem->Durability - wSellNum;
 		if( EI_TRUE != pGuestInventory->UpdateItemAbs(pGuest, RealPos, ItemBase.dwDBIdx, ItemBase.wIconIdx, 0, 0, LeftDurability, UB_DURA, SS_LOCKOMIT|SS_CHKDBIDX ) )
 			goto ITEMSELL_FAILED;
 		
 
 		//////////////////////////////////////////////////////////////////////////
-		// DB¿¡ ¾ÆÀÌÅÛÀ» ³Ö¾îÁØ µÚ
-		// CreateDupItem ÇÔ¼ö¿¡ ÀÇÇØ »óÁ¡ ÁÖÀÎ¿¡°Ô ¸Þ¼¼Áö°¡ ³¯¾Æ°£´Ù
-		ITEMBASE NewItemBase;  /* ÀÏ´Ü ¾²·¹±â°ªÀ¸·Î ¼ÂÆÃ */
+		// DB  Ö¾ 
+		// CreateDupItem Ô¼   Î¿ Þ¼ Æ°
+		ITEMBASE NewItemBase;  /* Ï´ â°ª  */
 		NewItemBase.dwDBIdx			= 9;
 		NewItemBase.wIconIdx		= 9;
 		NewItemBase.Position		= absPosOut;
@@ -1101,7 +1102,7 @@ BOOL cStreetStallManager::SellDupItem( CPlayer* pOwner, cStreetStall* pStall, CP
 		ItemBase.Position = RealPos;
 
 		/////////////////////////////////////////////////////////////
-		// ¼Õ´Ô¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »©°í µ·À» ³Ö¾î ÁØ´Ù.////////////////////
+		// Õ´Ô¿Ô¼    Ö¾ Ø´.////////////////////
 		sellMsg.Category = MP_STREETSTALL;
 		sellMsg.Protocol = MP_STREETSTALL_SELLITEM_ACK;
 		sellMsg.dwObjectID = pOwner->GetID();
@@ -1165,7 +1166,7 @@ void cStreetStallManager::CreateDupItem( DWORD dwObjectId, ITEMBASE* pItemBase, 
 
 	cStreetStall* pStall = FindStreetStall( pPlayer );
 	
-	if(!pStall)	// ³ëÁ¡ ¼Õ´ÔÀÏ °æ¿ì ÆÇ¸Å³ëÁ¡ÀÌ´Ù 
+	if(!pStall)	//  Õ´  Ç¸Å³Ì´ 
 	{
 		MSG_ITEMEX buyMsg;
 		buyMsg.Category = MP_STREETSTALL;
@@ -1231,7 +1232,7 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 	case MP_STREETSTALL_OPEN_SYN:
 		{
 			MSG_STREETSTALL_TITLE* msg = (MSG_STREETSTALL_TITLE*)pMsg;
-		// 1. »óÁ¡ µî·Ï
+		// 1.  
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer ) 
 			{
@@ -1239,9 +1240,9 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				break;
 			}
 
-			/* State¿¡ ´ëÇÑ Check¸¦ ÇÑ´Ù. */
-			//KES VIMU 031103 Ãß°¡ 
-			//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå °ü·Ã Ãß°¡
+			/* State  Check Ñ´. */
+			//KES VIMU 031103 ß° 
+			//SW061019 Ì¹  ß°
 			if( pPlayer->IsVimuing() || pPlayer->GetExchangeContainer()->pRoom != NULL ||
 				pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_GTOURNAMENT ||
 				pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SIEGEWAR ||
@@ -1268,7 +1269,7 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 #endif
 */			
-			// ±âÁ¸ »óÁ¡ÀÌ Á¸ÀçÇÏ¸é ¾ø¾Ø´Ù.
+			//   Ï¸ Ø´.
 			cStreetStall* pStall = FindStreetStall( pPlayer );
 			if( pStall )
 			{
@@ -1296,7 +1297,7 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pStall = CreateStreetStall( pPlayer, msg->StallKind, msg->Title );
 /*		
 			//////////////////////////////////////////////////////////////////////////
-			// ±¸¸Å ³ëÁ¡ÀÏ °æ¿ì Ãß°¡ ÀÌ¿ë ÀÎº¥¼ö¸¦ °¡Á®¿Í¼­ ÇÒ´çÇØÁØ´Ù
+			//    ß° Ì¿ Îº Í¼ Ò´Ø´
 			if(msg->StallKind == eSK_BUY)
 			{
 				pStall->SetDefaultUsable();
@@ -1304,14 +1305,14 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				SHOPITEMOPTION*	pShopItemOption = pPlayer->GetShopItemStats();
 				pStall->SetExtraUsable( pShopItemOption->BuyStallInven );
 
-				// ±¸¸Å ³ëÁ¡ÀÇ »ç¿ë ÀÎº¥¼ö°¡ ÃÖ´ë ÀÎº¥¼ö¸¦ ³ÑÀ¸¸é
-				// ÃÖ´ë ÀÎº¥¼ö·Î ÇÒ´çÇÑ´Ù
+				//    Îº Ö´ Îº 
+				// Ö´ Îº Ò´Ñ´
 				if(pStall->GetUsable() >  MAX_STREETSTALL_CELLNUM)
 					pStall->SetMaxUsable();
 			}
 			//////////////////////////////////////////////////////////////////////////
 */			
-		// 2. ¼º°ø Message¸¦ ³¯¸°´Ù.
+		// 2.  Message .
 			MSG_STREETSTALL_TITLE OpenSyn;
 			OpenSyn = *msg;
 			OpenSyn.StallKind = msg->StallKind;
@@ -1319,7 +1320,7 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 		
 			pPlayer->SendMsg( &OpenSyn, sizeof(MSG_STREETSTALL_TITLE) );
 
-		// 3. Á¢¼Ó ÀÎ¿ø¿¡°Ô »óÅÂ¸¦ º¯°æÇÏµµ·Ï Áö½ÃÇÑ´Ù.
+		// 3.  Î¿ Â¸ Ïµ Ñ´.
 			StreetStallMode( pPlayer, msg->StallKind, msg->Title, TRUE );
 
 			return;
@@ -1334,10 +1335,10 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			cStreetStall* pStall = FindStreetStall( pPlayer );
 			if( pStall == NULL ) break;
 
-			// 1. Á¢¼Ó ÀÎ¿ø¿¡°Ô »óÅÂ¸¦ º¯°æÇÏµµ·Ï Áö½ÃÇÑ´Ù.
-			StreetStallMode( pPlayer, pStall->GetStallKind(), NULL, FALSE ); // Ani º¯°æ
+			// 1.  Î¿ Â¸ Ïµ Ñ´.
+			StreetStallMode( pPlayer, pStall->GetStallKind(), NULL, FALSE ); // Ani 
 
-			// 2. ¼Õ´Ôµé¿¡°Ô ¾Ë¸°´Ù. (¼Õ´ÔµéÀÇ »óÅÂ¸¦ º¯°æÇÏ¿©¾ß ÇÑ´Ù.)
+			// 2. Õ´Ôµé¿¡ Ë¸. (Õ´Ôµ Â¸ Ï¿ Ñ´.)
 			MSGBASE CloseSyn;
 			CloseSyn.Category = MP_STREETSTALL;
 			CloseSyn.Protocol = MP_STREETSTALL_CLOSE;
@@ -1345,13 +1346,13 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 
 			pStall->SendMsgGuestAll( &CloseSyn, sizeof(MSGBASE), TRUE );
 
-			// 3. »óÁ¡À» Á¦°Å ÇÑ´Ù.
+			// 3.   Ñ´.
 			DeleteStreetStall( pPlayer );
 
-			// 4. ¼º°ø Message¸¦ ³¯¸°´Ù.
+			// 4.  Message .
 			CloseSyn.Protocol = MP_STREETSTALL_CLOSE_ACK;
 
-			//À§ÀÇ StreetStallMode¿¡¼­ ÀÌ¹Ì È£ÃâÇÑ´Ù.
+			// StreetStallMode Ì¹ È£Ñ´.
 			pPlayer->SendMsg( &CloseSyn, sizeof(MSGBASE) );
 		}
 		break;
@@ -1366,7 +1367,7 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			MSGBASE Ftemp;
 			MSG_STREETSTALL_ITEMSTATUS Stemp;
 
-			// 1. »óÁ¡À» Ã£¾Æ¼­ ¾ÆÀÌÅÛÀ» Lock ÇÑ´Ù.
+			// 1.  Ã£Æ¼  Lock Ñ´.
 			pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer )
 			{
@@ -1387,14 +1388,14 @@ void cStreetStallManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pStall->ChangeCellState( msg->wAbsPosition, TRUE );
 
 
-			// magi82 ³ëÁ¡»ó °Ë»ö
+			// magi82  Ë»
 			InsertStallData( msg->dwObjectID, pInfo->sItemBase.wIconIdx, eFind_Sell, msg->dwMoney );
             
 			Stemp = *msg;
 			Stemp.Protocol = MP_STREETSTALL_LOCKITEM_ACK;
 			pPlayer->SendMsg( &Stemp, sizeof(MSG_STREETSTALL_ITEMSTATUS) );
 
-			// ¼Õ´ÔÀÇ »óÅÂ¸¦ º¯°æÇÑ´Ù.
+			// Õ´ Â¸ Ñ´.
 			Stemp.Protocol = MP_STREETSTALL_LOCKITEM;
 			pStall->SendMsgGuestAll( &Stemp, sizeof(MSG_STREETSTALL_ITEMSTATUS) );
 
@@ -1418,7 +1419,7 @@ ITEMLOCKFAIL:
 			MSGBASE Ftemp;
 			MSG_STREETSTALL_ITEMSTATUS Stemp;
 
-			// 1. »óÁ¡À» Ã£¾Æ¼­ ¾ÆÀÌÅÛÀ» UnLock ÇÑ´Ù.
+			// 1.  Ã£Æ¼  UnLock Ñ´.
 			pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer ) 
 			{
@@ -1442,7 +1443,7 @@ ITEMLOCKFAIL:
 			Stemp.Protocol = MP_STREETSTALL_UNLOCKITEM_ACK;
 			pPlayer->SendMsg( &Stemp, sizeof(MSG_STREETSTALL_ITEMSTATUS) );
 				
-			// ¼Õ´ÔÀÇ »óÅÂ¸¦ º¯°æÇÑ´Ù.
+			// Õ´ Â¸ Ñ´.
 			Stemp.Protocol = MP_STREETSTALL_UNLOCKITEM;
 			pStall->SendMsgGuestAll( &Stemp, sizeof(MSG_STREETSTALL_ITEMSTATUS) );
 
@@ -1473,7 +1474,7 @@ ITEMUNLOCKFAIL:
 			MSG_LINKITEMEX RegistSyn;
 			SEND_LINKITEM_TOTALINFO RegistGuest;
 
-			// 1. »óÁ¡À» Ã£¾Æ¼­ ¾ÆÀÌÅÛÀ» Ã·°¡ÇÑ´Ù.
+			// 1.  Ã£Æ¼  Ã·Ñ´.
 			pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer )
 			{
@@ -1481,11 +1482,11 @@ ITEMUNLOCKFAIL:
 				return;
 			}
 			
-			if( pPlayer->GetGuestStall() ) goto ITEMREGISTFAILEX; // Guest·Î Âü¿©ÇÑ °æ¿ì¿¡ ´ëÇÑ ¿¡·¯ Ã³¸®
+			if( pPlayer->GetGuestStall() ) goto ITEMREGISTFAILEX; // Guest  ì¿¡   Ã³
 			
 			pStall = FindStreetStall( pPlayer );
 			if( pStall == NULL ) goto ITEMREGISTFAILEX;
-			if( pStall->IsFull() ) goto ITEMREGISTFAILEX; // ³ëÁ¡ÀÌ ²ËÂù°æ¿ì..
+			if( pStall->IsFull() ) goto ITEMREGISTFAILEX; //  ..
 
 			if(pStall->GetStallKind() == eSK_BUY)	goto ITEMREGISTFAILEX;
 
@@ -1495,13 +1496,13 @@ ITEMUNLOCKFAIL:
 			pItemKindInfo = ITEMMGR->GetItemInfo( msg->ItemInfo.wIconIdx );
 			if( !pItemKindInfo )	goto ITEMREGISTFAILEX;
 			
-			// magi82 - UniqueItem(070628) ³ëÁ¡»ó¿¡ À¯´ÏÅ©¾ÆÀÌÅÛ¿Ã¸±¶§ Ã¼Å©
+			// magi82 - UniqueItem(070628)  Å©Û¿Ã¸ Ã¼Å©
 			if(pItemKindInfo->ItemKind == eEQUIP_ITEM_UNIQUE && GAMERESRCMNGR->GetUniqueItemOptionList(msg->ItemInfo.wIconIdx)->ExchangeFlag == 0)
 			{
 				goto ITEMREGISTFAILEX;
 			}
 
-			// magi82(17) - Titan(07.11.01) °è¾àµÈ Å¸ÀÌÅºÀº ³ëÁ¡»ó¿¡¼­ ÆÇ¸Å°¡ ¾ÈµÇ°Ô ¼öÁ¤
+			// magi82(17) - Titan(07.11.01)  Å¸Åº ó¿¡¼ Ç¸Å° ÈµÇ° 
 			if(pItemKindInfo->ItemKind == eTITAN_ITEM_PAPER)
 			{
 				pSlot	= (CInventorySlot*)pPlayer->GetSlot( eItemTable_Inventory );
@@ -1526,7 +1527,7 @@ ITEMUNLOCKFAIL:
 						goto ITEMREGISTFAILEX;
 				}
 
-				// ±³È¯ºÒ°¡ ¾ÆÀÌÅÛÀº °Å·¡ ¾ÈµÇµµ·Ï
+				// È¯Ò°  Å· ÈµÇµ
 				if( pItemKindInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemKindInfo->ItemKind == eSHOP_ITEM_PET_EQUIP )
 				{
 					if( pItemKindInfo->BuyPrice )
@@ -1546,7 +1547,7 @@ ITEMUNLOCKFAIL:
 				msg->ItemInfo.Durability, msg->ItemInfo.QuickPosition ) )
 				goto ITEMREGISTFAILEX;
 			
-			//5°³ÀÌ»ó °ãÄ£ ¹ö±× ¾ÆÀÌÅÛÀº ¿Ã¸± ¼ö ¾ø´Ù
+			//5Ì» Ä£   Ã¸  
 			if( ITEMMGR->IsDupItem(msg->ItemInfo.wIconIdx) && msg->ItemInfo.Durability > MAX_YOUNGYAKITEM_DUPNUM )
 			{
 				goto ITEMREGISTFAILEX;
@@ -1570,26 +1571,26 @@ ITEMUNLOCKFAIL:
 			if( !pStall->CheckItemDBIdx(pBase.dwDBIdx) ) 
 			{
 				erroflag = 1;
-				goto ITEMREGISTFAILEX; // ÀÌ¹Ì µî·ÏµÇ¾î ÀÖ´Â ¾ÆÀÌÅÛÀÎÁö...
+				goto ITEMREGISTFAILEX; // Ì¹ ÏµÇ¾ Ö´ ...
 			}
 			
 			//			if( !pStall->FillCell( &pBase, msg->dwMoney, TRUE ) ) goto ITEMREGISTFAILEX;
 			if( !pStall->FillCell( &pBase, msg->dwMoney, FALSE ) ) goto ITEMREGISTFAILEX;
 
 			//SW051129 Pet
-			//Æê ¼ÒÈ¯ ¾ÆÀÌÅÛÀÏ °æ¿ì °Å·¡°¡´É Ä£¹Ðµµ °Ë»ç
+			// È¯   Å· Ä£Ðµ Ë»
 			ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( msg->ItemInfo.wIconIdx );
 			if( pItemInfo->ItemKind == eQUEST_ITEM_PET || pItemInfo->ItemKind == eSHOP_ITEM_PET )
 			{
 				if( FALSE == pPlayer->GetPetManager()->CheckPetDefaultFriendship(msg->ItemInfo.dwDBIdx) 
 					|| TRUE == pPlayer->GetPetManager()->IsCurPetSummonItem(msg->ItemInfo.dwDBIdx) )
 				{
-					ASSERT(0);	//Æê ±âº» Ä£¹Ðµµ ¹Ì¸¸ÀÎµ¥ °Å·¡¸¦ ÇÏ¿´´Ù. ClientCheck
+					ASSERT(0);	// âº» Ä£Ðµ Ì¸Îµ Å· Ï¿. ClientCheck
 					goto ITEMREGISTFAILEX;
 				}
 			}
 
-			//!!!ÀÓ½Ã ¹æ¾î ÄÚµå..·Î±× È®ÀÎ ÇÒ°Í
+			//!!!Ó½  Úµ..Î± È® Ò°
 			if( eTITAN_ITEM_PAPER == pItemInfo->ItemKind )
 			{
 				TITAN_TOTALINFO* pCheckInfo = pPlayer->GetTitanManager()->GetTitanTotalInfo(msg->ItemInfo.dwDBIdx);
@@ -1611,7 +1612,7 @@ ITEMUNLOCKFAIL:
 			
 			pPlayer->SendMsg( &RegistSyn, sizeof(MSG_LINKITEMEX) );
 			
-			// ¼Õ´Ô¿¡°Ô »óÇ°À» µî·ÏÇØÁØ´Ù.
+			// Õ´Ô¿ Ç° Ø´.
 
 			RegistGuest.Category = MP_STREETSTALL;
 			RegistGuest.Protocol = MP_STREETSTALL_FAKEREGISTITEM;
@@ -1640,7 +1641,7 @@ ITEMUNLOCKFAIL:
 				 RegistGuest.PetInfoCount = 1;
 				 RegistGuest.sPetTotalInfo = *(pPlayer->GetPetManager()->GetPetTotalInfo(pBase.dwDBIdx));
 			}*/
-//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸®
+//SW070308 ÛºÎ°É¼Çµ 
 			ITEMMGR->SetItemOptionsInfoMsg(pPlayer, &msg->ItemInfo, (MSG_LINKITEMOPTIONS*)&RegistGuest);
 
 			pStall->SendMsgGuestAll( &RegistGuest, RegistGuest.GetSize() );
@@ -1677,7 +1678,7 @@ ITEMREGISTFAILEX:
 			MSG_LINKBUYITEMEX RegistSyn;
 			SEND_LINKBUYITEM_TOTALINFO RegistGuest;
 			
-			// 1. »óÁ¡À» Ã£¾Æ¼­ ¾ÆÀÌÅÛÀ» Ã·°¡ÇÑ´Ù.
+			// 1.  Ã£Æ¼  Ã·Ñ´.
 			pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer )
 			{
@@ -1685,20 +1686,20 @@ ITEMREGISTFAILEX:
 				return;
 			}
 			
-			if( pPlayer->GetGuestStall() ) goto BUYITEMREGISTFAILEX; // Guest·Î Âü¿©ÇÑ °æ¿ì¿¡ ´ëÇÑ ¿¡·¯ Ã³¸®
+			if( pPlayer->GetGuestStall() ) goto BUYITEMREGISTFAILEX; // Guest  ì¿¡   Ã³
 			
 			pStall = FindStreetStall( pPlayer );
 			if( pStall == NULL ) goto BUYITEMREGISTFAILEX;
-			if( pStall->IsFull() ) goto BUYITEMREGISTFAILEX; // ³ëÁ¡ÀÌ ²ËÂù°æ¿ì..
+			if( pStall->IsFull() ) goto BUYITEMREGISTFAILEX; //  ..
 			
 			if(pStall->GetStallKind() == eSK_SELL) goto BUYITEMREGISTFAILEX;
 
 			//////////////////////////////////////////////////////////////////////////
-			//µî·ÏÇÏ°íÀÚ ÇÏ´Â ±¸ÀÔ ³ëÁ¡ ÀÎº¥ÀÌ »ç¿ë ºÒ°¡´ÉÇÑ °÷ÀÏ¶§
+			//Ï° Ï´   Îº  Ò° Ï¶
 //			if(msg->wAbsPosition >= pStall->GetUsable()) goto BUYITEMREGISTFAILEX;
 			//////////////////////////////////////////////////////////////////////////
 			
-			//±¸ÀÔ°¡°ÝÀÌ ¼ÒÁö±ÝÀ» ÃÊ°úÇÒ¶§
+			//Ô°  Ê°Ò¶
 
 			pInfo = pStall->GetCellInfo(msg->wAbsPosition);
 
@@ -1706,7 +1707,7 @@ ITEMREGISTFAILEX:
 
 			TotalMoney = pStall->GetTotalMoney();
 
-			if(pInfo->bFill)	// ¸¸¾à ¾ÆÀÌÅÛÀÌ µî·Ï µÇ¾îÀÖ´Ù¸é ÇöÀç µî·ÏµÈ °¡°ÝÀº Á¦¿Ü
+			if(pInfo->bFill)	//    Ç¾Ö´Ù¸  Ïµ  
 				TotalMoney -= (pInfo->dwMoney * pInfo->wVolume);
 
 			if(pPlayer->GetMoney() < TotalMoney + (msg->dwMoney * msg->wVolume)) 
@@ -1716,7 +1717,7 @@ ITEMREGISTFAILEX:
 			}
 			
 			//////////////////////////////////////////////////////////////////////////
-			// ±¸¸Åµî·ÏÇÑ ¾ÆÀÌÅÛ¿¡ ÇØ´çÇÏ´Â ÀÎº¥¿¡ ¿©À¯°¡ ÀÖ´ÂÁö ÆÇ´Ü
+			// Åµ Û¿ Ø´Ï´ Îº  Ö´ Ç´
 			WORD EmptyCellPos;
 
 			pItemKindInfo = ITEMMGR->GetItemInfo( msg->ItemInfo.wIconIdx );
@@ -1740,7 +1741,7 @@ ITEMREGISTFAILEX:
 			
 			if( !pStall->FillCell( &pBase, msg->dwMoney, FALSE, msg->wVolume, msg->wAbsPosition ) )  goto BUYITEMREGISTFAILEX;
 
-			// magi82 ³ëÁ¡»ó °Ë»ö
+			// magi82  Ë»
 			InsertStallData( msg->dwObjectID, pBase.wIconIdx, eFind_Buy, msg->dwMoney );
 
 			RegistSyn.Category = MP_STREETSTALL;
@@ -1753,7 +1754,7 @@ ITEMREGISTFAILEX:
 			
 			pPlayer->SendMsg( &RegistSyn, sizeof(MSG_LINKBUYITEMEX) );
 			
-			// ¼Õ´Ô¿¡°Ô »óÇ°À» µî·ÏÇØÁØ´Ù.
+			// Õ´Ô¿ Ç° Ø´.
 			
 			RegistGuest.Category = MP_STREETSTALL;
 			RegistGuest.Protocol = MP_STREETSTALL_FAKEREGISTBUYITEM;
@@ -1777,7 +1778,7 @@ ITEMREGISTFAILEX:
 				RegistGuest.RareCount = 1;
 				RegistGuest.sRareOptionInfo = *(pPlayer->GetItemRareOption(pBase.RareIdx));
 			}*/
-			//SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸®
+			//SW070308 ÛºÎ°É¼Çµ 
 			ITEMMGR->SetItemOptionsInfoMsg(pPlayer, &RegistGuest.ItemInfo, (MSG_LINKITEMOPTIONS*)&RegistGuest);
 			
 			pStall->SendMsgGuestAll( &RegistGuest, sizeof(SEND_LINKBUYITEM_TOTALINFO) );
@@ -1815,7 +1816,7 @@ BUYITEMREGISTFAILEX:
 				Table = eItemTable_ShopInven;			
 			//
 
-			// magi82 ³ëÁ¡»ó °Ë»ö -> ÇØ´ç ¾ÆÀÌÅÛÀ» Áö¿ì¸é¼­ ³ëÁ¡»ó °Ë»ö Å×ÀÌºí¿¡¼­µµ Áö¿ì°Ô »óÅÂ°ªÀ» ¼¼ÆÃÇØ¾ßÇÑ´Ù.
+			// magi82  Ë» -> Ø´  é¼­  Ë» Ìº  Â° Ø¾Ñ´.
 			StreetStallFindState eFindState;
 
 			if(pStall->GetStallKind() == eSK_SELL)
@@ -1829,10 +1830,10 @@ BUYITEMREGISTFAILEX:
 				eFindState = eFind_Buy;
 			}
 
-			// magi82 ³ëÁ¡»ó °Ë»ö
+			// magi82  Ë»
             DeleteStallData( msg->dwObjectID, msg->ItemInfo.wIconIdx, eFindState );            
 
-			// ¸Þ¼¼Áö º¸³½´Ù.
+			// Þ¼ .
 			MSG_LINKITEM DelSyn;
 			DelSyn.Category = MP_STREETSTALL;
 			DelSyn.Protocol = MP_STREETSTALL_DELETEITEM_ACK;
@@ -1841,7 +1842,7 @@ BUYITEMREGISTFAILEX:
 			DelSyn.wAbsPosition = msg->wAbsPosition;
 			pPlayer->SendMsg( &DelSyn, sizeof(MSG_LINKITEM) );
 
-			// ¼Õ´Ô¿¡°Ô¼­ »óÇ°À» »èÁ¦ ÇÑ´Ù.
+			// Õ´Ô¿Ô¼ Ç°  Ñ´.
 			DelSyn.Protocol = MP_STREETSTALL_DELETEITEM;
 			pStall->SendMsgGuestAll( &DelSyn, sizeof(MSG_LINKITEM) );
 		}
@@ -1867,7 +1868,7 @@ BUYITEMREGISTFAILEX:
 			if( pGuest->GetGuestStall() == NULL ) 
 			{
 				char buf[128];
-				sprintf(buf, "³ëÁ¡ÀÌ ¾ø´Âµ¥ ¾ÆÀÌÅÛÀ» »ç·Á°í ÇÑ´Ù. %d", pGuest->GetID());
+				sprintf(buf, " Âµ   Ñ´. %d", pGuest->GetID());
 				ASSERTMSG(0, buf);
 				
 				goto BUYITEMFAILEX;
@@ -1878,7 +1879,7 @@ BUYITEMREGISTFAILEX:
 			if(pGuest->GetGuestStall()->GetOwner()->GetID() != msg->StallOwnerID)
 			{
 				char buf[128];
-				sprintf(buf, "µî·ÏµÈ ³ëÁ¡°ú´Â ´Ù¸¥ ³ëÁ¡¿¡¼­¾ÆÀÌÅÛÀ» »ç·Á°í ÇÑ´Ù: %d", pGuest->GetID());
+				sprintf(buf, "Ïµ  Ù¸   Ñ´: %d", pGuest->GetID());
 				ASSERTMSG(0, buf);
 				
 				goto BUYITEMFAILEX;
@@ -1886,7 +1887,7 @@ BUYITEMREGISTFAILEX:
 //				return;
 			}
 			
-			if( pStall->CheckItemDBIdx(msg->ItemInfo.dwDBIdx) ) // µî·Ï¾ÆÀÌÅÛÀÎÁö Ã¼Å©ÇÑ´Ù.
+			if( pStall->CheckItemDBIdx(msg->ItemInfo.dwDBIdx) ) // Ï¾ Ã¼Å©Ñ´.
 			{
 				MSG_WORD msgNack;
 				msgNack.Category	= MP_STREETSTALL;
@@ -1948,11 +1949,11 @@ BUYITEMFAILEX:
 			if(pGuest->GetGuestStall()->GetOwner()->GetID() != msg->StallOwnerID)
 				goto SELLITEMFAILEX;
 			
-			if( !(pStall->GetCellInfo(msg->StallPos)->bFill)			// ³ëÁ¡¿¡ µî·ÏÀÌ ¾ÈµÈ ¾ÆÀÌÅÛ
+			if( !(pStall->GetCellInfo(msg->StallPos)->bFill)			//   Èµ 
 				|| ( (pStall->GetCellInfo(msg->StallPos)->sItemBase.wIconIdx) != msg->ItemInfo.wIconIdx ) 
-					// ¾ÆÀÌÅÛ ÀÎµ¦½º ºÒÀÏÄ¡
-				|| (pStall->GetCellInfo(msg->StallPos)->wVolume < 1)	// ³ëÁ¡¿¡ µî·ÏµÈ ¼ö·®ÀÌ 0°³ ÀÌÇÏ
-				|| (pStall->GetCellInfo(msg->StallPos)->bLock) )		// Àá°ÜÀÖ´Â ¾ÆÀÌÅÛ
+					//  Îµ Ä¡
+				|| (pStall->GetCellInfo(msg->StallPos)->wVolume < 1)	//  Ïµ  0 
+				|| (pStall->GetCellInfo(msg->StallPos)->bLock) )		// Ö´ 
 				goto SELLITEMFAILEX;
 
 			if( ITEMMGR->IsDupItem( msg->ItemInfo.wIconIdx ) )
@@ -1984,14 +1985,14 @@ SELLITEMFAILEX:
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer ) break;
 			
-			/* State¿¡ ´ëÇÑ Check¸¦ ÇÑ´Ù. */
-			//KES VIMU 031103 Ãß°¡
-			if( pPlayer->IsVimuing() ) bVal = FALSE;	//ºñ¹«Áß
-			if( pPlayer->GetExchangeContainer()->pRoom != NULL ) bVal = FALSE;	//±³È¯Áß
+			/* State  Check Ñ´. */
+			//KES VIMU 031103 ß°
+			if( pPlayer->IsVimuing() ) bVal = FALSE;	//
+			if( pPlayer->GetExchangeContainer()->pRoom != NULL ) bVal = FALSE;	//È¯
 			if( (pPlayer->GetState() == eObjectState_StreetStall_Guest) || (pPlayer->GetState() == eObjectState_StreetStall_Owner))
 			{
 				char buf[128];
-				sprintf(buf, "¼­¹ö¿¡¼­´Â ÀÌ¹Ì ³ëÁ¡ »óÅÂ: %d", pPlayer->GetID());
+				sprintf(buf, " Ì¹  : %d", pPlayer->GetID());
 				ASSERTMSG(0, buf);
 				SendNackMsg(pPlayer, MP_STREETSTALL_GUESTIN_NACK);
 				return;
@@ -2012,7 +2013,7 @@ SELLITEMFAILEX:
 				}
 				else
 				{
-					ASSERT( pPlayer->GetGuestStall() == NULL );	// nullÀÌ¾î¾ßÇÑ´Ù.
+					ASSERT( pPlayer->GetGuestStall() == NULL );	// nullÌ¾Ñ´.
 
 					if( pPlayer->GetGuestStall() )
 					{
@@ -2059,13 +2060,13 @@ SELLITEMFAILEX:
 			if(!pPlayerStall)
 			{
 				char buf[128];
-				sprintf(buf, "ÇÃ·¹ÀÌ¾î¿¡ gueststallÀÌ ¾ø´Âµ¥ ³ª°¡±â ¸Þ½ÃÁö ¿È: %d", pPlayer->GetID());
+				sprintf(buf, "Ã·Ì¾î¿¡ gueststall Âµ  Þ½ : %d", pPlayer->GetID());
 				ASSERTMSG(0, buf);
 				SendNackMsg(pPlayer, MP_STREETSTALL_GUESTOUT_NACK);
 				if(pPlayer->GetState() == eObjectState_StreetStall_Guest)
 				{				
 					char buf[128];
-					sprintf(buf, "ÇÃ·¹ÀÌ¾î¿¡ gueststallÀÌ ¾ø´Âµ¥ »óÅÂ´Â ³ëÁ¡ »óÅÂ: %d", pPlayer->GetID());
+					sprintf(buf, "Ã·Ì¾î¿¡ gueststall Âµ Â´  : %d", pPlayer->GetID());
 					ASSERTMSG(0, buf);
 				}
 				return;
@@ -2073,14 +2074,14 @@ SELLITEMFAILEX:
 			if(pPlayerStall->GetOwner()->GetID() != pOwner->GetID())
 			{
 				char buf[128];
-				sprintf(buf, "¼­¹ö¿¡ ÀÖ´Â ³ëÁ¡°ú´Â ´Ù¸¥ ³ëÁ¡¿¡¼­ ³ª°£´Ù°í ¸Þ½ÃÁö ¿È: %d", pPlayer->GetID());
+				sprintf(buf, " Ö´  Ù¸  Ù° Þ½ : %d", pPlayer->GetID());
 				ASSERTMSG(0, buf);
 				return;
 			}
 			if( pPlayer->GetState() != eObjectState_StreetStall_Guest)
 			{
 				char buf[128];
-				sprintf(buf, "¼­¹ö¿¡¼­ ¼Õ´Ô»óÅÂ°¡ ¾Æ´Ñµ¥ ³ª°¡±â ¸Þ½ÃÁö ¿È: %d", pPlayer->GetID());
+				sprintf(buf, " Õ´Ô»Â° Æ´Ñµ  Þ½ : %d", pPlayer->GetID());
 				ASSERTMSG(0, buf);
 				SendNackMsg(pPlayer, MP_STREETSTALL_GUESTOUT_NACK);
 				return;
@@ -2103,7 +2104,7 @@ SELLITEMFAILEX:
 		{
 			MSG_STREETSTALL_TITLE* msg = (MSG_STREETSTALL_TITLE*)pMsg;
 
-			// 1. »óÁ¡À» Ã£¾Æ¼­ Å¸ÀÌÆ²À» ¼öÁ¤ÇÑ´Ù.
+			// 1.  Ã£Æ¼ Å¸Æ² Ñ´.
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( !pPlayer ) break;
 
@@ -2130,7 +2131,7 @@ SELLITEMFAILEX:
 				temp.Protocol = MP_STREETSTALL_EDITTITLE_ACK;
 				pPlayer->SendMsg( &temp, sizeof(MSG_STREETSTALL_TITLE) );
 
-				// ¼Õ´Ô¿¡°Ô Å¸ÀÌÆ²À» ¾Ë¸°´Ù.
+				// Õ´Ô¿ Å¸Æ² Ë¸.
 				temp.Protocol = MP_STREETSTALL_EDITTITLE;
 				PACKEDDATA_OBJ->QuickSendExceptObjectSelf(pPlayer,&temp,sizeof(MSG_STREETSTALL_TITLE));
 			}
@@ -2209,12 +2210,12 @@ SELLITEMFAILEX:
 			pPlayer->SendMsg( &success, sizeof(MSGBASE) );
 		}
 		break;
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 	case MP_STREETSTALL_FINDITEM_SYN:
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 			
-			// °Ë»öÀ» ½ÃµµÇÏ´Â À¯Àú°¡ ÀÖ´ÂÁö Ã¼Å©
+			// Ë» ÃµÏ´  Ö´ Ã¼Å©
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 			if( !pPlayer )
 				break;
@@ -2236,11 +2237,11 @@ SELLITEMFAILEX:
 			msg.dwObjectID = pPlayer->GetID();
 
 			int nCount = 0;
-			// ¾ÆÀÌÅÛ ÀÎµ¦½º°¡ ¾øÀ¸¸é ÀüÃ¼ °Ë»öÀÌ´Ù.
+			//  Îµ  Ã¼ Ë»Ì´.
 			if( 0 == pmsg->dwData1 )
 			{
-				// ÀüÃ¼ °Ë»öÇÒ¶§´Â ¾ÆÀÌÅÛ Ã¼Å©¸¦ ÇÏÁö ¾ÊÀ¸¹Ç·Î ±»ÀÌ ³ëÁ¡»ó ¾ÆÀÌÅÛ Å×ÀÌºíÀ» ÂüÁ¶ÇÒ ÇÊ¿ä¾øÀÌ
-				// ±âÁ¸¿¡ ÀÖ´Â ÇØ´ç ¸ÊÀÇ ³ëÁ¡»ó Å×ÀÌºí¿¡¼­ ³ëÁ¡»óµéÀÇ Á¤º¸¸¦ °¡Á®¿À´Â°Ô ³´´Ù.
+				// Ã¼ Ë»Ò¶  Ã¼Å©  Ç·    Ìº  Ê¿
+				//  Ö´ Ø´   Ìº   Â° .
 				CPlayer* pOwner = NULL;
 				cStreetStall* pInfo;
 				m_StallTable.SetPositionHead();
@@ -2251,10 +2252,10 @@ SELLITEMFAILEX:
 					{
 						if( pPlayer->GetChannelID() == pOwner->GetChannelID() )
 						{
-							// ÇØ´ç ³ëÁ¡»óÀÌ °Ë»öÇÏ·Á´Â ³ëÁ¡»ó Å¸ÀÔ°ú °°¾Æ¾ß µÈ´Ù.(±¸¸Å ³ëÁ¡»óÀÎÁö.. ÆÇ¸Å ³ëÁ¡»óÀÎÁö..)
-							// ³ëÁ¡»ó°úÀÇ Ã¤³Îµµ °°¾Æ¾ß ÇÑ´Ù.
+							// Ø´  Ë»Ï·  Å¸Ô° Æ¾ È´.( .. Ç¸ ..)
+							//  Ã¤Îµ Æ¾ Ñ´.
 							msg.sInfo[nCount].dwOwnerIdx = pOwner->GetID();
-							msg.sInfo[nCount].dwPrice = 0;	// ÀüÃ¼ °Ë»öÇÒ¶§´Â °¡°ÝÀ» ¾Ë·ÁÁÙ ÇÊ¿ä°¡ ¾ø´Ù.
+							msg.sInfo[nCount].dwPrice = 0;	// Ã¼ Ë»Ò¶  Ë· Ê¿ä°¡ .
 							SafeStrCpy( msg.sInfo[nCount].strName, pOwner->GetObjectName(), MAX_NAME_LENGTH );
 
 							nCount++;
@@ -2266,7 +2267,7 @@ SELLITEMFAILEX:
 			}
 			else
 			{
-				// ³ëÁ¡»óÀÇ »óÅÂ¿¡ µû¶ó »óÅÂ°ª ¼¼ÆÃ
+				//  Â¿  Â° 
 				StreetStallFindState eFindState;
 				if( pmsg->dwData2 == eSK_SELL )
 					eFindState = eFind_Sell;
@@ -2284,7 +2285,7 @@ SELLITEMFAILEX:
 						pOwner = (CPlayer*)g_pUserTable->FindUser( pDealer->dwCharIdx );
 						if( pOwner && pPlayer->GetChannelID() == pOwner->GetChannelID() )
 						{
-							// ³ëÁ¡»ó°ú Ã¤³ÎÀÌ °°À»¶§¸¸ °Ë»ö °á°ú ¸ñ·Ï¿¡ Ãß°¡ÇÑ´Ù.
+							//  Ã¤  Ë»  Ï¿ ß°Ñ´.
 							msg.sInfo[nCount].dwOwnerIdx = pDealer->dwCharIdx;
 							msg.sInfo[nCount].dwPrice = pDealer->dwPrice;
 							SafeStrCpy( msg.sInfo[nCount].strName, pOwner->GetObjectName(), MAX_NAME_LENGTH );
@@ -2300,7 +2301,7 @@ SELLITEMFAILEX:
 			pPlayer->SendMsg( &msg, msg.GetSize() );
 		}
 		break;
-		// magi82 ³ëÁ¡»ó °Ë»ö
+		// magi82  Ë»
 	case MP_STREETSTALL_ITEMVIEW_SYN:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -2358,7 +2359,7 @@ SELLITEMFAILEX:
 							msg.sInfo[i].dwDur = (DWORD)(pItemInfo->sItemBase.Durability);
 						else
 						{
-							// º¹¼ö°³ÀÇ ¾ÆÀÌÅÛÀÎÁö ¾Æ´ÑÁö Ã¼Å©
+							//   Æ´ Ã¼Å©
 							if( FALSE == ITEMMGR->IsDupItem(msg.sInfo[i].dwItemIdx) )
 								msg.sInfo[i].dwDur = (DWORD)(pItemInfo->sItemBase.Durability);
 							else
@@ -2448,14 +2449,14 @@ void cStreetStallManager::SendNackMsg(CPlayer* pPlayer, BYTE Protocol)
 
 BOOL cStreetStallManager::CanBuyItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINFO* pItemInfo, WORD* EmptyCellPos, STREETSTALL_BUYINFO* pBuyInfo, ITEMBASE* pStallItem, DWORD dwBuyNum )
 {
-	//KES: ¾ÆÀÌÅÛÀÇ °¡°Ý º¯È­
+	//KES:   È­
 	if( pItemInfo->dwMoney != pBuyInfo->dwBuyPrice )
 	{
 		AssertBuyErr(NOT_SAMEPRICE);
 		return FALSE;
 	}
 
-	// ¾ÆÀÌÅÛÀÇ »óÅÂ Ã¼Å©
+	//   Ã¼Å©
 	if( !pItemInfo || !pItemInfo->bFill || !pItemInfo->bLock || pStallItem->dwDBIdx != pBuyInfo->ItemInfo.dwDBIdx )
 	{
 		AssertBuyErr(NOT_EXIST);
@@ -2487,7 +2488,7 @@ BOOL cStreetStallManager::CanBuyItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINFO
 	}	
 	//
 
-	// ÀÎº¥Åä¸®°ø°£ Ã¼Å©
+	// Îºä¸® Ã¼Å©
 	if( pGuestInventory->GetEmptyCell(EmptyCellPos) == 0 ) 
 	{
 		AssertBuyErr(NOT_SPACE);
@@ -2511,14 +2512,14 @@ BOOL cStreetStallManager::CanBuyItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINFO
 
 BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINFO* pItemInfo, WORD* EmptyCellPos, STREETSTALL_BUYINFO* pSellInfo, ITEMBASE* pSellItem, DWORD dwSellNum, WORD& result )
 {
-	//KES: ¾ÆÀÌÅÛÀÇ °¡°Ý º¯È­
+	//KES:   È­
 	if( pItemInfo->dwMoney != pSellInfo->dwBuyPrice )
 	{
 		AssertSellErr(NOT_SAMEPRICE);
 		return FALSE;
 	}
 	
-	// ¾ÆÀÌÅÛÀÇ »óÅÂ Ã¼Å©
+	//   Ã¼Å©
 	if( !pItemInfo || !pItemInfo->bFill || pItemInfo->bLock || pSellItem->wIconIdx != pItemInfo->sItemBase.wIconIdx || pItemInfo->wVolume < 1)
 	{
 		AssertSellErr(NOT_EXIST);
@@ -2542,7 +2543,7 @@ BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINF
 		return FALSE;
 	}
 
-	//2007. 8. 30. CBH - ÆÄ´Â »ç¶÷ÀÇ ±Ý¾× ÃÖ´ëÄ¡ °ü·Ã Ã¼Å© Ãß°¡
+	//2007. 8. 30. CBH - Ä´  Ý¾ Ö´Ä¡  Ã¼Å© ß°
 	if(pGuest->IsEnoughAdditionMoney(pItemInfo->dwMoney) == FALSE)
 	{
 		return FALSE;
@@ -2561,7 +2562,7 @@ BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINF
 		pOwnerInventory	= (CInventorySlot*)pOwner->GetSlot( eItemTable_ShopInven );
 		Table = eItemTable_ShopInven;
 		
-		// ±³È¯°¡´É Ã¼Å©
+		// È¯ Ã¼Å©
 		CShopInvenSlot* pGuestInventory	= (CShopInvenSlot*)pGuest->GetSlot( eItemTable_ShopInven );
 		if( pItemKindInfo && pItemKindInfo->ItemType == 11 )
 		{
@@ -2569,7 +2570,7 @@ BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINF
 			if( !pIBase || !(pIBase->ItemParam & ITEM_PARAM_SEAL) )
 				return FALSE;
 		}
-		// ±³È¯ºÒ°¡ ¾ÆÀÌÅÛÀº °Å·¡ ¾ÈµÇµµ·Ï
+		// È¯Ò°  Å· ÈµÇµ
 		if( pItemKindInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemKindInfo->ItemKind == eSHOP_ITEM_PET_EQUIP )
 		{
 			if( pItemKindInfo->BuyPrice )
@@ -2584,7 +2585,7 @@ BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINF
 	}	
 	//
 	
-	// ÀÎº¥Åä¸®°ø°£ Ã¼Å©
+	// Îºä¸® Ã¼Å©
 	if( pOwnerInventory->GetEmptyCell(EmptyCellPos) == 0 ) 
 	{
 		AssertSellErr(NOT_SPACE);
@@ -2620,30 +2621,30 @@ BOOL cStreetStallManager::CanSellItem(CPlayer* pOwner, CPlayer *pGuest, sCELLINF
 void cStreetStallManager::AssertBuyErr(WORD Err)
 {
 	char buf[128];
-	sprintf(buf, "³ëÁ¡ »ç±â ¹ö±×: %d", Err);
+	sprintf(buf, "  : %d", Err);
 	ASSERTMSG(0, buf);
 }
 
 void cStreetStallManager::AssertSellErr(WORD Err)
 {
 	char buf[128];
-	sprintf(buf, "³ëÁ¡ ÆÈ±â ¹ö±×: %d", Err);
+	sprintf(buf, " È± : %d", Err);
 	ASSERTMSG(0, buf);
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö ¸Þ¸ð¸®Ç®, Å×ÀÌºí ÃÊ±âÈ­
+// magi82  Ë» ->  Ë» Þ¸Ç®, Ìº Ê±È­
 void cStreetStallManager::InitStallData()
 {
 	memset( &m_dwSearchDelayTime, 0, sizeof(m_dwSearchDelayTime) );
 
-	// ÆÇ¸Å ³ëÁ¡»ó
+	// Ç¸ 
 	m_pDealItemPool[eFind_Sell] = new CMemoryPoolTempl<STALL_DEALITEM_INFO>;
 	m_pDealItemPool[eFind_Sell]->Init( 100, 50, "SellStallDealerPool" );
 	m_pDealerPool[eFind_Sell] = new CMemoryPoolTempl<STALL_DEALER_INFO>;
 	m_pDealerPool[eFind_Sell]->Init( 100, 50, "SellStallDealItemPool" );
 	m_pDealItemTable[eFind_Sell].Initialize(1000);
 
-	// ±¸¸Å ³ëÁ¡»ó
+	//  
 	m_pDealItemPool[eFind_Buy] = new CMemoryPoolTempl<STALL_DEALITEM_INFO>;
 	m_pDealItemPool[eFind_Buy]->Init( 100, 50, "BuyStallDealerPool" );
 	m_pDealerPool[eFind_Buy] = new CMemoryPoolTempl<STALL_DEALER_INFO>;
@@ -2651,7 +2652,7 @@ void cStreetStallManager::InitStallData()
 	m_pDealItemTable[eFind_Buy].Initialize(1000);
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö ¸Þ¸ð¸®Ç®, Å×ÀÌºí ÇØÁ¦
+// magi82  Ë» ->  Ë» Þ¸Ç®, Ìº 
 void cStreetStallManager::ReleaseStallData()
 {
 	for( int i = 0; i < eFind_Max; i++ )
@@ -2660,10 +2661,10 @@ void cStreetStallManager::ReleaseStallData()
 		m_pDealItemTable[i].SetPositionHead();
 		while( pDealItem = m_pDealItemTable[i].GetData() )
 		{
-			// ³ëÁ¡»óµéÀÌ ÆÄ´Â ¾ÆÀÌÅÛ »èÁ¦
+			//  Ä´  
 			if( pDealItem->Info.GetDataNum() )
 			{
-				// ÇØ´ç ¾ÆÀÌÅÛÀ» ÆÄ´Â ³ëÁ¡»ó µô·¯ »èÁ¦
+				// Ø´  Ä´   
 				STALL_DEALER_INFO* pDealer;
 				pDealItem->Info.SetPositionHead();
 				while( pDealer = pDealItem->Info.GetData() )
@@ -2682,7 +2683,7 @@ void cStreetStallManager::ReleaseStallData()
 	}
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö Á¤º¸ ¸®¼Â
+// magi82  Ë» ->  Ë»  
 void cStreetStallManager::ResetStallData( DWORD dwOwnerIdx, StreetStallFindState State )
 {
 	cStreetStall* pStall = m_StallTable.GetData(dwOwnerIdx);
@@ -2697,24 +2698,24 @@ void cStreetStallManager::ResetStallData( DWORD dwOwnerIdx, StreetStallFindState
 
 	STALL_DEALITEM_INFO* pDealItem;
 	STALL_DEALER_INFO* pDealer;
-	// ÇØ´ç À¯Àú°¡ °¡Áö°í ÀÖ´Â ¸ðµç ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ Å×ÀÌºí¿¡¼­ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// Ø´   Ö´    Ìº Ø¾ Ñ´.
 	for( int i = 0; i < nCount; i++ )
 	{
 		sCELLINFO* pCell = pStall->GetCellInfo(i);
-		// ÇØ´ç ¾ÆÀÌÅÛÀÌ Å×ÀÌºí¿¡ ÀÖ´Â°¡?
+		// Ø´  Ìº Ö´Â°?
 		pDealItem = m_pDealItemTable[State].GetData( pCell->sItemBase.wIconIdx );
 		if( pDealItem )
 		{
-			// ÇØ´ç À¯Àú°¡ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´Â°¡?
+			// Ø´    Ö´Â°?
 			pDealer = pDealItem->Info.GetData( dwOwnerIdx );
 			if( pDealer )
 			{
-				// °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛÀ» ÇØÁ¦ ÇØÁÖ°í Å×ÀÌºí¿¡¼­ »èÁ¦
+				//  Ö´   Ö° Ìº 
 				m_pDealerPool[State]->Free(pDealer);
 				pDealItem->Info.Remove(pDealer->dwCharIdx);
 				pDealer = NULL;
 
-				// ¾ÆÀÌÅÛÅ×ÀÌºí¿¡¼­ »èÁ¦ÈÄ Ã¼Å©ÇØ¼­ ¾ÆÀÌÅÛÅ×ÀÌºí¿¡ °ªÀÌ ¾øÀ¸¸é ´õÀÌ»ó ÇØ´ç ¾ÆÀÌÅÛÀ» ÆÄ´Â ³ëÁ¡»óÀÌ ¾ø´Â°ÍÀÌ¹Ç·Î ³ëÁ¡»óµµ Å×ÀÌºí¿¡¼­ »èÁ¦ÇØÁØ´Ù.
+				// Ìº  Ã¼Å©Ø¼ Ìº   Ì» Ø´  Ä´  Â°Ì¹Ç·  Ìº Ø´.
 				if( 0 == pDealItem->Info.GetDataNum() )
 				{
 					m_pDealItemPool[State]->Free(pDealItem);
@@ -2726,11 +2727,11 @@ void cStreetStallManager::ResetStallData( DWORD dwOwnerIdx, StreetStallFindState
 	}
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö¿¡ Á¤º¸ Ãß°¡
+// magi82  Ë» ->  Ë»  ß°
 void cStreetStallManager::InsertStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State, DWORD dwMoney )
 {
 	StreetStallPriceState ePriceState;
-	// ÆÇ¸Å ³ëÁ¡»óÀÌ¸é ÃÖ°í°¡, ±¸¸Å ³ëÁ¡»óÀÌ¸é ÃÖÀú°¡
+	// Ç¸ Ì¸ Ö°,  Ì¸ 
 	if( State == eFind_Sell )
 	{
 		ePriceState = ePrice_Max;
@@ -2777,11 +2778,11 @@ void cStreetStallManager::InsertStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, St
 
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö¿¡ Á¤º¸ »èÁ¦
+// magi82  Ë» ->  Ë»  
 void cStreetStallManager::DeleteStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State )
 {
 	StreetStallPriceState ePriceState;
-	// ÆÇ¸Å ³ëÁ¡»óÀÌ¸é ÃÖ°í°¡, ±¸¸Å ³ëÁ¡»óÀÌ¸é ÃÖÀú°¡
+	// Ç¸ Ì¸ Ö°,  Ì¸ 
 	if( State == eFind_Sell )
 	{
 		ePriceState = ePrice_Max;
@@ -2820,7 +2821,7 @@ void cStreetStallManager::DeleteStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, St
 	}
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ÇØ´ç ³ëÁ¡»óÀÇ ÃÖ°í°¡, ÃÖÀú°¡ ¸®ÅÏ
+// magi82  Ë» -> Ø´  Ö°,  
 DWORD cStreetStallManager::GetPrice( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallPriceState State )
 {
 	cStreetStall* pStall = m_StallTable.GetData(dwOwnerIdx);
@@ -2854,7 +2855,7 @@ DWORD cStreetStallManager::GetPrice( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetSt
     return dwPrice;    
 }
 
-// magi82 ³ëÁ¡»ó °Ë»ö -> ³ëÁ¡»ó °Ë»ö°ü·Ã µô·¹ÀÌ Ã¼Å©
+// magi82  Ë» ->  Ë»  Ã¼Å©
 BOOL cStreetStallManager::CheckDelayTime( DWORD dwTime, StreetStallDelayState State )
 {
 	if( m_dwSearchDelayTime[State] > gCurTime )

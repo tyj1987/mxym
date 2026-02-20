@@ -14,7 +14,7 @@
 #include "./interface/cIconDialog.h"
 #include "ItemShow.h"
 #include "GameResourceStruct.h"
-#include "../input/Mouse.h"
+#include "input/Mouse.h"
 
 class cListDialog;
 
@@ -26,8 +26,8 @@ private:
 	CItemShow		m_NomalSkinView[SKINITEM_LIST_MAX];
 
 	DWORD m_dwSelectIdx;
-	DWORD m_dwSkinDelayTime;	//µô·¹ÀÌ ÃÑ ½Ã°£ º¯¼ö
-	BOOL m_bSkinDelayResult;	//µô·¹ÀÌÁßÀÎÁö Ã¼Å©ÇÏ´Â º¯¼ö
+	DWORD m_dwSkinDelayTime;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	BOOL m_bSkinDelayResult;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
 	CSkinSelectDialog();

@@ -20,6 +20,9 @@ void CDetectState::StartState(DWORD Time,WORD wParam1,WORD wParam2,float fParam3
 	m_pParent->SendSingleSpeicalStateAck(eSingleSpecialState_DetectItem, true);
 #endif
 
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 	CSpecialState::StartState(Time,wParam1,wParam2,fParam3,EffectNum,StateIcon,bHeroOper);
 }
 

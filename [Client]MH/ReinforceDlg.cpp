@@ -26,13 +26,14 @@
 
 CReinforceDlg::CReinforceDlg()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	m_pReinforceDlg = NULL;
 	m_pReinforceGridDlg = NULL;
 	m_pReinforceGravityDlg = NULL;
 
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );
-	for(int i = 0 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
+	for(i = 0 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
 	{
 		m_VirtualItem[i].SetToolTip( "", RGB_HALF( 255, 255, 255), &imgToolTip );
 		m_VirtualItem[i].SetMovable(FALSE);
@@ -51,6 +52,7 @@ CReinforceDlg::~CReinforceDlg()
 }
 void CReinforceDlg::Release(eReinforceReleaseOpt op)
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	CVirtualItem * pVItem = NULL;
 
 	if((op & eReinforceBasicRelease) && !IsEmpty(0))
@@ -63,7 +65,7 @@ void CReinforceDlg::Release(eReinforceReleaseOpt op)
 
 	if( (op & eReinforceViewRelease) )
 	{
-		for(int i = 1 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
+		for(i = 1 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
 		{
 			if(!IsEmpty(i))
 			{
@@ -74,7 +76,7 @@ void CReinforceDlg::Release(eReinforceReleaseOpt op)
 		}		
 	}
 	
-	REINFORCEMGR->SetRareMaterialTotalGravity(0);	//Àç·á ÃÑ ºñÁß ÃÊ±âÈ­.
+	REINFORCEMGR->SetRareMaterialTotalGravity(0);	//ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 }
 void CReinforceDlg::Linking()
 {
@@ -149,23 +151,23 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 	ITEM_INFO* pBaseItemInfo = ITEMMGR->GetItemInfo( pOrigItem->GetItemIdx() );
 	if( !pBaseItemInfo )			return FALSE;
 
-	// 06.09.25 RaMa - ÀÌº¥Æ®¾ÆÀÌÅÛÀ» °­È­, ·¹¾î¸¦ ¸ø ¸¸µéµµ·Ï
+	// 06.09.25 RaMa - ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­, ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ ï¿½ï¿½ï¿½éµµï¿½ï¿½
 	if( pBaseItemInfo->WeaponType > WP_KEY )
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1455) );
 		return FALSE;
 	}
 
-	// ÀÎº¥Åä¸®ÀÌ¿Ü¿¡ ¾ÆÀÌÅÛ FALSE
+	// ï¿½Îºï¿½ï¿½ä¸®ï¿½Ì¿Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FALSE
 	if(!ITEMMGR->IsEqualTableIdxForPos(eItemTable_Inventory, pOrigItem->GetPosition()))
 		return FALSE;
 
-	WORD OptKind = REINFORCEMGR->GetTargetOptionKind();	//´ë»ó ¾ÆÀÌÅÛÀÇ ¿É¼Ç Á¾·ù¸¦ °¡Á®¿Â´Ù.
+	WORD OptKind = REINFORCEMGR->GetTargetOptionKind();	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 
 	eITEM_KINDBIT bits = pOrigItem->GetItemKind();
 	if(bits & eEQUIP_ITEM)
 	{
-		if( REINFORCEMGR->GetRareMaterialTotalGravity() )	//µî·ÏµÈ Àç·á°¡ ÀÖÀ¸¸é(±âÁØ) ´ë»ó ¾ÆÀÌÅÛ º¯°æÀÌ ºÒ°¡ÇÏ´Ù.
+		if( REINFORCEMGR->GetRareMaterialTotalGravity() )	//ï¿½ï¿½Ïµï¿½ ï¿½ï¿½á°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½Ï´ï¿½.
 		{
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1205) );
 			return FALSE;
@@ -178,12 +180,12 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 			}
 			else
 			{
-				REINFORCEMGR->SetTatgetOptionKind(eIOK_Normal);	//ÀÏ¹İ ¾ÆÀÌÅÛ
+				REINFORCEMGR->SetTatgetOptionKind(eIOK_Normal);	//ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 		}
 
 
-		//SW051011 °­È­ Ä¡Æ®
+		//SW051011 ï¿½ï¿½È­ Ä¡Æ®
 #ifdef _GMTOOL_
 		if(CHEATMGR->m_bReadyToOptionCheat)
 		{
@@ -222,7 +224,7 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 		}
 		AddVirtualItemWrap(0, pOrigItem);
 
-		// 06. 02. °­È­ Àç·á ¾È³» ÀÎÅÍÆäÀÌ½º Ãß°¡ - ÀÌ¿µÁØ
+		// 06. 02. ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½È³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ß°ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 		switch(bits)
 		{
 		case eEQUIP_ITEM_WEAPON :
@@ -276,13 +278,14 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 	else if( bits == eEXTRA_ITEM_JEWEL )
 	{
 		CVirtualItem* pVItem = GetVirtualItem(0);
+				int i;  // ä¿®å¤C2065: åœ¨caseå—ä½œç”¨åŸŸå£°æ˜i
 		if( pVItem )
 		{
-			// RaMa - ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀ» »ç¿ëÇßÀ»°æ¿ì
+			// RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( m_bShopItemUse )
 			{
-				// ±âÁ¸¿¡ ¿Ã¶ó°£ ¾ÆÀÌÅÛÀÌ¶û °°Àº Á¾·ùÀÎÁö È®ÀÎ
-				for(int i=1; i<MAX_REINFORCEGRID_NUM+1; ++i)
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+				for(i=1; i<MAX_REINFORCEGRID_NUM+1; ++i)
 				{
 					if( !IsEmpty(i) )
 					if( m_VirtualItem[i].GetSrcItemIdx() != pOrigItem->GetItemIdx() )
@@ -291,7 +294,7 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 						return FALSE;
 					}
 				}
-				// °­È­°¡ µÉ ¼ö ÀÖ´ÂÁö È®ÀÎ
+				// ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 				if( !REINFORCEMGR->CheckReinforceItemWithMeterial( pVItem->GetSrcPosition(), pOrigItem->GetItemIdx(), OptKind ) )
 				{
 					CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(680) );
@@ -299,20 +302,20 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 				}
 			}
 
-			//´ë»ó¾ÆÀÌÅÛ - Àç·á ¿É¼Ç Ã¼Å©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ Ã¼Å©
 			if( !REINFORCEMGR->CheckValidMaterial( pVItem->GetSrcItemIdx(), pOrigItem->GetItemIdx(), OptKind ) )
 			{
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(680) );
-				//°­È­ÇÒ ¾ÆÀÌÅÛ°ú ¸ÂÁö ¾Ê´Â Àç·áÀÔ´Ï´Ù.
+				//ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 				return FALSE;
 			}
 
-			//Àç·áÀÇ ºñÁß Ã¼Å©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			int OverGravity = REINFORCEMGR->CheckMaterialTotalGravity( pOrigItem->GetItemIdx(), (WORD)pOrigItem->GetDurability(), OptKind );
 			if( OverGravity > 0 )
 			{
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1203), OverGravity );
-				//Àç·áÀÇ ÃÑ Áß·®ÀÌ %d ÃÊ°ú µÇ¾ú½À´Ï´Ù.
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß·ï¿½ï¿½ï¿½ %d ï¿½Ê°ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 				return FALSE;
 			}
 
@@ -322,7 +325,7 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 			SetGravityText();
 
 			BOOL bEmpty = FALSE;
-			for(int i = 1 ; i < MAX_REINFORCEGRID_NUM +1 ; ++i)
+			for(i = 1 ; i < MAX_REINFORCEGRID_NUM +1 ; ++i)
 			{
 				if(IsEmpty(i))
 				{
@@ -337,7 +340,7 @@ BOOL CReinforceDlg::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 		else
 		{
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(222) );
-			//"¸ÕÀú °­È­ÇÒ ¾ÆÀÌÅÛÀ» ¿Ã·ÁÁÖ¼¼¿ä"
+			//"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½"
 			return FALSE;
 		}
 	}
@@ -369,7 +372,7 @@ BOOL CReinforceDlg::AddVirtualItemWrap(POSTYPE relPos, CItem * pItem)
 	m_VirtualItem[relPos].SetLinkItem(pItem);
 //	if(pItem->GetDurability() != 0 && !ITEMMGR->IsDupItem(pItem->GetItemIdx()))
 //		ITEMMGR->SetToolTipIcon((cIcon*)&m_VirtualItem[relPos], ITEMMGR->GetItemOption(pItem->GetDurability()));
-	//!!! NULL È®ÀÎ SW050920 Rare
+	//!!! NULL È®ï¿½ï¿½ SW050920 Rare
 	if( pItem->GetDurability() != 0 && !ITEMMGR->IsDupItem(pItem->GetItemIdx()) )
 	{
 		ITEMMGR->SetToolTipIcon( (cIcon*)&m_VirtualItem[relPos], ITEMMGR->GetItemOption(pItem->GetDurability()),
@@ -382,7 +385,7 @@ BOOL CReinforceDlg::AddVirtualItemWrap(POSTYPE relPos, CItem * pItem)
 
 BOOL CReinforceDlg::AddVirtualItem(POSTYPE relPos, CVirtualItem * pItem)
 {
-	//empty Ã¼Å©ÈÄ 
+	//empty Ã¼Å©ï¿½ï¿½ 
 	if(relPos == 0)
 	{
 		if(IsEmpty(0))
@@ -405,11 +408,12 @@ BOOL CReinforceDlg::AddVirtualItem(POSTYPE relPos, CVirtualItem * pItem)
 
 DWORD CReinforceDlg::ActionEvent(CMouse * mouseInfo)
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	DWORD we = WE_NULL;
 	if( !m_bActive ) return we;
 	we |= cDialog::ActionEvent(mouseInfo);
 
-	for(int i = 0 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
+	for(i = 0 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
 	{
 		m_VirtualItem[i].ActionEvent(mouseInfo);
 	}
@@ -454,7 +458,7 @@ BOOL CReinforceDlg::OnActionEvent(LONG lId, void * p, DWORD we)
 			CReinforceDlg::ReinforceCancelBtn(pReinforceDlg);
 		}
 		break;
-	// 06. 02. °­È­ Àç·á ¾È³» ÀÎÅÍÆäÀÌ½º Ãß°¡ - ÀÌ¿µÁØ
+	// 06. 02. ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½È³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ß°ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	case ITR_RFGUIDEBTN:
 		{
 			GAMEIN->GetReinforceDataGuideDlg()->Show();
@@ -467,6 +471,7 @@ BOOL CReinforceDlg::OnActionEvent(LONG lId, void * p, DWORD we)
 
 void CReinforceDlg::ReinforceOkBtn(CReinforceDlg * pThis)
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	if(pThis->IsEmpty(0))
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(222) );
@@ -484,7 +489,7 @@ void CReinforceDlg::ReinforceOkBtn(CReinforceDlg * pThis)
 	msg.wTargetItemIdx	= pTargetItem->GetSrcItemIdx();
 	msg.TargetPos		= pTargetItem->GetSrcPosition();
 
-	for(int i = 1 ; i < MAX_REINFORCEGRID_NUM +1 ; ++i)
+	for(i = 1 ; i < MAX_REINFORCEGRID_NUM +1 ; ++i)
 	{
 		if(!pThis->IsEmpty(i))
 		{
@@ -504,6 +509,7 @@ void CReinforceDlg::ReinforceOkBtn(CReinforceDlg * pThis)
 
 void CReinforceDlg::ReinforceOkBtnWithShopItem(CReinforceDlg * pThis)
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	MSG_ITEM_REINFORCE_WITHSHOPITEM_SYN msg;
 	msg.Init( MP_ITEM, MP_ITEM_REINFORCE_WITHSHOPITEM_SYN, HEROID );
 	CVirtualItem * pTargetItem = (CVirtualItem *)pThis->m_pReinforceDlg->GetIconForIdx(0);
@@ -511,7 +517,7 @@ void CReinforceDlg::ReinforceOkBtnWithShopItem(CReinforceDlg * pThis)
 	msg.TargetPos		= pTargetItem->GetSrcPosition();
 	msg.wShopItemIdx	= (WORD)m_ShopItemIdx;
 	msg.ShopItemPos		= (POSTYPE)m_ShopItemPos;
-	for(int i=1; i<MAX_REINFORCEGRID_NUM+1; ++i)
+	for(i=1; i<MAX_REINFORCEGRID_NUM+1; ++i)
 	{
 		if(!pThis->IsEmpty(i))
 		{
@@ -533,7 +539,7 @@ void CReinforceDlg::ReinforceCancelBtn(CReinforceDlg * pThis)
 {
 	pThis->Release();
 	pThis->SetActiveRecursive(FALSE);
-	// 06. 02. °­È­ Àç·á ¾È³» ÀÎÅÍÆäÀÌ½º Ãß°¡ - ÀÌ¿µÁØ
+	// 06. 02. ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½È³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ß°ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
     GAMEIN->GetReinforceDataGuideDlg()->Close();
 
 	CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(223) );

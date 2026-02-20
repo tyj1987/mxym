@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "FieldBossMonsterManager.h"
 #include "FieldBossMonster.h"
 #include "FieldSubMonster.h"
@@ -69,18 +70,18 @@ CFieldBossMonsterManager::~CFieldBossMonsterManager(void)
 	SAFE_DELETE( m_pFieldBossDropItemPool );
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+	// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	//if(m_LogFile)
 	//	fclose(m_LogFile);
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-// ÇÊµåº¸½º ¸ó½ºÅÍ °ü·Ã Á¤º¸µéÀ» ÀÐ¾îµéÀÎ´Ù
+// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½Î´ï¿½
 void CFieldBossMonsterManager::Init()
 {
 	CMHFile file;
 
-	// ÇÊµå º¸½º ¹× ºÎÇÏ Ãß°¡ Á¤º¸ ¸®½ºÆ®
+	// ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 #ifdef _FILE_BIN_
 //	if(!file.Init("Resource/FieldBossList.bin","rb"))
 	if(!file.Init("Resource/Server/FieldBossList.bin","rb"))
@@ -117,7 +118,7 @@ void CFieldBossMonsterManager::Init()
 	}
 
 	file.Release();
-	// ÇÊµå º¸½º µå¶ø ¾ÆÀÌÅÛ Á¤º¸ ¸®½ºÆ®
+	// ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 #ifdef _FILE_BIN_
 //	if(!file.Init("Resource/FieldBossDropItemList.bin","rb"))
 	if(!file.Init("Resource/Server/FieldBossDropItemList.bin","rb"))
@@ -159,7 +160,7 @@ void CFieldBossMonsterManager::Init()
 
 #ifndef _HK_LOCAL_	//hk block
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+	// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	SYSTEMTIME ti;
 	GetLocalTime( &ti );
 
@@ -174,25 +175,25 @@ void CFieldBossMonsterManager::Process()
 	
 	m_FieldGroupTable.SetPositionHead();
 
-	// ¸®Á¨µÈ º¸½º ±×·ì Á¤º¸¸¦ °¡Á®¿Â´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	while( pGroup = m_FieldGroupTable.GetData() )
 	{
 		if(pGroup)
 		{
 			BOOL bAllDead = TRUE;
 
-			// º¸½º°¡ ÀÖ´Â°¡?
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 			if( pGroup->m_pBoss )
 			{
 				bAllDead = FALSE;
 
-				// ÀüÅõÁßÀÎ°¡?
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 				if( !pGroup->m_pBoss->IsBattle() )
 				{
-					// ¼Ò¸ê½Ã°£ÀÌ µÇ¾ú´Â°¡?
+					// ï¿½Ò¸ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Â°ï¿½?
 					if( pGroup->m_pBoss->IsDistruct() )
 					{
-						// ºÎÇÏ°¡ ³²¾ÆÀÖ´Ù¸é ÀüºÎ »èÁ¦ÇÑ´Ù
+						// ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 						if( pGroup->m_SubList.GetCount() )
 						{
 							PTRLISTPOS pos = pGroup->m_SubList.GetHeadPosition();
@@ -204,14 +205,14 @@ void CFieldBossMonsterManager::Process()
 
 								if( pSub )
 								{
-									// ÀüÅõÁßÀÎ ³à¼®Àº ÆÐ½º...
+									// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½à¼®ï¿½ï¿½ ï¿½Ð½ï¿½...
 									if( pSub->IsBattle() )
 										continue;
 
-									// ºÎÇÏ ¸®½ºÆ®¿¡¼­ »èÁ¦
+									// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									pGroup->m_SubList.Remove((void*)pSub);
 
-									// ¼­¹ö¿¡¼­ Á¦°Å
+									// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									g_pServerSystem->RemoveMonster( pSub->GetID() );
 								}
 							}
@@ -220,7 +221,7 @@ void CFieldBossMonsterManager::Process()
 						
 						//g_pServerSystem->RemoveMonster( pGroup->m_pBoss->GetID() );
 /*
-						// ÇÊµåº¸½º ¼Ò¸ê È®ÀÎ ·Î±×±â·Ï
+						// ï¿½Êµåº¸ï¿½ï¿½ ï¿½Ò¸ï¿½ È®ï¿½ï¿½ ï¿½Î±×±ï¿½ï¿½
 						g_Console.LOG(4, "FieldBossMonster Delete : GROUPID: %d, ID: %d, NAME: %s, Time: %d",
 							pGroup->m_pBoss->GetMonsterGroupNum(), 
 							pGroup->m_pBoss->GetGridID(), 
@@ -229,19 +230,19 @@ void CFieldBossMonsterManager::Process()
 */
 						//MHERROR->OutputFile("Debug.txt", MHERROR->GetStringArg("FieldBoss Delete = GridID: %d, gCurTime: %d", pGroup->m_pBoss->GetGridID(), gCurTime));
 						//////////////////////////////////////////////////////////////////////////////////////////////////////
-						// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+						// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #ifndef _HK_LOCAL_	//hk block
 						VECTOR3 Pos;
 						pGroup->m_pBoss->GetPosition(&Pos);
 						FILE* file = fopen(m_LogFile, "a+");
 						fprintf(file, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-							"º¸½º¼Ò¸ê", pGroup->m_pBoss->GetMonsterKind(), pGroup->m_pBoss->GetID(), pGroup->m_pBoss->GetGridID(), gCurTime,
+							"ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½", pGroup->m_pBoss->GetMonsterKind(), pGroup->m_pBoss->GetID(), pGroup->m_pBoss->GetGridID(), gCurTime,
 							Pos.x, Pos.z, pGroup->m_pBoss->GetLife());
 						fclose(file);
 						//////////////////////////////////////////////////////////////////////////////////////////////////////
 #endif
 
-						// º¸½º »èÁ¦
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						g_pServerSystem->RemoveBossMonster( pGroup->m_pBoss->GetID(), TRUE );
 						//BATTLESYSTEM->DeleteObjectFromBattle(pGroup->m_pBoss);
 						//g_pUserTable->RemoveUser(pGroup->m_pBoss->GetID());
@@ -255,7 +256,7 @@ void CFieldBossMonsterManager::Process()
 				
 			}
 			
-			// ºÎÇÏ°¡ ÀÖ´Â°¡?
+			// ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Â°ï¿½?
 			if( pGroup->m_SubList.GetCount() )
 			{
 				bAllDead = FALSE;
@@ -269,32 +270,32 @@ void CFieldBossMonsterManager::Process()
 
 					if( pSub )
 					{
-						// º¸½º°¡ ÀÖ´Â°¡?
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 						if( pGroup->m_pBoss )
 						{
-							// ¼Ò¸ê½Ã°£ ¸®¼Â
+							// ï¿½Ò¸ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 							pSub->ResetDistructTime();
 						}
 
-						// ÀüÅõÁßÀÎ°¡?
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 						if( !pSub->IsBattle() )
 						{
-							// ¼Ò¸ê½Ã°£ÀÌ µÇ¾ú´Â°¡?
+							// ï¿½Ò¸ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Â°ï¿½?
 							if( pSub->IsDistruct() )
 							{
 								//////////////////////////////////////////////////////////////////////////////////////////////////////
-								// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+								// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 								//VECTOR3 Pos;
 								//pSub->GetPosition(&Pos);
 								//fprintf(m_LogFile, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-								//	"ºÎÇÏ¼Ò¸ê", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
+								//	"ï¿½ï¿½ï¿½Ï¼Ò¸ï¿½", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
 								//	Pos.x, Pos.z, pSub->GetLife());
 								//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-								// ºÎÇÏ ¸®½ºÆ®¿¡¼­ »èÁ¦
+								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								pGroup->m_SubList.Remove((void*)pSub);
 
-								// ¼­¹ö¿¡¼­ Á¦°Å
+								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								g_pAISystem->ReleaseMonsterID( pSub->GetID() );
 								g_pAISystem->ReleaseMonsterID( pSub->GetSubID() );
 								g_pServerSystem->RemoveMonster( pSub->GetID() );
@@ -306,14 +307,14 @@ void CFieldBossMonsterManager::Process()
 				}
 			}
 
-			// ¸ðµÎ Á×¾ú´Â°¡?
+			// ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½Â°ï¿½?
 			if( bAllDead )
 			{
 				CAIGroup* pAIGroup = GROUPMGR->GetGroup(pGroup->m_GroupID, pGroup->m_GridID);
 
 				if(pAIGroup)
 				{
-					// ¸®Á¨ µô·¹ÀÌ¸¦ °è»êÇØÁØ´Ù
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 					DWORD delaytime = pGroup->m_dwRegenTimeMax - pGroup->m_dwRegenTimeMin;
 
 					if( delaytime )
@@ -324,10 +325,10 @@ void CFieldBossMonsterManager::Process()
 					pAIGroup->GetRegenInfo()->SetRegenDelayTime(delaytime);
 
 					/////////////////////////////////////////////////////////////////////////////////
-					// 06. 07. ÇÊµåº¸½º ¼öÁ¤ - ÀÌ¿µÁØ
-					// CRegenManager::RegenObject¿¡¼­ ¸®Á¨ÇÏ´Â ¼ø°£ À§Ä¡ °áÁ¤À¸·Î º¯°æ
+					// 06. 07. ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+					// CRegenManager::RegenObjectï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					/*
-					// ¸®Á¨ À§Ä¡ ·£´ý °áÁ¤
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					VECTOR3	regen_pos = GetRegenPosition();
 					VECTOR3* target_pos = pAIGroup->GetRegenObject(pGroup->m_BossObjectID)->GetPos();
 					
@@ -336,9 +337,9 @@ void CFieldBossMonsterManager::Process()
 					*/
 					/////////////////////////////////////////////////////////////////////////////////
 
-					// ¸®Á¨ Ã¤³ÎÀº CAIUniqueGroup::RegenCheck() ¿¡¼­ ·£´ýÀ¸·Î °áÁ¤ÇØÁØ´Ù
+					// ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ CAIUniqueGroup::RegenCheck() ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 
-					// ¸®Á¨ Á¤º¸¸¦ µî·Ï
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					g_pAISystem->RemoveObject(pGroup->m_BossObjectID);
 					//pAIGroup->Die(pGroup->m_BossObjectID);
 					//pAIGroup->RegenCheck();
@@ -416,15 +417,15 @@ void CFieldBossMonsterManager::BossDead(CFieldBossMonster* pBoss)
 	
 	DWORD ID = pBoss->GetID();
 
-	// ¸®Á¨µÈ º¸½º ±×·ì Á¤º¸¸¦ °¡Á®¿Â´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	pGroup = m_FieldGroupTable.GetData(ID);
 
 	if(pGroup)
 	{
-		// º¸½º Á¤º¸°¡ ÀÏÄ¡ÇÏ¸é »èÁ¦ÇÑ´Ù
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 		if( pGroup->m_pBoss == pBoss )
 		{
-			// ÇÊµåº¸½º Á×À½ È®ÀÎ ·Î±×±â·Ï
+			// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Î±×±ï¿½ï¿½
 			//g_Console.LOG(4, "FieldBossMonster Dead : GROUPID: %d, ID: %d, NAME: %s, Time: %d",
 			//			  pGroup->m_pBoss->GetMonsterGroupNum(), 
 			//			  pGroup->m_pBoss->GetGridID(), 
@@ -434,19 +435,19 @@ void CFieldBossMonsterManager::BossDead(CFieldBossMonster* pBoss)
 			//MHERROR->OutputFile("Debug.txt", MHERROR->GetStringArg("FieldBoss Dead = GridID: %d, gCurTime: %d", pGroup->m_pBoss->GetGridID(), gCurTime));
 #ifndef _HK_LOCAL_	//hk block
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
-			// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+			// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			VECTOR3 Pos;
 			pBoss->GetPosition(&Pos);
 			FILE* file = fopen(m_LogFile, "a+");
 			fprintf(file, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-				"º¸½ºÁ×À½", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime,
+				"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime,
 				Pos.x, Pos.z, 0);
 			fclose(file);
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
 #endif
 
 
-			// ±×¸®µå¿Í ¸Ê¿¡¼­ »èÁ¦
+			// ï¿½×¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			CGridTable* pGridTable = g_pServerSystem->GetGridSystem()->GetGridTable(pGroup->m_pBoss);
 			pGridTable->RemoveObject(pGroup->m_pBoss);
 			g_pServerSystem->GetMap()->GetTileManager()->RemoveObject(pGroup->m_pBoss);
@@ -471,15 +472,15 @@ void CFieldBossMonsterManager::SubDead(CFieldSubMonster* pSub)
 	if(pGroup)
 	{
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+		// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		//VECTOR3 Pos;
 		//pSub->GetPosition(&Pos);
 		//fprintf(m_LogFile, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-		//	"ºÎÇÏÁ×À½", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
+		//	"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
 		//	Pos.x, Pos.z, 0);
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// ºÎÇÏ Á¤º¸¸¦ Áö¿î´Ù
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		pGroup->m_SubList.Remove((void*)pSub);
 		g_pAISystem->ReleaseMonsterID( pSub->GetID() );
 		g_pAISystem->ReleaseMonsterID( pSub->GetSubID() );
@@ -495,13 +496,13 @@ void CFieldBossMonsterManager::AddFieldBossMonster( CFieldBossMonster* pBoss )
 	pBoss->GetPosition(&Pos);
 	FILE* file = fopen(m_LogFile, "a+");
 	fprintf(file, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-		"º¸½º¸®Á¨", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime,
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime,
 		Pos.x, Pos.z, 0);
 	fclose(file);
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 #endif
 
-	// º¸½º ¸ó½ºÅÍÀÇ Ãß°¡ Á¤º¸¸¦ °¡Á®¿Â´Ù
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	FIELDMONSTERINFO* pBossInfo = m_FieldMonsterInfoTable.GetData( pBoss->GetMonsterKind() );
 	if( pBossInfo == NULL )
 	{
@@ -517,25 +518,25 @@ void CFieldBossMonsterManager::AddFieldBossMonster( CFieldBossMonster* pBoss )
 	
 	pBossInfo->m_dwCountTime = pBossInfo->m_dwDistructTime;
 	
-	// Ãß°¡ Á¤º¸ ¼³Á¤
+	// ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	pBoss->SetInfo( pBossInfo );	
 
-	// ±×·ìÁ¤º¸¸¦ »ý¼ºÇÑ´Ù
+	// ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	FIELDGROUP* pGroup = m_pFieldGroupPool->Alloc();
 
-	// 061026 RaMa - ¸Þ¸ð¸®¸¦ ÇÒ´ç ¸ø ¹Þ¾Ò´Ù.
+	// 061026 RaMa - ï¿½Þ¸ð¸®¸ï¿½ ï¿½Ò´ï¿½ ï¿½ï¿½ ï¿½Þ¾Ò´ï¿½.
 	if( !pGroup )
 	{
 #ifndef _HK_LOCAL_	//hk block
 		FILE* file = fopen(m_LogFile, "a+");
 		fprintf(file, "%s\t%d\t%u\t%d\t%u\t\n",
-			"±×·ì¸Þ¸ð¸®ÇÒ´ç¸ø¹ÞÀ½", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime);
+			"ï¿½×·ï¿½Þ¸ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pBoss->GetMonsterKind(), pBoss->GetID(), pBoss->GetGridID(), gCurTime);
 		fclose(file);
 #endif
 		return;
 	}
 
-	// ±×·ì Á¤º¸ÀÇ ID´Â º¸½º ¸ó½ºÅÍÀÇ ID·Î »ç¿ëÇÑ´Ù
+	// ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	pGroup->m_GroupID = pBoss->GetMonsterGroupNum();
 	pGroup->m_GridID = pBoss->GetGridID();
 	pGroup->m_pBoss = pBoss;
@@ -548,15 +549,15 @@ void CFieldBossMonsterManager::AddFieldBossMonster( CFieldBossMonster* pBoss )
 	{
 		pSubInfo->m_dwCountTime = pSubInfo->m_dwDistructTime;
 
-		// ºÎÇÏ ¸ó½ºÅÍ ±âº»Á¤º¸
-		DWORD dwGridID = pBoss->GetGridID();			// º¸½º¿Í °°Àº Ã¤³Î
-		WORD wObjectKind = eObjectKind_FieldSubMonster;	// ¸ó½ºÅÍÁ¾·ù ¼³Á¤
-		WORD wMonsterKind = pBossInfo->m_SubKind;		// ¸ó½ºÅÍ¹øÈ£ ¼³Á¤
-		DWORD dwGroupID = (WORD)RECALL_GROUP_ID;				// ±×·ìID ¼³Á¤
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½
+		DWORD dwGridID = pBoss->GetGridID();			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½
+		WORD wObjectKind = eObjectKind_FieldSubMonster;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		WORD wMonsterKind = pBossInfo->m_SubKind;		// ï¿½ï¿½ï¿½Í¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
+		DWORD dwGroupID = (WORD)RECALL_GROUP_ID;				// ï¿½×·ï¿½ID ï¿½ï¿½ï¿½ï¿½
 		if(pGroup->m_GroupID == (WORD)EVENTRECALL_GROUP_ID)
 			dwGroupID = (WORD)EVENTRECALL_GROUP_ID;
-		WORD DropItemID = 0;							// µå¶ø¾ÆÀÌÅÛ ±âº»°ª
-		DWORD dwDropRatio = 100;						// µå¶ø·ü ±âº»°ª
+		WORD DropItemID = 0;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½
+		DWORD dwDropRatio = 100;						// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½
 		BOOL bRandomPos = FALSE;						
 		BOOL bEventRegen = FALSE;		
 
@@ -564,48 +565,48 @@ void CFieldBossMonsterManager::AddFieldBossMonster( CFieldBossMonster* pBoss )
 		{
 			CFieldSubMonster* pSub = NULL;
 
-			DWORD dwID = g_pAISystem->GeneraterMonsterID();		// ID »ý¼º
-			DWORD dwSubID = g_pAISystem->GeneraterMonsterID();	// SubID »ý¼º
+			DWORD dwID = g_pAISystem->GeneraterMonsterID();		// ID ï¿½ï¿½ï¿½ï¿½
+			DWORD dwSubID = g_pAISystem->GeneraterMonsterID();	// SubID ï¿½ï¿½ï¿½ï¿½
 
-			// ¸®Á¨ À§Ä¡ °áÁ¤
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 			VECTOR3 BossPos;
 			VECTOR3 TargetPos;
 
 			pBoss->GetPosition(&BossPos);
 
-			// º¸½º À§Ä¡·ÎºÎÅÍ +- 10 ³»ÀÇ ¹üÀ§¿¡¼­ ·£´ý
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Îºï¿½ï¿½ï¿½ +- 10 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			TargetPos.x = BossPos.x + ( (rand() % 2) ? -1 : 1 ) * (rand() % 10) * 100;
 			TargetPos.z = BossPos.z + ( (rand() % 2) ? -1 : 1 ) * (rand() % 10) * 100;
 
-			// ºÎÇÏ ¸ó½ºÅÍ »ý¼º
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pSub = (CFieldSubMonster*)REGENMGR->RegenObject( dwID, dwSubID, dwGridID, wObjectKind, wMonsterKind, &TargetPos, dwGroupID, DropItemID, dwDropRatio, bRandomPos, bEventRegen);
 
 			if( pSub )
 			{
 				//////////////////////////////////////////////////////////////////////////////////////////////////////
-				// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+				// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//VECTOR3 Pos;
 				//pSub->GetPosition(&Pos);
 				//fprintf(m_LogFile, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-				//	"ºÎÇÏ¸®Á¨", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
+				//	"ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½", pSub->GetMonsterKind(), pSub->GetID(), pSub->GetGridID(), gCurTime,
 				//	Pos.x, Pos.z, 0);
 				//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				// Ãß°¡ Á¤º¸ ¼³Á¤
+				// ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				pSub->SetInfo( pSubInfo );
 				pSub->SetBossID( pGroup->m_BossObjectID );
-				//¸®Á¨ Æ÷Áö¼Ç ÀÎµ¦½º ¼ÂÆÃ
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				pSub->SetRegenPosIndex(pBoss->GetRegenPosIndex());
 
-				// ±×·ì Á¤º¸¿¡ ºÎÇÏ ¸ó½ºÅÍ Ãß°¡
+				// ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				pGroup->m_SubList.AddTail( pSub );
 			}
 			else
 			{
 				//////////////////////////////////////////////////////////////////////////////////////////////////////
-				// ÇÊµåº¸½º ¸®Á¨ ±â·Ï
+				// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//fprintf(m_LogFile, "%s\t%d\t%u\t%d\t%u\t%f\t%f\t%u\n",
-				//	"ºÎÇÏ¸®Á¨½ÇÆÐ", wMonsterKind, 0, dwGridID, gCurTime, TargetPos.x, TargetPos.z, 0);
+				//	"ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", wMonsterKind, 0, dwGridID, gCurTime, TargetPos.x, TargetPos.z, 0);
 				//////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 		}

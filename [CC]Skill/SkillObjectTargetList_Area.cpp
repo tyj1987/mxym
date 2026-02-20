@@ -5,7 +5,11 @@
 #include "stdafx.h"
 #include "SkillObjectTargetList_Area.h"
 
-#include "Object.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\Object.h"
+#else
+#include "..\\[Client]MH\\Object.h"
+#endif
 #include "SkillArea.h"
 
 #ifdef _MAPSERVER_

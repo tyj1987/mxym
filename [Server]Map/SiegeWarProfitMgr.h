@@ -4,6 +4,7 @@
 
 #if !defined(AFX_SIEGEWARPROFITMGR_H__CEEF72CA_7C46_41EB_8DCF_399ADADD35E6__INCLUDED_)
 #define AFX_SIEGEWARPROFITMGR_H__CEEF72CA_7C46_41EB_8DCF_399ADADD35E6__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -16,7 +17,7 @@ struct sSWPROFIT
 	int		nSWMapNum;
 	DWORD	dwGuildIdx;
 	char	sGuildName[MAX_GUILD_NAME+1];
-	int		nTaxRateForStore;			// 100ºÐÀ²
+	int		nTaxRateForStore;			// 100
 	DWORD	dwTotalMoney;
 	stTIME	RegDate;
 	
@@ -41,7 +42,7 @@ protected:
 	CYHHashTable<WORD>			m_SWMapTable;
 
 	sSWPROFIT*	m_pProfit;
-	int			m_nRelationSWMapNum;		// ÇöÀç¸Ê¿¡ °ü°èµÈ °ø¼º¸Ê¹øÈ£
+	int			m_nRelationSWMapNum;		// Ê¿  Ê¹È£
 	DWORD		m_dwMoneyForStore;
 	DWORD		m_dwMoneyForMonster;
 

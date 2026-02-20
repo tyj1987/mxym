@@ -18,3 +18,6 @@ public:	// virtual func
 
 
 #endif
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"

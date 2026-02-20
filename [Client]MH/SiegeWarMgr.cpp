@@ -77,6 +77,7 @@ void CSiegeWarMgr::Init()
 
 void CSiegeWarMgr::LoadCastleGateInfo()
 {
+	int k;
 	CMHFile file;
 #ifdef _FILE_BIN_
 	if( !file.Init( "Resource/CastleGateList.bin", "rb" ) )
@@ -506,7 +507,7 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 			}
 		}
 		break;
-	case MP_SIEGEWAR_PROPOSALLIST_ACK:	// ¼ö¼º Âü¿© ¸®½ºÆ®
+	case MP_SIEGEWAR_PROPOSALLIST_ACK:	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		{
 			SEND_SW_PROPOSALGUILDLIST* pmsg = (SEND_SW_PROPOSALGUILDLIST*)pMsg;
 			GAMEIN->GetSWProtectRegDlg()->ShowList( pmsg );
@@ -515,24 +516,24 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 	case MP_SIEGEWAR_PROPOSALLIST_NACK:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
-			// dwData : ¿¡·¯ÄÚµå		
+			// dwData : ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½		
 			GAMEIN->GetSWProtectRegDlg()->SetActive( FALSE );
 
 			switch( pmsg->dwData )
 			{
-			case 1:			// ½ÇÆÐ
+			case 1:			// ï¿½ï¿½ï¿½ï¿½
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1047) );
 				break;
-			case 2:			// ¼º±æµå°¡ ¾Æ´Ï´Ù.
+			case 2:			// ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½Æ´Ï´ï¿½.
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1048) );
 				break;
-			case 3:			// ±æ¸¶°¡ ¾Æ´Ï´Ù.
+			case 3:			// ï¿½æ¸¶ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1048) );
 				break;
 			}
 		}
 		break;
-	case MP_SIEGEWAR_GUILDLIST_ACK:		// °ø,¼ö¼º ¸®½ºÆ®
+	case MP_SIEGEWAR_GUILDLIST_ACK:		// ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		{
 			SEND_SW_GUILDLIST* pmsg = (SEND_SW_GUILDLIST*)pMsg;
 			GAMEIN->GetSWInfoDlg()->ShowSWInfo( pmsg );
@@ -541,13 +542,13 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 	case MP_SIEGEWAR_GUILDLIST_NACK:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
-			// dwData : ¿¡·¯ÄÚµå
+			// dwData : ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
 			GAMEIN->GetSWInfoDlg()->SetActive( FALSE );
 
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1045) );
 		}
 		break;
-	case MP_SIEGEWAR_TAXRATE_ACK:		// ¼¼À²º¯°æ
+	case MP_SIEGEWAR_TAXRATE_ACK:		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			MSGBASE* pmsg = (MSGBASE*)pMsg;
 		}
@@ -555,7 +556,7 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 	case MP_SIEGEWAR_TAXRATE_NACK:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
-			// dwData : ¿¡·¯ÄÚµå
+			// dwData : ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
 
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(932) );
 		}
@@ -604,7 +605,7 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 			CPlayer* pPlayer = (CPlayer*)OBJECTMGR->GetObject( pmsg->dwData2 );
 			if( !pPlayer )			return;
 			
-			if( pmsg->dwData1 == 0 )			// °¢ÀÎ½ÃÀÛ
+			if( pmsg->dwData1 == 0 )			// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½
 			{
 				if( pPlayer->GetID() == HEROID )
 				{
@@ -617,11 +618,11 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 				OBJECTSTATEMGR->StartObjectState(pPlayer, eObjectState_Engrave);
 				//pPlayer->SetState(eObjectState_Engrave);
 				
-				// Effect´Â???
+				// Effectï¿½ï¿½???
 				OBJECTEFFECTDESC desc(FindEffectNum("eff_gakin_s.beff"));
 				pPlayer->AddObjectEffect( ENGRAVE_EFFECTID, &desc, 1, HERO );
 			}
-			else if( pmsg->dwData1 == 1 )		// °¢ÀÎ¼º°ø
+			else if( pmsg->dwData1 == 1 )		// ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 			{
 				pPlayer->RemoveObjectEffect( ENGRAVE_EFFECTID );
 				
@@ -699,14 +700,14 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 
 			switch( pmsg->dwData2 )
 			{
-			case 0:			// °ø¼ºÁ¾·á
+			case 0:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				break;
-			case 1:			// °ø°Ý¹Þ¾Æ ½ÇÆÐ
+			case 1:			// ï¿½ï¿½ï¿½Ý¹Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1013) );
 				break;
-			case 2:			// °¢ÀÎÃë¼Ò½Ã ¿¡·¯
+			case 2:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				break;
-			case 3:			// °¢ÀÎÃë¼Ò
+			case 3:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1044) );
 				break;
 			}
@@ -728,10 +729,10 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 
 			switch( pmsg->dwData )
 			{
-			case 1:			// °ø¼º¸ÊÀÌ ¾Æ´Ï´Ù.
+			case 1:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1050) );
 				break;
-			case 2:			// °ø¼ºÁßÀÌ ¾Æ´Ï´Ù.
+			case 2:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1050) );
 				break;
 			case 3:
@@ -793,7 +794,7 @@ void CSiegeWarMgr::NetworkMsgParse( BYTE Protocol,void* pMsg )
 				((CBattle_SiegeWar*)BATTLESYSTEM->GetBattle(HERO))->SetSiegeWarName( pPlayer, pPlayer->GetBattleTeam(), pPlayer->GetGuildIdx() );
 		}
 		break;
-	case MP_SIEGEWAR_BATTLEINFO:			// °ø¼º ¼º°øÈÄ Á¤º¸¸¦ ´Ù½Ã ¹ÞÀ»¶§
+	case MP_SIEGEWAR_BATTLEINFO:			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			SEND_SW_BTGUILDLIST* pmsg = (SEND_SW_BTGUILDLIST*)pMsg;
 			

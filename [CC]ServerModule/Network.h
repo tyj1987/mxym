@@ -9,13 +9,21 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <winsock2.h>
+#include <windows.h>
+#include "typedef.h"
+#include "net_define.h"
+
+// 前向声明MSGBASE（在CommonStruct.h中定义）
+struct MSGBASE;
+
 // ¼­¹öÆ÷Æ®¼±¾ð.
 
 extern BOOL g_bReady;
 
 #include "inetwork.h"
 //#include "ServerSystem.h"
-#ifdef __AGENTSERVER__
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 #include "UserTable.h"
 #endif
 
@@ -47,7 +55,7 @@ public:
 	void Send2AgentServer(char * msg, DWORD size);
 	
 	void Send2User(DWORD dwConnectionIndex, char * msg, DWORD size);
-	#ifdef __AGENTSERVER__
+	#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 	void Send2User(MSGBASE * msg, DWORD size);
 	void EnCrypt(USERINFO * userInfo, char* msg,DWORD size);
 	#endif

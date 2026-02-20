@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../ImageNumber.h"
+#include "ImageNumber.h"
 
 #define PARTYWAR USINGTON(CPartyWar)
 

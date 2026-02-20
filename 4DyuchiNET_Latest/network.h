@@ -5,8 +5,8 @@
 // 서버로서의 최소한의 기능을 할 수 있고 원격지로의 복수 접속이 가능하다.
 //
 
-#include "../4DyuchiNET_Common/stdafx.h"
-#include "../4DyuchiNET_Common/typedef.h"
+#include "stdafx.h"
+#include "typedef.h"
 #include "connection.h"
 #include "create_index.h"
 

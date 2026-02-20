@@ -4,6 +4,8 @@
 
 #if !defined(AFX_PLAYER_H__D36AF2E1_0FD9_4120_B257_64B0BE21D669__INCLUDED_)
 #define AFX_PLAYER_H__D36AF2E1_0FD9_4120_B257_64B0BE21D669__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\ServerGameStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -24,10 +26,14 @@
 #include "TitanWearSlot.h"
 #include "TitanShopItemSlot.h"
 #include "Purse.h"
-#include "AbilityGroup.h"
+#include "..\[CC]Ability\AbilityGroup.h"
 #include "../[CC]Skill/DelayGroup.h"
+#include "../[CC]Skill/skillobject_server.h"  // æ·»åŠ CSkillObjectå®šä¹‰
 #include "ShopItemManager.h"
-#include "PetManager.h"
+// å®¢æˆ·ç«¯åº“ç¼–è¯‘æ¨¡å¼ï¼šä¸åŒ…å«æœåŠ¡å™¨ç‰ˆæœ¬çš„PetManager
+#ifndef _MHCLIENT_LIBRARY_
+    #include "PetManager.h"
+#endif
 #include "TitanManager.h"
 #include "..\[CC]Header\GameResourceStruct.h"
 
@@ -45,7 +51,9 @@ class CQuestBase;
 class CQuestScript;
 class CQuestGroup;
 class CPet;
+class CPetManager;
 class CTitan;
+// æ³¨æ„ï¼šCSkillObject å·²åœ¨ skillobject_server.h ä¸­å®šä¹‰ï¼Œä¸éœ€è¦å‰å‘å£°æ˜
 
 enum
 {
@@ -71,7 +79,7 @@ enum
 	MONEY_SUBTRACTION,
 };
 
-//SW051112 ¹«½Ö¸ğµå
+//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 #define MUSSANG_VALID_TIME		1000*60*10
 enum eMussangStates{ eMSS_None=1, eMSS_Ready=2, eMSS_InMode=4, eMSS_LevelUp=8};
 
@@ -84,7 +92,7 @@ enum eMussangStates{ eMSS_None=1, eMSS_Ready=2, eMSS_InMode=4, eMSS_LevelUp=8};
 class CPlayer : public CObject  
 {
 private:
-	//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ½Ã°£ 10ÃÊ CPlayer¿¡¼­¸¸ ¾²±â‹š¹®¿¡ Å¬·¡½º ¾È¿¡ enumÀ¸·Î Àâ¾Ò´Ù.
+	//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ 10ï¿½ï¿½ CPlayerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â‹šï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ enumï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò´ï¿½.
     enum SKIN_DELAYTIME
 	{
 		eSkinDelayTime = 10000,
@@ -99,7 +107,7 @@ private:
 
 	BOOL m_bPetInvenInit;
 
-//Ã¢°í¸¦ ¾ÆÀÌÅÛÀ» ÇÑ¹ø¸¸ ¹Ş±¸ ½Í´Ù.
+//Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ş±ï¿½ ï¿½Í´ï¿½.
 	BOOL m_bGotWarehouseItems;
 //
 
@@ -107,7 +115,7 @@ private:
 	BOOL m_bShopInit;
 	DWORD m_UniqueIDinAgent;
 	int m_initState;
-	DWORD m_dwHpMpBitFlag;	// magi82 °æÇèÄ¡¸¶´Ù »óÅÂ È¸º¹ÇÏ´Â ÇÃ·¡±× 20% 40% 60% 80%
+	DWORD m_dwHpMpBitFlag;	// magi82 ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ 20% 40% 60% 80%
 	CHARACTER_TOTALINFO m_HeroCharacterInfo;
 	HERO_TOTALINFO		m_HeroInfo;
 	MUGONG_TOTALINFO	m_HeroMugongInfo;
@@ -118,7 +126,7 @@ private:
 	CInventorySlot		m_InventorySlot;
 	CWearSlot			m_WearSlot;
 	CPyogukSlot			m_PyogukSlot;
-	CShopItemSlot		m_ShopItemSlot;			// ItemMall¿ë	
+	CShopItemSlot		m_ShopItemSlot;			// ItemMallï¿½ï¿½	
 	CShopInvenSlot		m_ShopInvenSlot;
 	CPetInvenSlot		m_PetInvenSlot;			// Pet Inventory
 	CPetWearSlot		m_PetWearSlot;			// Pet Wear
@@ -127,7 +135,7 @@ private:
 	CInventoryPurse		m_InventoryPurse;
 	CPyogukPurse		m_PyogukPurse;
 
-	// RaMa - QuestItem°ü·Ã
+	// RaMa - QuestItemï¿½ï¿½ï¿½ï¿½
 //	sQUESTITEM			m_sQuestItem[MAX_QUEST_ITEM];
 //	DWORD				m_dwQuestItemCount;
 
@@ -138,11 +146,11 @@ private:
 
 	player_calc_stats m_charStats;
 	player_calc_stats m_itemStats;
-	SET_ITEM_OPTION m_setItemStats;		// 2007. 6. 12. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ ±¸Á¶Ã¼ Ãß°¡
+	SET_ITEM_OPTION m_setItemStats;		// 2007. 6. 12. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß°ï¿½
 	UNIQUE_ITEM_OPTION_INFO m_UniqueItemStats;	// magi82 - UniqueItem(070626)
 	ABILITY_STATS m_AbilityStats;
 		 
-	// LIFE RECOVER´Â COBJECT·Î
+	// LIFE RECOVERï¿½ï¿½ COBJECTï¿½ï¿½
 	RECOVER_TIME m_NaeRyukRecoverTime;
 	YYRECOVER_TIME m_YYNaeRyukRecoverTime;
 
@@ -169,7 +177,7 @@ private:
 //	CExchangeRoom*		m_pExchangeRoom;
 	sEXCHANGECONTAINER	m_ExchangeContainer;
 // KES VIMU 031101
-	//º£Æ²ÁßÀÎ°¡?
+	//ï¿½ï¿½Æ²ï¿½ï¿½ï¿½Î°ï¿½?
 	BOOL				m_bVimuing;
 	DWORD				m_dwOpPlayerID;
 
@@ -182,7 +190,7 @@ private:
 	DWORD				m_dwLastReduceHour;		//with PlayTime
 	void				AddBadFameReduceTime();
 // KES EXIT
-	BOOL				m_bExit;	//Á¾·áÇÃ·¡±×
+	BOOL				m_bExit;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
 	DWORD				m_dwExitStartTime;
 	BOOL				m_bNormalExit;
 	BOOL				m_bWaitExitPlayer;
@@ -191,12 +199,12 @@ private:
 	DWORD				m_dwUserLevel;
 ///////////	
 
-// LBS ³ëÁ¡»ó °ü·Ã 03.09.29/////
+// LBS ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 03.09.29/////
 	cStreetStall* m_pGuetStall;
 ////////////////////////////////
 
 ///////////////////////////////////////////
-// LBS ½Ã°£º° Log °ü·Ã 04.02.06
+// LBS ï¿½Ã°ï¿½ï¿½ï¿½ Log ï¿½ï¿½ï¿½ï¿½ 04.02.06
 //	DWORD				m_dwStartTime;
 	DWORD				m_dwProgressTime;
 //	MHTIMEMGR_OBJ->GetMHTime()
@@ -207,37 +215,39 @@ private:
 
 	WORD				m_MurdererKind;
 	DWORD				m_MurdererIDX;
-	BOOL				m_bReadyToRevive; //Á×Àº »óÅÂ¿¡¼­¸¸ ¾¸
+	BOOL				m_bReadyToRevive; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-	//SW060831 Ãß°¡. Ä³¸¯ÅÍ¸¦ Á×ÀÎ ´ë»óÀÇ ObjectKind
+	//SW060831 ï¿½ß°ï¿½. Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ObjectKind
 	WORD				m_MurderObjKind;
 	BOOL				m_bPenaltyByDie;
 	//
 	DWORD				m_LoginTime;
 	DWORD				m_ContinuePlayTime;	
 	
-	// RaMa - 04.11.08 ( ShopItemÀ¸·Î Ãß°¡µÇ´Â ¿É¼Ç )
+	// RaMa - 04.11.08 ( ShopItemï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½É¼ï¿½ )
 	SHOPITEMOPTION		m_ShopItemOption;
 	AVATARITEMOPTION	m_AvatarOption;
 	CShopItemManager	m_ShopItemManager;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	SKILLSTATSOPTION	m_SkillStatsOption;
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 07. ½ºÅ³°³¼± - ÀÌ¿µÁØ
-	// ÇÃ·¹ÀÌ¾î°¡ ÀÚ±â¿¡°Ô ¿µÇâÀ» ¹ÌÄ¡´Â ½ºÅ³ÀÇ ¸®½ºÆ®¸¦ °®°ÔÇÑ´Ù.
+	// 06. 07. ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ú±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	CYHHashTable<CSkillObject> m_SkillList;
 	//////////////////////////////////////////////////////////////////////////
 
 	//SW051129 Pet
+	#ifndef _MHCLIENT_LIBRARY_
 	CPetManager			m_PetManager;
-	//CPet*				m_pCurPet;		//¼ÒÈ¯Æê
+	#endif
+	//CPet*				m_pCurPet;		//ï¿½ï¿½È¯ï¿½ï¿½
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	CTitanManager		m_TitanManager;
 
 	DWORD				m_InitPosition;
@@ -245,19 +255,19 @@ private:
 	int					m_ReviveTime;
 	BOOL				m_bSavePointInited;
 	
-	//SW051112 ¹«½Ö¸ğµå
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	DWORD				m_dwMussangPoint;
 	DWORD				m_dwMussangStartTime;
 	BOOL				m_bIsMussangReady;
 	BYTE				m_bMussangFlag;
 
 	////////////////////////////////////////////////////////////////////////////
-	// 06. 07. »óÅÂ°­Á¦º¯°æ - ÀÌ¿µÁØ
-	// ÀÏÁ¤ÀÌ»ó ½ºÅ³ »ç¿ë½ÇÆĞ½Ã Æ¯º°ÇÑ »óÅÂ¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö »óÅÂ´Â ¸ğµÎ ÃÊ±âÈ­
+	// 06. 07. ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½Ğ½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	WORD	m_SkillFailCount;
 	////////////////////////////////////////////////////////////////////////////
 
-	// 06.09.25 RaMa Ãß¼®ÀÌº¥Æ®
+	// 06.09.25 RaMa ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 	int					m_FullMoonEventHCt;
 	float				m_fFullMoonEventTime;
 
@@ -265,14 +275,14 @@ private:
 	BOOL				m_bActionPanelty;
 
 
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 	DWORD				m_CristmasEventSnowIdx;
 
 	///////////////////////////////////////////////////////////////////////////////////
-	DWORD m_dwSkinDelayTime;	//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ½Ã°£
-	BOOL m_bSkinDelayResult;	//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ±¸ºĞ	
+	DWORD m_dwSkinDelayTime;	//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+	BOOL m_bSkinDelayResult;	//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
 	
-	void SkinDelayTimeProcess();	//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ½Ã°£ Ã³¸®
+	void SkinDelayTimeProcess();	//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ Ã³ï¿½ï¿½
 	///////////////////////////////////////////////////////////////////////////////////
     
 	void DoSetInited();
@@ -286,10 +296,10 @@ private:
 	void SetMurderKind(WORD Kind)					{ m_MurdererKind = Kind; }
 
 	// magi82 - SOS(070720)
-	int					m_SOSState;		// 0ÀÌ¸é SOS »óÅÂ ¾Æ´Ô, 0ÀÌ ¾Æ´Ï¸é SOS »óÅÂ
+	int					m_SOSState;		// 0ï¿½Ì¸ï¿½ SOS ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½, 0ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ SOS ï¿½ï¿½ï¿½ï¿½
 
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
 	DWORD	m_dwMussangTime;
 	WORD	m_wMussangStat;
@@ -315,7 +325,7 @@ public:
 	void	SetMurderObjKind(WORD ObjKind)		{	m_MurderObjKind = ObjKind;	}
 	WORD	GetMurderObjKind()					{	return m_MurderObjKind;	}
 
-	void	SetPenaltyByDie(BOOL bVal)		{	m_bPenaltyByDie = bVal;	}	//¹æÆÄ ºñ¹« ½Ã »ó´ë¿¡ ÀÇÇØ Á×¾úÀ» ½Ã TRUE //°­Á¦Á¾·á ½Ã ÆĞ³ÎÆ¼ Ã¼Å©¸¦ À§ÇÑ º¯¼ö
+	void	SetPenaltyByDie(BOOL bVal)		{	m_bPenaltyByDie = bVal;	}	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ë¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ TRUE //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ğ³ï¿½Æ¼ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BOOL	IsPenaltyByDie()				{	return m_bPenaltyByDie;	}
 
 	BOOL IsGotWarehouseItems() { return m_bGotWarehouseItems; }
@@ -378,14 +388,14 @@ public:
 	virtual BOOL Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObjectInfo);
 	virtual void Release();
 
-	// ÃÊ±âÈ­ 
+	// ï¿½Ê±ï¿½È­ 
 	void InitCharacterTotalInfo(CHARACTER_TOTALINFO* pTotalInfo);
 	void InitHeroTotalInfo(HERO_TOTALINFO* pHeroInfo);
 	void InitMugongTotalInfo(MUGONG_TOTALINFO* pMugongInfo);
 	void InitItemTotalInfo(ITEM_TOTALINFO* pItemInfo);
 	void InitPyogukItemInfo(PYOGUK_ITEM* pItemInfo);
 
-	// Æê¾ÆÀÌÅÛ °ü·Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void InitPetInvenItemInfo(PETINVEN_ITEM* pItemInfo);
 	void SendPetInvenItemInfo();
 	void InitPetWearItemInfo(ITEMBASE* pWearItemInfo);
@@ -393,13 +403,13 @@ public:
 	int GetInitState(){ return m_initState; }
 	void SetInitState(int initstate,DWORD protocol);
 
-	// ÆÄÆ¼ °ü·Ã ÇÔ¼ö	
+	// ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½	
 	void SendPlayerLifeToParty(DWORD life, DWORD PartyIdx);
 	void SendPlayerShieldToParty(DWORD Shield, DWORD PartyIdx);
 	void SendPlayerNaeRyukToParty(DWORD naeryuk, DWORD PartyIdx);
 	void SendMoveInfotoParty();
 
-	// Ä³¸¯ÅÍ ¼öÄ¡ ¼³Á¤ //////////////////////////////////////////////////////////
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ //////////////////////////////////////////////////////////
 	LEVELTYPE GetPlayerLevelUpPoint() { return m_HeroInfo.LevelUpPoint;	}
 	void SetPlayerLevelUpPoint(LEVELTYPE val);
 	EXPTYPE GetPlayerExpPoint() { return m_HeroInfo.ExpPoint; }
@@ -424,8 +434,8 @@ public:
 	FAMETYPE GetBadFame()			{ return m_HeroCharacterInfo.BadFame;	}
 	void SetBadFame(FAMETYPE val)	{ m_HeroCharacterInfo.BadFame = val; 	}
 
-	// RaMa - 04.11.10    -> ShopItemOption Ãß°¡  AvatarOptionÃß°¡(05.02.16)
-	// magi82 - UniqueItem(070629) - ½ºÅİÀÌ ¸¶ÀÌ³Ê½º°¡ µÉ °æ¿ì ¿¹¿ÜÃ³¸® Ãß°¡
+	// RaMa - 04.11.10    -> ShopItemOption ï¿½ß°ï¿½  AvatarOptionï¿½ß°ï¿½(05.02.16)
+	// magi82 - UniqueItem(070629) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	WORD GetCheRyuk(){ return (int)(m_HeroInfo.wCheRyuk + GetAbilityStats()->StatChe + GetItemStats()->CheRyuk + GetShopItemStats()->Cheryuk
 		+ GetAvatarOption()->Cheryuk + GetSetItemStats()->wCheRyuk + GetUniqueItemStats()->nCheRyuk) >= 0 ? (WORD)(m_HeroInfo.wCheRyuk
 		+ GetAbilityStats()->StatChe + GetItemStats()->CheRyuk + GetShopItemStats()->Cheryuk + GetAvatarOption()->Cheryuk + GetSetItemStats()->wCheRyuk
@@ -468,7 +478,7 @@ public:
 	void CalcState();
 	
 	///////////////////////////////////////////////////////////////////////
-	// ¹«°ø	
+	// ï¿½ï¿½ï¿½ï¿½	
 	void SetMugongBase(POSTYPE abspos, MUGONGBASE * mugong)
 	{
 #ifdef _JAPAN_LOCAL_
@@ -512,8 +522,8 @@ public:
 		if( mugong->dwDBIdx != 0 && mugong->Position == 0)
 			CRITICALASSERT(0);
 
-		// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
-		// ½ºÅ³ÀÎµ¦½º°¡ 10000º¸´Ù Å©¸é Å¸ÀÌÅº ½ºÅ³
+		// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
+		// ï¿½ï¿½Å³ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ 10000ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½Å³
 		//if(mugong->wIconIdx < 10000)
             memcpy(&m_HeroMugongInfo.mugong[pos], mugong, sizeof(MUGONGBASE));
 		//else
@@ -576,8 +586,8 @@ public:
 	int GetMugongLevel(WORD MugongIdx);
 	int GetMugongNum();
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	WORD GetSkillOptionIndex(WORD MugongIdx);
 	//////////////////////////////////////////////////////////////////////////
 	
@@ -588,7 +598,7 @@ public:
 	void GetHeroTotalInfo(HERO_TOTALINFO* pRtInfo);
 	void GetMugongTotalInfo(MUGONG_TOTALINFO* pRtInfo);
 
-	// ¾ÆÀÌÅÛ //////////////////////////////////////////////////////////////////////
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ //////////////////////////////////////////////////////////////////////
 	void GetItemtotalInfo(ITEM_TOTALINFO* pRtInfo,DWORD dwFlag);
 	void GetPyogukItemInfo(PYOGUK_ITEM * pRtInfo);
 
@@ -604,7 +614,7 @@ public:
 	virtual void SendMsg(MSGBASE* pMsg,int MsgLen);
 	
 private:
-	void MoneyUpdate( MONEYTYPE money ); //(Money Class¿¡¼­ È£Ãâ ), DB¿¡ Set
+	void MoneyUpdate( MONEYTYPE money ); //(Money Classï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ), DBï¿½ï¿½ Set
 	CYHHashTable<ITEM_RARE_OPTION_INFO> m_ItemRareOptionList;
 	CYHHashTable<ITEM_OPTION_INFO> m_ItemOptionList;
 public:
@@ -623,19 +633,19 @@ public:
 	void SetMaxPurseMoney(eITEMTABLE TableIdx, DWORD MaxMoney);
 	BOOL IsEnoughAdditionMoney(MONEYTYPE money, eITEMTABLE tableIdx = eItemTable_Inventory );
 
-//	void ObtainMoney(DWORD addmoney);		//¸÷Á×¿©¼­ ¾ò¾úÀ»¶§¸¸ È£Ãâ
+//	void ObtainMoney(DWORD addmoney);		//ï¿½ï¿½ï¿½×¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 //	void SetMoneyNoMsgNoUpdate(DWORD money);
 	
 	player_calc_stats*	GetCharStats()			{	return &m_charStats;		}
 	player_calc_stats*	GetItemStats()			{	return &m_itemStats;		}
-	SET_ITEM_OPTION* GetSetItemStats()		{	return &m_setItemStats;		}	// 2007. 6. 12. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ ¹İÈ¯ ÇÔ¼ö Ãß°¡
+	SET_ITEM_OPTION* GetSetItemStats()		{	return &m_setItemStats;		}	// 2007. 6. 12. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½È¯ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½
 	UNIQUE_ITEM_OPTION_INFO* GetUniqueItemStats(){	return &m_UniqueItemStats;	}	// magi82 - UniqueItem(070626)
 	SHOPITEMOPTION*		GetShopItemStats()		{	return &m_ShopItemOption;	}
 	AVATARITEMOPTION*	GetAvatarOption()		{	return &m_AvatarOption;		}
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	SKILLSTATSOPTION*	GetSkillStatsOption()		{	return &m_SkillStatsOption;	}
 	//////////////////////////////////////////////////////////////////////////
 	
@@ -644,12 +654,12 @@ public:
 	DWORD GetPartyIdx()	{	return m_HeroInfo.PartyID;	}
 	void SetPartyIdx(DWORD PartyIDx) { m_HeroInfo.PartyID = PartyIDx; }
 
-	/*¹®ÆÄ°¡ ¹Ù²î³×...*/
+	/*ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½Ù²ï¿½ï¿½...*/
 	DWORD GetMunpaIdx()	{	return m_HeroCharacterInfo.MunpaID;	}
 	void SetMunpaIdx(DWORD MunpaIDx) { m_HeroCharacterInfo.MunpaID = MunpaIDx; }
 	
 	BYTE GetMunpaMemberRank() { return m_HeroCharacterInfo.PositionInMunpa; 	}
-	void SetMunpaMemberRank(BYTE rank){ m_HeroCharacterInfo.PositionInMunpa = rank; 	} //¹®ÆÄ¿¡¼­ÀÇ ÀÚ½ÅÀÇ ÁöÀ§ ¼³Á¤
+	void SetMunpaMemberRank(BYTE rank){ m_HeroCharacterInfo.PositionInMunpa = rank; 	} //ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void SetMunpaName(char* MunpaName){ SafeStrCpy(m_HeroCharacterInfo.GuildName, MunpaName, MAX_MUNPA_NAME+1); }
 	/**/
 
@@ -658,7 +668,7 @@ public:
 
 	void SetGuildInfo(DWORD GuildIdx, BYTE Grade, char* GuildName, MARKNAMETYPE MarkName);
 	BYTE GetGuildMemberRank() { return m_HeroCharacterInfo.PositionInMunpa; 	}
-	void SetGuildMemberRank(BYTE rank){ m_HeroCharacterInfo.PositionInMunpa = rank; 	} //¹®ÆÄ¿¡¼­ÀÇ ÀÚ½ÅÀÇ ÁöÀ§ ¼³Á¤
+	void SetGuildMemberRank(BYTE rank){ m_HeroCharacterInfo.PositionInMunpa = rank; 	} //ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void SetGuildName(char* GuildName){ SafeStrCpy(m_HeroCharacterInfo.GuildName, GuildName, MAX_MUNPA_NAME+1); }
 	void SetGuildMarkName(MARKNAMETYPE MarkName);
 	char* GetGuildCanEntryDate();
@@ -670,7 +680,7 @@ public:
 	BYTE GetShieldPercent();
 	BYTE GetNaeRyukPercent();
 	
-	// »óÅÂ º¯È¯
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	void OnStartObjectState(BYTE State,DWORD dwParam);
 	void OnEndObjectState(BYTE State);
 
@@ -685,7 +695,7 @@ public:
 	void SetPeaceMode(BOOL bPeace)	{	m_HeroCharacterInfo.bPeace = bPeace?true:false;	}
 	BOOL GetPeaceMode()				{	return m_HeroCharacterInfo.bPeace;		}
 	
-	//Ç¥±¹
+	//Ç¥ï¿½ï¿½
 	void AddPyogukItem(ITEMBASE * pPyogukItem);
 	void InitPyogukInfo(BYTE pyoguknum,MONEYTYPE money);
 	BOOL IsPyogukInit() {return m_bPyogukInit; }
@@ -696,7 +706,7 @@ public:
 	void ReviveLogIn();
 	void ReviveAfterVimu( BOOL bSendMsg = TRUE );
 
-	//Çö»ó±İ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½
 	void ClearWantedList();
 	WANTEDTYPE GetWantedIdx()	{ return m_WantedIDX; }
 	void SetWantedIdx(WANTEDTYPE val)	{ m_WantedIDX = val; }
@@ -751,7 +761,7 @@ public:
 ////////
 
 
-// LBS ³ëÁ¡»ó °ü·Ã 03.09.29 /////////////////////////////////////////////
+// LBS ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 03.09.29 /////////////////////////////////////////////
 	void SetGuestStall( cStreetStall* pStall ) { m_pGuetStall = pStall; }
 	cStreetStall* GetGuestStall() { return m_pGuetStall; }
 	void SetStreetStallTitle(char* title);
@@ -760,7 +770,7 @@ public:
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¿À¹ö¶óÀÌµù ÇÔ¼öµé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½
 	virtual void DoDie(CObject* pAttacker);
 	virtual void DoDamage(CObject* pAttacter,RESULTINFO* pDamageInfo,DWORD beforeLife);
 	virtual DWORD Damage(CObject* pAttacker,RESULTINFO* pDamageInfo);
@@ -771,7 +781,7 @@ public:
 	
 	LEVELTYPE GetMaxLevel()		{	return m_HeroInfo.MaxLevel;	}
 	//////////////////////////////////////////////////////////////////////////
-	// Á¤º¸ ¾ò¾î¿À´Â ÇÔ¼öµé
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½
 	virtual LEVELTYPE GetLevel();
 	virtual void SetLevel(LEVELTYPE level);
 	virtual DWORD GetLife();
@@ -817,7 +827,7 @@ public:
 
 	CYHHashTable<CMonster> m_FollowMonsterList;
 
-// ÃÊº¸ÀÚ °¡ÀÌµå
+// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 	void AddQuest(CQuestBase* pQuest);
 	void RemoveQuest(DWORD QuestIdx);
 	BOOL SetQuestState(DWORD QuestIdx, QSTATETYPE value);
@@ -866,29 +876,32 @@ public:
 	BOOL GetSavePointInit()					{	return m_bSavePointInited;	}
 	void SetSavePointInit( BOOL val )		{	m_bSavePointInited = val;	}
 	
-	// ItemLoad ¼öÁ¤
+	// ItemLoad ï¿½ï¿½ï¿½ï¿½
 	void InitShopInvenInfo(ITEMBASE* pShopWareHouse);
 
 	//SW051129 Pet
+	#ifndef _MHCLIENT_LIBRARY_
 	CPetManager* GetPetManager()			{	return &m_PetManager;	}
-	//void SetCurPet(CPet* pPet)			{	m_pCurPet = pPet;	}
-	//	CPet*	GetCurPet()					{	return m_pCurPet;	}
 	CPet*	GetCurPet()					{	return m_PetManager.GetCurSummonPet();	}
+	#else
+	CPetManager* GetPetManager()			{	return NULL;	}
+	CPet*	GetCurPet()					{	return NULL;	}
+	#endif
 	
 	BOOL GetKyungGongIdx()				{	return m_MoveInfo.KyungGongIdx;	}
 
 protected:
-	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	BOOL		m_bDieForBattleChannel;
 
-	BOOL		m_bDieForGFW;		// ¹®ÆÄÀü»ó´ëÇÑÅ× Á×¾úÀ»¶§...
+	BOOL		m_bDieForGFW;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½...
 	BOOL		m_bDieInSpecialMap;
 	WORD		m_wReturnMapNum;
 	WORD		m_wGTReturnMapNum;
 	int			m_ObserverBattleIdx;
 
 public:
-	void		SetDieForBattleChannel( BOOL bVal )	{	m_bDieForBattleChannel = bVal;	}	//¹èÆ²Ã¤³Î¿¡¼­ Æò»ó°ø°İÀ¸·Î Á×¾úÀ» ¶§ ÇØ´ç. »ì±â³ª ±âÅ¸ battle»óÅÂ Á¦¿Ü.
+	void		SetDieForBattleChannel( BOOL bVal )	{	m_bDieForBattleChannel = bVal;	}	//ï¿½ï¿½Æ²Ã¤ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½. ï¿½ï¿½â³ª ï¿½ï¿½Å¸ battleï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	BOOL		IsDieForBattleChannel()		{	return m_bDieForBattleChannel;	}
 	void		SetDieForGFW( BOOL bDie )	{ m_bDieForGFW = bDie; }
 	BOOL		IsDieFromGFW()				{ return m_bDieForGFW; }
@@ -918,14 +931,14 @@ public:
 	//
 	void SetCharChangeInfo( CHARACTERCHANGE_INFO* pInfo );	
 
-	// character attribute (¼Ó¼º)
+	// character attribute (ï¿½Ó¼ï¿½)
 #ifdef _JAPAN_LOCAL_
 //	DWORD	GetCharAttr()			{ return m_HeroCharacterInfo.dwCharacterAttr; }
-	int		GetMainCharAttr()		{ return m_HeroCharacterInfo.nMainAttr; }		// ÁÖ¼Ó¼º	
-	int		GetSubCharAttr()		{ return m_HeroCharacterInfo.nSubAttr; }		// ºÎ¼Ó¼º
+	int		GetMainCharAttr()		{ return m_HeroCharacterInfo.nMainAttr; }		// ï¿½Ö¼Ó¼ï¿½	
+	int		GetSubCharAttr()		{ return m_HeroCharacterInfo.nSubAttr; }		// ï¿½Î¼Ó¼ï¿½
 	BOOL	ChangeMainCharAttr( int nMainAttr );
 	BOOL	ChangeSubCharAttr( int nSubAttr );	
-	int		WhatIsAttrRelation( int nOtherMainAttr );		// ¼Ó¼º°ü°è´Â?			
+	int		WhatIsAttrRelation( int nOtherMainAttr );		// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?			
 
 	// ItemSlot
 	void	SetExtraSlotCount( DWORD PyogukSlot, DWORD InvenSlot, DWORD MugongSlot );
@@ -958,7 +971,7 @@ public:
 
 
 
-	//SW051112 ¹«½Ö¸ğµå
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	void	InitMussangPoint()			{	m_dwMussangPoint = 0;		}
 	void	SetMussangMode(BOOL bMode)	{	m_HeroCharacterInfo.bMussangMode = bMode;	}
 	BOOL	IsMussangMode()				{	return m_HeroCharacterInfo.bMussangMode;	}
@@ -970,33 +983,33 @@ public:
 	DWORD	GetMussangMaxPoint();
 	void	AddMussangPointFromLevel(DWORD dwMonsterLevel);
 	void	SendMussangInfo();
-	void	SendMussangEnd();	//Ä³¸¯ Á×¾úÀ» ½Ã ¶Ç´Â Áö¼Ó ½Ã°£ Á¾·á½Ã
+	void	SendMussangEnd();	//Ä³ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	void	CheatMussangReady();
 
 #ifdef _JAPAN_LOCAL_
 	virtual DWORD CalcShieldDamage(DWORD ShieldDamage);
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	virtual DWORD CalcShieldDamage(DWORD ShieldDamage, DWORD &RealShieldDamage);
 	WORD	GetMussangStat() { return m_wMussangStat; }
 #endif
 
 	////////////////////////////////////////////////////////
-	//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	//ÀÌÆåÆ® »ı·«(¹«ÃÊ)
+	//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	BOOL IsSkipSkill();
 	////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	void AddSkillStatsOption(SKILLOPTION *pSkillOption);
 	void RemoveSkillStatsOption(SKILLOPTION *pSkillOption);
 	//////////////////////////////////////////////////////////////////////////
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½
 	BOOL IsHide() { return m_BaseObjectInfo.SingleSpecialState[eSingleSpecialState_Hide]; } 
 	BOOL IsDetect()
 	{ 
@@ -1006,31 +1019,31 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 07. ½ºÅ³°³¼± - ÀÌ¿µÁØ
+	// 06. 07. ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	CYHHashTable<CSkillObject>* GetSkillList() { return &m_SkillList; }
 	//////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////////////////////
-	// 06. 07. »óÅÂ°­Á¦º¯°æ - ÀÌ¿µÁØ
-	// ÀÏÁ¤ÀÌ»ó ½ºÅ³ »ç¿ë½ÇÆĞ½Ã Æ¯º°ÇÑ »óÅÂ¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö »óÅÂ´Â ¸ğµÎ ÃÊ±âÈ­
+	// 06. 07. ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½Ğ½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	BOOL CanSkillState();
 	////////////////////////////////////////////////////////////////////////////
 
-	// 06.09.25 RaMa Ãß¼®ÀÌº¥Æ®
+	// 06.09.25 RaMa ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 	void IncreaseEventHammerCount();
 
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 	void SummonEventPetRndm();
 	void SetEventSnowIdx(int snowIdx)	{ m_CristmasEventSnowIdx = snowIdx;	}
 	DWORD GetEventSnowIdx()	{	return m_CristmasEventSnowIdx;	}
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205 ï¿½ï¿½ï¿½ NPC
 	void SendFlagNPCState();
 
 	void InitTitanWearItemInfo( ITEMBASE* pTitanItemInfo );	// magi82 - Titan(070209)
 	void InitTitanShopItemInfo( ITEMBASE* pTitanItemInfo );	// magi82 - Titan(070228)
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	BOOL InTitan();
 	BOOL CanUseTitanSkill();
 	CTitanManager*	GetTitanManager()	{	return &m_TitanManager;	}
@@ -1038,7 +1051,7 @@ public:
 	void SetTitanWearInfo(POSTYPE slotPos, ITEMBASE* pItemBase, BOOL bIn);
 	void ApplyTitanWearItem();
 
-	///// 2007. 6. 14. CBH - ¼¼Æ®¾ÆÀÌÅÆ ´É·ÂÄ¡ Ã³¸® ÇÔ¼ö
+	///// 2007. 6. 14. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½
 	void AddSetitemOption(SET_ITEM_OPTION* pSetItemOption);
 	void ClearSetitemOption();
 	///////////////////////////////////////////////////////
@@ -1060,15 +1073,16 @@ public:
 	void SetSOSState(int num)	{	m_SOSState = num;	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	void InitSkinDelay();			//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ½Ã°£ °ü·Ã ÃÊ±âÈ­
-	void StartSkinDelay();			//2007. 12. 10. CBH - ½ºÅ²±³Ã¼ µô·¹ÀÌ ½ÃÀÛ	
-	BOOL GetSkinDelayResult();		//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌÁßÀÎÁö ¹İÈ¯
-	DWORD GetSkinDelayTime();		//2007. 12. 10. CBH - ½ºÅ² µô·¹ÀÌ ³²Àº½Ã°£ ¹İÈ¯
+	void InitSkinDelay();			//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	void StartSkinDelay();			//2007. 12. 10. CBH - ï¿½ï¿½Å²ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+	BOOL GetSkinDelayResult();		//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+	DWORD GetSkinDelayTime();		//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½È¯
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// AutoNote
+#ifndef _MHCLIENT_LIBRARY_
 protected:
-	DWORD	m_dwAutoNoteAskPlayerIdx;		// ¿ÀÅäÁú¹®»ó´ëÀÎµ¦½º
+	DWORD	m_dwAutoNoteAskPlayerIdx;		// ì˜¤í† ë…¸íŠ¸ì—ì„œ ìš”ì²­í•œ ì‚¬ëŒ
 	DWORD	m_dwLastAttackTimeForAutoNote;
 
 public:
@@ -1077,6 +1091,7 @@ public:
 
 	void SetLastAttackTimeForAutoNote( DWORD dwTime )	{ m_dwLastAttackTimeForAutoNote = dwTime; }
 	DWORD GetLastAttackTimeForAutoNote()				{ return m_dwLastAttackTimeForAutoNote; }
+#endif
 };
 
 #endif // !defined(AFX_PLAYER_H__D36AF2E1_0FD9_4120_B257_64B0BE21D669__INCLUDED_)

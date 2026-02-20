@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 
 enum eAutoNoteRoomState
@@ -23,14 +24,14 @@ protected:
 	char	m_AskCharacterName[MAX_NAME_LENGTH+1];
 	char	m_AutoCharacterName[MAX_NAME_LENGTH+1];
 
-	int		m_nANRState;			//---Room »óÅÂ
-	DWORD	m_dwCreateTime;			//---¹æ »ý¼º ½Ã°£
+	int		m_nANRState;			//---Room 
+	DWORD	m_dwCreateTime;			//---  Ã°
 	int		m_nChance;
 
 	//---------------------------------------
 	DWORD	m_dwAskColor[4];
 
-	DWORD	m_dwLastAnswerTime;		// ¸¶Áö¸· ´äº¯º¸³½½Ã°£...
+	DWORD	m_dwLastAnswerTime;		//  äº¯Ã°...
 
 public:
 	CAutoNoteRoom(void);

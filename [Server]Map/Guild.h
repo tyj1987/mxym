@@ -4,21 +4,23 @@
 
 #if !defined(AFX_GUILD_H__61C4631E_8749_49A3_8F03_8998897B6389__INCLUDED_)
 #define AFX_GUILD_H__61C4631E_8749_49A3_8F03_8998897B6389__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
+#include <string.h>
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "PtrList.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 #include "GuildWarehouse.h"
 
 #define GUILD_STUDENT_NUM_MAX	25
 
 enum RTChangeRank
 {
-	eRankPos_1,			//@부문주
-	eRankPos_2,			//@장로1
-	eRankPos_3,			//@장로2
+	eRankPos_1,			//@菅
+	eRankPos_2,			//@1
+	eRankPos_3,			//@2
 	eRankPos_Max,
 	eRankPos_Err,
 };
@@ -47,7 +49,7 @@ class CGuild
 	
 	DWORD m_RankMemberIdx[eRankPos_Max]; // m_RankMemberIdx[0] : vice master, m_RankMemberIdx[1],m_RankMemberIdx[2] : seniors  
 
-	//SW060719 문파포인트
+	//SW060719 트
 	GUILDPOINT_INFO m_GuildPoint;
 	DWORD	m_nMemberOnConnectingThisMap;
 
@@ -59,9 +61,9 @@ class CGuild
 	DWORD		m_GTBattleID;
 
 	BOOL	m_bItemInfoInited;
-	BOOL	m_bWaitingItemInfoFromDB;	//SW 단 한번만 Query..(DB응답이 늦을 경우 대비)
+	BOOL	m_bWaitingItemInfoFromDB;	//SW  箕 Query..(DB   )
 
-	//SW060713 문하생
+	//SW060713 矩
 	DWORD	m_nStudentCount;
 
 public:
@@ -138,7 +140,7 @@ public:
 	
 	BOOL	IsEmptyGuildWare();
 
-	//SW060526 문파창고 아이템 정보저장 시점 변경
+	//SW060526 창    
 	void	SetItemInfoInited( BOOL bInit )	{	m_bItemInfoInited = bInit;	}
 	BOOL	IsItemInfoInited() {	return m_bItemInfoInited;	}
 	void	SetWaitingItemInfoFromDB( BOOL bVal )	{	m_bWaitingItemInfoFromDB = bVal;	}
@@ -146,14 +148,14 @@ public:
 
 	CGuildWarehouse* GetWarehouse()	{	return &m_GuildWare;	}
 
-	// 06. 03. 문파공지 - 이영준
+	// 06. 03. 캅 - 結
 	void	SetGuildNotice(char* pNotice) { strcpy(m_GuildInfo.GuildNotice, pNotice); }
 
-	//SW060713 문하생
+	//SW060713 矩
 	DWORD	GetStudentNum() { return m_nStudentCount; }
     BOOL	CanAddStudent();
 
-	//SW060719 문파포인트
+	//SW060719 트
 	void	AddHuntedMonsterCount(int AddCount);
 	void	SetHuntedMonsterCount(int SetCount)	{	m_GuildPoint.GuildHuntedMonsterCount = SetCount;	}
 	int		GetHuntedMonsterCount()			{	return m_GuildPoint.GuildHuntedMonsterCount;	}
@@ -182,9 +184,9 @@ public:
 
 	void	SetZeroMoney();
 
-	void	SendMsgAgentStudentJoin(DWORD studentIdx, char* studentName,char* Intro);	//magi82 - 문하생 가입편리시스템
+	void	SendMsgAgentStudentJoin(DWORD studentIdx, char* studentName,char* Intro);	//magi82 - 矩 첵
 
-	//SW070103 문파포인트개선	//문하생 렙업에 따른 포인트 누적. 축하금
+	//SW070103 트	//矩   트 . 歐
 	void	SetStudentLvUpCountInfo(DWORD LvUpCount, BOOL bNeedCheck);
 	void	SendMsgForMasterChecking();
 	void	SendMsgToMaster(MSGBASE* msg, int size);

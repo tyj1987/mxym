@@ -12,19 +12,19 @@
 #include "SkillObjectTargetList.h"
 #include "SkillObjectFirstUnit.h"
 #include "SkillObjectStateUnit.h"
-#include "CharMove.h"
+#include "..\\[Client]MH\\CharMove.h"
 
-#include "UserTable.h"
-#include "ServerSystem.h"
-#include "PackedData.h"
-#include "Player.h"
+#include "..\\[Client]MH\\UserTable.h"
+#include "..\[CC]Header\ServerSystem.h"
+#include "..\[Server]Map\PackedData.h"
+#include "..\[Server]Map\Player.h"
 
-#include "BattleSystem_Server.h"
-#include "AbilityManager.h"
-#include "Monster.h"
+#include "../[CC]BattleSystem/BattleSystem_Server.h"
+#include "../[CC]Ability/AbilityManager.h"
+#include "..\[Server]Map\Monster.h"
 #include "SkillManager_server.h"
-#include "CharacterCalcManager.h"
-#include "GuildManager.h"
+#include "../[Client]MH/CharacterCalcManager.h"
+#include "../[Client]MH/GuildManager.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -47,8 +47,8 @@ CSkillObject::CSkillObject( CSkillInfo* pSkillInfo,
 	m_ObjectKind = eObjectKind_SkillObject;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2¬˜ ¿¸¡˜ - ¿Ãøµ¡ÿ
-	// π´∞¯ ∫Ø»Ø √ﬂ∞°
+	// 06. 06. 2  - Ãø
+	//  »Ø ﬂ∞
 	m_OptionIndex = 0;
 	//////////////////////////////////////////////////////////////////////////
 }
@@ -73,8 +73,8 @@ CSkillObject::~CSkillObject()
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2¬˜ ¿¸¡˜ - ¿Ãøµ¡ÿ
-	// π´∞¯ ∫Ø»Ø √ﬂ∞°
+	// 06. 06. 2  - Ãø
+	//  »Ø ﬂ∞
 	m_OptionIndex = 0;
 	//////////////////////////////////////////////////////////////////////////
 }
@@ -86,7 +86,7 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 
 	m_pTerminator->Init(m_pSkillInfo,pInfo->SkillLevel);
 
-	// ª˝∏Ì∑¬ º≥¡§
+	//  
 	m_MaxLife = m_CurLife = DWORD(m_pSkillInfo->GetSkillInfo()->Life * m_SkillTreeAmp);
 	
 	m_BaseObjectInfo.dwObjectID = pInfo->SkillObjectIdx;
@@ -104,7 +104,7 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 		ResultKind |= pSingleUnit->GetPNTarget();
 	PTRLISTSEARCHEND;
 
-	//¡¯π˝¿∫ æÓ∫Ù∏Æ∆º¿« ∑π∫ß¿∏∑Œ Ω∫≈≥ ∑π∫ßø° ¿÷¥¬ ºˆƒ°∏¶ æ¥¥Ÿ.
+	// ∆º  ≈≥  ÷¥ ƒ° .
 	BYTE SkillLvl = pInfo->SkillLevel;
 	if(m_pSkillInfo->GetSkillKind() == SKILLKIND_JINBUB)
 	{
@@ -147,7 +147,7 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 	if( nCount > 0 || m_pSkillInfo->GetSkillInfo()->TargetKind == 1 )
 	{
 
-			//∞Ê«Ëƒ° ¡÷±‚
+			//ƒ° ÷±
 			if( m_pOperator )
 			if( m_pOperator->GetObjectKind() == eObjectKind_Player && 
 				g_pServerSystem->GetMap()->IsVillage() == FALSE &&
@@ -157,9 +157,9 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 				
 				DWORD MugongExp = MUGONG_USE_EXP;
 				
-				// RaMa - 04.11.24   ->π´∞¯∞Ê«Ëƒ°¥¬ ≥ª∑¬º“∏∫Ò¿≤∞˙ ªÛ∞¸æ¯¿Ã
+				// RaMa - 04.11.24   ->ƒ° ¬º“∏ 
 				
-				// ¡ﬂ±π¬  æ«∏Ì∆–≥Œ∆º
+				// ﬂ± «∏–≥∆º
 #ifdef _CHINA_LOCAL_
 				if(pPlayer->GetBadFame() >= 60)
 					MugongExp = MugongExp/4;
@@ -168,6 +168,9 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 				else
 					MugongExp = MugongExp;
 #endif
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 /*				if(g_pServerSystem->GetNation() == eNATION_CHINA)
 				{
 					if(pPlayer->GetBadFame() >= 60)
@@ -179,11 +182,11 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 				}*/
 
 				
-				//¿Ã∫•∆Æ π´∞¯º∫ ∞Ê«Ëƒ°
+				//Ã∫∆Æ  ƒ°
 
 				MugongExp = (DWORD)((float)MugongExp * gEventRate[eEvent_MugongExp]);
 
-				//SW060719 πÆ∆ƒ∆˜¿Œ∆Æ
+				//SW060719 ∆Æ
 				DWORD AddMugongExpFromGuildPlustime = 0;
 				if( pPlayer->GetGuildIdx() )
 				{
@@ -198,12 +201,12 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 				{
 //					MugongExp *= (pPlayer->GetShopItemStats()->AddMugongExp*0.01f+1);
 					DWORD temp = MugongExp * pPlayer->GetShopItemStats()->AddMugongExp;
-					MugongExp = MugongExp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//ø√∏≤
+					MugongExp = MugongExp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//√∏
 				}
 				
 				MugongExp += AddMugongExpFromGuildPlustime;
 
-				// 2005 ≈©∏ÆΩ∫∏∂Ω∫ ¿Ã∫•∆Æ ƒ⁄µÂ
+				// 2005 ≈© Ã∫∆Æ ⁄µ
 				if( pMainTarget )
 				{
 					if( pMainTarget->GetObjectKind() & eObjectKind_Monster )
@@ -242,22 +245,22 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 //		}
 	}
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2¬˜ ¿¸¡˜ - ¿Ãøµ¡ÿ
-	// π´∞¯ ∫Ø»Ø √ﬂ∞°
-	// ∫∏¡∂«¸(ª˝∏Ì∑¬,≥ª∑¬,»£Ω≈∞≠±‚,πÊæÓ∑¬,º”º∫πÊæÓ∑¬) ¿˚øÎ
+	// 06. 06. 2  - Ãø
+	//  »Ø ﬂ∞
+	// (,,»£≈∞,,”º) 
 	SKILLOPTION* pSkillOption = NULL;
 
-	// ªÁøÎ¿⁄∞° «√∑π¿ÃæÓ¿œ∂ß
+	// ⁄∞ √∑Ãæœ∂
 	if(m_pOperator->GetObjectKind() == eObjectKind_Player)
 	{
-		// Ω∫≈≥ ø…º«¿ª ∞°¡Æø¬¥Ÿ
+		// ≈≥ …º ¬¥
 		m_OptionIndex = pInfo->Option;
 		pSkillOption = SKILLMGR->GetSkillOption(m_OptionIndex);
 	}
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 07. Ω∫≈≥∞≥º± - ¿Ãøµ¡ÿ
+	// 06. 07. ≈≥ - Ãø
 	CObject* pTarget = NULL;
 	CYHHashTable<CSkillObject>* pTargetSkillList = NULL;
 	CSkillObject* pTargetSkill = NULL;
@@ -267,23 +270,23 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 	
 	while(1)
 	{
-		//≈∏∞Ÿ¿ª ∞°¡Æø¬¥Ÿ
+		//≈∏ ¬¥
 		pTarget = NULL;
 		pTarget = m_pTargetList->GetNextTarget();
 
-		//≈∏∞Ÿ¿Ã æ¯¿∏∏È ¡æ∑·
+		//≈∏  
 		if(pTarget == NULL)
 			break;
 
-		//≈∏∞Ÿ¿Ã «√∑π¿ÃæÓ∞° æ∆¥œ∏È ∆–Ω∫
+		//≈∏ √∑ÃæÓ∞° ∆¥œ∏ –Ω
 		if(pTarget->GetObjectKind()	!= eObjectKind_Player)
 			continue;
 
-		//≈∏∞Ÿø°∞‘ øµ«‚¿ª πÃƒ°¥¬ Ω∫≈≥∏ÆΩ∫∆Æ∏¶ ∞°¡Æø¬¥Ÿ
+		//≈∏Ÿø  ƒ° ≈≥∆Æ ¬¥
 		pTargetSkillList = NULL;
 		pTargetSkillList = ((CPlayer*)pTarget)->GetSkillList();
 
-		//æ¯¿∏∏È ∆–Ω∫
+		// –Ω
 		if(!pTargetSkillList) continue;
 		if(pTargetSkillList->GetDataNum() != 0)
 		{
@@ -291,36 +294,36 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 
 			while(1)
 			{
-				//Ω∫≈≥∏ÆΩ∫∆Æø°º≠ Ω∫≈≥¿ª ∞°¡Æø¬¥Ÿ.
+				//≈≥∆Æ ≈≥ ¬¥.
 				pTargetSkill = NULL;
 				pTargetSkill = (CSkillObject*)pTargetSkillList->GetData();
 
-				//æ¯¿∏∏È ¡æ∑·
+				// 
 				if(!pTargetSkill) break;
 
-				//∞∞¿∫ ∞Ëø≠¿Ã∂Û∏È
+				// Ëø≠Ã∂
 				switch(IsSame(pTargetSkill))
 				{
-				case 1:	// ∑π∫ß ∆«¥‹ « ø‰«— Ω∫≈≥
+				case 1:	//  «¥  ø ≈≥
 					{
-						//¿ÃπÃ «√∑π¿ÃæÓø°∞‘ ∞…∏∞ Ω∫≈≥∫∏¥Ÿ ∑π∫ß¿Ã ≥∑¿∫ Ω∫≈≥¿Ã∏È ªË¡¶«—¥Ÿ
+						//Ãπ √∑ÃæÓø° …∏ ≈≥   ≈≥Ã∏ —¥
 						if(pTargetSkill->GetSkillObjectInfo()->SkillLevel > GetSkillObjectInfo()->SkillLevel)
 						{
 							DoDie(NULL);
-							// ≈¨∂Û¿Ãæ∆Æø° ª˝º∫∏ﬁºº¡ˆ∏¶ ∫∏≥ª¡ˆ æ ¥¬¥Ÿ.
+							// ≈¨Ãæ∆Æ ﬁº   ¥¬¥.
 							return;
 						}
-						//æ∆¥œ∏È «√∑π¿ÃæÓø°∞‘ ∞…∏∞ Ω∫≈≥¿ª ªË¡¶«—¥Ÿ
+						//∆¥œ∏ √∑ÃæÓø° …∏ ≈≥ —¥
 						else
 							pTargetSkill->DoDie(NULL);
 					}
 					break;
-				case 2: // π´¡∂∞« ƒ°∞Ì µÈæÓ∞°¥¬ Ω∫≈≥
+				case 2: //  ƒ° Ó∞° ≈≥
 					{					
 						pTargetSkill->DoDie(NULL);
 					}
 					break;
-				case 3: // π´¡∂∞« ªË¡¶µ«¥¬ Ω∫≈≥
+				case 3: //  «¥ ≈≥
 					{
 						DoDie(NULL);
 						return;
@@ -330,10 +333,10 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 			}
 		}
 		//////////////////////////////////////////////////////////////////////////
-		// 06. 06. 2¬˜ ¿¸¡˜ - ¿Ãøµ¡ÿ
-		// π´∞¯ ∫Ø»Ø √ﬂ∞°
-		// ∫∏¡∂«¸(ª˝∏Ì∑¬,≥ª∑¬,»£Ω≈∞≠±‚,πÊæÓ∑¬,º”º∫πÊæÓ∑¬) ¿˚øÎ
-		// ∫Ø»Øµ» π´∞¯¿Ã∏È ¥…∑¬ƒ°∏¶ ¥ı«ÿ¡ÿ¥Ÿ.
+		// 06. 06. 2  - Ãø
+		//  »Ø ﬂ∞
+		// (,,»£≈∞,,”º) 
+		// »Ø Ã∏ …∑ƒ° ÿ¥.
 		if(pSkillOption)
 		{
 			((CPlayer*)pTarget)->AddSkillStatsOption(pSkillOption);
@@ -344,7 +347,7 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 		}
 		//////////////////////////////////////////////////////////////////////////
 
-		//Ω∫≈≥∏ÆΩ∫∆Æø° √ﬂ∞°«ÿ¡ÿ¥Ÿ.
+		//≈≥∆Æ ﬂ∞ÿ¥.
 		pTargetSkillList->Add(this, GetID());
 	}
 	//////////////////////////////////////////////////////////////////////////
@@ -355,17 +358,17 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList,float skillT
 void CSkillObject::Release()
 {
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2¬˜ ¿¸¡˜ - ¿Ãøµ¡ÿ
-	// π´∞¯ ∫Ø»Ø √ﬂ∞°
-	// ∫∏¡∂«¸(ª˝∏Ì∑¬,≥ª∑¬,»£Ω≈∞≠±‚,πÊæÓ∑¬,º”º∫πÊæÓ∑¬) ¿˚øÎ
+	// 06. 06. 2  - Ãø
+	//  »Ø ﬂ∞
+	// (,,»£≈∞,,”º) 
 	
-	// ªÁøÎ¿⁄∞° «√∑π¿ÃæÓ¿œ∂ß
+	// ⁄∞ √∑Ãæœ∂
 	SKILLOPTION* pSkillOption = NULL;
 
 	if(m_pOperator)
 	if(m_pOperator->GetObjectKind() == eObjectKind_Player)
 	{
-		// Ω∫≈≥ ø…º«¿ª ∞°¡Æø¬¥Ÿ
+		// ≈≥ …º ¬¥
 		pSkillOption = SKILLMGR->GetSkillOption(m_OptionIndex);
 	}
 
@@ -374,30 +377,30 @@ void CSkillObject::Release()
 
 	while(1)
 	{
-		// ≈∏∞Ÿ¿ª ∞°¡Æø¬¥Ÿ
+		// ≈∏ ¬¥
 		pTarget = m_pTargetList->GetNextTarget();
 
-		// æ¯¿∏∏È ¡æ∑·
+		//  
 		if(!pTarget)
 			break;
 
-		// ≈∏∞Ÿ¿Ã «√∑π¿ÃæÓ∞° æ∆¥œ∏È ¥Ÿ¿Ω ≈∏∞Ÿ¿∏∑Œ ∆–Ω∫
+		// ≈∏ √∑ÃæÓ∞° ∆¥œ∏  ≈∏ –Ω
 		if(pTarget->GetObjectKind() != eObjectKind_Player)
 			continue;
 
 		////////////////////////////////////////////////////////////////////////////////
-		// 06. 07. Ω∫≈≥∞≥º± - ¿Ãøµ¡ÿ
-		// ≈∏∞Ÿ¿« Ω∫≈≥∏ÆΩ∫∆Æø°º≠ ªË¡¶«ÿ¡ÿ¥Ÿ
+		// 06. 07. ≈≥ - Ãø
+		// ≈∏ ≈≥∆Æ ÿ¥
 		CYHHashTable<CSkillObject>* pTargetSkillList =((CPlayer*)pTarget)->GetSkillList();
 		if(pTargetSkillList)
 		{
-			// øµ«‚¿ª ¡÷æ˙¥¯ Ω∫≈≥¿Ã∏È
+			//  ÷æ ≈≥Ã∏
 			if(pTargetSkillList->GetData(GetID()))
 			{
-				// ∏ÆΩ∫∆Æø°º≠ ¡¶∞≈
+				// ∆Æ 
 				pTargetSkillList->Remove(GetID());
 
-				// Ω∫≈≥ ø…º«¿Ã ¿÷¿∏∏È ª©¡ÿ¥Ÿ.
+				// ≈≥ …º  ÿ¥.
 				if(pSkillOption)
 				{
 					((CPlayer*)pTarget)->RemoveSkillStatsOption(pSkillOption);
@@ -445,9 +448,9 @@ DWORD CSkillObject::Update()
 		return SO_DESTROYOBJECT;
 
 	////////////////////////////////////////////////////////////////////////////////////////////
-	// 06. 04. Ω∫≈≥ πˆ±◊ ºˆ¡§ - ¿Ãøµ¡ÿ
-	// ∫Œ¬¯(¡ˆº”) ¿Ã∆Â∆Æ∏¶ ∞°¡¯ Ω∫≈≥¿Ã∏Èº≠ π¸¿ß«¸ Ω∫≈≥¿Ã æ∆¥—∞ÊøÏ¥¬
-	// ∏ÛΩ∫≈Õø° ∫Œ¬¯µ«æÓ ∏ÛΩ∫≈Õ∞° ¡◊¿ª∂ß ∞∞¿Ã ªÁ∂Û¡Ææﬂ «œ¥¬ Ω∫≈≥∑Œ ∆«¥‹«—¥Ÿ.
+	// 06. 04. ≈≥   - Ãø
+	// () ∆Æ  ≈≥Ã∏Èº≠  ≈≥ ∆¥—∞
+	// Õø «æ Õ∞    œ¥ ≈≥ «¥—¥.
 	if(m_pSkillInfo->GetSkillInfo()->EffectMineOperate && m_pSkillInfo->GetSkillInfo()->TargetRange == 0)
 	{
 		m_pTargetList->SetPositionHead();
@@ -477,8 +480,8 @@ DWORD CSkillObject::Update()
 		return SO_DESTROYOBJECT;
 
 	////////////////////////////////////////////////////////////////////////////////////////////
-	// 06. 04. Ω∫≈≥ πˆ±◊ ºˆ¡§ - ¿Ãøµ¡ÿ
-	// ªÁøÎ¿⁄∞° ¡◊¿∏∏È Ω∫≈≥µµ ªË¡¶«—¥Ÿ.
+	// 06. 04. ≈≥   - Ãø
+	// ⁄∞  ≈≥ —¥.
 	//if( m_pOperator->GetState() == eObjectState_Die)
 	//	return SO_DESTROYOBJECT;
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -489,12 +492,12 @@ DWORD CSkillObject::Update()
 	
 	if(m_pTerminator->CheckTerminate(&m_SkillObjectInfo) == TRUE)
 	{
-		//¡æ∑·√≥∏Æ
+		//√≥
 		return SO_DESTROYOBJECT;
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 1¿ŒøÎ π´∞¯(√∂∆˜ªÔµÓ)¿œ ∞ÊøÏ Operator øÕ ¿ßƒ°∞° ¥ﬁ∂Û¡ˆ∏È Operator ¿ßƒ°∑Œ ¿ÃµøΩ√≈≤¥Ÿ.
+	// 1Œø (√∂)  Operator  ƒ° ﬁ∂ Operator ƒ° Ãµ≈≤.
 	if( m_pSkillInfo->GetSkillInfo()->TargetAreaFix == 0 &&
 		m_pTargetList->GetTargetNum() == 1 )
 	{
@@ -517,16 +520,16 @@ void CSkillObject::UpdateTargetList(CObject* pObject)
 
 void CSkillObject::AddTargetObject(CObject* pObject)
 {
-	// YH2DO ∞ÀªÁ « ø‰
+	// YH2DO Àª  ø
 
 	BYTE bTargetKind = m_pTargetList->AddTargetObject(pObject,0);
 
-	// yh √ﬂ∞° µ 
+	// yh ﬂ∞ 
 	if(bTargetKind == SKILLRESULTKIND_NONE)
 		return;
 
 	//////////////////////////////////////////////////////////////////////////
-	// YH2DO Positive Negative ≈∏∞Ÿ ¿˚øÎ
+	// YH2DO Positive Negative ≈∏ 
 	PTRLISTSEARCHSTART(m_StateUnitList,CSkillObjectStateUnit*,pStateUnit)
 		pStateUnit->StartState(pObject,bTargetKind);
 	PTRLISTSEARCHEND;
@@ -543,12 +546,12 @@ void CSkillObject::AddTargetObject(CObject* pObject)
 }
 void CSkillObject::RemoveTargetObject(DWORD ObjectID)
 {
-	// YH2DO ∞ÀªÁ « ø‰
+	// YH2DO Àª  ø
 
 
 	BYTE bTargetKind = m_pTargetList->RemoveTargetObject(ObjectID);
 
-	// yh √ﬂ∞° µ 
+	// yh ﬂ∞ 
 	if(bTargetKind == SKILLRESULTKIND_NONE)
 		return;
 	
@@ -556,7 +559,7 @@ void CSkillObject::RemoveTargetObject(DWORD ObjectID)
 	if(pObject)
 	{
 		//////////////////////////////////////////////////////////////////////////
-		// YH2DO Positive Negative ≈∏∞Ÿ ¿˚øÎ
+		// YH2DO Positive Negative ≈∏ 
 		PTRLISTSEARCHSTART(m_StateUnitList,CSkillObjectStateUnit*,pStateUnit)
 			pStateUnit->EndState(pObject,bTargetKind);
 		PTRLISTSEARCHEND;
@@ -576,7 +579,7 @@ void CSkillObject::SetAddMsg(char* pAddMsg,WORD* pMsgLen,DWORD dwReceiverID,BOOL
 {
 	if(bLogin == TRUE)
 	{
-		*pMsgLen = 0;		// √≥¿Ω ∑Œ±◊¿Œ «ﬂ¿ª∂ß ∏ﬁºº¡ˆ¥¬ InitSkillObjectø°º≠ ∫∏≥Ω¥Ÿ.
+		*pMsgLen = 0;		// √≥ Œ±  ﬁº InitSkillObject .
 		return;
 	}
 
@@ -625,13 +628,13 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 	{
 	case SKILLTARGETTYPE_ENEMY:
 		{
-			CBattle* pBattle = pObject->GetBattle();	// m_pOperator º”«— ∫£∆≤¿ª æÚæÓø¬¥Ÿ.
+			CBattle* pBattle = pObject->GetBattle();	// m_pOperator  ∆≤ ¬¥.
 			return pBattle->IsEnemy(m_pOperator,pObject);
 		}
 		break;
 	case SKILLTARGETTYPE_TEAMMATE:
 		{
-			CBattle* pBattle = pObject->GetBattle();	// m_pOperator º”«— ∫£∆≤¿ª æÚæÓø¬¥Ÿ.
+			CBattle* pBattle = pObject->GetBattle();	// m_pOperator  ∆≤ ¬¥.
 			return pBattle->IsFriend(m_pOperator,pObject);
 		}
 		break;
@@ -643,7 +646,7 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 		break;
 	case SKILLTARGETTYPE_ENEMYANDTEAM:
 		{
-			CBattle* pBattle = pObject->GetBattle();	// m_pOperator º”«— ∫£∆≤¿ª æÚæÓø¬¥Ÿ.
+			CBattle* pBattle = pObject->GetBattle();	// m_pOperator  ∆≤ ¬¥.
 			if(pBattle->IsEnemy(m_pOperator,pObject))
 				return TRUE;
 			if(pBattle->IsFriend(m_pOperator,pObject))
@@ -654,7 +657,7 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 		break;
 	case SKILLTARGETTYPE_NOTENEMYTARGET:
 		{
-			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator º”«— ∫£∆≤¿ª æÚæÓø¬¥Ÿ.
+			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator  ∆≤ ¬¥.
 			if(pBattle->IsEnemy(m_pOperator,pObject))
 				return FALSE;
 
@@ -692,25 +695,25 @@ DWORD CSkillObject::DoGetMaxLife()
 
 BOOL CSkillObject::IsSame(CSkillObject* pSkill)
 {
-	// 1. Ω∫≈≥ ¿Œµ¶Ω∫∞° ∞∞¿∏∏È ∞∞¿∫ ∞Ëø≠¿Ã¥Ÿ. - ∑π∫ß ∆«¥‹ « ø‰
+	// 1. ≈≥ Œµ   Ëø≠Ã¥. -  «¥  ø
 	if(pSkill->GetSkillIdx() == GetSkillIdx())
 		return 1;
 
-	// 2. º”º∫¥…∑¬ ¡ı∆¯ Ω∫≈≥¿∫ ∏µŒ ∞∞¿∫ ∞Ëø≠¿Ã¥Ÿ. - π´¡∂∞« ƒ°∞Ì µÈæÓ∞£¥Ÿ
+	// 2. ”º…∑  ≈≥   Ëø≠Ã¥. -  ƒ° Ó∞£
 	if(pSkill->GetSkillInfo()->GetAmplifiedPowerAtt(1) && GetSkillInfo()->GetAmplifiedPowerAtt(1))
 		return 2;
 
-	// 3. πÊæÓ∑¬ ¡ı∞°(√∂∆˜ªÔ&≥™«—±‚∞¯)¥¬ ∞∞¿∫ ∞Ëø≠¿Ã¥Ÿ. - ∑π∫ß ∆«¥‹ « ø‰
+	// 3.  (√∂&—±)  Ëø≠Ã¥. -  «¥  ø
 	if(pSkill->GetSkillInfo()->GetUpPhyDefense(12) > 0.00001f && GetSkillInfo()->GetUpPhyDefense(12) > 0.00001f)
 		return 1;
 
 	return FALSE;
 }
 
-//// 2007. 7. 10. CBH - ¿¸πÆ±‚º˙ ∞¸∑√ «‘ºˆ √ﬂ∞°
+//// 2007. 7. 10. CBH -   ‘º ﬂ∞
 void CSkillObject::SkillObjectFirstUnitResult()
 {
-	if(m_pFirstUnit != NULL)	//øπø‹√≥∏Æ
+	if(m_pFirstUnit != NULL)	//√≥
 	{
 		m_pFirstUnit->FirstUnitResult();
 	}	

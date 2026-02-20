@@ -164,7 +164,7 @@ enum MODEL_INITIALIZE_FLAG
 };
 
 
-// ¸ÊÀ» ·ÎµùÇÒ¶§ »ç¿ëÇÒ ¼ö ÀÖ´Â ÇÃ·¡±×µé.or·Î Á¶ÇÕÇØ¼­ »ç¿ëÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã·ï¿½ï¿½×µï¿½.orï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 enum MAP_LOAD_FLAG
 {
 	STATIC_MODEL_LOAD_OPTIMIZE				= 0x00000001,
@@ -193,7 +193,7 @@ enum EXECUTIVE_RENDER_MODE
 enum EXECUTIVE_PICKING_MODE
 {
 	PICKING_MODE_DEFAULT	= 0,
-	PICKING_MODE_TOOL		= 1					// Picking ¾ÈµÇ´Â ¼Ó¼º¿¡ »ó°ü¾øÀÌ pickingµÇ°Ô ÇÑ´Ù. 
+	PICKING_MODE_TOOL		= 1					// Picking ï¿½ÈµÇ´ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pickingï¿½Ç°ï¿½ ï¿½Ñ´ï¿½. 
 };
 ///
 
@@ -201,9 +201,9 @@ enum EXECUTIVE_PICKING_MODE
 
 enum MODEL_LOD_USING_MODE
 {
-	MODEL_LOD_USING_MODE_DEFAULT	= 0,		// Model LOD ¸¦ »ç¿ëÇÑ´Ù. 
-	MODEL_LOD_USING_MODE_SET_LEVEL	= 1,		// ÁöÁ¤µÈ ·¹º§¸¸ »ç¿ëµÇµµ·Ï ÇÑ´Ù. 
-	MODEL_LOD_USING_MODE_NOT_USE	= 2,		// Model LOD ¸¦ »ç¿ëÇÏÁö ¾Êµµ·Ï ÇÑ´Ù. 
+	MODEL_LOD_USING_MODE_DEFAULT	= 0,		// Model LOD ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
+	MODEL_LOD_USING_MODE_SET_LEVEL	= 1,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. 
+	MODEL_LOD_USING_MODE_NOT_USE	= 2,		// Model LOD ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. 
 };
 
 ///
@@ -349,7 +349,7 @@ enum RENDER_TEXTURE_TYPE
 
 enum CREATE_MATERIAL_TYPE
 {
-	// ÃÖ»óÀ§ 8ºñÆ®´Â º¸´õÄÃ·¯ 
+	// ï¿½Ö»ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ 
 	CREATE_MATERIAL_TYPE_TEXBORDER	= 0x00000001
 
 };
@@ -391,7 +391,7 @@ enum REDNER_TYPE
 	RENDER_TYPE_SPRITE_OPASITY				=	0x00020000,
 	RENDER_TYPE_USE_EFFECT					=	0x00040000,
 
-	// setframe¿¡¼­ »ç¿ëÇÒ ÇÃ·¡±×.ÃÖ»óÀ§ 4ºñÆ®¸¸ »ç¿ëÇÑ´Ù
+	// setframeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½.ï¿½Ö»ï¿½ï¿½ï¿½ 4ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	RENDER_TYPE_UPDATE_COLLISION_BONEMESH_DESC		= 0x10000000,
 	RENDER_TYPE_UPDATE_ILLUSION_FRAME				= 0x20000000,
 	RENDER_TYPE_UPDATE_ALWAYS						= 0X40000000
@@ -426,8 +426,8 @@ enum LIGHT_TEXTURE_CREATE_TYPE
 	LIGHT_TEXTURE_CREATE_PACK_FILE			= 0x00000010
 };
 
-// GXMapObject ¼Ó¼º ÇÃ·¡±× ///////////////////////////////////////////////////////////
-// ÃÖ»óÀ§ 8ºñÆ®´Â GXMAP_OBJECT_COMMON_FLAG ¿µ¿ªÀÌ¹Ç·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+// GXMapObject ï¿½Ó¼ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ///////////////////////////////////////////////////////////
+// ï¿½Ö»ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ GXMAP_OBJECT_COMMON_FLAG ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 enum GXMAP_OBJECT_COMMON_FLAG
 {
 	GXMAP_OBJECT_COMMON_TYPE_NOT_PICKABLE		= 0x01000000,
@@ -442,7 +442,7 @@ enum GXMAP_OBJECT_COMMON_FLAG
 
 enum GXOBJECT_CREATE_TYPE
 {
-	// ÃÖ»óÀ§ 8ºñÆ®´Â GXMAP_OBJECT_COMMON_FLAG ¿µ¿ªÀÌ¹Ç·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+	// ï¿½Ö»ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ GXMAP_OBJECT_COMMON_FLAG ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	GXOBJECT_CREATE_TYPE_OPTIMIZE		= 0x00000001,
 	GXOBJECT_CREATE_TYPE_NOT_OPTIMIZE	= 0x00000000,
 	GXOBJECT_CREATE_TYPE_EFFECT			= 0x00000002,
@@ -454,8 +454,8 @@ enum GXOBJECT_CREATE_TYPE
 #define GXOBJECT_CREATE_TYPE_EFFECT_INVERSE			0xfffffffd
 enum GXLIGHT_TYPE
 {
-	// ÃÖ»óÀ§ 8ºñÆ®´Â GXMAP_OBJECT_COMMON_FLAG ¿µ¿ªÀÌ¹Ç·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
-	GXLIGHT_TYPE_TEX_PROJECTION						= 0x00000000,	// ÀÌ °æ¿ì ÃÖÇÏÀ§ 8ºñÆ®°¡ ¶óÀÌÆ® ÀÎµ¦½º 
+	// ï¿½Ö»ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ GXMAP_OBJECT_COMMON_FLAG ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+	GXLIGHT_TYPE_TEX_PROJECTION						= 0x00000000,	// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ 
 	GXLIGHT_TYPE_ENABLE_SHADOW						= 0x00000200,
 	GXLIGHT_TYPE_ENABLE_SPOT						= 0x00000400,
 	GXLIGHT_TYPE_DISABLE_LIGHT_COLOR				= 0x00000800,
@@ -471,7 +471,7 @@ enum GXLIGHT_TYPE
 
 enum GXTRIGGER_TYPE
 {
-	// ÃÖ»óÀ§ 8ºñÆ®´Â GXMAP_OBJECT_COMMON_FLAG ¿µ¿ªÀÌ¹Ç·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+	// ï¿½Ö»ï¿½ï¿½ï¿½ 8ï¿½ï¿½Æ®ï¿½ï¿½ GXMAP_OBJECT_COMMON_FLAG ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	GXTRIGGER_TYPE_MOVABLE				= 0x00000001
 
 };
@@ -870,22 +870,22 @@ struct LIGHT_TEXTURE
 
 struct VIEW_VOLUME
 {
-	VECTOR3		From;		// Ä«¸Þ¶óÀÇ À§Ä¡.
-	PLANE		Plane[4];	// ¼ø¼­´ë·Î ¿ÞÂÊ, ¿À¸¥ÂÊ, ¾Æ·¡, À§.
+	VECTOR3		From;		// Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡.
+	PLANE		Plane[4];	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Æ·ï¿½, ï¿½ï¿½.
 
-	float		fFar;		// ½ÃÁ¡À¸·ÎºÎÅÍ °¡Àå ¸Õ°÷ÀÇ °Å¸®.
+	float		fFar;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ°ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½.
 	BOOL		bIsOrtho;
 
 	float		fWidth;
 
 	//YH
 	VECTOR3		Points[4];
-	// ÀÌ¾Æ·¡ºÎÅÏ ¾ø¾îµµ µÉ·Á³ª.?
-	//	VECTOR3		To;			// ÀÌ°Ç ÇÊ¿äÀÖ´ÂÁö ¸ð¸£°Ú±º.
-	//	float		fFov;		// Ä«¸Þ¶ó ÁÂ¿ìÀÇ fov.
-	//	float		fHVRatio;	// °¡·Î, ¼¼·Î ºñÀ², ÀÏ¹ÝÀûÀ¸·Î 1.3333Á¤µµ°ÚÁö.
+	// ï¿½Ì¾Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îµµ ï¿½É·ï¿½ï¿½ï¿½.?
+	//	VECTOR3		To;			// ï¿½Ì°ï¿½ ï¿½Ê¿ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ð¸£°Ú±ï¿½.
+	//	float		fFov;		// Ä«ï¿½Þ¶ï¿½ ï¿½Â¿ï¿½ï¿½ï¿½ fov.
+	//	float		fHVRatio;	// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1.3333ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
-	//	VECTOR3		v3SenderPosition;		// ÇÁ·ÎÁ§¼Ç ½¦µµ¿ì¿¡¼­ ¼ö½ÅÀÚ À§Ä¡.
+	//	VECTOR3		v3SenderPosition;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡.
 };
 
 struct MESH_DESC
@@ -911,7 +911,7 @@ struct CAMERA_DESC
 {
 	VECTOR3			v3From;
 	VECTOR3			v3To;
-	VECTOR3			v3Up;			// Ä«¸Þ¶óÀÇ up.
+	VECTOR3			v3Up;			// Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ up.
 	VECTOR3			v3EyeDir;
 	float			fXRot;
 	float			fYRot;
@@ -929,13 +929,13 @@ class CMaterial;
 
 struct FACE_DESC
 {
-	WORD*			pIndex;				// face index ¹è¿­ Æ÷ÀÎÅÍ 
-	DWORD			dwFacesNum;			// face°¹¼ö
-	DWORD			dwMtlIndex;			// ¸ÅÅÍ¸®¾ó ÀÎµ¦½º
+	WORD*			pIndex;				// face index ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	DWORD			dwFacesNum;			// faceï¿½ï¿½ï¿½ï¿½
+	DWORD			dwMtlIndex;			// ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 	MATERIAL*		pMaterial;			// material 
-	TVERTEX*		ptUVLight1;			// ¶óÀÌÆ® ÅØ½ºÃÄ¿ë uvÁÂÇ¥.¸é¼ø¼­¿Í 1:1 ´ëÀÀ 
-	TVERTEX*		ptUVLight2;			// ¶óÀÌÆ® ÅØ½ºÃÄ¿ë uvÁÂÇ¥.¸é¼ø¼­¿Í 1:1 ´ëÀÀ.½ºÅÂÆ½ ¶óÀÌÆ®¸Ê.
-	DWORD*			pdwMtlIndex;		// ¸ÅÅÍ¸®¾ó ÀÎµ¦½º 
+	TVERTEX*		ptUVLight1;			// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ø½ï¿½ï¿½Ä¿ï¿½ uvï¿½ï¿½Ç¥.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1:1 ï¿½ï¿½ï¿½ï¿½ 
+	TVERTEX*		ptUVLight2;			// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ø½ï¿½ï¿½Ä¿ï¿½ uvï¿½ï¿½Ç¥.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1:1 ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½Æ½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½.
+	DWORD*			pdwMtlIndex;		// ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ 
 };
 
 
@@ -1042,6 +1042,8 @@ struct IMAGE_HEADER
 	DWORD				dwHeight;
 	DWORD				dwPitch;
 	DWORD				dwBPS;
+	DWORD				dwFormat;		// çº¹ç†æ ¼å¼ï¼ˆDXGI_FORMATæˆ–D3DFMTï¼‰
+	DWORD				dwMipLevels;	// Mipmapçº§åˆ«æ•°
 };
 struct IMAGE_DESC
 {
@@ -1139,7 +1141,7 @@ struct SYSTEM_STATUS
 
 struct TILE_ENTRY_DESC
 {
-	// 4°¡Áö °æ¿ì¿¡ ´ëÇÑ ÀÎµ¦½º¸®½ºÆ®ÀÇ ¿£Æ®¸®.
+	// 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½.
 	WORD		wTilePosEntry;	
 	WORD		wTilePosNum;
 };
@@ -1169,7 +1171,7 @@ public:
 
 	INDEX_ENTRY_DESC	indexEntryDesc[4];
 
-	// ÀÌ Á¾·ùÀÇ Å¸ÀÏµð½ºÅ©¸³ÅÍ¿¡ ¼ÓÇÑ ÀÎµ¦½ºµéÀÇ ÁýÇÕ.
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ïµï¿½Å©ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	DWORD				dwTilePosNumPri;
 	DWORD				dwTilePosNumExt;
 
@@ -1218,6 +1220,7 @@ struct DISPLAY_INFO
 	DWORD			dwHeight;
 	DWORD			dwRefreshRate;
 	DWORD			dwBPS;
+	BOOL			bWindowed;	// æ˜¯å¦çª—å£æ¨¡å¼
 };
 
 struct TILE_TABLE_DESC
@@ -1273,16 +1276,16 @@ interface I4DyuchiAudio;
 
 typedef DWORD (*GXSoundPROC)(I4DyuchiAudio* pAudio,GXSOUND_HANDLE gxh,DWORD msg,int arg1,int arg2,void* pData);
 
-// ¿©±â¼­ºÎÅÍ Ãß°¡. 2002/01/25
+// ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½. 2002/01/25
 
-struct MAABB		// AABB ¹Ù¿îµù ¹Ú½º.
+struct MAABB		// AABB ï¿½Ù¿ï¿½ï¿½ ï¿½Ú½ï¿½.
 {
 	VECTOR3		Max;
 	VECTOR3		Min;
 };
 
 
-//	Ãæµ¹Ã³¸®¿ë ¹Ù¿îµù º¼·ý.
+//	ï¿½æµ¹Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 enum	BOUNDING_VOLUME_TYPE
 {
 	BOUNDING_VOLUME_TYPE_NONE,
@@ -1292,8 +1295,8 @@ enum	BOUNDING_VOLUME_TYPE
 	BOUNDING_VOLUME_TYPE_AAELLIPSOID2
 };
 
-// 2002/05/25 Ãß°¡.
-// BOUNDING_VOLUE¿¡¼­ ¾²ÀÏ Ãæµ¹ ´ë»ó ÇÃ·¢.
+// 2002/05/25 ï¿½ß°ï¿½.
+// BOUNDING_VOLUEï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½.
 enum COLLISION_TARGET_FLAG
 {
 	COLLISION_TARGET_FLAG_TEST_NONE					=	0x00000000,
@@ -1303,21 +1306,21 @@ enum COLLISION_TARGET_FLAG
 	COLLISION_TARGET_FLAG_TEST_EVENT_TRIGGER		=	0x00000008
 };
 
-//	I3DModel¿¡¼­ °¡Áö°Ô µÈ´Ù.
-//	¾ÆÁ÷ ÇÏ³ªÀÇ MODEL ÆÄÀÏ¿¡ ÇÏ³ª¾¿ÀÇ Ãæµ¹ ±×·ìÀ» °®´Â´Ù...
+//	I3DModelï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
+//	ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ MODEL ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½...
 struct	BOUNDING_VOLUME
 {
-	DWORD				dwType;						// ¹Ù¿îµù º¼·ýÀÇ Å¸ÀÔBOUNDING_VOLUME_TYPE. 
-	VECTOR3				vPivot;						// ·ÎÄÃ ÇÇº¿. v3Axis+vPivotÀÌ ¹°Ã¼ÀÇ ¿ùµåÁÂÇ¥ÀÌ´Ù.
-	float				fRadius;					// ¹Ù¿îµù ½ºÇÇ¾î.
+	DWORD				dwType;						// ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½BOUNDING_VOLUME_TYPE. 
+	VECTOR3				vPivot;						// ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½. v3Axis+vPivotï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½Ì´ï¿½.
+	float				fRadius;					// ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½.
 	float				fHeight;
-	DWORD				dwCollisionTargetFlag;		// COLLISION_TARGET_FLAGÅ¸ÀÔÀÇ ÇÃ·¢.
+	DWORD				dwCollisionTargetFlag;		// COLLISION_TARGET_FLAGÅ¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½.
 };
 
 #define		fFloatMin					1.0f
 
 // 2002/05/23
-// Ãæµ¹Ã³¸® Á¤º¸¸¦ ÀÍ½ºÅ¥Æ¼ºê¸¦ ÅëÇØ exe·Î ³Ñ°ÜÁÙ¶§ »ç¿ëÇÒ ±¸Á¶Ã¼. ÁÖ·Î Å¬·°À» º¸°í, Ãæµ¹Ã³¸® Á¦´ë·Î µÇ¸é ¾ø¾îÁú ³ð.
+// ï¿½æµ¹Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í½ï¿½Å¥Æ¼ï¿½ê¸¦ ï¿½ï¿½ï¿½ï¿½ exeï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼. ï¿½Ö·ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½æµ¹Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 struct	DBG_COLLISION_INFO		
 {
 	//	DWORD	dwCollisionCandidateTri;
@@ -1490,15 +1493,15 @@ struct PERFORMANCE_CONTEXT
 
 struct DECAL_DESC
 {
-	VECTOR3			v3Position;					// µ¥Ä®ÀÌ »ý±â´Â ½ÃÀÛÁ¡.
-	VECTOR3			v3FaceDirection;			// µ¥Ä®ÀÌ º¸´Â ¹æÇâ. 
-	VECTOR3			v3UpDirection;				// µ¥Ä®ÀÇ 'À§'¸¦ ³ªÅ¸³»´Â º¤ÅÍ. µé¾î¿À´Â ÀÖ´Â ±×´ë·Î ¹Ï´Â´Ù.
-	VECTOR3			v3XYZScale;					// °¢ ¼ººÐÀÇ ±æÀÌ. ¿Þ¼Õ ÁÂÇ¥°è ±âÁØÀ¸·Î µ¥Ä®ÀÇ ¿À¸¥ÂÊÀÌ X, À­ÂÊÀÌ Z, È­¸é¹æÇâÀÌ Y.
+	VECTOR3			v3Position;					// ï¿½ï¿½Ä®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	VECTOR3			v3FaceDirection;			// ï¿½ï¿½Ä®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
+	VECTOR3			v3UpDirection;				// ï¿½ï¿½Ä®ï¿½ï¿½ 'ï¿½ï¿½'ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½×´ï¿½ï¿½ ï¿½Ï´Â´ï¿½.
+	VECTOR3			v3XYZScale;					// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Þ¼ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ X, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Z, È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Y.
 	BOOL			bLookAtPivot;
 	//	void*			MaterialHandle;
 	char			szMaterialName[MAX_NAME_LEN];
-	DWORD			dwTextureCoordGenMethod;			// ÅØ½ºÃÄ¸µ ¹æ¹ý. ¾ÆÁ÷ ¹«È¿. ½Ç¸°´õ¸ÅÇÎ¹Û¿¡ ¾ÈµÈ´Ù.
-	DWORD			dwTTL;								// Å¸ÀÓ Åõ ¶óÀÌºê. ÇÁ·¹ÀÓ´ÜÀ§. ¿µ¿øÈ÷ ÇÒ·Á¸é 0xffffffff
+	DWORD			dwTextureCoordGenMethod;			// ï¿½Ø½ï¿½ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿. ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹Û¿ï¿½ ï¿½ÈµÈ´ï¿½.
+	DWORD			dwTTL;								// Å¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ 0xffffffff
 };
 
 struct MULTI_DWORD_KEY
@@ -1515,20 +1518,20 @@ struct SET_FRAME_ARGS
 	DWORD					dwFrame;
 	DWORD					dwMotionIndex;
 	MATRIX4					matBillboard;
-	MATRIX4					matTransform[2]; // 0Àº parent, 1Àº transform
+	MATRIX4					matTransform[2]; // 0ï¿½ï¿½ parent, 1ï¿½ï¿½ transform
 	MATRIX4					matWorldForPhysique;
 	DWORD					dwFlag;
 };
 
 struct FONT_PROPERTY_DESC
 {
-	// ³»¿ë °íÁ¤ 
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	HFONT	hFont;
 	int		iWidth;
 	int		iHeight;
 
 
-	// ³»¿ëÀÌ ¹Ù²ð ºí·°.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	DWORD			dwColor;	
 	char*			pszString;
 	DWORD			dwStrLen;
@@ -1586,43 +1589,43 @@ enum TRANSFORM_MATRIX_TYPE
 
 struct	AFTER_INTERPOLATION_CALL_BACK_ARG
 {
-	DWORD		dwIncreasedTick;					// ÃÖ±Ù °ÔÀÓ ÇÁ·¹ÀÓ¿¡¼­ Áõ°¡µÈ Æ½ Ä«¿îÆ®.
-	DWORD		dwTickPerFrame;						// ÇÑ ÇÁ·¹ÀÓ´ç ¹èÁ¤µÈ Æ½.   dwIncreasedTickÀÇ ÃÖ´ë°ªÀÌ´Ù.
+	DWORD		dwIncreasedTick;					// ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ½ Ä«ï¿½ï¿½Æ®.
+	DWORD		dwTickPerFrame;						// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ½.   dwIncreasedTickï¿½ï¿½ ï¿½Ö´ë°ªï¿½Ì´ï¿½.
 };
 
 typedef DWORD (__stdcall *AfterInterpolationCallBack)( AFTER_INTERPOLATION_CALL_BACK_ARG* pArg);
-// ÀÍ½ºÅ¥Æ¼ºê::Run()¿¡¼­ À§Ä¡º¸°£°ú ·£´õ¸µ »çÀÌ¿¡ È£ÃâµÇ´Â ÄÝ¹é.
-// Ä«¸Þ¶ó¸¦ Ä³¸¯ÅÍ¿¡ ºÙÀÌ°Å³ªÇÒ ¶§ ¾²¸é À¯¿ëÇÏ´Ù.
+// ï¿½Í½ï¿½Å¥Æ¼ï¿½ï¿½::Run()ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ý¹ï¿½.
+// Ä«ï¿½Þ¶ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½Ì°Å³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 
-// Ãà¹æÇâ Å¸¿øÃ¼. Ãæµ¹Ã³¸® µî¿¡ ¾²ÀÎ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Ã¼. ï¿½æµ¹Ã³ï¿½ï¿½ ï¿½î¿¡ ï¿½ï¿½ï¿½Î´ï¿½.
 struct	AAELLIPSOID
 {
-	VECTOR3		P;			// ÇÇº¿, Àý´ë°ª.
-	float		w;			// x, zÂÊ Áö¸§.
-	float		h;			// yÃàÂÊ ³ôÀÌ.
+	VECTOR3		P;			// ï¿½Çºï¿½, ï¿½ï¿½ï¿½ë°ª.
+	float		w;			// x, zï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	float		h;			// yï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 };
 
-// Ãæµ¹Ã³¸® ÇÔ¼ö ³»ºÎ¿¡¼­ ¾²ÀÌ´Â ±¸Á¶Ã¼.
+// ï¿½æµ¹Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼.
 struct	COLLISION_RESULT
 {
-	float		fMeetTime;					// ¸¸³¯¶§ÀÇ ½ÃÁ¡.
-	VECTOR3		vWhereMeet;					// ¸¸³ª´Â Á¡.
-	VECTOR3		vMeetPivot;					// ¸¸³¯¶§ÀÇ ¿ÀºêÁ§Æ®ÀÇ ÁßÁ¡.
-	PLANE		MeetPlane;					// ¸¸³ª´Â ¸é.
-	DWORD		dwComponentType;			// »ï°¢ÇüÀÇ ¾îµð¿¡ ¸¸³µ³ª.?
+	float		fMeetTime;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	VECTOR3		vWhereMeet;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+	VECTOR3		vMeetPivot;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	PLANE		MeetPlane;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+	DWORD		dwComponentType;			// ï¿½ï°¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.?
 };
 
-// CoGXObject¿¡¼­ È£ÃâÇÏ´Â Ãæµ¹Ã³¸® ÇÔ¼öÀÇ ¸®ÅÏº§·ù.
+// CoGXObjectï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½.
 struct	COLLISION_TEST_RESULT
 {
 	VECTOR3		Candidate;
 	VECTOR3		LastVelocity;
 	//	VECTOR3		To;
-	BOOL		bLand;				// ¶¥¿¡ ´ê¾Æ ÀÖ´Â°¡.?
+	BOOL		bLand;				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½.?
 };
 
 typedef DWORD (__stdcall *CollisionTestCallBackProcedure)(COLLISION_RESULT*	pResult);
-// Áö¿À¸ÞÆ®¸®¿¡¼­ Ãæµ¹Ã³¸®¶§ ¾²ÀÏ ÄÝ¹é.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½.
 
 
 

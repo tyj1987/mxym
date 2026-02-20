@@ -4,6 +4,7 @@
 
 #if !defined(AFX_PKMANAGER_H__7471A7CD_E158_427A_B1A1_6E6943F84662__INCLUDED_)
 #define AFX_PKMANAGER_H__7471A7CD_E158_427A_B1A1_6E6943F84662__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "MHError.h"
+#include "ServerSystem.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

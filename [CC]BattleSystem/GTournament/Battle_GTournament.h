@@ -7,14 +7,21 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 
 #include "Battle.h"
 #include "BattleTeam_GTournament.h"
 
-#ifndef _MAPSERVER_
-#include "../ImageNumber.h"
+#ifdef _MHCLIENT_LIBRARY_
+#include "../ImageNumber_Client.h"
+#include "../cImage.h"
+#elif defined(_MHCLIENT_)
+#include "../[Client]MH/ImageNumber.h"
+#include "../cImage.h"
 #endif
 
 
@@ -24,7 +31,7 @@ struct BATTLE_INFO_GTOURNAMENT : public BATTLE_INFO_BASE
 	DWORD					m_dwFightTime;
 	DWORD					m_dwLeaveTime;
 	DWORD					m_dwGroup;				
-	DWORD					Ranking;				// ¸î °­ÀÎÁö
+	DWORD					Ranking;				//  
 	GTTEAM_MEMBERINFO		MemberInfo;
 };
 
@@ -42,6 +49,7 @@ class CBattle_GTournament : public CBattle
 #ifndef _MAPSERVER_
 	DWORD			m_GuildIdx[2];
 
+	#ifdef _MHCLIENT_LIBRARY_
 	CImageNumber	m_ImageNumber;
 
 	cImage			m_ImageWin;
@@ -53,6 +61,19 @@ class CBattle_GTournament : public CBattle
 	VECTOR2			m_vTitleScale;
 
 	DWORD			m_RenderTime;
+	#elif defined(_MHCLIENT_)
+	// MHClientç¼–è¯‘æ¨¡å¼ï¼šè¿™äº›æˆå‘˜ç”±MHClientçš„å®ç°å®šä¹‰
+	CImageNumber	m_ImageNumber;
+	cImage			m_ImageWin;
+	cImage			m_ImageLose;
+	cImage			m_ImageStart;
+	cImage*			m_pCurShowImage;
+
+	VECTOR2			m_vTitlePos;
+	VECTOR2			m_vTitleScale;
+
+	DWORD			m_RenderTime;
+	#endif
 #endif
 
 
@@ -88,11 +109,11 @@ public:
 	virtual BOOL IsEnemy(CObject* pOperator,CObject* pTarget);
 	virtual BOOL IsFriend(CObject* pOperator,CObject* pTarget);
 
-	virtual BOOL Judge();		// Judge¿¡¼­ Victory³ª Draw ÇÔ¼ö¸¦ È£ÃâÇØÁÖ¾î¾ß ÇÑ´Ù.
+	virtual BOOL Judge();		// Judge Victory Draw Ô¼ È£Ö¾ Ñ´.
 	BOOL JudgeMemberExist();
-	BOOL JudgeMemberKill();			// ¸¹ÀÌ Á×ÀÎ Kill ¼ö
-	BOOL JudgeMemberLevel();		// »ì¾Æ³²Àº »ç¶÷ÀÇ LevelÀÇ ÇÕÀÌ ³·ÀºÂÊ
-	BOOL JudgeMemberLevelExp();		// »ì¾Æ³²Àº »ç¶÷ÀÇ °æÇèÄ¡ ÃÑÇÕÀÌ ³·ÀºÂÊ
+	BOOL JudgeMemberKill();			//   Kill 
+	BOOL JudgeMemberLevel();		// Æ³  Level  
+	BOOL JudgeMemberLevelExp();		// Æ³  Ä¡  
 	virtual void OnFightStart();
 	virtual void Victory(int WinnerTeamNum,int LoserTeamNum);
 	virtual void Draw();

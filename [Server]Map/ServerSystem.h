@@ -4,15 +4,18 @@
 
 #if !defined(AFX_SERVERSYSTEM_H__FD3EBFC3_EE3D_4505_A5A1_24DA471D20AB__INCLUDED_)
 #define AFX_SERVERSYSTEM_H__FD3EBFC3_EE3D_4505_A5A1_24DA471D20AB__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
+// æœåŠ¡å™¨ä¸“ç”¨ï¼šç¡®ä¿åªåœ¨æœåŠ¡å™¨ç¼–è¯‘æ—¶å®šä¹‰è¿™äº›ç±»å‹
+#ifdef _MAPSERVER_
 
 #include "MHMap.h"
-#include "IndexGenerator.h"
-//#include "PtrList.h"
+#include "D:\mxym\[Lib]YHLibrary\IndexGenerator.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 class CObject;
 class CGridSystem;
 
@@ -27,7 +30,7 @@ class CSkillObject;
 class CBossMonster;
 class CMapObject;
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 class CFieldBossMonster;
 class CFieldSubMonster;
 
@@ -37,15 +40,15 @@ enum eNATION
 	eNATION_CHINA,
 };
 
-enum{ePET_FROM_DB, ePET_FROM_ITEM};		//DB·ÎºÎÅÍ Æê»ı¼º, ¼ÒÈ¯¾ÆÀÌÅÛ Ã¹»ç¿ëÀ¸·Î ÆÖ»ı¼º
+enum{ePET_FROM_DB, ePET_FROM_ITEM};		//DBï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö»ï¿½ï¿½ï¿½
 
 enum eMapKind
 {
 	eNormalMap,
 	eSurvival,
 	//eRunningMap,
-	eGTMap,	//¹®ÆÄÀü¸Ê
-	eSGMap, //°ø¼ºÀü¸Ê
+	eGTMap,	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSGMap, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 struct WAIT_EXIT_PLAYER_INFO
@@ -71,10 +74,10 @@ class CServerSystem
 	
 	WORD	m_wMapNum;
 
-	//SW061019 ¸Ê¼º°İ
+	//SW061019 ï¿½Ê¼ï¿½ï¿½ï¿½
 	WORD	m_iMapKind;
 	
-//±¹°¡
+//ï¿½ï¿½ï¿½ï¿½
 	int		m_Nation;
 
 	cPtrList									m_listWaitExitPlayer;
@@ -91,7 +94,7 @@ class CServerSystem
 public:
 	DWORD GetMainProcessTime() { return m_dwMainProcessTime; }
 
-	// RaMa - ·º»çÈ®ÀÎ¿ë
+	// RaMa - ï¿½ï¿½ï¿½ï¿½È®ï¿½Î¿ï¿½
 	MSG_PROSESSINFO		m_ProcessInfo;
 	BOOL				m_bCheckInfo;
 	void CheckServerInfo( DWORD ObjectID );
@@ -100,7 +103,7 @@ public:
 public:
 
 #ifdef _CHINA_LOCAL_
-//»ç¹æ
+//ï¿½ï¿½ï¿½
  	SYSTEMTIME		m_NoPV;
  	int				m_NoPCode;
  	char			m_NoP[128];
@@ -113,7 +116,7 @@ public:
 
 	void AddWaitExitPlayer( DWORD dwAgentConnetionIndex, DWORD dwPlayerID );
 	void ProcessWaitExitPlayer();
-//±¹°¡
+//ï¿½ï¿½ï¿½ï¿½
 	void SetNation();
 	int GetNation() { return m_Nation; }
 
@@ -151,12 +154,12 @@ public:
 	CMonster* AddMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos,WORD wObjectKind = 32);
 	CBossMonster* AddBossMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos);
 	
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 	CFieldBossMonster* AddFieldBossMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos);
 	CFieldSubMonster* AddFieldSubMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos);
 	
 	//CNpc* AddNpc(BASEOBJECT_INFO* pBaseObjectInfo,NPC_TOTALINFO* pTotalInfo,VECTOR3* pPos);
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	CNpc* AddNpc(BASEOBJECT_INFO* pBaseObjectInfo,NPC_TOTALINFO* pTotalInfo,VECTOR3* pPos,float angle = 0);
 
 	CTacticObject* AddTacticObject(BASEOBJECT_INFO* pBaseObjectInfo,CTacticStartInfo* pInfo,CPlayer* pOperator,DIRINDEX Direction);
@@ -182,7 +185,7 @@ public:
 	void ReloadResourceData();
 	
 	//////////////////////////////////////////////////////////////////////////
-	// Npc AI°ü·Ã ÇÔ¼öµé
+	// Npc AIï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½
 	//void MonsterStateProc();	
 
 	void	SetCharUpdateCompletion(BOOL bVal)	{ m_bCompletionChrUpdate = bVal;	}
@@ -192,6 +195,8 @@ public:
 
 	void	LoadHackCheck();
 };
+
+#endif // _MAPSERVER_
 
 void GameProcess();
 void _5minGameProcess();

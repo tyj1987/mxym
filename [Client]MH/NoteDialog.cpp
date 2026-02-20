@@ -25,6 +25,7 @@ CNoteDialog::CNoteDialog()
 
 CNoteDialog::~CNoteDialog()
 {
+int i;
 
 }
 
@@ -36,6 +37,7 @@ void CNoteDialog::Init(LONG x, LONG y, WORD wid, WORD hei, cImage * basicImage, 
 
 void CNoteDialog::Linking()
 {
+	int i;  // ‰øÆÂ§çC2065: Âú®ÂáΩÊï∞‰ΩúÁî®ÂüüÂ£∞Êòéi
 	//////////////////////////////////////////////////////////////////////////
 	//eNoteMode_List
 	m_pWriteNoteBtn = (cButton*)GetWindowForID(NOTE_WRITENOTEBTN);
@@ -44,7 +46,7 @@ void CNoteDialog::Linking()
 	m_pPsNoteBtn = (cPushupButton*)GetWindowForID(NOTE_TABBTN2);
 
 	m_pNoteListLCtrl = (cListCtrl*)GetWindowForID(NOTE_NOTELISTLCTL);
-	for(int i=0; i<NOTENUM_PER_PAGE; ++i)
+	for( i=0; i<NOTENUM_PER_PAGE; ++i)
 	{
 		m_pNoteChk[i] = (cCheckBox*)GetWindowForID(NOTE_NOTELISTCHK1+i);
 	}
@@ -121,7 +123,7 @@ void CNoteDialog::SetNoteList(MSG_FRIEND_NOTE_LIST* pmsg)
 		{
 			cRITEMEx *ritem = new cRITEMEx(2);
 			
-			//¿Ã∏ß 6±€¿⁄ ±Ó¡ˆ ∫∏ø©¡ÿ¥Ÿ. 
+			//ÔøΩÃ∏ÔøΩ 6ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÿ¥ÔøΩ. 
 			char Name[13] = {0,};
 			int Len = strlen( pmsg->NoteList[i].FromName ); 
 			if(Len > 12)
@@ -153,16 +155,18 @@ void CNoteDialog::SetNoteList(MSG_FRIEND_NOTE_LIST* pmsg)
 
 void CNoteDialog::RefreshDlg()
 {
+int i;
 
 }
 
 void CNoteDialog::CheckedNoteID()
 {
+	int i;  // ‰øÆÂ§çC2065: Âú®ÂáΩÊï∞‰ΩúÁî®ÂüüÂ£∞Êòéi
 	DWORD IDs[NOTENUM_PER_PAGE];
-	SelectedNoteIDChk(NOTENUM_PER_PAGE,NOTE_NOTELISTCHK1,m_pNoteListLCtrl,IDs);	
-	
+	SelectedNoteIDChk(NOTENUM_PER_PAGE,NOTE_NOTELISTCHK1,m_pNoteListLCtrl,IDs);
+
 	int lastidx = 0;
-	for(int i=0;i<NOTENUM_PER_PAGE;++i)
+	for( i=0;i<NOTENUM_PER_PAGE;++i)
 	{
 		if(IDs[i] != 0)
 			lastidx = i;

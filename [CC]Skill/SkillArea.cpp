@@ -6,12 +6,12 @@
 #include "SkillArea.h"
 
 #ifdef _MAPSERVER_
-#include "TileManager.h"
-#include "ServerSystem.h"
+#include "..\[Server]Map\TileManager.h"
+#include "..\[CC]Header\ServerSystem.h"
 #else if _MHCLIENT_
 #include "Effect/EffectManager.h"
 #include "MHMap.h"
-#include "TileManager.h"
+#include "..\[Server]Map\TileManager.h"
 #endif
 
 #define ISDAMAGETILE(tile)		(tile&SKILLAREA_ATTR_DAMAGE)

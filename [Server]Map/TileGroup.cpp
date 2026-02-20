@@ -91,7 +91,7 @@ CTileGroup::CTileGroup()
 			float fx,fz;
 			fx = temp.nx*cosf(angle) - temp.nz*sinf(angle);
 			fz = temp.nx*sinf(angle) + temp.nz*cosf(angle);
-			// float °è»ê ¿ÀÂ÷¶§¹®¿¡
+			// float ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_AddPos[n][i].nx = int(fx + (fx>0?0.1f:-0.1f));
 			m_AddPos[n][i].nz = int(fz + (fz>0?0.1f:-0.1f));
 
@@ -100,7 +100,7 @@ CTileGroup::CTileGroup()
 	}
 
 	m_ppObjectSizeRegion = new TILEINDEX*[MAX_ObjectSize];
-	for(n=0;n<MAX_ObjectSize;++n)
+	for(int n=0;n<MAX_ObjectSize;++n)
 	{
 		m_ppObjectSizeRegion[n] = new TILEINDEX[TM_ObjectRegionNum[n]];
 		for(int t=0;t<TM_ObjectRegionNum[n];++t)
@@ -147,7 +147,7 @@ TILEINDEX CTileGroup::GetTileIndex(float fx, float fz)
 		rt.nz > m_nTileHeight ||
 		rt.nx < 0 || rt.nz < 0 )
 	{
-		//ASSERTMSG(0,"ÁÂÇ¥°¡ ÀÌ»óÇÕ´Ï´Ù[CTileManager]");
+		//ASSERTMSG(0,"ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Õ´Ï´ï¿½[CTileManager]");
 		rt.nx = 0;
 		rt.nz = 0;
 		return rt;
@@ -223,7 +223,7 @@ BOOL CTileGroup::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObject)
 	{
 		ObjectCurTilePos = pObject->GetPreoccupiedTileIndex();
 		
-		// ÀÚ¸®¸¦ ¹ï´Ù°¡
+		// ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ù°ï¿½
 		for(int n=0;n<TM_ObjectRegionNum[size];++n)
 		{
 			CurTileIndex = ObjectCurTilePos + m_ppObjectSizeRegion[size][n];
@@ -234,7 +234,7 @@ BOOL CTileGroup::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObject)
 		}
 	}
 
-	// °Ë»ç¸¦ ÇÏ°í
+	// ï¿½Ë»ç¸¦ ï¿½Ï°ï¿½
 	for(int n=0;n<TM_ObjectRegionNum[size];++n)
 	{
 		CurTileIndex = *pCenterTile + m_ppObjectSizeRegion[size][n];
@@ -256,7 +256,7 @@ BOOL CTileGroup::IsPreoccupied(int size,TILEINDEX* pCenterTile,CObject* pObject)
 
 	if(pObject)
 	{
-		// ´Ù½Ã Ã¤¿ö³Ö´Â´Ù.
+		// ï¿½Ù½ï¿½ Ã¤ï¿½ï¿½ï¿½Ö´Â´ï¿½.
 		for(int n=0;n<TM_ObjectRegionNum[size];++n)
 		{
 			CurTileIndex = ObjectCurTilePos + m_ppObjectSizeRegion[size][n];
@@ -312,7 +312,7 @@ VECTOR3	CTileGroup::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECTOR
 {
 	int size = pObject->GetObjectTileSize();
 	//////////////////////////////////////////////////////////////////////////
-	// ¹æÇâ ±¸ÇÏ±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 	int dir;
 	VECTOR3 vdir =  *pCurPos - *pTargetPos;
 	float angle = RADTODEG(VECTORTORAD(vdir));
@@ -335,7 +335,7 @@ VECTOR3	CTileGroup::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECTOR
 		}
 		if(m_AddDistance[n] > limitDist)
 		{
-			n = MAX_ADDPos - 1;			// °Å¸®°¡ ¸Ö¸é ±×³É ¸¶Áö¸·À¸·Î ³Ñ°Ü¹ö¸²
+			n = MAX_ADDPos - 1;			// ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½Ö¸ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½
 			EmptyTile = m_AddPos[dir][n] + TargetIndex;
 		}
 		
@@ -346,7 +346,7 @@ VECTOR3	CTileGroup::GetNextCloserPos(CObject* pObject,VECTOR3* pTargetPos,VECTOR
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 50cm Å¸ÀÏÀÇ Áß¾Ó¿¡ ¼­°Ô ÇÑ´Ù.
+	// 50cm Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	float TileWidth = 50;
 	VECTOR3 EmptyPos;
 	EmptyPos.x = EmptyTile.nx * TileWidth + TileWidth * 0.5f;

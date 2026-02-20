@@ -4,17 +4,19 @@
 
 #if !defined(AFX_SERVERTABLE_H__C42B519F_767C_4291_B2DA_5F077251C100__INCLUDED_)
 #define AFX_SERVERTABLE_H__C42B519F_767C_4291_B2DA_5F077251C100__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
 //--------------------------------------------------------------------------
-// ¼­¹ö Á¤º¸¸¦ °¡Áö°í ÀÖ´Â Å¬·¡½º
-// Á¤º¸¸¦ ·ÎµåÇÏÁö ¾Ê´Â´Ù.
-// ¼­¹ö°ü·Ã½ºÅ¸Æ®µµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½Å¸Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //--------------------------------------------------------------------------
-#include <HashTable.h>
+#include "..\[CC]Header\ServerGameStruct.h"
+#include "D:\mxym\[Lib]YHLibrary\hashtable.h"
 
 
 enum eSERVER_KIND
@@ -30,7 +32,7 @@ class CServerTable  : public CYHHashTable<SERVERINFO>
 {
 /*
 #ifdef __AGENTSERVER__
-	WORD				m_MapIDMapNum[MAX_MAP_NUM];		// MapIDµî·ÏÇÏ´Â º¯¼ö.
+	WORD				m_MapIDMapNum[MAX_MAP_NUM];		// MapIDï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
 #endif //__AGENTSERVER__*/
 
 
@@ -44,14 +46,14 @@ public:
 	void Release();
 
 
-	//---- Á¤º¸ Ã³¸® ¸â¹ö(ÇØ½¬·Î Ã³¸®)
+	//---- ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½Ø½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½)
 	SERVERINFO * FindServer(WORD Port);
 	SERVERINFO* FindServerForConnectionIndex(DWORD dwConnectionIndex);
 	void AddServer(SERVERINFO * info, WORD Port);
-	SERVERINFO * RemoveServer(DWORD dwConnectionIndex);			// key°¡ ¾Æ´Ô & ¸®ÅÏµÇ´Â SERVERINFO(Èü ¸Þ¸ð¸®)Áö¿ö¾ß ÇÔ
+	SERVERINFO * RemoveServer(DWORD dwConnectionIndex);			// keyï¿½ï¿½ ï¿½Æ´ï¿½ & ï¿½ï¿½ï¿½ÏµÇ´ï¿½ SERVERINFO(ï¿½ï¿½ ï¿½Þ¸ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	SERVERINFO * RemoveServer(WORD wKey);
-	void RemoveServerForKind(WORD wSrvKind);					// ¼­¹ö Á¾·ùº°·Î ²÷±â
-	void RemoveAllServer();										// HASH¿¡ ¹°·ÁÀÖ´Â SERVERINFO(Èü¸Þ¸ð¸®)±îÁö ´Ù Áö¿ò
+	void RemoveServerForKind(WORD wSrvKind);					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void RemoveAllServer();										// HASHï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ SERVERINFO(ï¿½ï¿½ï¿½Þ¸ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	SERVERINFO* GetNextServer();
 	SERVERINFO* GetNextDistServer();
@@ -60,7 +62,7 @@ public:
 	
 	void AddSelfServer(SERVERINFO * info);
 	void AddMSServer(SERVERINFO * info);
-	//---- Á¤º¸ ¾ò´Â ¸â¹ö
+	//---- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	SERVERINFO * GetSelfServer(){ return m_pSelfServerInfo; }
 	SERVERINFO * GetMSServer(){ return m_pMSServerInfo; }
 

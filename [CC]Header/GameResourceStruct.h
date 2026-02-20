@@ -1,6 +1,10 @@
 #ifndef __GAMERESOURCESTRUCT_H__
 #define __GAMERESOURCESTRUCT_H__
 
+#include "CommonDefine.h"
+#include "CommonGameDefine.h"
+#include "CommonGameStruct.h"
+#include "../4DyuchiGRX_common/typedef.h"
 
 class ITEM_MIX_INFO;
 class ITEM_MIX_RES;
@@ -11,16 +15,16 @@ class CSkillInfo;
 //#define MAX_ITEMNAME_LENGTH	30
 
 //-----------------------------------------------------------------------
-//	Á÷¾÷º° ±âº» Æ÷ÀÎÆ® ¼öÄ¡¿Í ·¹º§¾÷½Ã Æ÷ÀÎÅÍ °¡ÁßÄ¡
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 //-----------------------------------------------------------------------
 struct CharBasicStats
 {
-	WORD	wGenGol;						// ±Ù°ñ
-	WORD	wMinChub;							// ¹ÎÃ¸
-	WORD	wCheRyuk;							// Ã¼·Â
-	WORD	wSimMek;						// ½É¸Æ
-	//»õ·Î¿î ±âÈ¹ ¼öÁ¤À¸·Î ¾ø¾îÁü
-	//BYTE	BonusPoint;						// º¸³Ê½º Æ÷ÀÎÆ® general-15
+	WORD	wGenGol;						// ï¿½Ù°ï¿½
+	WORD	wMinChub;							// ï¿½ï¿½Ã¸
+	WORD	wCheRyuk;							// Ã¼ï¿½ï¿½
+	WORD	wSimMek;						// ï¿½É¸ï¿½
+	//ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½È¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//BYTE	BonusPoint;						// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® general-15
 };
 class RECALLINFO
 {
@@ -106,56 +110,56 @@ protected:
 	
 };
 //-----------------------------------------------------------------------
-// ¸ó½ºÅÍ ¸®½ºÆ® Á¤º¸
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 
 class BASE_MONSTER_LIST
 {
 public:
 	
-	WORD		MonsterKind;			// ¹øÈ£
-	WORD		ObjectKind;				// Object¹øÈ£ 32 ÀÏ¹Ý 33 º¸½º 35 ÇÊµåº¸½º 36 ÇÊµåº¸½ººÎÇÏ
-	char		Name[MAX_MONSTER_NAME_LENGTH +1];				// ¸ó½ºÅÍÀÌ¸§	
-	char		EngName[MAX_NAME_LENGTH+1];			// ¿µ¾îÀÌ¸§
-	LEVELTYPE	Level;					// ¸ó½ºÅÍ·¹º§	
-	int			MoveDramaNum;				// ÀÌµ¿¿¬Ãâ ¹øÈ£	
+	WORD		MonsterKind;			// ï¿½ï¿½È£
+	WORD		ObjectKind;				// Objectï¿½ï¿½È£ 32 ï¿½Ï¹ï¿½ 33 ï¿½ï¿½ï¿½ï¿½ 35 ï¿½Êµåº¸ï¿½ï¿½ 36 ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	char		Name[MAX_MONSTER_NAME_LENGTH +1];				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½	
+	char		EngName[MAX_NAME_LENGTH+1];			// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	LEVELTYPE	Level;					// ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½	
+	int			MoveDramaNum;				// ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
 	DWORD		MotionID;
-	char		ChxName[MAX_CHXNAME_LENGTH];			// ¸ó½ºÅÍ CHX_Index	
-	float		Scale;					// ¸ó½ºÅÍ Å©±â	
-	DWORD		Gravity;				// ¸ó½ºÅÍ ºñÁß
-	float		Weight;					// ¸ó½ºÅÍ ¹«°Ô	
+	char		ChxName[MAX_CHXNAME_LENGTH];			// ï¿½ï¿½ï¿½ï¿½ CHX_Index	
+	float		Scale;					// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½	
+	DWORD		Gravity;				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float		Weight;					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
 	DWORD		MonsterRadius;
-	DWORD		Life;					// »ý¸í·Â	
-	DWORD		Shield;					// È£½Å°­±â	
-	DWORD		ExpPoint;				// °æÇèÄ¡
+	DWORD		Life;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	DWORD		Shield;					// È£ï¿½Å°ï¿½ï¿½ï¿½	
+	DWORD		ExpPoint;				// ï¿½ï¿½ï¿½ï¿½Ä¡
 	WORD		Tall;					// Å°
 
-	WORD		AttackPhysicalMin;// °ø°Ý ÃÖ¼Ò¹°¸® °ø°Ý·Â	
-	WORD		AttackPhysicalMax;// °ø°Ý ÃÖ´ë¹°¸® °ø°Ý·Â
-	WORD		CriticalPercent;// Å©¸®Æ¼ÄÃ ÆÛ¼¾Æ®
-	WORD		PhysicalDefense;// ¹°¸® ¹æ¾î·Â	
-	ATTRIBUTEREGIST AttribResist;		// ¼Ó¼ºÀúÇ×·Â
+	WORD		AttackPhysicalMin;// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½	
+	WORD		AttackPhysicalMax;// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë¹°ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
+	WORD		CriticalPercent;// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Û¼ï¿½Æ®
+	WORD		PhysicalDefense;// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+	ATTRIBUTEREGIST AttribResist;		// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½
 
-	WORD		WalkMove;// ¸ó½ºÅÍ°È±âÀÌµ¿·Â	
-	WORD		RunMove;// ¸ó½ºÅÍ¶Ù±âÀÌµ¿·Â	
-	WORD		RunawayMove;// ¸ó½ºÅÍµµ¸ÁÀÌµ¿·Â
+	WORD		WalkMove;// ï¿½ï¿½ï¿½Í°È±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+	WORD		RunMove;// ï¿½ï¿½ï¿½Í¶Ù±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+	WORD		RunawayMove;// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½
 
-	int			Damage1DramaNum;// ¸ÂÀ½ 1 ¿¬Ãâ ¹øÈ£	
-	int			Die1DramaNum;// Á×À½ 1 ¿¬Ãâ ¹øÈ£	
-	int			Die2DramaNum;// Á×À½ 2 ¿¬Ãâ ¹øÈ£	
+	int			Damage1DramaNum;// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+	int			Die1DramaNum;// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+	int			Die2DramaNum;// ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
 
 	DWORD		StandTime;
 	BYTE		StandRate;
 	BYTE		WalkRate;
 	BYTE		RunRate;
-	DWORD		DomainRange;					// ¿µ¿ª ¹üÀ§ : ¹ÝÁö¸§
+	DWORD		DomainRange;					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD		PursuitForgiveTime;
 //	DWORD		PursuitForgiveStartTime;		//not inclue in txt list
 	DWORD		PursuitForgiveDistance;	
 
-	BOOL		bForeAttack;					// ¼±°ø°Ý
-	DWORD		SearchPeriodicTime;				// Å½»ö ÁÖ±â
-	WORD		TargetSelect;					// Å¸°Ù ¼±ÅÃ : FIND_CLOSE, FIND_FIRST
+	BOOL		bForeAttack;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD		SearchPeriodicTime;				// Å½ï¿½ï¿½ ï¿½Ö±ï¿½
+	WORD		TargetSelect;					// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : FIND_CLOSE, FIND_FIRST
 	DWORD		SearchRange;
 	DWORD		SearchAngle;
 	WORD		TargetChange;
@@ -196,30 +200,30 @@ public:
 class MONSTEREX_LIST : public BASE_MONSTER_LIST
 {
 public:
-	MONEYTYPE MinDropMoney;				// ÃÖ¼Òµ· ¾×¼ö	
-	MONEYTYPE MaxDropMoney;				// ÃÖ´ë µ· ¾×¼ö	
+	MONEYTYPE MinDropMoney;				// ï¿½Ö¼Òµï¿½ ï¿½×¼ï¿½	
+	MONEYTYPE MaxDropMoney;				// ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½×¼ï¿½	
 
 	
 	WORD DropRate[eDROPITEMKIND_MAX];
 	
-	// ¼­¹ö¿¡¼­ »ç¿ë
-	// ÃÊ±âÈ­°¡ ÇÊ¿ä!!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	// ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ê¿ï¿½!!
 	WORD CurDropRate[eDROPITEMKIND_MAX];
 
 
-	WORD ItemListNum1;				// ÇØ´ç¾ÆÀÌÅÛ1¸®½ºÆ®Ç¥¹øÈ£
-	WORD ItemListNum2;				// ÇØ´ç¾ÆÀÌÅÛ2¸®½ºÆ®Ç¥¹øÈ£ - Ãß°¡ 
-	WORD ItemListNum3;				// ÇØ´ç¾ÆÀÌÅÛ3¸®½ºÆ®Ç¥¹øÈ£ - Ãß°¡ 
+	WORD ItemListNum1;				// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£
+	WORD ItemListNum2;				// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£ - ï¿½ß°ï¿½ 
+	WORD ItemListNum3;				// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£ - ï¿½ß°ï¿½ 
 
 
-	BYTE MaxDropItemNum;			// ÃÖ´ë¾ÆÀÌÅÛ °¹¼ö
+	BYTE MaxDropItemNum;			// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	float fRunawayLifeRate;			// »ý¸í·Â È®·ü 0~100
-	WORD RunawayRate;				// µµ¸Á È®·ü
-	WORD RunawayHelpRate;			// µµ¸Á µµ¿òÈ®·ü
-	WORD RunawayDistance;			// µµ¸Á °Å¸®
+	float fRunawayLifeRate;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 0~100
+	WORD RunawayRate;				// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+	WORD RunawayHelpRate;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½
+	WORD RunawayDistance;			// ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
 
-	WORD Talk1;						// ´ë»ç 1
+	WORD Talk1;						// ï¿½ï¿½ï¿½ 1
 	WORD Talk2;				
 	WORD Talk3;
 
@@ -232,7 +236,7 @@ public:
 	WORD RecallObjectNum;	
 };
 //////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ chx ÆÄÀÏÀÇ ¸®½ºÆ®
+// ï¿½ï¿½ï¿½ï¿½ chx ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 //////////////////////////////////////////////////////////////////////////
 typedef struct _CHXLIST
 {
@@ -240,32 +244,32 @@ typedef struct _CHXLIST
 }CHXLIST;
 
 //-----------------------------------------------------------------------
-// Æê ¸®½ºÆ® Á¤º¸
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 #define MAX_PET_GRADE	3
 struct BASE_PET_LIST
 {
-	DWORD	PetKind;	//Æê ÀÎµ¦½º
-	char	Name[MAX_NAME_LENGTH+1];	//ÀÌ¸§
+	DWORD	PetKind;	//ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	char	Name[MAX_NAME_LENGTH+1];	//ï¿½Ì¸ï¿½
 	//PetGrade;
-	DWORD	MotionID;	//¸ð¼Çµ¦ID
+	DWORD	MotionID;	//ï¿½ï¿½Çµï¿½ID
 	WORD	Pet2DIdx;
 	char	ChxName_PerGrade[MAX_PET_GRADE][MAX_CHXNAME_LENGTH];
-	float	Scale;		//½ºÄÉÀÏ
-	WORD	SummonLevel;	//¼ÒÈ¯·¾Á¦
-	WORD	Tall[MAX_PET_GRADE];	//ÀÌ¸§Ãâ·ÂÀ§Ä¡
-	float	SpeedFromHero;	//ÁÖÀÎ°úÀÇ ¼Óµµ Â÷ÀÌ/±âÈ¹¼­¿¡ ¾øÀ½
-	WORD	SkillIdx[MAX_PET_GRADE];	//»ç¿ë½ºÅ³ÀÎµ¦½º
-	CSkillInfo*	SkillInfo[MAX_PET_GRADE];//»ç¿ë½ºÅ³Á¤º¸
-	DWORD	SkillRecharge;	//½ºÅ³ÀçÃæÀü½Ã°£(¼Óµµ)
-//	DWORD	SkillGuageMax;	//½ºÅ³ÃÑÃæÀü·®
-	DWORD	StaminaDecreasePerSkill[MAX_PET_GRADE];	//´Ü°èº° ½ºÅ³ »ç¿ë½Ã ¼Ò¸ð ½ºÅÂ¹Ì³ª
-	DWORD	StaminaMax[MAX_PET_GRADE];	//ÆÖ½ºÅ×¹Ì³Ê(ÃÖ´ëÄ¡):°ø½Ä¿¡ÀÇÇØº¯È­
-	WORD	InventoryTapNum[MAX_PET_GRADE];	//¼ÒÀ¯ÀÎº¥Åä¸®ÅÇ¼ö
-	int		DieDramaNum[MAX_PET_GRADE];		//´Ü°èº° Á×À½ ¿¬Ãâ ¹øÈ£
+	float	Scale;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD	SummonLevel;	//ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½
+	WORD	Tall[MAX_PET_GRADE];	//ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
+	float	SpeedFromHero;	//ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	WORD	SkillIdx[MAX_PET_GRADE];	//ï¿½ï¿½ë½ºÅ³ï¿½Îµï¿½ï¿½ï¿½
+	CSkillInfo*	SkillInfo[MAX_PET_GRADE];//ï¿½ï¿½ë½ºÅ³ï¿½ï¿½ï¿½ï¿½
+	DWORD	SkillRecharge;	//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(ï¿½Óµï¿½)
+//	DWORD	SkillGuageMax;	//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	StaminaDecreasePerSkill[MAX_PET_GRADE];	//ï¿½Ü°èº° ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½
+	DWORD	StaminaMax[MAX_PET_GRADE];	//ï¿½Ö½ï¿½ï¿½×¹Ì³ï¿½(ï¿½Ö´ï¿½Ä¡):ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Øºï¿½È­
+	WORD	InventoryTapNum[MAX_PET_GRADE];	//ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ä¸®ï¿½Ç¼ï¿½
+	int		DieDramaNum[MAX_PET_GRADE];		//ï¿½Ü°èº° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 	WORD	BuffList[MAX_PET_GRADE][3];
 
-//	WORD	EvolutionStep;	//ÁøÈ­´Ü°è
+//	WORD	EvolutionStep;	//ï¿½ï¿½È­ï¿½Ü°ï¿½
 };
 
 struct PET_RULE
@@ -297,9 +301,9 @@ struct PET_BUFF_LIST
 	DWORD BuffAdditionalData;
 };
 
-//SW070127 Å¸ÀÌÅº
+//SW070127 Å¸ï¿½ï¿½Åº
 //-----------------------------------------------------------------------
-// Å¸ÀÌÅº ¸®½ºÆ® Á¤º¸
+// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 #define MAX_TITAN_GRADE	3
 
@@ -316,9 +320,9 @@ struct TITANINFO_GRADE
 	float	Scale;
 	WORD	Tall;
 
-	DWORD	MaxFuel;			// ¿¬·á, Ä³¸¯ÅÍÀÇ Ã¼·Â¿¡ ÇØ´ç
-	DWORD	MaxSpell;			// ¸¶·Â, Ä³¸¯ÅÍÀÇ ³»·Â¿¡ ÇØ´ç
-	//DWORD	Endurance;		// µ¥¹ÌÁö´ç ³»±¸µµ
+	DWORD	MaxFuel;			// ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Â¿ï¿½ ï¿½Ø´ï¿½
+	DWORD	MaxSpell;			// ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½Ø´ï¿½
+	//DWORD	Endurance;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD	Critical;
 	float	AttackRange;
 
@@ -327,23 +331,23 @@ struct TITANINFO_GRADE
 	WORD	RangeAttackPowerMin;
 	WORD	RangeAttackPowerMax;
 
-	//float	PhyAtk;			// ¹°¸® °ø°Ý
-	float	PhyDef;			// ¹°¸® ¹æ¾î
+	//float	PhyAtk;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float	PhyDef;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-	ATTRIBUTEATTACK	AttAtk;			// ¼Ó¼º °ø°Ý
-	ATTRIBUTEREGIST	AttReg;			// ¼Ó¼º ¹æ¾î
+	ATTRIBUTEATTACK	AttAtk;			// ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ATTRIBUTEREGIST	AttReg;			// ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½
 
-	DWORD	RecallReduceTime;		//Å¸ÀÌÅº Àç¼ÒÈ¯½Ã°£
-	DWORD	dwRecallSpellTime;			//2007. 11. 19. CBH - Å¸ÀÌÅº ¼ÒÈ¯ Ä³½ºÆÃ ½Ã°£
+	DWORD	RecallReduceTime;		//Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½È¯ï¿½Ã°ï¿½
+	DWORD	dwRecallSpellTime;			//2007. 11. 19. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 };
 
 struct BASE_TITAN_LIST
 {
-	DWORD	TitanIdx;						//Å¸ÀÌÅº ¹øÈ£
-	char	TitanName[MAX_NAME_LENGTH+1];	//Å¸ÀÌÅº ÀÌ¸§
+	DWORD	TitanIdx;						//Å¸ï¿½ï¿½Åº ï¿½ï¿½È£
+	char	TitanName[MAX_NAME_LENGTH+1];	//Å¸ï¿½ï¿½Åº ï¿½Ì¸ï¿½
 	char	TitanBaseChxName[MAX_CHXNAME_LENGTH+1];
 	char	TitanfaceModName[MAX_CHXNAME_LENGTH+1];
-	//DWORD	MotionID;						//¸ð¼Çµ¦ ID
+	//DWORD	MotionID;						//ï¿½ï¿½Çµï¿½ ID
 	WORD	Titan2DImage;						//
 	
 	TITANINFO_GRADE	GradeInfo[MAX_TITAN_GRADE];
@@ -357,7 +361,6 @@ struct TITAN_SKILLLINK
 #ifdef _DEBUG
 	char	skillName[MAX_NAME_LENGTH+1];
 #endif
-
 };
 
 struct TITAN_EQUIPITEM_ENDURANCE
@@ -368,24 +371,24 @@ struct TITAN_EQUIPITEM_ENDURANCE
 
 struct TITAN_RULE
 {
-	DWORD	TitanRecallValidTime_ZeroFuel;	// ÆÇÅ¸Áö¸Ê ¸¶·Â ¼ÒÁøÀ¸·Î °­Á¦ ÇØÁ¦µÇ¾úÀ» ¶§ Àç¼ÒÈ¯ Á¦¾à ½Ã°£.
-	DWORD	TitanRecallValidTime_Seal;		// ÆÇÅ¸Áö¸Ê Àç¼ÒÈ¯ Á¦¾à ½Ã°£.
-	DWORD	TitanRecallValidTime_General;		// magi82(24) - Titan(071108) ÀÏ¹Ý¸Ê Àç¼ÒÈ¯ Á¦¾à ½Ã°£.(ÀÏ¹Ý¸ÊÀº ¹«Á¶°Ç °­Á¦ ÇØÁ¦ Àç¼ÒÈ¯½Ã°£ Àû¿ë)
-	DWORD	TitanVampValidTime;			// ÁÖÀÎ Ã¼·Â Èí¼ö Á¦¾à ½Ã°£.
-	DWORD	TitanFuelRate_ForVamp;			// ÁÖÀÎ Ã¼·Â Èí¼ö Á¶°Ç. Å¸ÀÌÅº Ã¼·Â% ÀÌÇÏÀÏ ¶§.
-	DWORD	MasterLifeRate_AllowForTitanVamp;			// ÁÖÀÎ Ã¼·Â Èí¼ö Á¦ÇÑ. ÁÖÀÎ Ã¼·ÂÀÌ ÀüÃ¼ Ã¼·ÂÀÇ % ÀÌ»óÀÏ ¶§ Èí¼ö.
-	DWORD	MasterLifeRate_FromTitanVamp;			// ÁÖÀÎ Ã¼·Â Èí¼ö ºñÀ². ÁÖÀÎ ÀüÃ¼ Ã¼·ÂÀÇ % Èí¼ö.
-	DWORD	FuelConvertRate_FromTitanVamp;			// ÁÖÀÎ Ã¼·Â Èí¼ö ½Ã º¯È¯À² %.
-	DWORD	MasterLifeRate_forTitanCall;			// Å¸ÀÌÅº ¼ÒÈ¯ °¡´ÉÇÑ ÁÖÀÎ Ã¼·Â %.
-	DWORD	TitanDamageShareRate;				// ÁÖÀÎ°ú ºÐ¹èÇÏ´Â µ¥¹ÌÁö %.
-	DWORD	Prob_DecreaseEndurance;				// ³»±¸µµ ÇÏ¶ô È®·ü %.
-	DWORD	Prob_DecreaseArmorEndurance_Atk;	// °ø°Ý½Ã ¹æ¾î±¸ ³»±¸µµ°¡ ÇÏ¶ôÇÒ È®·ü %.
-	DWORD	Prob_DecreaseArmorEndurance_Def;	// ¹æ¾î½Ã ¹æ¾î±¸ ³»±¸µµ°¡ ÇÏ¶ôÇÒ È®·ü %.
+	DWORD	TitanRecallValidTime_ZeroFuel;	// ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+	DWORD	TitanRecallValidTime_Seal;		// ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+	DWORD	TitanRecallValidTime_General;		// magi82(24) - Titan(071108) ï¿½Ï¹Ý¸ï¿½ ï¿½ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.(ï¿½Ï¹Ý¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¯ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	DWORD	TitanVampValidTime;			// ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+	DWORD	TitanFuelRate_ForVamp;			// ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. Å¸ï¿½ï¿½Åº Ã¼ï¿½ï¿½% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+	DWORD	MasterLifeRate_AllowForTitanVamp;			// ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã¼ï¿½ï¿½ï¿½ï¿½ % ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	DWORD	MasterLifeRate_FromTitanVamp;			// ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã¼ï¿½ï¿½ï¿½ï¿½ % ï¿½ï¿½ï¿½ï¿½.
+	DWORD	FuelConvertRate_FromTitanVamp;			// ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ %.
+	DWORD	MasterLifeRate_forTitanCall;			// Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ %.
+	DWORD	TitanDamageShareRate;				// ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ð¹ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ %.
+	DWORD	Prob_DecreaseEndurance;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ È®ï¿½ï¿½ %.
+	DWORD	Prob_DecreaseArmorEndurance_Atk;	// ï¿½ï¿½ï¿½Ý½ï¿½ ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ï¿½ï¿½ È®ï¿½ï¿½ %.
+	DWORD	Prob_DecreaseArmorEndurance_Def;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ï¿½ï¿½ È®ï¿½ï¿½ %.
 	DWORD	TitanMaintainTime;					// magi82(25)
 };
 
 //-----------------------------------------------------------------------
-// ¸ÊÀüÈ¯ ÁÂÇ¥±â¾ï ±¸Á¶Ã¼
+// ï¿½ï¿½ï¿½ï¿½È¯ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
 //-----------------------------------------------------------------------
 typedef struct _MAPCHANGE_INFO
 {
@@ -398,11 +401,11 @@ typedef struct _MAPCHANGE_INFO
 	VECTOR3 MovePoint;
 	WORD chx_num;
 	
-	// ¹æÇâ¼³Á¤
+	// ï¿½ï¿½ï¿½â¼³ï¿½ï¿½
 }MAPCHANGE_INFO;
 
 //-----------------------------------------------------------------------
-// LogIn ÁÂÇ¥±â¾ï ±¸Á¶Ã¼
+// LogIn ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
 //-----------------------------------------------------------------------
 typedef struct _LOGINPOINT_INFO
 {
@@ -413,25 +416,25 @@ typedef struct _LOGINPOINT_INFO
 	VECTOR3 CurPoint[10];
 	WORD chx_num;
 
-	// ¹æÇâ¼³Á¤
+	// ï¿½ï¿½ï¿½â¼³ï¿½ï¿½
 }LOGINPOINT_INFO;
 
 //-----------------------------------------------------------------------
-// NPC Á¤º¸
+// NPC ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 typedef struct _NPC_LIST
 {
-	WORD NpcKind;			// Npc Á¾·ù
-	char Name[MAX_NAME_LENGTH+1];			// Npc ÀÌ¸§
-	WORD ModelNum;			// MonsterChxList¿¡¼­ÀÇ ¹øÈ£
-	WORD JobKind;			// Á÷¾÷Á¾·ùº°±¸ºÐ
-	float Scale;			// Npc Å©±â
+	WORD NpcKind;			// Npc ï¿½ï¿½ï¿½ï¿½
+	char Name[MAX_NAME_LENGTH+1];			// Npc ï¿½Ì¸ï¿½
+	WORD ModelNum;			// MonsterChxListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	WORD JobKind;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float Scale;			// Npc Å©ï¿½ï¿½
 	WORD Tall;				// Å°
 	BOOL ShowJob;
 }NPC_LIST;
 
 //-----------------------------------------------------------------------
-// NPC ¸®Á¨
+// NPC ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 typedef struct _NPC_REGEN
 {
@@ -440,18 +443,18 @@ typedef struct _NPC_REGEN
 	{
 		Pos.x = Pos.y = Pos.z = 0;
 	}
-	DWORD	dwObjectID;		// ½Å±Ô Ãß°¡ taiyo
-	MAPTYPE	MapNum;			// Map¹øÈ£
+	DWORD	dwObjectID;		// ï¿½Å±ï¿½ ï¿½ß°ï¿½ taiyo
+	MAPTYPE	MapNum;			// Mapï¿½ï¿½È£
 	WORD	NpcKind;		// NpcKind
-	char	Name[MAX_NAME_LENGTH+1];		// Npc ÀÌ¸§
-	WORD	NpcIndex;		// NpcIndex(°íÀ¯¹øÈ£·Î »ç¿ë)
-	VECTOR3 Pos;			// ¸ó½ºÅÍ À§Ä¡
-	float	Angle;			// ¸ó½ºÅÍ °¢µµ
+	char	Name[MAX_NAME_LENGTH+1];		// Npc ï¿½Ì¸ï¿½
+	WORD	NpcIndex;		// NpcIndex(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½)
+	VECTOR3 Pos;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+	float	Angle;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }NPC_REGEN;
 
 
 //-----------------------------------------------------------------------
-// MOD ¸®½ºÆ® 
+// MOD ï¿½ï¿½ï¿½ï¿½Æ® 
 //-----------------------------------------------------------------------
 typedef struct _MOD_LIST
 {
@@ -472,123 +475,123 @@ typedef struct _MOD_LIST
 	
 }MOD_LIST;
 
-//---------------<¾ÆÀÌÅÛ ÅëÇÕ ¸®½ºÆ®>------------------------------------------------------
+//---------------<ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®>------------------------------------------------------
 struct ITEM_INFO
 {
 	WORD ItemIdx;			//		Item_Index	
 	char ItemName[MAX_ITEMNAME_LENGTH+1];		//		Item_name
-	WORD ItemTooltipIdx;	//		Item¼³¸í ÅøÆÁ index
+	WORD ItemTooltipIdx;	//		Itemï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ index
 	WORD Image2DNum;		//		2D_Image	
-	WORD ItemKind;			//		¾ÆÀÌÅÛÁ¾·ù	"0 : ¿µ¾à 1 : ¹«°ø¼­ 2 : ÀåÂø¾ÆÀÌÅÛ 3 : ±âÅ¸"
-	DWORD BuyPrice;			//		±¸ÀÔ°¡°Ý	
-	DWORD SellPrice;		//		ÆÇ¸Å°¡°Ý	
-//	WORD Rarity;			//		Èñ¼Ò°¡Ä¡	
-	DWORD Rarity;			//		Èñ¼Ò°¡Ä¡	
-	WORD WeaponType;		//		¹«±âÀ¯Çü	ÀåÂø / ¹«°ø¼­
-	WORD GenGol;			//		±Ù°ñ+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	WORD MinChub;			//		¹ÎÃ¸+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	WORD CheRyuk;			//		Ã¼·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	WORD SimMek;			//		½É¸Æ+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	DWORD Life;				//		»ý¸í·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	DWORD Shield;			//		È£½Å°­±â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	WORD NaeRyuk;			//		³»·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	ATTRIBUTEREGIST AttrRegist;		//		È­ ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-							//		¼ö ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-							//		¸ñ ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-							//		±Ý ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-							//		Åä ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)	¿µ¾à°ú ÀåÂø ¾ÆÀÌÅÛ¿¡ °øÅë»ç¿ë
-	WORD LimitJob;			//		ÀåÂø°¡´É Á÷¾÷	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë / »ó½Â¹«°ø-È­°æ, ±Ø¸¶
-	WORD LimitGender;		//		ÀåÂø°¡´É ³²³à	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
-	LEVELTYPE LimitLevel;		//		ÀåÂø°¡´É ·¹º§	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
-	WORD LimitGenGol;		//		ÀåÂø°¡´É ±Ù°ñ	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
-	WORD LimitMinChub;		//		ÀåÂø°¡´É ¹ÎÃ¸	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
-	WORD LimitCheRyuk;		//		ÀåÂø°¡´É Ã¼·Â	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
-	WORD LimitSimMek;		//		ÀåÂø°¡´É ½É¸Æ	ÀåÂø / ¹«°ø¼­¿¡¸¸ »ç¿ë
+	WORD ItemKind;			//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	"0 : ï¿½ï¿½ï¿½ï¿½ 1 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 : ï¿½ï¿½Å¸"
+	DWORD BuyPrice;			//		ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½	
+	DWORD SellPrice;		//		ï¿½Ç¸Å°ï¿½ï¿½ï¿½	
+//	WORD Rarity;			//		ï¿½ï¿½Ò°ï¿½Ä¡	
+	DWORD Rarity;			//		ï¿½ï¿½Ò°ï¿½Ä¡	
+	WORD WeaponType;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD GenGol;			//		ï¿½Ù°ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD MinChub;			//		ï¿½ï¿½Ã¸+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD CheRyuk;			//		Ã¼ï¿½ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD SimMek;			//		ï¿½É¸ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD Life;				//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD Shield;			//		È£ï¿½Å°ï¿½ï¿½ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD NaeRyuk;			//		ï¿½ï¿½ï¿½ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ATTRIBUTEREGIST AttrRegist;		//		È­ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//		ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//		ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//		ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//		ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD LimitJob;			//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ / ï¿½ï¿½Â¹ï¿½ï¿½ï¿½-È­ï¿½ï¿½, ï¿½Ø¸ï¿½
+	WORD LimitGender;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	LEVELTYPE LimitLevel;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	WORD LimitGenGol;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	WORD LimitMinChub;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	WORD LimitCheRyuk;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	WORD LimitSimMek;		//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½	ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-	WORD ItemGrade;			//	ÀåÂø¾ÆÀÌÅÛ	¾ÆÀÌÅÛ µî±Þ	
-	WORD RangeType;			//				°Å¸®À¯Çü	
-	WORD EquipKind;			//				ÀåÂøÁ¾·ù	
-	WORD Part3DType;		//				3DÆÄÃ÷¹øÈ£	
-	WORD Part3DModelNum;	//				3DÆÄÃ÷¸ðµ¨¹øÈ£	
-	WORD MeleeAttackMin;	//				±Ù°Å¸® ÃÖ¼Ò°ø°Ý·Â
-	WORD MeleeAttackMax;	//				±Ù°Å¸® ÃÖ´ë°ø°Ý·Â
-	WORD RangeAttackMin;	//				¿ø°Å¸® ÃÖ¼Ò°ø°Ý·Â
-	WORD RangeAttackMax;	//				¿ø°Å¸® ÃÖ´ë°ø°Ý·Â
-	WORD CriticalPercent;	//				Å©¸®Æ¼ÄÃ ÆÛ¼¾Æ®
-	ATTRIBUTEATTACK AttrAttack;		//				È­¼Ó¼º°ø°Ý·Â+%
-							//				¼ö¼Ó¼º°ø°Ý·Â+%
-							//				¸ñ¼Ó¼º°ø°Ý·Â+%
-							//				±Ý¼Ó¼º°ø°Ý·Â+%
-							//				Åä°ø°Ý°ø°Ý·Â+%
-	WORD PhyDef;			//				¹°¸® ¹æ¾î·Â+ 
-	WORD Plus_MugongIdx;	//				Æ¯Á¤ ¹«°ø+ index
-	WORD Plus_Value;		//				Æ¯Á¤ ¹«°ø+ Á¤µµ
-	WORD AllPlus_Kind;		//				¹«°ø À¯Çüº° ¹«°ø+ 
-	WORD AllPlus_Value;		//				¹«°ø À¯Çüº° ¹«°ø+ Á¤µµ
+	WORD ItemGrade;			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½	
+	WORD RangeType;			//				ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½	
+	WORD EquipKind;			//				ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	WORD Part3DType;		//				3Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£	
+	WORD Part3DModelNum;	//				3Dï¿½ï¿½ï¿½ï¿½ï¿½ðµ¨¹ï¿½È£	
+	WORD MeleeAttackMin;	//				ï¿½Ù°Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½Ý·ï¿½
+	WORD MeleeAttackMax;	//				ï¿½Ù°Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½Ý·ï¿½
+	WORD RangeAttackMin;	//				ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½Ý·ï¿½
+	WORD RangeAttackMax;	//				ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½Ý·ï¿½
+	WORD CriticalPercent;	//				Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Û¼ï¿½Æ®
+	ATTRIBUTEATTACK AttrAttack;		//				È­ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+							//				ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+							//				ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+							//				ï¿½Ý¼Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+							//				ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Ý·ï¿½+%
+	WORD PhyDef;			//				ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ 
+	WORD Plus_MugongIdx;	//				Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ index
+	WORD Plus_Value;		//				Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ ï¿½ï¿½ï¿½ï¿½
+	WORD AllPlus_Kind;		//				ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ 
+	WORD AllPlus_Value;		//				ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ ï¿½ï¿½ï¿½ï¿½
 
-	WORD MugongNum;			//	¹«°ø¼­	¿¬°á ¹«°ø  ¹øÈ£
-	WORD MugongType;		//			¹«°øÀ¯Çü
+	WORD MugongNum;			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½È£
+	WORD MugongType;		//			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	WORD LifeRecover;		//	¿µ¾à	»ý¸í·Â+(È¸º¹) °íÁ¤¼öÄ¡	¿µ¾à Àü¿ë
-	float LifeRecoverRate;		//			»ý¸í·Â+(È¸º¹)  	¿µ¾à Àü¿ë
-	WORD NaeRyukRecover;	//			³»·Â+(È¸º¹) °íÁ¤¼öÄ¡	¿µ¾à Àü¿ë
-	float NaeRyukRecoverRate;	//			³»·Â+(È¸º¹)    	¿µ¾à Àü¿ë
+	WORD LifeRecover;		//	ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float LifeRecoverRate;		//			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½)  	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	WORD NaeRyukRecover;	//			ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	float NaeRyukRecoverRate;	//			ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½)    	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	WORD ItemType;			//	±âÅ¸	¾ÆÀÌÅÛ ¼Ó¼º	=>Äù½ºÆ®, ºñ±Ø¼­, Àç·á
-	WORD wItemAttr;			// ¾ÆÀÌÅÛ¼Ó¼º(È­, ¼ö, ¸ñ, ±Ý, Åä) => ÀÏº» ·ÎÄÃ°ü·Ã
-	WORD wAcquireSkillIdx1;	// ÇÊ¿äÇÑ ½ºÅ³ ÀÎµ¦½º => ÀÏº»·ÎÄÃ°ü·Ã
-	WORD wAcquireSkillIdx2;	// ÇÊ¿äÇÑ ½ºÅ³ ÀÎµ¦½º => ÀÏº»·ÎÄÃ°ü·Ã
-	WORD wDeleteSkillIdx;	// Áö¿ï ½ºÅ³ ÀÎµ¦½º => ÀÏº»·ÎÄÃ°ü·Ã
+	WORD ItemType;			//	ï¿½ï¿½Å¸	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½	=>ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½ï¿½Ø¼ï¿½, ï¿½ï¿½ï¿½
+	WORD wItemAttr;			// ï¿½ï¿½ï¿½ï¿½ï¿½Û¼Ó¼ï¿½(È­, ï¿½ï¿½, ï¿½ï¿½, ï¿½ï¿½, ï¿½ï¿½) => ï¿½Ïºï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
+	WORD wAcquireSkillIdx1;	// ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ => ï¿½Ïºï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
+	WORD wAcquireSkillIdx2;	// ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ => ï¿½Ïºï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
+	WORD wDeleteSkillIdx;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ => ï¿½Ïºï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
 
-	WORD wSetItemKind;		// ¼¼Æ®¾ÆÀÌÅÆ Á¾·ù  *** 2007. 6. 7. CBH ***
+	WORD wSetItemKind;		// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  *** 2007. 6. 7. CBH ***
 };
 
 
-//// 2007. 6. 8. CBH - SETITEM ¿É¼Ç °ü·Ã ±¸Á¶Ã¼ Ãß°¡ ////////////////////////////////////////////
+//// 2007. 6. 8. CBH - SETITEM ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß°ï¿½ ////////////////////////////////////////////
 struct SET_ITEM_OPTION
 {
-	WORD wIndex;									// ¼¼Æ®¾ÆÀÌÅÆ ¿É¼Ç ÀÎµ¦½º
-	WORD wSetItemKind;								// ¼¼Æ®¾ÆÀÌÅÆ Á¾·ù
-	char szSetItemName[MAX_NAME_LENGTH+1];			// ¼¼Æ®¾ÆÀÌÅÆ Á¢µÎ¾î ÀÌ¸§
+	WORD wIndex;									// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	WORD wSetItemKind;								// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	char szSetItemName[MAX_NAME_LENGTH+1];			// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¾ï¿½ ï¿½Ì¸ï¿½
 	
-	WORD wGenGol;									//	±Ù°ñ
-	WORD wMinChub;									//	¹ÎÃ¸
-	WORD wCheRyuk;									//	Ã¼·Â
-	WORD wSimMek;									//	½É¸Æ
-	DWORD dwLife;									//	»ý¸í·Â
-	DWORD dwShield;									//	È£½Å°­±â
-	DWORD dwNaeRyuk;									//	³»·Â
-	ATTRIBUTEREGIST AttrRegist;						//	È­ ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)
-													//	¼ö ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)
-													//	¸ñ ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)
-													//	±Ý ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)
-													//	Åä ¼Ó¼º ÀúÇ×·Â+(¿µ±¸)
+	WORD wGenGol;									//	ï¿½Ù°ï¿½
+	WORD wMinChub;									//	ï¿½ï¿½Ã¸
+	WORD wCheRyuk;									//	Ã¼ï¿½ï¿½
+	WORD wSimMek;									//	ï¿½É¸ï¿½
+	DWORD dwLife;									//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD dwShield;									//	È£ï¿½Å°ï¿½ï¿½ï¿½
+	DWORD dwNaeRyuk;									//	ï¿½ï¿½ï¿½ï¿½
+	ATTRIBUTEREGIST AttrRegist;						//	È­ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)
+													//	ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)
+													//	ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)
+													//	ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)
+													//	ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½+(ï¿½ï¿½ï¿½ï¿½)
 
-	LEVELTYPE wLimitLevel;							//	ÀåÂø°¡´É ·¹º§
-	char szEffect[100];								//	Àû¿ë ÀÌÆåÆ®
-	WORD wLimitGenGol;								//	ÀåÂø°¡´É ±Ù°ñ
-	WORD wLimitMinChub;								//	ÀåÂø°¡´É ¹ÎÃ¸
-	WORD wLimitCheRyuk;								//	ÀåÂø°¡´É Ã¼·Â
-	WORD wLimitSimMek;								//	ÀåÂø°¡´É ½É¸Æ	
+	LEVELTYPE wLimitLevel;							//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	char szEffect[100];								//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+	WORD wLimitGenGol;								//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½
+	WORD wLimitMinChub;								//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸
+	WORD wLimitCheRyuk;								//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½
+	WORD wLimitSimMek;								//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½	
 	
-	WORD wMeleeAttackMin;							//	±Ù°Å¸® ÃÖ¼Ò°ø°Ý·Â
-	WORD wMeleeAttackMax;							//	±Ù°Å¸® ÃÖ´ë°ø°Ý·Â
-	WORD wRangeAttackMin;							//	¿ø°Å¸® ÃÖ¼Ò°ø°Ý·Â
-	WORD wRangeAttackMax;							//	¿ø°Å¸® ÃÖ´ë°ø°Ý·Â
-	WORD wCriticalPercent;							//	Å©¸®Æ¼ÄÃ ÆÛ¼¾Æ®
-	ATTRIBUTEATTACK AttrAttack;						//	È­¼Ó¼º°ø°Ý·Â+%
-													//	¼ö¼Ó¼º°ø°Ý·Â+%
-													//	¸ñ¼Ó¼º°ø°Ý·Â+%
-													//	±Ý¼Ó¼º°ø°Ý·Â+%
-													//	Åä°ø°Ý°ø°Ý·Â+%
+	WORD wMeleeAttackMin;							//	ï¿½Ù°Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½Ý·ï¿½
+	WORD wMeleeAttackMax;							//	ï¿½Ù°Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½Ý·ï¿½
+	WORD wRangeAttackMin;							//	ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½Ý·ï¿½
+	WORD wRangeAttackMax;							//	ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½Ý·ï¿½
+	WORD wCriticalPercent;							//	Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Û¼ï¿½Æ®
+	ATTRIBUTEATTACK AttrAttack;						//	È­ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+													//	ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+													//	ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+													//	ï¿½Ý¼Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½+%
+													//	ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Ý·ï¿½+%
 	
-	WORD wPhyDef;									//	¹°¸® ¹æ¾î·Â+ 
-	WORD wLifeRecover;								//	»ý¸í·Â+(È¸º¹) °íÁ¤¼öÄ¡
-	float fLifeRecoverRate;							//	»ý¸í·Â+(È¸º¹)
-	WORD wNaeRyukRecover;							//	³»·Â+(È¸º¹) °íÁ¤¼öÄ¡
-	float fNaeRyukRecoverRate;						//	³»·Â+(È¸º¹)
-	WORD wSetValue;									//	¼¼Æ® °¹¼ö
-	WORD wApplicationValue;							//  ÀÌÆåÆ® Àû¿ë ¼¼Æ® °ª
+	WORD wPhyDef;									//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+ 
+	WORD wLifeRecover;								//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
+	float fLifeRecoverRate;							//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½)
+	WORD wNaeRyukRecover;							//	ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
+	float fNaeRyukRecoverRate;						//	ï¿½ï¿½ï¿½ï¿½+(È¸ï¿½ï¿½)
+	WORD wSetValue;									//	ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	WORD wApplicationValue;							//  ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
 };
 
 struct SET_ITEM_INFO
@@ -618,7 +621,7 @@ public:
 */
 
 
-//---¾Æ¾ÆÅÛ°­È­
+//---ï¿½Æ¾ï¿½ï¿½Û°ï¿½È­
 struct sITEM_REINFORCE_INFO
 {
 	WORD			wItemIdx;
@@ -632,19 +635,19 @@ struct sITEM_RAREREINFORCE_INFO	: public sITEM_REINFORCE_INFO
 	WORD			wMaterialGravity;
 };
 
-//---¾Æ¾ÆÅÛºÐÇØ
+//---ï¿½Æ¾ï¿½ï¿½Ûºï¿½ï¿½ï¿½
 struct sITEM_DISSOLUTIONITEM
 {
-	WORD			wUnitItemIdx;					//ºÐÇØµÉ ¾ÆÀÌÅÛ ÀÎµ¦½º
-	WORD			wUnitItemNum;						//ºÐÇØµÉ ¾ÆÀÌÅÛ °³¼ö
+	WORD			wUnitItemIdx;					//ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	WORD			wUnitItemNum;						//ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 };
 
 struct sITEM_DISSOLUTION_INFO
 {
-	WORD					wDissolutionItemIdx;	//ºÐÇØÇÒ º£ÀÌ½º¾ÆÀÌÅÛ ÀÎµ¦½º
-	WORD					wUnitKindNum;			//ºÐÇØµÉ ¾ÆÀÌÅÛ Á¾·ù °³¼ö
-	WORD					wUnitTotalNum;			//ºÐÇØµÉ ¾ÆÀÌÅÛ ÃÑ °³¼ö
-	sITEM_DISSOLUTIONITEM*	pUnitItem;				//ºÐÇØ¾ÆÀÌÅÛ ÀÎÆ÷
+	WORD					wDissolutionItemIdx;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	WORD					wUnitKindNum;			//ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	WORD					wUnitTotalNum;			//ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	sITEM_DISSOLUTIONITEM*	pUnitItem;				//ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 };
 //-----------------------------------
 
@@ -680,7 +683,7 @@ public:
 	WORD		wMatItemNum;
 };
 
-struct HILEVEL_ITEM_MIX_RATE_INFO	// +10ÅÛ Á¶ÇÕ ±â´É Ãß°¡ ÀÛ¾÷ by Stiner(2008/06/11)-10+ItemMix
+struct HILEVEL_ITEM_MIX_RATE_INFO	// +10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½ by Stiner(2008/06/11)-10+ItemMix
 {
 	WORD	wItemLevel;
 	DWORD	dwBaseRate;
@@ -697,24 +700,24 @@ struct TITAN_PARTS_KIND
 
 struct TITAN_STATSINFO
 {
-	DWORD	titanIdx;						// Å¸ÀÌÅºÀÎµ¦½º
-	DWORD	titanType;						// Å¸ÀÔ
-	DWORD	minAtt;							// ÃÖ¼Ò°ø°Ý·Â
-	DWORD	maxAtt;							// ÃÖ´ë°ø°Ý·Â
-	DWORD	woigongCri;						// ¿Ü°øÀÏ°Ý
-	DWORD	naegongCri;						// ³»°øÀÏ°Ý
-	DWORD	minlongAtt;						// ÃÖ¼Ò¿ø°Å¸®°ø°Ý·Â
-	DWORD	maxlongAtt;						// ÃÖ´ë¿ø°Å¸®°ø°Ý·Â
-	DWORD	distance;						// »çÁ¤°Å¸®
-	DWORD	Life;							// »ý¸í·Â
-	DWORD	defense;						// ¹æ¾î·Â
-	DWORD	Mana;							// ³»·Â
-	DWORD	Hosin;							// È£½Å°­±â
+	DWORD	titanIdx;						// Å¸ï¿½ï¿½Åºï¿½Îµï¿½ï¿½ï¿½
+	DWORD	titanType;						// Å¸ï¿½ï¿½
+	DWORD	minAtt;							// ï¿½Ö¼Ò°ï¿½ï¿½Ý·ï¿½
+	DWORD	maxAtt;							// ï¿½Ö´ï¿½ï¿½ï¿½Ý·ï¿½
+	DWORD	woigongCri;						// ï¿½Ü°ï¿½ï¿½Ï°ï¿½
+	DWORD	naegongCri;						// ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+	DWORD	minlongAtt;						// ï¿½Ö¼Ò¿ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
+	DWORD	maxlongAtt;						// ï¿½Ö´ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
+	DWORD	distance;						// ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½
+	DWORD	Life;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	defense;						// ï¿½ï¿½ï¿½ï¿½
+	DWORD	Mana;							// ï¿½ï¿½ï¿½ï¿½
+	DWORD	Hosin;							// È£ï¿½Å°ï¿½ï¿½ï¿½
 	WORD	AttrFire;						// È­
-	WORD	AttrWater;						// ¼ö
-	WORD	AttrTree;						// ¸ñ
-	WORD	AttrIron;						// ±Ý
-	WORD	AttrEarth;						// Åä
+	WORD	AttrWater;						// ï¿½ï¿½
+	WORD	AttrTree;						// ï¿½ï¿½
+	WORD	AttrIron;						// ï¿½ï¿½
+	WORD	AttrEarth;						// ï¿½ï¿½
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -791,40 +794,40 @@ struct BobusangPosPerMap
 // magi82 - UniqueItem(070625)
 struct UNIQUE_ITEM_OPTION_INFO
 {
-	DWORD	dwItemIdx;								// À¯´ÏÅ© ¾ÆÀÌÅÛ ÀÎµ¦½º
-	char	strManEffectName[MAX_CHXNAME_LENGTH];	// À¯´ÏÅ© ¾ÆÀÌÅÛ ÀÌÆåÆ® ÆÄÀÏ ÀÌ¸§(³²ÀÚ)
-	char	strWomanEffectName[MAX_CHXNAME_LENGTH];	// À¯´ÏÅ© ¾ÆÀÌÅÛ ÀÌÆåÆ® ÆÄÀÏ ÀÌ¸§(¿©ÀÚ)
-	BYTE	ExchangeFlag;							// °Å·¡ °¡´É À¯¹«
-	BYTE	MixFlag;								// Á¶ÇÕ °¡´É À¯¹«
-	DWORD	dwCurseCancellation;					// ÀúÁÖÇØÁ¦µÈ ¾ÆÀÌÅÛÀÇ ÀÎµ¦½º
+	DWORD	dwItemIdx;								// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	char	strManEffectName[MAX_CHXNAME_LENGTH];	// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	char	strWomanEffectName[MAX_CHXNAME_LENGTH];	// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	BYTE	ExchangeFlag;							// ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	BYTE	MixFlag;								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwCurseCancellation;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
 	// HP(+/-)
 	int		nHp;
 	// MP(+/-)
 	int		nMp;
-	// ¹°¸®µ¥¹ÌÁö(+/-)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(+/-)
 	int		nPhyDamage;
-	// ÀÏ°Ýµ¥¹ÌÁö(+/-)
+	// ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½(+/-)
 	int		nCriDamage;
-	// ÀÏ°ÝÈ®·ü(+/-)
+	// ï¿½Ï°ï¿½È®ï¿½ï¿½(+/-)
 	int		nCriRate;
-	// ±Ù°ñ(+/-)
+	// ï¿½Ù°ï¿½(+/-)
 	int		nGengol;
-	// ¹ÎÃ¸(+/-)
+	// ï¿½ï¿½Ã¸(+/-)
 	int		nMinChub;
-	// Ã¼·Â(+/-)
+	// Ã¼ï¿½ï¿½(+/-)
 	int		nCheRyuk;
-	// ½É¸Æ(+/-)
+	// ï¿½É¸ï¿½(+/-)
 	int		nSimMek;
-	// ¹æ¾î·Â(+/-)
+	// ï¿½ï¿½ï¿½ï¿½(+/-)
 	int		nDefen;
-	// »çÁ¤°Å¸®(+/-)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½(+/-)
 	int		nRange;
-	// ¼Ó¼º°ø°Ý(+/-)
+	// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½(+/-)
 	int		nAttR;
-	// Àû¹æ¾î·Â °¨¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int		nEnemyDefen;
-	// È£½Å°­±â(+/-)
+	// È£ï¿½Å°ï¿½ï¿½ï¿½(+/-)
 	int		nShield;
     
 	UNIQUE_ITEM_OPTION_INFO::UNIQUE_ITEM_OPTION_INFO()
@@ -873,17 +876,17 @@ struct UNIQUE_ITEM_MIX_INFO
 	UNIQUE_ITEM_MIX_RESULT_INFO		sUniqueItemMixResult[UNIQUE_ITEM_MIX_RESULT_INDEX];
 };
 
-//// 2007. 12. 6. CBH - ½ºÅ² SETITEM ¿É¼Ç °ü·Ã ±¸Á¶Ã¼ Ãß°¡ ////////////////////////////////////////////
+//// 2007. 12. 6. CBH - ï¿½ï¿½Å² SETITEM ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß°ï¿½ ////////////////////////////////////////////
 struct SKIN_SELECT_ITEM_INFO
 {
-	DWORD dwIndex;							// ½ºÅ² ÀÎµ¦½º
-	char szSkinName[MAX_ITEMNAME_LENGTH+1];	//½ºÅ² ÀÌ¸§
-	DWORD dwLimitLevel;						// ÀåÂø ·¹º§
-	WORD wEquipItem[SKINITEM_LIST_MAX];		//½ºÅ² ºÎÀ§º° ¾ÆÀÌÅÆ ÀÎµ¦½º ¹è¿­
+	DWORD dwIndex;							// ï¿½ï¿½Å² ï¿½Îµï¿½ï¿½ï¿½
+	char szSkinName[MAX_ITEMNAME_LENGTH+1];	//ï¿½ï¿½Å² ï¿½Ì¸ï¿½
+	DWORD dwLimitLevel;						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	WORD wEquipItem[SKINITEM_LIST_MAX];		//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½è¿­
 
 	SKIN_SELECT_ITEM_INFO::SKIN_SELECT_ITEM_INFO()
 	{
-		dwIndex = 0;	//ÃÊ±â °ªÀº -1·Î ÇØÁØ´Ù. ¼±ÅÃÇÑ ÄÁÆ®·Ñ ¸®½ºÆ®ÀÇ ¹ÝÈ¯°ª°ú ¸ÂÃß±âÀ§ÇØ ¼³Á¤
+		dwIndex = 0;	//ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		dwLimitLevel = 0;
 		memset( wEquipItem, 0, sizeof(WORD)*SKINITEM_LIST_MAX );		
 	}
@@ -891,7 +894,7 @@ struct SKIN_SELECT_ITEM_INFO
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //-----------------------------------------------------------------------------------------------------------//
-//		Å¬¶óÀÌ¾ðÆ®¸¸ »ç¿ëÇÏ´Â ºÎºÐ
+//		Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 #ifdef _CLIENT_RESOURCE_FIELD_
 //-----------------------------------------------------------------------------------------------------------//
 
@@ -1004,7 +1007,7 @@ struct TESTCLIENTINFO {
 #endif
 
 //-----------------------------------------------------------------------
-// game config Á¤º¸ 
+// game config ï¿½ï¿½ï¿½ï¿½ 
 //-----------------------------------------------------------------------
 struct GAMEDESC_INI
 {
@@ -1103,13 +1106,13 @@ struct SEVERLIST
 
 
 //-----------------------------------------------------------------------------------------------------------//
-//		¼­¹ö¸¸ »ç¿ëÇÏ´Â ºÎºÐ
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 #ifdef _SERVER_RESOURCE_FIELD_
 
 //-----------------------------------------------------------------------------------------------------------//
 #include "ServerTable.h"
 //-----------------------------------------------------------------------
-// Ä³¸¯ÅÍ IN/OUT POINT ¼³Á¤
+// Ä³ï¿½ï¿½ï¿½ï¿½ IN/OUT POINT ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------
 typedef struct _CHARACTERINOUTPOINT
 {

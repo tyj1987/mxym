@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+//
 #include "ChangeItemMgr.h"
 #include "MHFile.h"
 #include "../[CC]Header/GameResourceStruct.h"
@@ -138,120 +139,25 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 	ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( wItemIdx );
 	
 	if( pItemInfo )
-	if( pItemInfo->ItemKind & eCHANGE_ITEM )
 	{
-		if( m_MultiChangeItemList.GetData( wItemIdx ) )
+		if( pItemInfo->ItemKind & eCHANGE_ITEM )
 		{
-			return UseMultiChangeItem( pPlayer, TargetPos, wItemIdx, &Item );
+			if( m_MultiChangeItemList.GetData( wItemIdx ) )
+			{
+				return UseMultiChangeItem( pPlayer, TargetPos, wItemIdx, &Item );
+			}
+			else
+			{
+				return UseNormalChangeItem( pPlayer, TargetPos, wItemIdx, &Item );
+			}
 		}
 		else
-		{
-			return UseNormalChangeItem( pPlayer, TargetPos, wItemIdx, &Item );
-		}
+			return 0;
 	}
-	else
-		return 0;
 
 	return 1;
 }
 
-int CChangeItemMgr::UseNormalChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx, ITEMBASE* pItem )
-{
-	//ÇÃ·¹ÀÌ¾îÀÇ ³²¾ÆÀÖ´Â ½½·Ô °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
-	CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
-	if(NULL == pSlot) ASSERTMSG(0,"¿Ã¹Ù¸¥ ¾ÆÀÌÅÛ ½½·ÔÀ» ¾òÀ» ¼ö ¾ø½À´Ï´Ù.");
-
-	unsigned int nNum = ITEMMGR->GetTotalEmptySlotNum(pSlot);
-
-	sCHANGEITEMUNIT* pItemUnit = GetItemUnitFromCalPercent( wItemIdx );
-	if( !pItemUnit )	return 0;
-
-	unsigned int haveSpaceItemtotalcount = 0;
-	
-	if( pItemUnit->wToItemIdx == 7999 ) //money
-	{
-
-	}
-	else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
-	{
-
-	}
-	else
-	{
-		if(ITEMMGR->IsDupItem(pItemUnit->wToItemIdx))
-		{
-			//½ÇÁ¦ °³¼ö¸¦ ¾Ë¾Æ³»¾î¼­ MAX_YOUNGYAKITEM_DUPNUM·Î³ª´«´Ù.
-			unsigned int devidecount = pItemUnit->dwToItemDur/MAX_YOUNGYAKITEM_DUPNUM;
-			DWORD pluscount = pItemUnit->dwToItemDur%MAX_YOUNGYAKITEM_DUPNUM;
-
-			haveSpaceItemtotalcount += devidecount;
-			if( pluscount )
-				haveSpaceItemtotalcount += 1;
-		}
-		else
-		{
-			haveSpaceItemtotalcount += pItemUnit->dwToItemDur;
-		}
-	}
-
-	if( (nNum+1)  < haveSpaceItemtotalcount)
-	{
-		//°ø°£ÀÌ ºÎÁ·ÇÏ´Ù´Â ¸Þ½ÃÁö¸¦ ³¯¸°´Ù.
-		MSG_WORD msg;
-		msg.Category = MP_ITEM;
-		msg.Protocol = MP_ITEM_CHANGEITEM_NACK;
-		msg.wData = NOT_SPACE;
-		pPlayer->SendMsg(&msg, sizeof(msg));
-		return 0;
-	}
-	
-
-	if( EI_TRUE != ITEMMGR->DiscardItem( pPlayer, TargetPos, wItemIdx, 1 ) )
-		return 0;
-	LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
-				  eLog_ItemDestroybyChangeItem, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
-				  pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint() );	
-
-	// send item use
-	MSG_ITEM_USE_ACK msg;
-	msg.Category = MP_ITEM;
-	msg.Protocol = MP_ITEM_USE_ACK;
-	msg.dwObjectID = pPlayer->GetID();
-	msg.TargetPos = TargetPos;
-	msg.wItemIdx = wItemIdx;
-	ITEMMGR->SendAckMsg( pPlayer, &msg, sizeof(msg) );
-
-	if( pItemUnit->wToItemIdx == 7999 )		// money
-	{
-		pPlayer->SetMoney( pItemUnit->dwToItemDur, MONEY_ADDITION, 64 );	//ÀÓ½Ã 64
-	}
-	else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
-	{
-		pPlayer->AddAbilityExp( pItemUnit->dwToItemDur );
-	}
-	else if( pItemUnit->wToItemIdx == 7998 )
-	{
-		// event 050203
-		MSG_NAME msg;
-		msg.Category = MP_USERCONN;
-		msg.Protocol = MP_USERCONN_EVENTITEM_USE;
-		SafeStrCpy( msg.Name, pPlayer->GetObjectName(), MAX_NAME_LENGTH+1 );
-//		strcpy( msg.Name, pPlayer->GetObjectName() );
-		pPlayer->SendMsg( &msg, sizeof(msg) );
-	}
-	else if( pItemUnit->wToItemIdx == 7996 )
-	{
-		MSG_NAME msg;
-		msg.Category = MP_USERCONN;
-		msg.Protocol = MP_USERCONN_EVENTITEM_USE2;
-		SafeStrCpy( msg.Name, pPlayer->GetObjectName(), MAX_NAME_LENGTH+1 );
-		pPlayer->SendMsg( &msg, sizeof(msg) );
-	}
-	else
-		ITEMMGR->ObtainItemFromChangeItem( pPlayer, pItemUnit->wToItemIdx, (WORD)pItemUnit->dwToItemDur );
-
-	return 1;
-}
 
 unsigned int CChangeItemMgr::ChangedTotalItemNum(sMULTICHANGEITEM* pMultiChangeItem,WORD wMaxSet)//060613 Add by wonju 
 {
@@ -275,17 +181,17 @@ unsigned int CChangeItemMgr::ChangedTotalItemNum(sMULTICHANGEITEM* pMultiChangeI
 			{
 				
 			}
-			else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
+			else if( pItemUnit->wToItemIdx == 7997 )	// ï¿½ï¿½ï¿½ï¿½Ä¡
 			{
 				
 			}
 			else
 			{
-				if(ITEMMGR->IsDupItem(pItemUnit->wToItemIdx)) //ºÐÇØ°¡ µÇ´Â °ÍÀÌ¸é
+				if(ITEMMGR->IsDupItem(pItemUnit->wToItemIdx)) //ï¿½ï¿½ï¿½Ø°ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
 				{
-					if(nMin > (pItemUnit->dwToItemDur/MAX_YOUNGYAKITEM_DUPNUM)) //ºÐÇØ°¡ ¾ÈµÇ´Â ¾ÆÀÌÅÛ °ªÀÇ ÃÖ´ë°ªº¸´Ù ÀÛ´Ù¸é
+					if(nMin > (pItemUnit->dwToItemDur/MAX_YOUNGYAKITEM_DUPNUM)) //ï¿½ï¿½ï¿½Ø°ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ªï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù¸ï¿½
 					{
-						haveSpaceItemtotalcount += nMin; //ºÐÇØ°¡ ¾ÈµÇ´Â ¾ÆÀÌÅÛ °ªÀÇ ÃÖ´ë°ªÀ» ³Ö´Â´Ù.
+						haveSpaceItemtotalcount += nMin; //ï¿½ï¿½ï¿½Ø°ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ªï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					}
 					else
 					{
@@ -295,7 +201,7 @@ unsigned int CChangeItemMgr::ChangedTotalItemNum(sMULTICHANGEITEM* pMultiChangeI
 							haveSpaceItemtotalcount += 1;
 					}
 				}
-				else//°ãÃÄÁú ¼ö ¾ø´Ù¸é ±×´ë·Î ÀúÀå
+				else//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					haveSpaceItemtotalcount += pItemUnit->dwToItemDur;
 				}
@@ -311,23 +217,23 @@ unsigned int CChangeItemMgr::ChangedTotalItemNum(sMULTICHANGEITEM* pMultiChangeI
 int CChangeItemMgr::UseMultiChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx, ITEMBASE* pItem )
 {
 	CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
-	if(NULL == pSlot) ASSERTMSG(0,"¿Ã¹Ù¸¥ ¾ÆÀÌÅÛ ½½·ÔÀ» ¾òÀ» ¼ö ¾ø½À´Ï´Ù.");
+	if(NULL == pSlot) ASSERTMSG(0,"ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 	unsigned int nNum = ITEMMGR->GetTotalEmptySlotNum(pSlot);
 
 	sMULTICHANGEITEM* pMultiChangeItem = m_MultiChangeItemList.GetData( wItemIdx );
 
 	 
-	//¼¼Æ®·Î ±¸¼ºµÇ¾î ÀÖ´Â ¾ÆÀÌÅÛÀÇ Á¾·ù°¡ ¹«¾ùÀÎÁö ÆÇ´ÜÇÏ°í
-	//°¢°¢ÀÇ Á¾·ù¸¶´Ù ¸î°³¸¦ ÁÖ´ÂÁö¸¦ ÆÇ´ÜÇÑ´Ù.
+	//ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ï°ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î°³ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 	
 
-	//¾ÆÀÌÅÛÀÌ °ø°£¿¡ ÀúÀåµÉ °³¼ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	unsigned int haveSpaceItemtotalcount = pMultiChangeItem->nMaxItemSpace;
 
 	if( (nNum+1)  < haveSpaceItemtotalcount)
 	{
-		//°ø°£ÀÌ ºÎÁ·ÇÏ´Ù´Â ¸Þ½ÃÁö¸¦ ³¯¸°´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_WORD msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_CHANGEITEM_NACK;
@@ -367,7 +273,7 @@ int CChangeItemMgr::UseMultiChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD w
 			{
 				pPlayer->SetMoney( pItemUnit->dwToItemDur, MONEY_ADDITION, 64 );
 			}
-			else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
+			else if( pItemUnit->wToItemIdx == 7997 )	// ï¿½ï¿½ï¿½ï¿½Ä¡
 			{
 				pPlayer->AddAbilityExp( pItemUnit->dwToItemDur );
 			}
@@ -389,7 +295,7 @@ sCHANGEITEMUNIT* CChangeItemMgr::GetItemUnitFromCalPercent( WORD wItemIdx )
 #ifdef _HK_LOCAL_
 	DWORD RandRateHigh	= rand()%1000;
 	DWORD RandRateLow	= rand()%1000;
-	DWORD RandRate		= RandRateHigh*1000 + RandRateLow;	//(0 ~ 999,999)¹é¸¸ºÐÀÇÀÏ
+	DWORD RandRate		= RandRateHigh*1000 + RandRateLow;	//(0 ~ 999,999)ï¿½é¸¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #else
 	DWORD RandRate = rand()%MAX_CHANGE_RATE;
 #endif
@@ -413,7 +319,7 @@ sCHANGEITEMUNIT* CChangeItemMgr::GetItemUnitFromCalPercent( WORD wItemIdx )
 
 sCHANGEITEMUNIT* CChangeItemMgr::GetMaxSpaceItemRef(sCHANGEITEM* pSet , DWORD& nMin )
 {
-	//°¡Àå ¸¹Àº °ø°£À» Â÷ÁöÇÏ´Â ¾ÆÀÌÅÛÀÇ Æ÷ÀÎÅÍ¸¦ µ¹·ÁÁØ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	DWORD MaxSpaceCount = 0;
 	WORD MaxSpaceItemIdx = 0;
 	for( WORD i = 0; i < pSet->wMaxToItem; ++i )
@@ -424,7 +330,7 @@ sCHANGEITEMUNIT* CChangeItemMgr::GetMaxSpaceItemRef(sCHANGEITEM* pSet , DWORD& n
 			MaxSpaceItemIdx = i;
 		}
 
-		//°ãÃÄÁöÁö ¾Ê´Â ¾ÆÀÌÅÛÀÇ ÃÖ´ë°ªÀ» ±¸ÇÑ´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ªï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if(FALSE == ITEMMGR->IsDupItem(pSet->pItemUnit[i].wToItemIdx))
 		{
 			if(nMin < pSet->pItemUnit[i].dwToItemDur)
@@ -440,7 +346,7 @@ sCHANGEITEMUNIT* CChangeItemMgr::GetMultiItemUnitFromCalPercent( sCHANGEITEM* pS
 #ifdef _HK_LOCAL_
 	DWORD RandRateHigh	= rand()%1000;
 	DWORD RandRateLow	= rand()%1000;
-	DWORD RandRate		= RandRateHigh*1000 + RandRateLow;	//(0 ~ 999,999)¹é¸¸ºÐÀÇÀÏ
+	DWORD RandRate		= RandRateHigh*1000 + RandRateLow;	//(0 ~ 999,999)ï¿½é¸¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #else
 	DWORD RandRate = rand()%MAX_CHANGE_RATE;	
 #endif
@@ -464,7 +370,7 @@ sCHANGEITEMUNIT* CChangeItemMgr::GetMultiItemUnitFromCalPercent( sCHANGEITEM* pS
 
 
 //////////////////////////////////////////////////////////////////////////
-// [START] RaMa - 06.04.19  Shop¾ÆÀÌÅÛÀ¸·Î ChangeItem»ç¿ë
+// [START] RaMa - 06.04.19  Shopï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ChangeItemï¿½ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////////
 int	CChangeItemMgr::UseChangeItemFromShopItem( CPlayer* pPlayer, WORD wItemIdx )
 {
@@ -491,7 +397,7 @@ int	CChangeItemMgr::UseChangeItemFromShopItem( CPlayer* pPlayer, WORD wItemIdx )
 
 int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wItemIdx )
 {
-	//ÇÃ·¹ÀÌ¾îÀÇ ³²¾ÆÀÖ´Â ½½·Ô °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
+	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 	sCHANGEITEMUNIT* pItemUnit = GetItemUnitFromCalPercent( wItemIdx );
 	if( !pItemUnit )	return 1;
 
@@ -511,7 +417,7 @@ int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wIte
 		else
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 
-		if(NULL == pSlot) ASSERTMSG(0,"¿Ã¹Ù¸¥ ¾ÆÀÌÅÛ ½½·ÔÀ» ¾òÀ» ¼ö ¾ø½À´Ï´Ù.");
+		if(NULL == pSlot) ASSERTMSG(0,"ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 		nNum = ITEMMGR->GetTotalEmptySlotNum(pSlot);
 	}
@@ -522,7 +428,7 @@ int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wIte
 	{
 
 	}
-	else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
+	else if( pItemUnit->wToItemIdx == 7997 )	// ï¿½ï¿½ï¿½ï¿½Ä¡
 	{
 
 	}
@@ -530,7 +436,7 @@ int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wIte
 	{
 		if(ITEMMGR->IsDupItem(pItemUnit->wToItemIdx))
 		{
-			//½ÇÁ¦ °³¼ö¸¦ ¾Ë¾Æ³»¾î¼­ MAX_YOUNGYAKITEM_DUPNUM·Î³ª´«´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½î¼­ MAX_YOUNGYAKITEM_DUPNUMï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½.
 			unsigned int devidecount = pItemUnit->dwToItemDur/MAX_YOUNGYAKITEM_DUPNUM;
 			DWORD pluscount = pItemUnit->dwToItemDur%MAX_YOUNGYAKITEM_DUPNUM;
 
@@ -551,7 +457,7 @@ int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wIte
 	{
 		pPlayer->SetMoney( pItemUnit->dwToItemDur, MONEY_ADDITION, MF_OBTAIN );
 	}
-	else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
+	else if( pItemUnit->wToItemIdx == 7997 )	// ï¿½ï¿½ï¿½ï¿½Ä¡
 	{
 		pPlayer->AddAbilityExp( pItemUnit->dwToItemDur );
 	}
@@ -582,17 +488,17 @@ int CChangeItemMgr::UseNormalChangeItemFromShopItem( CPlayer* pPlayer, WORD wIte
 int CChangeItemMgr::UseMultiChangeItemFromShopItem( CPlayer* pPlayer, WORD wItemIdx )
 {
 	CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
-	if(NULL == pSlot) ASSERTMSG(0,"¿Ã¹Ù¸¥ ¾ÆÀÌÅÛ ½½·ÔÀ» ¾òÀ» ¼ö ¾ø½À´Ï´Ù.");
+	if(NULL == pSlot) ASSERTMSG(0,"ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 	unsigned int nNum = ITEMMGR->GetTotalEmptySlotNum(pSlot);
 
 	sMULTICHANGEITEM* pMultiChangeItem = m_MultiChangeItemList.GetData( wItemIdx );
 
-	//¼¼Æ®·Î ±¸¼ºµÇ¾î ÀÖ´Â ¾ÆÀÌÅÛÀÇ Á¾·ù°¡ ¹«¾ùÀÎÁö ÆÇ´ÜÇÏ°í
-	//°¢°¢ÀÇ Á¾·ù¸¶´Ù ¸î°³¸¦ ÁÖ´ÂÁö¸¦ ÆÇ´ÜÇÑ´Ù.
+	//ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ï°ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î°³ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 
 
-	//¾ÆÀÌÅÛÀÌ °ø°£¿¡ ÀúÀåµÉ °³¼ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	unsigned int haveSpaceItemtotalcount = pMultiChangeItem->nMaxItemSpace;
 
 	if( (nNum+1)  < haveSpaceItemtotalcount)
@@ -614,7 +520,7 @@ int CChangeItemMgr::UseMultiChangeItemFromShopItem( CPlayer* pPlayer, WORD wItem
 			{
 				pPlayer->SetMoney( pItemUnit->dwToItemDur, MONEY_ADDITION, MF_OBTAIN );
 			}
-			else if( pItemUnit->wToItemIdx == 7997 )	// ¼ö·ÃÄ¡
+			else if( pItemUnit->wToItemIdx == 7997 )	// ï¿½ï¿½ï¿½ï¿½Ä¡
 			{
 				pPlayer->AddAbilityExp( pItemUnit->dwToItemDur );
 			}
@@ -628,7 +534,7 @@ int CChangeItemMgr::UseMultiChangeItemFromShopItem( CPlayer* pPlayer, WORD wItem
 	return 0;
 }
 //////////////////////////////////////////////////////////////////////////
-// [END] RaMa - 06.04.19  Shop¾ÆÀÌÅÛÀ¸·Î ChangeItem»ç¿ë
+// [END] RaMa - 06.04.19  Shopï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ChangeItemï¿½ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -648,7 +554,9 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 	ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( wItemIdx );
 	
 	if( pItemInfo )
+	{
 	if( pItemInfo->ItemKind == eCHANGE_ITEM )
+	
 	{
 		sCHANGEITEMUNIT* pItemUnit = GetItemUnitFromCalPercent( wItemIdx );
 		if( pItemUnit )
@@ -699,10 +607,60 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 
 	return 1;
 }
-*/
 
 
+/* ä»¥ä¸‹ä»£ç è¢«æ³¨é‡Š - åŒ…å«æ—§ç‰ˆæœ¬å®šä¹‰ï¼Œä½¿ç”¨é”™è¯¯çš„ç»“æž„ä½“ */
+
+
+
+
+
+
+
+
+/* æ­£ç¡®çš„ UseNormalChangeItem å‡½æ•°å®žçŽ° */
+int CChangeItemMgr::UseNormalChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx, ITEMBASE* pItem )
+{
+	sCHANGEITEMUNIT* pItemUnit = GetItemUnitFromCalPercent( wItemIdx );
+	if( !pItemUnit )	return 0;
+
+	if( EI_TRUE != ITEMMGR->DiscardItem( pPlayer, TargetPos, wItemIdx, 1 ) )
+		return 0;
+	LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
+				  eLog_ItemDestroybyChangeItem, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
+				  pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint() );
+
+	// send item use
+	MSG_ITEM_USE_ACK msg;
+	msg.Category = MP_ITEM;
+	msg.Protocol = MP_ITEM_USE_ACK;
+	msg.dwObjectID = pPlayer->GetID();
+	msg.TargetPos = TargetPos;
+	msg.wItemIdx = wItemIdx;
+	ITEMMGR->SendAckMsg( pPlayer, &msg, sizeof(msg) );
+
+	if( pItemUnit->wToItemIdx == 7999 )		// money
+	{
+		pPlayer->SetMoney( pItemUnit->dwToItemDur, MONEY_ADDITION, MF_OBTAIN );
+	}
+	else if( pItemUnit->wToItemIdx == 7998 )
+	{
+		// event 050203
+		MSG_NAME msg;
+		msg.Category = MP_USERCONN;
+		msg.Protocol = MP_USERCONN_EVENTITEM_USE;
+		strcpy( msg.Name, pPlayer->GetObjectName() );
+		pPlayer->SendMsg( &msg, sizeof(msg) );
+	}
+	else
+		ITEMMGR->ObtainItemFromChangeItem( pPlayer, pItemUnit->wToItemIdx, (WORD)pItemUnit->dwToItemDur );
+
+	return 1;
+}
+
+/* ä»¥ä¸‹æ˜¯æ—§ç‰ˆæœ¬ä»£ç ï¼Œè¢«æ³¨é‡ŠæŽ‰ */
 /*
+
 // ChangeItemMgr.cpp: implementation of the CChangeItemMgr class.
 CChangeItemMgr::CChangeItemMgr()
 {
@@ -832,7 +790,9 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 	ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( wItemIdx );
 	
 	if( pItemInfo )
+	{
 	if( pItemInfo->ItemKind == eCHANGE_ITEM )
+	
 	{
 		if( m_MultiChangeItemList.GetData( wItemIdx ) )
 		{
@@ -858,7 +818,7 @@ int CChangeItemMgr::UseNormalChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD 
 		return 0;
 	LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
 				  eLog_ItemDestroybyChangeItem, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
-				  pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint() );	
+				  pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint() );
 
 	// send item use
 	MSG_ITEM_USE_ACK msg;
@@ -983,7 +943,9 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 	ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( wItemIdx );
 	
 	if( pItemInfo )
+	{
 	if( pItemInfo->ItemKind == eCHANGE_ITEM )
+	
 	{
 		sCHANGEITEMUNIT* pItemUnit = GetItemUnitFromCalPercent( wItemIdx );
 		if( pItemUnit )
@@ -1027,7 +989,7 @@ int CChangeItemMgr::UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemI
 				ITEMMGR->ObtainItemFromChangeItem( pPlayer, pItemUnit->wToItemIdx, pItemUnit->wToItemDur );
 		}
 		else
-			return 0;		
+			return 0;
 	}
 	else
 		return 0;

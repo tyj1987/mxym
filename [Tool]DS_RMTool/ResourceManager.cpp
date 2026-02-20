@@ -130,8 +130,8 @@ BOOL CGameResourceManager::LoadExpPoint()
 		if(idx > MAX_CHARACTER_LEVEL_NUM-1) break;
 		if(file.IsEOF())
 			break;
-		file.GetWord();												// ·¹º§
-		m_CharacterExpPoint[idx] = file.GetExpPoint();				// °æÇèÄ¡
+		file.GetWord();												// ï¿½ï¿½ï¿½ï¿½
+		m_CharacterExpPoint[idx] = file.GetExpPoint();				// ï¿½ï¿½ï¿½ï¿½Ä¡
 		idx++;
 	}
 
@@ -296,7 +296,7 @@ BOOL CGameResourceManager::LoadSkillInfoList()
 		
 		WORD AdditiveAttr;
 		WORD temp[12];
-		for(n=0;n<6;++n)
+		for(int n=0;n<6;++n)
 		{
 			AdditiveAttr = file.GetWord();
 			ySWITCH(AdditiveAttr)
@@ -374,15 +374,15 @@ BOOL CGameResourceManager::LoadKyunggongInfoList()
 
 		KYUNGGONG_INFO* pInfo = new KYUNGGONG_INFO;
 
-		pInfo->KyungGongIdx = file.GetWord();		//¹«°ø index
-		file.GetString(pInfo->KyungGongName);		//°æ°øÀÌ¸§
-		pInfo->NeedNaeRyuk = file.GetWord();		//¼Ò¸ð ³»·Â
-		pInfo->MoveType = file.GetWord();			//ÀÌµ¿ Å¸ÀÔ
-		pInfo->Speed = file.GetFloat();			//ÀÌµ¿ ¼Óµµ
-		pInfo->ChangeTime = file.GetWord();		//°æ°ø ¸ðµå ÀüÈ¯ ½Ã°£
-		pInfo->StartEffect = file.GetWord();		//°æ°ø »ç¿ë ¿¬Ãâ
-		pInfo->IngEffect = file.GetWord();			//°æ°ø ¿¬Ãâ ÆÄÀÏ
-		pInfo->EndEffect = file.GetWord();			//°æ°ø ³¡ ¿¬Ãâ
+		pInfo->KyungGongIdx = file.GetWord();		//ï¿½ï¿½ï¿½ï¿½ index
+		file.GetString(pInfo->KyungGongName);		//ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+		pInfo->NeedNaeRyuk = file.GetWord();		//ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pInfo->MoveType = file.GetWord();			//ï¿½Ìµï¿½ Å¸ï¿½ï¿½
+		pInfo->Speed = file.GetFloat();			//ï¿½Ìµï¿½ ï¿½Óµï¿½
+		pInfo->ChangeTime = file.GetWord();		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ã°ï¿½
+		pInfo->StartEffect = file.GetWord();		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pInfo->IngEffect = file.GetWord();			//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pInfo->EndEffect = file.GetWord();			//ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		ASSERT(m_KyunggongInfoList.GetData(pInfo->KyungGongIdx) == FALSE);
 		m_KyunggongInfoList.Add(pInfo, pInfo->KyungGongIdx);
@@ -480,51 +480,51 @@ BOOL CGameResourceManager::LoadMonsterList()
 		
 		pList = new MONSTEREX_LIST;
 		memset(pList, 0, sizeof(MONSTEREX_LIST));
-		pList->MonsterKind				= file.GetWord();		// ¹øÈ£
-		file.GetString(pList->Name);						// ¸ó½ºÅÍÀÌ¸§	
-		file.GetString(pList->EngName);						// ¿µ¾îÀÌ¸§
-		pList->Level					= file.GetLevel();		// ¸ó½ºÅÍ·¹º§	
+		pList->MonsterKind				= file.GetWord();		// ï¿½ï¿½È£
+		file.GetString(pList->Name);						// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½	
+		file.GetString(pList->EngName);						// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+		pList->Level					= file.GetLevel();		// ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½	
 		file.GetString();	
 		pList->MotionID					= file.GetDword();	
 		file.GetString(pList->ChxName);
-		pList->Scale					= file.GetFloat();// ¸ó½ºÅÍ Å©±â	
+		pList->Scale					= file.GetFloat();// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½	
 		pList->Gravity					= file.GetDword();
-		pList->Weight					= file.GetFloat();// ¸ó½ºÅÍ ¹«°Ô
-		pList->MonsterRadius			= file.GetWord();// ¸ó½ºÅÍ 	
+		pList->Weight					= file.GetFloat();// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pList->MonsterRadius			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ 	
 		pList->Life						= file.GetDword();
 		pList->Shield					= file.GetDword();
-		pList->ExpPoint					= file.GetExpPoint();// °æÇèÄ¡
+		pList->ExpPoint					= file.GetExpPoint();// ï¿½ï¿½ï¿½ï¿½Ä¡
 		pList->Tall						= file.GetWord();
 
-		pList->AttackPhysicalMin		= file.GetWord();// °ø°Ý ÃÖ¼Ò¹°¸® °ø°Ý·Â	
-		pList->AttackPhysicalMax		= file.GetWord();// °ø°Ý ÃÖ´ë¹°¸® °ø°Ý·Â	
-		pList->CriticalPercent			= file.GetWord();// Å©¸®Æ¼ÄÃ ÆÛ¼¾Æ®
-		pList->PhysicalDefense			= file.GetWord();// ¹°¸® ¹æ¾î·Â	
-		pList->AttribResist.SetElement_Val(ATTR_FIRE,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(È­)% 	
-		pList->AttribResist.SetElement_Val(ATTR_WATER,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(¼ö)% 	
-		pList->AttribResist.SetElement_Val(ATTR_TREE,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(¸ñ)% 	
-		pList->AttribResist.SetElement_Val(ATTR_IRON,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(±Ý)% 	
-		pList->AttribResist.SetElement_Val(ATTR_EARTH,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(Åä)% 
+		pList->AttackPhysicalMin		= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½	
+		pList->AttackPhysicalMax		= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë¹°ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½	
+		pList->CriticalPercent			= file.GetWord();// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Û¼ï¿½Æ®
+		pList->PhysicalDefense			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+		pList->AttribResist.SetElement_Val(ATTR_FIRE,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(È­)% 	
+		pList->AttribResist.SetElement_Val(ATTR_WATER,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_TREE,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_IRON,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_EARTH,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 
 
-		pList->WalkMove					= file.GetWord();// ¸ó½ºÅÍ°È±âÀÌµ¿·Â	
-		pList->RunMove					= file.GetWord();// ¸ó½ºÅÍ¶Ù±âÀÌµ¿·Â	
-		pList->RunawayMove				= file.GetWord();// ¸ó½ºÅÍµµ¸ÁÀÌµ¿·Â
+		pList->WalkMove					= file.GetWord();// ï¿½ï¿½ï¿½Í°È±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+		pList->RunMove					= file.GetWord();// ï¿½ï¿½ï¿½Í¶Ù±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+		pList->RunawayMove				= file.GetWord();// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½
 		
-		file.GetString();// ¸ÂÀ½ 1 ¿¬Ãâ ¹øÈ£	
-		file.GetString();// Á×À½ 1 ¿¬Ãâ ¹øÈ£	
-		file.GetString();// Á×À½ 2 ¿¬Ãâ ¹øÈ£	
+		file.GetString();// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+		file.GetString();// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+		file.GetString();// ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
 
 		pList->StandTime				= file.GetDword();
 		pList->StandRate				= file.GetByte();
 		pList->WalkRate					= file.GetByte();
 		pList->RunRate					= file.GetByte();
-		pList->DomainRange				= file.GetDword();		// ¿µ¿ª ¹üÀ§ : ¹ÝÁö¸§
+		pList->DomainRange				= file.GetDword();		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pList->PursuitForgiveTime		= file.GetDword();
 		pList->PursuitForgiveDistance	= file.GetDword();
 		
-		pList->bForeAttack				= file.GetBool();					// ¼±°ø°Ý
-		pList->SearchPeriodicTime		= file.GetDword();				// Å½»ö ÁÖ±â
-		pList->TargetSelect				= file.GetWord();					// Å¸°Ù ¼±ÅÃ : FIND_CLOSE, FIND_FIRST
+		pList->bForeAttack				= file.GetBool();					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		pList->SearchPeriodicTime		= file.GetDword();				// Å½ï¿½ï¿½ ï¿½Ö±ï¿½
+		pList->TargetSelect				= file.GetWord();					// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : FIND_CLOSE, FIND_FIRST
 		pList->SearchRange				= file.GetWord();
 		pList->SearchAngle				= file.GetByte();
 		pList->TargetChange				= file.GetWord();
@@ -541,30 +541,30 @@ BOOL CGameResourceManager::LoadMonsterList()
 		pList->AttackRate[0]			= file.GetWord();
 		pList->AttackRate[1]			= file.GetWord();
 
-		pList->MinDropMoney				= file.GetDword();// ÃÖ¼Òµ· ¾×¼ö	
-		pList->MaxDropMoney				= file.GetDword();// ÃÖ´ë µ· ¾×¼ö	
+		pList->MinDropMoney				= file.GetDword();// ï¿½Ö¼Òµï¿½ ï¿½×¼ï¿½	
+		pList->MaxDropMoney				= file.GetDword();// ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½×¼ï¿½	
 		ASSERT(pList->MaxDropMoney >= pList->MinDropMoney);
-		pList->DropRate[eMONEY]			= file.GetWord();// µ· È®·ü(%)	
-		pList->DropRate[eITEM1]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eITEM2]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eITEM3]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eNOITEM]		= file.GetWord();// ³ëÅÛ È®·ü(%)	
+		pList->DropRate[eMONEY]			= file.GetWord();// ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM1]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM2]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM3]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eNOITEM]		= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
 
 		for(int n=0;n<eDROPITEMKIND_MAX;++n)
 			pList->CurDropRate[n] = pList->DropRate[n];
 
-		pList->ItemListNum1				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
-		pList->ItemListNum2				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
-		pList->ItemListNum3				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
+		pList->ItemListNum1				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£	
+		pList->ItemListNum2				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£	
+		pList->ItemListNum3				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½Æ®Ç¥ï¿½ï¿½È£	
 
-		pList->MaxDropItemNum			= file.GetByte();// ÃÖ´ë¾ÆÀÌÅÛ °¹¼ö
+		pList->MaxDropItemNum			= file.GetByte();// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		pList->fRunawayLifeRate			= file.GetFloat();
 		pList->RunawayRate				= file.GetWord();
 		pList->RunawayHelpRate			= file.GetWord();
 		pList->RunawayDistance			= file.GetWord();	//????
 
-		pList->Talk1					= file.GetWord();				// ´ë»ç 1
+		pList->Talk1					= file.GetWord();				// ï¿½ï¿½ï¿½ 1
 		pList->Talk2					= file.GetWord();				
 		pList->Talk3					= file.GetWord();
 

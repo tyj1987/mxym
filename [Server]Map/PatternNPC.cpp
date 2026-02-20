@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "PatternNPC.h"
 #include "Monster.h"
 #include <time.h>
@@ -58,7 +59,7 @@ void CPatternNPC::MonsterPatternManager(CMonster* pMonster, BYTE StateFlag)
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¸ó½ºÅÍµµ Á» ½±½Ã´Ù... -_-+ [3/18/2003]
+	// ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½... -_-+ [3/18/2003]
 	if(pMonster->Rest(gTickTime) == FALSE)
 		return;
 
@@ -620,10 +621,10 @@ void CPatternNPC::DefaultMonsterAttackPattern(CMonster* pMonster)
 		float AttackDist = GAMERESRCMNGR->GetMonsterInfo(pMonster->GetMonsterKind())->Attack1Distance;
 		if(Distance <= AttackDist)
 		{
-			// °ø°ÝÇÔ¼ö ½ÇÇà
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pMonster->Attack(0);
 		}
-		// °ø°Ý°Å¸®º¸´Ù ¸Ö°í °ø°Ý¿µ¿ª¾È¿¡ ÀÖÀ¸¸é ´Ù½ÃÃßÀû
+		// ï¿½ï¿½ï¿½Ý°Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 		else 
 		{
 			VECTOR3* tpos = pMonster->GetTargetObjectPos();
@@ -639,10 +640,10 @@ void CPatternNPC::DefaultMonsterAttackPattern(CMonster* pMonster)
 		float AttackDist = GAMERESRCMNGR->GetMonsterInfo(pMonster->GetMonsterKind())->Attack1Distance;
 		if(Distance <= AttackDist)
 		{
-			// °ø°ÝÇÔ¼ö ½ÇÇà
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pMonster->Attack(0);
 		}
-		// °ø°Ý°Å¸®º¸´Ù ¸Ö°í °ø°Ý¿µ¿ª¾È¿¡ ÀÖÀ¸¸é ´Ù½ÃÃßÀû
+		// ï¿½ï¿½ï¿½Ý°Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 		else 
 		{
 			VECTOR3* tpos = pMonster->GetTargetObjectPos();

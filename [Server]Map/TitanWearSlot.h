@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 #include "itemslot.h"
 
 class CTitanWearSlot : public CItemSlot

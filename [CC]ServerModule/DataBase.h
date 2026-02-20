@@ -9,13 +9,13 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include <MemoryPoolTempl.h>
+#include "D:\mxym\[Lib]YHLibrary\MemoryPoolTempl.h"
 #include "DBThreadInterface.h"
-#include <PtrList.h>
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 
 ///////////////////////////////////////////////////////////////////////
-// ÁÖÀÇ!!!
-// MiddleQuery ÄÃ·³ °³¼ö : 20°³
+// ï¿½ï¿½ï¿½ï¿½!!!
+// MiddleQuery ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ : 20ï¿½ï¿½
 //
 ///////////////////////////////////////////////////////////////////////
 
@@ -82,8 +82,8 @@ struct DBTH
 		m_LogDB = NULL;
 	}
 	IDBThread* m_pIDB;
-	LPDBCON    m_LoginDB; /// ·Î±×ÀÎ µðºñ¿¡ Á¢±Ù...
-	LPDBCON    m_LogDB; /// ·Î±× µðºñ¿¡ Á¢±Ù
+	LPDBCON    m_LoginDB; /// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
+	LPDBCON    m_LogDB; /// ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	BOOL Init(DESC_DBTHREAD* pDesc,BOOL bUsingLoginDB);
 	void Release();

@@ -11,7 +11,11 @@
 
 class CMHFile;
 
-#include "MHFile.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\MHFile.h"
+#else
+#include "..\\[Client]MH\\MHFile.h"
+#endif
 #include "AbilityCommonHeader.h"
 
 
@@ -44,8 +48,8 @@ struct ABILITY_INFO
 
 	WORD tooltip_text;
 
-	// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
-	BYTE Ability_ResetFlag;	// 1ÀÌ¸é ¸®¼Â °¡´É, 0ÀÌ¸é ¸®¼Â ºÒ°¡´É
+	// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)
+	BYTE Ability_ResetFlag;	// 1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½
 };
 
 class CAbilityInfo  
@@ -62,8 +66,8 @@ public:
 	WORD GetPosition() { return m_AbilityInfo.Ability_Position;	}
 	WORD GetAbsPosition() { return m_AbilityInfo.Ability_Kind*MAX_ABILITY_NUM_PER_GROUP + m_AbilityInfo.Ability_Position + TP_ABILITY_START; }
 	
-	// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
-	// 1ÀÌ¸é ¸®¼Â °¡´É, 0ÀÌ¸é ¸®¼Â ºÒ°¡´É
+	// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)
+	// 1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½
 	BYTE GetResetFlag()	{	return m_AbilityInfo.Ability_ResetFlag; 	}
 
 	DWORD GetAbilityGradeExp(int n)

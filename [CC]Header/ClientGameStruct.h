@@ -39,8 +39,8 @@ struct GameLoadingParam
 	DWORD m_MapNum;
 };
 
-#include "cStatic.h"
-#include "cGuagen.h"
+#include "interface/cStatic.h"
+#include "interface/cGuagen.h"
 
 struct TITANSTATS_ATTRDEF
 {
@@ -58,16 +58,19 @@ struct TITANSTATS_ATTRDEF
 	}
 };
 
-// magi82 - Titan(070423) 타이탄 스텟 관련 컨트롤 구조체
+// magi82 - Titan(070423) 타이탄 스텟 관련 컨트롤 구조체
+
 struct TITAN_STATS_CTRL
 {
 	cStatic*			titanType;			// 종류
 	cStatic*			titanAtt;			// 근접공격
-	cStatic*			titanLongAtt;		// 원거리공격
+	cStatic*			titanLongAtt;		// 원거리공격
+
 	cStatic*			titanMagicAtt;		// 마력공격
 	cStatic*			titanCritical;		// 일격
 	cStatic*			titanDistance;		// 사정거리
-	cStatic*			titanDef;			// 방어력
+	cStatic*			titanDef;			// 방어력
+
 	cStatic*			titanLife;			// 연료
 	//cStatic*			titanMana;			// 내력
 	TITANSTATS_ATTRDEF	TitanAttrDef;		// 각종 저항력(화,수,목,금,토)
@@ -84,7 +87,8 @@ struct PARSE_TYPE_INFO
 /////////////////////////////////////////////////////////////////////////
 
 // magi82 - SOS(070724)
-// SOS 멤버 관련 구조체
+// SOS 멤버 관련 구조체
+
 struct SOSMEMBERINFO
 {
 	char strName[MAX_NAME_LENGTH+1];

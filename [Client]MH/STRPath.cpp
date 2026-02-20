@@ -128,7 +128,7 @@ void CSTRPath::PreInit(CSTRINFO * pSTRINFO, int sx, int sy, int dx, int dy)
 	//ASSERT(!m_pOpenList->GetData(NewNode->cellNumber));
 	//m_pOpenList->Add(NewNode, NewNode->cellNumber);
 	
-	// open list ¿¡¼­ add
+	// open list ï¿½ï¿½ï¿½ï¿½ add
 	m_pOpenList = NewNode;
 	++m_wCurDepth;
 }
@@ -139,7 +139,7 @@ BOOL CSTRPath::GetBestNode()
 	if(!m_pCurBestNode) 
 		return FALSE;
 
-	// open list ¿¡¼­ remove
+	// open list ï¿½ï¿½ï¿½ï¿½ remove
 	ASSERT(m_wCurDepth > 0);
 	m_pOpenList = m_pOpenList->next;
 	if(m_pOpenList)
@@ -181,10 +181,11 @@ BOOL CSTRPath::FindPath(VECTOR3 * pSrcPos, VECTOR3 * pDestPos, VECTOR3 * pWayPoi
 
 void CSTRPath::CalcWayPoint(VECTOR3 * pWayPointBuf, WORD buffCount, BYTE& wWayPointNum)
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
 	int dex = 0;
 	int dey = 0;
 
-	// ÀÓ½Ã- openlist¿¡¼­ point°áÁ¤???
+	// ï¿½Ó½ï¿½- openlistï¿½ï¿½ï¿½ï¿½ pointï¿½ï¿½ï¿½ï¿½???
 	WORD wtmpWayPointNum = 0;
 
 	CSTRNode * cur = m_pCurBestNode;
@@ -203,9 +204,9 @@ void CSTRPath::CalcWayPoint(VECTOR3 * pWayPointBuf, WORD buffCount, BYTE& wWayPo
 		cur = next;
 		next = cur->parent;
 	}
-	// ÀÓ½Ã- openlist¿¡¼­ point°áÁ¤???
+	// ï¿½Ó½ï¿½- openlistï¿½ï¿½ï¿½ï¿½ pointï¿½ï¿½ï¿½ï¿½???
 	int ri = wtmpWayPointNum - 1;
-	for(int i = 0 ; i < wtmpWayPointNum && i < buffCount ; ++i, --ri)
+	for(i = 0 ; i < wtmpWayPointNum && i < buffCount ; ++i, --ri)
 	{
 		pWayPointBuf[i] = tmpWayPoint[ri];
 	}
@@ -233,7 +234,7 @@ void CSTRPath::Traversal(CSTRNode * parent)
 
 CSTRNode * CSTRPath::GetInList(CSTRNode * pList, int key)
 {
-	//* ÇØ½¬·Î °Ë»öÇÏ´Â ¹æ¹ý : ¿­¸° ¸ñ·Ï, ´ÝÈù ¸ñ·Ï
+	//* ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	while (pList) 
 	{
 		if (pList->cellNumber == key) 
@@ -257,7 +258,7 @@ void CSTRPath::TraversalChild(CSTRNode * parent, CSTRNode * child)
 	int num = LinearNumber(x, y, m_nWidth);
 
 	CSTRNode * check = NULL;
-
+	CSTRNode * newnode = NULL;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Žnewnode
 
 	if (check = GetInList(m_pOpenList, num)) 
 	{
@@ -283,10 +284,10 @@ void CSTRPath::TraversalChild(CSTRNode * parent, CSTRNode * child)
 			SpreadNode(check);
 		} 
 	} 
-	else 
+	else
 	{
-		// ¸Þ¸ð¸® Ç® »ç¿ë
-		CSTRNode * newnode = AllocNode();
+		// ï¿½Þ¸ï¿½ Ç® ï¿½ï¿½ï¿½
+		newnode = AllocNode();
 		newnode->SetXY(x, y);
 		newnode->parent			= parent;
 		newnode->goal			= g;
@@ -308,7 +309,7 @@ void CSTRPath::AddToOpenList(CSTRNode * addNode)
 
 	if (!m_pOpenList) 
 	{
-		// open list ¿¡¼­ add
+		// open list ï¿½ï¿½ï¿½ï¿½ add
 		m_pOpenList = addNode;
 		m_pOpenList->next = NULL;
 		++m_wCurDepth;
@@ -321,19 +322,19 @@ void CSTRPath::AddToOpenList(CSTRNode * addNode)
 		{
 			prev = node;
 			node = node->next;
-			// open list ¿¡¼­ add
+			// open list ï¿½ï¿½ï¿½ï¿½ add
 		} 
 		else 
 		{
 			if(prev) 
 			{
-				// open list ¿¡¼­ add
+				// open list ï¿½ï¿½ï¿½ï¿½ add
 				prev->next = addNode;
 				addNode->next = node;
 			} 
 			else 
 			{
-				// open list ¿¡¼­ add
+				// open list ï¿½ï¿½ï¿½ï¿½ add
 				CSTRNode * temp = m_pOpenList;
 				m_pOpenList = addNode;
 				m_pOpenList->next = temp;
@@ -353,7 +354,7 @@ void CSTRPath::SpreadNode(CSTRNode * node)
 	int g = node->goal;
 	int cnum = node->childNum;
 
-	//* ÀÚ½Ä ³ëµå ¸ðµÎ ¾÷µ¥ÀÌÆ®
+	//* ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	CSTRNode * child = NULL;
 	for( int i = 0 ; i < cnum ; ++i ) 
 	{
@@ -368,7 +369,7 @@ void CSTRPath::SpreadNode(CSTRNode * node)
 		}
 	}
 
-	//* ÀÚ½ÄÀÇ ÀÚ½Äµé ¾÷µ¥ÀÌÆ®
+	//* ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ú½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	CSTRNode * parent;
 	while(m_pStack) 
 	{

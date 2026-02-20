@@ -33,10 +33,13 @@
 #include "mmsystem.h"
 
 #include <winsock2.h>
-#include <yhlibrary.h>
 
-struct VECTOR3	{float x,y,z;};
+// åŒ…å«vector.hä»¥è·å–VECTOR3å®šä¹‰
+#include "..\[CC]Header\vector.h"
+
 extern DWORD gCurTime;
+
+#include <yhlibrary.h>
 
 #include "..\[CC]Header\protocol.h"
 #include "..\[CC]Header\CommonDefine.h"
@@ -64,7 +67,7 @@ extern DWORD gCurTime;
 void SafeStrCpy( char* pDest, const char* pSrc, int nDestBufSize );
 void NetworkMsgParse(BYTE Category, BYTE Protocol, void *pMsg);
 
-// ¹öÀü
+// ï¿½ï¿½ï¿½ï¿½
 #ifdef _CHINA
 #define		RMTOOLVERSION		"OPEN20041120"
 #else

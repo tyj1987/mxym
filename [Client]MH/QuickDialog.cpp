@@ -35,12 +35,13 @@
 
 CQuickDialog::CQuickDialog()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
 	m_type			= WT_QUICKDIALOG;
 	m_selectedPage	= 0;
 	m_keyStrokeBit	= 0;
 	SCRIPTMGR->GetImage( 47, &m_PressedImage  );
 //	for( int i = 0 ; i < MAX_QUICKITEMPERSHEET_NUM ; ++i )
-	for( int i = 0 ; i < TABCELL_QUICK_NUM ; ++i )
+	for( i = 0 ; i < TABCELL_QUICK_NUM ; ++i )
 	{
 		m_keyStrokeDTick[i] = KEYSTROKE_DELAYTIME;
 	}
@@ -95,12 +96,14 @@ void CQuickDialog::ViewSheet()
 
 void CQuickDialog::Render()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
+	cButton * win;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Žwin
 	if(!m_bActive) return;
 
 	cDialog::RenderWindow();
 
-	// ÆäÀÌÁö ¹øÈ£ Ãâ·Â and sheet¼û±â±â
-	cButton * win = (cButton * )this->GetWindowForID(QI_SHAPEBTN);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ and sheetï¿½ï¿½ï¿½ï¿½ï¿½
+	win = (cButton * )this->GetWindowForID(QI_SHAPEBTN);
 	win->SetTextValue(m_selectedPage+1);
 	
 	// Cell Number Render, Pressed Image
@@ -108,7 +111,7 @@ void CQuickDialog::Render()
 	Pos.x = m_absPos.x + 3;
 	Pos.y = m_absPos.y + 36;
 //	for( int i = 0 ; i < MAX_QUICKITEMPERSHEET_NUM ; ++i )
-	for( int i = 0 ; i < TABCELL_QUICK_NUM ; ++i )
+	for( i = 0 ; i < TABCELL_QUICK_NUM ; ++i )
 	{
 		// image
 		//int bits = (int)POW( 2, i - 1 );
@@ -204,8 +207,8 @@ void CQuickDialog::SelectPageDirect( WORD wPage )
 	SetSelectedPageNumber(wPage);
 	ViewSheet();
 }
-// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-/* ±âÁ¸ À§Ä¡ ¿¬»ê ÇÔ¼ö ¸ðµÎ º¯°æ
+// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------------
 // data operation -------------------------------------------------------------------
 CQuickItem * CQuickDialog::GetQuickItem(POSTYPE abs_pos)
@@ -223,8 +226,8 @@ BOOL CQuickDialog::GetAbsPositionForXYRef(LONG x, LONG y, POSTYPE & abs_pos)
 	WORD position=0;
 	if(m_pIconGridSheet[m_selectedPage]->GetPositionForXYRef(x,y,position))
 	{
-		abs_pos = position+TP_QUICK_START+TABCELL_QUICK_NUM*m_selectedPage;								// Àý´ë À§Ä¡·Î ¹Ù²Þ
-//		abs_pos = position+QUICK_STARTPOSITION+MAX_QUICKITEMPERSHEET_NUM*m_selectedPage;								// Àý´ë À§Ä¡·Î ¹Ù²Þ
+		abs_pos = position+TP_QUICK_START+TABCELL_QUICK_NUM*m_selectedPage;								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù²ï¿½
+//		abs_pos = position+QUICK_STARTPOSITION+MAX_QUICKITEMPERSHEET_NUM*m_selectedPage;								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù²ï¿½
 		return TRUE;
 	}
 	return FALSE;
@@ -304,7 +307,7 @@ BOOL CQuickDialog::AddQuickItem(POSTYPE abs_pos, CQuickItem * pIcon)
 
 //	POSTYPE rel_pos = abs_pos - (QUICK_STARTPOSITION+MAX_QUICKITEMPERSHEET_NUM*sheetNum);
 
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 //	POSTYPE rel_pos = abs_pos - (TP_QUICK_START+TABCELL_QUICK_NUM*sheetNum);
 	POSTYPE rel_pos = GetPositionNumber(abs_pos);
 	if(!m_pIconGridSheet[sheetNum]->IsAddable(rel_pos)) return FALSE;
@@ -341,7 +344,7 @@ BOOL CQuickDialog::RemQuickItem(POSTYPE abs_pos, cIcon ** delItem)
 
 //	POSTYPE rel_pos = abs_pos - (QUICK_STARTPOSITION+MAX_QUICKITEMPERSHEET_NUM*sheetNum);
 
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 //	POSTYPE rel_pos = abs_pos - (TP_QUICK_START+TABCELL_QUICK_NUM*sheetNum);
 	POSTYPE rel_pos = GetPositionNumber(abs_pos);
 	if(m_pIconGridSheet[sheetNum]->IsAddable(rel_pos)) return FALSE;
@@ -357,7 +360,7 @@ BOOL CQuickDialog::MoveQuickItem(POSTYPE fromAbsPos, POSTYPE toAbsPos, bool Dele
 	CQuickItem * toItem = NULL;
 
 	//---------------------------------------------------
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	POSTYPE fromQuickPos = 0;
 	POSTYPE toQuickPos = 0;
 
@@ -392,7 +395,7 @@ BOOL CQuickDialog::MoveQuickItem(POSTYPE fromAbsPos, POSTYPE toAbsPos, bool Dele
 	RemQuickItem(toAbsPos, (cIcon **)&toItem);
 
 	//---------------------------------------------------
-	// Äü¾ÆÀÌÅÛÀÇ ¿ø·¡ ¾ÆÀÌÅÛÀÇ ÄüÆ÷Áö¼Ç°ªÀ» °¡Á®¿Í¼­ Àç°è»êÈÄ ¼ÂÆÃÇÑ´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	fromQuickPos = fromItem->GetItem()->GetQuickPosition();
 	QUICKMGR->UpdateQuickPosition(fromQuickPos, toSheetNum, toPosNum + 1);
 	fromItem->GetItem()->SetQuickPosition(fromQuickPos);
@@ -412,7 +415,7 @@ BOOL CQuickDialog::MoveQuickItem(POSTYPE fromAbsPos, POSTYPE toAbsPos, bool Dele
 		else
 		{
 			//---------------------------------------------------
-			// Äü¾ÆÀÌÅÛÀÇ ¿ø·¡ ¾ÆÀÌÅÛÀÇ ÄüÆ÷Áö¼Ç°ªÀ» °¡Á®¿Í¼­ Àç°è»êÈÄ ¼ÂÆÃÇÑ´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 			toQuickPos = toItem->GetItem()->GetQuickPosition();
 			QUICKMGR->UpdateQuickPosition(toQuickPos, fromSheetNum, fromPosNum + 1);
 			toItem->GetItem()->SetQuickPosition(toQuickPos);
@@ -437,7 +440,7 @@ BOOL CQuickDialog::FakeMoveIcon(LONG mouseX, LONG mouseY, cIcon * icon)
 		GAMEIN->GetGameInInitKind() == eGameInInitKind_EventMapEnter)
 		return FALSE;
 	if( icon->GetType() == WT_STALLITEM || icon->GetType() == WT_EXCHANGEITEM )
-		return FALSE;		//¸Þ½ÃÁö ¾ÈÂïÀ»·Á±¸... 
+		return FALSE;		//ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½... 
 	if(!QUICKMGR->CanEquip(icon))
 	{
 		return FALSE;
@@ -465,7 +468,7 @@ void CQuickDialog::FakeDeleteQuickItem( CQuickItem * pQuickItem )
 	msg.SrcPos		= pQuickItem->GetSrcPosition();
 	msg.SrcItemIdx	= pQuickItem->GetSrcIdx();
 
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	msg.QuickPos	= pQuickItem->GetPosition();
 	msg.SrcQuickPos = pQuickItem->GetItem()->GetQuickPosition();
 	
@@ -476,7 +479,7 @@ void CQuickDialog::FakeMoveQuickItem(LONG x, LONG y, CQuickItem * pItem)
 	WORD ToAbsPos=0;
 	if(!GetAbsPositionForXYRef(x,y,ToAbsPos)) return;
 
-//	ºó°ø°£ÀÌ ¾Æ´Ï¸é À§Ä¡±³È¯!!!
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½È¯!!!
 //	if(!m_pIconGridSheet[m_selectedPage]->IsAddable(ToAbsPos-QUICK_STARTPOSITION))
 //		return;
 	/*
@@ -495,7 +498,7 @@ void CQuickDialog::FakeMoveQuickItem(LONG x, LONG y, CQuickItem * pItem)
 	msg.wToSrcItemIdx		= (pToQItem?pToQItem->GetSrcIdx():0);
 	msg.ToQuickPos			= ToAbsPos;
 		
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	msg.FromSrcQuickPos		= pItem->GetItem()->GetQuickPosition();
 	msg.ToSrcQuickPos		= (pToQItem?pToQItem->GetItem()->GetQuickPosition():0);
 
@@ -552,13 +555,13 @@ void CQuickDialog::FakeAddItem(LONG x, LONG y, CItem * pItem)
 	if(!GetAbsPositionForXYRef(x, y, abs_pos))
 		return ;
 
-	// ¼ö·® ¾ÆÀÌÅÛÀº ÄüÆ÷Áö¼Ç°ªÀ» ÇÏ³ª¿¡ ¸ô¾ÆÁÖÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CItem* pItemInven = NULL;
 	if(ITEMMGR->IsDupItem(pItem->GetItemIdx()))
 	{
 		pItemInven = GAMEIN->GetInventoryDialog()->GetItemLike(pItem->GetItemIdx());
 
-		//SW060316 ÀÎº¥ÇØ´ç¾ÆÀÌÅÛ ÀÖÀ»¶§¸¸..
+		//SW060316 ï¿½Îºï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 		if(pItemInven)
 			pItem = pItemInven;
 	}
@@ -567,7 +570,7 @@ void CQuickDialog::FakeAddItem(LONG x, LONG y, CItem * pItem)
 	
 	if(!ITEMMGR->IsOptionItem(pItem->GetItemIdx(), pItem->GetDurability()) && ITEMMGR->IsDupItem(pItem->GetItemIdx()))
 	{
-		// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+		// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 //		for(POSTYPE i = TP_QUICK_START ; i < TP_QUICK_END ; ++i)
 //		{
 //			CQuickItem * pQuickItem = GetQuickItem(i);
@@ -622,7 +625,7 @@ void CQuickDialog::FakeAddItem(POSTYPE abs_pos, CItem * pItem, CQuickItem * pOld
 	msg.OldSrcPos		= (pOldQuick?pOldQuick->GetSrcPosition():0);
 	msg.OldSrcItemIdx	= (pOldQuick?pOldQuick->GetSrcIdx():0);
 
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	msg.SrcQuickPos = pItem->GetQuickPosition();
 	msg.OldSrcQuickPos = (pOldQuick?pOldQuick->GetItem()->GetQuickPosition():0);
 
@@ -632,7 +635,7 @@ void CQuickDialog::FakeAddItem(POSTYPE abs_pos, CItem * pItem, CQuickItem * pOld
 }
 void CQuickDialog::FakeAddMugong(LONG x, LONG y, CMugongBase * pMugong)
 {
-	// ÀåÂø ¹«°ø Á¦ÇÑ ¾ø´Ù. ¸ðµç ¹«°ø?
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
 
 	WORD abs_pos;
 	if(!GetAbsPositionForXYRef(x, y, abs_pos))
@@ -673,7 +676,7 @@ void CQuickDialog::FakeAddMugong(LONG x, LONG y, CMugongBase * pMugong)
 	msg.OldSrcPos		= (pOldQuick?pOldQuick->GetSrcPosition():0);
 	msg.OldSrcItemIdx	= (pOldQuick?pOldQuick->GetSrcIdx():0);
 	
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	msg.SrcQuickPos = pMugong->GetQuickPosition();
 	msg.OldSrcQuickPos = (pOldQuick?pOldQuick->GetItem()->GetQuickPosition():0);
 
@@ -717,7 +720,7 @@ void CQuickDialog::FakeAddAbility(LONG x, LONG y, CAbilityIcon * pAbility)
 	msg.OldSrcPos		= (pOldQuick?pOldQuick->GetSrcPosition():0);
 	msg.OldSrcItemIdx	= (pOldQuick?pOldQuick->GetSrcIdx():0);
 
-	// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+	// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 	msg.SrcQuickPos = pAbility->GetQuickPosition();
 	msg.OldSrcQuickPos = (pOldQuick?pOldQuick->GetItem()->GetQuickPosition():0);
 
@@ -760,7 +763,7 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 		wsprintf(ToolTipText, "[%s]", pInfo->ItemName );
 		item->AddToolTipLine( ToolTipText, TTTC_DEFAULT );
 
-		//¿µ¾àÀÇ °æ¿ì È¸º¹·Â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½
 		if( pInfo->ItemKind == eYOUNGYAK_ITEM )
 		{
 			if( pInfo->GenGol != 0)
@@ -829,10 +832,10 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 			}
 #ifdef TAIWAN_LOCAL
-//========================= ´Þ°¿ ÇÏµåÄÚµù
+//========================= ï¿½Þ°ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 			if( pInfo->ItemIdx == 53031 || pInfo->ItemIdx == 53094 )
 			{
-				wsprintf(ToolTipText, "%s %d%%", "»¤Ìå»Ö¸´", 100);
+				wsprintf(ToolTipText, "%s %d%%", "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½", 100);
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 			}
 			else if( pInfo->ItemIdx == 53032 || pInfo->ItemIdx == 53095 )
@@ -841,7 +844,7 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(271), 100);
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
-				wsprintf(ToolTipText, "%s %d%%", "»¤Ìå»Ö¸´", 100);
+				wsprintf(ToolTipText, "%s %d%%", "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½", 100);
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 			}
 //==========================
@@ -859,11 +862,11 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 					plus = 400;
 #endif
 
-				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(270), plus);	//»ý¸í·ÂÈ¸º¹
+				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(270), plus);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
-				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(271), plus);	//³»·ÂÈ¸º¹
+				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(271), plus);	//ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
-				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(181), plus);	//È£½Å°­±âÈ¸º¹
+				wsprintf(ToolTipText, "%s %d", CHATMGR->GetChatMsg(181), plus);	//È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 			}
 			else if( pInfo->ItemIdx == 53031 || pInfo->ItemIdx == 53094 )
@@ -874,11 +877,11 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 			else if( pInfo->ItemIdx == 53032 || pInfo->ItemIdx == 53095 
 				|| pInfo->ItemIdx == 53103 )
 			{
-				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//»ý¸í·ÂÈ¸º¹
+				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
-				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//³»·ÂÈ¸º¹
+				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
-				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(181), 100);	//È£½Å°­±âÈ¸º¹
+				wsprintf(ToolTipText, "%s %d%%", CHATMGR->GetChatMsg(181), 100);	//È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 				item->AddToolTipLine( ToolTipText, TTTC_EXTRAATTR );
 			}
 #endif
@@ -903,7 +906,7 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 
 	if( pCommSkill )
 	{
-		// magi82 - ÇÔ¼ö¸¦ ¹Ýº¹ÇÒ ÇÊ¿ä¾ø´Ù. ¹Ù±ù¿¡ ÇÏ³ª¸¸ »©µÎÀÚ.
+		// magi82 - ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½. ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		WORD wCommSkillWeaponType = pCommSkill->GetWeaponType();
 		WORD wCommSkillKind = pCommSkill->GetSkillKind();
 
@@ -919,7 +922,7 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 			else
 				item->AddToolTipLine( ToolTipText, TTTC_TRANSMUGONGNAME );
 
-			//¹«°øÀÇ °æ¿ì ¼º / ÇÊ¿ä³»·Â
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ / ï¿½Ê¿ä³»ï¿½ï¿½
 			int Sung = pMugongBase->GetSung();
 			int NeedExp = pCommSkill->GetNeedExp( Sung );
 
@@ -956,15 +959,15 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 
 		BOOL bUsable = TRUE;
 		
-		// magi82 - Titan(070911) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
-		// Å¸ÀÌÅº ¹«°ø
+		// magi82 - Titan(070911) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 		if( wCommSkillKind == SKILLKIND_TITAN && HERO->InTitan() == FALSE )
 		{
 			item->SetImageRGB( ICONCLR_DISABLE );
 			bUsable = FALSE;
 			item->AddToolTipLine( CHATMGR->GetChatMsg(1655), TTTC_LIMIT );
 		}
-		// Ä³¸¯ÅÍ ¹«°ø
+		// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( wCommSkillKind != SKILLKIND_TITAN && HERO->InTitan() == TRUE )
 		{
 			item->SetImageRGB( ICONCLR_DISABLE );
@@ -976,18 +979,18 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 		WORD wHeroWeaponType = HERO->GetWeaponEquipType();
 		WORD wTitanWeaponType = HERO->GetTitanWeaponEquipType();
 
-		if(HERO->InTitan() == TRUE)	// Å¸ÀÌÅº Å¾½ÂÁßÀÏ¶§..
+		if(HERO->InTitan() == TRUE)	// Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½..
 		{
 			if( wCommSkillKind == SKILLKIND_TITAN )
 			{
-				if( wCommSkillWeaponType != WP_WITHOUT )	// ³»°øÀº ¹«±â°¡ ¾ø´Ù
+				if( wCommSkillWeaponType != WP_WITHOUT )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½
 				{
 					if( wCommSkillWeaponType != wTitanWeaponType )
 						bFlag = TRUE;					
 				}
 			}			
 		}
-		else	// Å¸ÀÌÅº Å¾½ÂÁßÀÌ ¾Æ´Ò¶§..
+		else	// Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½..
 		{
 			if( wCommSkillKind == SKILLKIND_OUTERMUGONG && wCommSkillWeaponType != wHeroWeaponType )
 			{
@@ -1023,22 +1026,22 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 			}
 		}
 
-		// magi82 - Titan(071011) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
-		// Å¸ÀÌÅº°ú Ä³¸¯ÅÍÀÇ ¹«°øÀÌ ´Ù¸£¸é »ç¿ë ¸øÇÏ°Ô ÇØ¾ßÇÑ´Ù.
+		// magi82 - Titan(071011) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+		// Å¸ï¿½ï¿½Åºï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 		if( wCommSkillKind == SKILLKIND_TITAN )
 		{
-			if( wCommSkillWeaponType != WP_WITHOUT )	// ³»°øÀº ¹«±â°¡ ¾ø´Ù
+			if( wCommSkillWeaponType != WP_WITHOUT )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½
 			{
 				if( wHeroWeaponType != wTitanWeaponType )
 				{
 					item->SetImageRGB( ICONCLR_DISABLE );
 					bUsable = FALSE;
-					//item->AddToolTipLine( "magi82 - Å¸ÀÌÅº°ú Ä³¸¯ÅÍÀÇ ¹«±â°¡ ´Ù¸§", TTTC_LIMIT );
+					//item->AddToolTipLine( "magi82 - Å¸ï¿½ï¿½Åºï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½Ù¸ï¿½", TTTC_LIMIT );
 				}
 			}
 		}
 
-		//Á¦ÇÑ·¹º§ Ã¼Å©ÇØ¼­ ÀÌ¹ÌÁö rgb ¹Ù²Ù±â
+		//ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ rgb ï¿½Ù²Ù±ï¿½
 		if( pCommSkill->GetSkillInfo()->RestrictLevel > HERO->GetLevel() )
 		{
 			wsprintf( ToolTipText, CHATMGR->GetChatMsg(460), pCommSkill->GetSkillInfo()->RestrictLevel );
@@ -1047,7 +1050,7 @@ void CQuickDialog::SetToolTipIcon( CQuickItem * item )
 			bUsable = FALSE;
 		}
 
-		// È­°æ ±Ø¸¶ Ã¼Å©			
+		// È­ï¿½ï¿½ ï¿½Ø¸ï¿½ Ã¼Å©			
 		if( HERO->GetStage() == eStage_Hwa )
 		{
 			if( SKILLMGR->IsGeukMaSkill( pCommSkill->GetSkillInfo()->SkillIdx ) )

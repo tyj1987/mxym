@@ -5,8 +5,6 @@
 #include "stdafx.h"
 #include "AbilityUse_Job.h"
 
-#include "UngiJosikManager.h"
-#ifdef _MHCLIENT_
 #include "GameIn.h"
 #include "MainBarDialog.h"
 #include "UpgradeDlg.h"
@@ -21,6 +19,7 @@
 #include "VimuManager.h"
 #include "StreetStallManager.h"
 #include "StallFindDlg.h"
+#include "MHNetwork.h"
 
 #include "Battle.h"
 #include "BattleSystem_Client.h"
@@ -32,6 +31,9 @@
 #include "StreetBuyStall.h"
 #include "AutoNoteDlg.h"
 #include "PartyMatchingDlg.h"
+
+#ifdef _MHCLIENT_
+#include "UngijosikManager.h"
 #endif
 
 

@@ -159,7 +159,7 @@ void cHelperManager::LoadSpeechList()
 			if((fp.GetString())[0] == '{')
 				LoadPageInfo(NULL, &fp);
 			else
-				__asm int 3;
+				; // __asm int 3; // NOP for Release
 		CMD_EN
 	}
 }
@@ -243,7 +243,7 @@ void cHelperManager::LoadHelper()
 			if((fp.GetString())[0] == '{')
 				LoadHelperInfo(&fp);
 			else
-				__asm int 3;
+				; // __asm int 3; // NOP for Release
 		CMD_EN
 	}
 }
@@ -280,7 +280,7 @@ void cHelperManager::LoadHelperInfo( CMHFile* fp )
 			if((fp->GetString())[0] == '{')
 				LoadFrameInfo( fp );
 			else
-				__asm int 3;
+				; // __asm int 3; // NOP for Release
 		CMD_EN
 	}
 }

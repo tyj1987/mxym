@@ -4,12 +4,14 @@
 
 #include "stdafx.h"
 #include "AbilityUpdater_Interface.h"
+#ifdef _MHCLIENT_
 #include "SuryunDialog.h"
 #include "GameIn.h"
-#include "AbilityGroup.h"
-#include "AbilityManager.h"
 #include "QuickManager.h"
 #include "SkillPointRedist.h"
+#endif
+#include "AbilityGroup.h"
+#include "AbilityManager.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -26,6 +28,7 @@ CAbilityUpdater_Interface::~CAbilityUpdater_Interface()
 
 void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pGroup,CYHHashTable<CAbilityInfo>* pInfoTable)
 {
+#ifdef _MHCLIENT_
 	if(Flag == ABILITYUPDATE_ABILITYQUICK_CHANGED)
 		return;
 
@@ -48,20 +51,20 @@ void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pG
 			Level = pAbility->GetLevel();
 			pDlg->UpdateAbility(State,Level,pAbility->GetAbilityInfo());
 		}
-		
+
 		// each AbilityInfo
 		pInfoTable->SetPositionHead();
 		while(pInfo = pInfoTable->GetData())
 		{
 			State = ABILITYMGR->GetState(pGroup,pInfo);
 			Level = 0;
-			// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-			// ±âÁ¸ ¾Èº¸ÀÌ´Â Á¶°Ç±îÁö º¸ÀÌ´Â Á¶°Ç¿¡ µé¾î°¬´Ù
+			// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+			// ìˆ˜ë ¨ì°½ì€ ë‹¨ìˆœ ìŠ¤í‚¬ì°½ì´ì§€ë§Œ ìŠ¤í‚¬ì€ ì•„ë‹ˆë‹¤
 			if(State == eAIS_OnlyVisible || State == eAIS_NotAvailable)
 				pDlg->UpdateAbility(State,Level,pInfo);
 		}
 	}
-	
+
 	if(Flag == ABILITYUPDATE_ABILITYINITED)
 	{
 		pGroup->SetPositionHead();
@@ -70,8 +73,8 @@ void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pG
 			if(pAbility->GetQuickPosition() == 0)
 				continue;
 
-			// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-			// ÃÊ±â ¼³Á¤ ÇÔ¼ö AddQuickItemReal -> SetQuickItemReal
+			// 06. 01 ë ì•„ë¡œ - í€µì°½ ì´ˆê¸°í™”
+			// ì´ˆê¸°í™”í• ë•Œ ìƒì„±í• ê²ƒ AddQuickItemReal -> SetQuickItemReal
 			// add quick item
 			QUICKMGR->SetQuickItemReal(pAbility->GetQuickPosition(),
 				pAbility->GetAbilityInfo()->GetAbsPosition(), pAbility->GetIndex() + MIN_ABILITY_INDEX );
@@ -84,11 +87,11 @@ void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pG
 
 			pNewQItem->SetPosition(QuickPos);
 			GAMEIN->GetQuickDialog()->AddQuickItem(QuickPos, pNewQItem);	*/
-		}		
+		}
 	}
 
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// ·¹º§¾÷½Ã ÅøÆÁÀ» ¸®¼ÂÇÑ´Ù
+	// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+	// ìˆ˜ë ¨ì°½ì—ëŠ” ê°±ì‹ í•´ì•¼í• ê²Œ ë‚¨ì•„ìžˆë‹¤
 	if(Flag == ABILITYUPDATE_CHARACTERLEVEL_CHANGED)
 	{
 		pGroup->SetPositionHead();
@@ -96,7 +99,7 @@ void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pG
 		{
 			pDlg->UpdateAbility(pAbility->GetAbilityInfo());
 		}
-				
+
 		pInfoTable->SetPositionHead();
 		while(pInfo = pInfoTable->GetData())
 		{
@@ -104,4 +107,7 @@ void CAbilityUpdater_Interface::Update(DWORD& Flag,DWORD Param,CAbilityGroup* pG
 		}
 
 	}
+#else
+	// Server-side: empty implementation
+#endif
 }

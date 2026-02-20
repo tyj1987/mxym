@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "GuildUnionManager.h"
 #include "GuildUnion.h"
 #include "Guild.h"
@@ -76,7 +77,7 @@ void CGuildUnionManager::LoadGuildUnionMark( DWORD dwMarkIdx, DWORD dwGuildUnion
 	CGuildUnion* pUnion = m_GuildUnionTable.GetData( dwGuildUnionIdx );
 	if( !pUnion )	return;
 
-	// º¯È¯
+	// È¯
 	char Data[GUILDUNIONMARK_BUFSIZE];
 	char tempBuf[3] = {0,};
 	int curpos = 0;
@@ -420,7 +421,7 @@ void CGuildUnionManager::MsgGuildUnionInvite( void* pMsg )
 		SendNackMsg( pPlayer1, MP_GUILD_UNION_INVITE_NACK, eGU_Is_GuildFieldWar, dwTime );
 		return;
 	}
-	// µ¿¸ÍÀÌ °¡´ÉÇÑÁö È®ÀÎ
+	//   È®
  	if( FALSE == SIEGEWARMGR->IsPossibleUnion( pGuild1->GetIdx(), pGuild2->GetIdx() ) )
  	{
  		SendNackMsg( pPlayer1, MP_GUILD_UNION_INVITE_NACK, eGU_Is_GuildFieldWar, dwTime );
@@ -628,7 +629,7 @@ void CGuildUnionManager::MsgGuildUnionRemoveSyn( void* pMsg )
  	{
  		if( pGuildUnion->GetGuildUnionIdx() == SIEGEWARMGR->GetCastleUnionIdx() )
  		{
- 			// °ø¼º¸Ê°ú ¸¶À»¿¡ ¾Ë¸°´Ù.
+ 			// Ê°  Ë¸.
  			SIEGEWARMGR->DeleteAcceptGuild( pmsg->dwData2 );
  		}
  	}
@@ -674,7 +675,7 @@ void CGuildUnionManager::MsgGuildUnionRemoveNotifyToMap( void* pMsg )
 	{
 		if( pGuildUnion->GetGuildUnionIdx() == SIEGEWARMGR->GetCastleUnionIdx() )
 		{
-			// °ø¼º¸Ê°ú ¸¶À»¿¡ ¾Ë¸°´Ù.
+			// Ê°  Ë¸.
 			SIEGEWARMGR->DeleteAcceptGuild( pmsg->dwData2 );
 		}
 	}
@@ -748,7 +749,7 @@ void CGuildUnionManager::MsgGuildUnionSecedeSyn( void* pMsg )
  	{
  		if( pGuildUnion->GetGuildUnionIdx() == SIEGEWARMGR->GetCastleUnionIdx() )
  		{
- 			// °ø¼º¸Ê°ú ¸¶À»¿¡ ¾Ë¸°´Ù.			
+ 			// Ê°  Ë¸.			
  			SIEGEWARMGR->DeleteAcceptGuild( pmsg->dwData2 );
  		}
  	}
@@ -794,7 +795,7 @@ void CGuildUnionManager::MsgGuildUnionSecedeNotifyToMap( void* pMsg )
  	{
  		if( pGuildUnion->GetGuildUnionIdx() == SIEGEWARMGR->GetCastleUnionIdx() )
  		{
- 			// °ø¼º¸Ê°ú ¸¶À»¿¡ ¾Ë¸°´Ù.			
+ 			// Ê°  Ë¸.			
  			SIEGEWARMGR->DeleteAcceptGuild( pmsg->dwData2 );
  		}
  	}
@@ -1119,7 +1120,7 @@ DWORD CGuildUnionManager::AddEntryTimeForSecede( DWORD dwGuildIdx )
 	return pTime->value;	
 }
 
-//¹Ýµå½Ã "FF" ÀÌ·±½ÄÀ¸·Î ÀÔ·ÂÀÌ µÇ¾î¾ß ÇÑ´Ù.
+//Ýµ "FF" Ì· Ô· Ç¾ Ñ´.
 BYTE CGuildUnionManager::HexToByte( char* pStr )
 {
 	int n1 = convertCharToInt(pStr[0]);
@@ -1159,7 +1160,7 @@ CGuild*	CGuildUnionManager::GetMasterGuildInUnion( DWORD dwUnionIdx )
 	return pUnion->GetMasterGuild();
 }
 
-//SW080515 ÇÔ¼ö Ãß°¡.
+//SW080515 Ô¼ ß°.
 BOOL CGuildUnionManager::IsSameUnion( CPlayer* pPlayerA, CPlayer* pPlayerB )
 {
 	if( !(pPlayerA && pPlayerB) )
@@ -1170,8 +1171,10 @@ BOOL CGuildUnionManager::IsSameUnion( CPlayer* pPlayerA, CPlayer* pPlayerB )
 
 	DWORD GuildUnionIdx = pPlayerA->GetGuildUnionIdx();
 	if( GuildUnionIdx )
+	{
 	if( GuildUnionIdx == pPlayerB->GetGuildUnionIdx() )
 		return TRUE;
 
+	}
 	return FALSE;
 }

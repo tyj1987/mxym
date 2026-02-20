@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Distributer.h"
 #include "UserTable.h"
 #include "CharMove.h"
@@ -12,7 +13,7 @@
 #include "Distribute_Random.h"
 #include "Monster.h"
 #include "BossRewardsManager.h"
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 #include "FieldBossMonsterManager.h"
 #include "ItemManager.h"
 //////////////////////////////////////////////////////////////////////
@@ -23,17 +24,17 @@ float gExpRate		= 1.0f;
 float gItemRate		= 1.0f;
 float gMoneyRate	= 1.0f;
 // RaMa -04.11.24
-float gDamageReciveRate	= 1.0f;		// ¹Þ´Â µ¥¹ÌÁö
-float gDamageRate		= 1.0f;		// ÁÖ´Â µ¥¹ÌÁö
-float gNaeRuykRate	= 1.0f;		// ³»·Â¼Ò¸ð
-float gUngiSpeed	= 1.0f;		// ¿î±âÁ¶½Ä ½ºÇÇµå
-float gPartyExpRate	= 1.0f;		// ÆÄÆ¼°æÇèÄ¡
-float gAbilRate		= 1.0f;		// Æ¯±âÄ¡
-float gGetMoney		= 1.0f;		// ¾ò´Âµ·ÀÇ ¹è¼ö
-float gMugongExpRate = 1.0f;	// ¹«°ø°æÇèÄ¡ ¹è¼ö
-// Etc - ¾ÆÁ÷¾ÈµÊ
-float gShield		= 1.0f;		// È£½Å°­±â
-float gDefence		= 1.0f;		// ¹æ¾î·Â
+float gDamageReciveRate	= 1.0f;		// ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+float gDamageRate		= 1.0f;		// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+float gNaeRuykRate	= 1.0f;		// ï¿½ï¿½ï¿½Â¼Ò¸ï¿½
+float gUngiSpeed	= 1.0f;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½
+float gPartyExpRate	= 1.0f;		// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Ä¡
+float gAbilRate		= 1.0f;		// Æ¯ï¿½ï¿½Ä¡
+float gGetMoney		= 1.0f;		// ï¿½ï¿½Âµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+float gMugongExpRate = 1.0f;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
+// Etc - ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½
+float gShield		= 1.0f;		// È£ï¿½Å°ï¿½ï¿½ï¿½
+float gDefence		= 1.0f;		// ï¿½ï¿½ï¿½ï¿½
 
 float gEventRate[eEvent_Max];
 float gEventRateFile[eEvent_Max];
@@ -75,7 +76,7 @@ void CDistributer::Release()
 
 void CDistributer::AddDamageObject(CPlayer* pPlayer, DWORD damage, DWORD plusdamage)
 {
-	if(pPlayer->GetPartyIdx()) //ÆÄÆ¼¿øÀÌ¸é ÆÄÆ¼µ¥¹ÌÁö¿¡ ÇÃ·¯½º
+	if(pPlayer->GetPartyIdx()) //ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 	{
 		DoAddDamageObj(&m_DamageObjectTableParty, pPlayer->GetPartyIdx(), damage+plusdamage);
 	}
@@ -115,18 +116,18 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 	DWORD Exp = 0;
 	CPlayer* pReceivePlayer;
 	
-	DWORD BigPlayerID; //µ¥¹ÌÁö¸¦ °¡Àå ¸¹ÀÌ Áà¼­ ¼ö·ÃÄ¡¿Í ¾ÆÀÌÅÛ °¡Á®°¥ »ç¶÷/ÆÄÆ¼
+	DWORD BigPlayerID; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½à¼­ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½/ï¿½ï¿½Æ¼
 	DWORD BigPartyID;
 	DWORD BigPlayerDamage, BigPartyDamage;
 	BigPlayerID = BigPartyID = BigPlayerDamage = BigPartyDamage = 0;
 	
-	//¼Ö·Î Å×ÀÌºí °Ë»ç
+	//ï¿½Ö·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ë»ï¿½
 	m_DamageObjectTableSolo.SetPositionHead();
 	while(obj = m_DamageObjectTableSolo.GetData())
 	{
 		if(obj->dwData == 0)
 			continue;
-		////¾ÆÀÌÅÛ°ú ¼ö·ÃÄ¡ ¹ÞÀ» »ç¶÷ ¼±ÅÃÇÏ±â À§ÇØ °¡Àå Å« µ¥¹ÌÁö ÁØ »ç¶÷ ¼±ÅÃ
+		////ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		ChooseOne(obj, &BigPlayerDamage, &BigPlayerID);
 
 		pReceivePlayer = (CPlayer *)g_pUserTable->FindUser(obj->dwID);
@@ -141,13 +142,13 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 		/*
 		if( g_pServerSystem->GetMapNum() >= TITANMAP_START_INDEX )
 			Exp = GAMERESRCMNGR->GetTitanMapMonsterDropInfo( pMob->GetLevel() )->stDropInfo[0].wExpPoint;
-		else if( pMob->GetSMonsterList()->ExpPoint)	//È£¹Ú »êÅ¸
+		else if( pMob->GetSMonsterList()->ExpPoint)	//È£ï¿½ï¿½ ï¿½ï¿½Å¸
 			Exp = CalcObtainExp(pMob->GetLevel() ,pReceivePlayer->GetLevel(),pMob->GetSMonsterList()->Life,obj->dwData);
 		*/
-			//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °è»ê °ø½ÄÈ­·Î º¯°æ
+			//SW050806 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ä½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //			Exp = CalcObtainExp(pMob->GetLevel(), pReceivePlayer->GetLevel(), pMob->GetSMonsterList()->Life, obj->dwData, pMob->GetSMonsterList()->ExpPoint );
-		//2007. 11. 3. CBH - °æÇèÄ¡ ÁÖ´Â ¹æ½Ä ¼öÁ¤
-		//Å¸ÀÌÅº ¸Ê¿¡¼­ µ¥¹ÌÁö ºñÀ²·Î °æÇèÄ¡ ÁÖ´Â »ç¶÷ Á¤ÇÏ´Â °úÁ¤¿¡¼­ ºüÁ® ÀÖ¾î¼­ CalcObtainExp() ÇÔ¼ö·Î ÀÌµ¿
+		//2007. 11. 3. CBH - ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//Å¸ï¿½ï¿½Åº ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾î¼­ CalcObtainExp() ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 		if( pMob->GetSMonsterList()->ExpPoint)
 		{
 			Exp = CalcObtainExp(pMob->GetLevel() ,pReceivePlayer->GetLevel(),pMob->GetSMonsterList()->Life,obj->dwData, 1);
@@ -157,21 +158,21 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 		if(Exp == 0)
 			continue;
 
-		// °³ÀÎ¿¡°Ô °æÇèÄ¡ º¸³¿
+		// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		DISTRIBUTERAND->SendToPersonalExp(pReceivePlayer, Exp);
 	}
 	
-	//ÆÄÆ¼
+	//ï¿½ï¿½Æ¼
 	DAMAGEOBJ* pPobj = NULL;
 	CParty* pParty;
 	m_DamageObjectTableParty.SetPositionHead();
 	while(pPobj = m_DamageObjectTableParty.GetData())
 	{
-		////Å« µ¥¹ÌÁö ÁØ ÆÄÆ¼ ¼±ÅÃ
+		////Å« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
 		ChooseOne(pPobj, &BigPartyDamage, &BigPartyID);
 
 		pParty = PARTYMGR->GetParty(pPobj->dwID);
-		if(pParty==NULL) //ÆÄÆ¼°¡ ÇØ»êµÆÀ¸¸é continue
+		if(pParty==NULL) //ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ continue
 			continue;
 		if(pPobj->dwData == 0)
 			continue;
@@ -180,9 +181,9 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 			pPobj->dwData -= m_PlusDamage;
 		}
 
-		if( pMob->GetSMonsterList()->ExpPoint)	//È£¹Ú »êÅ¸		
+		if( pMob->GetSMonsterList()->ExpPoint)	//È£ï¿½ï¿½ ï¿½ï¿½Å¸		
 			CalcAndSendPartyExp(pParty, pPobj->dwData, pKilledPosition, pMob->GetSMonsterList()->Life, pMob->GetGridID(), KillerID, pMob->GetLevel());
-//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °è»ê °ø½ÄÈ­·Î º¯°æ
+//SW050806 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ä½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //			CalcAndSendPartyExp(pParty, pPobj->dwData, pKilledPosition, pMob->GetSMonsterList()->Life, pMob->GetGridID(), KillerID, pMob->GetLevel(), pMob->GetSMonsterList()->ExpPoint);
 	}
 
@@ -190,11 +191,11 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 	pReceivePlayer = (CPlayer *)g_pUserTable->FindUser(BigPlayerID);
 	pParty = PARTYMGR->GetParty(BigPartyID);
 
-	if(BigPartyDamage < BigPlayerDamage) //°³ÀÎ¿¡°Ô º¸³¿
+	if(BigPartyDamage < BigPlayerDamage) //ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		SendPersonalAbilandItem(pReceivePlayer, pMob, DropItemID, DropItemRatio);
 	}
-	else if(BigPartyDamage == BigPlayerDamage) //µ¥¹ÌÁö°¡ °°À¸¸é ·£´ýÀ¸·Î ¼±ÅÃ
+	else if(BigPartyDamage == BigPlayerDamage) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{ 
 		int rate = rand()%2;
 		if(pParty)
@@ -206,12 +207,12 @@ void CDistributer::Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD Drop
 		{
 			SendPersonalAbilandItem(pReceivePlayer, pMob, DropItemID, DropItemRatio);
 		}
-		else //ÆÄÆ¼¿¡°Ô
+		else //ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½
 		{	
 			SendPartyAbilandItem(pParty, pKilledPosition, pMob->GetGridID(), pMob->GetLevel(), DropItemID, DropItemRatio, (MONSTEREX_LIST *)pMob->GetSMonsterList(), pMob->GetMonsterKind());
 		}
 	}
-	else //ÆÄÆ¼¿¡°Ô
+	else //ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½
 	{
 		SendPartyAbilandItem(pParty, pKilledPosition, pMob->GetGridID(), pMob->GetLevel(), DropItemID, DropItemRatio, (MONSTEREX_LIST *)pMob->GetSMonsterList(), pMob->GetMonsterKind());
 	}
@@ -266,17 +267,17 @@ void CDistributer::CalcAndSendPartyExp( CParty* pParty, DWORD TotalDamage, VECTO
 		partyexp = CalcObtainExp(MonsterLevel,maxlevel,MonsterTotalLife ,TotalDamage);
 	*/
 	
-	//2007. 11. 3. CBH - °æÇèÄ¡ ÁÖ´Â ¹æ½Ä ¼öÁ¤
-	//Å¸ÀÌÅº ¸Ê¿¡¼­ µ¥¹ÌÁö ºñÀ²·Î °æÇèÄ¡ ÁÖ´Â »ç¶÷ Á¤ÇÏ´Â °úÁ¤¿¡¼­ ºüÁ® ÀÖ¾î¼­ CalcObtainExp() ÇÔ¼ö·Î ÀÌµ¿
+	//2007. 11. 3. CBH - ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//Å¸ï¿½ï¿½Åº ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾î¼­ CalcObtainExp() ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	partyexp = CalcObtainExp(MonsterLevel,maxlevel,MonsterTotalLife ,TotalDamage, onlinenumconfirm);
 
-	//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °ø½ÄÈ­·Î º¯°æ
+	//SW050806 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ä½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	EXPTYPE partyexp = CalcObtainExp( MonsterLevel,maxlevel,MonsterTotalLife, TotalDamage, MonsterExp );
 	DWORD exp=0;
 	if(partyexp == 0)
 		return;
 	
-	for(n=0;n<MAX_PARTY_LISTNUM;++n)
+	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
 	{	
 //#ifdef _TW_LOCAL_	//hk block
 //		if(Chk(pPlayer[n],pKilledPosition,GridID) == FALSE)
@@ -295,11 +296,11 @@ void CDistributer::CalcAndSendPartyExp( CParty* pParty, DWORD TotalDamage, VECTO
 		if(exp == 0)
 			continue;
 
-		// 06. 06. ÆÄÆ¼ °æÇèÄ¡ ºÐ¹è ¼öÁ¤ - ÀÌ¿µÁØ
-		// ºÐ¹è´ë»óÀÌ 2¸íÀÌ»óÀÏ¶§¸¸ Ãß°¡ °æÇèÄ¡ ºÎ¿©
+		// 06. 06. ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ð¹ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Î¿ï¿½
 		if(onlinenumconfirm > 1)
 		{
-			// ÆÄÆ¼°æÇèÄ¡ ºñÀ² Ãß°¡ - RaMa 04.11.24 	
+			// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ - RaMa 04.11.24 	
 			exp = (DWORD)(exp*gEventRate[eEvent_PartyExpRate]);
 		}
 
@@ -307,12 +308,11 @@ void CDistributer::CalcAndSendPartyExp( CParty* pParty, DWORD TotalDamage, VECTO
 	}
 }
 
-//DWORD CDistributer::CalcObtainExp( LEVELTYPE MonsterLevel, LEVELTYPE KillerLevel, DWORD TotalLife, DWORD Damage, DWORD MonsterExp )
 DWORD CDistributer::CalcObtainExp( LEVELTYPE MonsterLevel, LEVELTYPE KillerLevel, DWORD TotalLife, DWORD Damage, DWORD dwPlayerMaxNum )
 {
-	//2007. 11. 3. CBH - Å¸ÀÌÅº ¸Ê¿¡¼­ °æÇèÄ¡ ¼öÁ¤
-	//ÀÌÂÊ ÇÔ¼ö·Î ÀÌµ¿...¿©±â¼­ °æÇèÄ¡ ¹Þ°í µ¥¹ÌÁö ºñÀ²·Î °è»ê
-	DWORD ObtainPoint = 0;
+	DWORD ObtainPoint = 0; // ä¿®å¤æœªå£°æ˜Žé”™è¯¯
+	//2007. 11. 3. CBH - Å¸ï¿½ï¿½Åº ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ìµï¿½...ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Þ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if( g_pServerSystem->GetMapNum() > TITANMAP_START_INDEX )
 	{
 		MONSTERDROP_TIMAP* pdropinfo = GAMERESRCMNGR->GetTitanMapMonsterDropInfo( MonsterLevel );
@@ -330,12 +330,12 @@ DWORD CDistributer::CalcObtainExp( LEVELTYPE MonsterLevel, LEVELTYPE KillerLevel
 	}	
 //	DWORD ObtainPoint = ATTACKMGR->GetAttackCalc().GetPlayerExpPoint( KillerLevel - MonsterLevel, MonsterExp );
 	/*
-	°¡)	1		= 100% µ¥¹ÌÁö : °æÇèÄ¡ 100%
-	³ª)	0.8~1	= 80%~100%¹Ì¸¸ µ¥¹ÌÁö : °æÇèÄ¡ 80%
-	´Ù)	0.6~0.8	= 60%~80% ¹Ì¸¸ µ¥¹ÌÁö : °æÇèÄ¡ 60%
-	¶ó)	0.4~0.6			40%~60% ¹Ì¸¸ µ¥¹ÌÁö : °æÇèÄ¡ 40%
-	¸¶)	0.2~0.4			20%~40% ¹Ì¸¸ µ¥¹ÌÁö : °æÇèÄ¡ 20%
-	¹Ù)	0~0.2			20%¹Ì¸¸ : °æÇèÄ¡ ¾øÀ½.
+	ï¿½ï¿½)	1		= 100% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ 100%
+	ï¿½ï¿½)	0.8~1	= 80%~100%ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ 80%
+	ï¿½ï¿½)	0.6~0.8	= 60%~80% ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ 60%
+	ï¿½ï¿½)	0.4~0.6			40%~60% ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ 40%
+	ï¿½ï¿½)	0.2~0.4			20%~40% ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ 20%
+	ï¿½ï¿½)	0~0.2			20%ï¿½Ì¸ï¿½ : ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½.
 	*/
 	DWORD perc = Damage*100 / TotalLife;
 	if( (100 <= perc) )
@@ -366,7 +366,7 @@ DWORD CDistributer::CalcObtainExp( LEVELTYPE MonsterLevel, LEVELTYPE KillerLevel
 	return ObtainPoint;
 }
 
-//°Å¸®¿¡ µû¸¥ °æÇèÄ¡ ¾ò±â¸¦ »« Ã¼Å©
+//ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½â¸¦ ï¿½ï¿½ Ã¼Å©
 BOOL CDistributer::ChkExp(CPlayer* pPlayer, VECTOR3* pKilledPosition, DWORD GridID)
 {
 	
@@ -385,9 +385,9 @@ BOOL CDistributer::ChkExp(CPlayer* pPlayer, VECTOR3* pKilledPosition, DWORD Grid
 
 }
 
-//°Å¸®¿¡ µû¸¥ °æÇèÄ¡¸¦ ¾òÀ»¼ö ÀÖ´Â Ã¼Å©
+//ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ã¼Å©
 #ifdef _TW_LOCAL_
-#define POINT_VALID_DISTANCE		10000	//´ë¸¸Àº 100m
+#define POINT_VALID_DISTANCE		10000	//ï¿½ë¸¸ï¿½ï¿½ 100m
 #else
 #define POINT_VALID_DISTANCE		3000
 #endif
@@ -472,7 +472,7 @@ void CDistributer::SendPersonalAbilandItem(CPlayer* pReceivePlayer, CMonster* pM
 		Release();
 		return;
 	}
-	//°æÇèÄ¡°¡ 0ÀÌ¸é Æ¯±â ¼ö·ÃÄ¡µµ ¾ÈÁØ´Ù. (ex: È£¹ÚÀÌº¥Æ®)
+	//ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ 0ï¿½Ì¸ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½. (ex: È£ï¿½ï¿½ï¿½Ìºï¿½Æ®)
 	if(pMonster->GetSMonsterList()->ExpPoint)
 		DISTRIBUTERAND->SendToPersonalAbil(pReceivePlayer, pMonster->GetLevel());
 	DISTRIBUTERAND->SendToPersonalItem(pReceivePlayer, DropItemID, DropItemRatio, (MONSTEREX_LIST *)pMonster->GetSMonsterList(), pMonster->GetMonsterKind());
@@ -490,40 +490,41 @@ void CDistributer::SendPartyAbilandItem(CParty* pParty, VECTOR3* pKilledPosition
 	LEVELTYPE MaxLevel = 1;
 	GetReceivePartyMember(&MemberInfo, pParty, pKilledPosition, GridID, &MaxLevel);
 
-	//°æÇèÄ¡°¡ 0ÀÌ¸é Æ¯±â ¼ö·ÃÄ¡µµ ¾ÈÁØ´Ù. (ex: È£¹ÚÀÌº¥Æ®)
+	//ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ 0ï¿½Ì¸ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½. (ex: È£ï¿½ï¿½ï¿½Ìºï¿½Æ®)
 	if(pMonInfo->ExpPoint)
 		pParty->SendAbil(MonsterLevel, &MemberInfo, MaxLevel);
 	pParty->SendItem(&MemberInfo, DropItemId, DropItemRatio, pMonInfo, MonsterKind, MaxLevel);
 }
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ÇÊµåº¸½º¿ë ¾ÆÀÌÅÛ ºÐ¹è ÇÔ¼ö
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ ï¿½Ô¼ï¿½
 void CDistributer::DistributeItemPerDamage(CMonster* pMob)
 {
 	DAMAGEOBJ *obj;
 	CPlayer* pReceivePlayer;
 	WORD MonsterKind;
 
-	CPlayer* TargetPlayerTable[ 100 ]; // ÇÑÄ­´ç 1%
+	CPlayer* TargetPlayerTable[ 100 ]; // ï¿½ï¿½Ä­ï¿½ï¿½ 1%
 	WORD TargetPos = 0;
 	
 	MonsterKind = pMob->GetMonsterKind();
 
-	// µå¶ø ¾ÆÀÌÅÛ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	FIELDBOSSDROPITEMLIST* pDropItemList = FIELDBOSSMONMGR->GetFieldBossDropItemList( MonsterKind );
     
-	// µå¶ø ¾ÆÀÌÅÛ Á¤º¸°¡ ¾øÀ¸¸é Á¾·áÇÑ´Ù
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	if( pDropItemList == NULL )
 		return;
 
 	for(WORD index = 0; index < MAX_FIELDBOSS_DROPITEM_GROUP_NUM; index++)
 	{
-		// µå¶ø ¾ÆÀÌÅÛ Á¤º¸°¡ ÀÖ´Â°¡? ¾ø´Ù¸é Á¾·á
+		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½? ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( pDropItemList->m_ItemList[ index ].m_wItemIndex[0] == 0 )
 			break;
         
-		// ¾ÆÀÌÅÛ ±×·ì ³»ÀÇ ¾î¶² ¾ÆÀÌÅÛÀ» ÁÙÁö °áÁ¤
-		for( WORD dropitemnum = 0; dropitemnum < MAX_FIELDBOSS_DROPITEM_NUM; dropitemnum++)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		WORD dropitemnum;
+		for( dropitemnum = 0; dropitemnum < MAX_FIELDBOSS_DROPITEM_NUM; dropitemnum++)
 		{
 			if(pDropItemList->m_ItemList[ index ].m_wItemIndex[dropitemnum] == 0)
 				break;
@@ -531,19 +532,19 @@ void CDistributer::DistributeItemPerDamage(CMonster* pMob)
 
 		WORD select = rand() % dropitemnum;
 
-		// µå¶øµÉ È½¼ö¸¦ °¡Á®¿Â´Ù
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 		WORD count = pDropItemList->m_ItemList[ index ].m_wCount;
 
 		for(WORD i = 0; i < count; i++)
 		{
-			// µå¶ø ÇÒ°ÍÀÎ°¡?
+			// ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½Î°ï¿½?
 			if( (rand() % 100) < pDropItemList->m_ItemList[ index ].m_wDropRate )
 			{
-				// º¯¼öÃÊ±âÈ­
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½È­
 				memset( TargetPlayerTable, 0, sizeof(CPlayer*) * 100 );
 				TargetPos = 0;
 
-				// °ø°ÝÇÑ »ç¶÷µéÀ» °Ë»öÇØ¼­ ±âÁØÄ¡ ÀÌ»ó µ¥¹ÌÁö¸¦ ÁØ »ç¶÷µé °¡·Á³½´Ù
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				m_DamageObjectTableSolo.SetPositionHead();
 				while(obj = m_DamageObjectTableSolo.GetData())
 				{
@@ -556,19 +557,19 @@ void CDistributer::DistributeItemPerDamage(CMonster* pMob)
 						continue;
 					if(pReceivePlayer->GetGridID() != pMob->GetGridID())
 						continue;
-					// ¸ó½ºÅÍ¿Í +6 ÀÌ»ó È¤Àº -9 ÀÌÇÏÀÇ Player´Â ºÐ¹è¿¡¼­ Á¦¿Ü
+					// ï¿½ï¿½ï¿½Í¿ï¿½ +6 ï¿½Ì»ï¿½ È¤ï¿½ï¿½ -9 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Playerï¿½ï¿½ ï¿½Ð¹è¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					if(pReceivePlayer->GetLevel() > pMob->GetSMonsterList()->Level + 6 )
 						continue;
 					//if(pReceivePlayer->GetLevel() < pMob->GetSMonsterList()->Level - 9 )
 					//	continue;
 					
-					// µ¥¹ÌÁö ºñÀ² °è»ê
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					WORD DamageRate = (WORD)(((double)obj->dwData / m_TotalDamage) * 100);
 
-					// ±âÁØÄ¡ ÀÌ»ó µ¥¹ÌÁö¸¦ ÁÖ¾ú´Ù¸é
+					// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½
 					if( DamageRate >= pDropItemList->m_ItemList[ index ].m_wDamageRate )
 					{
-						// µ¥¹ÌÁö ºñÀ²¸¸Å­ ´ë»ó Å×ÀÌºí¿¡ µî·ÏÇÑ´Ù
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 						for(DWORD rate = 0; rate < DamageRate; rate++)
 						{
 							TargetPlayerTable[ TargetPos++ ] = pReceivePlayer;
@@ -576,16 +577,16 @@ void CDistributer::DistributeItemPerDamage(CMonster* pMob)
 					}
 				}
 
-				// ´ë»ó Å×ÀÌºí¿¡ µî·ÏµÈ À¯Àú°¡ ÀÖ´Ù¸é
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
 				if( TargetPos > 0 )
 				{
-					// ·£´ýÀ¸·Î Å×ÀÌºí À§Ä¡¸¦ °áÁ¤ÇÑ´Ù
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 					WORD TargetIndex = rand() % TargetPos;
 
-					// °áÁ¤µÈ À§Ä¡¿¡ µî·ÏµÈ À¯Àú¸¦ °¡Á®¿Â´Ù
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 					CPlayer* TargetPlayer = TargetPlayerTable[ TargetIndex ];
 
-					// À¯Àú Á¤º¸°¡ À¯È¿ÇÏ¸é ¾ÆÀÌÅÛÀ» ³Ö¾îÁØ´Ù
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½
 					if( TargetPlayer )
 						ITEMMGR->MonsterObtainItem( TargetPlayer, 
 													pDropItemList->m_ItemList[ index ].m_wItemIndex[ select ],
@@ -624,7 +625,7 @@ void CDistributer::DistributePerDamage(CMonster* pMob)
 			continue;
 		if(pReceivePlayer->GetGridID() != pMob->GetGridID())
 			continue;
-		//¾ê³×µµ ÁØ´Ù.
+		//ï¿½ï¿½×µï¿½ ï¿½Ø´ï¿½.
 	/*	if(pReceivePlayer->IsVimuing() == TRUE)
 			continue;		
 		if(pPlayer->GetState() == eObjectState_Die)
@@ -634,11 +635,11 @@ void CDistributer::DistributePerDamage(CMonster* pMob)
 		Abil = (DWORD)(((double)obj->dwData * MaxAbil) / m_TotalDamage);
 		Money = (DWORD)(((double)obj->dwData * MaxMoney) / m_TotalDamage);
 
-		// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-		// ÇÊµåº¸½ºÀÇ °æÇèÄ¡ ¼ö·ÃÄ¡ µ· ºÐ
+		// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½
 		if(pMob->GetObjectKind() == eObjectKind_FieldBossMonster)
 		{
-			// ¸ó½ºÅÍ¿Í +6 ÀÌ»ó È¤Àº -9 ÀÌÇÏÀÇ Player´Â ºÐ¹è¿¡¼­ Á¦¿Ü
+			// ï¿½ï¿½ï¿½Í¿ï¿½ +6 ï¿½Ì»ï¿½ È¤ï¿½ï¿½ -9 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Playerï¿½ï¿½ ï¿½Ð¹è¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(pReceivePlayer->GetLevel() > pMob->GetSMonsterList()->Level + 6 )
 				continue;
 			//if(pReceivePlayer->GetLevel() < pMob->GetSMonsterList()->Level - 9 )

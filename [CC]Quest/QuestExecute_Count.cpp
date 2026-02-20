@@ -7,7 +7,7 @@
 
 #include "QuestScriptLoader.h"
 #ifdef _MAPSERVER_
-#include "QuestGroup.h"
+#include "../[Client]MH/QuestGroup.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////

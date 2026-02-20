@@ -651,7 +651,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}				
 			case eCHARGUAGEDLG:
@@ -659,7 +661,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuageDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eLISTDLG:
@@ -667,7 +671,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cListDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eLISTDLGEX:
@@ -675,7 +681,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cListDialogEx), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHARINFODLG:
@@ -683,7 +691,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CCharacterDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMUGONGSURYUNDLG:
@@ -691,7 +701,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMugongSuryunDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMAINDLG:
@@ -699,7 +711,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMainBarDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eINVENTORYDLG:
@@ -707,7 +721,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CInventoryExDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHATDLG:
@@ -715,7 +731,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChatDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}				
 			//SW050722 attach to minimap
@@ -724,14 +742,16 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 			//			if((fp.GetString())[0] == '{')
 			//				dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cJackpotDialog), &fp);
 			//			else
-			//				__asm int 3;
+			// //				// __asm nop; // NOP for Release
 			// LYJ 051017 ���Գ����� �߰�
 			case eSTALLOPTIONDLG:
 				{
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStallKindSelectDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eBUYSTALLDLG:
@@ -739,7 +759,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStreetBuyStall), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eBUYREGDLG:
@@ -747,7 +769,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBuyRegDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSTREETSTALLDLG:
@@ -755,7 +779,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStreetStall), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eNPCSCRIPTDLG:
@@ -763,7 +789,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cNpcScriptDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eHELPDLG:
@@ -771,7 +799,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cHelpDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHARMAKEDLG:
@@ -779,7 +809,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cCharMakeDlg *)GetInfoFromFile((cWindow*)(new cCharMakeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}				
 			case eHELPERSPEECHDLG:
@@ -787,7 +819,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cHelperSpeechDlg *)GetInfoFromFile((cWindow*)(new cHelperSpeechDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMONEYDLG:
@@ -795,7 +829,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMoneyDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eDEALDLG:
@@ -803,7 +839,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CDealDialog), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eQUICKDIALOG:
@@ -811,7 +849,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CQuickDialog), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER1DLG:
@@ -819,7 +859,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER2DLG:
@@ -827,7 +869,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER3DLG:
@@ -835,7 +879,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER4DLG:
@@ -843,7 +889,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER5DLG:
@@ -851,7 +899,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_MEMBER6DLG:
@@ -859,7 +909,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_BTNDLG:
@@ -867,7 +919,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyBtnDlg *)GetInfoFromFile((cWindow*)(new CPartyBtnDlg), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_CREATEDLG:
@@ -875,7 +929,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyCreateDlg *)GetInfoFromFile((cWindow*)(new CPartyCreateDlg), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePA_INVITEDLG:
@@ -883,7 +939,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPartyInviteDlg *)GetInfoFromFile((cWindow*)(new CPartyInviteDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eANI:
@@ -891,7 +949,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cAni *)GetInfoFromFile((cWindow*)(new cAni), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 
@@ -900,7 +960,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CMousePointer *)GetInfoFromFile((cWindow*)(new CMousePointer), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePYOGUKDLG:
@@ -908,7 +970,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CPyogukDialog *)GetInfoFromFile((cWindow*)(new CPyogukDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eFRIENDDLG:
@@ -916,7 +980,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CFriendDialog *)GetInfoFromFile((cWindow*)(new CFriendDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eNOTEDLG:
@@ -924,7 +990,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CNoteDialog *)GetInfoFromFile((cWindow*)(new CNoteDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMINNOTEDLG:
@@ -932,7 +1000,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CMiniNoteDialog *)GetInfoFromFile((cWindow*)(new CMiniNoteDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMINFRIENDDLG:
@@ -940,7 +1010,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CMiniFriendDialog *)GetInfoFromFile((cWindow*)(new CMiniFriendDialog), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eREVIVEDLG:
@@ -948,7 +1020,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CReviveDialog*)GetInfoFromFile((cWindow*)(new CReviveDialog), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHANNELDLG:
@@ -956,7 +1030,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CChannelDialog*)GetInfoFromFile((cWindow*)(new CChannelDialog), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eWANTNPCDLG:
@@ -964,7 +1040,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CWantNpcDialog*)GetInfoFromFile((cWindow*)(new CWantNpcDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eWANTREGISTDLG:
@@ -972,7 +1050,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CWantRegistDialog*)GetInfoFromFile((cWindow*)(new CWantRegistDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}				
 			/////		
@@ -982,7 +1062,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CExitDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMACRODLG:
@@ -990,7 +1072,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CMacroDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eOPTIONDLG:
@@ -998,7 +1082,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new COptionDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eEXCHANGEDLG:
@@ -1006,7 +1092,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CExchangeDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHARSTATEDLG:
@@ -1014,7 +1102,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CCharStateDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMENUSLOTDIALOG:
@@ -1022,7 +1112,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CMenuSlotDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePKLOOTINGDLG:
@@ -1030,7 +1122,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CPKLootingDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCNADVICEDLG:
@@ -1038,7 +1132,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CChinaAdviceDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eDISSOLUTIONDLG:
@@ -1046,7 +1142,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CDissolutionDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}					
 			//////////
@@ -1056,7 +1154,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CMNPlayRoomDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMNCHANNELDLG:
@@ -1064,7 +1164,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = GetInfoFromFile((cWindow*)(new CMNChannelDialog), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			///////////////////////////////////////
@@ -1073,7 +1175,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMiniMapDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eBIGMAPDLG:
@@ -1081,7 +1185,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBigMapDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMONSTERGUAGEDLG:
@@ -1089,7 +1195,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMonsterGuageDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eDIVIDEBOX:
@@ -1097,7 +1205,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cDivideBox), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eLOADINGDLG:
@@ -1105,7 +1215,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CLoadingDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eUPGRADEDLG:
@@ -1113,7 +1225,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CUpgradeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMIXDLG:
@@ -1121,7 +1235,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMixDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eREINFORCEDLG:
@@ -1129,7 +1245,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// JSD-------------------------------------------------------------------------------------
@@ -1138,7 +1256,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CServerListDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eQUESTTOTALDLG:
@@ -1146,7 +1266,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CQuestTotalDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMPREGISTDLG:
@@ -1154,7 +1276,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPRegistDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMPMISSIONDLG:
@@ -1162,7 +1286,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPMissionDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMPNOTICEDLG:
@@ -1170,7 +1296,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPNoticeDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eMPGUAGEDLG:
@@ -1178,7 +1306,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPGuageDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eBAILDLG:
@@ -1186,7 +1316,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBailDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGMOPENTALKDLG:
@@ -1194,7 +1326,8 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CEventNotifyDialog), &fp);
 					else				
-						__asm int 3;
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eITEM_MALLDLG:
@@ -1202,7 +1335,8 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMallNoticeDialog), &fp);
 					else				
-						__asm int 3;
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDCREATEDLG:
@@ -1210,7 +1344,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildCreateDialog), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDUNIONCREATEDLG:
@@ -1218,7 +1354,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildUnionCreateDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDDLG:
@@ -1226,7 +1364,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildDialog), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDINVITEDlG:
@@ -1234,7 +1374,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildInviteDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDMARKDLG:
@@ -1242,7 +1384,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildMarkDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDLEVELUPDLG:
@@ -1250,7 +1394,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildLevelUpDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDNICKNAMEDLG:
@@ -1258,7 +1404,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildNickNameDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDRANKDLG:
@@ -1266,7 +1414,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildRankDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDWAREHOUSEDLG:
@@ -1274,7 +1424,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildWarehouseDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eITEMALLBASE:
@@ -1282,7 +1434,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CItemShopDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSAVEMOVEDLG:
@@ -1290,7 +1444,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMoveDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHANGSAVEDLG:
@@ -1298,7 +1454,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CPointSaveDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// guildfieldwar --------------------------------------------------------------------------------
@@ -1307,7 +1465,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarDeclareDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGFWARRESULTDLG:
@@ -1315,7 +1475,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarResultDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGFWARINFODLG:
@@ -1323,7 +1485,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarInfoDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDWARINFODLG:
@@ -1331,7 +1495,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildWarInfoDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			//------------------------------------------------------------------------------------------------
@@ -1340,7 +1506,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSkillPointRedist), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSKILLPOINTOPDLG:
@@ -1348,7 +1516,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSkillPointNotify), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// partywar -----------------------------
@@ -1357,7 +1527,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CPartyWarDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			//---------------------------------------
@@ -1366,7 +1538,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CShoutDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHATALLDLG:
@@ -1374,7 +1548,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CShoutchatDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSEECHASEDLG:
@@ -1382,7 +1558,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChaseDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHASEDLG:
@@ -1390,7 +1568,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChaseinputDialog), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHNAMECHANGEDLG:
@@ -1398,7 +1578,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CNameChangeDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eOPCHNAMECHANGEDLG:
@@ -1406,7 +1588,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CNameChangeNotifyDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGDTENTRYDLG:
@@ -1414,7 +1598,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTRegistDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGDTENTRYCANCELDLG:
@@ -1422,7 +1608,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTRegistcancelDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGDTOURNAMENTDLG:
@@ -1430,7 +1618,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTStandingDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGDTVIEWDLG:
@@ -1438,7 +1628,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTBattleListDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eEVENTMAPCOUNTDLG:
@@ -1446,7 +1638,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTScoreInfoDialog), &fp);
 					else
-						__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// seigewar
@@ -1455,7 +1649,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWTimeRegDlg), &fp);
 					else
-						__asm int 3;		
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSEIGEWARPROTECTREGDLG:
@@ -1463,7 +1659,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWProtectRegDlg), &fp);
 					else
-						__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSEIGEWARINFODLG:
@@ -1471,7 +1669,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWInfoDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSWSTARTTIMEDLG:
@@ -1479,7 +1679,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWStartTimeDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// Character change
@@ -1488,7 +1690,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CCharChangeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// ItemSeal
@@ -1497,7 +1701,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSealDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSWPROFITDLG:
@@ -1505,7 +1711,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWProfitDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eENGRAVEDLG:
@@ -1513,7 +1721,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWEngraveDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eSWCOUNTDLG:
@@ -1521,7 +1731,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWTimeDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eCHANGEJOBDLG:
@@ -1529,7 +1741,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChangeJobDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eRFDefaultDlg:
@@ -1537,7 +1751,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceResetDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eRareCreateDlg:
@@ -1545,7 +1761,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CRareCreateDialog), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case ePETSTATEDLG:
@@ -1553,6 +1771,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetStateDlg), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1561,6 +1780,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetStateMiniDlg), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1569,6 +1789,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetInventoryDlg), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1577,6 +1798,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetUpgradeDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1585,6 +1807,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetRevivalDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1594,7 +1817,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceDataGuideDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// 06. 02. ������â ������ �߰� - �̿���
@@ -1603,7 +1828,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTipBrowserDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eKSDLG:
@@ -1611,7 +1838,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CKeySettingTipDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eGUILDNOTEDLG:
@@ -1619,7 +1848,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CGuildNoteDlg *)GetInfoFromFile((cWindow*)(new CGuildNoteDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			}
@@ -1632,7 +1863,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CUnionNoteDlg *)GetInfoFromFile((cWindow*)(new CUnionNoteDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				// 06. 03. ���İ��� - �̿���
@@ -1641,7 +1874,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CGuildNoticeDlg *)GetInfoFromFile((cWindow*)(new CGuildNoticeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}	
 			case eGUILDPLUSTIMEDLG:
@@ -1649,7 +1884,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildPlusTimeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////
@@ -1660,7 +1897,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CSkillOptionChangeDlg *)GetInfoFromFile((cWindow*)(new CSkillOptionChangeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eTDefaultDlg:
@@ -1668,7 +1907,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CSkillOptionClearDlg *)GetInfoFromFile((cWindow*)(new CSkillOptionClearDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////
@@ -1677,7 +1918,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CScreenShotDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//SW060713 ���ϻ�
@@ -1686,6 +1929,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildJoinDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1695,6 +1939,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CSurvivalCountDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1703,6 +1948,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildMunhaDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1711,6 +1957,7 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildTraineeDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					break;
 				}
@@ -1720,7 +1967,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanPartsMakeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1731,7 +1980,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanMixDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}			
 			case eTITANUPGRADEDLG:
@@ -1739,7 +1990,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanUpgradeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eTITANBREAKDLG:
@@ -1747,7 +2000,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanBreakDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1757,7 +2012,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanChangePreViewDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1767,7 +2024,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanInventoryDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1777,7 +2036,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanGuageDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1788,7 +2049,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanMugongMixDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				*/
@@ -1798,7 +2061,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanRegisterDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1808,7 +2073,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanDissolutionDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1818,7 +2085,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CUniqueItemCurseCancellationDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1828,7 +2097,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CUniqueItemMixDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1838,7 +2109,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSOSDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1848,7 +2121,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CIntroReplayDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1858,7 +2133,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CTitanRepairDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1868,7 +2145,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CTitanRecallDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1878,7 +2157,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CUniqueItemMixProgressBarDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1888,7 +2169,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CTitanMixProgressBarDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1898,7 +2181,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CTitanPartsProgressBarDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1908,7 +2193,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CSkinSelectDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1918,7 +2205,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CCostumeSkinSelectDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1928,7 +2217,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CSkillPointResetDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				// 2008. 3. 17. CBH - ���ȹ�ȣ ���̾�α�
@@ -1937,7 +2228,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CNumberPadDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				/////////////////////////////////////////////////////////////////////////////
@@ -1947,7 +2240,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CStreetStallItemViewDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 				//////////////////////////////////////////////////////////////////////////
@@ -1957,7 +2252,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CStallFindDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// autonote
@@ -1966,7 +2263,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CAutoNoteDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eAUTOANSWERDLG:
@@ -1974,7 +2273,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CAutoAnswerDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 
@@ -1983,7 +2284,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CPartyMatchingDlg), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			// �����
@@ -1992,7 +2295,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CFWEngraveDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eFWTIMEDLG:
@@ -2000,7 +2305,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CFWTimeDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 			case eFWWAREHOUSEDLG:
@@ -2008,7 +2315,9 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if( (fp.GetString())[0] == '{' )
 						dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CFWWareHouseDialog), &fp );
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 					break;
 				}
 
@@ -2037,635 +2346,842 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHARGUAGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuageDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$LISTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cListDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$LISTDLGEX")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cListDialogEx), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHARINFODLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CCharacterDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MUGONGSURYUNDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMugongSuryunDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MAINDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMainBarDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$INVENTORYDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CInventoryExDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHATDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChatDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			//SW050722 attach to minimap
 			//		//SW050718
 			//		CMD_CS("$JACKPOT")
 			//			if((fp.GetString())[0] == '{')
 			//				dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cJackpotDialog), &fp);
 			//			else
-			//				__asm int 3;
+			// //				// __asm nop; // NOP for Release
 			// LYJ 051017 ���Գ����� �߰�
 			CMD_CS("$STALLOPTIONDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStallKindSelectDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$BUYSTALLDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStreetBuyStall), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$BUYREGDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBuyRegDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$STREETSTALLDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CStreetStall), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$NPCSCRIPTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cNpcScriptDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$HELPDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cHelpDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHARMAKEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cCharMakeDlg *)GetInfoFromFile((cWindow*)(new cCharMakeDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$HELPERSPEECHDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cHelperSpeechDlg *)GetInfoFromFile((cWindow*)(new cHelperSpeechDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MONEYDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMoneyDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$DEALDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CDealDialog), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$QUICKDIALOG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CQuickDialog), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER1DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER2DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER3DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER4DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER5DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_MEMBER6DLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyMemberDlg *)GetInfoFromFile((cWindow*)(new CPartyMemberDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_BTNDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyBtnDlg *)GetInfoFromFile((cWindow*)(new CPartyBtnDlg), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_CREATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyCreateDlg *)GetInfoFromFile((cWindow*)(new CPartyCreateDlg), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PA_INVITEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPartyInviteDlg *)GetInfoFromFile((cWindow*)(new CPartyInviteDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$ANI")
 				if((fp.GetString())[0] == '{')
 					dlg = (cAni *)GetInfoFromFile((cWindow*)(new cAni), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MOUSEPOINTER")
 				if((fp.GetString())[0] == '{')
 					dlg = (CMousePointer *)GetInfoFromFile((cWindow*)(new CMousePointer), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PYOGUKDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CPyogukDialog *)GetInfoFromFile((cWindow*)(new CPyogukDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$FRIENDDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CFriendDialog *)GetInfoFromFile((cWindow*)(new CFriendDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$NOTEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CNoteDialog *)GetInfoFromFile((cWindow*)(new CNoteDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MINNOTEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CMiniNoteDialog *)GetInfoFromFile((cWindow*)(new CMiniNoteDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MINFRIENDDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CMiniFriendDialog *)GetInfoFromFile((cWindow*)(new CMiniFriendDialog), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$REVIVEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CReviveDialog*)GetInfoFromFile((cWindow*)(new CReviveDialog), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHANNELDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CChannelDialog*)GetInfoFromFile((cWindow*)(new CChannelDialog), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$WANTNPCDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CWantNpcDialog*)GetInfoFromFile((cWindow*)(new CWantNpcDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$WANTREGISTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CWantRegistDialog*)GetInfoFromFile((cWindow*)(new CWantRegistDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			/////		
 			//KES
 			CMD_CS("$EXITDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CExitDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MACRODLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CMacroDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$OPTIONDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new COptionDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$EXCHANGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CExchangeDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHARSTATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CCharStateDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MENUSLOTDIALOG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CMenuSlotDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PKLOOTINGDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CPKLootingDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CNADVICEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CChinaAdviceDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$DISSOLUTIONDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CDissolutionDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			//////////
 			//MurimNet
 			CMD_CS("$MNPLAYROOMDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CMNPlayRoomDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MNCHANNELDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = GetInfoFromFile((cWindow*)(new CMNChannelDialog), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			///////////////////////////////////////
 			CMD_CS("$MINIMAPDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMiniMapDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$BIGMAPDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBigMapDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MONSTERGUAGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMonsterGuageDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$DIVIDEBOX")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new cDivideBox), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$LOADINGDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CLoadingDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$UPGRADEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CUpgradeDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MIXDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMixDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$REINFORCEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			// JSD-------------------------------------------------------------------------------------
 			CMD_CS("$SERVERLISTDLG")
 				if( (fp.GetString())[0] == '{' )
 					dlg = (cDialog*)GetInfoFromFile( (cWindow*)(new CServerListDialog), &fp );
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$QUESTTOTALDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CQuestTotalDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$MPREGISTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPRegistDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MPMISSIONDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPMissionDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MPNOTICEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPNoticeDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$MPGUAGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMPGuageDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$BAILDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CBailDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GMOPENTALKDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CEventNotifyDialog), &fp);
 				else				
-					__asm int 3;
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$ITEM_MALLDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMallNoticeDialog), &fp);
 				else				
-					__asm int 3;
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDCREATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildCreateDialog), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDUNIONCREATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildUnionCreateDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildDialog), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDINVITEDlG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildInviteDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$GUILDMARKDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildMarkDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$GUILDLEVELUPDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildLevelUpDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$GUILDNICKNAMEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildNickNameDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$GUILDRANKDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildRankDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$GUILDWAREHOUSEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildWarehouseDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$ITEMALLBASE")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CItemShopDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SAVEMOVEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CMoveDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHANGSAVEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CPointSaveDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			// guildfieldwar --------------------------------------------------------------------------------
 			CMD_CS("$GFWARDECLAREDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarDeclareDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GFWARRESULTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarResultDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GFWARINFODLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGFWarInfoDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDWARINFODLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildWarInfoDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			//------------------------------------------------------------------------------------------------
 			CMD_CS("$SKILLPOINTAGAINDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSkillPointRedist), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SKILLPOINTOPDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSkillPointNotify), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			// partywar -----------------------------
 			CMD_CS("$PARTYWARDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CPartyWarDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			//---------------------------------------
 			CMD_CS("$CHALLWORLDCREATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CShoutDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHATALLDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CShoutchatDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SEECHASEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChaseDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHASEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChaseinputDialog), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHNAMECHANGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CNameChangeDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$OPCHNAMECHANGEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CNameChangeNotifyDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GDTENTRYDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTRegistDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GDTENTRYCANCELDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTRegistcancelDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GDTOURNAMENTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTStandingDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GDTVIEWDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTBattleListDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$EVENTMAPCOUNTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGTScoreInfoDialog), &fp);
 				else
-					__asm int 3;			
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			// seigewar
 			CMD_CS("$SEIGEWARTIMEREGDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWTimeRegDlg), &fp);
 				else
-					__asm int 3;		
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SEIGEWARPROTECTREGDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWProtectRegDlg), &fp);
 				else
-					__asm int 3;	
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SEIGEWARINFODLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWInfoDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SWSTARTTIMEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWStartTimeDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			// Character change
 			CMD_CS("$CHARCHANGEEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CCharChangeDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			// ItemSeal
 			CMD_CS("$ITEMLOCKDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSealDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$SWPROFITDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWProfitDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 
 			CMD_CS("$ENGRAVEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWEngraveDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$SWCOUNTDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CSWTimeDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$CHANGEJOBDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CChangeJobDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$RFDefaultDlg")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceResetDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$RareCreateDlg")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CRareCreateDialog), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$PETSTATEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetStateDlg), &fp);
 				else
+					__asm int 3; // 使用双下划线的__asm
 					_asm int 3;
 			CMD_CS("$PETSTATEMINIDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetStateMiniDlg), &fp);
 				else
+					__asm int 3; // 使用双下划线的__asm
 					_asm int 3;
 			CMD_CS("$PETINVENTORYDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetInventoryDlg), &fp);
 				else
+					__asm int 3; // 使用双下划线的__asm
 					_asm int 3;
 			CMD_CS("$PETUPGRADEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetUpgradeDialog), &fp);
 				else
+					__asm int 3; // 使用双下划线的__asm
 					_asm int 3;
 			CMD_CS("$PETREVIVALDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CPetRevivalDialog), &fp);
 				else
+					__asm int 3; // 使用双下划线的__asm
 					_asm int 3;
 			// 06. 02. ��ȭ ��� �ȳ� �������̽� �߰� - �̿���
 			CMD_CS("$RFDATAGUIDEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CReinforceDataGuideDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 			// 06. 02. ������â ������ �߰� - �̿���
 			CMD_CS("$TIPBROWSERDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTipBrowserDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$KSDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CKeySettingTipDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_CS("$GUILDNOTEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CGuildNoteDlg *)GetInfoFromFile((cWindow*)(new CGuildNoteDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 			CMD_EN
 		}		
 		{
@@ -2675,18 +3191,22 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 				if((fp.GetString())[0] == '{')
 					dlg = (CUnionNoteDlg *)GetInfoFromFile((cWindow*)(new CUnionNoteDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 				// 06. 03. ���İ��� - �̿���
 				CMD_CS("$GUILDNOTICEDLG")
 				if((fp.GetString())[0] == '{')
 					dlg = (CGuildNoticeDlg *)GetInfoFromFile((cWindow*)(new CGuildNoticeDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+					// // __asm nop; // NOP for Release
 				CMD_CS("$GUILDPLUSTIMEDLG")//Add 060803 by wonju
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CGuildPlusTimeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				/////////////////////////////////////////////////////////////
 				// 06. 06. 2�� ���� - �̿���
 				// ���� ��ȯ
@@ -2694,46 +3214,55 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (CSkillOptionChangeDlg *)GetInfoFromFile((cWindow*)(new CSkillOptionChangeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 				CMD_CS("$TDefaultDlg")
 					if((fp.GetString())[0] == '{')
 						dlg = (CSkillOptionClearDlg *)GetInfoFromFile((cWindow*)(new CSkillOptionClearDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				/////////////////////////////////////////////////////////////
 				CMD_CS("$SCREENSHOTDLG") //��ũ����
 				if((fp.GetString())[0] == '{')
 					dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CScreenShotDlg), &fp);
 				else
-					__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+					// // __asm nop; // NOP for Release
 				//SW060713 ���ϻ�
 				CMD_CS("$JOINOPTIONDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildJoinDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 					//SW061019 �����̹����
 				CMD_CS("$SURVCOUNTERDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CSurvivalCountDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 				CMD_CS("$GUILDTRAINEEINFODLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildMunhaDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 				CMD_CS("$GuildTraineeDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog*)GetInfoFromFile((cWindow*)(new CGuildTraineeDialog), &fp);
 					else
+					__asm int 3; // 使用双下划线的__asm
 						_asm int 3;
 				// magi82 - Titan(070112) ////////////////////////////////////////////////
 				CMD_CS("$TITANPARTSMAKEDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanPartsMakeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 
 				// magi82 - Titan(070119) ////////////////////////////////////////////////
@@ -2741,64 +3270,77 @@ cWindow * cScriptManager::GetDlgInfoFromFile(char * filePath, char* mode)
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanMixDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 				CMD_CS("$TitanPartsChangeDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanPartsChangeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 				CMD_CS("$TitanUpgradeDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanUpgradeDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+				; // Empty statement for NOP
+						// // __asm nop; // NOP for Release
 				CMD_CS("$TitanBreakDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanBreakDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070212) ////////////////////////////////////////////////
 				CMD_CS("$TitanPartsChangePreviewDLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanChangePreViewDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070222) ////////////////////////////////////////////////
 				CMD_CS("$titan_inventory_Dlg")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanInventoryDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070305) ////////////////////////////////////////////////
 				CMD_CS("$Titan_guage_DLG")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanGuageDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070305) ////////////////////////////////////////////////
 				CMD_CS("$titan_MugongMix_Dlg")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanMugongMixDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070320) ////////////////////////////////////////////////
 				CMD_CS("$titan_Use_Dlg")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanRegisterDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 				// magi82 - Titan(070321) ////////////////////////////////////////////////
 				CMD_CS("$titan_Bongin_Dlg")
 					if((fp.GetString())[0] == '{')
 						dlg = (cDialog *)GetInfoFromFile((cWindow*)(new CTitanDissolutionDlg), &fp);
 					else
-						__asm int 3;
+					__asm int 3; // 使用双下划线的__asm
+						// // __asm nop; // NOP for Release
 				//////////////////////////////////////////////////////////////////////////
 
 			CMD_EN

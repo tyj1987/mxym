@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ClientRelease|Win32">
+      <Configuration>ClientRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{2D787524-1D31-4423-B59E-6845B206CE20}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BattleSystem_v2022</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'">
+    <OutDir>$(SolutionDir)Lib\x86\Release\</OutDir>
+    <IntDir>$(ProjectDir)ClientRelease</IntDir>
+    <TargetName>{module}_Client_v2022</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SILENCE_C4819;_MHCLIENT_;_MHCLIENT_LIBRARY_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\BattleSystem;..\Skill;..\..\[Lib]YHLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Lib\x86\Debug\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <TargetName>BattleSystem_v2022</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Lib\x86\Release\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <TargetName>BattleSystem_v2022</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SILENCE_C4819;_MAPSERVER_;__MAPSERVER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\Ability;..\Skill;..\Quest;..\Suryun;..\..\[Lib]YHLibrary;D:\vcpkg\installed\x86-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies></AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SILENCE_C4819;_MAPSERVER_;__MAPSERVER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\Ability;..\Skill;..\Quest;..\Suryun;..\..\[Lib]YHLibrary;D:\vcpkg\installed\x86-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies></AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="BattleFactory.h" />
+    <ClInclude Include="BattleObject.h" />
+    <ClInclude Include="BattleRect.h" />
+    <ClInclude Include="BattleTeam.h" />
+    <ClInclude Include="BattleSystem_Server.h" />
+    <ClInclude Include="GTournament\Battle_GTournament.h" />
+    <ClInclude Include="GTournament\BattleFactory_GTournament.h" />
+    <ClInclude Include="GTournament\BattleTeam_GTournament.h" />
+    <ClInclude Include="MunpaField\Battle_MunpaField.h" />
+    <ClInclude Include="MunpaField\BattleFactory_MunpaField.h" />
+    <ClInclude Include="MunpaField\BattleTeam_MunpaField.h" />
+    <ClInclude Include="SiegeWar\Battle_SiegeWar.h" />
+    <ClInclude Include="SiegeWar\BattleFactory_SiegeWar.h" />
+    <ClInclude Include="SiegeWar\BattleTeam_SiegeWar.h" />
+    <ClInclude Include="Suryun\Battle_Suryun.h" />
+    <ClInclude Include="Suryun\BattleFactory_Suryun.h" />
+    <ClInclude Include="Suryun\BattleTeam_Suryun.h" />
+    <ClInclude Include="VimuStreet\Battle_VimuStreet.h" />
+    <ClInclude Include="VimuStreet\BattleFactory_VimuStreet.h" />
+    <ClInclude Include="VimuStreet\BattleTeam_VimuStreet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Battle.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="BattleFactory.cpp" />
+    <ClCompile Include="BattleObject.cpp" />
+    <ClCompile Include="BattleRect.cpp" />
+    <ClCompile Include="BattleTeam.cpp" />
+    <ClCompile Include="BattleSystem_Server.cpp" />
+    <ClCompile Include="BattleFactory_Client.cpp" />
+    <ClCompile Include="GTournament/BattleFactory_GTournament.cpp" />
+    <ClCompile Include="GTournament/BattleTeam_GTournament.cpp" />
+    <ClCompile Include="MunpaField/BattleFactory_MunpaField.cpp" />
+    <ClCompile Include="MunpaField/BattleTeam_MunpaField.cpp" />
+    <ClCompile Include="SiegeWar/BattleFactory_SiegeWar.cpp" />
+    <ClCompile Include="SiegeWar/BattleTeam_SiegeWar.cpp" />
+    <ClCompile Include="Suryun/BattleFactory_Suryun.cpp" />
+    <ClCompile Include="Suryun/BattleTeam_Suryun.cpp" />
+    <ClCompile Include="VimuStreet/BattleFactory_VimuStreet.cpp" />
+    <ClCompile Include="VimuStreet/BattleTeam_VimuStreet.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

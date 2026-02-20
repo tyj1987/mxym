@@ -1,22 +1,25 @@
 #include "stdafx.h"
 #include "SkillObjectFirstUnit_Job.h"
 #include "SkillInfo.h"
-#include "..\[CC]Header\CommonCalcFunc.h"
-#include "Object.h"
+#include "../[CC]Header/CommonCalcFunc.h"
+#include "../[Client]MH/Object.h"
 
 #ifdef _MAPSERVER_
-#include "TacticManager.h"
-#include "AttackManager.h"
-#include "StateMachinen.h"
+#include "../[Client]MH/TacticManager.h"
+#include "../[Client]MH/AttackManager.h"
+#include "../[Client]MH/StateMachinen.h"
 #include "SkillObject_Server.h"
 #include "SkillManager_server.h"
-#include "UserTable.h"
-#include "Battle.h"
-#include "ItemManager.h"
-#include "MHTimeManager.h"
-#include "ItemDrop.h"
+#include "../[Client]MH/UserTable.h"
+#include "../[CC]BattleSystem/Battle.h"
+#include "../[Client]MH/ItemManager.h"
+#include "../[Client]MH/MHTimeManager.h"
+#include "../[Client]MH/ItemDrop.h"
 #endif
 
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 CSkillObjectFirstUnit_Job::CSkillObjectFirstUnit_Job(SKILLINFO* pSkillInfo)
 : CSkillObjectFirstUnit(pSkillInfo)
 {
@@ -60,7 +63,7 @@ int CSkillObjectFirstUnit_Job::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTa
 		DamageInfo.Clear();
 
 		CObject* pObject = g_pUserTable->FindUser(pList->pObject->GetID());
-		if(pObject == NULL)	//예외처리
+		if(pObject == NULL)	//처
 		{
 			continue;
 		}
@@ -68,7 +71,7 @@ int CSkillObjectFirstUnit_Job::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTa
 		WORD wProbability = 100 - SKILLMGR->GetJobSkillProbability(wSkillLevel, pMonster->GetLevel());
 		WORD wResultProbability = rand() % 100;
 
-		if(wResultProbability >= wProbability) //전문스킬 성공
+		if(wResultProbability >= wProbability) //킬 
 		{
 			ATTACKMGR->Attack(TRUE,	pOperator,pList->pObject, 0, 0,	0, 0, 0, 0,	0,	&DamageInfo, TRUE, 0, 0);
 			++nCount;
@@ -80,7 +83,7 @@ int CSkillObjectFirstUnit_Job::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTa
 			m_pPlayer = pPlayer;
 			m_pMonster = pMonster;			
 		}
-		else	//전문스킬 실패
+		else	//킬 
 		{
 			m_bJobSkillFail = TRUE;
 			m_pPlayer = pPlayer;
@@ -95,10 +98,10 @@ int CSkillObjectFirstUnit_Job::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTa
 
 void CSkillObjectFirstUnit_Job::FirstUnitResult()
 {
-	// 전문스킬이 성공하면 아이탬을 드롭한다.
+	// 킬 玖  磯.
 	if(m_bJobSkillSuccess == TRUE)
 	{
-		if( (m_pMonster != NULL) && (m_pPlayer != NULL) ) //예외처리
+		if( (m_pMonster != NULL) && (m_pPlayer != NULL) ) //처
 		{
 			WORD wMonsterKind = m_pMonster->GetMonsterKind();
 			ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator((MONSTEREX_LIST*)m_pMonster->GetSMonsterList(), m_pPlayer, wMonsterKind);

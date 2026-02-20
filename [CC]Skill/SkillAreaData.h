@@ -9,7 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "MHFile.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\MHFile.h"
+#else
+#include "..\\[Client]MH\\MHFile.h"
+#endif
 
 class CSkillAreaData  
 {

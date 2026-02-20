@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GUILDUNIONMANAGER_H__5E654826_2924_4528_854D_A39C139BB206__INCLUDED_)
 #define AFX_GUILDUNIONMANAGER_H__5E654826_2924_4528_854D_A39C139BB206__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -30,27 +31,27 @@ public:
 
 	/*
 	void	LoadGuildUnion( DWORD dwUnionIdx, char* pName, DWORD dwGuild0, DWORD dwGuild1, DWORD dwGuild2,
-							DWORD dwGuild3, DWORD dwGuild4, DWORD dwGuild5, DWORD dwGuild6, DWORD dwMarkIdx );	// db¿¡¼­ ·Îµù
+							DWORD dwGuild3, DWORD dwGuild4, DWORD dwGuild5, DWORD dwGuild6, DWORD dwMarkIdx );	// db Îµ
 	*/
 	void	LoadGuildUnion( DWORD dwUnionIdx, char* pName, DWORD dwMarkIdx, DWORD* pGuildIdxList );
 
 	void	LoadGuildUnionMark( DWORD dwMarkIdx, DWORD dwGuildUnionIdx, char* pImgData );
 
 	void	NetworkMsgParse( BYTE Protocol, void* pMsg );
-	void	MsgGuildUnionCreateSyn( void* pMsg );					// Ã¢¼³
+	void	MsgGuildUnionCreateSyn( void* pMsg );					// Ã¢
 	void	GuildUnionCreateResult( DWORD dwGuildUnionIdx, char* pGuildUnionName, DWORD dwMasterGuildIdx );
 	void	MsgGuildUnionCreateNotifyToMap( void* pMsg );
-	void	MsgGuildUnionDestroySyn( void* pMsg );					// ÇØÃ¼
+	void	MsgGuildUnionDestroySyn( void* pMsg );					// Ã¼
 	void	MsgGuildUnionDestroyNotifyToMap( void* pMsg );
-	void	MsgGuildUnionInvite( void* pMsg );						// ±ÇÀ¯
+	void	MsgGuildUnionInvite( void* pMsg );						// 
 	void	MsgGuildUnionInviteAccept( void* pMsg );
 	void	MsgGuildUnionInviteAcceptNotifyToMap( void* pMsg );
 	void	MsgGuildUnionInviteDeny( void* pMsg );
-	void	MsgGuildUnionRemoveSyn( void* pMsg );					// Ãß¹æ
+	void	MsgGuildUnionRemoveSyn( void* pMsg );					// ß¹
 	void	MsgGuildUnionRemoveNotifyToMap( void* pMsg );
-	void	MsgGuildUnionSecedeSyn( void* pMsg );					// Å»Åð
+	void	MsgGuildUnionSecedeSyn( void* pMsg );					// Å»
 	void	MsgGuildUnionSecedeNotifyToMap( void* pMsg );
-	void	MsgGuildUnionMarkRegistSyn( void* pMsg );				// mark µî·Ï
+	void	MsgGuildUnionMarkRegistSyn( void* pMsg );				// mark 
 	void	GuildUnionMarkRegistResult( DWORD dwCharacterIdx, DWORD dwMarkIdx, DWORD dwGuildUnionIdx, char* pImgData );
 	void	MsgGuildUnionMarkRegistNotifyToMap( void* pMsg );
 	void	MsgGuildUnionMarkRequestSyn( void* pMsg );
@@ -77,7 +78,7 @@ public:
 	BOOL	GetGuildListInUnion( DWORD dwUnionIdx, cPtrList* pList );
 	CGuild*	GetMasterGuildInUnion( DWORD dwUnionIdx );
 
-	//SW080515 ÇÔ¼ö Ãß°¡.
+	//SW080515 Ô¼ ß°.
 	BOOL	IsSameUnion(CPlayer* pPlayerA, CPlayer* pPlayerB);
 };
 

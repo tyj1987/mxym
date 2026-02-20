@@ -51,7 +51,8 @@ public:
 		// NOTE - the ClassWizard will add and remove member functions here.
 		//    DO NOT EDIT what you see in these blocks of generated code !
 	//}}AFX_MSG
-	afx_msg CDocument* OnFileNew();
+	afx_msg void OnFileNew();
+	CDocument* OnFileNewImpl();
 
 	DECLARE_MESSAGE_MAP()
 
@@ -72,9 +73,9 @@ protected:
 	COperater*	m_pOperDlg;
 
 protected:
-	BOOL	InitModule();						// module ÃÊ±âÈ­
-	BOOL	ReadMASIp(char *filename);			// µ¥¸ó ¾ÆÀÌÇÇ ¼³Á¤
-	void	OnOperatorChecking();				// ¿î¿µÀÚ ·Î±×ÀÎ Ã¼Å©
+	BOOL	InitModule();						// module ï¿½Ê±ï¿½È­
+	BOOL	ReadMASIp(char *filename);			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void	OnOperatorChecking();				// ï¿½î¿µï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ Ã¼Å©
 	void	StartRMTool();
 
 public:	

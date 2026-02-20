@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GRIDSYSTEM_H__C000AFC9_8D29_4467_9118_DF283166EDA1__INCLUDED_)
 #define AFX_GRIDSYSTEM_H__C000AFC9_8D29_4467_9118_DF283166EDA1__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -48,7 +49,7 @@ public:
 
 	void CalcGridPosition(float x,float z,GridPosition* pOutGridPos);
 
-	void GridProcess();		// ÀÓ½Ã ¸®½ºÆ®¿¡ µî·ÏÇØ³õÀº ³à¼®µéÀ» °Ë»çÇØ InitµÈ ³à¼®µé¸¸ Add½ÃÄÑÁØ´Ù.
+	void GridProcess();		// Ó½ Æ® Ø³ à¼® Ë» Init à¼®é¸¸ AddØ´.
 
 	void ChangeGrid(CObject* pObject,VECTOR3* pPos);
 
@@ -59,13 +60,13 @@ public:
 	MAPTYPE GetGridMapNum(DWORD GridID);
 
 	
-	// FALSE¸¦ ¹ÝÈ¯ÇÏ¸é ±×¸®µå°¡ º¯ÇÏÁö ¾ÊÀ½
-	// TRUE¸¦ ¹ÝÈ¯ÇÏ¸é dwChangeTimeÈÄ¿¡ ÀÌµ¿°è»ê°ú ±×¸®µå °è»êÀ» ÇØÁÖ¾î¾ß ÇÑ´Ù.
+	// FALSE È¯Ï¸ ×¸å°¡  
+	// TRUE È¯Ï¸ dwChangeTimeÄ¿ Ìµ ×¸  Ö¾ Ñ´.
 	BOOL GetGridChangeTime(CObject* pObject,VECTOR3* pStartPos,VECTOR3* pTargetPos,float MoveSpeed,DWORD& dwChangeTime);
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// µ¥ÀÌÅ¸ Àü¼Û¿ë
+	// Å¸ Û¿
 	void AddGridToPackedData(GridPosition* pGridPosition,CPackedData* pPackedData, CObject* pObject);
 	void AddGridToPackedDataWithoutOne(GridPosition* pGridPosition,DWORD dwID,CPackedData* pPackedData, CObject* pObject);
 
@@ -75,13 +76,13 @@ public:
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// AI¿ë ÁÖº¯ ¿¡ ÀÖ´Â ¹üÀ§¾È¿¡ µé¾î¿Â °¡Àå °¡±î¿î ÇÃ·¹ÀÌ¾î Ã£±â
+	// AI Öº  Ö´ È¿    Ã·Ì¾ Ã£
 	CObject* FindPlayerInRange(VECTOR3* pPos,float Range, CObject* pObject,BYTE flag=FIND_CLOSE);
 	CObject* FindMonsterInRange(VECTOR3* pPos,float Range, CObject* pObject,BYTE flag=FIND_CLOSE);
 
 	//////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// À¯È¿±×¸®µå³» ·£´ýÀ¸·Î Å¸°Ù ¼³Á¤
+	/// 06. 08. 2  - Ì¿
+	/// È¿×¸å³»  Å¸ 
 	CObject* FindPlayerRandom(CObject* pObject);
 	//////////////////////////////////////////////////////////////////////////
 

@@ -10,12 +10,14 @@
 #endif // _MSC_VER > 1000
 
 #ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 #include "..\Effect\EffectManager.h"
+#endif
 #endif
 
 class CObject;
 
-class CSpecialState  
+class CSpecialState
 {
 protected:
 	CObject* m_pParent;
@@ -31,6 +33,7 @@ protected:
 #endif
 
 public:
+	CSpecialState(); // 添加默认构造函数
 	CSpecialState(CObject* pParent);
 	~CSpecialState();
 

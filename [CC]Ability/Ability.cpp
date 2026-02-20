@@ -13,13 +13,18 @@
 #include "AbilityUse_Pet.h"
 
 #ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 #include "ObjectManager.h"
+#endif
 #endif
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 WORD CAbility::GetIndex()
 {
 	ASSERT(m_pAbilityInfo);
@@ -71,10 +76,12 @@ void CAbility::Use()
 		yCASE(eAUK_PET)
 			CAbilityUse_Pet	use;
 			use.Use(GetLevel(),GetAbilityInfo());
-#ifdef _MHCLIENT_			
+#ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 		yCASE(eAUK_SOCIETY)
 			CAbilityUse_Society use;
 			use.Act( HERO, GetAbilityInfo() );
+#endif
 #endif
 		yDEFAULT
 	yENDSWITCH

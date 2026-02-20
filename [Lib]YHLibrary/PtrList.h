@@ -14,6 +14,9 @@ struct ___POSITION {};
 typedef ___POSITION* PTRLISTPOS;
 
 
+// Avoid conflict with MFC's CPlex definition
+// MFC defines CPlex in afxplex.h, so only define our own if not using MFC
+#ifndef _AFX
 struct CPlex
 {
 	CPlex* pNext;
@@ -23,6 +26,7 @@ struct CPlex
 
 	void FreeDataChain();
 };
+#endif
 
 class cPtrList  
 {

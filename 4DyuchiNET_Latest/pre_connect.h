@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/typedef.h"
+#include "typedef.h"
 #include "network.h"
 #include "connect_que.h"
 

@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "PartyWarMgr.h"
 #include "UserTable.h"
 #include "Player.h"
@@ -91,8 +92,8 @@ void CPartyWarTeam::RemoveMember( DWORD dwMemberIdx, int nIndex )
 
 	--m_nAliveNum;
 	if( m_nAliveNum < 0 )	m_nAliveNum = 0;
-}
 
+}
 BOOL CPartyWarTeam::MemberDie( DWORD dwMemberIdx )
 {
 	for( int i = 0; i < MAX_PARTY_LISTNUM; ++i )
@@ -151,9 +152,13 @@ void CPartyWarTeam::SendMsgRevive()
 		{
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( m_Member[i].dwMemberIdx );
 			if( pPlayer )
-			if( pPlayer->GetState() == eObjectState_Die )
-			if( FALSE == pPlayer->IsPenaltyByDie() )
-				pPlayer->ReviveAfterVimu();
+			{
+				if( pPlayer->GetState() == eObjectState_Die )
+				{
+					if( FALSE == pPlayer->IsPenaltyByDie() )
+						pPlayer->ReviveAfterVimu();
+				}
+			}
 		}
 	}
 }
@@ -482,7 +487,7 @@ void CPartyWar::PartyWarSuggestAccept( DWORD dwChannel )
 
 	// init member
 	CPlayer* pPlayer = NULL;
-	for( i = 0; i < MAX_PARTY_LISTNUM; ++i )
+	for( int i = 0; i < MAX_PARTY_LISTNUM; ++i )
 	{
 		pPlayer = (CPlayer*)g_pUserTable->FindUser( pPartyInfo1[i].MemberID );
 		if( pPlayer )
@@ -953,7 +958,7 @@ void CPartyWarMgr::Msg_PartyWarSuggest( void* pMsg )
 	//if( g_pServerSystem->GetMapNum() == RUNNINGMAP )
 	if( g_pServerSystem->GetMap()->IsMapSame(eRunningMap) )
 	{
-		SendNackMsg( pSender, 9 );		// 9 = ´Þ¸®±â¸Ê¿¡¼­ ¹æÆÄÀü±ÝÁö
+		SendNackMsg( pSender, 9 );		// 9 = ï¿½Þ¸ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return;
 	}
 //	if( g_pServerSystem->GetMapNum() == PKEVENTMAP )

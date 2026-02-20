@@ -1,3 +1,6 @@
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 // AbilityUpdater_Database.cpp: implementation of the CAbilityUpdater_Database class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,7 +9,7 @@
 #include "AbilityUpdater_Database.h"
 #include "AbilityGroup.h"
 #include "AbilityCommonHeader.h"
-#include "Player.h"
+#include "..\[Server]Map\Player.h"
 #include "AbilityManager.h"
 
 //////////////////////////////////////////////////////////////////////

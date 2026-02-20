@@ -118,7 +118,7 @@ void CQuestGroup::SetQuestItem( DWORD dwQuestIdx, DWORD dwItemIdx, DWORD dwItemN
 {
 	QUESTITEM* pQuestItem = NULL;
 
-	// AO¢¥AAo E¢çAICI¡Æi AO8¢¬e Ao¢¯i¢¥U.
+	// AOï¿½ï¿½AAo Eï¿½ï¿½AICIï¿½ï¿½i AO8ï¿½ï¿½e Aoï¿½ï¿½iï¿½ï¿½U.
 	pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if(pQuestItem)
 	{
@@ -150,9 +150,11 @@ BOOL CQuestGroup::IsQuestComplete( DWORD dwQuestIdx )
 	CQuest* pQuest = m_QuestTable.GetData( dwQuestIdx );
 
 	if( pQuest )
+	{
 	if( pQuest->IsQuestComplete() )
 		return TRUE;
 
+	}
 	return FALSE;
 }
 
@@ -223,7 +225,7 @@ void CQuestGroup::DeleteQuest( DWORD dwQuestIdx )
 				}
 			}
 		}
-		for( i = 0; i < SLOT_WEAR_NUM; ++i )
+		for( int i = 0; i < SLOT_WEAR_NUM; ++i )
 		{
 			ITEMMGR->GetItemKindType( ItemInfo.WearedItem[i].wIconIdx, &wKind, &wType );
 			if( wKind == eQUEST_ITEM_EQUIP && wType == dwQuestIdx )
@@ -256,8 +258,8 @@ void CQuestGroup::EndQuest( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 {
 	CQuest* pQuest = m_QuestTable.GetData( dwQuestIdx );
 	if( pQuest )
-	if( pQuest->EndQuest( dwQuestIdx, dwSubQuestIdx ) )
 	{
+	if( pQuest->EndQuest( dwQuestIdx, dwSubQuestIdx ) )
 		QUESTMGR->EndQuest( m_pPlayer, dwQuestIdx, dwSubQuestIdx );
 	}
 }
@@ -266,8 +268,8 @@ void CQuestGroup::StartSubQuest( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 {
 	CQuest* pQuest = m_QuestTable.GetData( dwQuestIdx );
 	if( pQuest )
-	if( pQuest->StartSubQuest( dwQuestIdx, dwSubQuestIdx ) )
 	{
+	if( pQuest->StartSubQuest( dwQuestIdx, dwSubQuestIdx ) )
 		// questmgr
 		QUESTMGR->StartSubQuest( m_pPlayer, dwQuestIdx, dwSubQuestIdx );
 	}
@@ -277,8 +279,8 @@ void CQuestGroup::EndSubQuest( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 {
 	CQuest* pQuest = m_QuestTable.GetData( dwQuestIdx );
 	if( pQuest )	
-	if( pQuest->EndSubQuest( dwQuestIdx, dwSubQuestIdx ) )
 	{
+	if( pQuest->EndSubQuest( dwQuestIdx, dwSubQuestIdx ) )
 		// questmgr
 		if( dwSubQuestIdx == 0 )
 			QUESTMGR->StartQuest( m_pPlayer, dwQuestIdx, dwSubQuestIdx );
@@ -309,8 +311,8 @@ void CQuestGroup::EndOtherQuest( DWORD dwOtherQuestIdx, DWORD dwRepeat )
 {
 	CQuest* pQuest = m_QuestTable.GetData( dwOtherQuestIdx );
 	if( pQuest )
-	if( pQuest->EndQuest( dwOtherQuestIdx, dwRepeat ) )
 	{
+	if( pQuest->EndQuest( dwOtherQuestIdx, dwRepeat ) )
 		QUESTMGR->EndQuest( m_pPlayer, dwOtherQuestIdx, dwRepeat );
 	}
 }
@@ -355,7 +357,7 @@ int CQuestGroup::GetProcessQuestCount()
 	m_QuestTable.SetPositionHead();
 	while( pQuest = m_QuestTable.GetData() )
 	{
-		if( pQuest->GetSubQuestFlag() /*SubQuestFlag°ªÀÌ ¹» ÀÇ¹ÌÇÏ´ÂÁö ºÒ¸í*/ && !(pQuest->IsQuestComplete()) )
+		if( pQuest->GetSubQuestFlag() /*SubQuestFlagï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½*/ && !(pQuest->IsQuestComplete()) )
 			count++;
 
 		i++;
@@ -475,8 +477,8 @@ void CQuestGroup::GiveQuestItem( PLAYERTYPE* pPlayer, DWORD dwQuestIdx, DWORD dw
 	QUESTITEM* pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if( pQuestItem )
 	{
-		// Au¨ö¨¬¨¡¢ç¨ú¨¡AIAU; npcCNA¡¿ AU¡Æ©¡¢¯i¢¥A npc¢¯IAC ¢¥eE¡©AI¢Ò¡× ¡íO
-		// AI¨¬I¢¬| AU ¡Æ©¡¢¯i¢¥A ¨ú©ª8©öC¡¤I ©ö¡ìv¡ÆC ¢¥U ¨ú©ª¨ú¨ª¢¥U...
+		// Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIAU; npcCNAï¿½ï¿½ AUï¿½Æ©ï¿½ï¿½ï¿½iï¿½ï¿½A npcï¿½ï¿½IAC ï¿½ï¿½eEï¿½ï¿½AIï¿½Ò¡ï¿½ ï¿½ï¿½O
+		// AIï¿½ï¿½Iï¿½ï¿½| AU ï¿½Æ©ï¿½ï¿½ï¿½iï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½Cï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½C ï¿½ï¿½U ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½U...
 		m_QuestItemTable.Remove( pQuestItem->dwItemIdx );
 		QUESTMGR->GiveQuestItem( pPlayer, pQuestItem->dwItemIdx, 0 );
 		delete pQuestItem;
@@ -505,7 +507,7 @@ void CQuestGroup::TakeQuestItem( PLAYERTYPE* pPlayer, DWORD dwQuestIdx, DWORD dw
 
 	ChangeSubQuestValue( dwQuestIdx, dwSubQuestIdx, eQuestValue_Add );
 
-	// ¡¾ax¢¯¢® Au¨ö¨¬¨¡¢ç ¨ú¨¡AIAUAI AO¢¥AAo...
+	// ï¿½ï¿½axï¿½ï¿½ï¿½ï¿½ Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAUAI AOï¿½ï¿½AAo...
 	QUESTITEM* pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if( pQuestItem )
 	{
@@ -520,7 +522,7 @@ void CQuestGroup::TakeQuestItem( PLAYERTYPE* pPlayer, DWORD dwQuestIdx, DWORD dw
 			pQuestItem->dwItemNum = 100;
 		QUESTMGR->UpdateQuestItem( pPlayer, dwQuestIdx, pQuestItem->dwItemIdx, pQuestItem->dwItemNum );
 	}
-	else	// ¨ú©ª¢¥U¢¬e
+	else	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½e
 	{
 		pQuestItem = new QUESTITEM;
 		pQuestItem->dwQuestIdx = dwQuestIdx;
@@ -541,7 +543,7 @@ void CQuestGroup::TakeQuestItemFromQWeapon( PLAYERTYPE* pPlayer, DWORD dwQuestId
 
 	ChangeSubQuestValue( dwQuestIdx, dwSubQuestIdx, eQuestValue_Add );
 
-	// ¡¾ax¢¯¢® Au¨ö¨¬¨¡¢ç ¨ú¨¡AIAUAI AO¢¥AAo...
+	// ï¿½ï¿½axï¿½ï¿½ï¿½ï¿½ Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAUAI AOï¿½ï¿½AAo...
 	QUESTITEM* pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if( pQuestItem )
 	{
@@ -550,7 +552,7 @@ void CQuestGroup::TakeQuestItemFromQWeapon( PLAYERTYPE* pPlayer, DWORD dwQuestId
 		pQuestItem->dwItemNum = nValue;
 		QUESTMGR->UpdateQuestItem( pPlayer, dwQuestIdx, pQuestItem->dwItemIdx, pQuestItem->dwItemNum );
 	}
-	else	// ¨ú©ª¢¥U¢¬e
+	else	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½e
 	{
 		pQuestItem = new QUESTITEM;
 		pQuestItem->dwQuestIdx = dwQuestIdx;
@@ -573,7 +575,7 @@ void CQuestGroup::TakeQuestItemFromWeapon( PLAYERTYPE* pPlayer, DWORD dwQuestIdx
 
 	ChangeSubQuestValue( dwQuestIdx, dwSubQuestIdx, eQuestValue_Add );
 
-	// ¡¾ax¢¯¢® Au¨ö¨¬¨¡¢ç ¨ú¨¡AIAUAI AO¢¥AAo...
+	// ï¿½ï¿½axï¿½ï¿½ï¿½ï¿½ Auï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAUAI AOï¿½ï¿½AAo...
 	QUESTITEM* pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if( pQuestItem )
 	{
@@ -582,7 +584,7 @@ void CQuestGroup::TakeQuestItemFromWeapon( PLAYERTYPE* pPlayer, DWORD dwQuestIdx
         pQuestItem->dwItemNum = nValue;
 		QUESTMGR->UpdateQuestItem( pPlayer, dwQuestIdx, pQuestItem->dwItemIdx, pQuestItem->dwItemNum );
 	}
-	else	// ¨ú©ª¢¥U¢¬e
+	else	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½e
 	{
 		pQuestItem = new QUESTITEM;
 		pQuestItem->dwQuestIdx = dwQuestIdx;
@@ -735,16 +737,16 @@ void CQuestGroup::TakeMoneyPerCount( PLAYERTYPE* pPlayer, DWORD dwItemIdx, DWORD
 	QUESTITEM* pQuestItem = m_QuestItemTable.GetData( dwItemIdx );
 	if( pQuestItem )
 	{
-		if( pQuestItem->dwItemNum > 0 )		// ItemÀÌ ÇÏ³ª¶óµµ ÀÖ´Ù¸é...
+		if( pQuestItem->dwItemNum > 0 )		// Itemï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½...
 		{
 			MONEYTYPE total = pQuestItem->dwItemNum * dwMoney;
 
-			// quest item Áö¿ò
+			// quest item ï¿½ï¿½ï¿½ï¿½
 			m_QuestItemTable.Remove( pQuestItem->dwItemIdx );
 			QUESTMGR->GiveQuestItem( pPlayer, pQuestItem->dwItemIdx, 0 );
 			delete pQuestItem;
 
-			// money °è»ê
+			// money ï¿½ï¿½ï¿½
 			MONEYTYPE money = pPlayer->SetMoney( total, MONEY_ADDITION );
 			
 			MSG_DWORD Msg;
@@ -758,7 +760,7 @@ void CQuestGroup::TakeMoneyPerCount( PLAYERTYPE* pPlayer, DWORD dwItemIdx, DWORD
 		{
 		}
 	}
-	else	// ItemÀÌ ¾øÀ¸¸é...
+	else	// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 	{
 	}
 }
@@ -783,23 +785,23 @@ void CQuestGroup::ChangeStage( BYTE bStage )
 	case eStage_Hwa:
 		{
 			if( stage != eStage_Normal )	return;
+			break;
 		}
-		break;
 	case eStage_Hyun:
 		{
 			if( stage != eStage_Hwa )	return;
+			break;
 		}
-		break;
 	case eStage_Geuk:
 		{
 			if( stage != eStage_Normal )	return;
+			break;
 		}
-		break;
 	case eStage_Tal:
 		{
 			if( stage != eStage_Geuk )	return;
+			break;
 		}
-		break;
 	}
 	
 	m_pPlayer->SetStage( bStage );
@@ -813,7 +815,7 @@ void CQuestGroup::RegistCheckTime( DWORD dwQuestIdx, DWORD dwSubQuestIdx, BYTE b
 	BOOL bStart = TRUE;
 	stTIME curTime, regTime;
 	curTime.value = GetCurTime();
-	if( bType == 1 )		// °íÁ¤ ½Ã°£
+	if( bType == 1 )		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	{		
 		if( curTime.GetHour() > dwHour )
 		{
@@ -839,7 +841,7 @@ void CQuestGroup::RegistCheckTime( DWORD dwQuestIdx, DWORD dwSubQuestIdx, BYTE b
 			regTime.SetTime( curTime.GetYear(), curTime.GetMonth(), curTime.GetDay(), dwHour, dwMin, 0 );
 		}
 	}
-	else if( bType == 2 )	// ÀÏÁ¤ ½Ã°£ÈÄ
+	else if( bType == 2 )	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½
 	{
 		regTime.SetTime( 0, 0, dwDay, dwHour, dwMin, 0 );
 		curTime += regTime;
@@ -848,7 +850,7 @@ void CQuestGroup::RegistCheckTime( DWORD dwQuestIdx, DWORD dwSubQuestIdx, BYTE b
 //		regTime.SetTime( curTime.GetYear(), curTime.GetMonth(), curTime.GetDay()+dwDay, curTime.GetHour()+dwHour, curTime.GetMinute()+dwMin, 0 );
 //		regTime += curTime;
 	}
-	else if( bType == 3 )	// ÀÏÁ¤ ½Ã°£ÈÄ ½ÇÆÐ
+	else if( bType == 3 )	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		regTime.SetTime( 0, 0, dwDay, dwHour, dwMin, 0 );
 		curTime += regTime;
@@ -857,7 +859,7 @@ void CQuestGroup::RegistCheckTime( DWORD dwQuestIdx, DWORD dwSubQuestIdx, BYTE b
 //		regTime.SetTime( curTime.GetYear(), curTime.GetMonth(), curTime.GetDay()+dwDay, curTime.GetHour()+dwHour, curTime.GetMinute()+dwMin, 0 );
 //		regTime += curTime;
 	}
-	else if( bType == 4 )	// °íÁ¤ ½Ã°£¿¡ ½ÇÆÐ
+	else if( bType == 4 )	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		regTime.SetTime( curTime.GetYear(), curTime.GetMonth(), curTime.GetDay(), dwHour, dwMin, 0 );
 	}

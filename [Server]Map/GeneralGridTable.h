@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GENERALGRIDTABLE_H__74802441_A2F9_4E3B_81A8_23966927225A__INCLUDED_)
 #define AFX_GENERALGRIDTABLE_H__74802441_A2F9_4E3B_81A8_23966927225A__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -50,8 +51,8 @@ public:
 	virtual void OnDelete();
 
 	//////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// À¯È¿±×¸®µå³» ·£´ýÀ¸·Î Å¸°Ù ¼³Á¤
+	/// 06. 08. 2  - Ì¿
+	/// È¿×¸å³»  Å¸ 
 	virtual CObject* FindPlayerRandom(CObject* pObject);
 	//////////////////////////////////////////////////////////////////////////
 };

@@ -25,10 +25,8 @@
 #include <tchar.h>
 #include <stdio.h>
 
-
-struct VECTOR3	{float x,y,z;};
-
-struct VECTOR2	{float x,y;};
+// 包含 math.inl 以获得完整的 VECTOR3 和 VECTOR2 定义（包括成员函数）
+#include "../4DyuchiGRX_common/math.inl"
 
 extern DWORD gCurTime;
 
@@ -43,6 +41,7 @@ extern DWORD gCurTime;
 #include "CommonGameStruct.h"
 #include "CommonStruct.h"
 #include "ServerGameStruct.h"
+#include "ServerGameDefine.h"
 #include "CommonStructMS.h"
 
 extern void LogConsole(char * buff,...);

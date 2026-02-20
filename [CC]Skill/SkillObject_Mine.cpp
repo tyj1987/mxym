@@ -10,11 +10,12 @@
 #include "EFFECT/EffectManager.h"
 #include "SkillObjectFirstUnit.h"
 #include "ObjectActionManager.h"
+#include "MHNetwork.h"
 #else
-#include "UserTable.h"
+#include "..\\[Client]MH\\UserTable.h"
 #include "SkillManager_server.h"
-#include "AttackManager.h"
-#include "PackedData.h"
+#include "..\[Server]Map\AttackManager.h"
+#include "..\[Server]Map\PackedData.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -66,7 +67,7 @@ DWORD CSkillObject_Mine::Update()
 	}
 #endif
 
-	// ÇöÀç´Â Å×½ºÆ® ¹öÁ¯ÀÓ Á»´õ ÀÚ¼¼È÷ º¸°í Á¤¸®ÇÒ°ÍÀÓ. LBS
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½. LBS
 	DWORD rt = CSkillObject::Update();
 
 	if( rt == SO_DESTROYOBJECT )
@@ -127,8 +128,8 @@ BOOL CSkillObject_Mine::Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTar
 	msg.SkillObjectID = GetID();
 	msg.RequestorID = pRequestor ? pRequestor->GetID() : 0;
 
-	CTargetListIterator riter(pTList);				// ÀÎÀÚ·Î ³Ñ¾î¿Â ¸ñ·Ï ¸®½ºÆ® iterator
-	CTargetListIterator siter(&msg.TargetList);		// ¸Þ¼¼Áö·Î º¸³¾ µ¥ÀÌÅÍ¸¦ Æ÷ÇÔÇÑ ¸®½ºÆ® iterator
+	CTargetListIterator riter(pTList);				// ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® iterator
+	CTargetListIterator siter(&msg.TargetList);		// ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® iterator
 
 	CObject* pTarget;
 
@@ -140,9 +141,9 @@ BOOL CSkillObject_Mine::Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTar
 	float att_rate = m_pSkillInfo->GetFirstAttAttack(SkillLevel);
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
-	// ½ºÅ³°ø°Ý·Â
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+	// ï¿½ï¿½Å³ï¿½ï¿½ï¿½Ý·ï¿½
 	if(m_SkillObjectInfo.Option)
 	{
 		SKILLOPTION* pSkillOption = SKILLMGR->GetSkillOption(m_SkillObjectInfo.Option);
@@ -167,8 +168,8 @@ BOOL CSkillObject_Mine::Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTar
 		if(IsNegativeTarget(pTarget) == FALSE)
 			continue;
 		
-		// ¿µ¿ªÃ¼Å© [6/24/2004]
-		// Å¬¶óÀÌ¾ðÆ®¿¡¼­ º¸³»¿Â ¸®½ºÆ® È®ÀÎ
+		// ï¿½ï¿½ï¿½ï¿½Ã¼Å© [6/24/2004]
+		// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® È®ï¿½ï¿½
 
 		ATTACKMGR->Attack(TRUE, m_pOperator,pTarget,0,phy_rate,
 						Attrib,att_min,att_max,att_rate,
@@ -189,8 +190,8 @@ BOOL CSkillObject_Mine::Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTar
 	msg.InitMsg(MP_SKILL_OPERATE_ACK,pMainTarget);
 
 	#ifdef _TESTCLIENT_
-	CTargetListIterator riter(pTList);				// ÀÎÀÚ·Î ³Ñ¾î¿Â ¸ñ·Ï ¸®½ºÆ® iterator
-	CTargetListIterator siter(&msg.TargetList);		// ¸Þ¼¼Áö·Î º¸³¾ µ¥ÀÌÅÍ¸¦ Æ÷ÇÔÇÑ ¸®½ºÆ® iterator
+	CTargetListIterator riter(pTList);				// ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® iterator
+	CTargetListIterator siter(&msg.TargetList);		// ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® iterator
 
 	CObject* pTarget;
 
@@ -254,9 +255,9 @@ BOOL CSkillObject_Mine::Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTar
 
 BOOL CSkillObject_Mine::CheckOperate(CObject* pObject)
 {
-	if(m_bOperate == TRUE)		// ÀÌ¹Ì ÀÛµ¿ÇßÀ¸¸é return;
+	if(m_bOperate == TRUE)		// ï¿½Ì¹ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return;
 		return TRUE;
-	if(gCurTime - m_SkillObjectInfo.StartTime < m_pSkillInfo->GetSkillInfo()->MineCheckStartTime)	// Áö·Ú´Â ÀÛµ¿ ½Ã°£ÀÌ ÀÖ´Ù.
+	if(gCurTime - m_SkillObjectInfo.StartTime < m_pSkillInfo->GetSkillInfo()->MineCheckStartTime)	// ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Ûµï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 		return TRUE;
 
 	VECTOR3 pos1,pos2;

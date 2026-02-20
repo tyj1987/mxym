@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 
 #define MAX_LOG_SIZE 1024

@@ -5,14 +5,14 @@
 #include "stdafx.h"
 #include "SkillObjectFirstUnit_Attack.h"
 #include "SkillInfo.h"
-#include "Battle.h"
-#include "..\[CC]Header\CommonCalcFunc.h"
-#include "Object.h"
+#include "D:\\mxym\\[CC]BattleSystem\\Battle.h"
+#include "D:\\mxym\\[CC]Header\\CommonCalcFunc.h"
+#include "D:\\mxym\\[Server]Map\\Object.h"
 
 #ifdef _MAPSERVER_
-#include "TacticManager.h"
-#include "AttackManager.h"
-#include "StateMachinen.h"
+#include "..\[Server]Map\TacticManager.h"
+#include "..\[Server]Map\AttackManager.h"
+#include "..\[Server]Map\StateMachinen.h"
 #include "SkillObject_Server.h"
 #include "SkillManager_server.h"
 #endif
@@ -72,7 +72,7 @@ int CSkillObjectFirstUnit_Attack::ExcuteFirstUnit(CObject* pOperator,CSkillObjec
 	float AmplifiedPowerAttRate = 0;
 	WORD AmplifiedPowerAttrib = 0;
 
-	if(m_PhysicalAttack)		// 물리 공격일때만
+	if(m_PhysicalAttack)		//  灸
 		AmplifiedPower = pOperator->GetSpecialStateParam1(eSpecialState_AmplifiedPowerPhy);
 
 	WORD Attrib = m_Attrib;
@@ -109,9 +109,9 @@ int CSkillObjectFirstUnit_Attack::ExcuteFirstUnit(CObject* pOperator,CSkillObjec
 	pTargetList->GetSkillObjectPosition( &OperatorPos );
 //---
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2차 전직 - 이영준
-	// 무공 변환 추가
-	// 스킬공격력
+	// 06. 06. 2  - 結
+	//  환 煞
+	// 킬賦
 	if(pAddMsg->SkillObjectInfo.Option)
 	{
 		SKILLOPTION* pSkillOption = SKILLMGR->GetSkillOption(pAddMsg->SkillObjectInfo.Option);
@@ -136,7 +136,7 @@ int CSkillObjectFirstUnit_Attack::ExcuteFirstUnit(CObject* pOperator,CSkillObjec
 		if(pOperator->GetBattle()->IsEnemy(pOperator,pList->pObject))
 		{
 
-			float fDecreaseDamageRate = 1.0f;	//공격력율
+			float fDecreaseDamageRate = 1.0f;	//賦
 //*041213 KES decreaserate---------------------------------------------
 			if( bDecrease )
 			{
@@ -176,7 +176,7 @@ int CSkillObjectFirstUnit_Attack::ExcuteFirstUnit(CObject* pOperator,CSkillObjec
 					m_AttAttackRate*SkillTreeAmp+AmplifiedPowerAttRate,
 					m_CriticalRate,
 					&DamageInfo,
-					TRUE, fDecreaseDamageRate, AmplifiedPowerAttrib );	// TRUE 는 First Unit은 카운터 데미지 있음
+					TRUE, fDecreaseDamageRate, AmplifiedPowerAttrib );	// TRUE  First Unit 카  
 			}
 		
 #ifdef _HK_LOCAL_
@@ -276,7 +276,7 @@ int CSkillObjectFirstUnit_AttackLife::ExcuteFirstUnit(CObject* pOperator,CSkillO
 		if(pOperator->GetBattle()->IsEnemy(pOperator,pList->pObject))
 		{
 
-			//attack을 새로 만들어야 한다.
+			//attack   磯.
 
 			int nSeed = rand()%100;
 
@@ -375,7 +375,7 @@ int CSkillObjectFirstUnit_AttackShield::ExcuteFirstUnit(CObject* pOperator,CSkil
 		if(pOperator->GetBattle()->IsEnemy(pOperator,pList->pObject))
 		{
 
-			//attack을 새로 만들어야 한다.
+			//attack   磯.
 
 			int nSeed = rand()%100;
 

@@ -1,5 +1,6 @@
 #ifndef __FIELDSUBMONSTER_H__
 #define __FIELDSUBMONSTER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 #pragma once
 #include "monster.h"
@@ -36,11 +37,11 @@
 class CFieldSubMonster :
 	public CMonster
 {
-	// 소멸/회복 관련 추가 상태값
+	// 恬/회  煞 째
 	FIELDMONSTERINFO m_Info;
 	DWORD	m_BossID;
 
-	//리젠위치 인덱스 변수
+	//치 琯 
 	int m_nRegenPosIndex;
 
 public:
@@ -50,7 +51,7 @@ public:
 	void SetBossID( DWORD id ) { m_BossID = id; }
 	DWORD GetBossID() { return m_BossID; }
 
-	// CMonster에서는 메세지 전송을 안해준다. 회복프로세스를 위해 재정의 필요
+	// CMonster 氷  娩. 회關   却
 	virtual void SetLife(DWORD Life,BOOL bSendMsg = TRUE);
 	virtual void SetShield(DWORD Shield,BOOL bSendMsg = TRUE);
 
@@ -61,12 +62,12 @@ public:
 		memcpy(&m_Info, Info, sizeof(FIELDMONSTERINFO));
 	}
 
-	BOOL IsBattle();	// 전투상황 체크
-	BOOL IsDistruct();	// 소멸시간 체크 - 소멸시간을 카운트해서 소멸되야 하면 TRUE를 리턴한다
+	BOOL IsBattle();	// 황 체크
+	BOOL IsDistruct();	// 恬챨 체크 - 恬챨 카트漫 恬퓸 玖 TRUE 磯
 
 	void ResetDistructTime() { m_Info.m_dwCountTime = m_Info.m_dwDistructTime; m_Info.m_dwLastCheckTime = 0; }
 
-	void Recover();		// 회복 프로세스
+	void Recover();		// 회 關
 
 	VECTOR3* GetRegenPos();
 

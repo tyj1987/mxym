@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "SuryunDefine.h"
-#include "MHFile.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\MHFile.h"
+#else
+#include "..\\[Client]MH\\MHFile.h"
+#endif
 
 #ifdef _MAPSERVER_
 #include "SuryunManager_Server.h"
-#include "SkillManager_server.h"
+#include "../[CC]Skill/SkillManager_server.h"
 #else
 #include "SuryunManager_Client.h"
 #include "SkillManager_client.h"
@@ -48,7 +52,7 @@ void CSuryunManager::LoadSuryunInfo()
 	while(!file.IsEOF())
 	{
 		SURYUNMISSIONINFO * pInfo = new SURYUNMISSIONINFO;
-		file.GetString();	// ¹«°øÀÌ¸§
+		file.GetString();	// Ì¸
 		pInfo->MugongIdx = file.GetWord();
 		ASSERT(pInfo->MugongIdx);
 		for(int i=0; i<MAX_MUGONG_PRACTICE; ++i)
@@ -120,8 +124,8 @@ BOOL CSuryunManager::NeedSuryun(WORD MugongIdx,BYTE Sung,DWORD Exp)
 	BOOL bSungCheck = (Sung == 13 );
 	BOOL bExpCheck = Exp >= maxpoint-1 || Sung == 13;
 	BOOL bJobSkillCheck = SKILLMGR->CheckSkillKind(pSkillInfo->GetSkillKind());
-	//2007. 10. 8. CBH - Àü¹®±â¼úÀº 6, 11¼ºÀÏ¶§ ±×³É ·¹º§¾÷ÇÑ´Ù.
-	//2007. 10. 23. CBH - Å¸ÀÌÅº ¹«°øÀº ±×³É ·¹º§¾÷ÇÑ´Ù.
+	//2007. 10. 8. CBH -  6, 11Ï¶ ×³ Ñ´.
+	//2007. 10. 23. CBH - Å¸Åº  ×³ Ñ´.
 	if((bSungCheck == TRUE) && (bExpCheck == TRUE) && (bJobSkillCheck == FALSE) && (pSkillInfo->GetSkillKind() != SKILLKIND_TITAN))
 	{	
 		return TRUE;

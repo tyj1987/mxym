@@ -7,7 +7,7 @@
 #include "stdafx.h"
 #include "MiniDumper.h"
 //#include "DebugRoutine.h"
-#include "ServerSystem.h"
+#include "..\[CC]Header\ServerSystem.h"
 #include <dbghelp.h>
 
 #define chDIMOF(Array) (sizeof(Array) / sizeof(Array[0]))
@@ -27,10 +27,10 @@ TCHAR                 MiniDumper::s_szAppName[_MAX_PATH]     = {0,};
 TCHAR                 MiniDumper::s_szFaultReason[2048]      = {0,};
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief »ý¼ºÀÚ
-/// \param DL ´ýÇÁ ·¹º§
-/// \param bAddTimeStamp ´ýÇÁ ÆÄÀÏ ÀÌ¸§¿¡´Ù°¡ ´ýÇÁ ÆÄÀÏÀÌ »ý¼ºµÈ ³¯Â¥¸¦
-/// Áý¾î³Ö´Â°¡ÀÇ ¿©ºÎ.
+/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+/// \param DL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// \param bAddTimeStamp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½
+/// ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 MiniDumper::MiniDumper(DumpLevel DL, bool bAddTimeStamp)
 {
@@ -41,11 +41,11 @@ MiniDumper::MiniDumper(DumpLevel DL, bool bAddTimeStamp)
 	s_DumpLevel     = DL;
 	s_bAddTimeStamp = bAddTimeStamp;
 
-	// ¸ðµâ °æ·Î¸¦ ¾Ë¾Æ³½´Ù.
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 	TCHAR szFilename[_MAX_PATH];
 	::GetModuleFileName(NULL, szFilename, _MAX_PATH);
 
-	// È®ÀåÀÚ¸¦ Á¦°ÅÇÑ ¸ðµâ °æ·Î¸¦ ÁØºñÇØµÎ°í...
+	// È®ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½Øºï¿½ï¿½ØµÎ°ï¿½...
 	TCHAR* dot = strrchr(szFilename, '.');
 	::lstrcpyn(s_szAppName, szFilename, (int)(dot - szFilename + 1));
 
@@ -53,29 +53,29 @@ MiniDumper::MiniDumper(DumpLevel DL, bool bAddTimeStamp)
 	::lstrcpyn(s_szAppName, &dot[1], strlen(s_szAppName) );
 	
 
-	// ¿¹¿Ü Ã³¸® ÇÚµé·¯¸¦ ¼³Á¤ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Úµé·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	::SetUnhandledExceptionFilter(TopLevelFilter);
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ¼Ò¸êÀÚ
+/// \brief ï¿½Ò¸ï¿½ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////////////
 MiniDumper::~MiniDumper()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ¿¹¿Ü¿¡ ´ëÇÑ Á¤º¸¸¦ ¹Þ¾Æ¼­, ¹Ì´Ï ´ýÇÁ ÆÄÀÏÀ» »ý¼ºÇÑ´Ù. 
+/// \brief ï¿½ï¿½ï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½, ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 /// 
-/// SetUnhandledExceptionFilter() API¿¡ ÀÇÇØ¼­ ¼³Á¤µÇ°í, ÇÁ·Î¼¼½º ³»ºÎ¿¡¼­ 
-/// Unhandled ExceptionÀÌ ¹ß»ýµÉ °æ¿ì, È£ÃâµÇ°Ô µÈ´Ù. ´Ü µð¹ö°Å°¡ ºÙ¾îÀÖ´Â 
-/// °æ¿ì, Unhandled Exception Filter´Â È£ÃâµÇÁö ¾Ê´Â´Ù. ÀÌ ¸»Àº ÀÌ ÇÔ¼ö 
-/// ³»ºÎ¸¦ µð¹ö±ëÇÒ ¼ö´Â ¾ø´Ù´Â ¸»ÀÌ´Ù. ÀÌ ÇÔ¼ö ³»ºÎ¸¦ µð¹ö±ëÇÏ±â À§ÇØ¼­´Â 
-/// ¸Þ½ÃÁö ¹Ú½º ¶Ç´Â ÆÄÀÏÀ» ÀÌ¿ëÇØ¾ßÇÑ´Ù.
+/// SetUnhandledExceptionFilter() APIï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½, ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ 
+/// Unhandled Exceptionï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, È£ï¿½ï¿½Ç°ï¿½ ï¿½È´ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´ï¿½ 
+/// ï¿½ï¿½ï¿½, Unhandled Exception Filterï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ 
+/// ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ 
+/// ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 /// 
-/// \param pExceptionInfo ¿¹¿Ü Á¤º¸
-/// \return LONG ÀÌ ÇÔ¼ö¸¦ ½ÇÇàÇÏ°í ³­ ´ÙÀ½, ÃëÇÒ Çàµ¿°ª. ÀÚ¼¼ÇÑ °ÍÀº SEH
-/// ¹®¼­¸¦ Âü°íÇÏµµ·Ï.
+/// \param pExceptionInfo ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// \return LONG ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿ï¿½ï¿½. ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SEH
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 {
@@ -84,9 +84,9 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 	TCHAR   szDbgHelpPath[_MAX_PATH] = {0, };
 	TCHAR   szDumpPath[MAX_PATH * 2] = {0,};
 
-	// ¸ÕÀú ½ÇÇà ÆÄÀÏÀÌ ÀÖ´Â µð·ºÅä¸®¿¡¼­ DBGHELP.DLLÀ» ·ÎµåÇØ º»´Ù.
-	// Windows 2000 ÀÇ System32 µð·ºÅä¸®¿¡ ÀÖ´Â DBGHELP.DLL ÆÄÀÏÀº ¹öÀüÀÌ 
-	// ¿À·¡µÈ °ÍÀÏ ¼ö ÀÖ±â ¶§¹®ÀÌ´Ù. (ÃÖ¼Ò 5.1.2600.0 ÀÌ»óÀÌ¾î¾ß ÇÑ´Ù.)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ DBGHELP.DLLï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	// Windows 2000 ï¿½ï¿½ System32 ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Ö´ï¿½ DBGHELP.DLL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. (ï¿½Ö¼ï¿½ 5.1.2600.0 ï¿½Ì»ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½Ñ´ï¿½.)
 	if (::GetModuleFileName(NULL, szDbgHelpPath, _MAX_PATH))
 	{
 		LPTSTR pSlash = ::strrchr(szDbgHelpPath, '\\');
@@ -97,21 +97,21 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 		}
 	}
 
-	// ÇöÀç µð·ºÅä¸®¿¡ ¾ø´Ù¸é, ¾Æ¹« ¹öÀüÀÌ³ª ·ÎµåÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½, ï¿½Æ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Îµï¿½ï¿½Ñ´ï¿½.
 	if (hDLL == NULL) hDLL = ::LoadLibrary("DBGHELP.DLL");
 
-	// DBGHELP.DLLÀ» Ã£À» ¼ö ¾ø´Ù¸é ´õ ÀÌ»ó ÁøÇàÇÒ ¼ö ¾ø´Ù.
+	// DBGHELP.DLLï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if (hDLL == NULL)
 	{
 //		filelog(NULL, "DBGHELP.DLL not found");
 		return retval;
 	}
 
-	// DLL ³»ºÎ¿¡¼­ MiniDumpWriteDump API¸¦ Ã£´Â´Ù.
+	// DLL ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ MiniDumpWriteDump APIï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 	MINIDUMPWRITEDUMP pfnMiniDumpWriteDump = 
 		(MINIDUMPWRITEDUMP)::GetProcAddress(hDLL, "MiniDumpWriteDump");
 
-	// ¹Ì´Ï´ýÇÁ ÇÔ¼ö¸¦ Ã£À» ¼ö ¾ø´Ù¸é ´õ ÀÌ»ó ÁøÇàÇÒ ¼ö ¾ø´Ù.
+	// ï¿½Ì´Ï´ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if (pfnMiniDumpWriteDump == NULL)
 	{
 //		filelog(NULL, "DBGHELP.DLL too old");
@@ -120,11 +120,11 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 
 	if (s_bAddTimeStamp)
 	{
-		// ÇöÀç ½Ã°£À» ¾ò¾î¿Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 		SYSTEMTIME t;
 		::GetLocalTime(&t);
 
-		// ½Ã°£ ¹®ÀÚ¿­À» ÁØºñÇÑ´Ù.
+		// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½Ñ´ï¿½.
 		TCHAR szTail[_MAX_PATH];
 #ifdef _MAPSERVER_		
 		_snprintf(szTail, chDIMOF(szTail)-1, 
@@ -143,21 +143,21 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 
 #endif	//
 
-		// ´ýÇÁ ÆÄÀÏ ÀÌ¸§ += ½Ã°£ ¹®ÀÚ¿­
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ += ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 		::lstrcat(szDumpPath, "./Log/");
 		::lstrcat(szDumpPath, s_szAppName);
 		::lstrcat(szDumpPath, szTail);
 	}
 
-	// ´ýÇÁ ÆÄÀÏ ÀÌ¸§ += È®ÀåÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ += È®ï¿½ï¿½ï¿½ï¿½
 	::lstrcat(szDumpPath, ".dmp");
 
-	// ÆÄÀÏÀ» »ý¼ºÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	HANDLE hFile = ::CreateFile(
 		szDumpPath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, 
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	// ÆÄÀÏÀ» »ý¼ºÇÒ ¼ö ¾ø´Ù¸é ´õ ÀÌ»ó ÁøÇàÇÒ ¼ö ¾ø´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
 //		filelog(NULL, "Failed to create dump file '%s' (error %s)", 
@@ -171,7 +171,7 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 	ExceptionParam.ExceptionPointers = pExPtr;
 	ExceptionParam.ClientPointers = FALSE;
 
-	// ¿É¼Ç¿¡ µû¶ó ´ýÇÁ ÆÄÀÏÀ» »ý¼ºÇÑ´Ù. 
+	// ï¿½É¼Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 	BOOL bResult = FALSE;
 	switch (s_DumpLevel)
 	{
@@ -197,7 +197,7 @@ LONG WINAPI MiniDumper::TopLevelFilter(struct _EXCEPTION_POINTERS* pExPtr)
 		break;
 	}
 
-	// ´ýÇÁ ÆÄÀÏ »ý¼º °á°ú¸¦ ·Î±× ÆÄÀÏ¿¡´Ù ±â·ÏÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (bResult)
 	{
 		TCHAR szMessage[8192] = {0,};
@@ -233,7 +233,7 @@ LPCTSTR MiniDumper::GetFaultReason(struct _EXCEPTION_POINTERS* pExPtrs)
 	if (::IsBadReadPtr(pExPtrs, sizeof(EXCEPTION_POINTERS))) 
 		return "BAD EXCEPTION POINTERS";
 
-	// °£´ÜÇÑ ¿¡·¯ ÄÚµå¶ó¸é ±×³É º¯È¯ÇÒ ¼ö ÀÖ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½×³ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 	switch (pExPtrs->ExceptionRecord->ExceptionCode)
 	{
 	case EXCEPTION_ACCESS_VIOLATION:         return "EXCEPTION_ACCESS_VIOLATION";
@@ -263,7 +263,7 @@ LPCTSTR MiniDumper::GetFaultReason(struct _EXCEPTION_POINTERS* pExPtrs)
 		break;
 	}
 
-	// ¹º°¡ Á» ´õ º¹ÀâÇÑ ¿¡·¯¶ó¸é...
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 	lstrcpy(s_szFaultReason, "Unknown"); 
 	::FormatMessage(
 		FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_IGNORE_INSERTS,

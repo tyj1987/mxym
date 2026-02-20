@@ -3,8 +3,12 @@
 
 #include "battle.h"
 
-#ifndef _MAPSERVER_
-#include "../ImageNumber.h"
+#ifdef _MHCLIENT_LIBRARY_
+#include "../ImageNumber_Client.h"
+#include "../cImage.h"
+#elif defined(_MHCLIENT_)
+#include "../[Client]MH/ImageNumber.h"
+#include "../cImage.h"
 #endif
 
 class CBattleTeam_MurimField;
@@ -65,7 +69,27 @@ public:
 	virtual void	GetBattleInfo( char* pInfo, WORD* size );
 #endif
 
-#ifdef _MHCLIENT_	// Render	(Å¬¶óÀÌ¾ðÆ®¸¸ »ç¿ëÇÔ) -------
+#include "CommonStruct.h"
+#include "CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
+#ifdef _MHCLIENT_LIBRARY_	// Client library compilation -------
+
+protected:
+	CImageNumber	m_ImageNumber;		// ½Ã°£ Ç¥½Ã
+	cImage			m_ImageReady;
+	cImage			m_ImageFight;
+	cImage			m_ImageWin;
+	cImage			m_ImageLose;
+	cImage			m_ImageDraw;
+	cImage*			m_pCurShowImage;
+
+	VECTOR2			m_vImagePos;
+	VECTOR2			m_vImageScale;
+
+public:
+	virtual void	Render();
+
+#elif defined(_MHCLIENT_)	// MHClient compilation (but not library) ---
 
 protected:
 	CImageNumber	m_ImageNumber;		// ½Ã°£ Ç¥½Ã

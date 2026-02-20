@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "ItemDrop.h"
 #include "Player.h"
 #include "time.h"
@@ -34,7 +35,7 @@ void CItemDrop::Init()
 	LoadMonsterDropItemList();
 }
 
-/*//KES ÀÌ°Ô ¸ðÁö..? ÁÖ¼®Ã³¸®´å!
+/*//KES ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½..? ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ï¿½ï¿½!
 void CItemDrop::ReloadDropItem(MONSTEREX_LIST * pMonsterExList)
 {
 	for(int n=0;n<eDROPITEMKIND_MAX;++n)
@@ -79,22 +80,22 @@ int CItemDrop::DropItemKind(MONSTEREX_LIST * pMonsterExList, CPlayer* pPlayer)
 
 		CurTotalRate += DropRate[i];	
 	}
-
-	// RaMa - 06.02.08 ->»ç³É²ÛÀÇºÎÀû
+	int i;
+	// RaMa - 06.02.08 ->ï¿½ï¿½É²ï¿½ï¿½Çºï¿½ï¿½ï¿½
 	if( pPlayer->GetShopItemStats()->AddItemDrop )
 	{
 		for(i=eITEM1; i<=eITEM3; ++i)
 		{
 			CurTotalRate -= DropRate[i];
-			//2007. 11. 20. CBH - »ç³É²ÛºÎÀû °ü·Ã °ø½Ä ¼öÁ¤
-			//(1+(pPlayer->GetShopItemStats()->AddItemDrop*0.01f)) ÀÌ °ªÀÌ 1.999999°¡ ³ª¿À´Âµ¥ DWORD·Î
-			//º¯È¯ÇÏ¸é¼­ µÚ ¼Ò¼öÁ¡Àº ¹ö¸°´Ù. ÇØ°áÃ¥À¸·Î 0.001À» ´õÇØÁà¼­ 2°ªÀÌ ³ª¿À°Ô ÇØ¼­ 2¹è°¡ µÇ°Ô ÇÑ´Ù.
+			//2007. 11. 20. CBH - ï¿½ï¿½É²Ûºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			//(1+(pPlayer->GetShopItemStats()->AddItemDrop*0.01f)) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.999999ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ DWORDï¿½ï¿½
+			//ï¿½ï¿½È¯ï¿½Ï¸é¼­ ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ø°ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ 0.001ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½à¼­ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¼ï¿½ 2ï¿½è°¡ ï¿½Ç°ï¿½ ï¿½Ñ´ï¿½.
 			DropRate[i] *= (DWORD)(1+(pPlayer->GetShopItemStats()->AddItemDrop*0.01f) + 0.001f);
 			CurTotalRate += DropRate[i];
 		}
 	}
 
-	//SW080515 Ã¤³Îº° ¼¼ÆÃ
+	//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	float fDropRate = CHANNELSYSTEM->GetDropRate( pPlayer->GetChannelID());
 	if( fDropRate != 1.0f )
 	{
@@ -106,7 +107,7 @@ int CItemDrop::DropItemKind(MONSTEREX_LIST * pMonsterExList, CPlayer* pPlayer)
 		}
 	}
 
-	// RaMa -04.11.24  ->µå¶øÀ²¼öÁ¤
+	// RaMa -04.11.24  ->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( CurTotalRate > MAX_DROP_ITEM_PERCENT )
 	{
 		int dwTemp = DropRate[eMONEY]+DropRate[eITEM1]+DropRate[eITEM2]+DropRate[eITEM3];
@@ -123,7 +124,7 @@ int CItemDrop::DropItemKind(MONSTEREX_LIST * pMonsterExList, CPlayer* pPlayer)
 		}
 	}
 
-	//CurTotalRate == 0ÀÌ¸é ¾ÈµÈ´Ù.
+	//CurTotalRate == 0ï¿½Ì¸ï¿½ ï¿½ÈµÈ´ï¿½.
 	if( CurTotalRate == 0 )
 	{
 //		char buf[128];
@@ -161,7 +162,7 @@ MONEYTYPE CItemDrop::MoneyItemNoItemPercentCalculator(MONSTEREX_LIST * pMonInfo,
 
 //	ASSERT(pMob->GetObjectKind() & eObjectKind_Monster );
 	
-	// RaMa - 04.11.24   ->ShopItemOptionÀÇ ItemDropºñÀ² Ãß°¡
+	// RaMa - 04.11.24   ->ShopItemOptionï¿½ï¿½ ItemDropï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
 	MONEYTYPE TotalMoney = 0; 
 
@@ -241,7 +242,7 @@ MONEYTYPE CItemDrop::MonsterDropMoney(MONSTEREX_LIST * pMonsterExList)
 		ResultMoney = MinMoney;
 	}
 
-	// RaMa -04.11.24   ->µ· ¾ò´Â ¾×¼ö
+	// RaMa -04.11.24   ->ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½×¼ï¿½
 	// ResultMoney *= gGetMoney;
 	ResultMoney = (MONEYTYPE)(ResultMoney*gEventRate[eEvent_GetMoney]);
 
@@ -257,7 +258,7 @@ void CItemDrop::MonsterDropItem(WORD MonsterKind, WORD wDropItemIdx, CPlayer* pP
 	
 	if( pDropItem->dwCurTotalRate == 0 )
 	{
-		// yh ¾ÆÀÌÅÛÀ» µå¶øÇÏÁö ¾Ê´Â °æ¿ì(TotalRate °¡ 0)¿¡ FALSE ¸®ÅÏ
+		// yh ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½(TotalRate ï¿½ï¿½ 0)ï¿½ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 		if(ReloadMonsterDropItem(pDropItem) == FALSE)
 			return;
 	}
@@ -349,7 +350,7 @@ BOOL CItemDrop::LoadMonsterDropItemList()
 		
 		MONSTER_DROP_ITEM* pDropItem = new MONSTER_DROP_ITEM;
 		memset(pDropItem, 0, sizeof(MONSTER_DROP_ITEM));
-		pDropItem->wItemDropIndex = file.GetWord();// ÀÐ±â¸¸ ÇÑ´Ù.
+		pDropItem->wItemDropIndex = file.GetWord();// ï¿½Ð±â¸¸ ï¿½Ñ´ï¿½.
 
 		WORD totalnum = 0;
 		for(int idx=0; idx<MAX_DROPITEM_NUM; ++idx)
@@ -411,7 +412,7 @@ void CItemDrop::TestMonsterDropItem(WORD wDropItemListIdx)
 	int CurPercent = 0;
 	int TempPercent = 0;
 	
-	int VarMaxPercent = pDropItem->m_MonsterMaxVarPercent; // ºÐ¸ð
+	int VarMaxPercent = pDropItem->m_MonsterMaxVarPercent; // ï¿½Ð¸ï¿½
 	if(!VarMaxPercent)
 		return;
 
@@ -420,18 +421,18 @@ void CItemDrop::TestMonsterDropItem(WORD wDropItemListIdx)
 	{
 		CurPercent = 0;
 		TempPercent = 0;
-		DropPercent = rand() % VarMaxPercent; // ¶³¾î¶ß¸± È®·ü
+		DropPercent = rand() % VarMaxPercent; // ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ È®ï¿½ï¿½
 		if(!DpPercent)
 			DropPercent = 1;
 		for(int j=0; j<HaveItem; j++)
 		{
 			CurPercent = pDropItem->m_MonsterDropItemVarPercent[j].DropPercent;
-			if(!CurPercent)	// ÆÛ¼¾Æ®°¡ 0ÀÌ¸é ZeroÃ¼Å©ÈÄ Reload
+			if(!CurPercent)	// ï¿½Û¼ï¿½Æ®ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ZeroÃ¼Å©ï¿½ï¿½ Reload
 			{
 				BOOL flag = ZeroCheckPercent(Kind);
 				if(flag)
 				{
-					ReloadDropItemPercent(Kind); // ¸ðµÎ 0ÀÌ¸é ÀçÃæÀü
+					ReloadDropItemPercent(Kind); // ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					
 					FILE* fp = fopen("itemdroptest.txt","a+");
 					fprintf(fp,"ReloadDropItemPercent\n",pDropItem->m_MonsterDropItemVarPercent[j].Name,
@@ -443,7 +444,7 @@ void CItemDrop::TestMonsterDropItem(WORD wDropItemListIdx)
 			}
 			else if(TempPercent<DropPercent && TempPercent+CurPercent>=DropPercent)
 			{
-				// È®·ü¿¡ µé¾î¿ÔÀ¸¹Ç·Î µå·Ó
+				// È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½
 				MONSTER_ITEM tmp;
 				WORD HuntItemNum = pDropItem->m_MonsterDropItemVarPercent[j].ItemIdx;
 				tmp = pDropItem->m_MonsterDropItemVarPercent[j];
@@ -475,7 +476,7 @@ void CItemDrop::CalculItemPercent(WORD Kind, int HaveItem, int idx)
 
 	int VarPercent = 0;
 	int tmpPercent = pDropItem->m_MonsterDropItemVarPercent[idx].DropPercent;
-	int VarMaxPercent = pDropItem->m_MonsterMaxVarPercent; // ºÐ¸ð
+	int VarMaxPercent = pDropItem->m_MonsterMaxVarPercent; // ï¿½Ð¸ï¿½
 	if(tmpPercent)
 	{
 		for(int i = 0; i < HaveItem; i++)
@@ -487,24 +488,24 @@ void CItemDrop::CalculItemPercent(WORD Kind, int HaveItem, int idx)
 				continue;
 			}
 			if(!VarMaxPercent)
-				ReloadDropItemPercent(Kind); // 0ÀÌ¸é ÀçÃæÀü
+				ReloadDropItemPercent(Kind); // 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(i == idx)
 			{
 				pDropItem->m_MonsterDropItemVarPercent[i].DropPercent = VarPercent-1;
 				pDropItem->m_MonsterMaxVarPercent = VarMaxPercent-1;
 			}
 		}
-		// ¸ðµç ÆÛ¼¾Æ®°¡ 0ÀÎÁö °Ë»ç
+		// ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½Æ®ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 		BOOL flag = ZeroCheckPercent(Kind);
 		if(flag)
-			ReloadDropItemPercent(Kind); // ¸ðµÎ 0ÀÌ¸é ÀçÃæÀü
+			ReloadDropItemPercent(Kind); // ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	else
 	{
-		// ¿©±â¿¡ °É¸®¸é ¿¡·¯¶ó³×
+		// ï¿½ï¿½ï¿½â¿¡ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		BOOL flag = ZeroCheckPercent(Kind);
 		if(flag)
-			ReloadDropItemPercent(Kind); // ¸ðµÎ 0ÀÌ¸é ÀçÃæÀü
+			ReloadDropItemPercent(Kind); // ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 }
 
@@ -520,8 +521,8 @@ BOOL CItemDrop::ZeroCheckPercent(WORD Kind)
 		AddPercent = AddPercent + tmpPercent[i];
 	}
 
-	if(AddPercent) // ÆÛ¼¾Æ® ´©ÀûÀÇ ÇÕÀÌ 0ÀÌ¸é ÀüºÎ 0ÀÓ
-		return FALSE;  // Reload ÇÏ¶ó°í Áö½Ã
+	if(AddPercent) // ï¿½Û¼ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½
+		return FALSE;  // Reload ï¿½Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else
 		return TRUE;
 }

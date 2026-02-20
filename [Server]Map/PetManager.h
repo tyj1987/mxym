@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 #define PET_SKILLCHARGE_CHECKTIME	1000
 #define PET_MAX_SKILL_CHARGE	10000
@@ -15,23 +16,23 @@ enum eFncOptPetTotalInfo{ eWithNULLOBJ, eWithNULL };
 enum ePetUpgradeResult{eUpgradeSucess=0, eUpgradeFailforProb=1, eUpgradeFailforEtc=2, eUpgradeFailfor3rdUp=3, eUpgradeFailforSamePetSummoned=4,};
 enum ePetFeedResult{ePFR_Sucess=0, ePFR_Unsummoned, ePFR_StaminaFull};
 
-//¹öÇÁ
+//ï¿½ï¿½ï¿½ï¿½
 enum ePetBuffKind
 {ePB_None,
-ePB_Demage_Percent=1,		//ÀÏÁ¤ È®·ü·Î µ¥¹ÌÁö Áõ°¡
-ePB_Dodge=2,				//ÀÏÁ¤ È®·ü·Î È¸ÇÇ
-ePB_MasterAllStatUp=3,		//ÁÖÀÎÄ³¸¯ÅÍ ½ºÅÈ Çâ»ó
-ePB_Item_DoubleChance=4,	//ÀÏÁ¤ È®·ü·Î ¾ÆÀÌÅÛ È¹µæ 2¹è
-ePB_NoForeAtkMonster=5,		//¼±°ø¸÷¿¡°Ô ºñ¼±°ø È¿°ú //ÀÏ¹Ý¸÷
-ePB_ReduceCriticalDmg=6,	//¹Þ´ÂÀÏ°Ýµ¥¹ÌÁö°¨¼Ò
-ePB_MasterAllStatRound=7,	//ÁÖÀÎÄ³¸¯ÅÍ ½ºÅÈ ¹Ý¿Ã¸²
-ePB_Item_RareProbUp=8,		//·¹¾îÈ¹µæÈ®·ü Áõ°¡
-ePB_MussangTimeIncrease=9,	//¹«½Ö¹ßµ¿½Ã°£ Áõ°¡
+ePB_Demage_Percent=1,		//ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ePB_Dodge=2,				//ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
+ePB_MasterAllStatUp=3,		//ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+ePB_Item_DoubleChance=4,	//ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ 2ï¿½ï¿½
+ePB_NoForeAtkMonster=5,		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ñ¼±°ï¿½ È¿ï¿½ï¿½ //ï¿½Ï¹Ý¸ï¿½
+ePB_ReduceCriticalDmg=6,	//ï¿½Þ´ï¿½ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ePB_MasterAllStatRound=7,	//ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿Ã¸ï¿½
+ePB_Item_RareProbUp=8,		//ï¿½ï¿½ï¿½ï¿½È¹ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ePB_MussangTimeIncrease=9,	//ï¿½ï¿½ï¿½Ö¹ßµï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 ePB_Kind_Max};
-//Æê¼ÒÈ¯»óÅÂ
+//ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½
 enum PetSummonning{ePSS_ReleaseSummon,ePSS_SaveSummon};
 
-//ÆêÁ¾·ù
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum ePetKind{ePK_None, ePK_CommonPet=1, ePK_ShopItemPet=2, ePK_EventPet=4,};
 
 struct BuffData
@@ -56,16 +57,18 @@ struct PETEQUIP_ITEMOPTION
 		iPetStaminaRecoverateAmount(0),
 		iPetFriendshipIncrease(0),
 		fPetFriendshipProtectionRate(0){};
-	int	iPetStaminaReductionDecrease;	//Æê ½ºÅÂ¹Ì³ª ¼Òºñ °¨¼Ò·®(%)
-	int	iPetStaminaMaxIncreaseAmount;	//Æê ½ºÅÂ¹Ì³ª ÃÖ´ëÄ¡ Áõ°¡·®(val)
-	int	iPetStaminaRecoverateIncrease;	//Æê ½ºÅÂ¹Ì³ª È¸º¹ Áõ°¡·®(%)
-	int	iPetStaminaRecoverateAmount;	//Æê ½ºÅÂ¹Ì³ª È¸º¹ Ãß°¡·®(val)
-	int	iPetFriendshipIncrease;	//Æê Ä£¹Ðµµ Ãß°¡ È¹µæ·®(%)
-	//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
-	float fPetFriendshipProtectionRate;	//ÁÖÀÎ ºÎÈ° ½Ã Æê Ä£¹Ðµµ ÇÏ¶ô º¸È£·®(%)
+	int	iPetStaminaReductionDecrease;	//ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½Òºï¿½ ï¿½ï¿½ï¿½Ò·ï¿½(%)
+	int	iPetStaminaMaxIncreaseAmount;	//ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½Ö´ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(val)
+	int	iPetStaminaRecoverateIncrease;	//ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(%)
+	int	iPetStaminaRecoverateAmount;	//ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ È¸ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½(val)
+	int	iPetFriendshipIncrease;	//ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ß°ï¿½ È¹ï¿½æ·®(%)
+	//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½
+	float fPetFriendshipProtectionRate;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È° ï¿½ï¿½ ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½È£ï¿½ï¿½(%)
 };
 
+// å‰å‘å£°æ˜Žï¼ˆPet.hä¼šæä¾›å®Œæ•´å®šä¹‰ï¼‰
 class CPlayer;
+class CPet;
 
 class CPetManager
 {
@@ -87,18 +90,18 @@ class CPetManager
 
 	DWORD							m_dwResummonDelayTime;
 
-	//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+	//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½
 	int								m_iFriendshipReduceAmount;
 
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
-	DWORD							m_dwEventPetSummonRemainTime;	//ºÀÀÎµÉ ½Ã°¢ ->¼ÒÈ¯½Ã°¢ + 30Min
-	DWORD							m_dwEventPetCheckTime;			//ÇÁ·Î¼¼½º Ã¼Å·
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
+	DWORD							m_dwEventPetSummonRemainTime;	//ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ã°ï¿½ ->ï¿½ï¿½È¯ï¿½Ã°ï¿½ + 30Min
+	DWORD							m_dwEventPetCheckTime;			//ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ Ã¼Å·
 
 	WORD							m_wPetKind;
 
 	DWORD		m_dwPetValidDistPosCheckTime;
 
-	int								m_BuffFlag;	//Æê ¹öÇÁ Á¤º¸ °ü·Ã
+	int								m_BuffFlag;	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BuffData						m_BuffData[ePB_Kind_Max];
 
 	//CYHHashTable<CPet>				m_PetTable;
@@ -114,8 +117,8 @@ public:
 	void		AddPet(CPet* pPet,DWORD	ItemDBIdx);
 //	void		RemovePet(DWORD ItemDBIdx);
 	void		AddPetTotalInfo(PET_TOTALINFO* pPetInfo,int flagSendMsgTo = eServerOnly);
-	void		RemovePetTotalInfo(DWORD dwSummonItemDBIdx);	//Æê ±³È¯½Ã
-	void		DeletePet(DWORD ItemDBIdx);	//Æê »èÁ¦½Ã
+	void		RemovePetTotalInfo(DWORD dwSummonItemDBIdx);	//ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½
+	void		DeletePet(DWORD ItemDBIdx);	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	void		DeletePet(DWORD dwPetID);
 	void		ReleaseCurPetMove();
 	void		UpGradeSummonPet();
@@ -136,7 +139,7 @@ public:
 
 //	void		SummonPet(DWORD dwPetID);
 	void		SummonPet(DWORD dwItemDBIdx, BOOL bSummonFromUser = TRUE);
-	//SW061211 Å©¸®½º¸¶½ºÀÌº¥Æ®
+	//SW061211 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®
 	BOOL		CheckBeforeSummonPet(DWORD dwItemDBIdx);
 	void		SummonEventPet();
 	void		SetCurSummonPetKind(WORD kind)	{ m_wPetKind = kind;	}
@@ -149,7 +152,7 @@ public:
 	BOOL		IsCurPetSummonItem(DWORD dwItemDBIdx);
 	void		FeedUpPet(DWORD dwFeedAmount);
 	
-	void		PetProcess();	//ÇÔ¼ö,º¯¼öÀÌ¸§Àº ÀÚ¼¼È÷ ¶Ç´Â ±¸º°ÇÒ¼ö ÀÖ°Ô!
+	void		PetProcess();	//ï¿½Ô¼ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½Ö°ï¿½!
 	void		CheckPosValidDistWithMaster();
 
 	void		CheckStaminaZero();
@@ -176,7 +179,7 @@ public:
 	void		SetPetEquipOption(DWORD ItemIdx, BOOL bAddOpt);
 	PETEQUIP_ITEMOPTION*	GetPetEquipOption()	{	return &m_PetEquipOption;	};
 
-	void		SetPetSummonning(int flag);	//¸ÊÀÌµ¿½Ã Æê ¼ÒÈ¯»óÅÂ DBÀúÀå
+	void		SetPetSummonning(int flag);	//ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½
 	void		CheckSummonningPet();
 
 	void		SetResummonCheckTime();
@@ -184,11 +187,11 @@ public:
 
 	void		SendPetInfo(PET_TOTALINFO* pPetInfo);
 
-	//SW070531 Æê Ä£¹Ðµµ º¸È£±â´É
+	//SW070531 ï¿½ï¿½ Ä£ï¿½Ðµï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½
 	void		SetReduceAmountPetFriendship(CObject* pAttacker);
 	void		ReducePetFriendshipWithMastersRevive();
 
-	/*CPet¿¡ ³Ö¾îÁÖÀÚ.
+	/*CPetï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½.
 	void		CalcStamina();
 	void		CalcFriendship();
 	void		CalcSkillRecharge();

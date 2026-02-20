@@ -5,7 +5,11 @@
 #include "stdafx.h"
 #include "SkillObjectStateUnit.h"
 #include "SkillObjectTargetList.h"
+#ifdef _MAPSERVER_
 #include "SkillObject_server.h"
+#else
+#include "SkillObject_client.h"
+#endif
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

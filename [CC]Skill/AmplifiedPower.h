@@ -14,6 +14,7 @@
 class CAmplifiedPowerPhy : public CSpecialState
 {
 public:
+	CAmplifiedPowerPhy(); // Default constructor
 	CAmplifiedPowerPhy(CObject* pParent);
 	~CAmplifiedPowerPhy();
 
@@ -23,10 +24,9 @@ public:
 class CAmplifiedPowerAtt : public CSpecialState
 {
 public:
+	CAmplifiedPowerAtt(); // Default constructor
 	CAmplifiedPowerAtt(CObject* pParent);
 	~CAmplifiedPowerAtt();
-
 };
-
 
 #endif // !defined(AFX_AMPLIFIEDPOWER_H__14CF367F_7C39_4429_B52D_D490714A9154__INCLUDED_)

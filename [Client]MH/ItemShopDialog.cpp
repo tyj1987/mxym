@@ -120,6 +120,7 @@ DWORD CItemShopDialog::ActionEvent(CMouse * mouseInfo)
 
 void CItemShopDialog::SetItemInfo(SEND_SHOPITEM_INFO* pItemInfo)
 {
+int i;
 	if(!pItemInfo)		return;
 
 	DWORD dwtab = 0;
@@ -127,7 +128,7 @@ void CItemShopDialog::SetItemInfo(SEND_SHOPITEM_INFO* pItemInfo)
 	if( pItemInfo->ItemCount > SLOT_SHOPITEM_IMSI )
 		pItemInfo->ItemCount = SLOT_SHOPITEM_IMSI;
 
-	for(int i=0; i<SLOT_SHOPITEM_IMSI; i++)
+	for( i=0; i<SLOT_SHOPITEM_IMSI; i++)
 	{
 		cIcon* pIcon;
 		dwtab = GetTabNumber(TP_SHOPITEM_START+i);

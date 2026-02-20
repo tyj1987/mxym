@@ -65,6 +65,7 @@ void CPartyDialog::SetActive(BOOL bState)
 	{
 		if(PARTYMGR->CanActivate() == FALSE)
 		{
+		int i;
 			m_bActive = FALSE;
 		}
 	}
@@ -80,10 +81,11 @@ void CPartyDialog::SetActive(BOOL bState)
 
 void CPartyDialog::RefreshDlg()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	if(HEROID == 0)
 		return;
 
-	for(int i=0; i<MAX_PARTY_LISTNUM-1; ++i)
+	for( i=0; i<MAX_PARTY_LISTNUM-1; ++i)
 		m_MemberDlg[i]->SetMemberData(NULL);
 
 	int membercount=0;
@@ -93,7 +95,7 @@ void CPartyDialog::RefreshDlg()
 		if((PlayerID != 0) && (HEROID != PlayerID))
 		{
 			ASSERT( membercount < 6 );
-			if( membercount < 6 )	//¿À·ù°¡ ³ª¼­ ÆÄÆ¼°¡ ²¿ÀÌ´õ¶óµµ ´Ù¿îÀº ¾ÈµÇµµ·Ï
+			if( membercount < 6 )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ÈµÇµï¿½ï¿½ï¿½
 				m_MemberDlg[membercount++]->SetMemberData(PARTYMGR->GetPartyMemberInfo(i));
 		}
 	}

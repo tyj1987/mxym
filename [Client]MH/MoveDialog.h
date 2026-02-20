@@ -71,9 +71,7 @@ public:
 	void SetExtend( BOOL bExtend );
 	void SetButton( DWORD Idx );
 
-#ifdef _KOR_LOCAL_
-	void MapChange(WORD wMoveMapNum);	//2008. 5. 9. CBH - ¾ÆÀÌÅÆ »ç¿ëÇÏ¿© ¸Ê Ã¤³Î ÀÌµ¿
-#endif
+	void MapChange(WORD wMoveMapNum);	//2008. 5. 9. CBH - æ–°ç§»åŠ¨é¢‘é“ç³»ç»Ÿç›¸å…³
 };
 
 #endif // !defined(AFX_MOVEDIALOG_H__AEF92BC4_C38B_49D4_9157_C75C38355D0A__INCLUDED_)

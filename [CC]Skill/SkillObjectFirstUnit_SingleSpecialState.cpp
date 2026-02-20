@@ -2,8 +2,8 @@
 #include "SkillObjectFirstUnit_SingleSpecialState.h"
 
 #ifdef _MAPSERVER_
-#include "PackedData.h"
-#include "AttackManager.h"
+#include "..\[Server]Map\PackedData.h"
+#include "..\[Server]Map\AttackManager.h"
 #include "SkillObject_server.h"
 #include "SkillManager_server.h"
 #else
@@ -14,7 +14,7 @@
 #include "SkillManager_client.h"
 #endif
 
-#include "Player.h"
+#include "..\[Server]Map\Player.h"
 
 CSkillObjectFirstUnit_SingleSpecialState::CSkillObjectFirstUnit_SingleSpecialState(SKILLINFO* pSkillInfo)
 : CSkillObjectFirstUnit(pSkillInfo)
@@ -34,7 +34,7 @@ void CSkillObjectFirstUnit_SingleSpecialState::Init(CSkillInfo* pSkillInfo,WORD 
 int CSkillObjectFirstUnit_SingleSpecialState::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTargetList* pTargetList,	MSG_SKILLOBJECT_ADD* pAddMsg,float SkillTreeAmp)
 {
 	if(pOperator->GetSingleSpecialState(m_State))
-	{// 현재 상태와 같은것을 썼다면 상태 종료다.
+	{//  쩔  摸  .
 		pOperator->SetSingleSpecialStateUsedTime(m_State, gCurTime);
 		pOperator->SetSingleSpecialState(m_State, false);
 		SendAck(pOperator, m_State, false);
@@ -46,11 +46,11 @@ int CSkillObjectFirstUnit_SingleSpecialState::ExcuteFirstUnit(CObject* pOperator
 		if(!pInfo)
 			return SendNack(pOperator, m_State, eSingleSpecialState_Error);
 
-		// 내력 확인
+		//  확
 		if(pOperator->GetNaeRyuk() < pInfo->NaeRyuk)
 			return SendNack(pOperator, m_State, eSingleSpecialState_Error_NaeRyuk);
 
-		// 사용딜레이 확인
+		//  확
 		if(pOperator->GetSingleSpecialStateUsedTime(m_State) + pInfo->DelayTime > gCurTime)
 			return SendNack(pOperator, m_State, eSingleSpecialState_Error_Delay);
 

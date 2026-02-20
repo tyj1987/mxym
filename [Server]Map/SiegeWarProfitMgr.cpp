@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "SiegeWarProfitMgr.h"
 #include "UserTable.h"
 #include "Player.h"

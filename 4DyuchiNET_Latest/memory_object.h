@@ -2,7 +2,7 @@
 
 #define	MEMORY_BLOCK_SIZE 64
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 
 // 메모리 오브젝트.64바이트 단위로 만들자.

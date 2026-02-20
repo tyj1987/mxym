@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "FortWarManager.h"
 #include "..\[CC]Header\GameResourceManager.h"
 #include "MHFile.h"
@@ -35,7 +36,7 @@ void CFortWarManager::Init()
 	m_pEngravePlayer = NULL;
 	m_dwWarTime = 0;
 	memset( m_FortWarTimeInfo, 0, sizeof(sFortWarTimeInfo)*eFortWarDay_Max);
-	// ÀÓ½Ã·Î ¿©±â´Ù..
+	// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿..
 	m_pNpcInfo = GAMERESRCMNGR->GetStaticNpcInfo( 15001 );
 
 	m_pEngravePlayer = NULL;
@@ -59,7 +60,7 @@ void CFortWarManager::Init()
 	m_dwFortWarProfitMoney = 0;
 	m_nFortWarTexRate = 500;
 	m_nFortWarWareRate = 3000;
-	m_dwUpdateTime = gCurTime + 300000;		// ÃÊ(10ºÐ)
+	m_dwUpdateTime = gCurTime + 300000;		// ï¿½ï¿½(10ï¿½ï¿½)
 
 	LoadFortWarInfo();
 }
@@ -119,7 +120,7 @@ BOOL CFortWarManager::LoadFortWarInfo()
                     m_FortWarTimeInfo[nDayOfWeek].bOn = file.GetBool();
 					m_FortWarTimeInfo[nDayOfWeek].FortWarStartTime.wHour = file.GetWord();
 					m_FortWarTimeInfo[nDayOfWeek].FortWarStartTime.wMinute = file.GetWord();
-					m_FortWarTimeInfo[nDayOfWeek].dwWarTime = file.GetDword()*60;			// ÃÊ·Î º¯È¯
+					m_FortWarTimeInfo[nDayOfWeek].dwWarTime = file.GetDword()*60;			// ï¿½Ê·ï¿½ ï¿½ï¿½È¯
 				}
 			}
 		}
@@ -203,7 +204,7 @@ int CFortWarManager::GetSecondInterval( SYSTEMTIME curTime, SYSTEMTIME basicTime
 	if( basicTime.wHour > curTime.wHour )
 	{
 		nHour = basicTime.wHour - curTime.wHour;
-		// ºÐ
+		// ï¿½ï¿½
 		if( basicTime.wMinute > curTime.wMinute )
 		{
 			nMin = basicTime.wMinute - curTime.wMinute;
@@ -213,7 +214,7 @@ int CFortWarManager::GetSecondInterval( SYSTEMTIME curTime, SYSTEMTIME basicTime
 			nHour--;
 			nMin = basicTime.wMinute + 60 - curTime.wMinute;
 		}
-		// ÃÊ
+		// ï¿½ï¿½
 		if( basicTime.wSecond >= curTime.wSecond )
 		{
 			nSec = basicTime.wSecond - curTime.wSecond;
@@ -256,24 +257,24 @@ void CFortWarManager::ProcessFortWar()
 			{
 				m_dwWarState = eFortWarState_Before10Min;
 
-				// ¸ðµç ÇÃ·¹ÀÌ¾îÇÑÅ× ¾Ë¸°´Ù. Agent·Î º¸³»¼­ Agent¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ï¿½ï¿½ï¿ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½. Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Agentï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 				MSG_FORTWAR_START msg;
 				msg.Category = MP_FORTWAR;
 				msg.Protocol = MP_FORTWAR_START_BEFORE10MIN;
 				msg.wForWarMapNum = g_pServerSystem->GetMapNum();
 				msg.dwChannelNum = m_dwChannelNum;
-				msg.dwFortWarTime = 0;	// ÃÊ
+				msg.dwFortWarTime = 0;	// ï¿½ï¿½
 				SafeStrCpy( msg.EngraveSuccessPlayerName, GetMasterName(), MAX_NAME_LENGTH+1 );
 				msg.vNpcPos.x = 0;
 				msg.vNpcPos.y = 0;
 				g_Network.Send2AgentServer( (char*)&msg, sizeof(msg) );
 
-				//  ´Ù¸¥¸Ê¼­¹ö¿¡ Á¤º¸¸¦ º¸³½´Ù.
+				//  ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				MSG_FORTWAR_START msg2 = msg;
 				msg2.Protocol = MP_FORTWAR_START_BEFORE10MIN_TO_MAP;
 				g_Network.Send2AgentServer( (char*)&msg2, sizeof(msg2) );
 			}
-			else if( nSec <= 0 )	// ¼­¹ö´Ù¿î½Ã
+			else if( nSec <= 0 )	// ï¿½ï¿½ï¿½ï¿½ï¿½Ù¿ï¿½ï¿
 			{
 				m_dwWarState = eFortWarState_Ing;
 				if( abs(nSec) >= m_FortWarTimeInfo[curTime.wDayOfWeek].dwWarTime )
@@ -284,13 +285,13 @@ void CFortWarManager::ProcessFortWar()
 //					m_pNpcInfo->vPos.x = 10000;
 //					m_pNpcInfo->vPos.z = 10000;
 
-					// ´Ù¸¥¸Ê¼­¹ö¿¡ Á¤º¸¸¦ º¸³½´Ù.
+					// ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					MSG_FORTWAR_START msg;
 					msg.Category = MP_FORTWAR;
 					msg.Protocol = MP_FORTWAR_ING_TO_MAP;
 					msg.wForWarMapNum = g_pServerSystem->GetMapNum();
 					msg.dwChannelNum = m_dwChannelNum;
-					msg.dwFortWarTime = 0;	// ÃÊ
+					msg.dwFortWarTime = 0;	// ï¿½ï¿½
 					SafeStrCpy( msg.EngraveSuccessPlayerName, GetMasterName(), MAX_NAME_LENGTH+1 );
 					msg.vNpcPos.x = 0;
 					msg.vNpcPos.y = 0;
@@ -304,25 +305,25 @@ void CFortWarManager::ProcessFortWar()
 			int nSec = GetSecondInterval( curTime, m_FortWarTimeInfo[curTime.wDayOfWeek].FortWarStartTime );
 			if( nSec <= 0 )
 			{
-				// »óÅÂ ¹× ½Ã°£ ¼¼ÆÃ.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				m_dwWarState = eFortWarState_Ing;
 				m_dwWarTime = m_FortWarTimeInfo[curTime.wDayOfWeek].dwWarTime*1000 + gCurTime;
 //				m_pNpcInfo->vPos.x = 10000;
 //				m_pNpcInfo->vPos.z = 10000;
 
-				// ¸ðµç ÇÃ·¹ÀÌ¾îÇÑÅ× ½ÃÀÛÀ» ¾Ë¸°´Ù. Agent·Î º¸³»¼­ Agent¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ï¿½ï¿½ï¿ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½. Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Agentï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 				MSG_FORTWAR_START msg;
 				msg.Category = MP_FORTWAR;
 				msg.Protocol = MP_FORTWAR_START;
 				msg.wForWarMapNum = g_pServerSystem->GetMapNum();
 				msg.dwChannelNum = m_dwChannelNum;
-                msg.dwFortWarTime = m_FortWarTimeInfo[curTime.wDayOfWeek].dwWarTime;	// ÃÊ
+                msg.dwFortWarTime = m_FortWarTimeInfo[curTime.wDayOfWeek].dwWarTime;	// ï¿½ï¿½
                 SafeStrCpy( msg.EngraveSuccessPlayerName, GetMasterName(), MAX_NAME_LENGTH+1 );
 				msg.vNpcPos.x = m_pNpcInfo->vPos.x;
 				msg.vNpcPos.y = m_pNpcInfo->vPos.z;
 				g_Network.Send2AgentServer( (char*)&msg, sizeof(msg) );
 
-				//  ´Ù¸¥¸Ê¼­¹ö¿¡ Á¤º¸¸¦ º¸³½´Ù.
+				//  ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				MSG_FORTWAR_START msg2 = msg;
 				msg2.Protocol = MP_FORTWAR_START_TO_MAP;
 				g_Network.Send2AgentServer( (char*)&msg2, sizeof(msg2) );
@@ -331,15 +332,15 @@ void CFortWarManager::ProcessFortWar()
 		break;
 	case eFortWarState_Ing:
 		{
-			// ¿ä»õÀü Á¾·á½Ã...
+			// ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿...
 			if( gCurTime >= m_dwWarTime )
 			{
 				m_dwWarState = eFortWarState_None;		
 
-				// °¢ÀÎÁßÀÎ Ä³¸¯ÅÍ°¡ ÀÖ´Ù¸é...
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ö´Ù¸ï¿½...
 				if( m_pEngravePlayer )
 				{
-					// state ÇØÁ¦
+					// state ï¿½ï¿½ï¿½ï¿½
                     OBJECTSTATEMGR_OBJ->EndObjectState( m_pEngravePlayer, eObjectState_Engrave );
 
 					// msg send
@@ -350,7 +351,7 @@ void CFortWarManager::ProcessFortWar()
 					PACKEDDATA_OBJ->QuickSend( m_pEngravePlayer, &msg, sizeof(msg) );
 				}
 
-				// ¸ðµç ÇÃ·¹ÀÌ¾îÇÑÅ× ¿ä»õÀü Á¾·á¸¦ ¾Ë¸°´Ù. Agent·Î º¸³»¼­ Agent¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ï¿½ï¿½ï¿ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½á¸¦ ï¿½Ë¸ï¿½ï¿½ï¿½. Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Agentï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 				MSG_FORTWAR_END msg;
 				msg.Category = MP_FORTWAR;
 				msg.Protocol = MP_FORTWAR_END;
@@ -359,7 +360,7 @@ void CFortWarManager::ProcessFortWar()
 				SafeStrCpy( msg.EngraveSuccessPlayerName, GetMasterName(), MAX_NAME_LENGTH+1 );
 				g_Network.Send2AgentServer( (char*)&msg, sizeof(msg) );
 
-				//  ´Ù¸¥¸Ê¼­¹ö¿¡ Á¤º¸¸¦ º¸³½´Ù.
+				//  ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				MSG_FORTWAR_END msg2 = msg;
 				msg2.Protocol = MP_FORTWAR_END_TO_MAP;
 				g_Network.Send2AgentServer( (char*)&msg2, sizeof(msg2) );
@@ -368,18 +369,20 @@ void CFortWarManager::ProcessFortWar()
 				m_pEngravePlayer = NULL;
 				m_dwEngraveTime = 0;
 
-				// ¹®ÆÄ°¡ Â÷ÁöÇß´Ù¸é ¹®ÆÄÆ÷ÀÎÆ® Ãß°¡
+				// ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
 				if( GetMasterGuildID() )
                     GUILDMGR->GuildPointFromFortWar( GetMasterGuildID(), 10000 );
 
 				return;
 			}
 
-			// °¢ÀÎÃ³¸®...
+			// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½...
 			if( m_pEngravePlayer )
-			if( gCurTime >= m_dwEngraveTime )
 			{
-				// state ÇØÁ¦
+			if( gCurTime >= m_dwEngraveTime )
+			
+			{
+				// state ï¿½ï¿½ï¿½ï¿½
 				OBJECTSTATEMGR_OBJ->EndObjectState( m_pEngravePlayer, eObjectState_Engrave );
 
 				// msg send
@@ -388,7 +391,7 @@ void CFortWarManager::ProcessFortWar()
 				msg.Protocol = MP_FORTWAR_ENGRAVE_SUCESS;
 				msg.dwData = m_pEngravePlayer->GetID();
 				SafeStrCpy( msg.Name, m_pEngravePlayer->GetObjectName(), MAX_NAME_LENGTH+1 );
-				// ÀÓ½Ã·Î ÀÌ·¸°Ô Ã³¸®...
+				// ï¿½Ó½Ã·ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½...
 				CObject* pObject = NULL;
 				g_pUserTable->SetPositionHead();
 				while( pObject = g_pUserTable->GetData() )
@@ -400,9 +403,9 @@ void CFortWarManager::ProcessFortWar()
 					pObject->SendMsg( &msg1, sizeof(msg1) );
 				}
 
-				// Á¤º¸¼¼ÆÃ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				UpdateFortWarInfo( m_nRelationFortWarIDX, m_pEngravePlayer->GetID(), m_pEngravePlayer->GetObjectName(), m_pEngravePlayer->GetGuildIdx() );
-				// µðºñ ¾÷µ¥ÀÌÆ®
+				// ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				FortWarInfoUpdate( m_nRelationFortWarIDX, m_pEngravePlayer->GetID(), m_pEngravePlayer->GetObjectName(), m_pEngravePlayer->GetGuildIdx() );
 				//
 			
@@ -412,6 +415,7 @@ void CFortWarManager::ProcessFortWar()
 		}
 		break;
 	}
+}
 }
 
 void CFortWarManager::AddPlayer( CPlayer* pPlayer )
@@ -430,13 +434,13 @@ void CFortWarManager::AddPlayer( CPlayer* pPlayer )
         pPlayer->GetChannelID() != m_dwChannelNum )
         return;
 
-	// ¿ä»õÀü ÁøÇàÁ¤º¸¸¦ º¸³½´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	MSG_FORTWAR_START msg2;
 	msg2.Category = MP_FORTWAR;
 	msg2.Protocol = MP_FORTWAR_ING;
 	msg2.wForWarMapNum = g_pServerSystem->GetMapNum();
 	msg2.dwChannelNum = m_dwChannelNum;
-	msg2.dwFortWarTime = (m_dwWarTime - gCurTime) / 1000;	// ÃÊ
+	msg2.dwFortWarTime = (m_dwWarTime - gCurTime) / 1000;	// ï¿½ï¿½
 	SafeStrCpy( msg2.EngraveSuccessPlayerName, GetMasterName(), MAX_NAME_LENGTH+1 );
 	msg2.vNpcPos.x = m_pNpcInfo->vPos.x;
 	msg2.vNpcPos.y = m_pNpcInfo->vPos.z;
@@ -484,7 +488,7 @@ void CFortWarManager::DiePlayer( CPlayer* pPlayer )
 
 void CFortWarManager::SetTotalFortWarInfoFromDB( sFortWarInfo info )
 {
-	// µðºñ»ó¿¡ Á¤º¸°¡ ÀÖ¾îµµ ÆÄÀÏ¿¡ ¾øÀ¸¸é return
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾îµµ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return
 	sFortWarInfo* pInfo = m_FortWarInfoTable.GetData( info.nRelationFortWarIDX );
 	if( pInfo == NULL )
 		return;
@@ -634,7 +638,7 @@ void CFortWarManager::SetTotalFortWarItemInfoFromDB( int nWarIDX, ITEMBASE* pIte
 		{
 			if( m_SiegeWarWareSlot.InsertItemAbs( NULL, pItem->Position, pItem ) != EI_TRUE )
 			{
-				// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 				m_SiegeWarWareSlot.DeleteItemAbs( NULL, pItem->Position, pItem );
 				return;
 			}
@@ -644,7 +648,7 @@ void CFortWarManager::SetTotalFortWarItemInfoFromDB( int nWarIDX, ITEMBASE* pIte
 		{
 			if( m_FortWarWareSlot01.InsertItemAbs( NULL, pItem->Position, pItem ) != EI_TRUE )
 			{
-				// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 				m_FortWarWareSlot01.DeleteItemAbs( NULL, pItem->Position, pItem );
 				return;
 			}
@@ -654,7 +658,7 @@ void CFortWarManager::SetTotalFortWarItemInfoFromDB( int nWarIDX, ITEMBASE* pIte
 		{
 			if( m_FortWarWareSlot02.InsertItemAbs( NULL, pItem->Position, pItem ) != EI_TRUE )
 			{
-				// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 				m_FortWarWareSlot02.DeleteItemAbs( NULL, pItem->Position, pItem );
 				return;
 			}
@@ -664,7 +668,7 @@ void CFortWarManager::SetTotalFortWarItemInfoFromDB( int nWarIDX, ITEMBASE* pIte
 		{
 			if( m_FortWarWareSlot03.InsertItemAbs( NULL, pItem->Position, pItem ) != EI_TRUE )
 			{
-				// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 				m_FortWarWareSlot03.DeleteItemAbs( NULL, pItem->Position, pItem );
 				return;
 			}
@@ -682,7 +686,7 @@ BOOL CFortWarManager::AddProfitItemFromMonster( CPlayer* pPlayer, DWORD dwItemId
 	if( pSlot == NULL )
 		return FALSE;
                                                                                                            
-	// È®·ü°è»ê
+	// È®ï¿½ï¿½ï¿½ï¿½ï¿
 	int nRate = random( 1, 10000 );
 	if( nRate > m_nFortWarTexRate )
 		return FALSE;
@@ -698,13 +702,13 @@ BOOL CFortWarManager::AddProfitItemFromMonster( CPlayer* pPlayer, DWORD dwItemId
 	NewItemBase.RareIdx = 0;
 	
 	WORD wPos = pSlot->GetEmptySlotPos();
-	if( wPos == 0 )	// ´õÀÌ»ó µé¾î°¥ °÷ÀÌ ¾ø´Ù.
+	if( wPos == 0 )	// ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½î° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         return FALSE;
 
 	NewItemBase.Position = wPos;
 
 /*
-	// °ãÄ¡´Â ¾ÆÀÌÅÛ Ã³¸®...
+	// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½...
 	if( ITEMMGR->IsDupItem( dwItemIdx ) )
 	{
 		ITEMBASE* pInfo = pSlot->GetSameItemForDupItem( dwItemIdx, wItemNum );
@@ -722,7 +726,7 @@ BOOL CFortWarManager::AddProfitItemFromMonster( CPlayer* pPlayer, DWORD dwItemId
 */	
 	if( pSlot->InsertItemAbs( NULL, wPos, &NewItemBase, SS_PREINSERT ) != EI_TRUE )
 	{
-		// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		pSlot->DeleteItemAbs( NULL, wPos, &NewItemBase );
 		return FALSE;
 	}
@@ -730,7 +734,7 @@ BOOL CFortWarManager::AddProfitItemFromMonster( CPlayer* pPlayer, DWORD dwItemId
 	// db insert
     FortWarItemInsertToDB( m_nRelationFortWarIDX, dwItemIdx, NewItemBase.Durability, NewItemBase.Position, NewItemBase.ItemParam );
 
-	// »ç³ÉÁß ¾ÆÀÌÅÛÀÌ ¿ä»õÃ¢°í·Î µå¶øµÇ¾ú´Ù...
+	// ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿...
 	MSG_DWORD msg;
 	msg.Category = MP_FORTWAR;
 	msg.Protocol = MP_FORTWAR_DROPITEM_TO_FORTWAREHOUSE;
@@ -751,12 +755,12 @@ void CFortWarManager::AddProfitItemFromDBResult( int nWarIDX, ITEMBASE* pItem )
 
 	if( pSlot->InsertItemAbs( NULL, pItem->Position, pItem ) != EI_TRUE )
 	{
-		// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		pSlot->DeleteItemAbs( NULL, pItem->Position, pItem );
 		return;
 	}
 
-	// ´Ù¸¥¸Ê¿¡µµ Á¤º¸ º¸³½´Ù...
+	// ï¿½Ù¸ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 	MSG_FORTWAR_WAREITEM_INFO msg;
 	msg.Category = MP_FORTWAR;
 	msg.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_INSERT_TO_MAP;
@@ -764,7 +768,7 @@ void CFortWarManager::AddProfitItemFromDBResult( int nWarIDX, ITEMBASE* pItem )
 	msg.ItemInfo = *pItem;
 	g_Network.Send2AgentServer( (char*)&msg, sizeof(msg) );
 
-	// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â Ä³¸¯ÅÍ¿¡°Ôµµ Á¤º¸¸¦ º¸³½´Ù.
+	// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ôµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	msg.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_INSERT;
 	SendItemInfoToFortWarePlayer( m_nRelationFortWarIDX, &msg, sizeof(msg) );
 }
@@ -851,16 +855,16 @@ void CFortWarManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, v
 {
 	switch( Protocol )
 	{
-	// ¿ä»õÀü
+	// ï¿½ï¿½ï¿½ï¿½ï¿
 	case MP_FORTWAR_ENGRAVE_START_SYN:	Msg_MP_FORTWAR_ENGRAVE_START_SYN( pMsg );	break;		
 	case MP_FORTWAR_ENGRAVE_CANCEL_SYN:	Msg_MP_FORTWAR_ENGRAVE_CANCEL_SYN( pMsg );	break;
-	// Ã¢°í
+	// Ã¢ï¿½ï¿½
 	case MP_FORTWAR_WAREHOUSE_INFO_SYN:				Msg_MP_FORTWAR_WAREHOUSE_INFO_SYN( pMsg );				break;
 	case MP_FORTWAR_SIEGEWAREHOUSE_INFO_SYN:		Msg_MP_FORTWAR_SIEGEWAREHOUSE_INFO_SYN( pMsg );			break;
 	case MP_FORTWAR_WAREHOUSE_LEAVE:				Msg_MP_FORTWAR_WAREHOUSE_LEAVE( pMsg );					break;
 	case MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN:		Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( pMsg );			break;
 	case MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_SYN:	Msg_MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_SYN( pMsg );	break;
-	// ´Ù¸¥¸ÊÀ¸·ÎºÎÅÍ
+	// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½
 	case MP_FORTWAR_WAREHOUSE_ITEM_INSERT_TO_MAP:				Msg_MP_FORTWAR_WAREHOUSE_ITEM_INSERT_TO_MAP( pMsg );				break;
 	case MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN_TO_MAP:		Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN_TO_MAP( pMsg);			break;
 	case MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_TO_MAP:	Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_TO_MAP( pMsg );	break;
@@ -883,29 +887,29 @@ void CFortWarManager::Msg_MP_FORTWAR_ENGRAVE_START_SYN( void* pMsg )
 	int error = eFortWarEngraveError_None;
 	if( m_bFortWarMap == FALSE )
 	{
-		error = eFortWarEngraveError_NotMap;				// ¿ä»õÀü¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarEngraveError_NotMap;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½Æ´Ï´ï¿½.
 		goto EngraveStartError;
 	}
 	if( m_dwWarState != eFortWarState_Ing )
 	{
-		error = eFortWarEngraveError_NotIng;				// ÁøÇàÁßÀÌ ¾Æ´Ï´Ù
+		error = eFortWarEngraveError_NotIng;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½
 		goto EngraveStartError;
 	}
 	if( m_pEngravePlayer )
 	{
-		error = eFortWarEngraveError_AlreadyPlayer;			// ´Ù¸¥ Ä³¸¯ÅÍ°¡ ÀÌ¹Ì °¢ÀÎÁßÀÌ´Ù
+		error = eFortWarEngraveError_AlreadyPlayer;			// ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 		goto EngraveStartError;
 	}
 	if( pPlayer->GetGuildIdx() )
 	{
 		if( pPlayer->GetGuildMemberRank() != GUILD_MASTER )
 		{
-			error = eFortWarEngraveError_NotGuildMaster;	// ¹®ÁÖ°¡ ¾Æ´Ï´Ù
+			error = eFortWarEngraveError_NotGuildMaster;	// ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½Æ´Ï´ï¿½
 			goto EngraveStartError;
 		}
 	}
 
-	// state ÇØÁ¦
+	// state ï¿½ï¿½ï¿½ï¿½
     if( pPlayer->GetState() == eObjectState_Deal )
         OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer, eObjectState_Deal );
     OBJECTSTATEMGR_OBJ->StartObjectState( pPlayer, eObjectState_Engrave, 0 );
@@ -914,12 +918,12 @@ void CFortWarManager::Msg_MP_FORTWAR_ENGRAVE_START_SYN( void* pMsg )
     msg.Category = MP_FORTWAR;
     msg.Protocol = MP_FORTWAR_ENGRAVE_START_ACK;
     msg.dwData1 = pPlayer->GetID();
-    msg.dwData2 = 60;			// ÃÊ
+    msg.dwData2 = 60;			// ï¿½ï¿½
     PACKEDDATA_OBJ->QuickSend( pPlayer, &msg, sizeof(msg) );
 
 	//
     m_pEngravePlayer = pPlayer;
-    m_dwEngraveTime = 60*1000 + gCurTime;	// milisec·Î º¯È¯
+    m_dwEngraveTime = 60*1000 + gCurTime;	// milisecï¿½ï¿½ ï¿½ï¿½È¯
 
 	return;
 
@@ -976,7 +980,7 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_INFO_SYN( void* pMsg )
 
 	pPlayer->SendMsg( &msg, msg.GetSize() );
 
-	// Å×ÀÌºí¿¡ Ãß°¡
+	// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	CYHHashTable<CPlayer>* pTable = NULL;
 	switch( pmsg->nData )
 	{
@@ -1005,7 +1009,7 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_INFO_SYN( void* pMsg )
 
 	pPlayer->SendMsg( &msg, msg.GetSize() );
 
-	// Å×ÀÌºí¿¡ Ãß°¡
+	// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	if( m_SiegeWarWarePlayerTable.GetData( pPlayer->GetID() ) == NULL )
 		m_SiegeWarWarePlayerTable.Add( pPlayer, pPlayer->GetID() );
 }
@@ -1032,49 +1036,49 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 	if( pmsg->FromPos == pmsg->ToPos )
 		return;
 
-	// Á¶°Ç°Ë»ç
+	// ï¿½ï¿½ï¿½Ç°Ë»ï¿½
 	int error = eFortWarWareError_None;
 	
 	if( m_bFortWarMap == FALSE )
 	{
-		error = eFortWarWareError_NotMap;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotMap;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
 	if( m_dwWarState != eFortWarState_None )
 	{
-		error = eFortWarWareError_NotTime;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ½Ã°£ÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotTime;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
-	if( pPlayer->GetID() != GetMasterID() )			// ÁÖÀÎ°ú ´Ù¸£´Ù¸é...
+	if( pPlayer->GetID() != GetMasterID() )			// ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½...
 	{
-        if( pPlayer->GetGuildIdx() )				// ¹®ÆÄ¿¡ °¡ÀÔµÇ¾î ÀÖ´Â°æ¿ì
+        if( pPlayer->GetGuildIdx() )				// ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´Â°ï¿½ï¿
 		{
 			CGuild* pGuild = GUILDMGR->GetGuild( pPlayer->GetGuildIdx() );
-			if( pGuild == NULL )						// ±æµåÁ¤º¸°¡ ¾ø´Ù¸é...
+			if( pGuild == NULL )						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Ù¸ï¿½...
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
             if( pGuild->GetMasterIdx() != GetMasterID() )
 			{
-                error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+                error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                 goto ItemMoveError;
 			}
             if( pPlayer->GetGuildMemberRank() != GUILD_MASTER || pPlayer->GetGuildMemberRank() != GUILD_VICEMASTER )
 			{
-                error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+                error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                 goto ItemMoveError;
 			}
 		}
 		else
 		{
-            error = eFortWarWareError_NotRight;			// ±ÇÇÑÀÌ ¾ø´Ù.
+            error = eFortWarWareError_NotRight;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			goto ItemMoveError;
 		}
 	}
 	//
 
-	// Ã¢°í ¾ò±â..
+	// Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿..
 	CFortWarWareSlot* pSlot = GetFortWarWareSlot( m_nRelationFortWarIDX );
 	if( pSlot == NULL )
 	{
@@ -1082,10 +1086,10 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 		goto ItemMoveError;
 	}
 
-	// È®·ü°è»ê
+	// È®ï¿½ï¿½ï¿½ï¿½ï¿
 	int nRate = random( 1, 10000 );
 	//	
-	if( nRate > m_nFortWarWareRate )	// ¿ä»õÃ¢°í -> ÀÎº¥À¸·Î
+	if( nRate > m_nFortWarWareRate )	// ï¿½ï¿½ï¿½Ãï¿½ï¿½ -> ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		CItemSlot* pToSlot = pPlayer->GetSlot( pmsg->ToPos );
 		CItemSlot* pInven = pPlayer->GetSlot(eItemTable_Inventory);
@@ -1096,10 +1100,10 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 			return;
 
 		ITEMBASE DelFromItem;
-		// ¿ä»õÃ¢°í¿¡¼­ Áö¿î´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿.
 		if( EI_TRUE != pSlot->DeleteItemAbs( pPlayer, pmsg->FromPos, &DelFromItem ) )
 			return;
-		// ÀÎº¥¿¡ Ãß°¡ÇÑ´Ù.
+		// ï¿½Îºï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 		if( EI_TRUE != pToSlot->InsertItemAbs( pPlayer, pmsg->ToPos, &DelFromItem ) )
 			return;
 
@@ -1116,31 +1120,31 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 		msg.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_ACK;
         pPlayer->SendMsg( &msg, sizeof(msg) );
 
-		// ´Ù¸¥¸Ê¼­¹ö¿¡µµ Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_FORTWAR_WAREITEM_INFO msg1;
 		msg1.Category = MP_FORTWAR;
 		msg1.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN_TO_MAP;
-		msg1.nFortWarIDX = m_nRelationFortWarIDX;		// ¿ä»õÃ¢°íÁ¤º¸
+		msg1.nFortWarIDX = m_nRelationFortWarIDX;		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		msg1.ItemInfo = DelFromItem;
 		msg1.wFromPos = pmsg->FromPos;
 		msg1.wToPos = 0;
 		g_Network.Send2AgentServer( (char*)&msg1, sizeof(msg1) );
 
-		// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â ´Ù¸¥ Ä³¸¯ÅÍ¿¡°Ôµµ Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ôµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		msg1.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN;
 		SendItemInfoToFortWarePlayerExceptOne( m_nRelationFortWarIDX, pPlayer->GetID(), &msg1, sizeof(msg1) );
 	}	
-	else				// ¿ä»õÃ¢°í -> °ø¼ºÃ¢°í·Î
+	else				// ï¿½ï¿½ï¿½Ãï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½
 	{
 		WORD wPos = m_SiegeWarWareSlot.GetEmptySlotPos();
 		if( wPos == 0 )
 			return;
 
 		ITEMBASE DelFromItem;
-		// ¿ä»õÃ¢°í¿¡¼­ Áö¿î´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿.
 		if( EI_TRUE != pSlot->DeleteItemAbs( pPlayer, pmsg->FromPos, &DelFromItem ) )
 			return;
-		// °ø¼ºÃ¢°í¿¡ Ãß°¡ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 		if( m_SiegeWarWareSlot.InsertItemAbs( NULL, wPos, &DelFromItem ) != EI_TRUE )
 			return;
 
@@ -1153,17 +1157,17 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
         msg.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_SYN;
         pPlayer->SendMsg( &msg, sizeof(msg) );
 
-		// ´Ù¸¥¸Ê¼­¹ö¿¡µµ Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_FORTWAR_WAREITEM_INFO msg1;
 		msg1.Category = MP_FORTWAR;
 		msg1.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_TO_MAP;		
-		msg1.nFortWarIDX = m_nRelationFortWarIDX;			// ¿ä»õÃ¢°íÁ¤º¸
+		msg1.nFortWarIDX = m_nRelationFortWarIDX;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		msg1.ItemInfo = DelFromItem;
 		msg1.wFromPos = pmsg->FromPos;
 		msg1.wToPos = wPos;		
 		g_Network.Send2AgentServer( (char*)&msg1, sizeof(msg1) );
 
-		// ¿ä»õÃ¢°í¿Í °ø¼ºÃ¢°í¸¦ º¸´Â ´Ù¸¥ Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		msg1.Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE;
 		SendItemInfoToFortWarePlayerExceptOne( m_nRelationFortWarIDX, pPlayer->GetID(), &msg, sizeof(msg) );
 		SendItemInfoToSeigeWarePlayerExceptOne( pPlayer->GetID(), &msg, sizeof(msg) );		
@@ -1192,30 +1196,30 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 	if( pmsg->FromPos == pmsg->ToPos )
 		return;
 
-	// Á¶°Ç°Ë»ç
+	// ï¿½ï¿½ï¿½Ç°Ë»ï¿½
 	int error = eFortWarWareError_None;
 
 	if( m_bSiegeWarWareUsableMap == FALSE )
 	{
-		error = eFortWarWareError_NotMap;			// °ø¼ºÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotMap;			// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
-	if( pPlayer->GetGuildIdx() == SIEGEWARMGR->GetCastleGuildIdx() )	// ¼º¼ÒÀ¯¹®ÆÄ³Ä?
+	if( pPlayer->GetGuildIdx() == SIEGEWARMGR->GetCastleGuildIdx() )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½?
 	{
 		if( pPlayer->GetGuildMemberRank() != GUILD_MASTER || pPlayer->GetGuildMemberRank() != GUILD_VICEMASTER )
 		{
-			error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+			error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			goto ItemMoveError;
 		}
 	}
 	else
 	{
-		error = eFortWarWareError_NotRight;			// ±ÇÇÑÀÌ ¾ø´Ù.
+		error = eFortWarWareError_NotRight;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		goto ItemMoveError;
 	}
 	//
 
-	// ÀÎº¥À¸·Î
+	// ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		CItemSlot* pToSlot = pPlayer->GetSlot( pmsg->ToPos );
 		CItemSlot* pInven = pPlayer->GetSlot(eItemTable_Inventory);
@@ -1244,7 +1248,7 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 		msg.Protocol = MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_ACK;
 		pPlayer->SendMsg( &msg, sizeof(msg) );
 
-		// ´Ù¸¥¸Ê¿¡µµ Á¤º¸º¸³½´Ù...
+		// ï¿½Ù¸ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 		MSG_FORTWAR_WAREITEM_INFO msg1;
 		msg1.Category = MP_FORTWAR;
 		msg1.Protocol = MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_TO_INVEN_TO_MAP;
@@ -1254,7 +1258,7 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_SYN( void* pMsg )
 		msg1.wToPos = 0;
 		g_Network.Send2AgentServer( (char*)&msg1, sizeof(msg1) );
 
-		// °ø¼ºÃ¢°í¸¦ º¸´Â ´Ù¸¥ Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		msg1.Protocol = MP_FORTWAR_SIEGEWAREHOUSE_ITEM_MOVE_TO_INVEN;
 		SendItemInfoToSeigeWarePlayerExceptOne( pPlayer->GetID(), &msg1, sizeof(msg1) );
 	}
@@ -1276,28 +1280,28 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_INSERT_TO_MAP( void* pMsg )
 //	if( m_nRelationFortWarIDX != pmsg->nFortWarIDX )
 //		return;
 
-	// Ã¢°í ¾ò±â..
+	// Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿..
 	CFortWarWareSlot* pSlot = GetFortWarWareSlot( pmsg->nFortWarIDX );
 	if( pSlot == NULL )
 		return;
 
-	// ½ÌÅ©°ü·Ã...
+	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½...
 	WORD wPos = pSlot->GetEmptySlotPos();
-	if( wPos == 0 )	// ´õÀÌ»ó µé¾î°¥ °÷ÀÌ ¾ø´Ù.
+	if( wPos == 0 )	// ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½î° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		return;
 	if( wPos != pmsg->ItemInfo.Position )
 	{
-		// ·Î±×±â·Ï
+		// ï¿½Î±×±ï¿½ï¿
 	}
 
 	if( pSlot->InsertItemAbs( NULL, wPos, &pmsg->ItemInfo ) != EI_TRUE )
 	{
-		// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		pSlot->DeleteItemAbs( NULL, wPos, &pmsg->ItemInfo );
 		return;
 	}
 
-	// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+	// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	pmsg->Protocol = MP_FORTWAR_WAREHOUSE_ITEM_INSERT;
 	SendItemInfoToFortWarePlayer( pmsg->nFortWarIDX, pmsg, sizeof(MSG_FORTWAR_WAREITEM_INFO) );
 }
@@ -1315,7 +1319,7 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN_TO_MAP( void* 
 
 	pSlot->DeleteItemAbs( NULL, pmsg->wFromPos, &pmsg->ItemInfo );
 
-	// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+	// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	pmsg->Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_INVEN;
 	SendItemInfoToFortWarePlayer( pmsg->nFortWarIDX, pmsg, sizeof(MSG_FORTWAR_WAREITEM_INFO) );
 }
@@ -1326,20 +1330,20 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_TO_MAP( v
 
 //	if( pmsg->nFortWarIDX == m_nRelationFortWarIDX )
 //	{
-		// ¿ä»õÃ¢°í Áö¿ì°í...
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿...
 //      m_FortWarWareSlot.DeleteItemAbs( NULL, pmsg->wFromPos, &pmsg->ItemInfo );
 //	}
 
 	CFortWarWareSlot* pSlot = GetFortWarWareSlot( pmsg->nFortWarIDX );
 	if( pSlot != NULL )
 	{
-		// ¿ä»õÃ¢°í Áö¿ì°í...
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿...
 		pSlot->DeleteItemAbs( NULL, pmsg->wFromPos, &pmsg->ItemInfo );
 	}
 
-	// °ø¼ºÃ¢°í¿¡ ³Ö´Â´Ù...
+	// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½...
 	WORD wPos = m_SiegeWarWareSlot.GetEmptySlotPos();
-	if( wPos == 0)	// ´õÀÌ»ó µé¾î°¥ °÷ÀÌ ¾ø´Ù.
+	if( wPos == 0)	// ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½î° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		return;
 
 	if( wPos != pmsg->wToPos )
@@ -1349,12 +1353,12 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE_TO_MAP( v
 
 	if( m_SiegeWarWareSlot.InsertItemAbs( NULL, wPos, &pmsg->ItemInfo ) != EI_TRUE )
 	{
-		// ¿¡·¯ ¹ß»ý½Ã ÃÊ±âÈ­
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		m_SiegeWarWareSlot.DeleteItemAbs( NULL, wPos, &pmsg->ItemInfo );
 		return;
 	}
 
-	// ¿ä»õÃ¢°í¿Í °ø¼ºÃ¢°í¸¦ º¸´Â ´Ù¸¥ Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+	// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	pmsg->Protocol = MP_FORTWAR_WAREHOUSE_ITEM_MOVE_TO_SIEGEHOUSE;
 	SendItemInfoToFortWarePlayer( pmsg->nFortWarIDX, pmsg, sizeof(MSG_FORTWAR_WAREITEM_INFO) );
 	SendItemInfoToSeigeWarePlayer( pmsg, sizeof(MSG_FORTWAR_WAREITEM_INFO) );	
@@ -1368,43 +1372,43 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_PUTOUT_MONEY_SYN( void* pMsg )
 	if( pPlayer == NULL )
 		return;
 
-	// Á¶°Ç°Ë»ç
+	// ï¿½ï¿½ï¿½Ç°Ë»ï¿½
 	int error = eFortWarWareError_None;
 
 	if( m_bFortWarMap == FALSE )
 	{
-		error = eFortWarWareError_NotMap;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotMap;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
 	if( m_dwWarState != eFortWarState_None )
 	{
-		error = eFortWarWareError_NotTime;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ½Ã°£ÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotTime;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
-	if( pPlayer->GetID() != GetMasterID() )			// ÁÖÀÎ°ú ´Ù¸£´Ù¸é...
+	if( pPlayer->GetID() != GetMasterID() )			// ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½...
 	{
-		if( pPlayer->GetGuildIdx() )				// ¹®ÆÄ¿¡ °¡ÀÔµÇ¾î ÀÖ´Â°æ¿ì
+		if( pPlayer->GetGuildIdx() )				// ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´Â°ï¿½ï¿
 		{
 			CGuild* pGuild = GUILDMGR->GetGuild( pPlayer->GetGuildIdx() );
-			if( pGuild == NULL )						// ±æµåÁ¤º¸°¡ ¾ø´Ù¸é...
+			if( pGuild == NULL )						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Ù¸ï¿½...
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 			if( pGuild->GetMasterIdx() != GetMasterID() )
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 			if( pPlayer->GetGuildMemberRank() != GUILD_MASTER || pPlayer->GetGuildMemberRank() != GUILD_VICEMASTER )
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 		}
 		else
 		{
-			error = eFortWarWareError_NotRight;			// ±ÇÇÑÀÌ ¾ø´Ù.
+			error = eFortWarWareError_NotRight;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			goto ItemMoveError;
 		}
 	}
@@ -1429,27 +1433,27 @@ void CFortWarManager::Msg_MP_FORTWAR_WAREHOUSE_PUTOUT_MONEY_SYN( void* pMsg )
 		if( dwMoney == 0 )
 			return;
 
-		// 30%´Â °ø¼ºÃ¢°í·Î...
+		// 30%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½...
 		DWORD dwSeigeMoney = dwMoney * m_nFortWarWareRate / 10000;
 		DWORD dwInvenMoney = dwMoney - dwSeigeMoney;
 
-		// ³ª¸ÓÁö´Â ÀÎº¥Åä¸®·Î
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½
 		dwInvenMoney = pPlayer->SetMoney( dwInvenMoney, MONEY_ADDITION, 0, eItemTable_Inventory, eMoneyLog_GetGuild, 0 );
 
-		// ¿ä»õÃ¢°í¿¡¼­ µ· Â÷°¨
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pInfo->dwProfitMoney = pInfo->dwProfitMoney - dwMoney;
 
 		// db update
-		FortWarProfitMoneyUpdate( m_nRelationFortWarIDX, dwMoney, 1 );	// 1 = Â÷°¨
+		FortWarProfitMoneyUpdate( m_nRelationFortWarIDX, dwMoney, 1 );	// 1 = ï¿½ï¿½ï¿½ï¿½
 
-		// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_DWORD msg;
 		msg.Category = MP_FORTWAR;
 		msg.Protocol = MP_FORTWAR_WAREHOUSE_PUTOUT_MONEY_ACK;
 		msg.dwData = pInfo->dwProfitMoney;
 		SendItemInfoToFortWarePlayer( m_nRelationFortWarIDX, &msg, sizeof(msg) );
 
-		// ´Ù¸¥¸Ê¼­¹ö¿¡ Á¤º¸ º¸³½´Ù...
+		// ï¿½Ù¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 		MSG_DWORD2 msg2;
 		msg2.Category = MP_FORTWAR;
 		msg2.Protocol = MP_FORTWAR_WAREHOUSE_MONEY_TO_MAP;
@@ -1487,47 +1491,47 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_PUTOUT_MONEY_SYN( void* pMsg
 	if( pPlayer == NULL )
 		return;
 
-	// Á¶°Ç°Ë»ç
+	// ï¿½ï¿½ï¿½Ç°Ë»ï¿½
 	int error = eFortWarWareError_None;
 
 	if( m_bSiegeWarWareUsableMap == FALSE )
 	{
-		error = eFortWarWareError_NotMap;		// °ø¼ºÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotMap;		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
 	{
-		error = eFortWarWareError_NotMap;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotMap;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
 	if( m_dwWarState != eFortWarState_None )
 	{
-		error = eFortWarWareError_NotTime;			// ¿ä»õÃ¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ½Ã°£ÀÌ ¾Æ´Ï´Ù.
+		error = eFortWarWareError_NotTime;			// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		goto ItemMoveError;
 	}
-	if( pPlayer->GetID() != GetMasterID() )			// ÁÖÀÎ°ú ´Ù¸£´Ù¸é...
+	if( pPlayer->GetID() != GetMasterID() )			// ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½...
 	{
-		if( pPlayer->GetGuildIdx() )				// ¹®ÆÄ¿¡ °¡ÀÔµÇ¾î ÀÖ´Â°æ¿ì
+		if( pPlayer->GetGuildIdx() )				// ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´Â°ï¿½ï¿
 		{
 			CGuild* pGuild = GUILDMGR->GetGuild( pPlayer->GetGuildIdx() );
-			if( pGuild == NULL )						// ±æµåÁ¤º¸°¡ ¾ø´Ù¸é...
+			if( pGuild == NULL )						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Ù¸ï¿½...
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 			if( pGuild->GetMasterIdx() != GetMasterID() )
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 			if( pPlayer->GetGuildMemberRank() != GUILD_MASTER || pPlayer->GetGuildMemberRank() != GUILD_VICEMASTER )
 			{
-				error = eFortWarWareError_NotRight;		// ±ÇÇÑÀÌ ¾ø´Ù.
+				error = eFortWarWareError_NotRight;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto ItemMoveError;
 			}
 		}
 		else
 		{
-			error = eFortWarWareError_NotRight;			// ±ÇÇÑÀÌ ¾ø´Ù.
+			error = eFortWarWareError_NotRight;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			goto ItemMoveError;
 		}
 	}
@@ -1552,20 +1556,20 @@ void CFortWarManager::Msg_MP_FORTWAR_SIEGEWAREHOUSE_PUTOUT_MONEY_SYN( void* pMsg
 		if( dwMoney == 0 )
 			return;
 
-		// 30%´Â °ø¼ºÃ¢°í·Î...
+		// 30%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½...
 		DWORD dwSeigeMoney = dwMoney * m_nFortWarWareRate / 10000;
 		DWORD dwInvenMoney = dwMoney - dwSeigeMoney;
 
-		// ³ª¸ÓÁö´Â ÀÎº¥Åä¸®·Î
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½
 		dwInvenMoney = pPlayer->SetMoney( dwInvenMoney, MONEY_ADDITION, 0, eItemTable_Inventory, eMoneyLog_GetGuild, 0 );
 
-		// ¿ä»õÃ¢°í¿¡¼­ µ· Â÷°¨
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pInfo->dwProfitMoney = pInfo->dwProfitMoney - dwMoney;
 
 		// db update
-		FortWarProfitMoneyUpdate( m_nRelationFortWarIDX, dwMoney, 1 );	// 1 = Â÷°¨
+		FortWarProfitMoneyUpdate( m_nRelationFortWarIDX, dwMoney, 1 );	// 1 = ï¿½ï¿½ï¿½ï¿½
 
-		// ¿ä»õÃ¢°í¸¦ º¸°í ÀÖ´Â Ä³¸¯ÅÍ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½ï¿½ï¿½Ãï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_DWORD msg;
 		msg.Category = MP_FORTWAR;
 		msg.Protocol = MP_FORTWAR_WAREHOUSE_PUTOUT_MONEY_ACK;

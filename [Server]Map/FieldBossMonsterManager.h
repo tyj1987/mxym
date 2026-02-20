@@ -1,5 +1,6 @@
 #ifndef __FIELDBOSSMONSTERMANAGER_H__
 #define __FIELDBOSSMONSTERMANAGER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 #pragma once
 
@@ -11,29 +12,29 @@ class CFieldSubMonster;
 
 typedef struct stFieldMonsterInfo
 {
-	// 몬스터 종류 및 부하
+	//    
 	WORD	m_MonsterKind;
 	WORD	m_ObjectKind;
 	WORD	m_SubKind;
 	WORD	m_SubCount;
 
-	// 리젠시간
+	// 챨
 	DWORD	m_dwRegenTimeMin;
 	DWORD	m_dwRegenTimeMax;
 
-	// 소멸 관련 변수
+	// 恬  
 	DWORD	m_dwDistructTime;
 	DWORD	m_dwCountTime;
 	DWORD	m_dwLastCheckTime;
 
-	// 회복 관련 변수
+	// 회  
 	DWORD	m_dwPieceTime;
 	DWORD	m_dwRecoverStartTime;
 	DWORD	m_dwRecoverDelayTime;
 	float	m_fLifeRate;
 	float	m_fShieldRate;
 
-	// 초기화
+	// 珂화
 	stFieldMonsterInfo()
 	{
 		m_MonsterKind = 0;
@@ -81,7 +82,7 @@ typedef struct stFieldGroup
 	}
 } FIELDGROUP;
 
-// 필드 보스 드랍 아이템 정보
+// 茄    
 typedef struct stFieldBossDropItem
 {
 	WORD	m_wItemIndex[MAX_FIELDBOSS_DROPITEM_NUM];
@@ -102,7 +103,7 @@ typedef struct stFieldBossDropItem
 	}
 } FIELDBOSSDROPITEM;
 
-// 필드 보스 드랍 아이템 리스트
+// 茄    트
 typedef struct stFieldBossDropItemList
 {
 	WORD	m_wMonsterKind;
@@ -167,16 +168,16 @@ public:
 	CFieldBossMonsterManager(void);
 	virtual ~CFieldBossMonsterManager(void);
 
-	void Init();	// 필드 보스 관련 데이터 로딩
+	void Init();	// 茄    琯
 
-	void AddRegenPosition(float x, float z);	// 리젠 위치를 리스트에 추가
-	VECTOR3 GetRegenPosition(int index = -1);	// 리젠 위치를 가져온다 -1일 경우 랜덤
+	void AddRegenPosition(float x, float z);	//  치 트 煞
+	VECTOR3 GetRegenPosition(int index = -1);	//  치 쨈 -1  
 	WORD GetRegenPositionCount() { return m_RegnePosCount; }
 	
-	void BossDead(CFieldBossMonster* pBoss);	// 보스 죽었음
-	void SubDead(CFieldSubMonster* pSub);		// 부하 죽었음
+	void BossDead(CFieldBossMonster* pBoss);	//  類
+	void SubDead(CFieldSubMonster* pSub);		//  類
 
-	void AddFieldBossMonster( CFieldBossMonster* pBoss );	// 리젠된 필드보스추가
+	void AddFieldBossMonster( CFieldBossMonster* pBoss );	//  茄佯멕�
 	
 	void Process();
 

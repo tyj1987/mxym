@@ -9,14 +9,11 @@
 #include "cRItemEx.h"
 #include "ChatManager.h"
 #include "MainGame.h"
-
-#ifdef _KOR_LOCAL_
 #include "ObjectManager.h"
 #include "./Input/UserInput.h"
 #include "MoveDialog.h"
 #include "GameIn.h"
 #include "ObjectStateManager.h"
-#endif
 
 #ifdef _GMTOOL_
 #include "GMToolManager.h"
@@ -35,10 +32,8 @@ CChannelDialog::CChannelDialog()
 	m_bInit = FALSE;
 	m_SelectRowIdx = 0;
 	m_BaseChannelIndex = 0;
-#ifdef _KOR_LOCAL_
 	m_wMoveMapNum = 0;
 	m_dwChangeMapState = 0;
-#endif
 }
 
 CChannelDialog::~CChannelDialog()
@@ -182,7 +177,7 @@ void CChannelDialog::SetChannelList(MSG_CHANNEL_INFO* pInfo)
 		}		
 	}
 
-#ifndef _HK_LOCAL_	//HK ÀÓ½Ã
+#ifndef _HK_LOCAL_	//HK ï¿½Ó½ï¿½
 #ifndef _TL_LOCAL_
 	rowidx = 0;
 #endif
@@ -250,7 +245,7 @@ void CChannelDialog::SelectChannel(int rowidx)
 	}
 }
 
-//2008. 5. 8. CBH - ÀÌµ¿ÇÒ ¸ÊÀÇ Ã¤³Î Á¤º¸¸¦ ¿äÃ»ÇÏ´Â ÇÔ¼ö
+//2008. 5. 8. CBH - ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 void CChannelDialog::SendMapChannelInfoSYN(WORD wMapNum, DWORD dwState)
 {
 	MSG_DWORD2 msg;
@@ -263,7 +258,7 @@ void CChannelDialog::SendMapChannelInfoSYN(WORD wMapNum, DWORD dwState)
 	NETWORK->Send( &msg, sizeof(msg) );
 }
 
-//2008. 5. 9. CBH - Ã¤³Î¼±ÅÃ ´ÙÀÌ¾ó·Î±×¸¦ ÀÌ¿ëÇÏ¿© ¸ÊÀ» ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+//2008. 5. 9. CBH - Ã¤ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±×¸ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 void CChannelDialog::MapChange()
 {
 	if(m_wMoveMapNum != 0)

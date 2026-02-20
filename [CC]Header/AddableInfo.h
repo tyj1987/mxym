@@ -9,9 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "CommonDefine.h"
+
 #pragma pack(push,1)
 
-#define MAX_ADDABLEINFO_SIZE	4096*4	//³Ë³ËÈ÷ÇÕ½Ã´Ù.
+#define MAX_ADDABLEINFO_SIZE	4096*4	//ï¿½Ë³ï¿½ï¿½ï¿½ï¿½Õ½Ã´ï¿½.
 
 
 void SendAssertMsg(char* pStrFileName,int Line,char* pMsg);

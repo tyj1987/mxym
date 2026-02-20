@@ -1,6 +1,6 @@
 //#define _WIN32_WINNT 0x0500
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 #include "que.h"
 #include "define.h"
 

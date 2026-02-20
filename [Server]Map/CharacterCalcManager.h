@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHARACTERCALCMANAGER_H__BD6E030A_4710_43A8_BF56_F115B3478332__INCLUDED_)
 #define AFX_CHARACTERCALCMANAGER_H__BD6E030A_4710_43A8_BF56_F115B3478332__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -11,6 +12,7 @@
 
 
 class CPlayer;
+class CBossMonster;
 
 class CCharacterCalcManager  
 {

@@ -9,6 +9,10 @@
 #include "Network.h"
 #include "CommonDBMsgParser.h"
 
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\ServerSystem.h"
+#endif
+
 #include <stdio.h>
 
 BOOL g_bWriteQuery = FALSE;
@@ -44,7 +48,7 @@ extern HWND g_hWnd;
 #ifdef _CHINA_LOCAL_		// china
 	#define LOGINDBNAME			"MHCMember"
 	#define LOGINDBID			"GameSrv"
-	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	// ÃÊ¹ä¿¡´Â¿Í»çºñ!
+	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	// ï¿½Ê¹ä¿¡ï¿½Â¿Í»ï¿½ï¿½!
 
 	#define LOGDBNAME			"MHLog"
 	#define LOGDBID				"GameSrv"
@@ -53,11 +57,11 @@ extern HWND g_hWnd;
 #elif defined _JAPAN_LOCAL_	// japan
 	#define LOGINDBNAME			"MHCMember"
 	#define LOGINDBID			"GameSrv"
-	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	//¹ä¸¸º¸¸éÂÁÂÁ#
+	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	//ï¿½ä¸¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½#
 
 	#define LOGDBNAME			"MHLog"
 	#define LOGDBID				"GameSrv"
-	#define LOGDBPASSWORD		"w8j2f@Z0H7#Xl"	//¹ä¸¸º¸¸éÂÁÂÁ#
+	#define LOGDBPASSWORD		"w8j2f@Z0H7#Xl"	//ï¿½ä¸¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½#
 
 #elif defined _HK_LOCAL_
 #ifdef _TW_LOCAL_			// twaiwan
@@ -85,7 +89,7 @@ extern HWND g_hWnd;
 #elif defined _TL_LOCAL_	// tailand
 	#define LOGINDBNAME			"MHCMember"
 	#define LOGINDBID			"GameSrv"
-	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	// ºÒ¾îÅÍÁø¾Æ9ÅÁ!#
+	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"	// ï¿½Ò¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½9ï¿½ï¿½!#
 
 	#define LOGDBNAME			"MHLog"
 	#define LOGDBID				"GameSrv"
@@ -94,8 +98,8 @@ extern HWND g_hWnd;
 #else						// korea
 	#define LOGINDBNAME			"MHCMember"
 	#define LOGINDBID			"GameSrv"
-//	#define LOGINDBPASSWORD		"qnfdjxjwlsdk9xkd!#"	// ºÒ¾îÅÍÁø¾Æ9ÅÁ!#
-	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"			// ·ç³ª¾ÈÆ¼Ä«~$	
+//	#define LOGINDBPASSWORD		"qnfdjxjwlsdk9xkd!#"	// ï¿½Ò¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½9ï¿½ï¿½!#
+	#define LOGINDBPASSWORD		"w8j2f@Z0H7#Xl"			// ï¿½ç³ªï¿½ï¿½Æ¼Ä«~$	
 
 	#define LOGDBNAME			"MHLog"
 	#define LOGDBID				"GameSrv"
@@ -127,15 +131,15 @@ BOOL DBTH::Init(DESC_DBTHREAD* pDesc,BOOL bUsingLoginDB)
 		WriteMessage(pmsg);
 		return FALSE;
 	} 
-	// ¿¹ÀüÃ³·³ DBTH Äõ¸® °á°ú Ã³¸®¸¦ À§ÇÑ ÀÌº¥Æ® ¼ÂÆÃÇÑ´Ù.
-	// GetCustomEventHandle¿¡ ³Ö´Â ¼ýÀÚ´Â INETWORK »ý¼º½Ã DBTHÄõ¸®°á°ú¸¦ À§ÇØ
-	// ¼ÂÆÃÇß´ø ÀÌº¥Æ® ¹øÈ£¿Í ÀÏÄ¡ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ DBTH ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// GetCustomEventHandleï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ú´ï¿½ INETWORK ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBTHï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ñ´ï¿½.
 #ifndef _MONITORINGSERVER
 	if (g_Network.GetINet())
 		m_pIDB->SetDBMessageEvent( g_Network.GetINet()->GetCustomEventHandle(1) );
 #endif
 	
-	/// Ãß°¡µÈ DBTH(·Î±×ÀÎDBTH)
+	/// ï¿½ß°ï¿½ï¿½ï¿½ DBTH(ï¿½Î±ï¿½ï¿½ï¿½DBTH)
 	/*
 #ifdef _CHINA_LOCAL_
 	if(bUsingLoginDB)
@@ -221,14 +225,14 @@ BOOL DBTH::Query(DBQUERY* pQuery)
 		return FALSE;
 	}
 	
-	pTemp->bFNNo = pQuery->QueryType;									// ¿£Áø»óÀÇ Äõ¸®ÀÇ Á¾·ù
+	pTemp->bFNNo = pQuery->QueryType;									// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	pTemp->bNotifyOnlyError = 0;
-	pTemp->dwMessageID = pQuery->dwMessageID;							// ¾î¶² Äõ¸®°¡ È£ÃâµÇ¾ú´Â°¡ ±¸º°
-	pTemp->dwID = pQuery->dwID;											// Æ¯º°È÷ Á¤ÀÇµÇÁö ¾Ê´Â °Í
+	pTemp->dwMessageID = pQuery->dwMessageID;							// ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç¾ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	pTemp->dwID = pQuery->dwID;											// Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½
 	pTemp->pData = (LPVOID) pData;
 	
 	
-	m_pIDB->SendMessageDB(pTemp);	//ÇÁ·Î±×·¥ Á¾·á½Ã¿¡ ¿©±â¼­ ¿¡·¯³²
+	m_pIDB->SendMessageDB(pTemp);	//ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	return TRUE;
 }
@@ -309,9 +313,9 @@ BOOL CDataBase::Init(DWORD MaxDBThread,DWORD MaxSameTimeQuery,BOOL bUsingLoginDB
 	m_QueryPool.Init( MaxSameTimeQuery, MaxSameTimeQuery/4, "QueryPool" );
 
 	DESC_DBTHREAD desc;
-	desc.bUsingDLL = TRUE;							// ³×Æ®¿÷ ºÎ¹®À» DLL ¸ðµâÀ» ¾²´Â°¡
-	desc.bUsingThread = TRUE;						// ¾²·¹µå¸¦ »ç¿ëÇÏ´Â°¡?
-	desc.bUsingEventObject = TRUE;					// ÀÌº¥Æ® ¿ÀºêÁ§Æ®¸¦ ÅëÇØ °á°ú¸¦ ¹ÞÀ» °Ç°¡..
+	desc.bUsingDLL = TRUE;							// ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Î¹ï¿½ï¿½ï¿½ DLL ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½
+	desc.bUsingThread = TRUE;						// ï¿½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½?
+	desc.bUsingEventObject = TRUE;					// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½..
 	
 	strcpy(desc.AdminCursor,"Cursor");
 	strcpy(desc.AdminID,LOGINDBID);
@@ -356,19 +360,19 @@ BOOL CDataBase::Init(DWORD MaxDBThread,DWORD MaxSameTimeQuery,BOOL bUsingLoginDB
 	strcpy(desc.Default_User_pw,"Test");
 	strcpy(desc.Default_User_table,"Test");
 
-	desc.dwDBMessageID =	WM_DB_MESSAGE;			// ¸Þ¼¼Áö¸¦ ÅëÇØ °á°ú¸¦ ¹ÞÀ» °æ¿ì ¾µ ¸Þ¼¼Áö ÀÔ·Â
+	desc.dwDBMessageID =	WM_DB_MESSAGE;			// ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
 
 #ifdef _RMTOOL_
 	desc.hWndToPostMessage = AfxGetMainWnd()->m_hWnd;
 #elif _MONITORINGSERVER
 	desc.hWndToPostMessage = GetActiveWindow();
 #else
-	desc.hWndToPostMessage = g_hWnd;	//GetActiveWindow();	// ¸Þ¼¼Áö¸¦ ÅëÇØ °á°ú¸¦ ¹ÞÀ» °æ¿ì ¸Þ¼¼Áö¸¦ Æ÷½ºÆ®ÇÒ À©µµ ÇÚµé
+	desc.hWndToPostMessage = g_hWnd;	//GetActiveWindow();	// ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 #endif
-//	desc.ReadDBResult = ReadDBResultMessage;		// ÀÌº¥Æ® ¹æ½ÄÀ» ÀÌ¿ëÇÒ °æ¿ì °á°úµµÂø½Ã¿¡ callÇÒ ÇÔ¼öÆ÷ÀÎÅÍ
-	desc.WriteMessage = WriteMessage;				// °¢Á¾ ¸Þ¼¼Áö Ãâ·Â½Ã¿¡ ÀÌ¿ëÇÒ ÇÔ¼öÆ÷ÀÎÅÍ
+//	desc.ReadDBResult = ReadDBResultMessage;		// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ callï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	desc.WriteMessage = WriteMessage;				// ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½Â½Ã¿ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	desc.dwMessageMaxSize	= 30;		// DBMESSAGE ±¸Á¶Ã¼ÀÇ ÃÖ´ë Å©±â 
+	desc.dwMessageMaxSize	= 30;		// DBMESSAGE ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö´ï¿½ Å©ï¿½ï¿½ 
 
 #ifdef _HK_LOCAL_
 	m_SameTimeQueryPerThread = 1024;//MaxSameTimeQuery/MaxDBThread;
@@ -377,10 +381,10 @@ BOOL CDataBase::Init(DWORD MaxDBThread,DWORD MaxSameTimeQuery,BOOL bUsingLoginDB
 #endif
 
 
-	desc.dwNumofMessage		= m_SameTimeQueryPerThread;				// ÃÖ´ë Äõ¸® °¹¼ö (µ¿½Ã )
-	desc.dwNumofResult		= 100;//m_SameTimeQueryPerThread;		// selectÇÑ °á°úÀÇ ÃÖ´ë °³¼ö 
-	desc.dwResultMaxSize	= sizeof(QUERYST)*MAX_ROW_NUM;	// select ¹® ÀÇ ÃÖ´ë °á°ú Å©±â 
-	desc.dwSizeofStack		= sizeof(DBFreeQuery);		// ÇÔ¼öÀÎÀÚ¸¦ ´ã´Â ½ºÅÃÀÇ Å©±â
+	desc.dwNumofMessage		= m_SameTimeQueryPerThread;				// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ )
+	desc.dwNumofResult		= 100;//m_SameTimeQueryPerThread;		// selectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+	desc.dwResultMaxSize	= sizeof(QUERYST)*MAX_ROW_NUM;	// select ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ 
+	desc.dwSizeofStack		= sizeof(DBFreeQuery);		// ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
 
 //	ASSERT(MaxDBThread <= 4);
 
@@ -406,7 +410,7 @@ BOOL CDataBase::Init(DWORD MaxDBThread,DWORD MaxSameTimeQuery,BOOL bUsingLoginDB
 
 BOOL CDataBase::AddQueryQueue(DBQUERY* pQuery, BOOL bAddQueueWhenFull)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 #ifndef _MONITORINGSERVER
 	if(g_bWriteQuery)
 	{
@@ -419,7 +423,7 @@ BOOL CDataBase::AddQueryQueue(DBQUERY* pQuery, BOOL bAddQueueWhenFull)
 	}
 #endif
 
-	DBTH* pDB = GetCurDB();	//Á© ÇÑ°¡ÇÑ DB
+	DBTH* pDB = GetCurDB();	//ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ DB
 
 	if(pDB == NULL)
 	{
@@ -427,23 +431,23 @@ BOOL CDataBase::AddQueryQueue(DBQUERY* pQuery, BOOL bAddQueueWhenFull)
 		return TRUE;
 	}
 	
-	//Å¥¿¡ ¾ÆÁ÷ Ã³¸®ÇÒ ¸®½ºÆ®°¡ ³²¾Æ ÀÖÀ¸¸é Å¥¿¡ ³Ö´Â´Ù.
+	//Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¥ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 	if( m_QueryQueue.GetCount() )
 	{
 		m_QueryQueue.AddTail(pQuery);
 		return TRUE;
 	}
 
-	if(pDB->Query(pQuery) == FALSE)		// Å¥°¡ ºñ¾îÀÖ´Ù¸é Äõ¸®¸¦ ¿äÃ»ÇØº¸°í
+	if(pDB->Query(pQuery) == FALSE)		// Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Øºï¿½ï¿½ï¿½
 	{
 		if(bAddQueueWhenFull)
-			m_QueryQueue.AddTail(pQuery);		// Ã³¸®°¡ ¾ÈµÇ¸é Å¥¿¡ Áý¾î³Ö´Â´Ù.
+			m_QueryQueue.AddTail(pQuery);		// Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¸ï¿½ Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â´ï¿½.
 		else
 			return FALSE;
 	}
 	else
 	{
-		m_QueryPool.Free(pQuery);	// Äõ¸®°¡ Ã³¸® µÇ¾ú´Ù¸é Free½ÃÅ²´Ù.
+		m_QueryPool.Free(pQuery);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ Freeï¿½ï¿½Å²ï¿½ï¿½.
 	}
 
 	return TRUE;
@@ -451,7 +455,7 @@ BOOL CDataBase::AddQueryQueue(DBQUERY* pQuery, BOOL bAddQueueWhenFull)
 
 BOOL CDataBase::LoginQuery(BYTE QueryType,DWORD dwMessageID,DWORD ID,char* strQuery, BOOL bAddQueueWhenFull)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	DBQUERY* pQuery = m_QueryPool.Alloc();	//
 	ASSERT(pQuery);
@@ -479,7 +483,7 @@ BOOL CDataBase::LoginMiddleQuery(void* pReturnFunc,DWORD ID,char* strQuery,...)
 
 BOOL CDataBase::Query(BYTE QueryType,DWORD dwMessageID,DWORD ID,char* strQuery)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	DBQUERY* pQuery = m_QueryPool.Alloc();
 	ASSERT(pQuery);
@@ -491,7 +495,7 @@ BOOL CDataBase::Query(BYTE QueryType,DWORD dwMessageID,DWORD ID,char* strQuery)
 
 BOOL CDataBase::LogQuery(BYTE QueryType,DWORD dwMessageID,DWORD ID,char* strQuery)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	DBQUERY* pQuery = m_QueryPool.Alloc();
 	ASSERT(pQuery);
@@ -503,7 +507,7 @@ BOOL CDataBase::LogQuery(BYTE QueryType,DWORD dwMessageID,DWORD ID,char* strQuer
 
 BOOL CDataBase::FreeQuery(DWORD dwMessageID, DWORD ID, char* strQuery,...)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	static char temp[4096];
 	va_list vl;
@@ -522,7 +526,7 @@ BOOL CDataBase::FreeQuery(DWORD dwMessageID, DWORD ID, char* strQuery,...)
 
 BOOL CDataBase::FreeLargeQuery(void* pReturnFunc,DWORD ID,char* strQuery,...)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	static char temp[4096];
 	va_list vl;
@@ -540,7 +544,7 @@ BOOL CDataBase::FreeLargeQuery(void* pReturnFunc,DWORD ID,char* strQuery,...)
 
 BOOL CDataBase::FreeMiddleQuery(void* pReturnFunc,DWORD ID,char* strQuery,...)
 {
-	if(m_pDB == NULL)	return FALSE; // ÀÌ¹Ì ReleaseµÈ °æ¿ì
+	if(m_pDB == NULL)	return FALSE; // ï¿½Ì¹ï¿½ Releaseï¿½ï¿½ ï¿½ï¿½ï¿½
 	
 	static char temp[4096];
 	va_list vl;
@@ -555,7 +559,7 @@ BOOL CDataBase::FreeMiddleQuery(void* pReturnFunc,DWORD ID,char* strQuery,...)
 	AddQueryQueue(pQuery);
 	return TRUE;
 }
-// Ç×»ó È£ÃâµÇ¾î¾ß ÇÏ´Â °Í
+// ï¿½×»ï¿½ È£ï¿½ï¿½Ç¾ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½
 void CDataBase::ProcessingDBMessage()
 {
 	for(DWORD n=0;n<m_MaxDBThreadNum;++n)
@@ -564,13 +568,13 @@ void CDataBase::ProcessingDBMessage()
 			m_pDB[n].m_pIDB->ProcessingDBMessage();
 	}
 
-//---KES ¹Ð¸°°Í Ã³¸®¸¦ Ç×»ó ½ÃµµÇØ º»´Ù.
+//---KES ï¿½Ð¸ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½×»ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	ProcessingQueue();
 /*	
 	while(m_QueryQueue.GetCount() != 0)
 	{		
 		DBQUERY* pQuery = (DBQUERY*)m_QueryQueue.GetHead();
-		DBTH* pDB = GetCurDB();		// Á© ÇÑ°¡ÇÑ DB
+		DBTH* pDB = GetCurDB();		// ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ DB
 		if(pDB == NULL)
 			break;
 
@@ -593,7 +597,7 @@ void CDataBase::ProcessingQueue()
 	{	
 
 		DBQUERY* pQuery = (DBQUERY*)m_QueryQueue.GetHead();
-		DBTH* pDB = GetCurDB();		// Á© ÇÑ°¡ÇÑ DB
+		DBTH* pDB = GetCurDB();		// ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ DB
 		if( pDB == NULL ) break;
 
 		if( pDB->Query(pQuery) )

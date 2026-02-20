@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/stdafx.h"
-#include "../4DyuchiNET_Common/icode.h"
+#include "stdafx.h"
+#include "icode.h"
 
 
 void ErrorMsg(char* pMsg);

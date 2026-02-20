@@ -1,0 +1,158 @@
+// ============================================
+// D3D12Fixes.h
+// D3D12 API 兼容性修复
+// ============================================
+
+#pragma once
+
+#ifndef D3D12_FIXES_H
+#define D3D12_FIXES_H
+
+#include <d3d12.h>
+
+// --------------------------------------------------------------------------
+// D3D12_INPUT_CLASSIFICATION 修复
+// --------------------------------------------------------------------------
+#ifndef D3D12_INPUT_CLASSIFICATION_VERTEX
+#define D3D12_INPUT_CLASSIFICATION_VERTEX D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA
+#endif
+
+#ifndef D3D12_INPUT_CLASSIFICATION_INSTANCE
+#define D3D12_INPUT_CLASSIFICATION_INSTANCE D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA
+#endif
+
+// --------------------------------------------------------------------------
+// D3D12_COMPARISON_FUNC 修复
+// --------------------------------------------------------------------------
+#ifndef D3D12_COMPARISON_LESS_EQUAL
+#define D3D12_COMPARISON_LESS_EQUAL D3D12_COMPARISON_FUNC_LESS_EQUAL
+#endif
+
+#ifndef D3D12_COMPARISON_GREATER_EQUAL
+#define D3D12_COMPARISON_GREATER_EQUAL D3D12_COMPARISON_FUNC_GREATER_EQUAL
+#endif
+
+#ifndef D3D12_COMPARISON_LESS
+#define D3D12_COMPARISON_LESS D3D12_COMPARISON_FUNC_LESS
+#endif
+
+#ifndef D3D12_COMPARISON_GREATER
+#define D3D12_COMPARISON_GREATER D3D12_COMPARISON_FUNC_GREATER
+#endif
+
+#ifndef D3D12_COMPARISON_EQUAL
+#define D3D12_COMPARISON_EQUAL D3D12_COMPARISON_FUNC_EQUAL
+#endif
+
+#ifndef D3D12_COMPARISON_NOT_EQUAL
+#define D3D12_COMPARISON_NOT_EQUAL D3D12_COMPARISON_FUNC_NOT_EQUAL
+#endif
+
+#ifndef D3D12_COMPARISON_ALWAYS
+#define D3D12_COMPARISON_ALWAYS D3D12_COMPARISON_FUNC_ALWAYS
+#endif
+
+#ifndef D3D12_COMPARISON_NEVER
+#define D3D12_COMPARISON_NEVER D3D12_COMPARISON_FUNC_NEVER
+#endif
+
+// --------------------------------------------------------------------------
+// D3D12_DEPTH_STENCILOP_DESC 修复
+// --------------------------------------------------------------------------
+// 某些版本中 StencilReadMask 和 StencilWriteMask 在不同的结构中
+#ifndef D3D12_DEPTH_STENCILOP_DESC_STENCIL_READ_MASK
+#define D3D12_DEPTH_STENCILOP_DESC_STENCIL_READ_MASK 0xFF
+#endif
+
+#ifndef D3D12_DEPTH_STENCILOP_DESC_STENCIL_WRITE_MASK
+#define D3D12_DEPTH_STENCILOP_DESC_STENCIL_WRITE_MASK 0xFF
+#endif
+
+// --------------------------------------------------------------------------
+// D3D12_CONSERVATIVE_RASTERIZATION_MODE 修复
+// --------------------------------------------------------------------------
+#ifndef D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON
+#define D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON (D3D12_CONSERVATIVE_RASTERIZATION_MODE)1
+#endif
+
+#ifndef D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF
+#define D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF (D3D12_CONSERVATIVE_RASTERIZATION_MODE)0
+#endif
+
+// --------------------------------------------------------------------------
+// D3D12_PRIMITIVE_TOPOLOGY_TYPE 映射
+// --------------------------------------------------------------------------
+static inline D3D12_PRIMITIVE_TOPOLOGY_TYPE D3D12PrimitiveTopologyToType(D3D_PRIMITIVE_TOPOLOGY topology)
+{
+    switch (topology)
+    {
+    case D3D_PRIMITIVE_TOPOLOGY_POINTLIST:
+        return D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+    case D3D_PRIMITIVE_TOPOLOGY_LINELIST:
+    case D3D_PRIMITIVE_TOPOLOGY_LINESTRIP:
+        return D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE;
+    case D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST:
+    case D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP:
+        return D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+    case D3D_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_2_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_5_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_6_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_7_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_8_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_9_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_10_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_11_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_12_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_13_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_14_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_15_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_16_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_17_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_18_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_19_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_20_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_21_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_22_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_23_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_24_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_25_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_26_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_27_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_28_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_29_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_31_CONTROL_POINT_PATCHLIST:
+    case D3D_PRIMITIVE_TOPOLOGY_32_CONTROL_POINT_PATCHLIST:
+        return D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
+    default:
+        return D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+    }
+}
+
+// --------------------------------------------------------------------------
+// ID3D12Resource::Map 包装函数
+// --------------------------------------------------------------------------
+inline HRESULT D3DX12Map(ID3D12Resource* pResource, UINT Subresource, const D3D12_RANGE* pReadRange, void** ppData)
+{
+    // 某些版本的 Map 只接受 3 个参数
+    return pResource->Map(Subresource, pReadRange, ppData);
+}
+
+// --------------------------------------------------------------------------
+// ID3D12GraphicsCommandList::CopyBufferRegion 包装函数
+// --------------------------------------------------------------------------
+inline void D3DX12CopyBufferRegion(
+    ID3D12GraphicsCommandList* pCommandList,
+    ID3D12Resource* pDstBuffer,
+    UINT64 DstOffset,
+    ID3D12Resource* pSrcBuffer,
+    UINT64 SrcOffset,
+    UINT64 NumBytes)
+{
+    pCommandList->CopyBufferRegion(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, NumBytes);
+}
+
+#endif // D3D12_FIXES_H

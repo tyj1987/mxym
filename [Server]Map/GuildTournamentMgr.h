@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GUILDTOURNAMENTMGR_H__21A71231_1238_4D1F_99B6_D53A80C23436__INCLUDED_)
 #define AFX_GUILDTOURNAMENTMGR_H__21A71231_1238_4D1F_99B6_D53A80C23436__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -17,14 +18,14 @@
 class CGuild;
 class CPlayer;
 
-enum GTFlag{ eGTFlg_Rd/*¼±Æ÷*/, eGTFlg_Rgst/*½ÅÃ»*/, eGTFlg_Ing/*ÁøÇà*/};
+enum GTFlag{ eGTFlg_Rd/**/, eGTFlg_Rgst/*Ã»*/, eGTFlg_Ing/**/};
 
 struct GTInfo
 {
 	CGuild* pGuild;
 	WORD	Ranking;
 	WORD	Position;
-	WORD	ProcessTournament;		// ¾îµð±îÁö °æ±â¸¦ ÁøÇàÇß´ÂÁö
+	WORD	ProcessTournament;		//  â¸¦ ß´
 };
 
 
@@ -42,11 +43,11 @@ class CGuildTournamentMgr
 	DWORD						m_RegistedGuildCount;
 	DWORD						BattleCount[eGTT_MAX];
 
-	DWORD		m_TournamentCount;			// ¸îÂ÷ Åä³Ê¸ÕÆ®ÀÎ°¡
+	DWORD		m_TournamentCount;			//  Ê¸Æ®Î°
 
 	DWORD		m_MaxGroup;
-	DWORD		m_CurTournament;			// ¸î°­°æ±âÀÎ°¡
-	DWORD		m_TournamentState;			// Åä³Ê¸ÕÆ® ÁøÇà»óÈ²
+	DWORD		m_CurTournament;			// î°­Î°
+	DWORD		m_TournamentState;			// Ê¸Æ® È²
 
 	DWORD		m_EntranceTime;
 	DWORD		m_NotifyEntranceTime;
@@ -61,7 +62,7 @@ class CGuildTournamentMgr
 	BOOL		m_bEvent;
 	int			m_EventBattleCount;
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205  NPC
 	WORD		m_wCurDay;
 	DWORD		m_dwCurFlag;
 
@@ -105,7 +106,7 @@ public:
 	int GetBattleIDEvent( CGuild* pGuild );
 	void ResetEvent();
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205  NPC
 	void	CheckDateforFlagNPC();
 	DWORD	GetGTState()	{	return m_TournamentState;	}
 };

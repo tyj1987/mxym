@@ -13,7 +13,7 @@
 #include "ObjectManager.h"
 
 
-//¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 WORD g32th[GUILDINFOCOUNT] = { 14, 16, 18, 20, 22, 24, 26, 28, };
 WORD g16th[4][2][2] = 
 {
@@ -38,7 +38,7 @@ DWORD gRanking[eGTT_MAX] =
 	2,			// 3,4	2	eGTFignt_3_4
 	1,			// 1,2	2	eGTFight_1_2
 };
-//¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -62,10 +62,11 @@ CGTStandingDialog::~CGTStandingDialog()
 
 void CGTStandingDialog::Linking()
 {
+	int i;
 	m_pMainBase[0] = (cStatic*)GetWindowForID( GDT_MAIN1 );
 	m_pMainBase[1] = (cStatic*)GetWindowForID( GDT_MAIN2 );
 
-	for(int i=0; i<MAXGROUP; ++i)
+	for( i=0; i<MAXGROUP; ++i)
 	{
 		m_pGroupBtn[i] = (cPushupButton*)GetWindowForID( GDT_SEMIFINAL_PUSHUPBTN+i );
 		m_pGroupBtn[i]->SetPush( FALSE );
@@ -143,6 +144,7 @@ void CGTStandingDialog::AddGuildInfo( REGISTEDGUILDINFO* pGuildInfo )
 
 void CGTStandingDialog::SetCurPage( DWORD Page )
 {
+int i;
 	m_dwCurPage = Page;
 	RefreshGuildInfo();
 }
@@ -150,10 +152,11 @@ void CGTStandingDialog::SetCurPage( DWORD Page )
 
 void CGTStandingDialog::ResetActive()
 {
+	int i;
 	m_pMainBase[0]->SetActive( m_dwCurPage==0?TRUE:FALSE );
 	m_pMainBase[1]->SetActive( m_dwCurPage==0?FALSE:TRUE );
 
-	for(int i=0; i<MAXGROUP; ++i)
+	for( i=0; i<MAXGROUP; ++i)
 		m_pGroupBtn[i]->SetPush( FALSE );
 	for(i=0; i<STATICCOUNT; ++i)	
 		m_pLineStatic[i]->SetActive( FALSE );
@@ -182,10 +185,11 @@ void CGTStandingDialog::ResetActive()
 
 void CGTStandingDialog::ResetAll()
 {
+	int i;
 	m_pMainBase[0]->SetActive( m_dwCurPage==0?TRUE:FALSE );
 	m_pMainBase[1]->SetActive( m_dwCurPage==0?FALSE:TRUE );
 
-	for(int i=0; i<MAXGROUP; ++i)
+	for( i=0; i<MAXGROUP; ++i)
 		m_pGroupBtn[i]->SetPush( FALSE );
 	for(i=0; i<STATICCOUNT; ++i)	
 		m_pLineStatic[i]->SetActive( FALSE );
@@ -227,7 +231,7 @@ void CGTStandingDialog::RefreshGuildInfo()
 		if( m_dwCurPage > eGTPAGEVIEW_SEMIFANAL && m_dwCurPage != (DWORD)(m_GuildInfo[i].Position/GUILDINFOCOUNT+1) )	continue;
 
 		BOOL bColor = TRUE;
-		// º»¼±
+		// ï¿½ï¿½ï¿½ï¿½
 		if( m_dwCurPage == eGTPAGEVIEW_SEMIFANAL )
 		{
 			if( m_CurTournament >= eGTFight_1_2 && m_GuildInfo[i].Ranking == eGTStanding_1ST )
@@ -237,7 +241,7 @@ void CGTStandingDialog::RefreshGuildInfo()
 
 			AddGuildMarkName( m_GuildInfo[i], bColor  );
 		}
-		// ¿¹¼±
+		// ï¿½ï¿½ï¿½ï¿½
 		else
 		{
 			if( m_CurTournament == eGTFight_32 && m_GuildInfo[i].Ranking == eGTStanding_16TH )
@@ -273,7 +277,7 @@ void CGTStandingDialog::AddGuildMarkName( REGISTEDGUILDINFO GuildInfo, BOOL bWin
 
 	if( m_CurTournament == eGTFight_32 )
 	{
-		if( GuildInfo.ProcessTournament == eGTFight_16 )				// 32°­¿¡¼­ ºÎÀü½ÂÀ¸·Î 16°­À¸·Î °¬À½.
+		if( GuildInfo.ProcessTournament == eGTFight_16 )				// 32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			pStaticName->SetFGColor( RGBA_MAKE( 255, 255, 0, 255 ) );
 		else
 			pStaticName->SetFGColor( RGBA_MAKE( 255, 255, 255, 255 ) );
@@ -310,8 +314,8 @@ void CGTStandingDialog::DrawRankingLine16( REGISTEDGUILDINFO GuildInfo )
 {
 	m_pLineStatic[g32th[GuildInfo.Position%GUILDINFOCOUNT]]->SetActive(TRUE);
 	
-	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/2;			// 4ÀÚ¸®Áß ¾î´ÀÀ§Ä¡ÀÎ°¡.
-	DWORD pos2 = (GuildInfo.Position%GUILDINFOCOUNT)%2;			// À§, ¾Æ·¡Áß ¾îµðÀÎ°¡
+	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/2;			// 4ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Î°ï¿½.
+	DWORD pos2 = (GuildInfo.Position%GUILDINFOCOUNT)%2;			// ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Î°ï¿½
 	m_pLineStatic[g16th[pos][pos2][0]]->SetActive(TRUE);
 	m_pLineStatic[g16th[pos][pos2][1]]->SetActive(TRUE);
 }
@@ -321,7 +325,7 @@ void CGTStandingDialog::DrawRankingLine8( REGISTEDGUILDINFO GuildInfo )
 {
 	DrawRankingLine16( GuildInfo );
 
-	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/4;			// 2ÀÚ¸®Áß ¾î´ÀÀ§Ä¡ÀÎ°¡.
+	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/4;			// 2ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Î°ï¿½.
 	DWORD pos2 = GuildInfo.Position%GUILDINFOCOUNT;
 	if( pos2 >= 4)		pos2 = (pos2-4)/2;
 	else				pos2 = pos2/2;							// 0,1-(0,0) 2,3-(0,1) 4,5-(1,0) 6,7-(1,1)
@@ -334,7 +338,7 @@ void CGTStandingDialog::DrawRankingLine4( REGISTEDGUILDINFO GuildInfo )
 {
 	DrawRankingLine8( GuildInfo );
 
-	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/4;			// À§, ¾Æ·¡Áß ¾îµðÀÎ°¡
+	DWORD pos = (GuildInfo.Position%GUILDINFOCOUNT)/4;			// ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Î°ï¿½
 	m_pLineStatic[g4th[pos][0]]->SetActive(TRUE);
 	m_pLineStatic[g4th[pos][1]]->SetActive(TRUE);
 }

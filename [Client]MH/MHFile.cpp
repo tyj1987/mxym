@@ -81,7 +81,7 @@ BOOL CMHFile::CheckHeader()
 BOOL CMHFile::CheckCRC()
 {
 	char crc = 0;
-	// data º¯È¯
+	// data ï¿½ï¿½È¯
 	for( DWORD i = 0; i < m_Header.FileSize; ++i )
 	{
 		crc += m_pData[i];
@@ -117,11 +117,11 @@ BOOL CMHFile::OpenBin( char* filename )
 #endif
 
 #ifdef _MSO50_
-		//50¼ÓÃÜ
+		//50ï¿½ï¿½ï¿½ï¿½
 		fread( &m_crc1, sizeof(char), 1, fp );	
 		fread( &m_crc1, sizeof(char), 1, fp );	
 		fread( &m_crc1, sizeof(char), 1, fp );	
-		//50¼ÓÃÜ
+		//50ï¿½ï¿½ï¿½ï¿½
 #endif
 
 		if( m_Header.FileSize )							// data
@@ -135,10 +135,10 @@ BOOL CMHFile::OpenBin( char* filename )
 #endif
 
 #ifdef _MSO50_
-		//50¼ÓÃÜ
+		//50ï¿½ï¿½ï¿½ï¿½
 		fread( &m_crc2, sizeof(char), 1, fp );	
 		fread( &m_crc2, sizeof(char), 1, fp );	
-		//50¼ÓÃÜ
+		//50ï¿½ï¿½ï¿½ï¿½
 #endif
 
 		fread( &m_crc2, sizeof(char), 1, fp );			// crc2
@@ -295,13 +295,65 @@ char* CMHFile::GetString()
 	return buf;
 }
 
+#ifdef _MAPSERVER_
+// Server version: void return type
+void CMHFile::GetString( char* pBuf )
+{
+	char buf[512] = {0,};
+	DWORD j = 0;
+	BOOL bStart, bEnd;
+	bStart = bEnd = FALSE;
+
+	ySWITCH(m_bReadMode)
+		yCASE(MHFILE_PACKEDFILE)
+			if(m_Dfp == (int)m_Header.FileSize) return;
+
+			for( DWORD i = m_Dfp; i < m_Header.FileSize; ++i )
+			{
+				if( m_pData[i] == 0x0d && m_pData[i+1] == 0x0a )	// return
+				{
+					if( bStart )
+						break;
+					else
+					{
+						m_Dfp += 2;
+						++i;
+					}
+				}
+				else if( m_pData[i] == 0x20 || m_pData[i] == 0x09 )	// spacebar, tab
+				{
+					++m_Dfp;
+					if( bStart )
+						bEnd = TRUE;
+				}
+				else
+				{
+					if( bEnd ) break;
+
+					buf[j] = m_pData[i];
+					++j;
+					++m_Dfp;
+					bStart = TRUE;
+				}
+			}
+			buf[j] = 0;
+		yCASE(MHFILE_NORMALMODE)
+			fscanf( fp, "%s", buf );
+		yCASE(MHFILE_ENGINEPACKEDFILE)
+			m_pFileStorage->FSScanf(m_pFilePointer,"%s",buf);
+
+	yENDSWITCH
+
+	_parsingKeywordString( buf, (char**)(&pBuf) );
+}
+#else
+// Client version: int return type (string length or EOF)
 int CMHFile::GetString( char* pBuf )
 {
 	char buf[512] = {0,};
 	DWORD j = 0;
 	BOOL bStart, bEnd;
 	bStart = bEnd = FALSE;
-	// yh;
 	int rt = 0;
 
 	ySWITCH(m_bReadMode)
@@ -348,6 +400,7 @@ int CMHFile::GetString( char* pBuf )
 
 	return rt;
 }
+#endif
 /*
 int CMHFile::GetString( char* pBuf )
 {
@@ -404,10 +457,10 @@ char* CMHFile::GetStringInQuotation()
 	ySWITCH(m_bReadMode)
 		yCASE(MHFILE_PACKEDFILE)
 //			m_Dfp--;
-			while( (c=m_pData[m_Dfp]) != '"' )	// Ã¹µû¿ÈÇ¥ ³ª¿Ã¶§±îÁö ½ºÅµ
+			while( (c=m_pData[m_Dfp]) != '"' )	// Ã¹ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
 			{
 				++m_Dfp;
-				if( c == 10 )					//Ã¹µû¿ÈÇ¥ ³ª¿À±âÀü¿¡ ¿£ÅÍ°¡ ÀÖÀ¸¸é ÁßÁö
+				if( c == 10 )					//Ã¹ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					buf2[0] = 0;
 					return buf2;
@@ -424,9 +477,9 @@ char* CMHFile::GetStringInQuotation()
 					++m_Dfp;
 					break;
 				}
-				if( buf[n] == 10 )				// ¿£ÅÍ
+				if( buf[n] == 10 )				// ï¿½ï¿½ï¿½ï¿½
 				{
-					__asm int 3;
+					// // __asm int 3; // NOP
 					buf[n] = 0;
 					break;
 				}
@@ -435,9 +488,9 @@ char* CMHFile::GetStringInQuotation()
 			char* aa = &buf2[0];
 			memcpy( buf2, buf, n+1 );	
 		yCASE(MHFILE_NORMALMODE)
-			while( (c=fgetc(fp)) != '"')	// Ã¹µû¿ÈÇ¥ ³ª¿Ã¶§±îÁö ½ºÅµ
+			while( (c=fgetc(fp)) != '"')	// Ã¹ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
 			{
-				if( c == 10 )//Ã¹µû¿ÈÇ¥ ³ª¿À±âÀü¿¡ ¿£ÅÍ°¡ ÀÖÀ¸¸é ÁßÁö
+				if( c == 10 )//Ã¹ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					Seek(-1);
 					buf2[0] = 0;
@@ -454,7 +507,7 @@ char* CMHFile::GetStringInQuotation()
 					buf[n] = 0;
 					break;
 				}
-				if(buf[n] == 10) // ¿£ÅÍ
+				if(buf[n] == 10) // ï¿½ï¿½ï¿½ï¿½
 				{
 					Seek(-1);
 					buf[n] = 0;
@@ -463,11 +516,11 @@ char* CMHFile::GetStringInQuotation()
 				++n;
 			}
 			char * aa = &buf2[0];
-			//	_parsingKeywordString(buf, &aa);	//KES 030828 ¸·¾ÒÀ½. Æ¯¼ö±â´É Å°°¡ Â©¸²?
+			//	_parsingKeywordString(buf, &aa);	//KES 030828 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ Â©ï¿½ï¿½?
 			memcpy( buf2, buf, n+1 );
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 
@@ -507,7 +560,7 @@ void CMHFile::GetLine(char * pBuf, int len)
 				buf[strlen(buf)-1] = 0;
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 
@@ -543,7 +596,7 @@ void CMHFile::GetLineX(char * pBuf, int len)
 				buf[strlen(buf)-1] = 0;
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 
@@ -627,10 +680,21 @@ EXPTYPE CMHFile::GetExpPoint64()
 	return (EXPTYPE)_atoi64(GetString());
 }
 
+#ifdef _MAPSERVER_
+// Server version: returns BOOL indicating success/failure
+BOOL CMHFile::GetLevel()
+{
+	LEVELTYPE level = (LEVELTYPE)atoi(GetString());
+	// Return TRUE if level is valid, FALSE otherwise
+	return (level > 0) ? TRUE : FALSE;
+}
+#else
+// Client version: returns the actual level value
 LEVELTYPE CMHFile::GetLevel()
 {
 	return (LEVELTYPE)atoi(GetString());
 }
+#endif
 
 BOOL CMHFile::IsEOF()
 {
@@ -644,7 +708,7 @@ BOOL CMHFile::IsEOF()
 			return feof(fp) ? TRUE : FALSE;
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 		
@@ -660,7 +724,7 @@ BOOL CMHFile::IsInited()
 			return fp ? TRUE : FALSE;
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 		
@@ -676,7 +740,7 @@ BOOL CMHFile::Seek(int n)
 			return fseek( fp, n, SEEK_CUR );
 		yCASE(MHFILE_ENGINEPACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	yENDSWITCH
 		
@@ -687,7 +751,7 @@ BOOL CMHFile::GetHex(DWORD* pOut)
 	ySWITCH(m_bReadMode)
 		yCASE(MHFILE_PACKEDFILE)
 			ASSERT(0);
-			// »à!~ Áö¿ø¾ÈÇÔ
+			// ï¿½ï¿½!~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		yCASE(MHFILE_NORMALMODE)
 			return fscanf( fp, "%x", pOut );
 		yCASE(MHFILE_ENGINEPACKEDFILE)
@@ -705,7 +769,7 @@ BOOL CMHFile::CheckLineEnd( int lineNum )
 	if( m_Dfp == (int)m_Header.FileSize ) 
 		return rt;
 
-	char* pData = m_pData;	//¾îµð¼­ ÂüÁ¶ÇÏ¸ç ¾²ÀÏÁö ¸ð¸£¹Ç·Î..
+	char* pData = m_pData;	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£¹Ç·ï¿½..
 	if( m_bReadMode == MHFILE_PACKEDFILE )
 	{
 		for( DWORD i = m_Dfp; i < m_Header.FileSize; ++i )
@@ -748,7 +812,7 @@ void _parsingKeywordString(char * inString, char ** outString)
 	char * sp2 = *outString;
 	while(*sp != 0)
 	{
-		//if(*sp & 0x80)	//±¹¿Ü¿¡¼­ ¹®Á¦´Ù!
+		//if(*sp & 0x80)	//ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
 		if( IsDBCSLeadByte(*sp) )
 		{
 			*sp2++ = *sp++;
@@ -775,7 +839,7 @@ void _parsingKeywordString(char * inString, char ** outString)
 							*outString[0] = 0;
 						}
 						break;
-					case TEXT_DELIMITER:	//KES Ãß°¡
+					case TEXT_DELIMITER:	//KES ï¿½ß°ï¿½
 						{
 							*sp2 = '^';
 							++sp2;

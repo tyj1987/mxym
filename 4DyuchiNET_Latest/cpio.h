@@ -2,7 +2,7 @@
 #define MSG_PROC_H
 
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 
 class CMsgQue;

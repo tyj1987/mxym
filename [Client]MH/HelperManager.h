@@ -2,7 +2,7 @@
 #define _HELPER_MANAGER_
 
 #include "PtrList.h"
-#include "../MHFile.h"
+#include "MHFile.h"
 
 
 #define HELPERMGR USINGTON(cHelperManager)

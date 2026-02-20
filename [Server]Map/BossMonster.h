@@ -4,6 +4,7 @@
 
 #if !defined(AFX_BOSSMONSTER_H__F3B40B9A_D0CC_4EFE_AB37_A90193EC7D17__INCLUDED_)
 #define AFX_BOSSMONSTER_H__F3B40B9A_D0CC_4EFE_AB37_A90193EC7D17__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -28,8 +29,8 @@ class CBossMonster  : public CMonster
 
 	BOOL m_IsEventStating;
 	
-	/// 06. 09. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// ¼Ò¸ê½Ã°£
+	/// 06. 09. 2  - Ì¿
+	/// Ò¸Ã°
 	DWORD	m_DeleteStartTime;
 	BOOL	m_bDelete;
 

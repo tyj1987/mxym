@@ -171,11 +171,11 @@ BOOL CBattle_SiegeWar::IsEnemy(CObject* pOperator,CObject* pTarget)
 	if( pTarget->GetObjectKind() == eObjectKind_Npc )
 		return FALSE;
 
-	// ¿ÉÀú¹ö´Â ÀûÀÌ ¾Æ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 	if( pOperator->GetBattleTeam() == 2 || pTarget->GetBattleTeam() == 2 )
 		return FALSE;
 
-	// ¾Èº¸¿©µµ ÀûÀÌ ¾Æ´Ï´Ù.
+	// ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 	if( pTarget->GetObjectKind() == eObjectKind_Player )
 	{
 #ifdef _MAPSERVER_
@@ -187,19 +187,19 @@ BOOL CBattle_SiegeWar::IsEnemy(CObject* pOperator,CObject* pTarget)
 #endif
 	}
 
-	// °ø°İÀÚ°¡ »ç¶÷ÀÌ¸é
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	if( pOperator->GetObjectKind() == eObjectKind_Player )
 	{
-		// °°ÀºÆÀÀÏ¶§
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 		if( pOperator->GetBattleTeam() == pTarget->GetBattleTeam() )
 		{
-			// °ßÁ¦³Ä
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( ((CPlayer*)pOperator)->IsRestraintMode() || ((CPlayer*)pTarget)->IsRestraintMode() )
 			{
-				// °ø¼ºÀÌ¸é				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½				
 				if( pOperator->GetBattleTeam() == 1 )
 				{
-					// ¿ì¸®µ¿¸ÍÀÌ ¾Æ´Ï¸é Àû
+					// ï¿½ì¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½
 					if( (((CPlayer*)pOperator)->GetGuildUnionIdx() || ((CPlayer*)pTarget)->GetGuildUnionIdx()) )
 					{
 						if( (((CPlayer*)pOperator)->GetGuildUnionIdx() != ((CPlayer*)pTarget)->GetGuildUnionIdx()) )
@@ -207,7 +207,7 @@ BOOL CBattle_SiegeWar::IsEnemy(CObject* pOperator,CObject* pTarget)
 						else
 							return FALSE;
 					}
-					// ¿ì¸®¹®ÆÄ°¡ ¾Æ´Ï¸é Àû
+					// ï¿½ì¸®ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½
 					else if( (((CPlayer*)pOperator)->GetGuildIdx() != ((CPlayer*)pTarget)->GetGuildIdx()) )
 						return TRUE;
 					else
@@ -217,17 +217,17 @@ BOOL CBattle_SiegeWar::IsEnemy(CObject* pOperator,CObject* pTarget)
 			else
 				return FALSE;
 		}
-		// ¼­·Î´Ù¸¥ÆÀÀÏ¶§ Å¸°ÙÀÌ ¸ó½ºÅÍ¶ó¸é ÀûÀÌ´Ù.
+		// ï¿½ï¿½ï¿½Î´Ù¸ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 		else if( pTarget->GetObjectKind() & eObjectKind_Monster )
 			return TRUE;
-		// °ø¼º vs ¼ö¼º Àº ÀûÀÌ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ vs ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 		else
 			return TRUE;
 	}
-	// °ø°İÀÚ°¡ ¸ó½ºÅÍÀÌ¸é
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	else if( pOperator->GetObjectKind() & eObjectKind_Monster )
 	{
-		// »ó´ë°¡ °ø¼ºÀÌ¸é
+		// ï¿½ï¿½ë°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 		if( pTarget->GetBattleTeam() == 1 )
 			return TRUE;
 	}
@@ -245,11 +245,11 @@ BOOL CBattle_SiegeWar::IsFriend(CObject* pOperator,CObject* pTarget)
 	if( pTarget->GetObjectKind() == eObjectKind_Npc )
 		return TRUE;
 
-	// ¿ÉÀú¹ö´Â ÀûÀÌ ¾Æ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 	if( pOperator->GetBattleTeam() == 2 || pTarget->GetBattleTeam() == 2 )
 		return TRUE;
 
-	// ¾Èº¸¿©µµ ÀûÀÌ ¾Æ´Ï´Ù.
+	// ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 	if( pTarget->GetObjectKind() == eObjectKind_Player )
 	{
 #ifdef _MAPSERVER_
@@ -261,19 +261,19 @@ BOOL CBattle_SiegeWar::IsFriend(CObject* pOperator,CObject* pTarget)
 #endif
 	}
 	
-	// »ç¶÷ÀÏ¶§
+	// ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 	if( pOperator->GetObjectKind() == eObjectKind_Player )
 	{
-		// °°ÀºÆÀÀÌ°í
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½
 		if( pOperator->GetBattleTeam() == pTarget->GetBattleTeam() )
 		{
-			// °ßÁ¦
+			// ï¿½ï¿½ï¿½ï¿½
 			if( ((CPlayer*)pOperator)->IsRestraintMode() || ((CPlayer*)pTarget)->IsRestraintMode() )
 			{
-				// °ø¼ºÀÏ¶§
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 				if( pOperator->GetBattleTeam() == 1 )
 				{
-					// ¿ì¸®µ¿¸ÍÀÌ ¾Æ´Ï¸é Àû
+					// ï¿½ì¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½
 					if( (((CPlayer*)pOperator)->GetGuildUnionIdx() || ((CPlayer*)pTarget)->GetGuildUnionIdx()) )
 					{
 						if( (((CPlayer*)pOperator)->GetGuildUnionIdx() != ((CPlayer*)pTarget)->GetGuildUnionIdx()) )
@@ -281,7 +281,7 @@ BOOL CBattle_SiegeWar::IsFriend(CObject* pOperator,CObject* pTarget)
 						else
 							return TRUE;
 					}
-					// ¿ì¸®¹®ÆÄ°¡ ¾Æ´Ï¸é Àû
+					// ï¿½ì¸®ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½
 					if(	(((CPlayer*)pOperator)->GetGuildIdx() != ((CPlayer*)pTarget)->GetGuildIdx()) )
 						return FALSE;
 					else
@@ -293,17 +293,17 @@ BOOL CBattle_SiegeWar::IsFriend(CObject* pOperator,CObject* pTarget)
 			else
 				return TRUE;
 		}
-		// ´Ù¸¥ÆÀÀÏ¶§ ¸ó½ºÅÍ¸é Ä£±¸°¡ ¾Æ´Ï´Ù.
+		// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ Ä£ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		else if( pTarget->GetObjectKind() & eObjectKind_Monster )
 			return FALSE;
-		// °ø¼º vs ¼ö¼ºÀº ÀüºÎ Ä£±¸°¡ ¾Æ´Ï´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ vs ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä£ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		else
 			return FALSE;
 	}
-	// ¸ó½ºÅÍ¸é
+	// ï¿½ï¿½ï¿½Í¸ï¿½
 	else if( pOperator->GetObjectKind() & eObjectKind_Monster )
 	{
-		// »ó´ë°¡ °ø¼ºÀÌ¸é Ä£±¸°¡ ¾Æ´Ï´Ù.
+		// ï¿½ï¿½ë°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ Ä£ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 		if( pTarget->GetBattleTeam() == 1 )
 			return FALSE;
 	}
@@ -327,8 +327,9 @@ DWORD CBattle_SiegeWar::GetBattleTeamID( CObject* pObject )
 	if( m_Observer.IsTeamMember( pObject ) )
 		return 2;
 #else
+	DWORD i;  // ä¿®å¤C2065: åœ¨elseå—ä½œç”¨åŸŸå£°æ˜i
 
-	for(DWORD i=0; i<m_BInfo.DefenceCount; ++i)
+	for(i=0; i<m_BInfo.DefenceCount; ++i)
 		if( m_BInfo.GuildList[i] == ((CPlayer*)pObject)->GetGuildIdx() )
 			return 0;
 
@@ -348,7 +349,7 @@ void CBattle_SiegeWar::GetBattleInfo(char* pInfo,WORD* size)
 	ToEachTeam(pTeam)
 		if( pTeam )
 		{
-			// µ¿¸Í, Çù·Â¹®ÆÄ Á¤º¸µîÀ» Ãß°¡.
+			// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
 
 			++count;
 		}
@@ -509,7 +510,7 @@ void CBattle_SiegeWar::BattleTeamChange()
 				Playerteam = SIEGEWARMGR->GetGuildTeamIdx( ((CPlayer*)pObject)->GetGuildIdx() );
 				if( Playerteam >= 2 )
 				{
-					// ÇÃ·¹ÀÌ¾î¸¦ ¿ÉÀú¹ö·Î º¸³»¹ö¸°´Ù.
+					// ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					pObject->SetBattleTeam( 2 );
 					continue;
 				}
@@ -525,7 +526,7 @@ void CBattle_SiegeWar::BattleTeamChange()
 		}
 	EndToEachTeam
 
-	// ÆÀÀ» ¿Å°ÜÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½Ø´ï¿½.
 	for(DWORD i=0; i<ChangePlayerCount[0]; ++i)
 	{
 		CObject* pObject = g_pUserTable->FindUser( Changeplayer[0][i] );
@@ -564,7 +565,7 @@ void CBattle_SiegeWar::BattleTeamPositionChange()
 		YHTPOSITION pos = pTeam->GetPositionHead();
 		while( CObject* pObject = pTeam->GetNextTeamMember( &pos ) )
 		{
-			// Position ÁÂÇ¥¸¦ °áÁ¤ÇØ¼­ »Ñ·ÁÁà¾ßÇÔ.
+			// Position ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			if( nTeam == 0 )				vPos = m_Team1Pos;
 			else if( nTeam == 1 )			vPos = m_Team2Pos;
 			CCharMove::SetPosition( pObject, &vPos );
@@ -625,7 +626,7 @@ void CBattle_SiegeWar::SetSiegeWarName( CObject* pObject, DWORD Team, DWORD Guil
 
 	if( pPlayer->GetID() == HEROID )
 	{
-		// Ã³À½ µé¾î¿Ã¶§ Hero´Â ÆÀÁ¤º¸°¡ ¾ø´Â°Ô ¾Æ´Ñ°¡?
+		// Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¶ï¿½ Heroï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ñ°ï¿½?
 		if( Team == eBattleTeam1 )
 			pPlayer->SetSiegeName( eSiegeWarNameBox_CastleGuild );
 		else if( Team == eBattleTeam2 )

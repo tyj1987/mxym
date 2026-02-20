@@ -4,6 +4,7 @@
 
 #if !defined(AFX_ITEMSLOT_H__8056E436_4AA0_474D_AFFB_BA0ED84B6697__INCLUDED_)
 #define AFX_ITEMSLOT_H__8056E436_4AA0_474D_AFFB_BA0ED84B6697__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -14,8 +15,8 @@
 //SW050920 Rare
 enum UPDATE_BIT{ UB_DBIDX = 1, UB_ICONIDX=2, UB_ABSPOS=4, UB_QABSPOS=8, UB_DURA=16, UB_RARE=32, UB_ALL=63, };
 enum ERROR_ITEM { EI_TRUE = 0, EI_OUTOFPOS = 1, EI_NOTEQUALDATA, EI_EXISTED, EI_NOTEXIST, EI_LOCKED, EI_PASSWD, EI_NOTENOUGHMONEY, EI_NOSPACE, EI_MAXMONEY };
-// SS_LOCKOMIT 을 수행한 함수 후에 락이 풀린다. 
-// 주의 : Updateitemabs도 락이 풀린다!
+// SS_LOCKOMIT   獨 커  풀. 
+//  : Updateitemabs  풀!
 enum SLOT_STATE { SS_NONE = 0, SS_PREINSERT=1, SS_LOCKOMIT = 2, SS_CHKDBIDX = 4, };
 
 class CPlayer;
@@ -79,7 +80,7 @@ protected:
 	ITEMBASE *		m_ItemBaseArray;
 	SLOTINFO *		m_SlotInfoArray;
 	POSTYPE			m_StartAbsPos;
-	POSTYPE			m_SlotNum;						// Slot의 갯수
+	POSTYPE			m_SlotNum;						// Slot 
 
 	/* purse value */
 	CPurse*			m_pPurse;

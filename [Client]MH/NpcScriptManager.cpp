@@ -51,7 +51,7 @@
 #include "TitanBreakDlg.h"
 #include "TitanRegisterDlg.h"
 #include "TitanDissolutionDlg.h"
-//#include "TitanMugongMixDlg.h"	// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+//#include "TitanMugongMixDlg.h"	// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 #include "UniqueItemMixDlg.h"
 
 #include "TitanManager.h"
@@ -163,17 +163,17 @@ void cNpcScriptManager::LoadNpcScriptInfo()
 				++m_nRegistNpcCount;
 			}
 			else
-				__asm int 3;
+				; // __asm int 3; // NOP for Release
 		CMD_EN
 	}
 }
 
 void cNpcScriptManager::LoadPageInfo(cPage* pPage, CMHFile* fp)
 {
-	// ´Ù½ÃÇÑ¹ø È®ÀÎ ¹× ÁÖ¼® Ã³¸®¿ä!!
+	// ï¿½Ù½ï¿½ï¿½Ñ¹ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¼ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½!!
 	char buff[256]={0,};
 
-	static DWORD dwNpcId; // Npc¿¡´ëÇÑ PageÁ¤º¸°¡ ¿Ï·á µÉ¶§±îÁö À¯Áö °¡´ÉÇØ¾ß ÇÑ´Ù.
+	static DWORD dwNpcId; // Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Pageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	DWORD dwPageId;
 	int nDialogueCount = 0;
 	int nHyperLinkCount = 0;
@@ -194,7 +194,7 @@ void cNpcScriptManager::LoadPageInfo(cPage* pPage, CMHFile* fp)
 			CMD_CS("$PAGE")
 			if((fp->GetString())[0] == '{')
 			{
-				cPage* pNewPage = new cPage; // »õ·Î¿î ÆäÀÌÁöÀÇ µî·Ï
+				cPage* pNewPage = new cPage; // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				AddNpcScriptInfo( dwNpcId, pNewPage );
 				LoadPageInfo(pNewPage, fp);
 			}
@@ -224,7 +224,7 @@ void cNpcScriptManager::LoadPageInfo(cPage* pPage, CMHFile* fp)
 
 void cNpcScriptManager::StartNpcScript( CNpc* pNpc )
 {
-	// ±âÁ¸¿¡ Á¸ÀçÇÏ¸é ±âÁ¸°ÍÀ» »èÁ¦ÇÏ°í »õ·Î ¿¬´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if( m_pCurSelectedNpc )
 	{
 		GAMEIN->GetNpcScriptDialog()->EndDialog();
@@ -251,7 +251,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	{
 		switch( dwData )
 		{
-		case 0:		// °Å·¡
+		case 0:		// ï¿½Å·ï¿½
 			{
 				MSG_WORD msg;
 				msg.Category = MP_ITEM;
@@ -261,14 +261,14 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				NETWORK->Send(&msg, sizeof(msg));
 			}
 			break;
-		case 1:		// À¯´ÏÅ© Á¶ÇÕ
+		case 1:		// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
 			{
 				GAMEIN->GetUniqueItemMixDlg()->SetActive( TRUE );	// magi82(1) - UniqueItem(071022)
 			}
 			break;
 		}
 	}
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == BOBUSANG_ROLE )
 	{
 		CItem* pItem = GAMEIN->GetInventoryDialog()->GetItemLike( BOBUSANG_ITEM_TICKET );
@@ -296,7 +296,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	{
 		switch( dwData )
 		{
-		case 0:		// ¼¼À²°ü¸®
+		case 0:		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				if( HERO->GetGuildIdx() == 0 || HERO->GetGuildMemberRank() != GUILD_MASTER )
 				{
@@ -308,10 +308,10 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			break;
 		case 1:
 		case 2:
-		case 3:		// ¿Ü¼º¹®
+		case 3:		// ï¿½Ü¼ï¿½ï¿½ï¿½
 		case 4:
 		case 5:
-		case 6:		// ³»¼º¹®
+		case 6:		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{	
 				if( HERO->GetGuildIdx() == 0 || HERO->GetGuildMemberRank() != GUILD_MASTER )
 				{
@@ -346,7 +346,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	}
 	else if( (m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == CHANGGO_ROLE) || dwParam == eNpcParam_ShowpPyoguk )
 	{
-		if(dwData == 0) //Ã¢°í º¸±â
+		if(dwData == 0) //Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{	
 			if(GAMEIN->GetPyogukDialog()->IsItemInit())
 			{
@@ -491,7 +491,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 
 			OBJECTSTATEMGR->StartObjectState(HERO, eObjectState_Deal);
 		}	
-		else if(dwData == 1) //°¡°ÝÇ¥/±¸ÀÔ
+		else if(dwData == 1) //ï¿½ï¿½ï¿½ï¿½Ç¥/ï¿½ï¿½ï¿½ï¿½
 		{
 			GAMEIN->GetPyogukDialog()->SetPyogukListInfo();
 			GAMEIN->GetPyogukDialog()->SetActive(TRUE);			
@@ -514,7 +514,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				return;
 			GAMEIN->GetGuildWarehouseDlg()->SetActive(TRUE);	
 		}
-		else if(dwData == 3)			// ¾ÆÀÌÅÛ¸ôÃ¢°í
+		else if(dwData == 3)			// ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½Ã¢ï¿½ï¿½
 		{
 			MSGBASE msg;
 			msg.Category = MP_ITEM;
@@ -522,7 +522,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			msg.dwObjectID = HERO->GetID();
 			NETWORK->Send(&msg, sizeof(msg));
 		}
-		else if(dwData == 4)			// °ø¼ºÃ¢°í
+		else if(dwData == 4)			// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 		{
 			MSGBASE msg;
 			msg.Category = MP_FORTWAR;
@@ -533,7 +533,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			if( !GAMEIN->GetInventoryDialog()->IsActive() )
 				GAMEIN->GetInventoryDialog()->SetActive(TRUE);
 		}
-		else if(dwData == 5)			// 1¿ä»õÃ¢°í
+		else if(dwData == 5)			// 1ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 		{
 			MSG_INT msg;
 			msg.Category = MP_FORTWAR;
@@ -545,7 +545,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			if( !GAMEIN->GetInventoryDialog()->IsActive() )
 				GAMEIN->GetInventoryDialog()->SetActive(TRUE);
 		}
-		else if(dwData == 6)			// 2¿ä»õÃ¢°í
+		else if(dwData == 6)			// 2ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 		{
 			MSG_INT msg;
 			msg.Category = MP_FORTWAR;
@@ -557,7 +557,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			if( !GAMEIN->GetInventoryDialog()->IsActive() )
 				GAMEIN->GetInventoryDialog()->SetActive(TRUE);
 		}
-		else if(dwData == 7)			// 3¿ä»õÃ¢°í
+		else if(dwData == 7)			// 3ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 		{
 			MSG_INT msg;
 			msg.Category = MP_FORTWAR;
@@ -570,7 +570,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				GAMEIN->GetInventoryDialog()->SetActive(TRUE);
 		}
 	}
-	//SW060920 ¹®ÆÄ¹èÆ²½Ã Ã¢°í¼ÒÈ¯ÁÖ¹®¼­ »ç¿ëºÒ°¡·Î ÀÎÇÑ À§Ä¡ ¼öÁ¤.// NpcJobÀ» ÃÊ±âÈ­ÇÏÁö ¾Ê±â¿¡ À§Ä¡º¯°æÀ¸·Î Ã³¸®.
+	//SW060920 ï¿½ï¿½ï¿½Ä¹ï¿½Æ²ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½È¯ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½.// NpcJobï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â¿¡ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == MUNPA_ROLE)
 	{
 		switch( dwData )
@@ -709,7 +709,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				NETWORK->Send( &Msg, sizeof(Msg) );
 			}
 			break;
-		case 9:		// °ø¼ºÀü °üÀüÇÏ±â
+		case 9:		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			{	
 				WINDOWMGR->MsgBox( MBI_SW_OBSERVER_SYN, MBT_YESNO, CHATMGR->GetChatMsg(1146) );
 				return;
@@ -762,7 +762,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				return;
 			}
 			break;
-		case 13:	// ¼ö¼º Âü¿©½ÅÃ»
+		case 13:	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 			{
 				if(HERO->GetGuildIdx() == 0)
 				{
@@ -779,7 +779,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				return;
 			}
 			break;
-		case 14:	// °ø¼º Âü¿©½ÅÃ»
+		case 14:	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 			{
 				if(HERO->GetGuildIdx() == 0)
 				{
@@ -815,7 +815,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 
 				if( GUILDMGR->CheckChangeLocation( dwData ) )
 				{
-					// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
+					// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					WINDOWMGR->MsgBox( MBI_GUILD_CHANGE_LOCATION, MBT_YESNO, CHATMGR->GetChatMsg(1200), MAP->GetMapName( GUILDMGR->GetTempLocation() ) );
 					//					return;
 				}
@@ -832,7 +832,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				NETWORK->Send( &Msg, sizeof(Msg) );				
 			}
 			break;
-		case 21:			// ¹®ÇÏ»ý -> ¹®ÆÄ¼Ò°³±Û µî·Ï
+		case 21:			// ï¿½ï¿½ï¿½Ï»ï¿½ -> ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			{
 				if( HERO->GetGuildMemberRank() != GUILD_MASTER )
 				{
@@ -857,7 +857,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 					OBJECTSTATEMGR->EndObjectState( HERO,eObjectState_Deal );
 			}
 			break;
-		case 22:			// ¹®ÇÏ»ý -> ¹®ÆÄ¼Ò°³±Û ¼öÁ¤
+		case 22:			// ï¿½ï¿½ï¿½Ï»ï¿½ -> ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				if( HERO->GetGuildMemberRank() != GUILD_MASTER )
 				{
@@ -870,13 +870,13 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				GAMEIN->GetGuildCreateDlg()->SetActive( TRUE );
 			}
 			break;
-		case 23:		// ¹®ÇÏ»ý -> ¹®ÆÄ¼Ò°³Ã¢
+		case 23:		// ï¿½ï¿½ï¿½Ï»ï¿½ -> ï¿½ï¿½ï¿½Ä¼Ò°ï¿½Ã¢
 			{
-				// magi82 - ¹®ÇÏ»ý °ü·Ã(¼­¹ö¿¡¼­ ¸Þ¼¼Áö ¹ÞÀº´ÙÀ½¿¡ ´ÙÀÌ¾ó·Î±×Ã¢ ¾×Æ¼ºê 070119
+				// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½Ã¢ ï¿½ï¿½Æ¼ï¿½ï¿½ 070119
 				GAMEIN->GetGuildTraineeDialog()->SendPage(1, TRUE);
 			}
 			break;
-		case 24:		// ¹®ÇÏ»ý -> ¹®ÆÄ¼Ò°³±Û Ãë¼Ò
+		case 24:		// ï¿½ï¿½ï¿½Ï»ï¿½ -> ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			{
 				if( HERO->GetGuildMemberRank() != GUILD_MASTER )
 				{
@@ -884,7 +884,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 					return;
 				}
 
-				WINDOWMGR->MsgBox( MBI_MUNPADELETESEL, MBT_YESNO, CHATMGR->GetChatMsg(1493) );	// magi82 - ¹®ÇÏ»ý°ü·Ã(070124)
+				WINDOWMGR->MsgBox( MBI_MUNPADELETESEL, MBT_YESNO, CHATMGR->GetChatMsg(1493) );	// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070124)
 
 				if( HERO->GetState() == eObjectState_Deal )
 					OBJECTSTATEMGR->EndObjectState( HERO,eObjectState_Deal );
@@ -894,10 +894,10 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	}
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == WANTED_ROLE)
 	{
-		//Àü¿¡ Å¬¸¯ÇÑ°Ô ´Ê°Ô¿Ã ¼öµµ ÀÖ³×
+		//ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½Ê°Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö³ï¿½
 		if(GAMEIN->GetWantedDialog()->IsActive() == TRUE)
 			return;
-		if(dwData == 0) //Ã¢°í º¸±â
+		if(dwData == 0) //Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			WANTEDMGR->SortWantedListSyn(1);
 		else if(dwData == 1)
 			GAMEIN->GetBailDialog()->Open();
@@ -905,7 +905,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	}
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == SURYUN_ROLE)
 	{
-		if( dwData == eSuryunNpc_Suryun )		// ¼ö·ÃÇÏ±â
+		if( dwData == eSuryunNpc_Suryun )		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		{
 			// magi82 - Titan(070612)
 			if( TITANMGR->GetCurRidingTitan() == NULL )
@@ -922,12 +922,12 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 					OBJECTSTATEMGR->EndObjectState(HERO, eObjectState_Deal);
 			}
 		}
-		else if( dwData == eSuryunNpc_About_GuildTournament )		// ¹®ÆÄÅä³Ê¸ÕÆ® ¾Ë¾Æº¸±â
+		else if( dwData == eSuryunNpc_About_GuildTournament )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½Ë¾Æºï¿½ï¿½ï¿½
 		{
 			if( HERO->GetState() == eObjectState_Deal )
 				OBJECTSTATEMGR->EndObjectState(HERO, eObjectState_Deal);
 		}
-		else if( dwData == eSuryunNpc_Regist_GuildTournament )		// ¹®ÆÄÅä³Ê¸ÕÆ® Âü°¡½ÅÃ»ÇÏ±â
+		else if( dwData == eSuryunNpc_Regist_GuildTournament )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ï±ï¿½
 		{
 			MSGBASE msg;
 			msg.Category = MP_GTOURNAMENT;
@@ -935,12 +935,12 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			msg.dwObjectID = HEROID;
 			NETWORK->Send( &msg, sizeof(msg) );
 		}
-		else if( dwData == eSuryunNpc_Cancel_GuildTournament )		// ¹®ÆÄÅä³Ê¸ÕÆ® ½ÅÃ» Ãë¼ÒÇÏ±â
+		else if( dwData == eSuryunNpc_Cancel_GuildTournament )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		{
 			if( GAMEIN->GetGTRegistcancelDlg() )
 				GAMEIN->GetGTRegistcancelDlg()->SetActive( TRUE );
 		}
-		else if( dwData == eSuryunNpc_Show_GuildStand )				// ¹®ÆÄÅä³Ê¸ÕÆ® ´ëÁøÇ¥ º¸±â
+		else if( dwData == eSuryunNpc_Show_GuildStand )				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 		{
 			MSG_WORD msg;
 			msg.Category = MP_GTOURNAMENT;
@@ -949,7 +949,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			msg.dwObjectID = HEROID;
 			NETWORK->Send( &msg, sizeof(msg) );
 		}
-		else if( dwData == eSuryunNpc_Enter_GuildTournament )		// ¹®ÆÄÅä³Ê¸ÕÆ® ÀÔÀåÇÏ±â
+		else if( dwData == eSuryunNpc_Enter_GuildTournament )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		{
 			MSG_DWORD msg;
 			msg.Category = MP_GTOURNAMENT;
@@ -958,7 +958,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			msg.dwData = 0;
 			NETWORK->Send( &msg, sizeof(msg) );
 		}
-		else if( dwData == eSuryunNpc_EnterObserver_GuildTournament )	// °ü¶÷¸ðµå·Î ¹®ÆÄÅä³Ê¸ÕÆ® ÀÔÀåÇÏ±â
+		else if( dwData == eSuryunNpc_EnterObserver_GuildTournament )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		{
 			GAMEIN->SetGuildIdx( HERO->GetGuildIdx() );
 
@@ -972,8 +972,8 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 			//	GAMEIN->GetGTBattleListDlg()->SetActive( TRUE );
 		}
 		/////////////////////////////////////////////////////////////////////
-		// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-		// ¹«°ø º¯È¯
+		// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		else if( dwData == eSuryunNpc_SkillOption )
 		{
 			GAMEIN->GetSkillOptionChangeDlg()->SetActive(TRUE);
@@ -1010,7 +1010,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	}
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == SYMBOL_ROLE )
 	{
-		// °¢ÀÎ½ÃÀÛ		
+		// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½		
 		if( HERO->GetGuildMemberRank() == GUILD_MASTER )
 		{
 			CGuild* pGuild = GUILDMGR->GetGuild();
@@ -1034,12 +1034,12 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	}
 	else if( m_pCurSelectedNpc && m_pCurSelectedNpc->GetNpcJob() == GUIDE_ROLE )
 	{
-		//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ		
+		//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½		
 		switch( dwData )
 		{
-		case 0:	// ÃÊº¸ÀÚ °ü¸®ÀÎÀÇ ¹®ÇÏ»ý Áö¿øÃ¢
+		case 0:	// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢
 			{
-				// magi82 - ¹®ÇÏ»ý °ü·Ã(¼­¹ö¿¡¼­ ¸Þ¼¼Áö ¹ÞÀº´ÙÀ½¿¡ ´ÙÀÌ¾ó·Î±×Ã¢ ¾×Æ¼ºê 070119
+				// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½Ã¢ ï¿½ï¿½Æ¼ï¿½ï¿½ 070119
 				GAMEIN->GetGuildTraineeDialog()->SendPage(1, TRUE);
 			}
 			break;
@@ -1052,7 +1052,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 	{
 		switch( dwData )
 		{
-		case eTITAN_NPC_BuyItem:	// Å¸ÀÌÅº ¾ÆÀÌÅÛ ±¸¸Å
+		case eTITAN_NPC_BuyItem:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				MSG_WORD msg;
 				msg.Category = MP_ITEM;
@@ -1062,7 +1062,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				NETWORK->Send(&msg, sizeof(msg));
 			}
 			break;
-		case eTITAN_NPC_TitanMix:	// Å¸ÀÌÅº Á¦Á¶
+		case eTITAN_NPC_TitanMix:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 			{
 				if( TITANMGR->GetCurRidingTitan() == NULL )
 				{
@@ -1077,7 +1077,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				}
 			}
 			break;
-		case eTITAN_NPC_TitanUpgrade:	// Å¸ÀÌÅº µî±Þ¾÷
+		case eTITAN_NPC_TitanUpgrade:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½Þ¾ï¿½
 			{
 				if( TITANMGR->GetCurRidingTitan() == NULL )
 				{
@@ -1092,12 +1092,12 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				}
 			}
 			break;
-		case eTITAN_NPC_TitanPartsMake:	// Å¸ÀÌÅº ÆÄÃ÷ Á¦ÀÛ(ºÎÇ°Á¶ÇÕ)
+		case eTITAN_NPC_TitanPartsMake:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½)
 			{
 				GAMEIN->GetTitanPartsMakeDlg()->SetActive( TRUE );
 			}
 			break;
-		case eTITAN_NPC_TitanPartsChange:	// Å¸ÀÌÅº ¾ÆÀÌÅÛ Ã¼ÀÎÁö
+		case eTITAN_NPC_TitanPartsChange:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½
 			{
 				if(TITANMGR->GetRegistedTitanItemDBIdx())
 				{
@@ -1124,12 +1124,12 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				}
 			}
 			break;
-		case eTITAN_NPC_TitanBreak:	// Å¸ÀÌÅº ¾ÆÀÌÅÛ ºÐÇØ
+		case eTITAN_NPC_TitanBreak:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				GAMEIN->GetTitanBreakDlg()->SetActive( TRUE );
 			}
 			break;
-		case eTITAN_NPC_TitanRegister:	// Å¸ÀÌÅº µî·Ï
+		case eTITAN_NPC_TitanRegister:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½
 			{
 				if( TITANMGR->GetCurRidingTitan() == NULL )
 				{
@@ -1144,7 +1144,7 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				}
 			}
 			break;
-		case eTITAN_NPC_TitanDissolution:	// Å¸ÀÌÅº ÇØÁ¦
+		case eTITAN_NPC_TitanDissolution:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 			{
 				if( TITANMGR->GetCurRidingTitan() == NULL )
 				{
@@ -1159,9 +1159,9 @@ void cNpcScriptManager::StartNpcBusiness(DWORD dwData, DWORD dwParam)
 				}
 			}
 			break;
-			// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+			// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 			/*
-		case eTITAN_NPC_TitanMugongMix:	// Å¸ÀÌÅº ¹«°ø Á¶ÇÕ
+		case eTITAN_NPC_TitanMugongMix:	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				GAMEIN->GetTitanMugongMixDlg()->SetActive( TRUE );
 			}

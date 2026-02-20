@@ -135,7 +135,7 @@ BOOL CDS_RMToolApp::InitInstance()
 	////////////////////////////////////////////////////////////////////////
 	// Register the application's document templates.  Document templates
 	// serve as the connection between documents, frame windows and views.
-	// »õ·Î¿î DocTemplate Ãß°¡
+	// ï¿½ï¿½ï¿½Î¿ï¿½ DocTemplate ï¿½ß°ï¿½
 	CMultiDocTemplate* pDocTemplate;
 
 	// UserInfo temp
@@ -202,7 +202,7 @@ BOOL CDS_RMToolApp::InitInstance()
 		return FALSE;
 
 	//////////////////////////////////////////////////////
-	// ÇöÀç ÇØ»óµµ¿¡ ¸ÂÃá´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ø»óµµ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HWND hWnd = GetDesktopWindow();
 	HDC dc = ::GetDC(hWnd);
 
@@ -327,7 +327,12 @@ void CDS_RMToolApp::OnAppAbout()
 /////////////////////////////////////////////////////////////////////////////
 // CDS_RMToolApp message handlers
 
-CDocument* CDS_RMToolApp::OnFileNew()
+void CDS_RMToolApp::OnFileNew()
+{
+	OnFileNewImpl();
+}
+
+CDocument* CDS_RMToolApp::OnFileNewImpl()
 {
 	POSITION pos  = GetFirstDocTemplatePosition();
 	CDocTemplate* pTemplate = NULL;
@@ -368,7 +373,7 @@ CBaseDoc* CDS_RMToolApp::OpenNewTemplate(int nType)
 	if (nType > eTemp_Max) return NULL;
 
 	m_wNewType = nType;
-	CBaseDoc* pDoc = (CBaseDoc*)OnFileNew();
+	CBaseDoc* pDoc = (CBaseDoc*)OnFileNewImpl();
 	m_wNewType = 1;
 
 	return pDoc;
@@ -390,7 +395,7 @@ BOOL CDS_RMToolApp::InitModule()
 
 //	if( !NETWORK->ConnectToServer( m_sMASInfo.strIP, m_sMASInfo.nPort ) )
 //	{
-//		MessageBox( NULL, "µ¥¸ó¼­¹ö¿¡ ¿¬°áÇÒ ¼ö ¾ø½À´Ï´Ù.", "Á¢¼Ó¿À·ù", MB_OK );
+//		MessageBox( NULL, "ï¿½ï¿½ï¿½ó¼­¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½", MB_OK );
 //		return FALSE;
 //	}
 
@@ -464,7 +469,7 @@ void CDS_RMToolApp::NetworkMsgParse(BYTE Protocol, void* pMsg)
 	case MP_RMTOOL_CONNECT_ACK:
 		{
 			TMSG_OPERATOR_LOGIN* msg = (TMSG_OPERATOR_LOGIN*)pMsg;
-			// Á¤º¸ ¼ÂÆÃ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			memcpy( &m_sOperator, &msg->sOper, sizeof(OPERATOR) );
 			memcpy( &m_sIP, &msg->sIP, sizeof(IPINFO) );
 
@@ -476,31 +481,31 @@ void CDS_RMToolApp::NetworkMsgParse(BYTE Protocol, void* pMsg)
 			TMSG_WORD* msg = (TMSG_WORD*)pMsg;
 			switch(msg->wData)
 			{
-			case 0: // ÀÌ»ó ¿À·ù
+			case 0: // ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					m_pOperDlg->MessageBox("DB Error!!\nClose RMTool!!");
 					m_pOperDlg->EndDialog(IDCANCEL);
 				}
 				break;
-			case 1: // µî·Ï¾ÈµÈ ¾ÆÀÌÇÇ
+			case 1: // ï¿½ï¿½Ï¾Èµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					m_pOperDlg->MessageBox("Close RMTool For Not Registed IP!!");
 					m_pOperDlg->EndDialog(IDCANCEL);
 				}
 				break;
-			case 2: // µî·Ï¾ÈµÈ ¾ÆÀÌµð
+			case 2: // ï¿½ï¿½Ï¾Èµï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 				{
 					m_pOperDlg->MessageBox("Not Registed ID!!");
 					m_pOperDlg->ResetData(0);
 				}
 				break;
-			case 3: // ºñ¹ø ¿À·ù
+			case 3: // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					m_pOperDlg->MessageBox("Wrong Password!!");
 					m_pOperDlg->ResetData(1);
 				}
 				break;
-			case 4:	// ¹öÀücheck
+			case 4:	// ï¿½ï¿½ï¿½ï¿½check
 				{
 					m_pOperDlg->MessageBox( "Program Version Is Not Right!!\n\nProgram Will Be Closed!!" );
 					m_pOperDlg->EndDialog(IDCANCEL);

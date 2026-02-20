@@ -6,11 +6,11 @@
 #include "SkillObjectSingleUnit_Attack.h"
 
 #ifdef _MAPSERVER_
-#include "PackedData.h"
-#include "AttackManager.h"
+#include "../[Client]MH/PackedData.h"
+#include "../[Client]MH/AttackManager.h"
 #include "SkillObject_server.h"
 #include "SkillManager_server.h"
-#include "Battle.h"
+#include "../[CC]BattleSystem/Battle.h"
 #else
 #include "ObjectManager.h"
 #include "ObjectActionManager.h"
@@ -51,9 +51,9 @@ void CSkillObjectSingleUnit_Attack::Operate(SKILLOBJECT_INFO* pSkillObjectInfo,
 	CTargetListIterator iter(&msg.TargetList);
 #ifdef _MAPSERVER_	
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2차 전직 - 이영준
-	// 무공 변환 추가
-	// 스킬공격력
+	// 06. 06. 2  - 結
+	//  환 煞
+	// 킬賦
 	if(pSkillObjectInfo->Option)
 	{
 		SKILLOPTION* pSkillOption = SKILLMGR->GetSkillOption(pSkillObjectInfo->Option);
@@ -72,7 +72,7 @@ void CSkillObjectSingleUnit_Attack::Operate(SKILLOBJECT_INFO* pSkillObjectInfo,
 	BYTE bTargetKind;
 	RESULTINFO damageinfo;
 	pTargetList->SetPositionHead();
-	while(pTargetList->GetNextTarget(m_PNTarget,&pObject,&bTargetKind))	// 공격은 Negative
+	while(pTargetList->GetNextTarget(m_PNTarget,&pObject,&bTargetKind))	//  Negative
 	{
 		if((bTargetKind & SKILLRESULTKIND_NEGATIVE) == FALSE)
 			continue;
@@ -88,7 +88,7 @@ void CSkillObjectSingleUnit_Attack::Operate(SKILLOBJECT_INFO* pSkillObjectInfo,
 									m_AttribAttack, m_AttribAttack, m_AttAttackRate,
 									0,
 									&damageinfo,
-									FALSE, 1.0f, 0, TRUE);	// FALSE 는 Single Unit은 카운터 데미지 없음
+									FALSE, 1.0f, 0, TRUE);	// FALSE  Single Unit 카  
 #else
 		damageinfo.Clear();
 		damageinfo.RealDamage = rand() % 100 + 1;
@@ -125,14 +125,14 @@ void CSkillObjectSingleUnit_Attack::StartSingleUnitEffect(CObject* pOperator,CTa
 		iter.GetTargetData(&rinfo);
 
 		/*
-		// 지속효과표시
+		// 효표
 		ySWITCH(m_Attrib)
 			yCASE(ATTR_FIRE)	EFFECTMGR->StartSkillMainTainEffect(650,pObject);
 			yCASE(ATTR_TREE)	EFFECTMGR->StartSkillMainTainEffect(653,pObject);
-			yCASE(ATTR_NOATTR)	EFFECTMGR->StartSkillMainTainEffect(653,pObject);	// 독
+			yCASE(ATTR_NOATTR)	EFFECTMGR->StartSkillMainTainEffect(653,pObject);	// 
 		yENDSWITCH
-		// 650	지속데미지 (화)		속성 데미지지속 값>0	속성 값이 1(화)				
-		// 653	지속데미지 (목)		속성 데미지지속 값>0	속성 값이 3(목)				
+		// 650	撻 (화)		憺  >0	憺  1(화)				
+		// 653	撻 ()		憺  >0	憺  3()				
 		*/
 
 		OBJECTACTIONMGR->ApplyResult(pObject,pOperator,&rinfo,eDamageKind_ContinueDamage);
@@ -143,9 +143,9 @@ void CSkillObjectSingleUnit_Attack::StartSingleUnitEffect(CObject* pOperator,CTa
 		if(CounterDamage != 0)
 			OBJECTACTIONMGR->Damage(pOperator,pObject,eDamageKind_Counter,CounterDamage,0,FALSE);
 		
-		if(pObject->IsDied())		// 죽었다
+		if(pObject->IsDied())		// 類
 		{
-			OBJECTACTIONMGR->Die(pObject,pOperator,FALSE);	// 그냥 죽기
+			OBJECTACTIONMGR->Die(pObject,pOperator,FALSE);	// 柳 劉
 		}
 		*/
 	}

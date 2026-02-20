@@ -1,24 +1,27 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonitoringServer", "MonitoringServer.vcproj", "{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonitoringServer", "MonitoringServer.vcxproj", "{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}"
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		DebugForRMTool = DebugForRMTool
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		DebugForRMTool|x86 = DebugForRMTool|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Debug.ActiveCfg = Debug|Win32
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Debug.Build.0 = Debug|Win32
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.DebugForRMTool.ActiveCfg = DebugForRMTool|Win32
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.DebugForRMTool.Build.0 = DebugForRMTool|Win32
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Release.ActiveCfg = Release|Win32
-		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Release.Build.0 = Release|Win32
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Debug|x86.ActiveCfg = Debug|Win32
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Debug|x86.Build.0 = Debug|Win32
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.DebugForRMTool|x86.ActiveCfg = DebugForRMTool|Win32
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.DebugForRMTool|x86.Build.0 = DebugForRMTool|Win32
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Release|x86.ActiveCfg = Release|Win32
+		{ECFD10A3-0DE8-423D-A026-FB8103F1CF2E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {B25B2B3B-1334-463D-9163-3343D0AFAA1C}
 	EndGlobalSection
 EndGlobal

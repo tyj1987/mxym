@@ -178,6 +178,6 @@ void GetScreenXYFromXYZ( I4DyuchiGXGeometry* pGeometry, DWORD dwViewportIndex, V
 	pOutScreen->z	=	screen4.z;
 
 
-	_asm nop;
+	// _asm nop; // NOP for Release
 
 }

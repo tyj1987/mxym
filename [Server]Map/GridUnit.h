@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GRIDUNIT_H__83C9510E_310C_456B_97AB_5033124AB8ED__INCLUDED_)
 #define AFX_GRIDUNIT_H__83C9510E_310C_456B_97AB_5033124AB8ED__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

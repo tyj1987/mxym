@@ -4,15 +4,19 @@
 
 #if !defined(AFX_MHMAP_H__A2087CD2_73AB_4751_8B7E_D99BEA2111C6__INCLUDED_)
 #define AFX_MHMAP_H__A2087CD2_73AB_4751_8B7E_D99BEA2111C6__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
+// 服务器专用：确保只在服务器编译时定义这些类型
+#ifdef _MAPSERVER_
 
 //#include "ServerTable.h"
 
 class CTileManager;
+class CObject;
 
 struct MAPSERVERDESC
 {
@@ -73,5 +77,7 @@ public:
 	BOOL IsAutoNoteAllow()	{ return m_msDesc.bAutoNoteAllow; }
 	void SetAutoNoteAllow( BOOL bAllow )	{ m_msDesc.bAutoNoteAllow = bAllow; }
 };
+
+#endif // _MAPSERVER_
 
 #endif // !defined(AFX_MHMAP_H__A2087CD2_73AB_4751_8B7E_D99BEA2111C6__INCLUDED_)

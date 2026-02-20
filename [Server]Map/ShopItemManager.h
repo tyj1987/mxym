@@ -4,6 +4,7 @@
 
 #if !defined(AFX_SHOPITEMMANAGER_H__28EE3E98_5701_4E5B_B6E8_242524221154__INCLUDED_)
 #define AFX_SHOPITEMMANAGER_H__28EE3E98_5701_4E5B_B6E8_242524221154__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -36,9 +37,9 @@ class CShopItemManager
 	DWORD		m_ProtectItemIdx;
 
 private:	
-	//2007. 12. 13. CBH - m_UsingItemTable.AddøÕ m_UsingItemPool.Alloc∞˙ ∞∞¿Ã Ω·æﬂ«—¥Ÿ.
-	//±‚¡∏ø° Alloc¿ª ∏’¿˙ «“¥Áπﬁ∞Ì √≥∏Æ«œ∏Èº≠ Tableø° Add∏¶ æ»«œ¥¬ ∞ÊøÏ∞° πﬂª˝«“ ºˆ ¿÷¥Ÿ.
-	//¿Ã∑± «ˆªÛ¿ª πÊ¡ˆ«œ±‚ ¿ß«ÿ ∞∞¿Ã π≠æÓ≥˘¿Ω.
+	//2007. 12. 13. CBH - m_UsingItemTable.Add m_UsingItemPool.Alloc  —¥.
+	// Alloc  “¥ﬁ∞ √≥œ∏Èº≠ Table Add œ¥ Ï∞° ﬂª  ÷¥.
+	//Ã∑  œ±   .
 	void AddUsingShopItem(SHOPITEMWITHTIME* pShopItem, WORD dwItemIndex);
 
 public:
@@ -91,9 +92,9 @@ public:
 	void SetProtectItemIdx( DWORD ItemIdx )		{	m_ProtectItemIdx = ItemIdx;		}
 
 	
-	DWORD PutSkinSelectItem(MSG_DWORD2* pMsg);	// 2007. 12. 5. CBH - º±≈√«— Ω∫≈≤ æ∆¿Ã≈∆ ºº∆Æ ¿Œµ¶Ω∫ √≥∏Æ
-	void DiscardSkinItem(DWORD dwItemIndex);	// 2007. 12. 11. CBH - Ω∫≈≤æ∆¿Ã≈∆ ªË¡¶ ∞¸∑√ √≥∏Æ
-	void RemoveEquipSkin(DWORD dwSkinKind);			// 2008. 1. 21. CBH - ¿Â¬¯µ» Ω∫≈≤ æ∆¿Ã≈∆ ªË¡¶
+	DWORD PutSkinSelectItem(MSG_DWORD2* pMsg);	// 2007. 12. 5. CBH -  ≈≤  ∆Æ Œµ √≥
+	void DiscardSkinItem(DWORD dwItemIndex);	// 2007. 12. 11. CBH - ≈≤   √≥
+	void RemoveEquipSkin(DWORD dwSkinKind);			// 2008. 1. 21. CBH -  ≈≤  
 };
 
 

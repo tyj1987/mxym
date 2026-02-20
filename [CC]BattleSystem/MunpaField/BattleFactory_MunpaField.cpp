@@ -15,6 +15,9 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 CBattleFactory_MunpaField::CBattleFactory_MunpaField()
 {
 

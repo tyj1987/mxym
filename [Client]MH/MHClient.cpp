@@ -25,7 +25,7 @@
 #include "mhFile.h"
 
 #include "OptionManager.h"
-#include "MHAudioManager.h"
+#include "Audio/MHAudioManager.h"
 #include "ObjectManager.h"
 #include "MHMap.h"
 
@@ -58,7 +58,7 @@
 DWORD g_dwHU;
 #endif
 
-#include "cScriptManager.h"
+#include "interface/cScriptManager.h"
 
 
 #define _LOGOWINDOW_
@@ -1144,7 +1144,8 @@ BOOL SaveFileList()
 #ifdef _HACK_SHIELD_
 BOOL HS_Init(void)
 {
-	int		dwRet = 0;			// _AhnHS_Initialize 함수 리턴 값
+	int		dwRet = 0;			// _AhnHS_Initialize 함수 리턴 값
+
 
 	TCHAR	szFullFilePath[MAX_PATH];	// 파일 경로
 	TCHAR	szMsg[MAX_PATH];		// 메시지 버퍼
@@ -1158,7 +1159,8 @@ BOOL HS_Init(void)
 	// 게임과 연동된 HackShield의 EhSvc.Dll의 경로 설정	
 	lstrcat ( szFullFilePath, _T( "HShield\\EhSvc.dll" ) );
 
-	// 초기화 옵션을 설정합니다. AHNHS_CHKOPT_로 시작하는 옵션을 모두 적용하려면
+	// 초기화 옵션을 설정합니다. AHNHS_CHKOPT_로 시작하는 옵션을 모두 적용하려면
+
 
 	// dwOption = AHNHS_CHKOPT_ALL 로 간단하게 정의할 수 있습니다.
 	// 자세한 내용은 "프로그래밍 가이드"를 참조하세요.
@@ -1185,15 +1187,18 @@ BOOL HS_Init(void)
 		AHNHS_DONOT_TERMINATE_PROCESS |
 		AHNHS_CHKOPT_HSMODULE_CHANGE;
 
-	// HackShield 서비스 초기화
+	// HackShield 서비스 초기화
+
 
 	// 초기화 함수 _AhnHS_Initialize는 다음과 같은 인자 값을 가지고 있습니다.
 	// 3번째: 게임코드,
 	// 4번째: 라이센스 키,
-	// 6번째: 스피드핵 민감도
+	// 6번째: 스피드핵 민감도
+
 
 	// 적용 시 알맞은 값으로 대체하시기 바랍니다.
-	// 자세한 내용은 "프로그래밍 가이드"를 참조하세요
+	// 자세한 내용은 "프로그래밍 가이드"를 참조하세요
+
 
 //	dwRet = _AhnHS_Initialize ( szFullFilePath, HS_CallbackProc, 4401, "D74945F75050F76EC6EA7DF0", 
 //		dwOption, AHNHS_SPEEDHACK_SENSING_RATIO_HIGH );
@@ -1345,7 +1350,8 @@ int __stdcall HS_CallbackProc( long lCode, long lParamSize, void* pParam )
 			MessageBox( _g_hWnd, szMsg, "HSError", MB_OK );
 				// 게임 내에서 알림 메시지를 발생합니다.
 	//			MsgBox (szMsg, "알림" ..);
-			//오토매크로 사용자
+			//오토매크로 사용자
+
 
 			//PostQuitMessage(0);
 			PostMessage( _g_hWnd, WM_CLOSE, NULL, NULL );			
@@ -1373,7 +1379,8 @@ int __stdcall HS_CallbackProc( long lCode, long lParamSize, void* pParam )
 			MessageBox( _g_hWnd, szMsg, "HSError", MB_OK );
 			// 게임 내에서 알림 메시지를 발생합니다.
 //			MsgBox (szMsg, "알림" ..);
-			// 게임종료를 권장함
+			// 게임종료를 권장함
+
 
 			//PostQuitMessage(0);
 			PostMessage( _g_hWnd, WM_CLOSE, NULL, NULL );

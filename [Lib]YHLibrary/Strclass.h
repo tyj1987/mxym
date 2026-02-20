@@ -92,11 +92,12 @@ public:
 	void OemToAnsi();
 #endif
 
-#ifndef _AFX_NO_BSTR_SUPPORT
-	// OLE 2.0 BSTR support (use for OLE automation)
-	BSTR AllocSysString();
-	BSTR SetSysString(BSTR* pbstr);
-#endif
+// OLE 2.0 BSTR support is disabled as YHLibrary doesn't use MFC
+// #ifndef _AFX_NO_BSTR_SUPPORT
+// 	// OLE 2.0 BSTR support (use for OLE automation)
+// 	BSTR AllocSysString();
+// 	BSTR SetSysString(BSTR* pbstr);
+// #endif
 
 	// Access to string implementation buffer as "C" character array
 	LPTSTR GetBuffer(int nMinBufLength);

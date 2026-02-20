@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GRID_H__9DFB8C60_7CEF_43AD_A940_90B800C0E178__INCLUDED_)
 #define AFX_GRID_H__9DFB8C60_7CEF_43AD_A940_90B800C0E178__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -58,8 +59,8 @@ public:
 	CObject* FindFirstMonsterInRange(CObject* pFinder,VECTOR3* pPos,float Range);
 
 	//////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// À¯È¿±×¸®µå³» ·£´ýÀ¸·Î Å¸°Ù ¼³Á¤
+	/// 06. 08. 2  - Ì¿
+	/// È¿×¸å³»  Å¸ 
 	CObject*	FindPlayerRandom();
 	void		FindPlayerRandom(CObject** ppObject);
 	//////////////////////////////////////////////////////////////////////////

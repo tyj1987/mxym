@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "HSEL.h"
+#include "D:\mxym\[Lib]HSEL\HSEL.h"
 
 class CCrypt  
 {

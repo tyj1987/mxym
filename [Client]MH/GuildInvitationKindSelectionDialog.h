@@ -1,5 +1,5 @@
 #pragma once
-#include "d:\darkstory\main_dev\[client]mh\interface\cdialog.h"
+#include "./interface/cDialog.h"
 
 class CGuildInvitationKindSelectionDialog :	public cDialog
 {

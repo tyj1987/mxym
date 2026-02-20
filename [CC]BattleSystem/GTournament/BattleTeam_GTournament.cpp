@@ -3,14 +3,15 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "../[CC]Header/ServerSystem.h"
 #include "BattleTeam_GTournament.h"
-#include "Guild.h"
+#include "../[Client]MH/Guild.h"
 
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 
 #ifdef _MAPSERVER_
-#include "objectstatemanager.h"
-#include "GuildTournamentMgr.h"
+#include "../[Client]MH/ObjectStateManager.h"
+#include "../[Client]MH/GuildTournamentMgr.h"
 #endif
 
 
@@ -126,7 +127,7 @@ void CBattleTeam_GTournament::ReturnToMap()
 		msg.dwData = pPlayer->GetReturnMapNum();
 		pPlayer->SendMsg( &msg, sizeof(msg) );
 
-		//¿¹¾à. 
+		//. 
 		//dwRemoveID[nRemoveCount] = pPlayer->GetID();
 		//++nRemoveCount;
 		list.AddTail(pPlayer);

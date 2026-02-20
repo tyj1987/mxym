@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 
 #define AUTONOTEMGR	USINGTON(CAutoNoteManager)
@@ -17,7 +18,7 @@ protected:
 	CYHHashTable< CAutoNoteRoom >			m_htAutoNoteRoom;
 	CMemoryPoolTempl< CAutoNoteRoom >*		m_pmpAutoNoteRoom;
 
-	BOOL	m_bInited;				// 기능 제어 변수로도 사용한다...
+	BOOL	m_bInited;				//   琯 磯...
 
 	BYTE*	m_pOriRaster[4];
 	BYTE*	m_pBGRaster;

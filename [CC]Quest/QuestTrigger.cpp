@@ -11,7 +11,7 @@
 #include "QuestExecute.h"
 #include "QuestEvent.h"
 #ifdef _MAPSERVER_
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ BOOL CQuestTrigger::ReadTrigger( CStrTokenizer* pTokens, DWORD dwQuestIdx, DWORD
 			m_pQuestCondition = CQuestScriptLoader::LoadQuestCondition( OneToken, pTokens, dwQuestIdx, dwSubQuestIdx );
 		else if( OneToken[0] == '*' )
 		{
-			// ¹Ýº¹Äù½ºÆ®ÀÇ È®ÀÎÀ» À§ÇØ¼­ Ãß°¡ RaMa - 04.10.26
+			// ÝºÆ® È® Ø¼ ß° RaMa - 04.10.26
 			CQuestExecute* pQuestExecute = CQuestScriptLoader::LoadQuestExecute( OneToken, pTokens, dwQuestIdx, dwSubQuestIdx );
 			if(pQuestExecute && pQuestExecute->GetQuestExecuteKind() == eQuestExecute_EndQuest)
 			{

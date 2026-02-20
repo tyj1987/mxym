@@ -4,16 +4,24 @@
 
 #include "stdafx.h"
 #include "AbilityManager.h"
-#include "MHFile.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\MHFile.h"
+#else
+#include "..\\[Client]MH\\MHFile.h"
+#endif
 #include "AbilityGroup.h"
 #include "AbilityUpdater.h"
-#include "Player.h"
+#include "..\[Server]Map\Player.h"
 #ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 #include "ChatManager.h"
-#else
-#include "MapDBMsgParser.h"
 #endif
-#include "QuickManager.h"
+#ifndef _MHCLIENT_LIBRARY_
+#include "..\[Client]MH\QuickManager.h"
+#endif
+#else
+#include "..\[Server]Map\MapDBMsgParser.h"
+#endif
 
 GLOBALTON(CAbilityManager);
 
@@ -94,7 +102,7 @@ void CAbilityManager::ReadCalcInfo()
 		pInfo->fNoAttrib = file.GetFloat();
 		pInfo->dwSkillDamage = file.GetDword();
 		pInfo->dwCriticalDamage = file.GetDword();
-		pInfo->dwTitanRidingPlusTime = file.GetDword();	//2007. 11. 6. CBH - Å¸ÀÌÅº ¼ÒÈ¯ ´ÜÃà ½Ã°£
+		pInfo->dwTitanRidingPlusTime = file.GetDword();	//2007. 11. 6. CBH - Å¸Åº È¯  Ã°
 		m_CalcInfoTable.Add( pInfo, level );
 	}
 
@@ -117,7 +125,7 @@ void CAbilityManager::Release()
 		delete pData;
 	m_CalcInfoTable.RemoveAll();
 
-	//SingletonÀ¸·Î ¸¸µë ¸Ş¸ğ¸® ÇØÁ¦ ÇÊ¿ä¾øÀ½
+	//Singleton  Ş¸  Ê¿
 	//PTRLISTSEARCHSTART(m_UpdaterList,CAbilityUpdater*,pUpdater)
 	//	delete pUpdater;
 	//PTRLISTSEARCHEND
@@ -155,14 +163,14 @@ int CAbilityManager::GetState(CAbilityGroup* pGroup,CAbilityInfo* pAbilityInfo)
 	if(pGroup->GetAbility(pAbilityInfo->GetIdx()) != NULL)
 		return eAIS_Usable;
 	
-	// º¸ÀÌ´ÂÁö °Ë»ç
+	// Ì´ Ë»
 	if( pAbilityInfo->GetInfo()->Ability_AcquireKind == eAAK_CharacterLevel )
 	{
 		ASSERT(pGroup->GetOwenerObject()->GetObjectKind() & eObjectKind_Player);
 		LEVELTYPE level = ((CPlayer*)pGroup->GetOwenerObject())->GetLevel();
 		LEVELTYPE needlevel = pAbilityInfo->GetInfo()->Ability_AcquireParam1;
-		// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-		// ÇÊ¿ä·¹º§ 100ÀÌ¸é ¾Èº¸ÀÌ°í ³ª¸ÓÁö´Â ÀÏ´Ü º¸ÀÎ´Ù
+		// 06. 01. Æ¼Ã¢ Ì½  - Ì¿
+		// Ê¿ä·¹ 100Ì¸ ÈºÌ°  Ï´ Î´
 		if(needlevel == 100)
 			return eAIS_NotUsable;
 		if( level >= needlevel )
@@ -184,8 +192,8 @@ int CAbilityManager::GetState(CAbilityGroup* pGroup,CAbilityInfo* pAbilityInfo)
 				return eAIS_OnlyVisible;
 		}
 
-		// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-		// È­°æ ±Ø¸¶ Á¶°Ç ¹ÌÇÊ½Ã ¾Æ¿¹ ¾Èº¸ÀÎ´Ù
+		// 06. 01. Æ¼Ã¢ Ì½  - Ì¿
+		// È­ Ø¸  Ê½ Æ¿ ÈºÎ´
 		return eAIS_NotUsable;
 	}
 
@@ -229,12 +237,14 @@ void CAbilityManager::GetAbilityTotalInfo(CAbilityGroup* pGroup,ABILITY_TOTALINF
 
 		if(pAbility->GetQuickPosition())
 		{
-			// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+			// 06. 01 Ì¿ - Ã¢ 
 			/*
 			pOutAbilityTotalInfo->AbilityQuickPositionArray[Kind][Position] = 
 				ABILITYQUICKPOSITION_KEY + pAbility->GetQuickPosition() - TP_QUICK_START;
 			*/
+#ifdef _MHCLIENT_
 			CQuickManager::AddAbilityQuickPosition(Kind, Position, pAbility->GetQuickPosition(), pOutAbilityTotalInfo);
+#endif
 		}
 	}
 }
@@ -252,7 +262,7 @@ BOOL CAbilityManager::UpgradeAbility(WORD AbilityIndex, CAbilityGroup* pAbilityG
 	if(!CanUpgrade(pAbilInfo, pAbilityGroup))
 		return FALSE;
 	
-	//ÀÍÈ÷·Á´Â ¾îºô ·¹º§
+	//  
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(AbilityIndex);
 	if(pAbility)
@@ -320,7 +330,7 @@ BOOL CAbilityManager::UpgradeAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pA
 		return FALSE;
 #endif
 	
-	//ÀÍÈ÷·Á´Â ¾îºô ·¹º§
+	//  
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(AbilityIndex);
 	if(pAbility)
@@ -328,7 +338,7 @@ BOOL CAbilityManager::UpgradeAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pA
 
 	DWORD NeedAbilityExp = pAbilInfo->GetAbilityGradeExp(AbilityLevel+1);
 
-	// RaMa - Æ¯±âÄ¡ÀçºĞ¹è°ü·Ã ¼öÁ¤ 
+	// RaMa - Æ¯Ä¡Ğ¹  
 	DWORD UseSkExp = pAbilityGroup->GetOwenerObject()->GetShopItemStats()->UseSkillPoint;
 	DWORD FromAbilityExp = pAbilityGroup->GetAbilityExp();
 	DWORD ToAbilityExp = FromAbilityExp;
@@ -401,7 +411,7 @@ BOOL CAbilityManager::DowngradeAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* 
 		return FALSE;
 #endif
 	
-	// »©·Á´Â ¾îºô ·¹º§
+	//   
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(AbilityIndex);
 	if(pAbility)
@@ -416,7 +426,7 @@ BOOL CAbilityManager::DowngradeAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* 
 
 	DWORD MinusAbilityExp = pAbilInfo->GetAbilityGradeExp(AbilityLevel);
 
-	// RaMa - Æ¯±âÄ¡ÀçºĞ¹è°ü·Ã ¼öÁ¤ 
+	// RaMa - Æ¯Ä¡Ğ¹  
 	DWORD SkillPoint = pAbilityGroup->GetOwenerObject()->GetShopItemStats()->SkillPoint;
 
 	if( MinusAbilityExp > SkillPoint )
@@ -435,13 +445,13 @@ BOOL CAbilityManager::DowngradeAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* 
 
 	if( AbilityLevel == 1 )
 	{
-		// »èÁ¦
+		// 
 		pAbilityGroup->DeleteAbility( pAbility, pAbility->GetQuickPosition() );
 		AbilityLevel = 0;
 	}
 	else
 	{
-		// ´Ù¿î
+		// Ù¿
 		pAbility->DecreaseLevel();
 		AbilityLevel = pAbility->GetLevel();
 	}
@@ -480,7 +490,7 @@ BOOL CAbilityManager::SetAbilityQuickPosition(WORD AbilityIndex, POSTYPE QuickPo
 
 BOOL CAbilityManager::CanUpgrade(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilityGroup)
 {
-	//ÀÍÈ÷·Á´Â ¾îºô ·¹º§
+	//  
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(pAbilInfo->GetIdx());
 	if(pAbility)
@@ -516,10 +526,10 @@ BOOL CAbilityManager::CanUpgrade(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilit
 				return FALSE;
 
 			////////////////////////////////////////////////////////////
-			// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-			// ÀüÅõÆ¯±â
-			// Æ¯±âÂÊ¿¡ ÀÚ¸®°¡ ¾ø¾î¼­ ¾îÂ¿¼ö ¾øÀÌ
-			// ·¹º§¾÷ Á¦ÇÑÀ» ÇÏµåÄÚµùÀ¸·Î Á¦ÇÑ
+			// 06. 06. 2  - Ì¿
+			// Æ¯
+			// Æ¯Ê¿ Ú¸ î¼­ Â¿ 
+			//   ÏµÚµ 
 			if(pAbility)
 			{
 				WORD index = pAbility->GetIndex();
@@ -544,7 +554,7 @@ BOOL CAbilityManager::CanUpgrade(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilit
 
 BOOL CAbilityManager::CanUpgradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilityGroup)
 {
-	//ÀÍÈ÷·Á´Â ¾îºô ·¹º§
+	//  
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(pAbilInfo->GetIdx());
 	if(pAbility)
@@ -567,7 +577,7 @@ BOOL CAbilityManager::CanUpgradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup* 
 
 BOOL CAbilityManager::CanDowngradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilityGroup)
 {
-	//ÀÍÈ÷·Á´Â ¾îºô ·¹º§
+	//  
 	BYTE AbilityLevel = 0;
 	CAbility* pAbility = pAbilityGroup->GetAbility(pAbilInfo->GetIdx());
 	if(pAbility)
@@ -595,7 +605,7 @@ BOOL CAbilityManager::CanDowngradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup
 	return TRUE;
 }
 
-// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
+// magi82(42) -  ß°(Ä¡ Ê±È­)
 BOOL CAbilityManager::ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbilityGroup)
 {
 	CPlayer* pPlayer = pAbilityGroup->GetOwenerObject();
@@ -611,13 +621,13 @@ BOOL CAbilityManager::ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbi
 	if( NULL == pInfo )
 		return FALSE;
 
-	// ¸®¼Â °¡´ÉÇÑ ½ºÅ³ÀÎÁö Ã¼Å©
+	//   Å³ Ã¼Å©
 #ifdef _MAPSERVER_
 	if( FALSE == CheckCanResetPoint(pPlayer, pInfo) )
 		return FALSE;
 #endif
 
-	// ÃÊ±âÈ­ ÇÏ·Á´Â ¼ö·ÃÄ¡
+	// Ê±È­ Ï· Ä¡
 	int nLevel = 0;
 	DWORD dwResetTotalPoint = 0;
 	DWORD dwPoint = 0;
@@ -626,7 +636,7 @@ BOOL CAbilityManager::ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbi
 	{
 		nLevel = pAbility->GetLevel();
 
-		// ÃÊ±âÈ­ µÇ´Â ¼ö·ÃÄ¡ÀÇ ÃÑ Æ÷ÀÎÆ®
+		// Ê±È­ Ç´ Ä¡  Æ®
 		for( int i = 0; i < nLevel; ++i )
 		{
             dwPoint = pInfo->GetAbilityGradeExp( i + 1 );
@@ -638,11 +648,11 @@ BOOL CAbilityManager::ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbi
 		return FALSE;
 	}
 
-	// ³²Àº ¼ö·ÃÄ¡ Æ÷ÀÎÆ® °»½Å
+	//  Ä¡ Æ® 
 	DWORD dwBeforePoint = pAbilityGroup->GetAbilityExp();
     	pAbilityGroup->SetAbilityExp( dwBeforePoint + dwResetTotalPoint );
 
-	// ½ºÅ³ »èÁ¦
+	// Å³ 
 	pAbilityGroup->DeleteAbility( pAbility, pAbility->GetQuickPosition() );
 	nLevel = 0;
 
@@ -657,18 +667,18 @@ BOOL CAbilityManager::ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbi
 	return TRUE; 
 }
 
-// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
+// magi82(42) -  ß°(Ä¡ Ê±È­)
 BOOL CAbilityManager::CheckCanResetPoint(CPlayer* pPlayer, CAbilityInfo* pAbilInfo)
 {
-	// 1ÀÌ¸é ¸®¼Â °¡´É, 0ÀÌ¸é ¸®¼Â ºÒ°¡´É
+	// 1Ì¸  , 0Ì¸  Ò°
 	if( 0 == pAbilInfo->GetResetFlag() )
 		return FALSE;
 	
-	// »ıÈ°Æ¯±âÁß ±âº»Æ¯±â´Â ÀçºĞ¹è ÇÒ ¼ö ¾ø´Ù.
+	// È°Æ¯ âº»Æ¯ Ğ¹   .
 	//if( pAbilInfo->GetInfo()->Ability_index >= 401 && pAbilInfo->GetInfo()->Ability_index <= 406 )
 	//	return FALSE;
 
-	// Áöµµ·ÂÀº ÃÊ±âÈ­ ÇÒ¼ö ¾ø´Ù.
+	//  Ê±È­ Ò¼ .
 #define ABILITY_LEADERSHIP	411
 	if( pPlayer->GetGuildMemberRank()==GUILD_MASTER &&
 		pAbilInfo->GetInfo()->Ability_index == ABILITY_LEADERSHIP )

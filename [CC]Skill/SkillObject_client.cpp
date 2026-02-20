@@ -6,6 +6,10 @@
 
 #ifdef _MHCLIENT_
 
+// åŒ…å«Object.hå’Œé€‚é…å™¨
+#include "..\\[Client]MH\\Object.h"
+#include "..\\[CC]Header\\Client\\ClientObjectAdapter.h"
+
 #include "SkillObject_Client.h"
 #include "SkillInfo.h"
 #include "ActionTarget.h"
@@ -15,7 +19,7 @@
 #include "SkillObjectStateUnit.h"
 
 #include "ObjectManager.h"
-#include "ObjectStateManager.h"
+#include "..\\[Client]MH\\ObjectStateManager.h"
 
 #include "GameIn.h"
 #include "BattleSystem_Client.h"
@@ -24,6 +28,7 @@
 #include "OptionManager.h"
 #include "SkillManager_Client.h"
 #include "CharacterDialog.h"
+#include "MHNetwork.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -50,8 +55,8 @@ CSkillObject::CSkillObject( CSkillInfo* pSkillInfo,
 	m_hObjectEff = NULL;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	m_OptionIndex = 0;
 	//////////////////////////////////////////////////////////////////////////
 }
@@ -78,8 +83,8 @@ CSkillObject::~CSkillObject()
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	m_OptionIndex = 0;
 	//////////////////////////////////////////////////////////////////////////
 }
@@ -107,9 +112,9 @@ void CSkillObject::SetOperatorState()
 		if(!bBinding)
 		{
 			//////////////////////////////////////////////////
-			// 06. 07. SAT º¯°æ - ÀÌ¿µÁØ
-			// ³²¿© ±¸ºÐÀÇ ÀÇ¹Ì°¡ ¾øÀ¸¹Ç·Î
-			// ¿©ÄÉ¸¯ µ¥ÀÌÅÍ¸¦ È°¿ë ¹«ÃÊ µô·¹ÀÌ °¨¼Ò¿¡ ¾´´Ù
+			// 06. 07. SAT ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+			// ï¿½ï¿½ï¿½É¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 			//StateEndTime = m_pSkillInfo->GetSkillOperateAnimationTime(pPlayer->GetGender());
 			StateEndTime = m_pSkillInfo->GetSkillOperateAnimationTime( 0 );
 			//////////////////////////////////////////////////
@@ -227,19 +232,19 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList)
 	SetOperatorState();
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
-	// º¸Á¶Çü(»ý¸í·Â,³»·Â,È£½Å°­±â,¹æ¾î·Â,¼Ó¼º¹æ¾î·Â) Àû¿ë
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,È£ï¿½Å°ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½
 
-	// »ç¿ëÀÚ°¡ ÇÃ·¹ÀÌ¾îÀÏ¶§
+	// ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½Ï¶ï¿½
 	if(m_pOperator->GetObjectKind() == eObjectKind_Player)
 	{
-		// ½ºÅ³ ¿É¼ÇÀ» °¡Á®¿Â´Ù
+		// ï¿½ï¿½Å³ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 		m_OptionIndex = pInfo->Option;
 		SKILLOPTION* pSkillOption = SKILLMGR->GetSkillOption(m_OptionIndex);
 		SKILLSTATSOPTION* pSkillStatsOption = ((CPlayer*)m_pOperator)->GetSkillStatsOption();
 
-		// ÀÖÀ¸¸é 
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		if(pSkillOption)
 		{
 			m_pTargetList->SetPositionHead();
@@ -247,14 +252,14 @@ void CSkillObject::Init(SKILLOBJECT_INFO* pInfo,CTargetList* pTList)
 
 			while(1)
 			{
-				// Å¸°ÙÀ» °¡Á®¿Â´Ù
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 				pTarget = m_pTargetList->GetNextTarget();
 
-				// ¾øÀ¸¸é Á¾·á
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(!pTarget)
 					break;
 
-				// Å¸°ÙÀÌ ÇÃ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é ´ÙÀ½ Å¸°ÙÀ¸·Î ÆÐ½º
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
 				if(pTarget->GetObjectKind() != eObjectKind_Player)
 					continue;
 
@@ -297,7 +302,7 @@ void CSkillObject::EndObjectEffect()
 	m_hObjectEff = NULL;	
 }
 
-void CSkillObject::Release()			// CObject Release°¡ È£Ãâ µÇ´Â °ÍÀ» ¸·±â À§ÇÔ
+void CSkillObject::Release()			// CObject Releaseï¿½ï¿½ È£ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 {
 
 }
@@ -305,18 +310,18 @@ void CSkillObject::Release()			// CObject Release°¡ È£Ãâ µÇ´Â °ÍÀ» ¸·±â À§ÇÔ
 void CSkillObject::ReleaseSkillObject()
 {
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
-	// º¸Á¶Çü(»ý¸í·Â,³»·Â,È£½Å°­±â,¹æ¾î·Â,¼Ó¼º¹æ¾î·Â) Àû¿ë
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,È£ï¿½Å°ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½
 
-	// »ç¿ëÀÚ°¡ ÇÃ·¹ÀÌ¾îÀÏ¶§
+	// ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½Ï¶ï¿½
 	if(m_pOperator->GetObjectKind() == eObjectKind_Player)
 	{
-		// ½ºÅ³ ¿É¼ÇÀ» °¡Á®¿Â´Ù
+		// ï¿½ï¿½Å³ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 		SKILLOPTION* pSkillOption = SKILLMGR->GetSkillOption(m_OptionIndex);
 		SKILLSTATSOPTION* pSkillStatsOption = ((CPlayer*)m_pOperator)->GetSkillStatsOption();
 
-		// ÀÖÀ¸¸é 
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		if(pSkillOption)
 		{
 			m_pTargetList->SetPositionHead();
@@ -324,14 +329,14 @@ void CSkillObject::ReleaseSkillObject()
 
 			while(1)
 			{
-				// Å¸°ÙÀ» °¡Á®¿Â´Ù
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 				pTarget = m_pTargetList->GetNextTarget();
 
-				// ¾øÀ¸¸é Á¾·á
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(!pTarget)
 					break;
 
-				// Å¸°ÙÀÌ ÇÃ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é ´ÙÀ½ Å¸°ÙÀ¸·Î ÆÐ½º
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
 				if(pTarget->GetObjectKind() != eObjectKind_Player)
 					continue;
 
@@ -355,10 +360,10 @@ void CSkillObject::ReleaseSkillObject()
 		PTRLISTSEARCHEND;
 	}
 
-	// Operator µé »óÅÂ Ã³¸®
+	// Operator ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	EndOperatorState();
 
-	// TargetList ¾È¿¡ ÀÖ´Â »ç¶÷µé Ã³¸®
+	// TargetList ï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	
 	m_pFirstUnit->Release();
 	m_pTargetList->Release(this);
@@ -397,13 +402,13 @@ DWORD CSkillObject::Update()
 #endif
 
 	if(m_SkillObjectMoveType != 0)
-	{	// ½ºÅ³ ¿ÀºêÁ§Æ®ÀÇ ÀÌµ¿Ã³¸®
+	{	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìµï¿½Ã³ï¿½ï¿½
 		if(m_SkillObjectMoveType == 1)
-		{	// Å¸°ÙÂÊÀ¸·Î ÀÌµ¿
+		{	// Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 			
 		}
 		else if(m_SkillObjectMoveType == 2)
-		{	// Operator ÇÑÅ× ºÙÀ½
+		{	// Operator ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			VECTOR3 pos;
 			m_pOperator->GetPosition(&pos);
 			SetPosition(&pos);
@@ -414,7 +419,7 @@ DWORD CSkillObject::Update()
 		}		
 	}
 
-	if(m_IsHeroSkill)		// ÁÖÀÎ°øÀÌ ¾²°í ÀÖ´Â ½ºÅ³ÀÌ¸é
+	if(m_IsHeroSkill)		// ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å³ï¿½Ì¸ï¿½
 	{
 		OBJECTMGR->UpdateTargetList_Monster(this);
 	}
@@ -428,7 +433,7 @@ DWORD CSkillObject::Update()
 	
 	if(m_pTerminator->CheckTerminate(&m_SkillObjectInfo) == TRUE)
 	{
-		//Á¾·áÃ³¸®
+		//ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 		return SO_DESTROYOBJECT;
 	}
 
@@ -494,7 +499,7 @@ void CSkillObject::AddTargetObject(CObject* pObject,BYTE bTargetKind)
 	m_pTargetList->AddTargetObject(pObject,bTargetKind);
 	
 	//////////////////////////////////////////////////////////////////////////
-	// YH2DO Positive Negative Å¸°Ù Àû¿ë
+	// YH2DO Positive Negative Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	PTRLISTSEARCHSTART(m_StateUnitList,CSkillObjectStateUnit*,pStateUnit)
 		pStateUnit->StartState(pObject,bTargetKind);
 	PTRLISTSEARCHEND;
@@ -512,7 +517,7 @@ void CSkillObject::RemoveTargetObject(DWORD ObjectID)
 	if(pObject)
 	{
 		//////////////////////////////////////////////////////////////////////////
-		// YH2DO Positive Negative Å¸°Ù Àû¿ë
+		// YH2DO Positive Negative Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		PTRLISTSEARCHSTART(m_StateUnitList,CSkillObjectStateUnit*,pStateUnit)
 			pStateUnit->EndState(pObject,bTargetKind);
 		PTRLISTSEARCHEND;
@@ -587,13 +592,13 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 	{
 	case SKILLTARGETTYPE_ENEMY:
 		{
-			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ¼ÓÇÑ º£Æ²À» ¾ò¾î¿Â´Ù.
+			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			return pBattle->IsEnemy(m_pOperator,pObject);
 		}
 		break;
 	case SKILLTARGETTYPE_TEAMMATE:
 		{
-			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ¼ÓÇÑ º£Æ²À» ¾ò¾î¿Â´Ù.
+			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			return pBattle->IsFriend(m_pOperator,pObject);
 		}
 		break;
@@ -605,7 +610,7 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 		break;
 	case SKILLTARGETTYPE_ENEMYANDTEAM:
 		{
-			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ¼ÓÇÑ º£Æ²À» ¾ò¾î¿Â´Ù.
+			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			if(pBattle->IsEnemy(m_pOperator,pObject))
 				return TRUE;
 			if(pBattle->IsFriend(m_pOperator,pObject))
@@ -616,7 +621,7 @@ BOOL CSkillObject::TargetTypeCheck(WORD TargetType,CObject* pObject)
 		break;
 	case SKILLTARGETTYPE_NOTENEMYTARGET:
 		{
-			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ¼ÓÇÑ º£Æ²À» ¾ò¾î¿Â´Ù.
+			CBattle* pBattle = BATTLESYSTEM->GetBattle(m_pOperator->GetBattleID());	// m_pOperator ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			if(pBattle->IsEnemy(m_pOperator,pObject))
 				return FALSE;
 
@@ -655,10 +660,10 @@ void CSkillObject::SetMotionInState(BYTE State)
 void CSkillObject::Damage(CObject* pAttacker,BYTE DamageKind,DWORD Damage,BOOL bCritical, BOOL bDecisive, DWORD titanObserbDamage)
 {
 //	if( pAttacker )
-//	if( pAttacker == HERO || PARTYMGR->IsPartyMember( pAttacker->GetID() ) )	//ÀÚ½ÅÀÇ µ¥¹ÌÁö ¹øÈ£¸¸ Ç¥½Ã //KES 040801
+//	if( pAttacker == HERO || PARTYMGR->IsPartyMember( pAttacker->GetID() ) )	//ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Ç¥ï¿½ï¿½ //KES 040801
 //		EFFECTMGR->AddDamageNumber(Damage,pAttacker,this,DamageKind,bCritical);
 
-	//SW050804 ¿É¼ÇÃ¢ ÆÄÆ¼µ¥¹ÌÁö º¸±â Ãß°¡
+	//SW050804 ï¿½É¼ï¿½Ã¢ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	if( pAttacker )
 	{
 		if( OPTIONMGR->IsShowMemberDamage() )

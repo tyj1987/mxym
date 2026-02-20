@@ -1,5 +1,6 @@
 #ifndef _EXCHANGEROOM_H
 #define _EXCHANGEROOM_H
+#include "..\[CC]Header\CommonStruct.h"
 
 #define MAX_EXCHANGEITEM	10
 

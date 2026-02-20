@@ -47,10 +47,11 @@ BOOL cStreetStall::FillCell( ITEMBASE* pBase, DWORD money, BOOL bLock, DWORD Vol
 			ASSERT(0);
 			return TRUE;
 		}
-		
+
 		pSlot->SetLock(pBase->Position, bLock);
-		
-		for(int n = 0; n<MAX_STREETSTALL_CELLNUM;++n)
+
+		int n;
+		for(n = 0; n<MAX_STREETSTALL_CELLNUM;++n)
 		{
 			if( !m_sArticles[n].bFill )
 				break;
@@ -60,7 +61,7 @@ BOOL cStreetStall::FillCell( ITEMBASE* pBase, DWORD money, BOOL bLock, DWORD Vol
 		if( pBase->wIconIdx == 0 ) return FALSE;
 	}
 	else if(m_wStallKind == eSK_BUY)
-	{	// ±¸¸Å ³ëÁ¡ÀÇ °æ¿ì µ¥ÀÌÅÍ°¡ ÀÖÀ¸¸é µ¤¾î ¾º¿î´Ù
+	{	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		pos = wAbsPosition;
 		if(m_sArticles[pos].bFill)
 			EmptyCell( pos );
@@ -106,10 +107,11 @@ void cStreetStall::EmptyCell( ITEMBASE* pBase, eITEMTABLE tableIdx )
 			bSetItemSlot = FALSE;
 		}
 	}
-	else 
+	else
 		bSetItemSlot = FALSE;
 
-	for(int n = 0; n<MAX_STREETSTALL_CELLNUM;++n)
+	int n;
+	for(n = 0; n<MAX_STREETSTALL_CELLNUM;++n)
 	{
 		if( m_sArticles[n].bFill )
 		{
@@ -120,7 +122,7 @@ void cStreetStall::EmptyCell( ITEMBASE* pBase, eITEMTABLE tableIdx )
 
 	pos = n;
 	if(  pos == MAX_STREETSTALL_CELLNUM ) return;
-	if( !m_sArticles[pos].bFill ) return; // ÀÌ¹Ì ºñ¿öÁ® ÀÖ´Ù..
+	if( !m_sArticles[pos].bFill ) return; // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..
 
 	pSlot->SetLock(m_sArticles[pos].sItemBase.Position, FALSE);
 	
@@ -153,7 +155,7 @@ void cStreetStall::EmptyCell( ITEMBASE* pBase, eITEMTABLE tableIdx )
 void cStreetStall::EmptyCell( POSTYPE pos )
 {
 	if(  pos == MAX_STREETSTALL_CELLNUM ) return;
-	if( !m_sArticles[pos].bFill ) return; // ÀÌ¹Ì ºñ¿öÁ® ÀÖ´Ù..
+	if( !m_sArticles[pos].bFill ) return; // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..
 
 	m_nTotalMoney -= (m_sArticles[pos].dwMoney * m_sArticles[pos].wVolume);
 	m_sArticles[pos].Init();
@@ -223,8 +225,8 @@ void cStreetStall::EmptyCellAll()
 
 void cStreetStall::SetMoney( WORD pos, DWORD money )
 {
-	if( pos > MAX_STREETSTALL_CELLNUM ) return; // °¹¼ö¸¦ ÃÊ°úÇÑ´Ù??
-	if( !m_sArticles[pos].bFill ) return; // ºñ¿öÁ® ÀÖ´Ù..
+	if( pos > MAX_STREETSTALL_CELLNUM ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ñ´ï¿½??
+	if( !m_sArticles[pos].bFill ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..
 	if( m_sArticles[pos].bLock ) return;
 
 	m_sArticles[pos].dwMoney = money;
@@ -232,22 +234,22 @@ void cStreetStall::SetMoney( WORD pos, DWORD money )
 
 void cStreetStall::SetVolume( WORD pos, WORD Volume )
 {
-	if( pos > MAX_STREETSTALL_CELLNUM ) return; // °¹¼ö¸¦ ÃÊ°úÇÑ´Ù??
-	if( !m_sArticles[pos].bFill ) return; // ºñ¿öÁ® ÀÖ´Ù..
+	if( pos > MAX_STREETSTALL_CELLNUM ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ñ´ï¿½??
+	if( !m_sArticles[pos].bFill ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..
 	if( m_sArticles[pos].bLock ) return;
 	
 	m_sArticles[pos].wVolume = Volume;
 }
 
-void cStreetStall::ChangeCellState( WORD pos, BOOL bLock ) // (ÁÖÀÇ)µî·Ï°ú´Â ´Ù¸£°Ô ¹è¿­ÀÇ ÀÎµ¦½º°¡ ³Ñ¾î¿Â´Ù.
+void cStreetStall::ChangeCellState( WORD pos, BOOL bLock ) // (ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½Â´ï¿½.
 {
 	if(!m_pOwner) 
 	{
 		return;
 	}
 
-	if( pos > MAX_STREETSTALL_CELLNUM ) return; // °¹¼ö¸¦ ÃÊ°úÇÑ´Ù??
-	if( !m_sArticles[pos].bFill ) return; // ºñ¿öÁ® ÀÖ´Ù..
+	if( pos > MAX_STREETSTALL_CELLNUM ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ñ´ï¿½??
+	if( !m_sArticles[pos].bFill ) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..
 	if( m_sArticles[pos].bLock == bLock ) return;
 	if( m_wStallKind == eSK_BUY ) return;
 
@@ -428,7 +430,7 @@ BOOL cStreetStall::IsFull()
 }
 
 
-/* ¼Õ´ÔÀÇ »óÅÂ º¯°æ Flag Ãß°¡ 03.12.26 */
+/* ï¿½Õ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Flag ï¿½ß°ï¿½ 03.12.26 */
 void cStreetStall::SendMsgGuestAll( MSGBASE* pMsg, int nMsgLen, BOOL bChangeState )
 {
 	PTRLISTPOS pos =  m_GuestList.GetHeadPosition();

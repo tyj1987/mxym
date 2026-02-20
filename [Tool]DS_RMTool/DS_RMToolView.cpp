@@ -70,7 +70,7 @@ void CDS_RMToolView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BTN_RECOVER, m_btnRecover);
 	//}}AFX_DATA_MAP
 
-	// Á¤º¸Ã¢ °ü·Ã º¯¼ö
+	// ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for( int i = 0; i < eUserTemp_MAX; ++i )
 		DDX_Control(pDX, IDC_USER_ID+i, m_StatusEdit[i]);	
 }
@@ -135,7 +135,7 @@ void CDS_RMToolView::OnInitialUpdate()
 		m_btnRecover.EnableWindow( FALSE );	
 	}
 
-	// Control ÃÊ±âÈ­
+	// Control ï¿½Ê±ï¿½È­
 	InitUserInfo();
 	InitListControl();	
 
@@ -171,7 +171,7 @@ void CDS_RMToolView::InitListControl()
 	char* column[4] = { "UserIdx", "CharacterIdx", "CharacterName", "CreateDate" };
 	int columnsize[4] = { 80, 100, 120, 120 };
 	
-	// listctrl column ¼³Á¤
+	// listctrl column ï¿½ï¿½ï¿½ï¿½
 	LV_COLUMN lvcolumn;
 	lvcolumn.mask = LVCF_FMT | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH;
 	lvcolumn.fmt = LVCFMT_CENTER;
@@ -190,11 +190,11 @@ void CDS_RMToolView::InitListControl()
 	char* tcolumn[8] = { "ChrIdx", "State", "Name", "CreateDate", "IP", "DeleteDate", "IP", "RecoverDate" };
 	int tcolumnsize[8] = { 50, 70, 80, 120, 80, 120, 80, 120 };
 	
-	// listctrl column ¼³Á¤
+	// listctrl column ï¿½ï¿½ï¿½ï¿½
 	lvcolumn;
 	lvcolumn.mask = LVCF_FMT | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH;
 	lvcolumn.fmt = LVCFMT_CENTER;
-	for( i = 0; i < 8; ++i )
+	for( int i = 0; i < 8; ++i )
 	{
 		lvcolumn.iSubItem = i;
 		lvcolumn.cx = tcolumnsize[i];
@@ -246,7 +246,7 @@ void CDS_RMToolView::SetSimpleCharInfo( BYTE Count, SIMPlECHARACTERINFO* simple 
 
 	for( int i = 0; i < Count; ++i )
 	{
-		lvitem.iItem = m_lcCharInfo.GetItemCount();	// Çà
+		lvitem.iItem = m_lcCharInfo.GetItemCount();	// ï¿½ï¿½
 		
 		lvitem.iSubItem = 0;
 		lvitem.mask = LVIF_TEXT;
@@ -270,7 +270,7 @@ void CDS_RMToolView::SetCharacterCreateInfo( BYTE Count, CHARACTERCREATEINFO* pI
 
 	for( int i = 0; i < Count; ++i )
 	{
-		lvitem.iItem = m_listCharacter.GetItemCount();	// Çà
+		lvitem.iItem = m_listCharacter.GetItemCount();	// ï¿½ï¿½
 		
 		lvitem.iSubItem = 0;
 		lvitem.mask = LVIF_TEXT;
@@ -329,7 +329,7 @@ void CDS_RMToolView::OnUserbtnSearch()
 		return;
 	}
 
-	// ¼­¹ö¿¡ °Ë»ö ¿äÃ»
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½Ã»
 	TMSG_QUERYMEMBERNUM Msg;
 	Msg.Category = MP_RMTOOL_USER;
 	Msg.Protocol = MP_RMTOOL_QUERY_MEMBERNUM_SYN;
@@ -362,7 +362,7 @@ void CDS_RMToolView::OnDblclkListCharInfo(NMHDR* pNMHDR, LRESULT* pResult)
 	DWORD dwCharIdx = (DWORD)atoi( (char*)(LPCTSTR)str );
 	DWORD dwServer = MASINFOMGR->GetCurMasInfo()->nServerSet;
 
-	// character Temp¸¦ ¿­°í character Idx¸¦ ³Ñ±ä´Ù.
+	// character Tempï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ character Idxï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
 	CDS_RMToolApp* pApp = (CDS_RMToolApp*)AfxGetApp();
 	CCharacterDoc* pCharDoc = (CCharacterDoc*)pApp->OpenNewTemplate(eTemp_Character);
 
@@ -398,7 +398,7 @@ void CDS_RMToolView::OnDblclkListChar(NMHDR* pNMHDR, LRESULT* pResult)
 	DWORD dwCharIdx = (DWORD)atoi( (char*)(LPCTSTR)str );
 	DWORD dwServer = MASINFOMGR->GetCurMasInfo()->nServerSet;
 
-	// character Temp¸¦ ¿­°í character Idx¸¦ ³Ñ±ä´Ù.
+	// character Tempï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ character Idxï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
 	CDS_RMToolApp* pApp = (CDS_RMToolApp*)AfxGetApp();
 	CCharacterDoc* pCharDoc = (CCharacterDoc*)pApp->OpenNewTemplate(eTemp_Character);
 

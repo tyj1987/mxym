@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GUILDMANAGER_H__FE162F77_2547_40A8_8C25_54C49BC0ED05__INCLUDED_)
 #define AFX_GUILDMANAGER_H__FE162F77_2547_40A8_8C25_54C49BC0ED05__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -19,7 +20,7 @@ class CGuild;
 class CGuildMark;
 class CItemSlot;
 
-//SW060719 문파포인트
+//SW060719 트
 enum GuildPointAddKind
 {
 	eGM_CheatGuildPoint,
@@ -97,12 +98,12 @@ struct GUILDPLUSTIME_INFO
 
 class CGuildManager  
 {
-	//SW060719 문파포인트
+	//SW060719 트
 	static int	m_gPlustimeKindNum;
 	GUILDPOINT_RULE	m_GuildPointRule;
-	DWORD	m_CHECKTIMELEN_GuildHuntedMonsterCounter;	//맵 누적 몬스터사냥카운트 DB갱신 주기
-	DWORD	m_dwLastDBUpdateTime;	//이전 갱신 시각
-	WORD	m_wCurDateCheckForConverCount;	//몬스터 사냥 포인트 정산을 위한 날짜 체크.
+	DWORD	m_CHECKTIMELEN_GuildHuntedMonsterCounter;	//  敲카트 DB 殮
+	DWORD	m_dwLastDBUpdateTime;	//  챨
+	WORD	m_wCurDateCheckForConverCount;	//  트   짜 체크.
 
 	DWORD	m_CheckTimeForGuildPlustimeEnd;
 
@@ -111,7 +112,7 @@ class CGuildManager
 
 	cPtrList	m_GuildPlustimeUsingGuildList;
 
-	//magi82 - 문하생 가입편리시스템 /////////////////////////////////////////
+	//magi82 - 矩 첵 /////////////////////////////////////////
 	cPtrList m_GuildTraineeList;
 	cPtrList m_GuildTraineeGuildList;
 	cPtrList m_GuildTraineeGuildIntroInfoList;
@@ -161,7 +162,7 @@ public:
 	
 	void AddMemberSyn(CPlayer* pMaster, DWORD TargetIdx);
 	void AddMemberResult(CPlayer* pTarget, DWORD MasterIdx);
-	void DeleteMunhaJoinInfo(DWORD TargetIdx);	// magi82 - 문하생관련(070125)
+	void DeleteMunhaJoinInfo(DWORD TargetIdx);	// magi82 - 矩(070125)
 	
 	CGuild* GetGuild(DWORD GuildIdx);
 	CGuild* GetGuildFromMasterIdx( DWORD dwMasterIdx );
@@ -207,7 +208,7 @@ public:
 	
 	void MemberLevelUp(DWORD GuildIdx, DWORD PlayerIdx, LEVELTYPE PlayerLvl);
 	
-	void SendGuildName(CPlayer* pPlayer, DWORD dwGuildIdx, char * GuildName); // ban, secede, breakup 시는 안보냄. 길드 이름이 없으므로 클라이언트에서 markchange 0 에서 처리
+	void SendGuildName(CPlayer* pPlayer, DWORD dwGuildIdx, char * GuildName); // ban, secede, breakup 척 횐.  見 퓐 클潔트 markchange 0  처
 	
 	void SetLogInfo(CGuild* pGuild, DWORD PlayerIdx, BOOL vals);
 	
@@ -216,24 +217,24 @@ public:
 	void	MsgChangeLocationSyn( void* pMsg );
 	void	MsgChangeLocationNotifyToMap( void* pMsg );
 	void	MsgGuildNoteSyn( void* pMsg );
-	// 06. 03. 문파공지 - 이영준
+	// 06. 03. 캅 - 結
 	void	MsgGuildNoticeSyn( void* pMsg );
 	void	MsgGuildNoticeNotify( void* pMsg );
 	void	RegistGuildNotice(DWORD GuildIdx, char* Notice);
 
-	//SW060526 문파창고 아이템 정보저장 시점 변경
-	void	SetGuildItemInfoInited(DWORD dwGuildIdx, BOOL bInit);	//초기화 상태 세팅
-	void	SendGuildItemInfoToAllWarehouseMember(DWORD dwGuildIdx);	//초기정보 대기중인 문파원들에게 아이템정보 보낸다.
+	//SW060526 창    
+	void	SetGuildItemInfoInited(DWORD dwGuildIdx, BOOL bInit);	//珂화  
+	void	SendGuildItemInfoToAllWarehouseMember(DWORD dwGuildIdx);	//珂  커涌�  .
 
-	//SW060713 문하생
+	//SW060713 矩
 	void	AddStudentSyn(CPlayer* pMaster, DWORD TargetPlayerID);
 	BOOL	CanEntryGuildForStudent(char* date);
 	void	AddStudentResult(CPlayer* pTarget, DWORD MasterID);
-	//magi82 - 문하생 가입편리시스템 /////////////////////////////////////////
+	//magi82 - 矩 첵 /////////////////////////////////////////
 	void	AddStudentResult(DWORD TargetID, DWORD MasterID);
 	//////////////////////////////////////////////////////////////////////////
 
-	//SW060719 문파포인트
+	//SW060719 트
 	BOOL	LoadGuildPointRule();
 	GUILDPLUSTIME_INFO* GetGuildPointPlustimeList()	{	return m_pGuildPlustimeInfo;	}
 
@@ -276,14 +277,14 @@ public:
 	void	CheckGuildPlustimeEnd();
 
 	BOOL	CheckValidPlustimeKind(GUILDPOINT_INFO* pGPInfo, DWORD GuildIdx, DWORD plusTimeKind);
-	//magi82 - 문하생 가입편리시스템 /////////////////////////////////////////
+	//magi82 - 矩 첵 /////////////////////////////////////////
 	void AddGuildTraineeInfo(GUILD_TRAINEE_LIST* temp);
 	void AddGuildTraineeGuildInfo(GUILD_TRAINEE_GUILDLIST* temp);
 	void AddGuildTraineeGuildIntroInfo(GUILD_INTRO_INFO* temp);
 	//////////////////////////////////////////////////////////////////////////
 
-	//SW070103 문파포인트개선	//문하생 렙업에 따른 포인트 누적. 축하금
-	//누적포인트 DB업데이트
+	//SW070103 트	//矩   트 . 歐
+	//트 DB트
 	void GuildStudentLvUpPointDBUpdate(CPlayer* pPlayer);
 	void SetGuildStudentLvUpCount(DWORD GuildIdx, DWORD GuildStudentLvUpCount, BOOL bMasterChecking);
 
@@ -292,7 +293,7 @@ public:
 
 	cPtrList * GetGuildTraineeList()	{ return &m_GuildTraineeList; };
 
-	//SW080515 함수 추가.
+	//SW080515 獨 煞.
 	BOOL	IsSameGuild(CPlayer* pPlayerA, CPlayer* pPlayerB);
 };
 

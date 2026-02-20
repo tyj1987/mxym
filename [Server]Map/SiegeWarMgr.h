@@ -4,6 +4,7 @@
 
 #if !defined(AFX_SIEGEWARMGR_H__0620B52A_B018_4B66_9EF9_6A9D6703763D__INCLUDED_)
 #define AFX_SIEGEWARMGR_H__0620B52A_B018_4B66_9EF9_6A9D6703763D__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -14,7 +15,7 @@
 
 #define SIEGEWARMGR CSiegeWarMgr::GetInstance()
 
-// »óÂ¡¹°°úÀÇ °Å¸®Ã¼Å©.. ²ÀÇØÁÖÀÚ.
+// Â¡ Å¸Ã¼Å©.. .
 enum
 {
 	NAKYANG_SYMBOL,
@@ -66,11 +67,11 @@ enum eSW_State
 enum eSW_GuildType
 {
 	eSWGuildState_None=0,
-	eSWGuildState_CastleGuild,				// ¼º¹®ÆÄ
-	eSWGuildState_DefenceGuild,				// ¼ö¼º¹®ÆÄ
-	eSWGuildState_DefenceProposalGuild,		// ¼ö¼º½ÅÃ» ¹®ÆÄ
-	eSWGuildState_AttackGuild,				// °ø¼º½ÅÃ» ¹®ÆÄ
-	eSWGuildState_CastleUnionGuild,			// ¼ºµ¿¸Í±æµå
+	eSWGuildState_CastleGuild,				// 
+	eSWGuildState_DefenceGuild,				// 
+	eSWGuildState_DefenceProposalGuild,		// Ã» 
+	eSWGuildState_AttackGuild,				// Ã» 
+	eSWGuildState_CastleUnionGuild,			// Í±
 };
 
 enum eSW_GateKind
@@ -85,41 +86,41 @@ enum eSW_GateKind
 
 class CSiegeWarMgr  
 {
-	CYHHashTable<CGuild>		m_DefenceProposalList;		// ¼ö¼º½ÅÃ» ´ë±â¹®ÆÄ
-	CYHHashTable<CGuild>		m_DefenceAcceptList;		// ¼ö¼º ¹®ÆÄ
-	CYHHashTable<CGuild>		m_AttackGuildList;			// °ø¼ºÃø ¹®ÆÄ
-	CYHHashTable<CGuild>		m_AttackUnionList;			// °ø¼ºÃø µ¿¸Í ¸®½ºÆ® - °°Àºµ¿¸ÍÀÌ ¼ö¼º,°ø¼ºÀ¸·Î ³ª´µÁö ¾Êµµ·Ï ÇÏ±âÀ§ÇØ
+	CYHHashTable<CGuild>		m_DefenceProposalList;		// Ã» â¹®
+	CYHHashTable<CGuild>		m_DefenceAcceptList;		//  
+	CYHHashTable<CGuild>		m_AttackGuildList;			//  
+	CYHHashTable<CGuild>		m_AttackUnionList;			//   Æ® -  ,  Êµ Ï±
 	
 	CBattle_SiegeWar*			m_pBattle;	
 
 	DWORD			m_SiegeWarIdx;
 	DWORD			m_SiegeWarState;			// Process State
-	DWORD			m_CastleUnionIdx;			// ¼ºÁÖ µ¿¸ÍIdx
-	DWORD			m_CastleGuildIdx;			// ¼ºÁÖ ±æµåIdx
-	stTIME			m_SiegeWarTime[2];			// 0-¼ö¼º¼±Æ÷ÀÏ, 1-°ø¼ºÀÏ
+	DWORD			m_CastleUnionIdx;			//  Idx
+	DWORD			m_CastleGuildIdx;			//  Idx
+	stTIME			m_SiegeWarTime[2];			// 0-, 1-
 
-	// ¸¶À»¸Ê°ú °ø¼º¸ÊÀÇ ÀÎµ¦½º		0-¸¶À», 1-°ø¼º¸Ê, 2...->¿µÇâ¹Þ´Â ¸Ê¹øÈ£
+	// Ê°  Îµ		0-, 1-, 2...->Þ´ Ê¹È£
 	DWORD			m_SiegeWarMapNum[SIEGEWAR_MAX_SIEGEMAP][SIEGEWAR_MAX_AFFECTED_MAP];	
-	DWORD			m_SiegeMapCount;			// ÀüÃ¼ °ø¼º¸Ê °¹¼ö
+	DWORD			m_SiegeMapCount;			// Ã¼  
 
-	DWORD			m_TaxRate;					// ¼¼±ÝºñÀ²
-	DWORD			m_EngraveIdx;				// °¢ÀÎÁßÀÎ Ä³¸¯ÅÍIdx
-	DWORD			m_EngraveTimer;				// °¢ÀÎÁß ½Ã°£°è»ê
-	DWORD			m_EngraveGuildIdx;			// °¢ÀÎ¿¡ ¼º°øÇÑ GuildIdx
+	DWORD			m_TaxRate;					// Ýº
+	DWORD			m_EngraveIdx;				//  Ä³Idx
+	DWORD			m_EngraveTimer;				//  Ã°
+	DWORD			m_EngraveGuildIdx;			// Î¿  GuildIdx
 
-	DWORD			m_SiegeWarSuccessTimer;		// °ø¼º¼º°øÈÄ Á¤º¸°»½Å Å¸ÀÌ¸Ó
-	DWORD			m_SiegeWarEndTimer;			// °ø¼ºÁ¾·áÈÄ ³ª°¥¶§ ±îÁö ½Ã°£°è»ê Å¸ÀÌ¸Ó
+	DWORD			m_SiegeWarSuccessTimer;		//   Å¸Ì¸
+	DWORD			m_SiegeWarEndTimer;			//    Ã° Å¸Ì¸
 
-	DWORD			m_FightTime;				// °ø¼º³²Àº ½Ã°£.
+	DWORD			m_FightTime;				//  Ã°.
 
 	stCASTLEGATELEVEL		m_GateInfo;
-	cPtrList				m_CastleGateList;	// ¼º¹®
+	cPtrList				m_CastleGateList;	// 
 	CASTLEGATE_BASEINFO		m_CastleGateInfoList[MAX_CASTLEGATE_NUM];
 	int						m_CastleGateCount;
 
 	DWORD			m_SymbolIndex[MAX_SYMBOL];
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205  NPC
 	WORD			m_wCurDay;
 	DWORD			m_dwCurFlag;
 
@@ -192,7 +193,7 @@ public:
 	void UserLogOut( CPlayer* pPlayer );
 	void NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol,void* pMsg );	
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205  NPC
 	void	CheckDateforFlagNPC();
 	DWORD	GetSWState()	{	return m_SiegeWarState;	}
 };

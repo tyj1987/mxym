@@ -42,6 +42,7 @@ CGuildDialog::~CGuildDialog()
 	{
 		m_GuildFuncCtrlArray[n].RemoveAll();
 	}
+	int n;
 	for(n=0; n<eGuildMode_Max; ++n)
 	{
 		m_GuildModeArray[n].RemoveAll();
@@ -52,17 +53,19 @@ CGuildDialog::~CGuildDialog()
 
 void CGuildDialog::Linking()
 {
+	int n;
 	m_pGuildName = (cStatic*)GetWindowForID(GD_NAME);
 	m_pGuildLvl = (cStatic*)GetWindowForID(GD_LEVEL);
 	m_pMasterName = (cStatic*)GetWindowForID(GD_MASTER);
 	m_pMemberNum = (cStatic*)GetWindowForID(GD_MEMBERNUM);
 	m_pLocation = (cStatic*)GetWindowForID(GD_LOCATION);
 	m_pUnionName = (cStatic*)GetWindowForID(GD_UNIONNAME);
-	m_pListDlg = (cListDialog*)GetWindowForID(GD_MEMBERLIST);	
-	m_pListDlg->SetShowSelect(TRUE);	
+	m_pListDlg = (cListDialog*)GetWindowForID(GD_MEMBERLIST);
+	m_pListDlg->SetShowSelect(TRUE);
 	m_pListDlg->SetHeight(158);
 
-	for( int i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
+	int i;
+	for( i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
 		m_pGuildStatic[i] = (cStatic*)GetWindowForID(GD_NAME+i);
 	
 	for( i = 0; i < 2; ++i )
@@ -77,10 +80,12 @@ void CGuildDialog::Linking()
 	{
 		m_GuildModeArray[eGuildMode_GuildInfo].AddTail((cStatic*)GetWindowForID(GD_NAME+i));
 	}
+	int i;
 	for(i=0; i<12; ++i)
 	{
 		m_GuildModeArray[eGuildMode_Func].AddTail((cButton*)GetWindowForID(GD_BANMEMBER+i));
 	}
+	int i;
 	for(i=0; i<4; ++i)
 		m_GuildFuncCtrlArray[eInvailedFunc].AddTail((cButton*)GetWindowForID(GD_INVITEUNION+i));
 */
@@ -128,12 +133,13 @@ void CGuildDialog::ResetMemberInfo(GUILDMEMBERINFO * pInfo)
 	int ranklen;
 	char membername[MAX_NAME_LENGTH+1];
 	char memberrank[7];
-	m_MemberList.push_back(*pInfo);//°¡°øµÇÁö ¾ÊÀº Á¤º¸¸¦ ³Ö´Â´Ù.//Add 060803 by wonju
+	m_MemberList.push_back(*pInfo);//   Ö´Â´.//Add 060803 by wonju
 	SafeStrCpy(membername, pInfo->MemberName, MAX_NAME_LENGTH+1);
 	namelen = strlen(pInfo->MemberName);
-	for(int i=namelen; i<MAX_NAME_LENGTH; ++i)
+	int i;
+	for(i=namelen; i<MAX_NAME_LENGTH; ++i)
 		membername[i] = 0x20;
-	
+
 	SafeStrCpy(memberrank, GUILDMGR->GetRankName(pInfo->Rank), 7);
 	ranklen = strlen(memberrank);
 	for(i=ranklen; i<6; ++i)
@@ -180,7 +186,7 @@ void CGuildDialog::RefreshGuildInfo(CGuild* pGuild)
 	m_pGuildLvl->SetStaticValue(pGuild->GetLevel());
 	m_pMasterName->SetStaticText(pGuild->GetMasterName());
 	m_pMemberNum->SetStaticValue(pGuild->GetMemberNum());
-	// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
+	// magi82(37)  Ó¼ 
 	//m_pLocation->SetStaticText(GetMapName(pGuild->GetLocation()));
 	m_pLocation->SetStaticText(MAP->GetMapName(pGuild->GetLocation()));
 	m_pUnionName->SetStaticText(GUILDUNION->GetGuildUnionName());
@@ -246,7 +252,8 @@ void CGuildDialog::SetActiveGuildMode(int showmode,BOOL bActive)
 {
 	if( showmode == eGuildMode_GuildInfo )
 	{
-		for( int i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
+		int i;
+		for( i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
 			m_pGuildStatic[i]->SetActive( TRUE );
 		for( i = 0; i < MAX_GUILDDIALOG_BUTTON; ++i )
 		{
@@ -259,7 +266,8 @@ void CGuildDialog::SetActiveGuildMode(int showmode,BOOL bActive)
 	}
 	else if( showmode == eGuildMode_Func )
 	{
-		for( int i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
+		int i;
+		for( i = 0; i < MAX_GUILDDIALOG_STATIC; ++i )
 			m_pGuildStatic[i]->SetActive( FALSE );
 
 		for( i = 0; i < MAX_GUILDDIALOG_BUTTON; ++i )
@@ -279,7 +287,7 @@ void CGuildDialog::SetActiveGuildMode(int showmode,BOOL bActive)
 				m_pGuildBtn[1]->SetDisable( FALSE );
 				m_pGuildBtn[2]->SetDisable( FALSE );
 				m_pGuildBtn[3]->SetDisable( FALSE );
-				// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+				// 06. 03. Ä° - Ì¿
 				if( m_pGuildBtn[5] )	//hk block
 					m_pGuildBtn[5]->SetDisable( FALSE );
 				
@@ -306,13 +314,13 @@ void CGuildDialog::SetActiveGuildMode(int showmode,BOOL bActive)
 			{
 				m_pGuildBtn[3]->SetDisable( FALSE );
 				m_pGuildBtn[4]->SetDisable( FALSE );
-				// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+				// 06. 03. Ä° - Ì¿
 				if( m_pGuildBtn[5] )	//hk block
 					m_pGuildBtn[5]->SetDisable( FALSE );
 				if( m_pGuildBtn[12] )	//hk block
 					m_pGuildBtn[12]->SetDisable( FALSE );
 				if( m_pGuildBtn[13] )	//hk block
-					m_pGuildBtn[13]->SetDisable( FALSE );//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ
+					m_pGuildBtn[13]->SetDisable( FALSE );//magi82 - Ï» Ã½
 			}
 			break;
 		case GUILD_SENIOR:
@@ -322,7 +330,7 @@ void CGuildDialog::SetActiveGuildMode(int showmode,BOOL bActive)
 				if( m_pGuildBtn[12] )	//hk block
 					m_pGuildBtn[12]->SetDisable( FALSE );
 				if( m_pGuildBtn[13] )	//hk block
-					m_pGuildBtn[13]->SetDisable( FALSE );//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ
+					m_pGuildBtn[13]->SetDisable( FALSE );//magi82 - Ï» Ã½
 			}
 			break;
 		case GUILD_MEMBER:
@@ -374,6 +382,7 @@ void CGuildDialog::SetDisableFuncBtn(BYTE Rank)
 			pWin->SetDisable(FALSE);
 		PTRLISTSEARCHEND
 	}
+	int j;
 	for(j=i; j<eMaxFunc; ++j)
 	{		
 		PTRLISTSEARCHSTART(m_GuildFuncCtrlArray[j],cWindow*,pWin)
@@ -398,31 +407,31 @@ void CGuildDialog::SortMemberListbyPosition()//Add 060803 by wonju
 	{
 		std::list<GUILDMEMBERINFO> ChangeList;
 		std::list<GUILDMEMBERINFO>::iterator iter;
-		//¿À¸§Â÷¼ø Á¤·Ä - ÀÛÀº °ªÀÌ µÚ·Î µé¾î°£´Ù.
+		//  -   Ú· î°£.
 		std::vector<GUILDMEMBERINFO>* prevList = &m_MemberList;
 
 		for(unsigned int i = 0; i < prevList->size(); ++i)
 		{
-			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //°Ë»çÇÒ ¸É¹ö
+			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //Ë» É¹
 
 			if(ChangeList.size() > 0)
 			{
 				bool bEnd = TRUE;
 
-				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//»õ·Î ¹Ù²ï ¸®½ºÆ®¿Í °Ë»ç
+				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)// Ù² Æ® Ë»
 				{
-					BYTE Rank = iter->Rank;//¹Ù²ï ¸®½ºÆ® ³»ÀÇ °ª
+					BYTE Rank = iter->Rank;//Ù² Æ®  
 
-				    if(curmemberinfo.Rank > Rank) //ÇöÀç Àû¿ëµÉ °ªÀÌ ¸®½ºÆ® ³»ÀÇ °ªº¸´Ù Å©´Ù¸é
+				    if(curmemberinfo.Rank > Rank) //   Æ®   Å©Ù¸
 					{
-						//»ðÀÔÇÏ°í ³ª°£´Ù.
+						//Ï° .
                         ChangeList.insert(iter,curmemberinfo);
 						bEnd = FALSE;
 						break;
 					}
 				}
 
-				//·çÇÁ°¡ ³¡±îÁö µ¹¾ÒÀ¸¸é °¡Àå µÚ¿¡ »ðÀÔÇÑ´Ù.
+				//    Ú¿ Ñ´.
 				if(TRUE == bEnd)
                 ChangeList.push_back(curmemberinfo);
 
@@ -433,11 +442,11 @@ void CGuildDialog::SortMemberListbyPosition()//Add 060803 by wonju
 			}
 		}
 
-		//ÀÌÀü ¸®½ºÆ®ÀÇ Ç×¸ñÀ» ´Ù Áö¿î´Ù.
+		// Æ® ×¸  .
 		m_MemberList.clear();
 		m_pListDlg->RemoveAll();
 
-		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//¹Ù²ïÇ×¸ñÀÇ °ªÀ» ´Ù½Ã ³Ö´Â´Ù.
+		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//Ù²×¸  Ù½ Ö´Â´.
 		{
 			GUILDMEMBERINFO info = *iter;
 			ResetMemberInfo(&info);
@@ -451,33 +460,33 @@ void CGuildDialog::SortMemberListbyPosition()//Add 060803 by wonju
 	{
 		std::list<GUILDMEMBERINFO> ChangeList;
 		std::list<GUILDMEMBERINFO>::iterator iter;
-		//¿À¸§Â÷¼ø Á¤·Ä - ÀÛÀº °ªÀÌ µÚ·Î µé¾î°£´Ù.
+		//  -   Ú· î°£.
 		std::vector<GUILDMEMBERINFO>* prevList = &m_MemberList;
 
 		unsigned int size = prevList->size();
 
 		for(unsigned int i = 0; i < prevList->size(); ++i)
 		{
-			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //°Ë»çÇÒ ¸É¹ö
+			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //Ë» É¹
 
 			if(ChangeList.size() > 0)
 			{
 				bool bEnd = TRUE;
 
-				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//»õ·Î ¹Ù²ï ¸®½ºÆ®¿Í °Ë»ç
+				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)// Ù² Æ® Ë»
 				{
-					BYTE Rank = iter->Rank;//¹Ù²ï ¸®½ºÆ® ³»ÀÇ °ª
+					BYTE Rank = iter->Rank;//Ù² Æ®  
 
-					if(curmemberinfo.Rank < Rank) //ÇöÀç Àû¿ëµÉ °ªÀÌ ¸®½ºÆ® ³»ÀÇ °ªº¸´Ù Å©´Ù¸é
+					if(curmemberinfo.Rank < Rank) //   Æ®   Å©Ù¸
 					{
-						//»ðÀÔÇÏ°í ³ª°£´Ù.
+						//Ï° .
 						ChangeList.insert(iter,curmemberinfo);
 						bEnd = FALSE;
 						break;
 					}
 				}
 
-				//·çÇÁ°¡ ³¡±îÁö µ¹¾ÒÀ¸¸é °¡Àå µÚ¿¡ »ðÀÔÇÑ´Ù.
+				//    Ú¿ Ñ´.
 				if(TRUE == bEnd)
 					ChangeList.push_back(curmemberinfo);
 
@@ -488,11 +497,11 @@ void CGuildDialog::SortMemberListbyPosition()//Add 060803 by wonju
 			}
 		}
 
-		//ÀÌÀü ¸®½ºÆ®ÀÇ Ç×¸ñÀ» ´Ù Áö¿î´Ù.
+		// Æ® ×¸  .
 		m_MemberList.clear();
 		m_pListDlg->RemoveAll();
 
-		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//¹Ù²ïÇ×¸ñÀÇ °ªÀ» ´Ù½Ã ³Ö´Â´Ù.
+		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//Ù²×¸  Ù½ Ö´Â´.
 		{
 			GUILDMEMBERINFO info = *iter;
 			ResetMemberInfo(&info);
@@ -509,31 +518,31 @@ void CGuildDialog::SortMemberListbyLevel()//Add 060803 by wonju
 	{
 		std::list<GUILDMEMBERINFO> ChangeList;
 		std::list<GUILDMEMBERINFO>::iterator iter;
-		//¿À¸§Â÷¼ø Á¤·Ä - ÀÛÀº °ªÀÌ µÚ·Î µé¾î°£´Ù.
+		//  -   Ú· î°£.
 		std::vector<GUILDMEMBERINFO>* prevList = &m_MemberList;
 
 		for(unsigned int i = 0; i < prevList->size(); ++i)
 		{
-			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //°Ë»çÇÒ ¸É¹ö
+			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //Ë» É¹
 
 			if(ChangeList.size() > 0)
 			{
 				bool bEnd = TRUE;
 
-				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//»õ·Î ¹Ù²ï ¸®½ºÆ®¿Í °Ë»ç
+				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)// Ù² Æ® Ë»
 				{
-					WORD lvl = iter->Memberlvl;//¹Ù²ï ¸®½ºÆ® ³»ÀÇ °ª
+					WORD lvl = iter->Memberlvl;//Ù² Æ®  
 
-					if(curmemberinfo.Memberlvl > lvl) //ÇöÀç Àû¿ëµÉ °ªÀÌ ¸®½ºÆ® ³»ÀÇ °ªº¸´Ù Å©´Ù¸é
+					if(curmemberinfo.Memberlvl > lvl) //   Æ®   Å©Ù¸
 					{
-						//»ðÀÔÇÏ°í ³ª°£´Ù.
+						//Ï° .
 						ChangeList.insert(iter,curmemberinfo);
 						bEnd = FALSE;
 						break;
 					}
 				}
 
-				//·çÇÁ°¡ ³¡±îÁö µ¹¾ÒÀ¸¸é °¡Àå µÚ¿¡ »ðÀÔÇÑ´Ù.
+				//    Ú¿ Ñ´.
 				if(TRUE == bEnd)
 					ChangeList.push_back(curmemberinfo);
 
@@ -544,11 +553,11 @@ void CGuildDialog::SortMemberListbyLevel()//Add 060803 by wonju
 			}
 		}
 
-		//ÀÌÀü ¸®½ºÆ®ÀÇ Ç×¸ñÀ» ´Ù Áö¿î´Ù.
+		// Æ® ×¸  .
 		m_MemberList.clear();
 		m_pListDlg->RemoveAll();
 
-		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//¹Ù²ïÇ×¸ñÀÇ °ªÀ» ´Ù½Ã ³Ö´Â´Ù.
+		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//Ù²×¸  Ù½ Ö´Â´.
 		{
 			GUILDMEMBERINFO info = *iter;
 			ResetMemberInfo(&info);
@@ -562,31 +571,31 @@ void CGuildDialog::SortMemberListbyLevel()//Add 060803 by wonju
 	{
 		std::list<GUILDMEMBERINFO> ChangeList;
 		std::list<GUILDMEMBERINFO>::iterator iter;
-		//¿À¸§Â÷¼ø Á¤·Ä - ÀÛÀº °ªÀÌ µÚ·Î µé¾î°£´Ù.
+		//  -   Ú· î°£.
 		std::vector<GUILDMEMBERINFO>* prevList = &m_MemberList;
 
 		for(unsigned int i = 0; i < prevList->size(); ++i)
 		{
-			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //°Ë»çÇÒ ¸É¹ö
+			GUILDMEMBERINFO curmemberinfo = (*prevList)[i]; //Ë» É¹
 
 			if(ChangeList.size() > 0)
 			{
 				bool bEnd = TRUE;
 
-				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//»õ·Î ¹Ù²ï ¸®½ºÆ®¿Í °Ë»ç
+				for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)// Ù² Æ® Ë»
 				{
-					WORD lvl = iter->Memberlvl;//¹Ù²ï ¸®½ºÆ® ³»ÀÇ °ª
+					WORD lvl = iter->Memberlvl;//Ù² Æ®  
 
-					if(curmemberinfo.Memberlvl < lvl) //ÇöÀç Àû¿ëµÉ °ªÀÌ ¸®½ºÆ® ³»ÀÇ °ªº¸´Ù Å©´Ù¸é
+					if(curmemberinfo.Memberlvl < lvl) //   Æ®   Å©Ù¸
 					{
-						//»ðÀÔÇÏ°í ³ª°£´Ù.
+						//Ï° .
 						ChangeList.insert(iter,curmemberinfo);
 						bEnd = FALSE;
 						break;
 					}
 				}
 
-				//·çÇÁ°¡ ³¡±îÁö µ¹¾ÒÀ¸¸é °¡Àå µÚ¿¡ »ðÀÔÇÑ´Ù.
+				//    Ú¿ Ñ´.
 				if(TRUE == bEnd)
 					ChangeList.push_back(curmemberinfo);
 
@@ -597,11 +606,11 @@ void CGuildDialog::SortMemberListbyLevel()//Add 060803 by wonju
 			}
 		}
 
-		//ÀÌÀü ¸®½ºÆ®ÀÇ Ç×¸ñÀ» ´Ù Áö¿î´Ù.
+		// Æ® ×¸  .
 		m_MemberList.clear();
 		m_pListDlg->RemoveAll();
 
-		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//¹Ù²ïÇ×¸ñÀÇ °ªÀ» ´Ù½Ã ³Ö´Â´Ù.
+		for(iter = ChangeList.begin(); iter != ChangeList.end(); ++iter)//Ù²×¸  Ù½ Ö´Â´.
 		{
 			GUILDMEMBERINFO info = *iter;
 			ResetMemberInfo(&info);

@@ -135,9 +135,11 @@ BOOL CGuildUnion::IsGuildFieldWarWithUnionGuild( DWORD dwGuildIdx )
 	for( int i = 0; i < MAX_GUILD_UNION_NUM; ++i )
 	{
 		if( m_GuildInfo[i].dwGuildIdx )
+		{
 		if( GUILDFIELDWARMGR->IsGuildFieldWar( m_GuildInfo[i].dwGuildIdx, dwGuildIdx ) )
 			return TRUE;
 	}
+		}
 	return FALSE;	
 }
 

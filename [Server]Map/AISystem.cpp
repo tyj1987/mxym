@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "AISystem.h"
 
 #include "UserTable.h"
@@ -16,7 +17,7 @@
 #include "RegenManager.h"
 #include "RegenConditionInfo.h"
 #include "AIUniqueGroup.h"
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 #include "FieldBossMonsterManager.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -41,7 +42,7 @@ CAISystem::~CAISystem()
 		m_pROUTER = NULL;
 	}
 	m_MonsterIDGenerator.Release();
-	// inner ¸Þ¸ð¸®´Â UserTable¸®½ºÆ®¿¡¼­ »èÁ¦ÇÔ
+	// inner ï¿½Þ¸ð¸®´ï¿½ UserTableï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	RemoveAllList();
 }
 void CAISystem::RemoveAllList()
@@ -60,10 +61,10 @@ void CAISystem::Process()
 
 	m_pROUTER->MsgLoop();
 
-//--Ç×»ó ÇÒÇÊ¿ä°¡ ¾ø´Ù. 1ÃÊ¸¶´Ù ÇÑ¹ø¾¿?
+//--ï¿½×»ï¿½ ï¿½ï¿½ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½. 1ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½?
 	static DWORD dwRegenCheckTime = 0;
 
-	if( gCurTime - dwRegenCheckTime >= 3000 ) //3ÃÊ
+	if( gCurTime - dwRegenCheckTime >= 3000 ) //3ï¿½ï¿½
 	{
 		GROUPMGR->RegenProcess();
 		dwRegenCheckTime = gCurTime;
@@ -74,7 +75,7 @@ void CAISystem::ConstantProcess(CObject * obj)
 	//CMonster * pMob = (CMonster *)obj;
 	//pMob->GetStateMachine()->Process(eSEVENT_Process, NULL);
 	
-	//º¸½º¸÷ ½ºÅ×ÀÌÆ®´Â µû·Î Ã³¸®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	if(obj->GetObjectKind() == eObjectKind_BossMonster)
 		return;
 	GSTATEMACHINE.Process( obj, eSEVENT_Process, NULL);
@@ -98,7 +99,7 @@ void CAISystem::AddObject(CObject * obj)
 //	}
 //	else
 //	{
-//		//¼ÒÈ¯ ¸ó½ºÅÍ´Â ±×·ìÀÌ ¾ø´Ù!
+//		//ï¿½ï¿½È¯ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 //		return;
 //	}
 
@@ -118,7 +119,7 @@ CObject * CAISystem::RemoveObject(DWORD dwID)
 	}
 	else
 	{
-		//¼ÒÈ¯ ¸ó½ºÅÍ´Â ±×·ìÀÌ ¾ø´Ù!
+		//ï¿½ï¿½È¯ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	}
 	
 	
@@ -148,9 +149,9 @@ void CAISystem::ReleaseMonsterID(DWORD id)
 }
 //--------------------------------------------------------------------------------------
 // *** Caution ***
-// RegenObject °Ë»ö ¹æ¹ý
-// GroupÀ» Ã£Àº ´ÙÀ½ => ObjectID
-// GroupObject °Ë»ö ¹æ¹ý
+// RegenObject ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½
+// Groupï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ => ObjectID
+// GroupObject ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½
 // => GroupID, battleID
 //--------------------------------------------------------------------------------------
 void CAISystem::LoadAIGroupList()
@@ -232,7 +233,7 @@ void CAISystem::LoadAIGroupList()
 				pCondInfo->dwTargetGroupID		= TARGETGROUPID;
 				pCondInfo->fRemainderRatio		= RATIO;
 				//pCondInfo->dwRegenDelay			= REGENDELAY;
-				//SW080515 Ã¤³Îº° ¼¼ÆÃ
+				//SW080515 Ã¤ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 				pCondInfo->dwRegenDelay			= REGENDELAY * CHANNELSYSTEM->GetRegenRate(i+1);
 				pCondInfo->bRegen				= bRegen;
 				ASSERT(GROUPMGR->GetGroup(TARGETGROUPID,CHANNELSYSTEM->GetChannelID(i)));
@@ -341,13 +342,13 @@ void CAISystem::LoadAIGroupList()
 			float POSX				= pRegenPrototype->vPos.x			= file.GetFloat();
 			float POSZ				= pRegenPrototype->vPos.z			= file.GetFloat();
 
-			// ÇÊµåº¸½ºÀÏ °æ¿ì
+			// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if( OBJECTKIND == eObjectKind_FieldBossMonster )
 			{
-				// ÇÊµåº¸½º ¸Å´ÏÀú¿¡ ¸®Á¨ À§Ä¡°¡ 1°³ ÀÌ»ó µî·ÏµÇ¾î ÀÖ´Ù¸é
+				// ï¿½Êµåº¸ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½Ö´Ù¸ï¿½
 				if( FIELDBOSSMONMGR->GetRegenPositionCount() > 0 )
 				{
-					// µî·ÏµÈ ¸®Á¨ À§Ä¡¿¡¼­ ·£´ýÀ¸·Î °áÁ¤ÇÑ´Ù
+					// ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 					VECTOR3 pos = FIELDBOSSMONMGR->GetRegenPosition();
 					pRegenPrototype->vPos.x = pos.x;
 					pRegenPrototype->vPos.z = pos.z;
@@ -396,8 +397,8 @@ void CAISystem::LoadAIGroupList()
 			pRegenPrototype = NULL;
 	
 		// 
-		// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-		// ÇÊµåº¸½º ¸®Á¨ À§Ä¡ Ãß°¡ ¼³
+		// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ß°ï¿½ ï¿½ï¿½
 		CMD_CS("#FILEDBOSSREGENPOSITION")
 			float x = file.GetFloat();
 			float z = file.GetFloat();

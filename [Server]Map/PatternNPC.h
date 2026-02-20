@@ -4,12 +4,14 @@
 
 #if !defined(AFX_PATTERNNPC_H__A68DADAB_6284_4150_816D_DEF6ACF7D7A1__INCLUDED_)
 #define AFX_PATTERNNPC_H__A68DADAB_6284_4150_816D_DEF6ACF7D7A1__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
 class CMonster;
+class CNpc;
 
 enum NPCIDX
 {
@@ -75,131 +77,131 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	BOOL MonsterAreaCheck(CMonster* pMonster);
-	void MonsterPatternManager(CMonster* pMonster, BYTE StateFlag);		// ÆòÈ­,ÈïºÐ, °ø°Ý ÆÐÅÏÀ» ±¸ºÐ
+	void MonsterPatternManager(CMonster* pMonster, BYTE StateFlag);		// ï¿½ï¿½È­,ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void NpcPatternManager(CNpc* pNpc, BYTE StateFlag);
 	BYTE MonsterSearchTarget(CMonster* pMonster);
 	BYTE NpcSearchTarget(CNpc* pNpc);
 	//////////////////////////////////////////////////////////////////////////
-	void PeacePattern(CMonster* pMonster);			// Npcº° ÆòÈ­ÆÐÅÏ ½ÇÇà
-	void AngerPattern(CMonster* pMonster);			// Npcº° ÈïºÐÆÐÅÏ ½ÇÇà
-	void AttackPattern(CMonster* pMonster);		// Npcº° °ø°ÝÆÐÅÏ ½ÇÇà
+	void PeacePattern(CMonster* pMonster);			// Npcï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void AngerPattern(CMonster* pMonster);			// Npcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void AttackPattern(CMonster* pMonster);		// Npcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//////////////////////////////////////////////////////////////////////////
-	void DefaultMonsterPeacePattern(CMonster* pMonster);	// ±âº» ÆòÈ­ÆÐÅÏ
-	void DefaultMonsterAngerPattern(CMonster* pMonster);	// ±âº» ÈïºÐÆÐÅÏ
-	void DefaultMonsterAttackPattern(CMonster* pMonster);// ±âº» °ø°ÝÆÐÅÏ
-	void DefaultNpcPeacePattern(CNpc* pNpc);	// ±âº» ÆòÈ­ÆÐÅÏ
-	void DefaultNpcAngerPattern(CNpc* pNpc);	// ±âº» ÈïºÐÆÐÅÏ
-	void DefaultNpcAttackPattern(CNpc* pNpc);// ±âº» °ø°ÝÆÐÅÏ
+	void DefaultMonsterPeacePattern(CMonster* pMonster);	// ï¿½âº» ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
+	void DefaultMonsterAngerPattern(CMonster* pMonster);	// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void DefaultMonsterAttackPattern(CMonster* pMonster);// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void DefaultNpcPeacePattern(CNpc* pNpc);	// ï¿½âº» ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
+	void DefaultNpcAngerPattern(CNpc* pNpc);	// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void DefaultNpcAttackPattern(CNpc* pNpc);// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//////////////////////////////////////////////////////////////////////////
-	void ParakhoPeace(CMonster* pMonster);		// ÆÄ¶ôÈ£
+	void ParakhoPeace(CMonster* pMonster);		// ï¿½Ä¶ï¿½È£
 	void ParakhoAnger(CMonster* pMonster);
 	void ParakhoAttack(CMonster* pMonster);
 
-	void HucpyobomPeace(CMonster* pMonster);		// ÈæÇ¥¹ü
+	void HucpyobomPeace(CMonster* pMonster);		// ï¿½ï¿½Ç¥ï¿½ï¿½
 	void HucpyobomAnger(CMonster* pMonster);
 	void HucpyobomAttack(CMonster* pMonster);
 
-	void CoyentePeace(CMonster* pMonster);		// ÄÚ¾áÅ×
+	void CoyentePeace(CMonster* pMonster);		// ï¿½Ú¾ï¿½ï¿½ï¿½
 	void CoyenteAnger(CMonster* pMonster);
 	void CoyenteAttack(CMonster* pMonster);
 
-	void HyelgwisoPeace(CMonster* pMonster);		// Ç÷±Í¼Ò
+	void HyelgwisoPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½Í¼ï¿½
 	void HyelgwisoAnger(CMonster* pMonster);
 	void HyelgwisoAttack(CMonster* pMonster);
 
-	void GorilraPeace(CMonster* pMonster);		// °í¸±¶ó
+	void GorilraPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void GorilraAnger(CMonster* pMonster);
 	void GorilraAttack(CMonster* pMonster);
 
-	void NokrimdoPeace(CMonster* pMonster);		// ³ì¸²µµ
+	void NokrimdoPeace(CMonster* pMonster);		// ï¿½ì¸²ï¿½ï¿½
 	void NokrimdoAnger(CMonster* pMonster);
 	void NokrimdoAttack(CMonster* pMonster);
 
-	void GomPeace(CMonster* pMonster);			// °õ
+	void GomPeace(CMonster* pMonster);			// ï¿½ï¿½
 	void GomAnger(CMonster* pMonster);
 	void GomAttack(CMonster* pMonster);
 
-	void TochawoPeace(CMonster* pMonster);		// ÅäÂ÷¿ì
+	void TochawoPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void TochawoAnger(CMonster* pMonster);
 	void TochawoAttack(CMonster* pMonster);
 
-	void YetiPeace(CMonster* pMonster);			// ¿¹Æ¼
+	void YetiPeace(CMonster* pMonster);			// ï¿½ï¿½Æ¼
 	void YetiAnger(CMonster* pMonster);
 	void YetiAttack(CMonster* pMonster);
 
-	void GongGwiPeace(CMonster* pMonster);		// °ø±Í
+	void GongGwiPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½
 	void GongGwiAnger(CMonster* pMonster);
 	void GongGwiAttack(CMonster* pMonster);
 
-	void HorangiePeace(CMonster* pMonster);		// È£¶ûÀÌ
+	void HorangiePeace(CMonster* pMonster);		// È£ï¿½ï¿½ï¿½ï¿½
 	void HorangieAnger(CMonster* pMonster);
 	void HorangieAttack(CMonster* pMonster);
 
-	void DongyounginjaPeace(CMonster* pMonster);	// µ¿¿µÀÎÀÚ
+	void DongyounginjaPeace(CMonster* pMonster);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void DongyounginjaAnger(CMonster* pMonster);
 	void DongyounginjaAttack(CMonster* pMonster);
 
-	void YewaPeace(CMonster* pMonster);			// ¿©¿Í
+	void YewaPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void YewaAnger(CMonster* pMonster);
 	void YewaAttack(CMonster* pMonster);
 
-	void SansoPeace(CMonster* pMonster);			// »ê¼Ò
+	void SansoPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½
 	void SansoAnger(CMonster* pMonster);
 	void SansoAttack(CMonster* pMonster);
 
-	void AlyouPeace(CMonster* pMonster);			// ¾ËÀ¯
+	void AlyouPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void AlyouAnger(CMonster* pMonster);
 	void AlyouAttack(CMonster* pMonster);
 
-	void SagalruPeace(CMonster* pMonster);		// »ç°¥·ù
+	void SagalruPeace(CMonster* pMonster);		// ï¿½ç°¥ï¿½ï¿½
 	void SagalruAnger(CMonster* pMonster);
 	void SagalruAttack(CMonster* pMonster);
 
-	void PyobomPeace(CMonster* pMonster);			// Ç¥¹ü
+	void PyobomPeace(CMonster* pMonster);			// Ç¥ï¿½ï¿½
 	void PyobomAnger(CMonster* pMonster);
 	void PyobomAttack(CMonster* pMonster);
 
-	void YekgwiPeace(CMonster* pMonster);			// ¿ª±Í
+	void YekgwiPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void YekgwiAnger(CMonster* pMonster);
 	void YekgwiAttack(CMonster* pMonster);
 
-	void ImugiPeace(CMonster* pMonster);			// ÀÌ¹«±â
+	void ImugiPeace(CMonster* pMonster);			// ï¿½Ì¹ï¿½ï¿½ï¿½
 	void ImugiAnger(CMonster* pMonster);
 	void ImugiAttack(CMonster* pMonster);
 
-	void SamuraiPeace(CMonster* pMonster);		// »ç¹«¶óÀÌ
+	void SamuraiPeace(CMonster* pMonster);		// ï¿½ç¹«ï¿½ï¿½ï¿½ï¿½
 	void SamuraiAnger(CMonster* pMonster);
 	void SamuraiAttack(CMonster* pMonster);
 
-	void BunwunPeace(CMonster* pMonster);			// ºÐ¿î
+	void BunwunPeace(CMonster* pMonster);			// ï¿½Ð¿ï¿½
 	void BunwunAnger(CMonster* pMonster);
 	void BunwunAttack(CMonster* pMonster);
 
-	void MokbigwiPeace(CMonster* pMonster);		// ¸ñºñ±Í
+	void MokbigwiPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½
 	void MokbigwiAnger(CMonster* pMonster);
 	void MokbigwiAttack(CMonster* pMonster);
 
-	void SuckgeinPeace(CMonster* pMonster);		// ¼®°ÅÀÎ
+	void SuckgeinPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void SuckgeinAnger(CMonster* pMonster);
 	void SuckgeinAttack(CMonster* pMonster);
 
-	void HuPeace(CMonster* pMonster);				// ÈÄ
+	void HuPeace(CMonster* pMonster);				// ï¿½ï¿½
 	void HuAnger(CMonster* pMonster);
 	void HuAttack(CMonster* pMonster);
 
-	void InmeundanrangPeace(CMonster* pMonster);	// ÀÎ¸é´Ü¶û
+	void InmeundanrangPeace(CMonster* pMonster);	// ï¿½Î¸ï¿½Ü¶ï¿½
 	void InmeundanrangAnger(CMonster* pMonster);
 	void InmeundanrangAttack(CMonster* pMonster);
 
-	void NokrimchejuPeace(CMonster* pMonster);	// ³ì¸²Ã¤ÁÖ
+	void NokrimchejuPeace(CMonster* pMonster);	// ï¿½ì¸²Ã¤ï¿½ï¿½
 	void NokrimchejuAnger(CMonster* pMonster);
 	void NokrimchejuAttack(CMonster* pMonster);
 
-	void MujikiPeace(CMonster* pMonster);			// ¹«Áö±â
+	void MujikiPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void MujikiAnger(CMonster* pMonster);
 	void MujikiAttack(CMonster* pMonster);
 
-	void BarkiPeace(CMonster* pMonster);			// ¹ÚÀÌ
+	void BarkiPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void BarkiAnger(CMonster* pMonster);
 	void BarkiAttack(CMonster* pMonster);
 
@@ -207,31 +209,31 @@ public:
 	void HwanAnger(CMonster* pMonster);
 	void HwanAttack(CMonster* pMonster);
 
-	void YoumyouPeace(CMonster* pMonster);		// ¿°À¯
+	void YoumyouPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½
 	void YoumyouAnger(CMonster* pMonster);
 	void YoumyouAttack(CMonster* pMonster);
 
-	void SansinPeace(CMonster* pMonster);			// »ê½Å
+	void SansinPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½
 	void SansinAnger(CMonster* pMonster);
 	void SansinAttack(CMonster* pMonster);
 	
-	void SagaikPeace(CMonster* pMonster);			// »ç°¡ÀÍ
+	void SagaikPeace(CMonster* pMonster);			// ï¿½ç°¡ï¿½ï¿½
 	void SagaikAnger(CMonster* pMonster);
 	void SagaikAttack(CMonster* pMonster);
 
-	void BuHeyPeace(CMonster* pMonster);			// ºÎÇý
+	void BuHeyPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void BuHeyAnger(CMonster* pMonster);
 	void BuHeyAttack(CMonster* pMonster);
 
-	void HeulkyojangroPeace(CMonster* pMonster);	// Ç÷±³Àå·Î
+	void HeulkyojangroPeace(CMonster* pMonster);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void HeulkyojangroAnger(CMonster* pMonster);
 	void HeulkyojangroAttack(CMonster* pMonster);
 
-	void KangsiPeace(CMonster* pMonster);			// °­½Ã
+	void KangsiPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void KangsiAnger(CMonster* pMonster);
 	void KangsiAttack(CMonster* pMonster);
 
-	void HungchunPeace(CMonster* pMonster);		// ÇüÃµ
+	void HungchunPeace(CMonster* pMonster);		// ï¿½ï¿½Ãµ
 	void HungchunAnger(CMonster* pMonster);
 	void HungchunAttack(CMonster* pMonster);
 
@@ -239,35 +241,35 @@ public:
 	void TaAnger(CMonster* pMonster);
 	void TaAttack(CMonster* pMonster);
 
-	void SanjewangPeace(CMonster* pMonster);		// »êÀú¿Õ
+	void SanjewangPeace(CMonster* pMonster);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void SanjewangAnger(CMonster* pMonster);
 	void SanjewangAttack(CMonster* pMonster);
 
-	void BackhoPeace(CMonster* pMonster);			// ¹éÈ£
+	void BackhoPeace(CMonster* pMonster);			// ï¿½ï¿½È£
 	void BackhoAnger(CMonster* pMonster);
 	void BackhoAttack(CMonster* pMonster);
 
-	void KumongPeace(CMonster* pMonster);			// ±¸¸Û
+	void KumongPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void KumongAnger(CMonster* pMonster);
 	void KumongAttack(CMonster* pMonster);
 
-	void WomawangPeace(CMonster* pMonster);		// ¿ì¸¶¿Õ
+	void WomawangPeace(CMonster* pMonster);		// ï¿½ì¸¶ï¿½ï¿½
 	void WomawangAnger(CMonster* pMonster);
 	void WomawangAttack(CMonster* pMonster);
 
-	void JujakPeace(CMonster* pMonster);			// ÁÖÀÛ
+	void JujakPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void JujakAnger(CMonster* pMonster);
 	void JujakAttack(CMonster* pMonster);
 
-	void HyunmuPeace(CMonster* pMonster);			// Çö¹«
+	void HyunmuPeace(CMonster* pMonster);			// ï¿½ï¿½ï¿½ï¿½
 	void HyunmuAnger(CMonster* pMonster);
 	void HyunmuAttack(CMonster* pMonster);
 
-	void KirinPeace(CMonster* pMonster);			// ±â¸°
+	void KirinPeace(CMonster* pMonster);			// ï¿½â¸°
 	void KirinAnger(CMonster* pMonster);
 	void KirinAttack(CMonster* pMonster);
 
-	void YoungPeace(CMonster* pMonster);			// ¿ë
+	void YoungPeace(CMonster* pMonster);			// ï¿½ï¿½
 	void YoungAnger(CMonster* pMonster);
 	void YoungAttack(CMonster* pMonster);
 };

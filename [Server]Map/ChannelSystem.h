@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHANNELSYSTEM_H__31F42C7E_BEB4_4E59_8965_CD2E6D08B770__INCLUDED_)
 #define AFX_CHANNELSYSTEM_H__31F42C7E_BEB4_4E59_8965_CD2E6D08B770__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -35,10 +36,10 @@ public:
 	// jsd
 	void	SendChannelInfoToMS( DWORD dwConnectionIndex );
 
-	//2008. 5. 8. CBH - 맵 이동 채널정보 관련 처리 함수
+	//2008. 5. 8. CBH -  絹 채  처 獨
 	void    SendMapChangeChannelInfo(MSG_DWORD3* pInfo, DWORD dwConnectionIndex);
 
-	//SW080515 채널별 세팅
+	//SW080515 채觀 
 	float	GetRegenRate(DWORD ChannelID);
 	float	GetDropRate(DWORD ChannelID);
 	BOOL	IsBattleChannel(DWORD ChannelID);

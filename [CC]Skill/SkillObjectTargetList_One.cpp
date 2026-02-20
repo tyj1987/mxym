@@ -1,10 +1,13 @@
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 // SkillObjectTargetList_One.cpp: implementation of the CSkillObjectTargetList_One class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "SkillObjectTargetList_One.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

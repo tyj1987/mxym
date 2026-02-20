@@ -5,8 +5,8 @@
 //
 #pragma once 
 
-#include "../4DyuchiNET_Common/stdafx.h"
-#include "../4DyuchiNET_Common/net_define.h"
+#include "stdafx.h"
+#include "net_define.h"
 
 
 #include "define.h"

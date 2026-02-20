@@ -116,10 +116,10 @@ void CLogView::OnInitialUpdate()
 			m_pSheet->AddPage( m_pPageList[i] );
 	}
 
-	if( !m_pSheet->Create(pwndPropertySheetHolder, WS_CHILD | WS_VISIBLE, 0) ) 
+	if( !m_pSheet->Create(pwndPropertySheetHolder, WS_CHILD | WS_VISIBLE, 0) )
 	{
 		SAFE_DELETE(m_pSheet);
-		for( i = 0; i < ePageMax; ++i )
+		for( int i = 0; i < ePageMax; ++i )
 			SAFE_DELETE(m_pPageList[i]);
 		return;
 	}

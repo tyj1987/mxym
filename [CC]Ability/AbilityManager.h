@@ -9,11 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "HashTable.h"
+#include "D:\mxym\[Lib]YHLibrary\hashtable.h"
 #include "AbilityInfo.h"
 #include "AbilityCommonHeader.h"
-#include "PtrList.h"
-#include "MemoryPoolTempl.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
+#include "D:\mxym\[Lib]YHLibrary\MemoryPoolTempl.h"
 
 class CAbility;
 class CAbilityGroup;
@@ -69,7 +69,7 @@ public:
 	BOOL CanUpgradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilityGroup);
 	BOOL CanDowngradeSkPoint(CAbilityInfo* pAbilInfo, CAbilityGroup* pAbilityGroup);
 
-	// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
+	// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)
 	BOOL ResetAbilitySkPoint(WORD AbilityIndex, CAbilityGroup* pAbilityGroup);
 	BOOL CheckCanResetPoint(CPlayer* pPlayer, CAbilityInfo* pAbilInfo);
 	

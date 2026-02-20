@@ -27,6 +27,9 @@ CBattle* CBattleFactory_VimuStreet::CreateBattle(BATTLE_INFO_BASE* pCreateInfo, 
 #endif
 
 	// battle setting
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 	CBattle_VimuStreet* pBattle = new CBattle_VimuStreet;
 	pBattle->Initialize(pCreateInfo,NULL,NULL);
 	

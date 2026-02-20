@@ -7,9 +7,11 @@
 
 #include "QuestScriptLoader.h"
 #ifdef _MAPSERVER_
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 #else
+#ifndef _MHCLIENT_LIBRARY_
 #include "ObjectManager.h"
+#endif
 #endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -86,6 +88,7 @@ BOOL CQuestLimitKind_Level::CheckLimit( PLAYERTYPE* pPlayer, CQuestGroup* pQuest
 BOOL CQuestLimitKind_Level::CheckLimit( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 {
 #ifndef _MAPSERVER_
+#ifndef _MHCLIENT_LIBRARY_
 	switch( m_dwLimitKind )
 	{
 	case eQuestLimitKind_Level:
@@ -119,6 +122,7 @@ BOOL CQuestLimitKind_Level::CheckLimit( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 		break;
 #endif
 	}
+#endif
 #endif
 	return FALSE;
 }

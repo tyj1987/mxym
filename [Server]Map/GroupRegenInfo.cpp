@@ -73,11 +73,11 @@ void CGroupRegenInfo::RegenCheck(DWORD CurObjectNum, DWORD MaxObjectNum)
 	{
 		pCInfo = m_RegenConditionList.GetAt(i);
 		//taiyo
-		// if(ratio <= pBObj->fRemainderRatio)¿Ã∏È æ»µ 
-		// fRemainderRatio = 0¿Œ∞Õ¿∫ ∏Æ¡®«œ¡ˆ æ ¥¬ ∞Õ
+		// if(ratio <= pBObj->fRemainderRatio)ÔøΩÃ∏ÔøΩ ÔøΩ»µÔøΩ
+		// fRemainderRatio = 0ÔøΩŒ∞ÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩ ¥ÔøΩ ÔøΩÔøΩ
 		if( pCInfo->fRemainderRatio != 0 )
-		if( ratio >= ( 1 - pCInfo->fRemainderRatio ) )
 		{
+		if( ratio >= ( 1 - pCInfo->fRemainderRatio ) )
 			pCInfo->dwStartRegenTick = gCurTime;
 			pCInfo->bRegen = TRUE;
 			break;			
@@ -92,20 +92,21 @@ void CGroupRegenInfo::RegenProcess()
 	{
 		CRegenConditionInfo * pConditionInfo = m_RegenConditionList.GetNextPos(pos);
 		if(pConditionInfo)
-		if(pConditionInfo->bRegen)
 		{
-			if(pConditionInfo->dwStartRegenTick + pConditionInfo->dwRegenDelay < gCurTime)
+			if(pConditionInfo->bRegen)
 			{
-				pConditionInfo->dwStartRegenTick = gCurTime;
-//				pConditionInfo->dwStartRegenTick = 0;
-				pConditionInfo->bRegen = FALSE;
+				if(pConditionInfo->dwStartRegenTick + pConditionInfo->dwRegenDelay < gCurTime)
+				{
+					pConditionInfo->dwStartRegenTick = gCurTime;
+//					pConditionInfo->dwStartRegenTick = 0;
+					pConditionInfo->bRegen = FALSE;
 
-				REGENMGR->RegenGroup(pConditionInfo->dwTargetGroupID, m_pGroup->GetGridID());
+					REGENMGR->RegenGroup(pConditionInfo->dwTargetGroupID, m_pGroup->GetGridID());
+				}
+				break;
 			}
-			break;
 		}
 	}
-	
 }
 
 void CGroupRegenInfo::ForceRegen()

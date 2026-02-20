@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "PackedData.h"
 #include "DataBlockManager.h"
 #include "DataBlock.h"

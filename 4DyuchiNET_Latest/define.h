@@ -1,5 +1,8 @@
-#ifndef _DEFINE_H
+﻿#ifndef _DEFINE_H
 #define	_DEFINE_H
+
+#include <winsock2.h>
+#include <windows.h>
 
 const DWORD DEFAULT_HEADER_SIZE		= 2;
 const DWORD DEFAULT_MESSAGE_LENGTH	= 3;

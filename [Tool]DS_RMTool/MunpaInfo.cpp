@@ -49,14 +49,14 @@ void CMunpaInfo::DoDataExchange(CDataExchange* pDX)
 
 	int i = 0;
 	//////////////////////////////////////////////////////////////////////
-	//// Á¤º¸Ã¢ °ü·Ã º¯¼ö
+	//// ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i< eMunpaTemp_MAX;++i)
 		DDX_Control(pDX, IDC_MUNPA_NAME+i, m_StatusEdit[i]);
 	//////////////////////////////////////////////////////////////////////	
 
 	//////////////////////////////////////////////////////////////////////
-	//// ¹®ÆÄ Ã¢°í
-	for(i = 0;i<TABCELL_MUNPAWAREHOUSE_NUM;++i)
+	//// ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½
+	for(int i = 0;i<TABCELL_MUNPAWAREHOUSE_NUM;++i)
 		DDX_Control(pDX, IDC_BTN_MUNPA1+i, m_MunpaItem[i]);
 	//////////////////////////////////////////////////////////////////////
 }
@@ -81,7 +81,7 @@ BOOL CMunpaInfo::OnInitDialog()
 	m_wPower = pApp->GetCurOperatorPower();
 
 	////////////////////////////////////////////
-	// Control ÃÊ±âÈ­
+	// Control ï¿½Ê±ï¿½È­
 	InitMemberListControl();
 	////////////////////////////////////////////	
 	
@@ -108,7 +108,7 @@ void CMunpaInfo::InitMunpaInfo( BOOL bEnable )
 		m_StatusEdit[i].ResetEditTextColor();
 	}
 
-	for(i = 0;i<TABCELL_MUNPAWAREHOUSE_NUM;++i)
+	for(int i = 0;i<TABCELL_MUNPAWAREHOUSE_NUM;++i)
 	{
 		m_MunpaItem[i].SetWindowText("");
 		m_MunpaItem[i].SetData(0);
@@ -129,7 +129,7 @@ void CMunpaInfo::InitMemberListControl()
 	lvcolumn.mask = LVCF_FMT | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH;
 	lvcolumn.fmt = LVCFMT_CENTER;
 
-//	Ä³¸¯¸í, ·¹º§, Á÷Ã¥, µî·Ï ³¯Â¥
+//	Ä³ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã¥, ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 
 	for(int i = 1 ; i <= 4 ; ++i)
 	{
@@ -183,27 +183,27 @@ void CMunpaInfo::InsertMemberList(char* strName, LEVELTYPE level, BYTE position,
 	char buff[256] = {0,};
 
 
-#define MUNPA_MEMBER		2	//¹®ÆÄ¿ø
-#define MUNPA_SENIOR		3	//Àå·Î
-#define MUNPA_VICE_MASTER	10	//ºÎ¹®ÁÖ
+#define MUNPA_MEMBER		2	//ï¿½ï¿½ï¿½Ä¿ï¿½
+#define MUNPA_SENIOR		3	//ï¿½ï¿½ï¿½
+#define MUNPA_VICE_MASTER	10	//ï¿½Î¹ï¿½ï¿½ï¿½
 
 	for(int i=0;i<4;++i)
 	{
 		switch(i)
 		{
-		case 0: // ¾ÆÀÌµð
+		case 0: // ï¿½ï¿½ï¿½Ìµï¿½
 			{
-				// ¸®¼Ò½º¿¡¼­ µ¥ÀÌÅÍ¸¦ °¡Á®¿Í¼­ ÀÌ¸§À» ³Ö¾îÁØ´Ù.
+				// ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 				lvitem.pszText = strName;
 			}
 			break;
-		case 1:	// ·¹º§
+		case 1:	// ï¿½ï¿½ï¿½ï¿½
 			{
 				sprintf(buff, "%d", level);
 				lvitem.pszText = buff;
 			}
 			break;
-		case 2:	// Á÷Ã¥..
+		case 2:	// ï¿½ï¿½Ã¥..
 			{
 				switch(position)
 				{
@@ -217,7 +217,7 @@ void CMunpaInfo::InsertMemberList(char* strName, LEVELTYPE level, BYTE position,
 				lvitem.pszText = buff;
 			}
 			break;
-		case 3: // µî·Ï ³¯Â¥
+		case 3: // ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 			{
 				lvitem.pszText = strRegDate;
 			}
@@ -245,12 +245,12 @@ void CMunpaInfo::OnButtonSearch()
 
 	if( nSearchType == -1 )
 	{
-		// °Ë»ö¾î ÀÔ·Â ¿¡·¯ ¸Þ¼¼Áö
+		// ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 		MessageBox("Input Name!!", "Error", MB_OK);
 		return;
 	}
 
-	// ¼­¹ö¿¡ °Ë»ö ¿äÃ»
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½Ã»
 
 	TMSG_MUNPASEARCH MunpaSearch;
 	MunpaSearch.Category = MP_RMTOOL_MUNPA;
@@ -410,7 +410,7 @@ void CMunpaInfo::MakeToolTip(POSTYPE pos, WORD idx, char* str)
 	buff.Format("\n");
 	strcat(str, buff.GetBuffer(0));
 	
-	buff.Format("¾ÆÀÌÅÛ : %s(%d)", pInfo->ItemName, pInfo->ItemIdx);
+	buff.Format("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : %s(%d)", pInfo->ItemName, pInfo->ItemIdx);
 	strcat(str, buff.GetBuffer(0));
 
 	if( GAMERESRCMNGR->IsOptionItem(pInfo->ItemIdx, m_pDocument->m_pWareHouse->WareHouse[pos].Durability) )
@@ -418,14 +418,14 @@ void CMunpaInfo::MakeToolTip(POSTYPE pos, WORD idx, char* str)
 		bOption = TRUE;
 		OptionIdx = m_pDocument->m_pWareHouse->WareHouse[pos].Durability;
 		
-		buff.Format("\n¿É¼Ç¹øÈ£ : %d", m_pDocument->m_pWareHouse->WareHouse[pos].Durability);
+		buff.Format("\nï¿½É¼Ç¹ï¿½È£ : %d", m_pDocument->m_pWareHouse->WareHouse[pos].Durability);
 		strcat(str, buff.GetBuffer(0));
 	}
 	else
 	{
 		if( GAMERESRCMNGR->IsDupItem(pInfo->ItemIdx) )
 		{
-			buff.Format("\n°³   ¼ö : %d°³", m_pDocument->m_pWareHouse->WareHouse[pos].Durability);
+			buff.Format("\nï¿½ï¿½   ï¿½ï¿½ : %dï¿½ï¿½", m_pDocument->m_pWareHouse->WareHouse[pos].Durability);
 			strcat(str, buff.GetBuffer(0));
 		}
 	}
@@ -439,133 +439,133 @@ void CMunpaInfo::MakeToolTip(POSTYPE pos, WORD idx, char* str)
 
 			if( pOptionInfo->GenGol != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "±Ù°ñ", pOptionInfo->GenGol);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½Ù°ï¿½", pOptionInfo->GenGol);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->MinChub != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "¹ÎÃ¸", pOptionInfo->MinChub);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½Ã¸", pOptionInfo->MinChub);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->CheRyuk != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "Ã¼·Â", pOptionInfo->CheRyuk);
+				sprintf(OptionBuff, "\n%s : +%d", "Ã¼ï¿½ï¿½", pOptionInfo->CheRyuk);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->SimMek != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "½É¸Æ", pOptionInfo->SimMek);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½É¸ï¿½", pOptionInfo->SimMek);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->Life != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "»ý¸í·Â", pOptionInfo->Life);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->Life);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->NaeRyuk != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "³»·Â", pOptionInfo->NaeRyuk);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½ï¿½ï¿½", pOptionInfo->NaeRyuk);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->Shield != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "¹æ¾î·Â", pOptionInfo->Shield);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½ï¿½ï¿½", pOptionInfo->Shield);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->PhyAttack != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "¹°¸®°ø°Ý", pOptionInfo->PhyAttack);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->PhyAttack);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->CriticalPercent != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "Å©¸®Æ¼ÄÃ", pOptionInfo->CriticalPercent);
+				sprintf(OptionBuff, "\n%s : %.2f%%", "Å©ï¿½ï¿½Æ¼ï¿½ï¿½", pOptionInfo->CriticalPercent);
 				strcat(str, OptionBuff);
 			}
 
 			if( pOptionInfo->PhyDefense != 0 )
 			{
-				sprintf(OptionBuff, "\n%s : +%d", "¹°¸®¹æ¾î", pOptionInfo->PhyDefense);
+				sprintf(OptionBuff, "\n%s : +%d", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->PhyDefense);
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_FIRE) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "È­¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_FIRE));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "È­ï¿½ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_FIRE));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_WATER) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¼ö¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_WATER));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_WATER));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_TREE) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¸ñ¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_TREE));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_TREE));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_IRON) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "±Ý¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_IRON));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½Ý¹ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_IRON));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_EARTH) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "Åä¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_EARTH));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_EARTH));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrRegist.GetElement_Val(ATTR_NOATTR) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¹«¹æ¾î", pOptionInfo->AttrRegist.GetElement_Val(ATTR_NOATTR));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrRegist.GetElement_Val(ATTR_NOATTR));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_FIRE) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "È­°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_FIRE));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "È­ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_FIRE));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_WATER) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¼ö°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_WATER));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_WATER));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_TREE) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¸ñ°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_TREE));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_TREE));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_IRON) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "±Ý°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_IRON));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½Ý°ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_IRON));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_EARTH) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "Åä°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_EARTH));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_EARTH));
 				strcat(str, OptionBuff);
 			}
 
 			if(pOptionInfo->AttrAttack.GetElement_Val(ATTR_NOATTR) != 0.00f )
 			{
-				sprintf(OptionBuff, "\n%s : %.2f%%", "¹«°ø°Ý", pOptionInfo->AttrAttack.GetElement_Val(ATTR_NOATTR));
+				sprintf(OptionBuff, "\n%s : %.2f%%", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", pOptionInfo->AttrAttack.GetElement_Val(ATTR_NOATTR));
 				strcat(str, OptionBuff);
 			}
 		}
@@ -653,7 +653,7 @@ void CMunpaInfo::ButtonControlCommand(UINT nId)
 	int tab, result;
 
 	if( nId >= IDC_BTN_MUNPA1 && nId < IDC_BTN_MUNPA45+1 )
-	{ // ¹®ÆÄ Ã¢°í
+	{ // ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½
 		tab = m_cbTab.GetCurSel()*TABCELL_MUNPAWAREHOUSE_NUM;
 
 		wPos = tab + nId - IDC_BTN_MUNPA1;
@@ -674,7 +674,7 @@ void CMunpaInfo::ButtonControlCommand(UINT nId)
 		if( result == eMR_Cancel || result == eMR_Abort ) return;
 		if( result == eMR_Delete )
 		{
-			if( MessageBox("Á¤¸»·Î »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?",NULL, MB_YESNO) == IDNO )
+			if( MessageBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?",NULL, MB_YESNO) == IDNO )
 				return;
 		}
 		
@@ -682,7 +682,7 @@ void CMunpaInfo::ButtonControlCommand(UINT nId)
 		ResultItemEdit( eIF_MUNPA, result, TP_MUNPAWAREHOUSE_START + wPos, nId, origin, pOptionInfoOrigin, base_before, &base_after, pOptionInfo, &Option_after );
 	}
 	else
-	{ // Ã³¸® ¾ÈÇÔ.
+	{ // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	}
 }
 
@@ -695,11 +695,11 @@ void CMunpaInfo::EditControlCommand(UINT nId)
 
 	if( nId >= IDC_MUNPA_NAME && nId < IDC_MUNPA_LEVEL+1 )
 	{
-		wPos = (WORD)(nId - IDC_MUNPA_NAME);	// Tool µ¥ÀÌÅÍÀÇ ¹è¿­ÀÎµ¦½º
+		wPos = (WORD)(nId - IDC_MUNPA_NAME);	// Tool ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½Îµï¿½ï¿½ï¿½
 
 		BYTE type = 0;
 		/////////////////////////////////////////////////////
-		// error check (ÀÌÀü µ¥ÀÌÅÍ·Î ÀüÈ¯)
+		// error check (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½È¯)
 		TABLE_KIND kind = GetTableKindByControlID(nId);
 
 		if( m_StatusEdit[wPos].GetWindowTextLength() == 0 || kind == eTK_None )
@@ -717,20 +717,20 @@ void CMunpaInfo::EditControlCommand(UINT nId)
 			return;
 		}
 
-		// º¯°æµÈ µ¥ÀÌÅÍ°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 		if( !m_StatusEdit[wPos].IsChanged() )
 			return;
 		else
 			m_StatusEdit[wPos].SetChanged(FALSE);
 		/////////////////////////////////////////////////////
 
-		// str1:º¯°æData, str2:ÀÌÀüData
+		// str1:ï¿½ï¿½ï¿½ï¿½Data, str2:ï¿½ï¿½ï¿½ï¿½Data
 		m_StatusEdit[wPos].GetWindowText(str2);
 		if( m_StatusEdit[wPos].IsTextTypeData() )
 		{
 			m_StatusEdit[wPos].GetStringData(str1.GetBuffer(0));
 
-			if( strcmp(str1, str2) == 0 ) // º¯°æµÈ µ¥ÀÌÅ¸°¡ °°Àº°æ¿ì
+			if( strcmp(str1, str2) == 0 ) // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				CMREdit* pEdit = (CMREdit*)GetDlgItem(nId);
 				pEdit->ResetEditTextColor();
@@ -779,7 +779,7 @@ void CMunpaInfo::EditControlCommand(UINT nId)
 	else
 		return;
 	
-	// ControlÀÇ Index¸¦ Key°ªÀ¸·Î ÇÑ´Ù.
+	// Controlï¿½ï¿½ Indexï¿½ï¿½ Keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	m_pDocument->GetChangeManager()->Add(pData, nId);
 	CMREdit* pEdit = (CMREdit*)GetDlgItem(nId);
 	pEdit->SetEditTextColor(COLOR_EDIT_CHANGED);
@@ -840,10 +840,10 @@ int CMunpaInfo::ItemEdit( INFOFIELD field, WORD wControlId, const ITEMBASE* base
 BOOL CMunpaInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int nControlIdx, ITEMBASE* Origin, ITEM_OPTION_INFO* OriginOption,
 						ITEMBASE* pBItem, ITEMBASE* pAItem, ITEM_OPTION_INFO* pBOption, ITEM_OPTION_INFO* pAOption )
 {
-	// ½ÇÁ¦ ¾ÆÀÌÅÛÀÇ Æ÷Áö¼ÇÀ» ¹Þ´Â´Ù. wPos
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½. wPos
 	CChangeManager* pManager = m_pDocument->GetChangeManager();
 
-	// ¾î¶² DB Table¿¡ ³ÖÀ»°ÍÀÎÁö¸¦ ¾Ë¾Æ ¿Â´Ù.
+	// ï¿½î¶² DB Tableï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½Â´ï¿½.
 	TABLE_KIND kind = pManager->GetTableKind_ByField(field);
 	if( kind == eTK_None )
 		return FALSE;
@@ -851,15 +851,15 @@ BOOL CMunpaInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int nCo
 	BOOL bAdd = FALSE;
 	CChangeItem* pItem = (CChangeItem*)pManager->ExistChangeInfo(wPos, FALSE);
 
-	if( !pItem ) // ±âÁ¸ ¼öÁ¤ Á¤º¸°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù. (ÀÖ¾îµµ ¹«½Ã!)
+	if( !pItem ) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½. (ï¿½Ö¾îµµ ï¿½ï¿½ï¿½ï¿½!)
 	{
 		pItem = new CChangeItem;
 		bAdd = TRUE;
 	}
 
-	if( result == eMR_Delete )// DeleteÀÎ °æ¿ì
+	if( result == eMR_Delete )// Deleteï¿½ï¿½ ï¿½ï¿½ï¿½
 	{ 
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( GAMERESRCMNGR->IsOptionItem(pBItem->wIconIdx, pBItem->Durability) )
 			m_pDocument->DelLocalOptionInfo(pBItem->Durability);
 
@@ -867,18 +867,18 @@ BOOL CMunpaInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int nCo
 		memset(pAItem, 0, sizeof(ITEMBASE));
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pItem->Init( eOp_Delete, kind, wPos );
 		pItem->SetData(Origin, pAItem, OriginOption, pAOption);
 		///////////////////
 	}
 	else if( result == eMR_Edit )
 	{
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( GAMERESRCMNGR->IsOptionItem(pBItem->wIconIdx, pBItem->Durability) )
 			m_pDocument->DelLocalOptionInfo(pBItem->Durability);
 
-		if( pAItem->Durability == 9999 ) // ¿É¼Ç ¼ÂÆÃ
+		if( pAItem->Durability == 9999 ) // ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			if( OriginOption && OriginOption->dwOptionIdx != 0 )
 			{
@@ -893,16 +893,16 @@ BOOL CMunpaInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int nCo
 			pAItem->Durability = (WORD)pAOption->dwOptionIdx;
 		}
 
-		memcpy(pBItem, pAItem, sizeof(ITEMBASE)); // ±âº» ¾ÆÀÌÅÛ º¯°æ
+		memcpy(pBItem, pAItem, sizeof(ITEMBASE)); // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
-		if( Origin->dwDBIdx == 0 ) // InsertÀÎ °æ¿ì
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		if( Origin->dwDBIdx == 0 ) // Insertï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			pItem->Init( eOp_Insert, kind, wPos );
 			pItem->SetData(Origin, pAItem, OriginOption, pAOption);
 		}
-		else // UpdateÀÎ °æ¿ì
+		else // Updateï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			pItem->Init( eOp_Update, kind, wPos );
 			pItem->SetData(Origin, pAItem, OriginOption, pAOption);

@@ -3,13 +3,14 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "DistributeWay.h"
 #include "Party.h"
 #include "ItemDrop.h"
 #include "ItemManager.h"
 #include "GuildManager.h"
 #include "..\[CC]Header\GameResourceManager.h"
-#include "MapItemDrop.h"	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/30)-MapItemDrop
+#include "MapItemDrop.h"	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ß°ï¿½ by Stiner(2008/05/30)-MapItemDrop
 #include "FortWarManager.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -27,12 +28,12 @@ CDistributeWay::~CDistributeWay()
 
 void CDistributeWay::SendToPersonalExp(CPlayer* pReceivePlayer, DWORD Exp)
 {
-	// ºñÀ² Ãß°¡ - RaMa 04.10.18
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ - RaMa 04.10.18
 	// Exp *= gExpRate;
-	// ¼öÁ¤ - RaMa 05.05.11	
+	// ï¿½ï¿½ï¿½ï¿½ - RaMa 05.05.11	
 	Exp = (DWORD)(Exp*gEventRate[eEvent_ExpRate]);
 	
-	//060719 ¹®ÆÄÆ÷ÀÎÆ®
+	//060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	DWORD AddExpFromGuildPlustime = 0;
 	if( pReceivePlayer->GetGuildIdx() )
 	{
@@ -43,12 +44,12 @@ void CDistributeWay::SendToPersonalExp(CPlayer* pReceivePlayer, DWORD Exp)
 		}
 	}
 
-	// RaMa - 04.11.24   -> ShopItemOption Ãß°¡
+	// RaMa - 04.11.24   -> ShopItemOption ï¿½ß°ï¿½
 	if( pReceivePlayer->GetShopItemStats()->AddExp )
 	{
 //		Exp *= (pReceivePlayer->GetShopItemStats()->AddExp*0.010f+1);
 		DWORD temp = Exp * pReceivePlayer->GetShopItemStats()->AddExp;
-		Exp = Exp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//¿Ã¸²
+		Exp = Exp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//ï¿½Ã¸ï¿½
 	}
 	if( pReceivePlayer->GetShopItemStats()->PlustimeExp )
 	{
@@ -71,15 +72,15 @@ void CDistributeWay::SendToPersonalAbil(CPlayer* pReceivePlayer, LEVELTYPE Monst
 //	AbilityExp = CalcObtainAbilityExp(pReceivePlayer->GetLevel(),MonsterLevel);
 	if(AbilityExp)
 	{
-		// ÀüÁ÷ÇßÀ» °æ¿ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 		if( pReceivePlayer->GetStage() != eStage_Normal )
 			AbilityExp += 10;
 
-		// Æ¯±âÄ¡ Ãß°¡. - RaMa 04.10.18
+		// Æ¯ï¿½ï¿½Ä¡ ï¿½ß°ï¿½. - RaMa 04.10.18
 		// AbilityExp *= gAbilRate;
 		AbilityExp = (DWORD)(AbilityExp*gEventRate[eEvent_AbilRate]);
 
-		//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+		//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		DWORD AddAbilExpFromGuildPlustime = 0;
 		if(pReceivePlayer->GetGuildIdx())
 		{
@@ -90,13 +91,13 @@ void CDistributeWay::SendToPersonalAbil(CPlayer* pReceivePlayer, LEVELTYPE Monst
 			}
 		}
 
-		// ShopItemOption Ãß°¡ - RaMa 05.05.19
+		// ShopItemOption ï¿½ß°ï¿½ - RaMa 05.05.19
 		if( pReceivePlayer->GetShopItemStats()->AddAbility )
 		{
 //			AbilityExp *= ((float)(pReceivePlayer->GetShopItemStats()->AddAbility)*0.010f+1.0f);
 
 			DWORD temp = AbilityExp * pReceivePlayer->GetShopItemStats()->AddAbility;
-			AbilityExp = AbilityExp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//¿Ã¸²
+			AbilityExp = AbilityExp + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//ï¿½Ã¸ï¿½
 		}
 		if( pReceivePlayer->GetShopItemStats()->PlustimeAbil )
 		{
@@ -112,9 +113,9 @@ void CDistributeWay::SendToPersonalAbil(CPlayer* pReceivePlayer, LEVELTYPE Monst
 
 DWORD CDistributeWay::CalcObtainAbilityExp(LEVELTYPE KillerLevel,LEVELTYPE MonsterLevel)
 {
-	//½Àµæ Æ¯±âÄ¡ ¾ç
-	//*. ½Àµæ : [¸ó½ºÅÍÀÇ ·¹º§] - [ÀÚ½Å ·¹º§°ª] + 5 (0ÀÌÇÏ¸é "0")
-	//¸ó½ºÅÍ ·¹º§ÀÌ ÀÚ½Å ·¹º§º¸´Ù 9·¹º§ ÀÌ»óÀÌ¸é ¸ó½ºÅÍ ·¹º§À» Ä³¸¯ÅÍ ·¹º§+9·Î °è»ê
+	//ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½Ä¡ ï¿½ï¿½
+	//*. ï¿½ï¿½ï¿½ï¿½ : [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½] - [ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] + 5 (0ï¿½ï¿½ï¿½Ï¸ï¿½ "0")
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 9ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½+9ï¿½ï¿½ ï¿½ï¿½ï¿
 	if(MonsterLevel+5 < KillerLevel)
 		return 0;
 	if(KillerLevel + 9 <MonsterLevel)
@@ -124,12 +125,12 @@ DWORD CDistributeWay::CalcObtainAbilityExp(LEVELTYPE KillerLevel,LEVELTYPE Monst
 
 void CDistributeWay::SendToPersonalMoney(CPlayer* pPlayer, MONEYTYPE Money, WORD MonsterKind)
 {
-	// ¿ä»õÀü ÀÌµæ°ü·Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½Ìµï¿½ï¿½ï¿½ï¿
 	DWORD dwMoney = FORTWARMGR->AddProfitMoneyFromMonster( Money );
 	if( pPlayer->SetMoney(dwMoney, MONEY_ADDITION, 1, eItemTable_Inventory, eMoneyLog_GetMonster, MonsterKind) != dwMoney )
 //	if( pPlayer->SetMoney(Money, MONEY_ADDITION, 1, eItemTable_Inventory, eMoneyLog_GetMonster, MonsterKind) != Money )
 	{
-		// error msg º¸³½´Ù. Á¦ÇÑ·® ÃÊ°ú
+		// error msg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ñ·ï¿½ ï¿½Ê°ï¿½
 		MSGBASE msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_MONEY_ERROR;
@@ -143,10 +144,10 @@ void CDistributeWay::SendToPersonalMoney(CPlayer* pPlayer, MONEYTYPE Money, WORD
 
 void CDistributeWay::ItemChangeAtLv(WORD& DropItemId)
 {
-	//+¼Ó¼ºÀÌ ºÙ¾î ÀÖ´Ù¸é ±×´ë·Î ÁØ´Ù.
+	//+ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½×´ï¿½ï¿ ï¿½Ø´ï¿½.
 	if((DropItemId%10) != 0) return;
 
-	//ÁöÁ¤µÈ ÀÎµ¦½º ±¸°£¿¡¼­¸¸ °Ë»çÇÑ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 	if(DropItemId >= 11000 && DropItemId <= 28759)
 	{
 		ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo(DropItemId);
@@ -154,12 +155,12 @@ void CDistributeWay::ItemChangeAtLv(WORD& DropItemId)
 		if(pItemInfo->ItemKind == eEQUIP_ITEM_WEAPON || pItemInfo->ItemKind == eEQUIP_ITEM_DRESS	||
 		   pItemInfo->ItemKind == eEQUIP_ITEM_HAT	 || pItemInfo->ItemKind == eEQUIP_ITEM_SHOES)		
 		{
-			//¾ÆÀÌÅÛ¿¡ Æ¯¼öÇÑ ¼Ó¼ºÀÌ ºÙÀ» È®·üÀ» °è»êÇÑ´Ù.
-			//¹«±âÀÏ °æ¿ì Æ¯¼ö ¼Ó¼º°Ë»ç¸¦ ÇÏÁö ¾Ê´Â´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ Æ¯ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½Ë»ç¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			if(pItemInfo->ItemKind != eEQUIP_ITEM_WEAPON)
 			{
 				
-				unsigned int selectRatio = 100000;//È®·ü°ª
+				unsigned int selectRatio = 100000;//È®ï¿½ï¿½ï¿½ï¿½
 
 				unsigned char Data[4];
 				Data[0]=rand()%256;
@@ -194,13 +195,13 @@ void CDistributeWay::ItemChangeAtLv(WORD& DropItemId)
 
 			}
 
-			//+¼Ó¼ºÀÌ ºÙÀº ¾ÆÀÌÅÛÀÌ ¶³¾îÁú È®·üÀ» °è»êÇÑ´Ù.
+			//+ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿.
 			if(GAMERESRCMNGR->GetItemChangeRateOfLvList().size() == 0)
-				::MessageBox(NULL,"ºñ±³ÇÒ Ç×¸ñÀÌ 0ÀÔ´Ï´Ù.","°æ°í",MB_OK);
+				::MessageBox(NULL,"ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ 0ï¿½Ô´Ï´ï¿½.","ï¿½ï¿½ï¿",MB_OK);
 
 			if(pItemInfo->LimitLevel <= GAMERESRCMNGR->GetItemChangeRateOfLvList().size())
 			{
-				unsigned int selectRatio = 100000;//È®·ü°ª
+				unsigned int selectRatio = 100000;//È®ï¿½ï¿½ï¿½ï¿½
 				
 				unsigned char Data[4];
 				Data[0]=rand()%256;
@@ -235,13 +236,13 @@ void CDistributeWay::SendToPersonalItem(CPlayer* pPlayer, WORD DropItemId, DWORD
 	if(DropItemId == 0)
 	{
 		MONEYTYPE money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pPlayer, MonsterKind);
-		// ¸Ê ¾ÆÀÌÅÛ µå¶ø °è»ê by Stiner(2008/05/30)-MapItemDrop
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿ by Stiner(2008/05/30)-MapItemDrop
 		MAPITEMDROP_OBJ->CalculateDropRate( pPlayer, MonsterKind );
 
 		if(0 == money) return;
 		SendToPersonalMoney(pPlayer, money, MonsterKind);
 		
-		//SW060515 Æê´É·ÂÃß°¡ -µÎ¹øÈ¹µæ
+		//SW060515 ï¿½ï¿½É·ï¿½ï¿½ß°ï¿ -ï¿½Î¹ï¿½È¹ï¿½ï¿½
 		BOOL bGetTwice = FALSE;
 		pPlayer->GetPetManager()->GetPetBuffResultRt(ePB_Item_DoubleChance, &bGetTwice);
 		if(bGetTwice)
@@ -251,18 +252,18 @@ void CDistributeWay::SendToPersonalItem(CPlayer* pPlayer, WORD DropItemId, DWORD
 	}
 	else
 	{
-		//·£´ýÇÔ¼ö --; ¾î¶²°Å ½á¾ßÇÏÁö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ --; ï¿½î¶²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 		if( DropItemRatio )
-		if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
 		{
-			//¸®½ºÆ®¿¡¼­ È®·üÀ» ¾ò¾î³»¾î Àû¿ëÇÑÈÄ ¾ÆÀÌÅÛÀ» ¾ò¾úÀ¸¸é ÀÎµ¦½º¸¦ ±³Ã¼ÇÑ´Ù.
+		if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
+			//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ñ´ï¿½.
 			//ItemChangeAtLv(DropItemId);
 
 			
 
 			ITEMMGR->MonsterObtainItem(pPlayer,DropItemId,MonsterKind);
 
-			// ¸Ê ¾ÆÀÌÅÛ µå¶ø °è»ê by Stiner(2008/05/30)-MapItemDrop
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿ by Stiner(2008/05/30)-MapItemDrop
 			MAPITEMDROP_OBJ->CalculateDropRate( pPlayer, MonsterKind );
 		}
 	}
@@ -337,7 +338,7 @@ void CDistributeWay::CalcAbilandSend( LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMB
 
 	CalAbilPoint = AbilPoint;
 	
-	//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+	//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	DWORD AddAbilExpFromGuildPlustime = 0;
 	CPlayer* pPlayer = NULL;
 
@@ -347,7 +348,7 @@ void CDistributeWay::CalcAbilandSend( LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMB
 		if( bStage != eStage_Normal )
 			CalAbilPoint += 10;
 
-		// Æ¯±âÄ¡ Ãß°¡. - RaMa 04.10.18
+		// Æ¯ï¿½ï¿½Ä¡ ï¿½ß°ï¿½. - RaMa 04.10.18
 		CalAbilPoint = (DWORD)(CalAbilPoint*gEventRate[eEvent_AbilRate]);
 		
 		pPlayer = ((CPlayer*)pMemberInfo->pPlayer[i]);
@@ -359,11 +360,11 @@ void CDistributeWay::CalcAbilandSend( LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMB
 				AddAbilExpFromGuildPlustime = 0;
 			}
 		}
-		// ShopItemOption Ãß°¡ - RaMa 05.05.19
+		// ShopItemOption ï¿½ß°ï¿½ - RaMa 05.05.19
 		if( ((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->AddAbility )
 		{
 			DWORD temp = CalAbilPoint * ((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->AddAbility;
-			CalAbilPoint = CalAbilPoint + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 ); //¿Ã¸²
+			CalAbilPoint = CalAbilPoint + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 ); //ï¿½Ã¸ï¿½
 		}
 		if( ((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->PlustimeAbil )
 		{
@@ -425,16 +426,16 @@ void CDistributeWay::CalcAbilandSend(LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMBE
 		if( bStage != eStage_Normal )
 			AbilPoint += 1;
 
-		// Æ¯±âÄ¡ Ãß°¡. - RaMa 04.10.18
+		// Æ¯ï¿½ï¿½Ä¡ ï¿½ß°ï¿½. - RaMa 04.10.18
 		// AbilPoint *= gAbilRate;
 		AbilPoint *= gEventRate[eEvent_AbilRate];
 		
-		// ShopItemOption Ãß°¡ - RaMa 05.05.19
+		// ShopItemOption ï¿½ß°ï¿½ - RaMa 05.05.19
 		if( ((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->AddAbility )
 		{
 //			AbilPoint *= (((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->AddAbility*0.01f+1);
 			DWORD temp = AbilPoint * ((CPlayer*)pMemberInfo->pPlayer[i])->GetShopItemStats()->AddAbility;
-			AbilPoint = AbilPoint + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//¿Ã¸²
+			AbilPoint = AbilPoint + temp / 100 + ( temp > temp / 100 * 100 ? 1 : 0 );//ï¿½Ã¸ï¿½
 		}
 	
 		((CPlayer*)pMemberInfo->pPlayer[i])->AddAbilityExp(AbilPoint);
@@ -442,7 +443,7 @@ void CDistributeWay::CalcAbilandSend(LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMBE
 }
 */
 
-//060822 - 3¸¸ ÀÌ»óÀÇ ³­¼ö¸¦ »Ì¾Æ³»±â À§ÇÑ ·£´ý Å¬·¡½º by wonju
+//060822 - 3ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ by wonju
 //---------------------------------------------------------------------------------
 
 DWORD cRand_Big::RandomVal()

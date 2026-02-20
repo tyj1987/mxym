@@ -5,6 +5,8 @@
 #include "stdafx.h"
 #include "TargetData.h"
 
+#include "..\..\[CC]Header\CommonGameFunc.h"  // for WriteDebugFile
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -37,7 +39,7 @@ void CTargetData::SetTargetData(int n,DWORD data)
 	if( n > MAX_TARGET_DATA )
 	{
 		char str[256] ={0,};
-		sprintf( str, "CTargetData::SetTargetData()ÀÇ ÀÎÀÚ°ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù. (%d)", n );
+		sprintf( str, "CTargetData::SetTargetData()ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. (%d)", n );
 		WRITEDEBUGFILE( str );
 	}
 	TargetData[n] = data;
@@ -48,7 +50,7 @@ DWORD CTargetData::GetTargetData( int n )
 	if( n > MAX_TARGET_DATA )
 	{
 		char str[256] ={0,};
-		sprintf( str, "CTargetData::GetTargetData()ÀÇ ÀÎÀÚ°ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù. (%d)", n );
+		sprintf( str, "CTargetData::GetTargetData()ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. (%d)", n );
 		WRITEDEBUGFILE( str );
 	}
 	return TargetData[n];

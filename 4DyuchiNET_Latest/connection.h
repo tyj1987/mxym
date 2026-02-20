@@ -6,8 +6,8 @@
 // 있는 클래스를 정의한다.이 클래스가 CConnection 클래스 이다.
 //
 
-#include "../4DyuchiNET_Common/net_define.h"
-#include "../4DyuchiNET_Common/typedef.h"
+#include "net_define.h"
+#include "typedef.h"
 
 //#include "protocol.h"
 #include "overlapped_recv.h"

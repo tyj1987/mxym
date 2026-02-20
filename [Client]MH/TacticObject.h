@@ -11,6 +11,11 @@
 
 #include "Object.h"
 
+// Forward declare HEFFPROC type (defined in EffectManager.h)
+#ifndef HEFFPROC
+typedef DWORD HEFFPROC;
+#endif
+
 class CTacticStartInfo;
 class CHero;
 

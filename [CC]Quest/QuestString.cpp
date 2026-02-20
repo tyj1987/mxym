@@ -3,6 +3,9 @@
 //////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "QuestString.h"
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 
 #define TEXT_DELIMITER			'^'
 #define TEXT_NEWLINECHAR		'n'

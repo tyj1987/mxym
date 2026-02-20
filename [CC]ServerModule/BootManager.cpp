@@ -5,16 +5,21 @@
 #include "stdafx.h"
 #include "BootManager.h"
 #include "Network.h"
-#include "ServerTable.h"
+#include "..\[CC]Header\ServerTable.h"
 #include "..\[CC]Header\CommonGameFunc.h"
-#include "MHFile.h"
+#include "Console.h"
+#include "..\[Server]Map\MHFile.h"
 #include "ServerListManager.h"
+
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
+#include "ServerSystem.h"
+#endif
 
 #ifdef _DISTRIBUTESERVER_
 #include "BuddyAuth.h"
 #endif
 
-#ifdef _AGENTSERVER
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 #include "PlustimeMgr.h"
 #endif
 
@@ -170,7 +175,7 @@ void CBootManager::NotifyBootUpToMS(CNetwork * pNet)
 
 void CBootManager::AddBootList(CServerTable * pServerTable, SERVERINFO * pServerInfo)
 {
-	// YH Edit »Æ¿Œ ø‰
+	// YH Edit »ÆÔøΩÔøΩ ÔøΩÔøΩ
 	//ASSERT(!pServerTable->GetData(pServerInfo->wPortForServer));
 	if(pServerTable->GetData(pServerInfo->wPortForServer) != NULL)
 		return;
@@ -198,7 +203,7 @@ void CBootManager::BactchConnectToMap(CNetwork * pNet, CServerTable * pServerTab
 	SERVERINFO* pInfo;
 	while(pInfo = pServerTable->GetData())
 	{
-		// YH Edit »Æ¿Œ ø‰
+		// YH Edit »ÆÔøΩÔøΩ ÔøΩÔøΩ
 		//ASSERT(pInfo->dwConnectionIndex == 0);
 		if(pInfo->dwConnectionIndex != 0)
 			continue;
@@ -219,7 +224,7 @@ void CBootManager::BactchConnectToMap(CNetwork * pNet, CServerTable * pServerTab
 void CBootManager::UpdateBootList(CServerTable * pServerTable, SERVERINFO * pServerInfo, DWORD dwConnectionIdx)
 {
 	SERVERINFO * pInfo = pServerTable->GetData(pServerInfo->wPortForServer);
-	// connect successø°º≠ setting«‘
+	// connect successÔøΩÔøΩÔøΩÔøΩ settingÔøΩÔøΩ
 	//ASSERT(pInfo->dwConnectionIndex == 0);
 	*pInfo = *pServerInfo;
 	pInfo->dwConnectionIndex = dwConnectionIdx;
@@ -250,7 +255,7 @@ void CBootManager::NetworkMsgParse(DWORD dwConnectionIndex, char* pMsg, DWORD dw
 	case MP_POWERUP_BOOTLIST_ACK:
 		{
 			g_Console.LOG(4, "bootlist ack");
-			// AddBootList»£√‚
+			// AddBootList»£ÔøΩÔøΩ
 			MSG_PWRUP_BOOTLIST * pmsg = (MSG_PWRUP_BOOTLIST *)pMsg;
 			for(int i = 0 ; i < pmsg->Num ; ++i)
 			{
@@ -269,8 +274,8 @@ void CBootManager::NetworkMsgParse(DWORD dwConnectionIndex, char* pMsg, DWORD dw
 			// send ack msg
 			SendConnectAckMsg(&g_Network, dwConnectionIndex, g_pServerTable->GetSelfServer());
 
-			//2008. 1. 2. CBH - ∏ º≠πˆ∞° Agentø° ∫Ÿæ˙¿ª∂ß «√∑ØΩ∫ ≈∏¿” ¡§∫∏∏¶ √º≈©«œø© ∫∏≥Ω¥Ÿ.
-#ifdef _AGENTSERVER			
+			//2008. 1. 2. CBH - ÔøΩ ºÔøΩÔøΩÔøΩÔøΩÔøΩ AgentÔøΩÔøΩ ÔøΩŸæÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩ√∑ÔøΩÔøΩÔøΩ ≈∏ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ √º≈©ÔøΩœøÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ.
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 			if(g_pServerSystem->IsUseEventNotify())
 			{
 				PLUSTIMEMGR->PlusTimeToMapConnecting(&g_Network, &pmsg->BootList);
@@ -280,7 +285,7 @@ void CBootManager::NetworkMsgParse(DWORD dwConnectionIndex, char* pMsg, DWORD dw
 		break;
 	case MP_POWERUP_CONNECT_ACK:
 		{
-			//dwConnectionIndex º¬∆√ for Key(ServerPort)
+			//dwConnectionIndex ÔøΩÔøΩÔøΩÔøΩ for Key(ServerPort)
 			MSG_PWRUP_CONNECT_ACK * pmsg = (MSG_PWRUP_CONNECT_ACK *)pMsg;
 			UpdateBootList(g_pServerTable, &pmsg->BootList, dwConnectionIndex);
 		}

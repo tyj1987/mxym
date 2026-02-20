@@ -1,20 +1,21 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 #include "MHFile.h"
 
 #define PET_SPEECHMGR	USINGTON(CPetSpeechManager)
 
 enum Pet_SpeechState{
-	ePet_Speech_Stand,	//대기 시작 대사
-	ePet_Speech_Move,	//이동 시작 대사
-	ePet_Speech_Substand,	//대기 보조 대사
-	ePet_Speech_Kgong,	//경공 대사
-	ePet_Speech_Ungi,	//운기 상태중 이벤트 적 대사
-	ePet_Speech_Master_Skill,	//주인 스킬 사용시 대사
-	ePet_Speech_Master_Die,		//주인 죽음시 대사
-	ePet_Speech_Pet_Skill,		//펫 스킬 사용 대사
-	ePet_Speech_Pet_Die,	//펫 죽음 대사
-	ePet_Speech_Pet_StaminaZero,	//펫 스태미나 0일 때 대사
+	ePet_Speech_Stand,	//  
+	ePet_Speech_Move,	//絹  
+	ePet_Speech_Substand,	//  
+	ePet_Speech_Kgong,	// 
+	ePet_Speech_Ungi,	//  遣트  
+	ePet_Speech_Master_Skill,	// 킬  
+	ePet_Speech_Master_Die,		//  
+	ePet_Speech_Pet_Skill,		// 킬  
+	ePet_Speech_Pet_Die,	//  
+	ePet_Speech_Pet_StaminaZero,	// 쨔犬 0  
 	ePet_Speech_MAX,
 };
 
@@ -48,7 +49,7 @@ struct PetSpeechInfo
 
 class CPetSpeechManager
 {
-	CYHHashTable<PetSpeech>		m_PetSpeechInfoTable;	//펫 대사 정보 테이블
+	CYHHashTable<PetSpeech>		m_PetSpeechInfoTable;	//   遣
 
 public:
 	CPetSpeechManager(void);

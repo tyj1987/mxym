@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GUILDMARK_H__08779C22_8CFD_42F3_B11B_1CCA4DE44632__INCLUDED_)
 #define AFX_GUILDMARK_H__08779C22_8CFD_42F3_B11B_1CCA4DE44632__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

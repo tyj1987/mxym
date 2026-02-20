@@ -156,16 +156,16 @@ BOOL CPreConnectPool::ProcessPreConnect()
 			{
 				if (!cur->SuccessConnect)
 					cur->pNetwork->OnAccept(pCon->GetConnectionIndex());
-				else 
-					cur->SuccessConnect(pCon->GetConnectionIndex(),cur->pExt);
+				else
+					cur->SuccessConnect(pCon->GetConnectionIndex());
 				
 				pCon->PrepareRead();
 			
 			}
 		}
-		else 
+		else
 		{
-			cur->FailConnect(cur->pExt);
+			cur->FailConnect(INVALID_CONNECT_ID, reinterpret_cast<DWORD>(cur->pExt));
 		}
 		Free(cur);
 		cur = next;

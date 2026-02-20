@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "UserTable.h"
 
 
@@ -88,7 +89,7 @@ void CUserTable::RemoveAllUser()
 //		Remove(info->dwConnectionIndex);
 //		info = NULL;
 //	}
-*///주석처리.
+*///玲처.
 	m_dwUserCount = 0;
 	CYHHashTable<USERINFO>::RemoveAll();
 }
@@ -101,7 +102,7 @@ void CUserTable::SetCalcMaxCount(DWORD CurCount)
 	}
 }
 
-#else // __MAPSERVER__ 일때 적용
+#else // __MAPSERVER__ 灸 
 #ifndef _MURIMNET_
 #include "ObjectFactory.h"
 #endif
@@ -118,7 +119,7 @@ CObject* CUserTable::FindUser(DWORD dwKey)
 	return CYHHashTable<CObject>::GetData(dwKey);
 }
 
-//캐릭터 이름으로 찾기. 느리다.
+//캐 見 찾. .
 CObject* CUserTable::FindUserForName( char* strCharacterName )
 {
 	SetPositionHead();
@@ -174,7 +175,7 @@ BOOL CUserTable::AddUser(CObject* pObject,DWORD dwKey)
 			++m_dwNpcCount;
 		}
 		break;
-	//2007. 10. 30. CBH - 타이탄 몬스터 추가
+	//2007. 10. 30. CBH - 타탄  煞
 	case eObjectKind_TitanMonster:
 		{
 			++m_dwMonsterCount;
@@ -215,7 +216,7 @@ CObject * CUserTable::RemoveUser(DWORD dwKey)
 			--m_dwNpcCount;
 		}
 		break;
-	//2007. 10. 30. CBH - 타이탄 몬스터 추가
+	//2007. 10. 30. CBH - 타탄  煞
 	case eObjectKind_TitanMonster:
 		{
 			--m_dwMonsterCount;
@@ -249,8 +250,8 @@ void CUserTable::RemoveAllUser()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/// 06. 08. 2차 보스 - 이영준
-/// 기존 GetTargetInRange 함수에 마지막 인자로 안전거리 추가
+/// 06. 08. 2  - 結
+///  GetTargetInRange 獨  米 타 煞
 void CUserTable::GetTargetInRange(VECTOR3* pPivotPos,float Radius,CTargetList* pTList,float SafeRange)
 {
 #ifndef _MURIMNET_
@@ -274,7 +275,7 @@ void CUserTable::GetTargetInRange(VECTOR3* pPivotPos,float Radius,CTargetList* p
 			dx = (pPivotPos->x - pObjectPos->x);
 			dz = (pPivotPos->z - pObjectPos->z);
 			dist = sqrtf(dx*dx + dz*dz) - pObject->GetRadius();
-			/// 사정거리 안쪽이고 안전거리 바깥쪽만 타겟이다
+			/// 타 隔 타 袂訶 타甄
 			if(dist <= Radius && dist >= SafeRange)
 			{
 				iter.AddTargetWithNoData(pObject->GetID(),SKILLRESULTKIND_NONE);
@@ -378,32 +379,32 @@ BOOL CUserTable::OnDisconnectUser(DWORD dwKey)
 	TRAFFIC->LogUser(pInfo);
 #endif
 
-	LoginCheckDelete(pInfo->dwUserID);		// LOGOUT시간을 업데이트 합니다.
+	LoginCheckDelete(pInfo->dwUserID);		// LOGOUT챨 트 爛求.
 	
 	if(pInfo->dwCharacterID)
 		g_pUserTableForObjectID->RemoveUser(pInfo->dwCharacterID);
 	
-	// 로그인 UserID되었어있는 거 DB필드에서 제거
+	// 慣 UserID퓸獵  DB茄恙� 
 	ASSERT(pInfo->dwUserID);
 	g_pUserTableForUserID->RemoveUser(pInfo->dwUserID);
 
 	if(pInfo->dwCharacterID)
 	{
-		// 로그인 Character_ID정보 초기화
+		// 慣 Character_ID 珂화
 		MSGBASE msg;
 		msg.Category = MP_USERCONN;
 		msg.Protocol = MP_USERCONN_DISCONNECTED;
 		msg.dwObjectID = pInfo->dwCharacterID;
 		g_Network.Send2Server(pInfo->dwMapServerConnectionIndex, (char*)&msg, sizeof(msg));
 
-		// ChangeMapPoint 초기화
+		// ChangeMapPoint 珂화
 		SaveMapChangePointUpdate(pInfo->dwCharacterID, 0);
 	}
 
-	// 유저 삭제
+	//  
 	g_pUserTable->RemoveUser(dwKey);
 	
-	//user count 계산==============================================================================
+	//user count ==============================================================================
 	SERVERINFO * myInfo = g_pServerTable->GetSelfServer();
 	myInfo->wAgentUserCnt = GetUserCount();
 
@@ -423,14 +424,14 @@ BOOL CUserTable::OnDisconnectUser(DWORD dwKey)
 
 		g_Network.Send2Server(pOtherAgentInfo->dwConnectionIndex, (char *)&msg2, sizeof(msg2));
 	}
-	//user count 계산==============================================================================
+	//user count ==============================================================================
 
 	g_Console.LOG(4, "  User Disconnected UserIDx:%d  CharID:%d  (%d)", 
 			pInfo->dwUserID, pInfo->dwCharacterID, GetUserCount());
 
 	// AuthKey Release
 	g_pServerSystem->ReleaseAuthKey(pInfo->dwUniqueConnectIdx);
-	// pool 헤제
+	// pool 
 	g_UserInfoPool.Free(pInfo);
 
 	return TRUE;

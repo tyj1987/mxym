@@ -3,13 +3,14 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Distribute_Random.h"
 #include "ItemDrop.h"
 #include "ItemManager.h"
 #include "Player.h"
 #include "Monster.h"
 #include "..\[CC]Header\GameResourceManager.h"
-#include "MapItemDrop.h"	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/30)-MapItemDrop
+#include "MapItemDrop.h"	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/30)-MapItemDrop
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -54,8 +55,8 @@ void CDistribute_Random::SendItem( PARTY_RECEIVE_MEMBER* pRealMember, WORD DropI
 				money = random( pMonsterDropInfo->stDropInfo[pRealMember->count].wMoneyMin, pMonsterDropInfo->stDropInfo[pRealMember->count].wMoneyMax );
 		}
 		else*/
-			money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pReceivePlayer, MonsterKind); //to do : ¿©±â¼­ ¾ÆÀÌÅÛµµ µå¶ø ÇÏ´ÂÁö È®ÀÎ
-			// ¸Ê ¾ÆÀÌÅÛ µå¶ø °è»ê by Stiner(2008/05/30)-MapItemDrop
+			money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pReceivePlayer, MonsterKind); //to do : ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ by Stiner(2008/05/30)-MapItemDrop
 			MAPITEMDROP_OBJ->CalculateDropRate( pReceivePlayer, MonsterKind );
 
 		if(money)
@@ -69,10 +70,12 @@ void CDistribute_Random::SendItem( PARTY_RECEIVE_MEMBER* pRealMember, WORD DropI
 		}
 	}
 	else
-	{			
+	{
 		if( DropItemRatio )
-		if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
-			ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		{
+			if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
+				ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		}
 	}
 }
 /*
@@ -91,7 +94,7 @@ void CDistribute_Random::SendItem(PARTY_RECEIVE_MEMBER* pRealMember, WORD DropIt
 
 	if(DropItemId == 0)
 	{
-		money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pReceivePlayer, MonsterKind); //to do : ¿©±â¼­ ¾ÆÀÌÅÛµµ µå¶ø ÇÏ´ÂÁö È®ÀÎ
+		money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pReceivePlayer, MonsterKind); //to do : ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		if(money)
 		{
 			partymoney = money/pRealMember->count;

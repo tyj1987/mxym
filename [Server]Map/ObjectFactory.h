@@ -4,6 +4,7 @@
 
 #if !defined(AFX_OBJECTFACTORY_H__324EFDDF_059A_428C_94F2_76BC8E75E765__INCLUDED_)
 #define AFX_OBJECTFACTORY_H__324EFDDF_059A_428C_94F2_76BC8E75E765__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -20,7 +21,7 @@ class CBossMonster;
 class CTacticObject;
 class CMapObject;
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// Êµåº¸ - 05.12 Ì¿
 class CFieldBossMonster;
 class CFieldSubMonster;
 
@@ -34,7 +35,7 @@ private:
 	CMemoryPoolTempl<CTacticObject>* TacticPool;	
 	CMemoryPoolTempl<CBossMonster>* BossMonsterPool;
 	
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// Êµåº¸ - 05.12 Ì¿
 	CMemoryPoolTempl<CFieldBossMonster>* FieldBossMonsterPool;
 	CMemoryPoolTempl<CFieldSubMonster>* FieldSubMonsterPool;
 	

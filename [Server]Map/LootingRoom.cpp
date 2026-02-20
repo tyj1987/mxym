@@ -44,16 +44,16 @@ void CLootingRoom::MakeLootingRoom( CPlayer* pDiePlayer, CPlayer* pAttackPlayer 
 	m_dwAttacker	= pAttackPlayer->GetID();
 	ZeroMemory( m_LootingItemArray, sizeof(m_LootingItemArray) );
 
-//---SuperUser(¿ÜºÎ¿¡ Á¦°øÇÑ Ä³¸¯ÅÍ°¡ PK·Î ·çÆÃ´çÇÏÁö ¾Ê°Ô ÇÏ±âÀ§ÇØ), GM ¹× °³¹ßÀÚ´Â ·çÆÃ´çÇÏÁö ¾Ê´Â´Ù.!!!!! ^___^
-//	if( pDiePlayer->GetUserLevel() > eUSERLEVEL_SUPERUSER )	//Å×½ºÆ®¸¦ À§ÇØ Á¦°ÅÇß´Ù. »ì¸®ÀÚ.
+//---SuperUser(ï¿½ÜºÎ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ PKï¿½ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½), GM ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.!!!!! ^___^
+//	if( pDiePlayer->GetUserLevel() > eUSERLEVEL_SUPERUSER )	//ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½. ï¿½ì¸®ï¿½ï¿½.
 	{
-		//¡¾OA¡Ë¢¯¢® ACC¨ª¨ù¡© ¨ú¨¡AIAU A¢´¢¯o ©øO¡¾a
+		//ï¿½ï¿½OAï¿½ï¿½ ACCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½AIAU Aï¿½ï¿½ï¿½o ï¿½Oï¿½ï¿½a
 		CInventorySlot* pInventory	= (CInventorySlot*)pDiePlayer->GetSlot(eItemTable_Inventory);
 		CWearSlot* pWear			= (CWearSlot*)pDiePlayer->GetSlot( eItemTable_Weared );
 		MONEYTYPE HasMoney			= pDiePlayer->GetMoney();
 		
 		EXPTYPE MaxExp	= GAMERESRCMNGR->GetMaxExpPoint( pDiePlayer->GetLevel() );
-		//SW080402	PK½Ã °æÇèÄ¡ ¸·±â
+		//SW080402	PKï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		//EXPTYPE HasExp	= pDiePlayer->GetPlayerExpPoint();
 		
 		int i;
@@ -73,7 +73,7 @@ void CLootingRoom::MakeLootingRoom( CPlayer* pDiePlayer, CPlayer* pAttackPlayer 
 				//
 				if( !pInventory->IsEmpty( i ) )
 				if( !pInventory->IsLock( i ) )
-				//SW070127 Å¸ÀÌÅº
+				//SW070127 Å¸ï¿½ï¿½Åº
 				//if( FALSE == ITEMMGR->IsPetSummonItem(pInventory->GetItemInfoAbs(i)->wIconIdx) )
 				if( FALSE == ITEMMGR->IsPetSummonItem(pInventory->GetItemInfoAbs(i)->wIconIdx) &&
 					FALSE == ITEMMGR->IsTitanCallItem(pInventory->GetItemInfoAbs(i)->wIconIdx) &&
@@ -103,38 +103,40 @@ void CLootingRoom::MakeLootingRoom( CPlayer* pDiePlayer, CPlayer* pAttackPlayer 
 			ListInvenItem.DeleteAll();
 		}
 		
-		//ÀåÂø¾ÆÀÌÅÛ ·çÆÃ´çÇÒ È®·ü(¾Ç¸íÄ¡¿¡µû¶ó ´Þ¶óÁø´Ù)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ È®ï¿½ï¿½(ï¿½Ç¸ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½)
 		int Ratio = LOOTINGMGR->GetWearItemLootingRatio( pDiePlayer->GetBadFame() );
 		int seed = rand()%100;
 		
 		if( seed < Ratio )
-		if( pWear->GetItemCount() )
 		{
-			//---
 			cConstLinkedList<const ITEMBASE*> ListWearItem;
-			for( i = TP_WEAR_START ; i < TP_WEAR_END ; ++i )
+			if( pWear->GetItemCount() )
 			{
-				//
-				if( !pWear->IsEmpty( i ) )
-				if( !pWear->IsLock( i ) )
+				//---
+				for( i = TP_WEAR_START ; i < TP_WEAR_END ; ++i )
 				{
-					ListWearItem.AddTail( pWear->GetItemInfoAbs(i) );
+					//
+					if( !pWear->IsEmpty( i ) )
+					if( !pWear->IsLock( i ) )
+					{
+						ListWearItem.AddTail( pWear->GetItemInfoAbs(i) );
+					}
 				}
+				//---
+				if( ListWearItem.GetCount() )
+				{
+					nIndex1		= rand()%ListWearItem.GetCount();
+					pItemInfo	= ListWearItem.GetAt( nIndex1 );
+					nIndex2		= rand()%ListNumber.GetCount();
+					nPos		= ListNumber.GetAt( nIndex2 );
+					m_LootingItemArray[nPos].nKind		= eLI_ITEM;
+					m_LootingItemArray[nPos].dwData		= pItemInfo->Position;
+
+					ListWearItem.DeleteAt( nIndex1 );
+					ListNumber.DeleteAt( nIndex2 );
+				}
+				ListWearItem.DeleteAll();
 			}
-			//---
-			if( ListWearItem.GetCount() )
-			{
-				nIndex1		= rand()%ListWearItem.GetCount();
-				pItemInfo	= ListWearItem.GetAt( nIndex1 );
-				nIndex2		= rand()%ListNumber.GetCount();
-				nPos		= ListNumber.GetAt( nIndex2 );
-				m_LootingItemArray[nPos].nKind		= eLI_ITEM;
-				m_LootingItemArray[nPos].dwData		= pItemInfo->Position;
-				
-				ListWearItem.DeleteAt( nIndex1 );
-				ListNumber.DeleteAt( nIndex2 );
-			}
-			ListWearItem.DeleteAll();
 		}
 			
 		if( HasMoney > 0 )
@@ -150,7 +152,7 @@ void CLootingRoom::MakeLootingRoom( CPlayer* pDiePlayer, CPlayer* pAttackPlayer 
 			}
 		}
 			
-		/* //SW080402	PK½Ã °æÇèÄ¡ ¸·±â
+		/* //SW080402	PKï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		if( HasExp > 0 )
 		{
 			DWORD LootExp = (DWORD)(MaxExp / 100);		//1%
@@ -176,14 +178,14 @@ void CLootingRoom::MakeLootingRoom( CPlayer* pDiePlayer, CPlayer* pAttackPlayer 
 	m_nChance = LOOTINGMGR->GetLootingChance( pAttackPlayer->GetBadFame() );
 	m_nItemLootCount = LOOTINGMGR->GetLootingItemNum( pAttackPlayer->GetBadFame() );
 
-	m_dwLootingStartTime = gCurTime;	//¢¯i¨ù¡¾ ¨ù¨ù¨¡ACN¢¥U.
+	m_dwLootingStartTime = gCurTime;	//ï¿½iï¿½ï¿½ ï¿½ï¿½ACNï¿½ï¿½U.
 
 	m_nLootedItemCount = 0;
 }
 
 BOOL CLootingRoom::IsTimeOut()
-{	//¨öA¡Æ¡ÌA¨ùA¨Ï
-	if( gCurTime - m_dwLootingStartTime > PKLOOTING_LIMIT_TIME + PKLOOTING_DLG_DELAY_TIME + 3000 )	//3AE ¢¥oA¨ª¢¥U. ¡¤¡Ë¢Ò¡×©ö¢ç.
+{	//ï¿½Aï¿½Æ¡ï¿½Aï¿½Aï¿½ï¿½
+	if( gCurTime - m_dwLootingStartTime > PKLOOTING_LIMIT_TIME + PKLOOTING_DLG_DELAY_TIME + 3000 )	//3AE ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½U. ï¿½ï¿½ï¿½Ë¢Ò¡ï¿½ï¿½ï¿½.
 		return TRUE;
 
 	return FALSE;
@@ -194,7 +196,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 	CPlayer* pAttackPlayer	= (CPlayer*)g_pUserTable->FindUser( m_dwAttacker );
 	CPlayer* pDiePlayer		= (CPlayer*)g_pUserTable->FindUser( m_dwDiePlayer );
 	if( !pAttackPlayer || !pDiePlayer )
-		return FALSE;	//Ao¢¯o¨ú©¬ CO ¡íoE©÷
+		return FALSE;	//Aoï¿½oï¿½ï¿½ CO ï¿½ï¿½oE
 
 	DWORD dwErrorCode = eLOOTINGERROR_OK;
 	float fDist = CalcDistanceXZ( CCharMove::GetPosition( pAttackPlayer), CCharMove::GetPosition( pDiePlayer) );
@@ -220,7 +222,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 		goto LOOTING_ERROR;
 	}
 
-	if( fDist > PK_LOOTING_DISTANCE + 500 )	//¢¯¨Ï¡¾a¢¯¢® ¢¯AA¡À¢¬| { ¢¥oC¨ª¨ù¡© ¨ú¥ì¡¾i?
+	if( fDist > PK_LOOTING_DISTANCE + 500 )	//ï¿½Ï¡ï¿½a ï¿½AAï¿½ï¿½ï¿½| { ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ ï¿½ì¡¾i?
 	{
 		if( !bForce )
 		{
@@ -235,7 +237,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 	{
 		if( !bForce )
 		{
-			//msg ¨¬¢¬©ø¨ú CE¢¯a¡Æ¢® AO¢¥U.?
+			//msg ï¿½ï¿½ CEï¿½aï¿½ï¿½ AOï¿½ï¿½U.?
 			MSG_DWORD2 msg;
 			msg.Category	= MP_PK;
 			msg.Protocol	= MP_PK_LOOTING_NOLOOTING;
@@ -247,15 +249,15 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 		return TRUE;
 	}
 	
-	if( m_LootingItemArray[nArrayNum].nKind == eLI_ITEM )	//¨ú¨¡AIAU AO¡¾a!
+	if( m_LootingItemArray[nArrayNum].nKind == eLI_ITEM )	//ï¿½ï¿½AIAU AOï¿½ï¿½a!
 	{
 		//////////////////////////////////////////
-		//AttackPlayerAC AI¨¬¡ÍAa¢¬¢ç¢¯¢® AU¢¬¢ç¡Æ¢® AO¢¥A¡Æ¢®?
+		//AttackPlayerAC AIï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½ AUï¿½ï¿½ï¿½ AOï¿½ï¿½Aï¿½ï¿½?
 		CItemSlot* pAInven	= pAttackPlayer->GetSlot( eItemTable_Inventory );
 		WORD wEmptyPos;
 		if( pAInven->GetEmptyCell( &wEmptyPos ) == 0 )
 		{
-			//msgCE¢¯a. AI¨¬¡ÍAI ©÷EA¢®¢¥U!
+			//msgCEï¿½a. AIï¿½ï¿½ï¿½ï¿½AI ï¿½EAï¿½ï¿½U!
 			MSG_DWORD msg;
 			msg.Category	= MP_PK;
 			msg.Protocol	= MP_PK_LOOTING_NOINVENSPACE;
@@ -265,7 +267,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 		else
 		{
 			/////////////////////////
-			//DiePlayer ¨ú¨¡AIAU Ao¢¯i¡¾a - Au¨¡¡ÀAo¨ùC¡Æu ¢¯E¨ùC¨ú¨¡AIAU: A¡þ¢ÒoAI¨ú©£¨¡¢ç¢¯¢®¨ù¡©¢¬¢¬ Ao¢¯i¢¬e ¥ìE¢¥U.
+			//DiePlayer ï¿½ï¿½AIAU Aoï¿½iï¿½ï¿½a - Auï¿½ï¿½ï¿½ï¿½Aoï¿½Cï¿½ï¿½u ï¿½Eï¿½Cï¿½ï¿½AIAU: Aï¿½ï¿½ï¿½ï¿½oAIï¿½ï¿½ï¿½ï¿½ç¢¡ï¿½ Aoï¿½iï¿½e ï¿½ï¿½Eï¿½ï¿½U.
 			CItemSlot* pDSlot = pDiePlayer->GetSlot( (POSTYPE)m_LootingItemArray[nArrayNum].dwData );
 			ITEMBASE ItemBase;
 			if( EI_TRUE != pDSlot->DeleteItemAbs( pDiePlayer, (POSTYPE)m_LootingItemArray[nArrayNum].dwData, &ItemBase ) )
@@ -278,7 +280,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 			pDiePlayer->SendMsg( &RemoveMsg, sizeof( RemoveMsg ) );
 			
 			//////////////////////////
-			//AttackPlayer ¨ú¨¡AIAU AO¡¾a
+			//AttackPlayer ï¿½ï¿½AIAU AOï¿½ï¿½a
 			ItemBase.Position		= wEmptyPos;
 			ItemBase.QuickPosition	= 0;
 			ItemUpdateToDB( m_dwAttacker, ItemBase.dwDBIdx, ItemBase.wIconIdx, ItemBase.Durability,
@@ -291,8 +293,8 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 				eLog_ItemObtainPK, pDiePlayer->GetMoney(eItemTable_Inventory), pAttackPlayer->GetMoney(eItemTable_Inventory), 
 				0, ItemBase.wIconIdx,  ItemBase.dwDBIdx, 0, ItemBase.Position, ItemBase.Durability, pDiePlayer->GetPlayerExpPoint());
 
-			//SW070127 Å¸ÀÌÅº
-			//·çÆÃ ¿¹¿ÜÃ³¸®Áß Á¤¸® //SW070308 ¾ÆÀÌÅÛºÎ°¡¿É¼Çµé Á¤¸® ÂüÁ¶
+			//SW070127 Å¸ï¿½ï¿½Åº
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ //SW070308 ï¿½ï¿½ï¿½ï¿½ï¿½ÛºÎ°ï¿½ï¿½É¼Çµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			/*
 			MSG_LOOTINGIEM AddMsg;
 			AddMsg.Category			= MP_PK;
@@ -339,7 +341,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 				pAttackPlayer->GetPetManager()->AddPetTotalInfo(&AddMsg.sPetInfo);
 			}
 
-			//SW070127 Å¸ÀÌÅº
+			//SW070127 Å¸ï¿½ï¿½Åº
 			if( ITEMMGR->IsTitanCallItem( ItemBase.wIconIdx ) )
 			{
 				//!!!
@@ -363,7 +365,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 			++m_nLootedItemCount;
 		}
 	}
-	else if( m_LootingItemArray[nArrayNum].nKind == eLI_MONEY )		//¥ì¡¤AO¡¾a!
+	else if( m_LootingItemArray[nArrayNum].nKind == eLI_MONEY )		//ï¿½ì¡¤AOï¿½ï¿½a!
 	{
 		MONEYTYPE AMoney	= pAttackPlayer->GetMoney();
 		MONEYTYPE DMoney	= pDiePlayer->GetMoney();
@@ -376,7 +378,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 		MSG_DWORD3 MoneyMsg;
 		MoneyMsg.Category	= MP_PK;
 		MoneyMsg.dwData1	= m_dwDiePlayer;
-		MoneyMsg.dwData2	= nArrayNum;	//byte¡¤I A©¡¨¬¨¢CI¡¾aCN¥ì¡Í
+		MoneyMsg.dwData2	= nArrayNum;	//byteï¿½ï¿½I Aï¿½ï¿½ï¿½ï¿½CIï¿½ï¿½aCNï¿½ï¿½ï¿½
 		MoneyMsg.dwData3	= Real;
 		
 		MoneyMsg.Protocol	= MP_PK_LOOTING_MOENYLOOTING;
@@ -390,7 +392,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 
 		++m_nLootedItemCount;
 	}
-	else if( m_LootingItemArray[nArrayNum].nKind == eLI_EXP )		//¡Æ©¡CeA¢® AO¡¾a!
+	else if( m_LootingItemArray[nArrayNum].nKind == eLI_EXP )		//ï¿½ï¿½CeA AOï¿½ï¿½a!
 	{
 		DWORD LootExp = m_LootingItemArray[nArrayNum].dwData;
 		if( pDiePlayer->GetLevel() == 1 )
@@ -406,7 +408,7 @@ BOOL CLootingRoom::Loot( int nArrayNum, BOOL bForce )
 		MSG_DWORD3 ExpMsg;
 		ExpMsg.Category = MP_PK;
 		ExpMsg.dwData1	= m_dwDiePlayer;
-		ExpMsg.dwData2	= nArrayNum;	//byte¡¤I A©¡¨¬¨¢CI¡¾aCN¥ì¡Í
+		ExpMsg.dwData2	= nArrayNum;	//byteï¿½ï¿½I Aï¿½ï¿½ï¿½ï¿½CIï¿½ï¿½aCNï¿½ï¿½ï¿½
 		ExpMsg.dwData3	= LootExp;
 		ExpMsg.Protocol = MP_PK_LOOTING_EXPLOOTING;
 		pAttackPlayer->SendMsg( &ExpMsg, sizeof( ExpMsg ) );
@@ -452,9 +454,11 @@ void CLootingRoom::EndLootingRoomMsg( BOOL bMsgToAttacker )
 	EndMsg.dwData		= m_dwDiePlayer;
 
 	if( bMsgToAttacker )
+	{
 	if( pAttackPlayer )
 		pAttackPlayer->SendMsg( &EndMsg, sizeof( EndMsg ) );
 	
+	}
 	if( pDiePlayer )
 		pDiePlayer->SendMsg( &EndMsg, sizeof( EndMsg ) );
 }
@@ -462,7 +466,7 @@ void CLootingRoom::EndLootingRoomMsg( BOOL bMsgToAttacker )
 
 void CLootingRoom::DiePlayerExitPanelty()
 {
-	m_nChance = PKLOOTING_ITEM_NUM;	//MAX¡¤I
+	m_nChance = PKLOOTING_ITEM_NUM;	//MAXï¿½ï¿½I
 	int nPos = 0;
 	while( m_nItemLootCount )
 	{
@@ -477,6 +481,6 @@ void CLootingRoom::DiePlayerExitPanelty()
 		if( nPos >= PKLOOTING_ITEM_NUM ) break;
 	}
 
-	//AI¡¤¢¬¡ÆO C¨ª¥ìI ¥ìE¡¾i?
+	//AIï¿½ï¿½ï¿½ï¿½O Cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½Eï¿½ï¿½i?
 	LOOTINGMGR->CloseLootingRoom( m_dwDiePlayer, TRUE );
 }

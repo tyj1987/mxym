@@ -5,8 +5,12 @@
 #include "stdafx.h"
 #include "AbilityGroup.h"
 #include "AbilityManager.h"
-#include "Player.h"
-#include "QuickManager.h"
+#include "..\[Server]Map\Player.h"
+#ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
+#include "..\[Client]MH\QuickManager.h"
+#endif
+#endif
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -44,9 +48,13 @@ void CAbilityGroup::Init(ABILITY_TOTALINFO* pTotalInfo)
 
 			AbilityIndex = GetAbilityIndex_WithKindPosition(kind,n);
 
-			// 06. 01 이영준 - 단축창 변경
+			// 06. 01 結 - 창 
 			//QuickPos = GetAbilityQuickPosition(pQuickPosition[n]);
+#ifdef _MHCLIENT_
 			QuickPos = CQuickManager::GetAbilityQuickPosition(kind, n, pTotalInfo);
+#else
+			QuickPos = pQuickPosition[n];
+#endif
 
 			pInfo = ABILITYMGR->GetAbilityInfo(AbilityIndex);
 			if(pInfo == NULL)

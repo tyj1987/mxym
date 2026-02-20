@@ -4,6 +4,7 @@
 
 #if !defined(AFX_AIMANAGER_H__1E5F6FF9_7910_4C5D_992E_575B3EA35526__INCLUDED_)
 #define AFX_AIMANAGER_H__1E5F6FF9_7910_4C5D_992E_575B3EA35526__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

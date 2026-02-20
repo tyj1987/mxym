@@ -9,10 +9,21 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Object.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\Object.h"
+#else
+// å®¢æˆ·ç«¯ï¼šåŒ…å«å®¢æˆ·ç«¯çš„Object.h
+#include "..\\[Client]MH\\Object.h"
+#endif
+
 #include "SkillObjectSingleUnit.h"
 //#include "cLinkedList.h"
 #include "SkillInfo.h"
+
+// Forward declare HEFFPROC type (defined in EffectManager.h)
+#ifndef HEFFPROC
+typedef DWORD HEFFPROC;
+#endif
 
 class CSkillInfo;
 class CActionTarget;
@@ -39,24 +50,26 @@ protected:
 	WORD m_SkillObjectMoveType;
 
 	CObject* m_pOperator;
-	
+
 	BOOL m_IsHeroSkill;
 	BOOL m_bWasTempObject;
-	
+	BOOL m_bInited;
+	BOOL m_bDieFlag;
+
 	SKILLOBJECT_INFO m_SkillObjectInfo;
 
 	HEFFPROC m_hObjectEff;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2  - Ì¿
+	//  È¯ ß°
 	WORD m_OptionIndex;
 	//////////////////////////////////////////////////////////////////////////
 	
 	void AddSingleUnit(CSkillObjectSingleUnit* pSingleUnit);
 	void AddStateUnit(CSkillObjectStateUnit* pStateUnit);
 
-	void Release();			// CObject::Release°¡ È£Ãâ µÇ´Â °ÍÀ» ¸·±â À§ÇÔ
+	void Release();			// CObject::Release È£ Ç´   
 
 	void SetOperatorState();
 	void EndOperatorState();

@@ -50,8 +50,8 @@
 #endif
 
 #ifdef __MAPSERVER__
-#include "MemoryChecker.h"
-#include "mherror.h"
+#include "../[Client]MH/MemoryChecker.h"
+#include "../[Client]MH/MHError.h"
 #include "SkillManager_server.h"
 #endif
 
@@ -71,8 +71,8 @@ CSkillObjectFactory::~CSkillObjectFactory()
 
 CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 {
-	// ÀÓ½Ã ÇÏµå ÄÚµù
-	// ³ªÁß¿¡ pSkillInfo¿¡ ¸Â°Ô »ý¼ºÇÏ°í ¼ÂÆÃÇØÁÖ¾î¾ß ÇÔ
+	// ï¿½Ó½ï¿½ ï¿½Ïµï¿½ ï¿½Úµï¿½
+	// ï¿½ï¿½ï¿½ß¿ï¿½ pSkillInfoï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½
 
 //	int SKsize = 0;
 
@@ -142,14 +142,14 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectFirstUnit_Recover);
 	}
 	////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	else if(pInfo->SpecialState)
 	{
 		pFirstUnit = new CSkillObjectFirstUnit_SingleSpecialState(pInfo);
 	}
 	////////////////////////////////////////////////////////////////////////////	
-	///// 2007. 7. 6. CBH - Àü¹®½ºÅ³
+	///// 2007. 7. 6. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³
 	else if(SKILLMGR->CheckSkillKind(wSkillKind) == TRUE)	
 	{
 		pFirstUnit = new CSkillObjectFirstUnit_Job(pInfo);
@@ -161,15 +161,25 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 	}
 
 	CSkillObject* pSObj;
-	if(pInfo->AIObject == 1)	// Áö·Ú
+	if(pInfo->AIObject == 1)	// ï¿½ï¿½ï¿½ï¿½
 	{
+#ifdef _MAPSERVER_
 		pSObj = new CSkillObject_Mine(pSkillInfo,pTer,pTar,pFirstUnit);
 //		SKsize += sizeof(CSkillObject_Mine);
+#else
+		// å®¢æˆ·ç«¯ç¼–è¯‘æ¨¡å¼ï¼šä¸æ”¯æŒåœ°é›·æŠ€èƒ½
+		pSObj = NULL;
+#endif
 	}
 	else
 	{
+#ifdef _MAPSERVER_
 		pSObj = new CSkillObject(pSkillInfo,pTer,pTar,pFirstUnit);
 //		SKsize += sizeof(CSkillObject);
+#else
+		// åº“ç¼–è¯‘æ¨¡å¼ï¼šä½¿ç”¨æœåŠ¡å™¨ç«¯æŠ€èƒ½å¯¹è±¡
+		pSObj = NULL;
+#endif
 	}
 
 	// SingleUnit
@@ -207,7 +217,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 	// AttachUnit
 	if( pInfo->UpMaxLife[11] != 0 || 
 		pInfo->UpMaxNaeRyuk[11] != 0 ||
-		pInfo->UpMaxShield[11] != 0 )		// ÃÖ´ë »ý¸í,³»·Â »ó½Â
+		pInfo->UpMaxShield[11] != 0 )		// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_MaxLifeNaeRyukUp();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -216,7 +226,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_MaxLifeNaeRyukUp);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->UpAttDefence[11] > 0.000001f || pInfo->UpPhyDefence[11] > 0.000001f)		// ¹æ¾î·Â »ó½Â
+	if(pInfo->UpAttDefence[11] > 0.000001f || pInfo->UpPhyDefence[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_DefenceUp();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -225,7 +235,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_DefenceUp);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->UpPhyAttack[11] > 0.000001f)		// ¹°¸®°ø°Ý·Â »ó½Â
+	if(pInfo->UpPhyAttack[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_AttackUp();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -234,7 +244,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_AttackUp);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->CounterAttAttack[11] > 0.000001f || pInfo->CounterPhyAttack[11] > 0.000001f)	// ¹Ý°Ý
+	if(pInfo->CounterAttAttack[11] > 0.000001f || pInfo->CounterPhyAttack[11] > 0.000001f)	// ï¿½Ý°ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_CounterAttack();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -243,7 +253,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_CounterAttack);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->Immune != 0)		// ¹«Àû
+	if(pInfo->Immune != 0)		// ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_Immune();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -252,9 +262,9 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_Immune);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->ChangeSpeedType == 1)		// ÀÌµ¿¼Óµµ º¯È­
+	if(pInfo->ChangeSpeedType == 1)		// ï¿½Ìµï¿½ï¿½Óµï¿½ ï¿½ï¿½È­
 	{
-		//·£´ýÃ¼Å©
+		//ï¿½ï¿½ï¿½ï¿½Ã¼Å©
 		
 		pAttachUnit = new CSkillObjectAttachUnit_MoveSpeed();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -263,7 +273,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_MoveSpeed);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->CounterDodgeKind == 2)		// È¸ÇÇ
+	if(pInfo->CounterDodgeKind == 2)		// È¸ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_Dodge();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -272,7 +282,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_Dodge);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->VampiricLife[11] > 0.000001f || pInfo->VampiricNaeryuk[11] > 0.000001f)		// Èí±â
+	if(pInfo->VampiricLife[11] > 0.000001f || pInfo->VampiricNaeryuk[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_Vampiric();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -283,7 +293,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 	}	
 	if( pInfo->DownMaxLife[11] != 0 || 
 		pInfo->DownMaxNaeRyuk[11] != 0 ||
-		pInfo->DownMaxShield[11] != 0 )		// ÃÖ´ë »ý¸í,³»·Â °¨¼Ò
+		pInfo->DownMaxShield[11] != 0 )		// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_MaxLifeNaeRyukDown();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -292,7 +302,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_MaxLifeNaeRyukDown);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->DownAttDefence[11] > 0.000001f || pInfo->DownPhyDefence[11] > 0.000001f )		// ¹æ¾î·Â °¨¼Ò
+	if(pInfo->DownAttDefence[11] > 0.000001f || pInfo->DownPhyDefence[11] > 0.000001f )		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_DefenceDown();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -301,7 +311,7 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_DefenceDown);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->DownPhyAttack[11] > 0.000001f)		// ¹°¸®°ø°Ý·Â °¨¼Ò
+	if(pInfo->DownPhyAttack[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_AttackDown();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -310,14 +320,14 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 //		SKsize += sizeof(CSkillObjectAttachUnit_AttackDown);
 //		SKsize += sizeof(CSkillObjectStateUnit_StatusAttach);
 	}
-	if(pInfo->DamageRate[11] > 0.000001f)		// µ¥¹ÌÁö °¨¼ÒÀ²
+	if(pInfo->DamageRate[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_DamageDownRate();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
 		((CSkillObjectStateUnit_StatusAttach*)pStateUnit)->SetAttachUnit(pAttachUnit,SKILLRESULTKIND_POSITIVE);
 		pSObj->AddStateUnit(pStateUnit);
 	}
-	if(pInfo->AttackRate[11] > 0.000001f)		// °ø°Ý µ¥¹ÌÁö Áõ°¡
+	if(pInfo->AttackRate[11] > 0.000001f)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_AttackLastUpRate();
 		pStateUnit = new CSkillObjectStateUnit_StatusAttach();
@@ -346,8 +356,8 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 		pSObj->AddStateUnit(pStateUnit);
 	}
 	////////////////////////////////////////////////////////
-	//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	//ÀÌÆåÆ® »ý·«(¹«ÃÊ)
+	//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	if( pInfo->SkipEffect > 0 )
 	{
 		pAttachUnit = new CSkillObjectAttachUnit_SkipEffect();
@@ -382,9 +392,9 @@ CSkillObject* CSkillObjectFactory::MakeNewSkillObject(CSkillInfo* pSkillInfo)
 	}
 /*
 #ifdef __MAPSERVER__
-	// ¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-	// ¦­Memory Check                                              ¦­
-	// ¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°	
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½Memory Check                                              ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	stMemoryInfo* pMemoryInfo = MEMORYCHK->GetMemoryInfo( eSkillFactory_MakeSkillObject );
 	if( pMemoryInfo )
 		pMemoryInfo->Increase( SKsize );

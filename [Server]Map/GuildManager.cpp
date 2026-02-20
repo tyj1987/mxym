@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "GuildManager.h"
 #include "MapDBMsgParser.h"
 #include "UserTable.h"
@@ -29,7 +30,7 @@ CGuildManager::CGuildManager()
 	m_GuildRoomHashTable.Initialize(256);
 	m_GuildMarkTable.Initialize(128);
 	m_ItemOptionList.Initialize(MAX_ITEM_OPTION_NUM);
-	m_ItemRareOptionList.Initialize(MAX_ITEM_OPTION_NUM); //¹öÄÏÀ» Å©°Ô Àâ´Â ÀÌÀ¯´Â?MAX_ITEM_OPTION_NUM*100-->MAX_ITEM_OPTION_NUM ÀÌÀ¯°¡ ¾ø´Â °Í°°¾Æ ÁÙ¿´´Ù.
+	m_ItemRareOptionList.Initialize(MAX_ITEM_OPTION_NUM); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?MAX_ITEM_OPTION_NUM*100-->MAX_ITEM_OPTION_NUM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í°ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½.
 	LoadLevelUpInfo();
 
 	memset(&m_GuildPointRule,0,sizeof(GUILDPOINT_RULE));
@@ -77,7 +78,7 @@ CGuildManager::~CGuildManager()
 		m_pGuildPlustimeInfo = NULL;
 	}
 
-	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 	m_GuildTraineeList.RemoveAll();
 	m_GuildTraineeList = NULL;
 	
@@ -248,7 +249,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 
-			//SW070824 ¼öÁ¤
+			//SW070824 ï¿½ï¿½ï¿½ï¿½
 			/*if(pGuild->CanAddMember() == FALSE )
 			{
 				ASSERTMSG(0, "Different Guild Member Info!");
@@ -421,7 +422,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 		break;
 
 #ifndef _HK_LOCAL_	//hk block
-		//SW060713 ¹®ÇÏ»ý
+		//SW060713 ï¿½ï¿½ï¿½Ï»ï¿½
 	case MP_GUILD_ADDSTUDENT_SYN:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -443,7 +444,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 	case MP_GUILD_HUNTEDMONSTER_TOTALCOUNT_TO_MAP:
 		{
 			SEND_GUILD_HUNTEDMOB_INFO* pmsg = (SEND_GUILD_HUNTEDMOB_INFO*)pMsg;
-			SetGuildHuntedMonsterTotalCountInfo(pmsg->dwObjectID, pmsg->dwData1, pmsg->dwData2);	//±æµåÀÎµ¦½º,ÃÑÇÕ,½Ã°£
+			SetGuildHuntedMonsterTotalCountInfo(pmsg->dwObjectID, pmsg->dwData1, pmsg->dwData2);	//ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿,ï¿½ï¿½ï¿½ï¿½,ï¿½Ã°ï¿½
 		}
 		break;
 	case MP_GUILD_POINT_USEINFO_TO_MAP:
@@ -482,7 +483,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			CGuild* pGuild = GetGuild(pmsg->dwData1);
 			if(pGuild)
 			{
-				//ÇÃ·¯½ºÅ¸ÀÓ »ç¿ë¸®½ºÆ® Ãß°¡
+				//ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ë¸ï¿½ï¿½Æ® ï¿½ß°ï¿½
 				AddGuildPlustimeUsingGuildList(pGuild);
 
 				pGuild->AddGuildPlustime(pmsg->dwData2, pmsg->dwData3);
@@ -544,8 +545,8 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg(&rtMsg, sizeof(MSG_DWORD2));
 		}
 		break;
-	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
-	// ¹®ÆÄµî·Ï
+	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
+	// ï¿½ï¿½ï¿½Äµï¿½ï¿
 	case MP_GUILD_MUNPA_REGIST_SYN:
 		{
 			MSG_DWORD * pmsg  = (MSG_DWORD*)pMsg;
@@ -572,10 +573,10 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				}
 			}
 
-			// DB°»½Å
+			// DBï¿½ï¿½ï¿½ï¿½
 			GuildTraineeGuildInsert(pmsg->dwData);
 
-			// MapServer °»½Å
+			// MapServer ï¿½ï¿½ï¿½ï¿½
 			GUILD_TRAINEE_GUILDLIST* temp = new GUILD_TRAINEE_GUILDLIST;
 			ZeroMemory(temp, sizeof(GUILD_TRAINEE_GUILDLIST));
 			temp->dwGuildIdx = pmsg->dwData;
@@ -589,7 +590,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			msg.sTraineeGuildList.dwRank = temp->dwRank;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			// Å¬¶óÀÌ¾ðÆ®¿¡°Ô ¼º°ø¸Þ¼¼Áö Send
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ¼ï¿½ï¿½ï¿½ Send
 			MSG_DWORD OkMsg;
 			ZeroMemory( &OkMsg, sizeof(MSG_DWORD) );
 			SetProtocol( &OkMsg, MP_GUILD, MP_GUILD_MUNPA_REGIST_ACK );
@@ -597,7 +598,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg( &OkMsg, sizeof(OkMsg) );
 		}
 		break;
-	// ¹®ÆÄµî·Ï Brodcasting
+	// ï¿½ï¿½ï¿½Äµï¿½ï¿ Brodcasting
 	case MP_GUILD_MUNPA_REGIST_BROD:
 		{
 			MSG_GUILD_TRAINEE_GUILDLIST* pmsg = (MSG_GUILD_TRAINEE_GUILDLIST*)pMsg;
@@ -623,7 +624,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			AddGuildTraineeGuildInfo( temp );
 		}
 		break;
-		// magi82 - ¹®ÇÏ»ý°ü·Ã(070124)
+		// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070124)
 	case MP_GUILD_MUNPA_REGIST_INTRO_BROD:
 		{
 			MSG_MUNHAINFOUPDATE* pmsg = (MSG_MUNHAINFOUPDATE*)pMsg;
@@ -638,7 +639,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			AddGuildTraineeGuildIntroInfo( temp );
 		}
 		break;
-	// ¹®ÆÄÃë¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	case MP_GUILD_MUNPA_DELETE_SYN:
 		{
 			MSG_MUNHANOTEINFO * pmsg  = (MSG_MUNHANOTEINFO*)pMsg;
@@ -658,7 +659,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 					{
 						bFlag = TRUE;
 
-						// MapServer °»½Å
+						// MapServer ï¿½ï¿½ï¿½ï¿½
 						m_GuildTraineeGuildList.Remove( pTrainee );
 					}
 				}
@@ -675,7 +676,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 					{
 						bFlag = TRUE;
 
-						// MapServer °»½Å
+						// MapServer ï¿½ï¿½ï¿½ï¿½
 						m_GuildTraineeGuildIntroInfoList.Remove( pGuildIntro );
 					}
 				}
@@ -691,7 +692,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 
-			// ÇØ´ç ¹®ÆÄ¿¡ Áö¿øÇÏ¿´´ø À¯Àúµé »èÁ¦
+			// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pos = m_GuildTraineeList.GetHeadPosition();
 			GUILD_TRAINEE_LIST* pUserTrainee = NULL;
 			while(pos)
@@ -701,7 +702,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				{
 					if( pUserTrainee->dwGuildIdx == pmsg->dwData )
 					{
-						// ÇØ´ç Áö¿øÀÚµé¿¡°Ô ÂÊÁö·Î ¾Ë·ÁÁÜ
+						// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµé¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½
 						CGuild* pJoinGuild = (CGuild*)GetGuild(pUserTrainee->dwGuildIdx);
 
 						MSG_MUNHA_NAME2_DWORD_NOTE Sendmsg;
@@ -718,7 +719,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				}
 			}
 
-			// DB°»½Å
+			// DBï¿½ï¿½ï¿½ï¿½
 			GuildTraineeGuildDelete(pmsg->dwData);
 			GuildTraineeDeletebyGuild(pmsg->dwData);
 
@@ -728,7 +729,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			msg.dwData = pmsg->dwData;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			// Å¬¶óÀÌ¾ðÆ®¿¡°Ô ¼º°ø¸Þ¼¼Áö Send
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ¼ï¿½ï¿½ï¿½ Send
 			MSG_DWORD OkMsg;
 			ZeroMemory( &OkMsg, sizeof(MSG_DWORD) );
 			SetProtocol( &OkMsg, MP_GUILD, MP_GUILD_MUNPA_DELETE_ACK );
@@ -736,7 +737,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg( &OkMsg, sizeof(OkMsg) );
 		}
 		break;
-	// ¹®ÆÄÃë¼Ò Brodcasting
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ Brodcasting
 	case MP_GUILD_MUNPA_DELETE_BROD:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -771,7 +772,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				}
 			}
 
-			// ÇØ´ç ¹®ÆÄ¿¡ Áö¿øÇÏ¿´´ø À¯Àúµé »èÁ¦
+			// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pos = m_GuildTraineeList.GetHeadPosition();
 			GUILD_TRAINEE_LIST* pUserTrainee = NULL;
 			while(pos)
@@ -787,7 +788,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 		}
 		break;
-	// ¹®ÆÄ¸ñ·Ï
+	// ï¿½ï¿½ï¿½Ä¸ï¿½ï¿
 	case MP_GUILD_MUNPA_CATALOG_SYN:
 		{
 			MSG_WORD * pmsg  = (MSG_WORD*)pMsg;
@@ -795,7 +796,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				return;
 			
-			// magi82(40) ¹®ÇÏ»ý Áö¿øÇÏ±âÃ¢À» º¼¶§ ¼­¹ö°¡ ´Ù¿îµÇ´Â Çö»óÀÇ ¹æ¾îÄÚµå..
+			// magi82(40) ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Ç´ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Úµï¿..
 			WORD wIndex = pmsg->wData;
 			if(wIndex <= 0)
 				wIndex = 1;
@@ -817,7 +818,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 					pos = m_GuildTraineeGuildList.FindIndex(count+i);
 					pTemp = (GUILD_TRAINEE_GUILDLIST*)m_GuildTraineeGuildList.GetAt(pos);
 
-					// ÇØ´ç ¹®ÆÄÀÇ Á¤º¸¸¦ ¾Ë¾Æ³»¾ßÇÔ
+					// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½ï¿½ï¿½
 					CGuild* pGuild = (CGuild*)GUILDMGR->GetGuild( pTemp->dwGuildIdx );
 					if( !pGuild )
 						return;
@@ -848,7 +849,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg(&SendMsg, sizeof(MSG_MUNHAINFO));
 		}
 		break;
-	// ¹®ÆÄ¼Ò°³±Û ¾÷µ¥ÀÌÆ®
+	// ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	case MP_GUILD_INFOUPDATE_SYN:
 		{
 			MSG_MUNHAINFOUPDATE * pmsg  = (MSG_MUNHAINFOUPDATE*)pMsg;
@@ -859,7 +860,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			MSG_WORD Errmsg;
 			SetProtocol( &Errmsg, MP_GUILD, MP_GUILD_INFOUPDATE_NACK );
 
-			// ¹®ÁÖÀÎ°¡?
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 			if( pPlayer->GetGuildMemberRank() != GUILD_MASTER)
 			{
 				Errmsg.wData = 726;
@@ -867,7 +868,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 
-			// »çÀÌÁî´Â ¸Â´Â°¡?
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½Â´Â°ï¿½?
 			int len = strlen(pmsg->Intro);
 			if(len > MAX_GUILD_INTRO)
 			{
@@ -876,7 +877,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 
-			// DB¾÷µ¥ÀÌÆ®..
+			// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®..
 			GuildTraineeGuildIntroUpdate(pmsg->Index, pmsg->Intro);
 
 			PTRLISTPOS pos = m_GuildTraineeGuildIntroInfoList.GetHeadPosition();
@@ -908,7 +909,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg( &okmsg, sizeof(okmsg) );
 		}
 		break;
-	// ¹®ÆÄ¼Ò°³±Û ¼öÁ¤ brodcasting
+	// ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ brodcasting
 	case MP_GUILD_INFOUPDATE_BROD:
 		{
 			MSG_MUNHAINFOUPDATE* pmsg = (MSG_MUNHAINFOUPDATE*)pMsg;
@@ -931,7 +932,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 		}
 		break;
-	// ¹®ÇÏ»ýÀÇ ¹®ÆÄ°¡ÀÔ
+	// ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½
 	case MP_GUILD_MUNPA_JOIN_SYN:
 		{
 			MSG_MUNHANOTEINFO * pmsg  = (MSG_MUNHANOTEINFO*)pMsg;
@@ -940,14 +941,14 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				return;
 
-			// ÇØ´ç ¹®ÆÄÀÇ Á¤º¸¸¦ ¾Ë¾Æ³»¾ßÇÔ
+			// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½ï¿½ï¿½
 			CGuild* pGuild = (CGuild*)GUILDMGR->GetGuild( pmsg->dwData );
 			if( !pGuild )
 				return;
 
-			// ¿¡·¯ÄÚµå ///////////////////////////////////////////////////////////////
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ///////////////////////////////////////////////////////////////
 			int errorCode = 0;
-			// ·¹º§ÀÌ 40ÀÌ»óÀÌ¸é : 1, ¹®ÆÄ°¡ ÀÖÀ¸¸é : 2, Áö¿øÀÚ°¡ ÃÊ°úÀÌ¸é : 3, ÀÌ¹Ì Áö¿øÇÏ¿´À¸¸é : 4
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 40ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ : 1, ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 2, ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ê°ï¿½ï¿½Ì¸ï¿½ : 3, ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ : 4
 			if( pPlayer->GetLevel() >= 40 )
 				errorCode = 1;
 			if( pPlayer->GetGuildMemberRank() > GUILD_NOTMEMBER )
@@ -964,7 +965,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				{
 					if( pTrainee->dwGuildIdx == pmsg->dwData )
 					{
-						if( ++MunpaCount >= 50 )	// 50¸íÀÌ»óÀÌ¸é..
+						if( ++MunpaCount >= 50 )	// 50ï¿½ï¿½ï¿½Ì»ï¿½ï¿½Ì¸ï¿½..
 						{
 							errorCode = 3;
 							break;
@@ -993,13 +994,13 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			//////////////////////////////////////////////////////////////////////////
 
 		
-			// Áö¿øÀÚ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½.
 			MSG_NAME rtMsg;
 			SetProtocol( &rtMsg, MP_GUILD, MP_GUILD_MUNPA_JOIN_ACK );
 			SafeStrCpy( rtMsg.Name, pGuild->GetGuildName(), MAX_GUILD_NAME+1 );
 			pPlayer->SendMsg( &rtMsg, sizeof(rtMsg) );
 
-			// Agent º¸³½´Ù. (¹®ÁÖÇÑÅ×)
+			// Agent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			MSG_MUNHA_NAME2_DWORD_NOTE Sendmsg;
 			SetProtocol( &Sendmsg, MP_GUILD, MP_GUILD_MUNPA_JOIN_SYN );
 			Sendmsg.dwObjectID = pmsg->dwObjectID;
@@ -1009,17 +1010,17 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			SafeStrCpy( Sendmsg.Intro, pmsg->Intro, MAX_CHAT_LENGTH+1 );
 			g_Network.Send2AgentServer((char*)&Sendmsg, sizeof(Sendmsg));
 
-			// Agent¸¦ ¶Ç º¸³½´Ù.(ºÎ¹®ÁÖ³ª Àå·ÎÇÑÅ×)
+			// Agentï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.(ï¿½Î¹ï¿½ï¿½Ö³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿)
 			pGuild->SendMsgAgentStudentJoin(pmsg->dwObjectID, pPlayer->GetObjectName(), pmsg->Intro);
 
 
-			// DB ÀúÀå
+			// DB ï¿½ï¿½ï¿½ï¿½
 			stTIME curTime;
 			curTime.value = GetCurTime();
 			curTime.SetTime(0, curTime.GetMonth(), curTime.GetDay(), curTime.GetHour(), curTime.GetMinute(), curTime.GetSecond() );
 			GuildTraineeInsert( pmsg->dwData, pmsg->dwObjectID, pPlayer->GetObjectName(), curTime.value );
 
-			// MapServer °»½Å
+			// MapServer ï¿½ï¿½ï¿½ï¿½
 			GUILD_TRAINEE_LIST* temp = new GUILD_TRAINEE_LIST;
 			ZeroMemory(temp, sizeof(GUILD_TRAINEE_LIST));
 			temp->dwGuildIdx = pmsg->dwData;
@@ -1038,7 +1039,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 		}
 		break;
-	// ¹®ÇÏ»ýÀÇ ¹®ÆÄ°¡ÀÔ brodcasting
+	// ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ brodcasting
 	case MP_GUILD_MUNPA_JOIN_BROD:
 		{
 			MSG_GUILD_TRAINEE_LIST* pmsg = (MSG_GUILD_TRAINEE_LIST*)pMsg;
@@ -1066,7 +1067,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			AddGuildTraineeInfo( temp );
 		}
 		break;
-	// ¹®ÇÏ»ý ¸ñ·Ï
+	// ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿
 	case MP_GUILD_MUNHA_CATALOG_SYN:
 		{
 			MSG_DWORD * pmsg  = (MSG_DWORD*)pMsg;
@@ -1096,12 +1097,12 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 
 
-			// ¹®ÇÏ»ýÀÌ 50¸íÀÌÇÏ¸é ACK
+			// ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ACK
 			if(rtMsg.dwCnt <= 50)
 			{
 				pPlayer->SendMsg( &rtMsg, rtMsg.GetSize() );
 			}
-			else	// 50¸íÀÌ»óÀÌ¸é NACK
+			else	// 50ï¿½ï¿½ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ NACK
 			{
 				MSG_DWORD ErrMsg;
 				ZeroMemory( &ErrMsg, sizeof(MSG_DWORD) );
@@ -1112,7 +1113,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 		}
 		break;
-	// ¹®ÇÏ»ý Áö¿øÀ» »èÁ¦
+	// ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	case MP_GUILD_MUNHA_DELETE_SYN:
 		{
 			MSG_DWORD2 * pmsg  = (MSG_DWORD2*)pMsg;
@@ -1121,7 +1122,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				return;
 
-			// DB¿¡¼­ »èÁ¦
+			// DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			GuildTraineeDelete(pmsg->dwData1);
 
 			PTRLISTPOS pos = m_GuildTraineeList.GetHeadPosition();
@@ -1144,7 +1145,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			msg.dwData = pmsg->dwData1;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			// ¹®ÁÖ¿¡°Ô ¾Ë·ÁÁÜ
+			// ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½
 			MSG_DWORD2 rtmsg;
 			SetProtocol( &rtmsg, MP_GUILD, MP_GUILD_MUNHA_DELETE_ACK );
 			rtmsg.dwData1 = pmsg->dwData1;
@@ -1152,7 +1153,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			pPlayer->SendMsg( &rtmsg, sizeof(rtmsg) );
 		}
 		break;
-	// ¹®ÇÏ»ý Áö¿ø »èÁ¦ Brodcasting
+	// ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Brodcasting
 	case MP_GUILD_MUNHA_DELETE_BROD:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -1174,10 +1175,10 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 		}
 		break;
-		// magi82 - ¹®ÇÏ»ý °ü·Ã(070123)
+		// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½(070123)
 	case MP_GUILD_MUNHA_USERDELETE_SYN:
 		{
-			// Áö¿øÇÑ Ä³¸¯ÅÍ¸¦ Áö¿üÀ»¶§ ÇØ´ç Áö¿ø»óÈ²À» ÃÊ±âÈ­
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ ï¿½Ê±ï¿½È­
 			MSG_DWORD * pmsg  = (MSG_DWORD*)pMsg;
 			DWORD dwGuildIdx = 0;
 
@@ -1197,7 +1198,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				}
 			}
 
-			// ¹®ÁÖÇÑÅ× º¸³»ÁØ´Ù(Á¢¼ÓÇØ ÀÖÀ»¶§¸¸..)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..)
 			CGuild* pGuild = (CGuild*)GUILDMGR->GetGuild( dwGuildIdx );
 			if( !pGuild )
 				return;
@@ -1211,7 +1212,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				pPlayer->SendMsg(&msg, sizeof(MSG_NAME));
 			}
 
-			// ºÎ¹®ÁÖ³ª Àå·ÎÇÑÅ×µµ º¸³¿
+			// ï¿½Î¹ï¿½ï¿½Ö³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿ ï¿½ï¿½ï¿½ï¿½
 			pos = pGuild->GetMemberList()->GetHeadPosition();
 			while(pos)
 			{
@@ -1265,11 +1266,11 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			}
 
 			CPlayer* pTarget = (CPlayer*)g_pUserTable->FindUser(pmsg->dwData1);
-			if(pTarget != 0)	// ¹®ÇÏ»ýÁö¿øÀÚ°¡ Á¢¼ÓÇØÀÖÀ¸¸é
+			if(pTarget != 0)	// ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				AddStudentResult(pTarget, pmsg->dwObjectID);
 			}
-			else	// ¹®ÇÏ»ýÁö¿øÀÚ°¡ Á¢¼ÓÇØÀÖÁö ¾ÊÀ¸¸é
+			else	// ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				AddStudentResult(pmsg->dwData1, pmsg->dwObjectID);
 			}
@@ -1311,7 +1312,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 			
-			//DB¿¡ ¸í¹®ÃàÇÏ±ÝÃ¼Å©°ª ÃÊ±âÈ­
+			//DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½Ã¼Å©ï¿½ï¿½ ï¿½Ê±ï¿½È­
 			GuildStudentLvUpCtInit( GuildIdx, MasterID );
 		}
 		break;
@@ -1326,7 +1327,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				return;
 			}
 
-			//Ã¼Å© º¯¼ö ÃÊ±âÈ­
+			//Ã¼Å© ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 			pGuild->SetStudentLvUpCountInfo(0,0);
 
 			pGuild->SendMsgToAll(pmsg, sizeof(*pmsg));
@@ -1355,10 +1356,10 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				break;
 
-			// ÀÚ±â ÀÚ½ÅÀº ¼ÒÈ¯ÇÒ¼ö¾ø´Ù.
+			// ï¿½Ú±ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½.
 			if(pmsg->dwData1 == pPlayer->GetID())
 			{
-				// Áö¿øÀÚ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½.
 				MSG_DWORD rtMsg;
 				SetProtocol( &rtMsg, MP_GUILD, MP_GUILD_SOS_SEND_ALRAM_NACK );
 				rtMsg.dwData = 3;
@@ -1366,7 +1367,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 				break;
 			}
 
-			// Agent º¸³½´Ù. (µµ¿ì¹Ì¿¡°Ô)
+			// Agent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿)
 			MSG_DWORD4 Sendmsg;
 			SetProtocol( &Sendmsg, MP_GUILD, MP_GUILD_SOS_SEND_SYN );
 			Sendmsg.dwObjectID = pmsg->dwObjectID;
@@ -1396,7 +1397,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				return;
 
-			// Agent º¸³½´Ù. (´ë»óÀÌ Á×¾ú´ÂÁö Ã¼Å©)
+			// Agent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©)
 			MSG_DWORD Sendmsg;
 			SetProtocol( &Sendmsg, MP_GUILD, MP_GUILD_SOS_SEND_DIE_CHECK );
 			Sendmsg.dwObjectID = pmsg->dwObjectID;
@@ -1418,12 +1419,12 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 
 			if(pPlayer->GetState() == eObjectState_Die)
 			{
-				// Á×¾úÀ¸¸é 1
+				// ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ 1
 				Sendmsg.dwData2 = 1;
 			}
 			else
 			{
-				// »ì¾ÒÀ¸¸é 2
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ 2
 				Sendmsg.dwData2 = 2;
 			}
 			g_Network.Broadcast2AgentServer((char*)&Sendmsg, sizeof(Sendmsg));
@@ -1436,7 +1437,7 @@ void CGuildManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			if( !pPlayer )
 				return;
 
-			// Agent º¸³½´Ù.
+			// Agent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			MSG_DWORD Sendmsg;
 			SetProtocol( &Sendmsg, MP_GUILD, MP_GUILD_SOS_SEND_NO );
 			Sendmsg.dwObjectID = pmsg->dwObjectID;
@@ -1548,7 +1549,7 @@ void CGuildManager::CreateGuildResult(LEVELTYPE MasterLvl, GUILDINFO* pGuildInfo
 	notify.MasterLvl = MasterLvl;
 	notify.GuildInfo.MarkName = pGuildInfo->MarkName;
 
-	//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+	//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 	notify.GuildInfo.LvUpCounter = 0;
 	notify.GuildInfo.bNeedMasterChecking = FALSE;
 	
@@ -1621,7 +1622,7 @@ BYTE CGuildManager::DoBreakUp(DWORD GuildIdx)
 	//set member clear guildinfo 
 	pGuild->BreakUp();
 
-//KESÃß°¡ MEM
+//KESï¿½ß°ï¿½ MEM
 	delete pGuild;
 
 	m_GuildRoomHashTable.Remove(GuildIdx);
@@ -1755,7 +1756,7 @@ BYTE CGuildManager::DoDeleteMember(DWORD GuildIDX, DWORD MemberIDX, BYTE bType, 
 		return eGuildErr_Err;
 	}	
 
-	//TO DO È£Äªµµ »èÁ¦ Ãß°¡
+	//TO DO È£Äªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	CPlayer* pMember = (CPlayer*)g_pUserTable->FindUser(MemberIDX);
 	if(pMember)
 	{
@@ -1907,11 +1908,11 @@ void CGuildManager::AddMemberResult(CPlayer* pTarget, DWORD MasterIdx)
 	
 	LogGuild(pTarget->GetID(), pGuild->GetIdx(), eGuildLog_MemberAdd);
 
-	DeleteMunhaJoinInfo(pTarget->GetID());	// magi82 - ¹®ÇÏ»ý°ü·Ã(070125)
+	DeleteMunhaJoinInfo(pTarget->GetID());	// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070125)
 }
 
-// magi82 - ¹®ÇÏ»ý°ü·Ã(070125)
-// ¹®ÆÄÁö¿øÁßÀÎ À¯Àú°¡ ´Ù¸¥ ¹®ÆÄ¿¡ °¡ÀÔÇßÀ»°æ¿ì Áö¿øÇöÈ² Áö¿ö¾ßÇÔ
+// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070125)
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void CGuildManager::DeleteMunhaJoinInfo(DWORD TargetIdx)
 {
 	DWORD dwGuildIdx = 0;
@@ -1943,7 +1944,7 @@ void CGuildManager::DeleteMunhaJoinInfo(DWORD TargetIdx)
 	msg.dwData = TargetIdx;
 	PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-	// ¹®ÁÖÇÑÅ× º¸³»ÁØ´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 	CGuild* pGuild = (CGuild*)GUILDMGR->GetGuild( dwGuildIdx );
 	if( !pGuild )
 		return;
@@ -1955,7 +1956,7 @@ void CGuildManager::DeleteMunhaJoinInfo(DWORD TargetIdx)
 	SafeStrCpy( Sendmsg.Name, pTrainee->strName, MAX_NAME_LENGTH+1 );
 	g_Network.Send2AgentServer((char*)&Sendmsg, sizeof(Sendmsg));
 
-	// ºÎ¹®ÁÖ³ª Àå·ÎÇÑÅ×µµ º¸³¿
+	// ï¿½Î¹ï¿½ï¿½Ö³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿ ï¿½ï¿½ï¿½ï¿½
 	pos = pGuild->GetMemberList()->GetHeadPosition();
 	while(pos)
 	{
@@ -1992,7 +1993,7 @@ void CGuildManager::UserLogIn(CPlayer* pPlayer)
 	
 	SetLogInfo(pGuild, pPlayer->GetID(), TRUE);
 
-	//SW060719 ¹®ÆÄÆ÷ÀÎÆ® //°­PM´ÔÁö½Ã ¹®ÆÄ¿øÀÖÀ» ½Ã¿¡ Update.
+	//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® //ï¿½ï¿½PMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ Update.
 	pGuild->AddConnectingMapMemberCount(+1);
 	
 	SEND_GUILD_TOTALINFO msg;
@@ -2010,7 +2011,7 @@ void CGuildManager::UserLogIn(CPlayer* pPlayer)
 	if( pGuild->GetGuildUnionIdx() )
 		GUILDUNIONMGR->LoginPlayer( pPlayer, pGuild->GetGuildUnionIdx() );
 
-	//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+	//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 	if( pGuild->IsMaster(pPlayer->GetID()) )
 	{
 		pGuild->SendMsgForMasterChecking();
@@ -2025,7 +2026,7 @@ void CGuildManager::UserLogOut(CPlayer* pPlayer)
 	if(pGuild == 0)
 		return;
 	SetLogInfo(pGuild, pPlayer->GetID(), FALSE);
-	//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+	//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	pGuild->AddConnectingMapMemberCount(-1);
 }
 
@@ -2162,7 +2163,7 @@ int CGuildManager::convertCharToInt(char c)
 	return 0;
 }
 
-//¹Ýµå½Ã "FF" ÀÌ·±½ÄÀ¸·Î ÀÔ·ÂÀÌ µÇ¾î¾ß ÇÑ´Ù.
+//ï¿½Ýµï¿½ï¿ "FF" ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿ ï¿½Ñ´ï¿½.
 BYTE CGuildManager::HexToByte(char* pStr)
 {
 	int n1 = convertCharToInt(pStr[0]);
@@ -2389,7 +2390,7 @@ void CGuildManager::ChangeMemberRank(CPlayer* pMaster, DWORD MemberIdx, BYTE Ran
 
 	if( tRank == Rank ) return;
 
-	if( tRank < GUILD_MEMBER && Rank >= GUILD_MEMBER )	//Á¤½Ä ¹®ÆÄ¿øÀ¸·Î º¯°æ
+	if( tRank < GUILD_MEMBER && Rank >= GUILD_MEMBER )	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		if( FALSE == pGuild->CanAddMember() )
 		{
@@ -2402,7 +2403,7 @@ void CGuildManager::ChangeMemberRank(CPlayer* pMaster, DWORD MemberIdx, BYTE Ran
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_FullMember);
 		}
-		if( tLevel >= GUILD_STUDENT_MAX_LEVEL)	//40·¹º§ ÀÌ»óÀÌ°Å³ª
+		if( tLevel >= GUILD_STUDENT_MAX_LEVEL)	//40ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì°Å³ï¿½
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddStudent_TooHighLevelAsStudent);
 		}
@@ -2520,10 +2521,10 @@ void CGuildManager::GuildWarehouseInfo(CPlayer* pPlayer, BYTE TabNum)
 		return;
 	}
 
-	//SW060526 ¹®ÆÄÃ¢°í ¾ÆÀÌÅÛ Á¤º¸ÀúÀå ½ÃÁ¡ º¯°æ
+	//SW060526 ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( FALSE == pGuild->IsItemInfoInited() )
 	{
-////DBÄõ¸®ÇÏ°í
+////DBï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
 		CGuildWarehouse* pWarehouse = pGuild->GetWarehouse();
 		pWarehouse->AddItemInfoWaitingMember(pPlayer, TabNum);
 		if( FALSE == pGuild->IsWaitngItemInfoFromDB() )
@@ -2634,7 +2635,7 @@ void CGuildManager::PutInMoneyGuild(CPlayer* pPlayer, DWORD Money)
 	if( pGuild->GetLocation() != g_pServerSystem->GetMapNum() )
 		return;
 
-	// ½ÇÁ¦ º¯È­·® ¶§¹®¿¡ ¾à°£ ¼öÁ¤ ÇÕ´Ï´Ù. (LBS)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½à°£ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½. (LBS)
 	Money = pGuild->SetMoney(Money, MONEY_ADDITION, MF_PUTINGUILD);
 	pPlayer->SetMoney(Money, MONEY_SUBTRACTION, 0, eItemTable_Inventory, eMoneyLog_LoseGuild, pPlayer->GetGuildIdx());
 	
@@ -2654,7 +2655,7 @@ void CGuildManager::PutInMoneyGuild(CPlayer* pPlayer, DWORD Money)
 void CGuildManager::PutOutMoneyGuild(CPlayer* pPlayer, DWORD Money)
 {
 	CGuild* pGuild = GetGuild(pPlayer->GetGuildIdx());
-	MONEYTYPE maxmon = pPlayer->GetMaxPurseMoney(eItemTable_Inventory); //ÀÎº¥Åä¸®·Î µ· ¿Å±â´Ï±î.
+	MONEYTYPE maxmon = pPlayer->GetMaxPurseMoney(eItemTable_Inventory); //ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ ï¿½Å±ï¿½Ï±ï¿.
 	
 	if(!pGuild)
 	{
@@ -2867,7 +2868,7 @@ void CGuildManager::MsgGuildNoteSyn( void* pMsg )
 	pPlayer->SendMsg(&ack, sizeof(ack));
 }
 
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void CGuildManager::MsgGuildNoticeSyn( void* pMsg )
 {
 	MSG_GUILDNOTICE* pmsg = (MSG_GUILDNOTICE*)pMsg;
@@ -2909,7 +2910,7 @@ void CGuildManager::MsgGuildNoticeSyn( void* pMsg )
 	g_Network.Send2AgentServer((char*)&msg, msg.GetMsgLength());
 }
 
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void CGuildManager::MsgGuildNoticeNotify( void* pMsg )
 {
 	MSG_GUILDNOTICE* pmsg = (MSG_GUILDNOTICE*)pMsg;
@@ -2924,7 +2925,7 @@ void CGuildManager::MsgGuildNoticeNotify( void* pMsg )
 	pGuild->SetGuildNotice(pmsg->Msg);
 }
 
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void CGuildManager::RegistGuildNotice(DWORD GuildIdx, char* Notice)
 {
 	CGuild* pGuild  = m_GuildRoomHashTable.GetData(GuildIdx);
@@ -2967,7 +2968,7 @@ void CGuildManager::SendGuildItemInfoToAllWarehouseMember( DWORD dwGuildIdx )
 		return;
 	}
 
-	//!!µô·¹ÀÌ·Î ÀÎÇÑ.. NPC °Å¸® Ã¼Å©¶óµµ ÇØÁà¾ßÇÏÁö ¾ÊÀ»±î -_-;
+	//!!ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½.. NPC ï¿½Å¸ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -_-;
 
 	CGuildWarehouse* pWarehouse = pGuild->GetWarehouse();
 	if(!pWarehouse)
@@ -2982,23 +2983,23 @@ void CGuildManager::SendGuildItemInfoToAllWarehouseMember( DWORD dwGuildIdx )
 void CGuildManager::AddStudentSyn( CPlayer* pMaster, DWORD TargetPlayerID )
 {
 	CGuild* pGuild = GetGuild(pMaster->GetGuildIdx());
-	if(NULL == pGuild)	//±æµå Á¤º¸°¡ ¾ø°Å³ª
+	if(NULL == pGuild)	//ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½
 	{
 		OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_Err);
 	}
 
-	if( SIEGEWARMGR->GetSiegeMapNum() == g_pServerSystem->GetMapNum() )	//°ø¼ºÀü ¸ÊÀÌ°Å³ª
+	if( SIEGEWARMGR->GetSiegeMapNum() == g_pServerSystem->GetMapNum() )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°Å³ï¿½
 	{
 		OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_Err);
 	}
 
-	if(pMaster->GetGuildMemberRank() < GUILD_SENIOR)	//Àå·Î ÀÌÇÏÀÇ ±ÇÇÑÀÌ°Å³ª
+	if(pMaster->GetGuildMemberRank() < GUILD_SENIOR)	//ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½
 	{
 		OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_NothaveAuthority);
 	}
 
 	CPlayer* pTarget = (CPlayer*)g_pUserTable->FindUser(TargetPlayerID);
-	if(NULL==pTarget)	//´ë»ó Ä³¸¯ÅÍ Á¤º¸°¡ ¾ø°Å³ª
+	if(NULL==pTarget)	//ï¿½ï¿½ï¿ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½
 	{
 		OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_NotPlayer);
 		
@@ -3007,12 +3008,12 @@ void CGuildManager::AddStudentSyn( CPlayer* pMaster, DWORD TargetPlayerID )
 	}
 	else
 	{
-		if(pTarget->GetGuildIdx())	//´ë»ó Ä³¸¯ÅÍ°¡ ÀÌ¹Ì ¹®ÆÄ ¼Ò¼ÓÀÌ°Å³ª
+		if(pTarget->GetGuildIdx())	//ï¿½ï¿½ï¿ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½Ì°Å³ï¿½
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_OtherGuild);
 		}
 
-		if(pTarget->GetLevel() >= GUILD_STUDENT_MAX_LEVEL)	//40·¹º§ ÀÌ»óÀÌ°Å³ª
+		if(pTarget->GetLevel() >= GUILD_STUDENT_MAX_LEVEL)	//40ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì°Å³ï¿½
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddStudent_TooHighLevelAsStudent);
 		}
@@ -3020,17 +3021,17 @@ void CGuildManager::AddStudentSyn( CPlayer* pMaster, DWORD TargetPlayerID )
 
 	if( pGuild )
 	{
-		if( TRUE == pGuild->IsMember(TargetPlayerID) )	//ÀÌ¹Ì ±æµå ¼Ò¼ÓÀÌ°Å³ª	//[´ë»ó Ä³¸¯ÅÍ°¡ ÀÌ¹Ì ¹®ÆÄ ¼Ò¼ÓÀÌ°Å³ª] ±âÁ¸¿¡ Ã¼Å© Áßº¹.
+		if( TRUE == pGuild->IsMember(TargetPlayerID) )	//ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿ ï¿½Ò¼ï¿½ï¿½Ì°Å³ï¿½	//[ï¿½ï¿½ï¿ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½Ì°Å³ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ßºï¿½.
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_AlreadyMember);
 		}
 
-		if( FALSE == pGuild->CanAddStudent() )	//¹®ÇÏ»ý ÀÎ¿øÀÌ ´Ù Ã¡°Å³ª
+		if( FALSE == pGuild->CanAddStudent() )	//ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¡ï¿½Å³ï¿½
 		{
 			OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_FullMember);
 		}
 
-		//if( CanEntryGuildForStudent(pTarget->GetGuildCanEntryDate()) == FALSE )	//Å»ÅðÈÄ ÇÏ·ç°¡ Áö³ªÁö ¾Ê¾Ò°Å³ª
+		//if( CanEntryGuildForStudent(pTarget->GetGuildCanEntryDate()) == FALSE )	//Å»ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ç°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò°Å³ï¿½
 		//{
 		//	OnErr(pMaster, MP_GUILD_ADDSTUDENT_NACK, eGuildErr_AddMember_TargetNotDay);
 		//}
@@ -3058,7 +3059,7 @@ void CGuildManager::AddStudentSyn( CPlayer* pMaster, DWORD TargetPlayerID )
 
 BOOL CGuildManager::CanEntryGuildForStudent( char* date )
 {
-	//!! DB¿¡¼­ °¡´É ³¯Â¥¸¦ ¼¼ÆÃÇØ¼­ º¸³»´Â µíÇÏ´Ù. È®ÀÎÈÄ ÀÛ¾÷.
+	//!! DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½. È®ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½.
 	return CanEntryGuild(date);
 }
 
@@ -3121,10 +3122,10 @@ void CGuildManager::AddStudentResult( CPlayer* pTarget, DWORD MasterID )
 	
 	LogGuild(pTarget->GetID(), pGuild->GetIdx(), eGuildLog_MemberAdd);
 
-	DeleteMunhaJoinInfo(pTarget->GetID());	// magi82 - ¹®ÇÏ»ý°ü·Ã(070125)
+	DeleteMunhaJoinInfo(pTarget->GetID());	// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070125)
 }
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ ////////////////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ ////////////////////////////////////////////////////
 void CGuildManager::AddStudentResult( DWORD TargetID, DWORD MasterID )
 {
 	// Error Check
@@ -3145,7 +3146,7 @@ void CGuildManager::AddStudentResult( DWORD TargetID, DWORD MasterID )
 			OnErr(pMaster, MP_GUILD_INVITE_AS_STUDENT_ACCEPT_NACK, eGuildErr_AddMember_FullMember);
 	}
 
-	// DB °»½Å
+	// DB ï¿½ï¿½ï¿½ï¿½
 	GuildAddStudent( pMaster->GetGuildIdx(), TargetID, pGuild->GetGuildName(), GUILD_STUDENT );
 }
 /////////////////////////////////////////////////////////////////////////////////////
@@ -3337,7 +3338,7 @@ void CGuildManager::AddGuildHuntedMonsterCount( CPlayer* pPlayer, CObject* pHunt
 			HuntedCount = m_GuildPointRule.BOSS_MONSTER_HUNTCOUNT;
 		}
 		break;
-	case eObjectKind_SpecialMonster:	//ÇùÇà ¸ó½ºÅÍ
+	case eObjectKind_SpecialMonster:	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			HuntedCount = m_GuildPointRule.QUEST_MONSTER_HUNTCOUNT;
 		}
@@ -3353,8 +3354,8 @@ void CGuildManager::AddGuildHuntedMonsterCount( CPlayer* pPlayer, CObject* pHunt
 void CGuildManager::SendGuildHuntedMonsterTotalCountToMapServerExceptOneself( DWORD GuildIdx, int nTotalCount )
 {
 	DWORD dwCurtime = GetCurTime();
-	//ÇØ´ç ±æµå Á¤º¸ ¼¼ÆÃÇØÁÖ°í
-	//ÀÚ½Å Á¦¿ÜÇÑ ¸ðµç ¸Ê ¼­¹ö¿¡ ÀüÆÄ.
+	//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
+	//ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	CGuild* pGuild = GetGuild(GuildIdx);
 	if( NULL == pGuild )
 	{
@@ -3392,7 +3393,7 @@ void CGuildManager::GuildConvertHuntedMonsterTotalCountToGuildPoint( DWORD Guild
 
 	int pt = GuildPointFromHuntedMonsterTotalCount(nTotalCount);
 
-	pGuild->SetHuntedMonsterTotalCountInfo( 0, dwCurtime );	//ÃÑÇÕ °ª ÃÊ±âÈ­.
+	pGuild->SetHuntedMonsterTotalCountInfo( 0, dwCurtime );	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 
 	LogGuildPoint( GuildIdx, pGuild->GetGuildPoint(), TRUE, eGuildHuntedMonsterTotalCountConverting, pt, nTotalCount, 0 );
 
@@ -3476,7 +3477,7 @@ int CGuildManager::GuildPointFromGuildMemberLevelUp( CPlayer* pPlayer )
 	{
 	case eStage_Normal:
 		{
-			if( pPlayer->GetMaxLevel() >= 10 )	// 10·¹º§ ÀÌ»óºÎÅÍ Áö±Þ
+			if( pPlayer->GetMaxLevel() >= 10 )	// 10ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½
 			{ 
 				AddPoint = pPlayer->GetMaxLevel();
 			}
@@ -3651,7 +3652,7 @@ void CGuildManager::InitGuildPlustimeInfo( DWORD GuildIdx, DWORD GuildUsePlustim
 		return;
 	}
 
-	AddGuildPlustimeUsingGuildList(pGuild);	//!¼ø¼­ Áß¿ä..pGuild->AddGuildPlustime(
+	AddGuildPlustimeUsingGuildList(pGuild);	//!ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½..pGuild->AddGuildPlustime(
 
 	pGuild->AddGuildPlustime(GuildUsePlustimeIdx, GuildIUsePlustimeEndtime);
 }
@@ -3672,7 +3673,7 @@ void CGuildManager::UseGuildPoint( CPlayer* pPlayer, DWORD UseKind, DWORD ListId
 			ASSERTMSG(0, buf);
 			return;
 		}
-		//À¯È¿ÇÑ ¹®ÆÄ ÇÃ·¯½º Å¸ÀÓ ¹øÈ£
+		//ï¿½ï¿½È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½È£
 		if( ListIdx > eGuildPlusTime_Max )
 		{
 			char buf[128] = {0,};
@@ -3681,7 +3682,7 @@ void CGuildManager::UseGuildPoint( CPlayer* pPlayer, DWORD UseKind, DWORD ListId
 			return;
 		}
 
-		//»ç¿ë°¡´É Á÷À§ È®ÀÎ
+		//ï¿½ï¿½ë°¡ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		if( pPlayer->GetGuildMemberRank() < GUILD_SENIOR )
 		{
 			char buf[128] = {0,};
@@ -3690,7 +3691,7 @@ void CGuildManager::UseGuildPoint( CPlayer* pPlayer, DWORD UseKind, DWORD ListId
 			return;
 		}
 
-		//ÇÃ·¯½ºÅ¸ÀÓ Áßº¹ È®ÀÎ
+		//ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ßºï¿½ È®ï¿½ï¿½
 		if( pGuild->IsUsingPlustimeIdx(ListIdx) )
 		{
 			char buf[128] = {0,};
@@ -3699,7 +3700,7 @@ void CGuildManager::UseGuildPoint( CPlayer* pPlayer, DWORD UseKind, DWORD ListId
 			return;
 		}
 
-		//ÀÜ¿© ¹®ÆÄÆ÷ÀÎÆ® È®ÀÎ
+		//ï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® È®ï¿½ï¿½
 		if(pGuild->GetGuildPoint() < (int)NeedPoint)
 		{
 			char buf[128] = {0,};
@@ -3708,7 +3709,7 @@ void CGuildManager::UseGuildPoint( CPlayer* pPlayer, DWORD UseKind, DWORD ListId
 			return;
 		}
 
-		//ÇÃ·¯½ºÅ¸ÀÓ À¯È¿½Ã°£ ¼¼ÆÃ
+		//ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		SYSTEMTIME systime;
 		stTIME startime, usetime, endtime;
 		GetLocalTime(&systime);
@@ -3765,7 +3766,7 @@ void CGuildManager::UseGuildPointFromDBReturn( DWORD GuildIdx, DWORD UsePoint, D
 
 	if(eUseKind == ForGuildPlusTime)
 	{
-		//¸Ê ÀüÆÄ
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD3 msgPlus;
 		msgPlus.Category = MP_GUILD;
 		msgPlus.Protocol = MP_GUILD_PLUSTIME_SET_TO_MAP;
@@ -3775,9 +3776,9 @@ void CGuildManager::UseGuildPointFromDBReturn( DWORD GuildIdx, DWORD UsePoint, D
 
 		g_Network.Send2AgentServer((char*)&msgPlus, sizeof(MSG_DWORD3));
 
-		//ÇÃ·¯½ºÅ¸ÀÓ »ç¿ë¸®½ºÆ® Ãß°¡ !¼ø¼­Áß¿ä.
+		//ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ë¸ï¿½ï¿½Æ® ï¿½ß°ï¿½ !ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½.
 		AddGuildPlustimeUsingGuildList(pGuild);
-		//¹®ÆÄ ÇÃ·¯½º Å¸ÀÓ Àû¿ë
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pGuild->AddGuildPlustime(KindIdx, Endtime);
 
 	}
@@ -3807,9 +3808,9 @@ void CGuildManager::SetGuildPoint( DWORD GuildIdx, DWORD TotalPoint )
 	CGuild* pGuild = GetGuild(GuildIdx);
 	if( NULL == pGuild ) return;
 
-	//¹®ÆÄÆ÷ÀÎÆ® Á¤º¸ ½Ç½Ã°£ ÀüÆÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	//¸Ê ÀüÆÄ BroadcastMapserver	
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ BroadcastMapserver	
 	MSG_DWORD msgMap;
 	msgMap.Category = MP_GUILD;
 	msgMap.Protocol = MP_GUILD_POINT_TO_MAP;
@@ -3846,7 +3847,7 @@ void CGuildManager::EndGuildPlustimeDBReturn( DWORD GuildIdx, DWORD PlustimeIdx 
 		ASSERTMSG(0, buf);
 		return;
 	}
-	//¸Ê ÀüÆÄ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD msgMap;
 	msgMap.Category = MP_GUILD;
 	msgMap.Protocol = MP_GUILD_PLUSTIME_END_TO_MAP;
@@ -3977,12 +3978,12 @@ void CGuildManager::GUILDMGR_5MinProcess()
 {
 	GuildHuntedMonsterCountDBUpdate();
 
-	//ÀÚÁ¤ (¸ÅÀÏ ÇÑ¹ø¾¿) Æ÷ÀÎÆ® Á¤»ê.
+	//ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½.
 	CheckDateForGuildHuntedMonsterCountConvertToGuildPoint();
 
-	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 
-	// 24½Ã°£ÀÌ Áö³ª¸é µ¥ÀÌÅÍ ¼Ò¸ê
+	// 24ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
 	stTIME curTime, OneDayTime, comparetime;
  	curTime.value = GetCurTime();
 	OneDayTime.SetTime(0,0,1,0,0,0);
@@ -4010,13 +4011,13 @@ void CGuildManager::GUILDMGR_5MinProcess()
 
 void CGuildManager::GuildHuntedMonsterCountDBUpdate()
 {
-	//10ºÐ ¸¶´Ù ÀÌ ¸Ê¿¡ Á¢¼ÓÇÑ ÀÎ¿øÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ¿© DB ÃÑ ÇÕ»ê°ª º¸³»ÁÖ±â
+	//10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¿ï¿½ DB ï¿½ï¿½ ï¿½Õ»ê°ª ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	if(gCurTime - m_dwLastDBUpdateTime < m_CHECKTIMELEN_GuildHuntedMonsterCounter)
 	{
 		return;
 	}
 
-	//¸Ê Á¢¼Ó ÇÃ·¹ÀÌ¾î°¡ ÀÖ°Å³ª ´©Àû °ªÀÌ ÀÖÀ¸¸é DB °»½Å.
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½.
 	int nHuntedMonsterCount = 0;
 	CGuild* pGuild = NULL;
 	m_GuildRoomHashTable.SetPositionHead();
@@ -4036,9 +4037,9 @@ void CGuildManager::GuildHuntedMonsterCountDBUpdate()
 
 void CGuildManager::CheckDateForGuildHuntedMonsterCountConvertToGuildPoint()
 {
-	//³¯Â¥ Ã¼Å© & ¸¶À» ¸Ê(º»°ÅÁö´Â ¸¶À»¸Ê¸¸ °¡´É) Ã¼Å©
-	//Á¶°Ç¿¡ ¸¸Á·ÇÏ¸é ÇØ´ç ±æµå ÀÎµ¦½º·Î DB Äõ¸®ÇÏ¿©
-	//ÃÑÇÕ ¸®ÅÏ¹Þ¾Æ Æ÷ÀÎÆ® º¯È¯ÇØÁÖ°í Á¤º¸ Ã³¸®.
+	//ï¿½ï¿½Â¥ Ã¼Å© & ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½) Ã¼Å©
+	//ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
 	SYSTEMTIME st;
 	GetLocalTime(&st);
 	CGuild* pGuild = NULL;
@@ -4047,7 +4048,7 @@ void CGuildManager::CheckDateForGuildHuntedMonsterCountConvertToGuildPoint()
 		m_GuildRoomHashTable.SetPositionHead();
 		while( pGuild = m_GuildRoomHashTable.GetData() )
 		{
-			if( pGuild->GetLocation() == g_pServerSystem->GetMapNum() )	//º»°ÅÁö ¸ÊÀÎ ±æµå¸¸
+			if( pGuild->GetLocation() == g_pServerSystem->GetMapNum() )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å¸
 			{
 				if( pGuild->GetHuntedMonsterTotalCount() )
 				{
@@ -4073,9 +4074,9 @@ void CGuildManager::CheckGuildPlustimeEnd()
 		pGuild = (CGuild*)m_GuildPlustimeUsingGuildList.GetNext( pos );
 		
 		if( pGuild )
-		if( pGuild->GetLocation() == g_pServerSystem->GetMapNum() )	//º»°ÅÁö ¸ÊÀÎ ±æµå¸¸
 		{
-			if( pGuild->GetGuildPlustimeFlg() )	//¸®½ºÆ® µî·ÏµÈ ¹®ÆÄ¸ðµÎ À¯È¿°ª
+		if( pGuild->GetLocation() == g_pServerSystem->GetMapNum() )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å¸
+			if( pGuild->GetGuildPlustimeFlg() )	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ïµï¿ ï¿½ï¿½ï¿½Ä¸ï¿½ï¿ ï¿½ï¿½È¿ï¿½ï¿½
 			{
 				pGuild->CheckPlustimeEnd(curtime.value);
 			}
@@ -4083,7 +4084,7 @@ void CGuildManager::CheckGuildPlustimeEnd()
 	}
 }
 
-//SW060921 ¹®ÆÄ ÇÃ·¯½º Å¸ÀÓ °ü·Ã ¹ö±× ¸·±â. //ÇÃ·¡±× ¼¼ÆÃÀÌ Àß¸øµÇ¾î [0-1]°ª ÂüÁ¶¶ó °¡Á¤.
+//SW060921 ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. //ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ç¾ï¿½ [0-1]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 BOOL CGuildManager::CheckValidPlustimeKind( GUILDPOINT_INFO* pGPInfo, DWORD GuildIdx, DWORD plusTimeKind )
 {
 	int usingKind = pGPInfo->GuildUsingPlusTimeInfo[plusTimeKind].PlusTimeIdx;
@@ -4094,7 +4095,7 @@ BOOL CGuildManager::CheckValidPlustimeKind( GUILDPOINT_INFO* pGPInfo, DWORD Guil
 		sprintf( buf, "Err! CheckValidPlustimeKind: PlusTimeUsingKind Num is Not Valiable(: %d). GuildIdx %d", usingKind, GuildIdx );
 		ASSERTMSG(0, buf);
 
-		//Àß¸øµÈ ±æµå ÇÃ·¡±× ÃÊ±âÈ­.
+		//ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 		pGPInfo->GuildPlusTimeflg &= ~(1<<plusTimeKind);
 
 		pGPInfo->GuildUsingPlusTimeInfo[plusTimeKind].PlusTimeIdx = 0;
@@ -4105,7 +4106,7 @@ BOOL CGuildManager::CheckValidPlustimeKind( GUILDPOINT_INFO* pGPInfo, DWORD Guil
 	return TRUE;
 }
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 void CGuildManager::AddGuildTraineeInfo(GUILD_TRAINEE_LIST* temp)
 {
 	m_GuildTraineeList.AddTail(temp);
@@ -4147,7 +4148,7 @@ void CGuildManager::GuildStudentLvUpPointDBUpdate( CPlayer* pPlayer )
 
 void CGuildManager::SetGuildStudentLvUpCount( DWORD GuildIdx, DWORD GuildStudentLvUpCount, BOOL bMasterChecking )
 {
-	//DB·Î ºÎÅÍ Á¤º¸¸¦ ¹Þ¾Æ BroadCast
+	//DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ BroadCast
 	CGuild* pGuild = GetGuild(GuildIdx);
 	if( NULL == pGuild )
 	{
@@ -4171,7 +4172,7 @@ void CGuildManager::SetGuildStudentLvUpCount( DWORD GuildIdx, DWORD GuildStudent
 
 void CGuildManager::GiveGuildCerebrationMoney( DWORD GuildIdx )
 {
-	//º»°ÅÁö ¸ÊÀÌ ¾Æ´Ï¸é º»°ÅÁö ¸Ê¿¡ ¸Þ½ÃÁö¸¦ º¸³»¾î ÃàÇÏ±Ý Áö±Þ.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	CGuild* pGuild = GetGuild(GuildIdx);
 	if( NULL == pGuild )
 	{
@@ -4200,7 +4201,7 @@ void CGuildManager::GiveGuildCerebrationMoney( DWORD GuildIdx )
 	}
 	else
 	{
-		//¹®ÆÄÃ¢°í Áö±ÞÇÏ°í °øÁö.
+		//ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		PutInGuildCerabrationMoney( pGuild, m_GuildPointRule.GUILD_GIFTMONEY );
 	}
 }
@@ -4226,7 +4227,7 @@ void CGuildManager::PutInGuildCerabrationMoney( CGuild* pGuild, DWORD Money )
 	Money = pGuild->SetMoney(Money, MONEY_ADDITION, MF_PUTINGUILD);
 	GuildMoneyUpdate(pGuild->GetIdx(), pGuild->GetMoney());	//DBUpdate
 
-	//¹®ÆÄÃ¢°í Á¢¼ÓÁßÀÎ ¹®ÆÄ¿øµé¿¡°Ô Á¤º¸ °»½Å.
+	//ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	MSG_DWORD3 msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_PUTIN_MONEY_ACK;
@@ -4235,7 +4236,7 @@ void CGuildManager::PutInGuildCerabrationMoney( CGuild* pGuild, DWORD Money )
 	msg.dwData3 = pGuild->GetMoney();
 	pGuild->SendtoWarehousePlayerAll(&msg, sizeof(msg));
 
-	//¹®ÆÄ ÀüÃ¼ °øÁö
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD msg2;
 	msg2.Category = MP_GUILD;
 	msg2.Protocol = MP_GUILD_CELEBRATIONMONEY_NOTIFY;
@@ -4249,7 +4250,7 @@ void CGuildManager::PutInGuildCerabrationMoney( CGuild* pGuild, DWORD Money )
 	InsertLogMoney( eMoneyLog_GuildCerebration, pGuild->GetMasterIdx(), 0, Money, pGuild->GetIdx(), pGuild->GetMoney());
 }
 
-//SW080515 ÇÔ¼ö Ãß°¡.
+//SW080515 ï¿½Ô¼ï¿½ ï¿½ß°ï¿½.
 BOOL CGuildManager::IsSameGuild( CPlayer* pPlayerA, CPlayer* pPlayerB )
 {
 	if( !(pPlayerA && pPlayerB) )
@@ -4260,8 +4261,10 @@ BOOL CGuildManager::IsSameGuild( CPlayer* pPlayerA, CPlayer* pPlayerB )
 
 	DWORD GuildIdx = pPlayerA->GetGuildIdx();
 	if(GuildIdx)
+	{
 	if(GuildIdx == pPlayerB->GetGuildIdx())
 		return TRUE;
 
+	}
 	return FALSE;
 }

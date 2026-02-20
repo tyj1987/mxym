@@ -4,6 +4,7 @@
 
 #if !defined(AFX_MSGROUTER_H__6C2248BA_291A_45DF_BE3D_E1CF30BF6B01__INCLUDED_)
 #define AFX_MSGROUTER_H__6C2248BA_291A_45DF_BE3D_E1CF30BF6B01__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

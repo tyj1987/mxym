@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 #include "FortWarWareSlot.h"
 
@@ -50,43 +51,43 @@ class CMonster;
 class CFortWarManager
 {
 protected:
-	BOOL			m_bLoadDataFromDB;					// DB¿¡¼­ Á¤º¸ ¸ðµÎ ¹Þ¾Ò´ÂÁö?
-	BOOL			m_bFortWarMap;						// ¿ä»õÀü ¸ÊÀÎÁö
-	DWORD			m_dwChannelNum;						// ¿ä»õÀü ÁøÇà Ã¤³Î ¹øÈ£
-	DWORD			m_dwWarState;						// ¿ä»õÀü »óÅÂ
+	BOOL			m_bLoadDataFromDB;					// DB   Þ¾Ò´?
+	BOOL			m_bFortWarMap;						//  
+	DWORD			m_dwChannelNum;						//   Ã¤ È£
+	DWORD			m_dwWarState;						//  
 	DWORD			m_dwWarTime;						
     sFortWarTimeInfo	m_FortWarTimeInfo[eFortWarDay_Max];
-	STATIC_NPCINFO*	m_pNpcInfo;							// °¢ÀÎnpc
+	STATIC_NPCINFO*	m_pNpcInfo;							// npc
 
-	CPlayer*		m_pEngravePlayer;					// °¢ÀÎÁßÀÎ Ä³¸¯ÅÍ
-	DWORD			m_dwEngraveTime;					// °¢ÀÎ ½Ã°£(60ÃÊ)
+	CPlayer*		m_pEngravePlayer;					//  Ä³
+	DWORD			m_dwEngraveTime;					//  Ã°(60)
 
-//	char			m_EngraveSuccessPlayerName[MAX_NAME_LENGTH+1];	// °¢ÀÎ¿¡ ¼º°øÇÑ ÇÃ·¹ÀÌ¾î ÀÌ¸§
+//	char			m_EngraveSuccessPlayerName[MAX_NAME_LENGTH+1];	// Î¿  Ã·Ì¾ Ì¸
 
-	CYHHashTable<sFortWarInfo>	m_FortWarInfoTable;			// ¸ðµç ¿ä»õÀü Á¤º¸
-	WORD						m_wRelationFortWarMapNum;	// °ü°èµÈ ¿ä»õ¸Ê¹øÈ£
-	int							m_nRelationFortWarIDX;		// °ü°èµÈ ¿ä»õ ÀÎµ¦½º(2100000001,2100000002,2100000003)
+	CYHHashTable<sFortWarInfo>	m_FortWarInfoTable;			//   
+	WORD						m_wRelationFortWarMapNum;	//  Ê¹È£
+	int							m_nRelationFortWarIDX;		//   Îµ(2100000001,2100000002,2100000003)
 
-	// °ø¼ºÃ¢°í´Â ¸ðµç¸ÊÀÌ °¡Áö°í ÀÖÀ¸³ª ¿ä»õÃ¢°í´Â °ü·ÃµÈ ¸Ê¸¸ °¡Áø´Ù...
-	CFortWarWareSlot	m_FortWarWareSlot01;				// °ü°èµÈ ¿ä»õ¸ÊÀÇ Ã¢°í01
-	CFortWarWareSlot	m_FortWarWareSlot02;				// °ü°èµÈ ¿ä»õ¸ÊÀÇ Ã¢°í02
-	CFortWarWareSlot	m_FortWarWareSlot03;				// °ü°èµÈ ¿ä»õ¸ÊÀÇ Ã¢°í03
-	CFortWarWareSlot	m_SiegeWarWareSlot;					// °ø¼ºÃ¢°í
-	int					m_nRelationSiegeWarIDX;				// °ø¼º ÀÎµ¦½º(2100000000)
-	BOOL				m_bSiegeWarWareUsableMap;			// °ø¼ºÃ¢°í ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÎÁö?
+	// Ã¢    Ã¢ Ãµ Ê¸ ...
+	CFortWarWareSlot	m_FortWarWareSlot01;				//   Ã¢01
+	CFortWarWareSlot	m_FortWarWareSlot02;				//   Ã¢02
+	CFortWarWareSlot	m_FortWarWareSlot03;				//   Ã¢03
+	CFortWarWareSlot	m_SiegeWarWareSlot;					// Ã¢
+	int					m_nRelationSiegeWarIDX;				//  Îµ(2100000000)
+	BOOL				m_bSiegeWarWareUsableMap;			// Ã¢ Ì¿  Ö´ ?
 
-	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable01;		// ¿ä»õÃ¢°íº¸°íÀÖ´Â Ä³¸¯ÅÍÁ¤º¸
-	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable02;		// ¿ä»õÃ¢°íº¸°íÀÖ´Â Ä³¸¯ÅÍÁ¤º¸
-	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable03;		// ¿ä»õÃ¢°íº¸°íÀÖ´Â Ä³¸¯ÅÍÁ¤º¸
-	CYHHashTable<CPlayer>	m_SiegeWarWarePlayerTable;		// °ø¼ºÃ¢°íº¸°íÀÖ´Â Ä³¸¯ÅÍÁ¤º¸
+	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable01;		// Ã¢Ö´ Ä³
+	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable02;		// Ã¢Ö´ Ä³
+	CYHHashTable<CPlayer>	m_FortWarWarePlayerTable03;		// Ã¢Ö´ Ä³
+	CYHHashTable<CPlayer>	m_SiegeWarWarePlayerTable;		// Ã¢Ö´ Ä³
 
-	DWORD		m_dwFortWarProfitMoney;				// ¿ä»õÃ¢°í µ·
-	int			m_nFortWarTexRate;					// »ç³É¼¼(1/10000)
-	int			m_nFortWarWareRate;					// Ã¢°íÀÌ¿ë½Ã(1/10000)
+	DWORD		m_dwFortWarProfitMoney;				// Ã¢ 
+	int			m_nFortWarTexRate;					// É¼(1/10000)
+	int			m_nFortWarWareRate;					// Ã¢Ì¿(1/10000)
 	DWORD		m_dwUpdateTime;
 
 protected:
-    int GetSecondInterval( SYSTEMTIME curTime, SYSTEMTIME basicTime );			// ¸®ÅÏ°ªÀÌ ¾ç¼öÀÌ¸é ÀÌÀü, À½¼öÀÌ¸é ÀÌÈÄ...
+    int GetSecondInterval( SYSTEMTIME curTime, SYSTEMTIME basicTime );			// Ï° Ì¸ , Ì¸ ...
 
 public:
 	CFortWarManager(void);
@@ -95,7 +96,7 @@ public:
 	void Init();
 	void Release();
 	
-	// ¿ä»õÀü °ü·Ã
+	//  
 	void ProcessFortWar();
 	BOOL LoadFortWarInfo();
 	void AddPlayer( CPlayer* pPlayer );
@@ -108,14 +109,14 @@ public:
 	char* GetMasterName();
 	DWORD GetMasterGuildID();
 
-	// ÀÌµæ°ü·Ã
+	// Ìµ
 	void ProcessDBUpdateProfitMoney();
 	DWORD AddProfitMoneyFromItemSell( DWORD dwMoney );
 	DWORD AddProfitMoneyFromItemBuy( DWORD dwMoney );
 	DWORD AddProfitMoneyFromMonster( DWORD dwMoney );
 	void SetFortWarProfitMoneyFromDB( int nWarIDX, DWORD dwMoney );
 
-	// Ã¢°í°ü·Ã
+	// Ã¢
 	void RemoveWarePlayerTable( CPlayer* pPlayer );
 	void TotalFortWarItemLoad();
 	void SetTotalFortWarItemInfoFromDB( int nWarIDX, ITEMBASE* pItem );
@@ -131,7 +132,7 @@ public:
 	void NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void* pMsg );
 
 protected:
-	// msg Ã³¸®ÇÔ¼öµé...
+	// msg Ã³Ô¼...
 	void Msg_MP_FORTWAR_ENGRAVE_START_SYN( void* pMsg );
 	void Msg_MP_FORTWAR_ENGRAVE_CANCEL_SYN( void* pMsg );
 

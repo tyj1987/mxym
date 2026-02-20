@@ -12,7 +12,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-//2008. 5. 21. CBH - ÆÄÆ¼»ý¼º Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+//2008. 5. 21. CBH - ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
 CParty::CParty(DWORD id,DWORD MasterID,char* strMasterName,CPlayer* pMaster,BYTE Option) :
 m_PartyIDx(id)
@@ -98,29 +98,31 @@ void CParty::SendPartyInfo(CPlayer* pToPlayer)
 		GetMemberInfo(n,&msg.Member[n]);
 		CPlayer* pMember = (CPlayer*)g_pUserTable->FindUser(msg.Member[n].dwMemberID);
 		if(pMember)
-		if(pToPlayer->GetGridID() != pMember->GetGridID())
 		{
-			msg.Member[n].LifePercent = 0;
-			msg.Member[n].NaeRyukPercent = 0;
+			if(pToPlayer->GetGridID() != pMember->GetGridID())
+			{
+				msg.Member[n].LifePercent = 0;
+				msg.Member[n].NaeRyukPercent = 0;
+			}
 		}
 	}
 	msg.Option = GetOption();
-	msg.PartyAddOption = m_AddPotion;	//2008. 5. 22. CBH - ¹æÆÄ Ãß°¡ ¿É¼Ç ¼ÂÆÃ
+	msg.PartyAddOption = m_AddPotion;	//2008. 5. 22. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	pToPlayer->SendMsg(&msg,sizeof(msg));
 }
 
 BOOL CParty::AddPartyMember(DWORD AddMemberID,char* Name,CPlayer* pPlayer, LEVELTYPE lvl)
 {
 	if(m_Member[0].MemberID == 0)
-		ASSERTMSG(0, "ÆÄÆ¼ Á¤º¸°¡ ¾ø´Âµ¥ AddPartyMemberÇÔ");
+		ASSERTMSG(0, "ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ AddPartyMemberï¿½ï¿½");
 	for(int n=1;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].MemberID == 0)
 		{
 			m_Member[n].SetMember(AddMemberID,Name,pPlayer,lvl);
-			//2008. 6. 16. CBH - ¹æÆÄ ¸ÅÄª ½Ã½ºÅÆ Ãß°¡·Î ¼­·Î ´Ù¸¥¸Ê¿¡¼­ Ãß°¡ÇÒ¶§
-			//½ÅÃ»ÀÚÀÇ Á¤º¸°¡ ¾ø¾î¼­ ·Î±×ÀÎ »óÅÂ°¡ µÇÁö ¾Ê¾Æ¼­ ¹æÆÄ ¸â¹ö Ãß°¡½Ã
-			//·Î±×ÀÎ»óÅÂ·Î ¼³Á¤ÇØÁØ´Ù.
+			//2008. 6. 16. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Äª ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ò¶ï¿½
+			//ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½
+			//ï¿½Î±ï¿½ï¿½Î»ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 			m_Member[n].bLogged = TRUE;
 			if(pPlayer)
 			{				
@@ -129,7 +131,7 @@ BOOL CParty::AddPartyMember(DWORD AddMemberID,char* Name,CPlayer* pPlayer, LEVEL
 			return TRUE;
 		}
 	}
-	ASSERTMSG(0,"ÆÄÆ¼°¡ ²Ë Ã£´Âµ¥ AddÇÏ·Á Çß½À´Ï´Ù");
+	ASSERTMSG(0,"ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ Ã£ï¿½Âµï¿½ Addï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½");
 
 	return FALSE;
 }
@@ -155,8 +157,8 @@ BOOL CParty::RemovePartyMember(DWORD MemberID)
 
 BOOL CParty::ChangeMaster(DWORD FromID,DWORD ToID)
 {
-	ASSERTMSG(m_Member[0].MemberID != ToID,"ÀÚ±âÀÚ½Å¿¡°Ô ¸®´õ¸¦ ÀÌ¾çÇÏ·Á Çß½À´Ï´Ù.");
-	ASSERTMSG(m_Member[0].MemberID == FromID,"¸®´õ°¡ ¾Æ´Ñ »ç¶÷ÀÌ ÀÌ¾çÇÏ·Á Çß½À´Ï´Ù.");
+	ASSERTMSG(m_Member[0].MemberID != ToID,"ï¿½Ú±ï¿½ï¿½Ú½Å¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
+	ASSERTMSG(m_Member[0].MemberID == FromID,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½Ï·ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 
 
 	for(int n=1; n<MAX_PARTY_LISTNUM; ++n) 
@@ -191,12 +193,12 @@ void CParty::UserLogIn(CPlayer* pPlayer,BOOL bNotifyUserLogin)
 		ASSERT(0); 
 		return;
 	}
-	// ±âÁ¸ ÆÄÆ¼ÀÇ Á¤º¸¸¦ ·Î±×ÀÎÇÑ À¯Àú¿¡°Ô º¸³»ÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	SendPartyInfo(pPlayer);
 
 	if(bNotifyUserLogin)
 	{
-		// ·Î±×ÀÎÇÑ À¯ÀúÀÇ Á¤º¸¸¦ ±âÁ¸ ÆÄÆ¼¿ø¿¡°Ô º¸³»ÁØ´Ù.
+		// ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		SendPlayerInfoToOtherMembers(n, pPlayer->GetGridID());
 		
 		SEND_CHANGE_PARTY_MEMBER_INFO cmsg;
@@ -210,7 +212,7 @@ void CParty::UserLogIn(CPlayer* pPlayer,BOOL bNotifyUserLogin)
 		g_Network.Send2AgentServer((char*)&cmsg,sizeof(cmsg));
 	}
 
-	//2008. 5. 27. CBH - ÆÄÆ¼°¡ ÀÖ´Â À¯Àú°¡ Á¢¼ÓÇÏ¸é ¸ðµç ¸Ê¼­¹ö¿¡ ÆÄÆ¼Á¤º¸¸¦ º¸³½´Ù
+	//2008. 5. 27. CBH - ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	PARTYMGR->NotifyPartyInfoSyn(pPlayer->GetPartyIdx());
 }
 
@@ -236,7 +238,7 @@ void CParty::UserLogOut(DWORD PlayerID)
 
 void CParty::SendMsgUserLogOut(DWORD PlayerID)
 {
-	// ·Î±×¾Æ¿ôÇÑ À¯ÀúÀÇ Á¤º¸¸¦ ´Ù¸¥ ÆÄÆ¼¿ø¿¡°Ô º¸³»ÁØ´Ù.
+	// ï¿½Î±×¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	MSG_DWORD msg;
 	msg.Category = MP_PARTY;
 	msg.Protocol = MP_PARTY_MEMBER_LOGOUT;
@@ -366,7 +368,7 @@ char* CParty::GetMemberName(DWORD MemberID)
 			return m_Member[i].Name;
 		} //if
 	} //for
-//	ASSERTMSG(0,"¸É¹ö°¡ ¾Æ´Ñ »ç¶÷ÀÇ ¾ÆÀÌµð¸¦ Ã£À¸·Á Çß½À´Ï´Ù.");
+//	ASSERTMSG(0,"ï¿½É¹ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 	return "";
 }
 
@@ -391,7 +393,8 @@ void CParty::NotifyMemberLogin(DWORD PlayerID)
 
 int CParty::SetMemberInfo(DWORD MemberID, char* strName, CPlayer* pPlayer, LEVELTYPE lvl, BOOL bLog)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].MemberID == MemberID)
 		{
@@ -488,8 +491,8 @@ void CParty::SendMemberPos(DWORD MoverID, BASEMOVE_INFO* pMoveInfo)
 		msg.MoveInfo.tgPos[i].posX = (WORD)pTgPos->x;
 		msg.MoveInfo.tgPos[i].posZ = (WORD)pTgPos->z;
 	}
-	
-	for(i=0; i<MAX_PARTY_LISTNUM; i++)
+
+	for(int i=0; i<MAX_PARTY_LISTNUM; i++)
 	{
 		if(m_Member[i].bLogged && m_Member[i].MemberID != MoverID)
 //		if(m_Member[i].bLogged)
@@ -590,7 +593,7 @@ DWORD CParty::GetMemberNum()
 	return num;
 }
 
-//2008. 5. 21. CBH - ÆÄÆ¼»ý¼º Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+//2008. 5. 21. CBH - ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CParty::SetAddOption(PARTY_ADDOPTION* pAddOption)
 {
 	memcpy(&m_AddPotion, pAddOption, sizeof(m_AddPotion));

@@ -4,6 +4,7 @@
 
 #if !defined(AFX_AISYSTEM_H__AEB07393_72B9_40AA_B249_3867848DF59A__INCLUDED_)
 #define AFX_AISYSTEM_H__AEB07393_72B9_40AA_B249_3867848DF59A__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -13,6 +14,7 @@
 #include "cConstLinkedList.h"
 #include "StateMachinen.h"
 #include "AIGroupManager.h"
+#include "..\[Lib]YHLibrary\IndexGenerator.h"
 
 
 class CObject;

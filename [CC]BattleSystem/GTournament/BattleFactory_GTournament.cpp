@@ -3,14 +3,15 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "../[CC]Header/ServerSystem.h"
 #include "BattleFactory_GTournament.h"
 #include "Battle_GTournament.h"
 
 #ifdef _MAPSERVER_
 #include "Battle_GTournament.h"
 #include "BattleSystem_server.h"
-#include "GridSystem.h"
-#include "TileManager.h"
+#include "../[Client]MH/GridSystem.h"
+#include "../[Client]MH/TileManager.h"
 #endif
 
 
@@ -18,6 +19,9 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 CBattleFactory_GTournament::CBattleFactory_GTournament()
 {
 #ifdef _MAPSERVER_
@@ -40,10 +44,10 @@ CBattle* CBattleFactory_GTournament::CreateBattle(BATTLE_INFO_BASE* pCreateInfo,
 	
 	pInfo->BattleID = BATTLESYSTEM->MakeNewBattleID();
 
-	//弊府靛 积己
+	//赘 
 	g_pServerSystem->GetGridSystem()->CreateGridTable(pInfo->BattleID, eGridType_Murim, 512,512,MapNum);
 	
-	//鸥老 积己
+	//鸥 
 	if(g_pServerSystem->GetMap()->GetTileManager()->CreateTileGroup(pInfo->BattleID, MapNum, 0, 0, 51200, 51200) == FALSE)
 	{
 		return NULL;

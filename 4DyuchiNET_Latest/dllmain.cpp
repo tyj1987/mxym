@@ -19,7 +19,7 @@
 ---------------------------------------------------------------------------*/
 #define _DLLEXPORT_
 
-#include "../4DyuchiNET_Common/INetwork_GUID.h"
+#include "INetwork_GUID.h"
 #include "factory.h"
 #include "conetwork.h"
 

@@ -4,6 +4,7 @@
 
 #if !defined(AFX_TACTICOBJECT_H__AC699872_BF6E_424A_84CB_D71C5CC7017C__INCLUDED_)
 #define AFX_TACTICOBJECT_H__AC699872_BF6E_424A_84CB_D71C5CC7017C__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -31,7 +32,7 @@ private:
 	DWORD m_LastNaeryukReduceTime;
 	int m_TacticLevel;
 
-	DWORD m_JoinLvl; // 참여 캐릭터의 레벨
+	DWORD m_JoinLvl; //  캐 
 	BYTE m_OperatorAbilityLevel;
 	DWORD m_bExecute;	
 	

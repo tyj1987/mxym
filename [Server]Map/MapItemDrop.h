@@ -1,14 +1,15 @@
 //----------------------------------------------------------------------------------------------------
-//  MapItemDrop   version:  1.0   ·  date: 05/22/2008
+//  MapItemDrop   version:  1.0     date: 05/22/2008
 //
 //  Copyright (C) 2008 - All Rights Reserved
 //----------------------------------------------------------------------------------------------------
 ///	Index	Stiner(MapDropItem)
 ///	@file	MapItemDrop.h
-///	@author	이성민
-///	@brief	맵 아이템 드랍 클래스
+///	@author	抉
+///	@brief	   클
 //----------------------------------------------------------------------------------------------------
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 #define	MAX_DROP_MAPITEM_PERCENT	1000000
 
@@ -17,35 +18,35 @@
 struct MAP_ITEM
 {
 #ifdef _DEBUG
-	char	Name[MAX_ITEMNAME_LENGTH+1];	// 아이템 이름
+	char	Name[MAX_ITEMNAME_LENGTH+1];	//  見
 #endif
-	WORD	wItemIdx;						// 아이템 인덱스
-	DWORD	dwDropPercent;					// 드랍 확률
-	WORD	wDropCount;						// 현재까지의 드랍 횟수
-	WORD	wMaxDropCount;					// 드랍 제한 횟수
+	WORD	wItemIdx;						//  琯
+	DWORD	dwDropPercent;					//  확
+	WORD	wDropCount;						//   횟
+	WORD	wMaxDropCount;					//   횟
 };
 
 struct MAP_DROP_ITEM
 {
-	DWORD		wChannel;							// 채널번호
-	WORD		wMaxDropNum;						// 최대 드랍 개수
-	WORD		wNumDropItem;						// 드랍되는 아이템 종류 수
-	DWORD		dwTotalSumDropPercent;				// 드랍률 총 합
-	MAP_ITEM	arrMapItems[MAX_DROPITEM_NUM];		// 드랍되는 아이템 종류
+	DWORD		wChannel;							// 채菅호
+	WORD		wMaxDropNum;						// 獵  
+	WORD		wNumDropItem;						// 풔   
+	DWORD		dwTotalSumDropPercent;				//   
+	MAP_ITEM	arrMapItems[MAX_DROPITEM_NUM];		// 풔  
 };
 
 class CMapItemDrop
 {
-	BOOL	m_bLoadSucceed;	// 스크립트 로딩 성공 여부
-	BOOL	m_bInited;		// 주간 초기화 여부
+	BOOL	m_bLoadSucceed;	// 크트 琯  
+	BOOL	m_bInited;		// 斂 珂화 
 
-	// 초기 날짜
+	// 珂 짜
 	WORD	m_wInitDay;		// Sun = 0, Mon, Tue, Wed, Thu, Fri, Sat
 	WORD	m_wInitHour;
 
 	CYHHashTable<MAP_DROP_ITEM>	m_MapItemDropTable;
 
-	// 지난번 초기화 했던 날짜
+	//  珂화 杉 짜
 	SYSTEMTIME	m_PrevInitedTime;
 
 protected:

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "BattleTeam_MurimField.h"
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 
 #ifdef _MAPSERVER_
-#include "PackedData.h"
+#include "../[Client]MH/PackedData.h"
 #endif
 
 CBattleTeam_MurimField::CBattleTeam_MurimField()

@@ -1,5 +1,6 @@
 #ifndef __FIELDBOSSMONSTER_H__
 #define __FIELDBOSSMONSTER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 #pragma once
 #include "monster.h"
@@ -37,10 +38,10 @@
 class CFieldBossMonster :
 	public CMonster
 {
-	// 소멸/회복 관련 추가 상태값
+	// 恬/회  煞 째
 	FIELDMONSTERINFO m_Info;
 
-	//필보의 리젠위치 인덱스 변수
+	//跏 치 琯 
 	int m_nRegenPosIndex;
 
 public:
@@ -49,7 +50,7 @@ public:
 
 	virtual BOOL Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseObjectInfo);
 
-	// CMonster에서는 메세지 전송을 안해준다. 회복프로세스를 위해 재정의 필요
+	// CMonster 氷  娩. 회關   却
 	virtual void SetLife(DWORD Life,BOOL bSendMsg = TRUE);
 	virtual void SetShield(DWORD Shield,BOOL bSendMsg = TRUE);
 
@@ -60,15 +61,15 @@ public:
 		memcpy(&m_Info, Info, sizeof(FIELDMONSTERINFO));
 	}
 
-	BOOL IsBattle();	// 전투상황 체크
-	BOOL IsDistruct();	// 소멸시간 체크 - 소멸시간을 카운트해서 소멸되야 하면 TRUE를 리턴한다
+	BOOL IsBattle();	// 황 체크
+	BOOL IsDistruct();	// 恬챨 체크 - 恬챨 카트漫 恬퓸 玖 TRUE 磯
 
 	virtual void AddStatus(CStatus* pStatus);
 	virtual void StartSpecialState(DWORD SpecialStateKind,DWORD Time,
 						WORD wParam1,WORD wParam2,float fParam3,
 						WORD EffectNum,WORD StateIcon);
 	
-	void Recover();		// 회복 프로세스
+	void Recover();		// 회 關
 
 	void SetRegenPosIndex(int nIndex)	{ m_nRegenPosIndex = nIndex; }
 	int GetRegenPosIndex()				{ return m_nRegenPosIndex; }	

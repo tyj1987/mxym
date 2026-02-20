@@ -1,4 +1,4 @@
-// Array.h: interface for the CArray class.
+// Array.h: interface for the CYHArray class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,20 +10,20 @@
 #endif // _MSC_VER > 1000
 
 template <class T>
-class CArray  
+class CYHArray  
 {
 	int MaxDataCount;	// ¹è¿­Å©±â
 	T TempData;			// Àß¸øµÈ ¹è¿­ÀÎÀÚ°¡ µé¾î¿ÔÀ»¶§ ³Ñ°ÜÁÙ °ª
 	T* pData;			// ½ÇÁ¦ µ¥ÀÌÅ¸
 public:
-	CArray()
+	CYHArray()
 	{
 		MaxDataCount = 0;
 		pData = 0;
 		memset(&TempData,0,sizeof(T));
 		// memsetÀ» ÇÏ±â¶§¹®¿¡ ±¸Á¶Ã¼³ª ½ºÆ®·°ÃÄ°¡ Á¦ÇÑÀûÀÌ´Ù. ¹æ½ÄÀ» ¹Ù²Ù¸é µÉµíµµ ÇÑµ¥..
 	}
-	~CArray()
+	~CYHArray()
 	{
 		if(pData)
 			delete [] pData;
@@ -50,7 +50,7 @@ public:
 	{
 		return GetData(n);
 	}
-	void operator = (const CArray& arr)
+	void operator = (const CYHArray& arr)
 	{
 		MaxDataCount = arr.MaxDataCount;
 		TempData = arr.TempData;

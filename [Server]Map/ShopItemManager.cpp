@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "UserTable.h"
 #include "ItemManager.h"
 #include "player.h"
@@ -41,7 +42,7 @@ CShopItemManager::CShopItemManager()
 
 CShopItemManager::~CShopItemManager()
 {
-	// magi82(14) - Memory(071027) ¸Þ¸ð¸® ÇØÁ¦ ´©¶ôµÈ ºÎºÐ ¼öÁ¤
+	// magi82(14) - Memory(071027) ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	SAFE_DELETE( m_UsingItemPool );
 	SAFE_DELETE( m_MovePointPool );
 }
@@ -88,7 +89,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	if( EVENTMAPMGR->IsEventMap() )
 		return eItemUseErr_Err;
 
-	// º¸½º¸÷ÀÌ ÀÖ´Â ¸ÊÀº ±â¾ï¼®À¸·Î ÀúÀå ÇÒ ¼ö ¾øÀ½.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if( pItemBase->wIconIdx == eIncantation_MemoryStone &&
 		( g_pServerSystem->GetMapNum() == BOSSMONSTER_MAP 		
 		|| g_pServerSystem->GetMapNum() == SIEGEWARMGR->GetSiegeMapNum()
@@ -105,14 +106,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	ITEM_INFO * pItemInfo = ITEMMGR->GetItemInfo(UseBaseInfo.ShopItemIdx);
 	if(!pItemInfo)		return eItemUseErr_Err;
 
-	//2007. 9. 21. CBH - ˜Þ ¾ÆÀÌÅÆ ·¹º§Á¦ÇÑ Ã¼Å© Ãß°¡
+	//2007. 9. 21. CBH - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ß°ï¿½
 	if(pItemInfo->NaeRyukRecoverRate > m_pPlayer->GetLevel())
 	{
 		return eItemUseErr_Err;
 	}
 	
 
-	// 05.05.20  ¹®ÆÄÅä³Ê¸ÕÆ®½Ã¿¡ »ç¿ëºÒ°¡´É ¾ÆÀÌÅÛ
+	// 05.05.20  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( g_pServerSystem->GetMapNum() == Tournament )
 	{
 		if( pItemBase->wIconIdx == eIncantation_MemoryStone ||
@@ -122,13 +123,13 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 
 	  
 
-	//°ø¼ºÀü¿¡¼­´Â ±â¾ï¼® »ç¿ë ¸øÇÔ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( m_pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SIEGEWAR )
 	{
 		if( pItemBase->wIconIdx == eIncantation_MemoryStone )
 			return eItemUseErr_Err;
 
-		if( m_pPlayer->GetBattleTeam() == 2 ) //°ü¶÷¸ðµå
+		if( m_pPlayer->GetBattleTeam() == 2 ) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION && pItemInfo->LimitLevel )
 				return eItemUseErr_Err;
@@ -136,7 +137,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	}
 
 */
-//	ÀÓ½Ã·Î ³ÖÀ½ - ¼º´ë
+//	ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½
 /*	SHOPITEMWITHTIME* pAddShopItem = NULL;
 	if( pItemBase->wIconIdx == 55134 || pItemBase->wIconIdx == 55142 )
 	{
@@ -160,7 +161,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		if( pItemInfo->SellPrice && pItemInfo->ItemType == 10 )
 		{
 
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓ Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ Ã¼Å©
 			if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 			{
 				if( pAddShopItem->ShopItem.Remaintime )
@@ -176,14 +177,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 						return eItemuseErr_DontUseToday;
 					else
 					{
-						// ±âÁ¸¿¡ »ç¿ëÇß´ø °³ÀÎÇÃ·¯½ºÅ¸ÀÓ »èÁ¦
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						ShopItemDeleteToDB( m_pPlayer->GetID(), pAddShopItem->ShopItem.ItemBase.dwDBIdx );
 						m_UsingItemTable.Remove( pAddShopItem->ShopItem.ItemBase.wIconIdx );
 						m_UsingItemPool->Free( pAddShopItem );
 						pAddShopItem = NULL;
 					}
 					*/
-/*					// ±âÁ¸¿¡ »ç¿ëÇß´ø °³ÀÎÇÃ·¯½ºÅ¸ÀÓ »èÁ¦
+/*					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					ShopItemDeleteToDB( m_pPlayer->GetID(), pAddShopItem->ShopItem.ItemBase.dwDBIdx );
 					m_UsingItemTable.Remove( pAddShopItem->ShopItem.ItemBase.wIconIdx );
 					m_UsingItemPool->Free( pAddShopItem );
@@ -267,7 +268,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
   			goto Not_DupAbleCheck;
   	}*/
 /*
-	// Áßº¹»ç¿ë Ã¼Å©
+	// ï¿½ßºï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( pItemBase->wIconIdx != 55353 && pItemBase->wIconIdx != 57504 &&
 		pItemBase->wIconIdx != 57505 )
 	{
@@ -284,7 +285,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		pAddShopItem->ShopItem.Param = pItemInfo->SellPrice;
 	}
 
-	// »ç¿ë±â°£ÀÌ ÀÖ´Â ¾ÆÀÌÅÛ Rarity()
+	// ï¿½ï¿½ï¿½â°£ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Rarity()
 	if( pAddShopItem->ShopItem.Param && pItemInfo->ItemType == 10 )
 	{
 		SYSTEMTIME systime;
@@ -319,7 +320,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 	}
 	
-	// »ç¿ëÇÏ¸é ¹Ù·Î ¾ø¾îÁö´Â ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 	{
 		if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
@@ -327,7 +328,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			return eItemUseErr_Err;
 		}
 
-		// ¹°¾à
+		// ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD2	msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_SHOPITEM_EFFECT;
@@ -352,7 +353,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			PACKEDDATA_OBJ->QuickSend( m_pPlayer, &msg, sizeof(msg) );	
 
 
-		// ¼ø°£È¸º¹
+		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		if( pItemInfo->SellPrice == 0 )
 		{
 			if( pItemInfo->GenGol > 0 )
@@ -371,12 +372,12 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			m_UsingItemTable.Add(pAddShopItem, pAddShopItem->ShopItem.ItemBase.wIconIdx);
 		}
 	}
-	// ÁÖ¹®¼­
+	// ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 	{
 		if( pItemInfo->ItemType == 10 )
 		{
-			// ·¹º§ Á¦ÇÑ ÇØÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( pItemInfo->LimitJob )
 			{
 				if( pItemInfo->LimitGender == 0 && m_pPlayer->GetLevel() > 50 )
@@ -390,7 +391,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
 				return eItemUseErr_Err;			
 
-			// µ·+°æÇèÄ¡ º¸È£, ·¹º§ Á¦ÇÑ ÇØÁ¦
+			// ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½È£, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( pItemInfo->CheRyuk || pItemInfo->LimitJob )
 			{
 				CalcShopItemOption( pItemInfo->ItemIdx, TRUE );
@@ -398,7 +399,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				m_UsingItemTable.Add(pAddShopItem, pAddShopItem->ShopItem.ItemBase.wIconIdx);
 			}
 #ifdef _JAPAN_LOCAL_
-			//Ã¢°íÈ®Àå, ÀÎº¥È®Àå
+			//Ã¢ï¿½ï¿½È®ï¿½ï¿½, ï¿½Îºï¿½È®ï¿½ï¿½
 			else if( pItemInfo->ItemIdx == eIncantation_InvenExtend )
 			{
 				if( m_pPlayer->GetExtraInvenSlot() )
@@ -573,7 +574,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				}
 			}
 #endif
-			// ½ºÅÈ ÀçºÐ¹è
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½
 			else if( pItemInfo->GenGol )
 			{
 				SHOPITEMWITHTIME* pUsedItem = m_UsingItemTable.GetData( eIncantation_StatePoint );
@@ -591,7 +592,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				}
 
 			}
-			// ½ºÅ³Æ÷ÀÎÆ® ÀçºÐ¹è
+			// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½
 			else if( pItemInfo->Life )
 			{
 				SHOPITEMWITHTIME* pUsedItem = m_UsingItemTable.GetData( eIncantation_SkPointRedist );
@@ -621,24 +622,24 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			}
 		}
 	}
-	// ºÎÀû
+	// ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM ||
 		pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 	{
-		// »ç¿ëÁ¦ÇÑ·¹º§ Ãß°¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->EquipKind )
 		{
 			if( m_pPlayer->GetMaxLevel() < pItemInfo->EquipKind )
 				return eItemUseErr_Err;
 		}
 
-		// Ã¼ÀÎÁö¾ÆÀÌÅÛ
+		// Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES && pItemInfo->SimMek )
 		{
 			int err = CHANGEITEMMGR->UseChangeItemFromShopItem( m_pPlayer, pItemInfo->SimMek );
 			if(  err == 2 )
 			{
-				//°ø°£ÀÌ ºÎÁ·ÇÏ´Ù´Â ¸Þ½ÃÁö¸¦ ³¯¸°´Ù.
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				MSG_WORD msg;
 				msg.Category = MP_ITEM;
 				msg.Protocol = MP_ITEM_CHANGEITEM_NACK;
@@ -651,8 +652,8 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 		
 		if( pItemInfo->ItemType == 10 )
-		if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
 		{
+		if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
 			return eItemUseErr_Err;
 		}
 
@@ -688,7 +689,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		CalcShopItemOption( pAddShopItem->ShopItem.ItemBase.wIconIdx, TRUE );
 		m_UsingItemTable.Add(pAddShopItem, pAddShopItem->ShopItem.ItemBase.wIconIdx);
 
-		// ´Ù¸¥»ç¶÷µé¿¡°Ô ¾ÆÀÌÅÛ Âø¿ë Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_DWORD2 msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_SHOPITEM_AVATAR_PUTON;
@@ -707,14 +708,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 		m_pPlayer->GetPetManager()->SummonPet(pItemBase->dwDBIdx);
 		//m_pPlayer->GetPetManager()->SummonPet(PET_ID_START);
-		//ÇØ´ç À¯ÀúÀÇ Æê ¸Å´ÏÁ®¿¡¼­ ÇØ´ç ÆÖÀ» Ã£¾Æ ÇöÀçÆÖÀ¸·Î ¼³Á¤ÇÏ°í
-		//ÇØ´ç ÆÖÀÇ Á¤º¸¸¦ ±×¸®µå¿¡ º¸³½´Ù.
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		goto LogNotUse;
 	}
-	//SW060406 Æê ÀåÂø
+	//SW060406 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP )
 	{
-		//Æê ¼ÒÈ¯ÁßÀÌ ¾Æ´Ï¸é
+		//ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 		if(!m_pPlayer->GetPetManager()->GetCurSummonPet())
 		{
 			return eItemUseErr_Err;
@@ -773,7 +774,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 		pOption->UseStatePoint = 30 - (WORD)RemainTime;
 		pItemBase->wIconIdx = eIncantation_StatePoint;
 
-		// ItemIdx, Param, RemainTimeÀ» ¾÷µ¥ÀÌÆ® ½ÃÄÑ¾ß ÇÑ´Ù.
+		// ItemIdx, Param, RemainTimeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½.
 		ShopItemAllUseInfoUpdateToDB( pItemBase->dwDBIdx, m_pPlayer->GetID(), eIncantation_StatePoint, pOption->StatePoint, pOption->UseStatePoint );
 	}
 
@@ -785,7 +786,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 
 	if( pItemInfo && pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
-		// Á¾·á½Ã°£À» Ã¼Å©ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 		stTIME ctime, rtime;
 		ctime.value = GetCurTime();
 		rtime.SetTime( ShopItem->ShopItem.Remaintime );
@@ -800,7 +801,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 				}
 				if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP )
 				{
-					// ¾ÆÀÌÅÛ ¾ø¾Ø´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 				}
 
 			}
@@ -844,14 +845,14 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 	}
 	else
 	{
-		// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÀÌ Á¾·áµÇ¾úÀ¸¸é Àû¿ë ¾È½ÃÅ²´Ù
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È½ï¿½Å²ï¿½ï¿½
 		if( pItemInfo && pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin && RemainTime==0 )
 			return TRUE;
 		else
 			CalcShopItemOption(pItemBase->wIconIdx, TRUE, ShopItem->ShopItem.Remaintime);
 	}
 
-	// Áßº¹Ã¼Å© ÆÄ¶ó¹ÌÅÍ ¼³Á¤
+	// ï¿½ßºï¿½Ã¼Å© ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	AddDupParam( pItemInfo );
 	
 	return TRUE;
@@ -876,10 +877,10 @@ void CShopItemManager::DeleteUsingShopItem( DWORD ItemIdx, BOOL bDelete )
 	if( pItemInfo )
 		DeleteDupParam( pItemInfo );
 
-	// DB¿¡ ¼ÂÆÃ
+	// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ShopItemDeleteToDB( m_pPlayer->GetID(), pShopItem->ShopItem.ItemBase.dwDBIdx );
 
-	// LogÃß°¡
+	// Logï¿½ß°ï¿½
 	stTIME curtime;
 	curtime.value = GetCurTime();
 //	LogItemMoney( m_pPlayer->GetID(), m_pPlayer->GetObjectName(), curtime.value, "",
@@ -924,13 +925,13 @@ void CShopItemManager::CheckEndTime()
 	cPtrList listRemove;
 	cPtrList listDel;
 
-	// Á¾·á½Ã°£ Á¶»ç
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	while( pShopItem = m_UsingItemTable.GetData() )
 	{
 		pItemInfo = ITEMMGR->GetItemInfo( pShopItem->ShopItem.ItemBase.wIconIdx );
 		if( !pItemInfo)		continue;
 
-		// ÇöÀç½Ã°£
+		// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 		if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 		{
 			stTIME EndTime;
@@ -942,7 +943,7 @@ void CShopItemManager::CheckEndTime()
 				if( pItemInfo->ItemType == 11 )
 				{
 					BOOL bfind = FALSE;
-					// Item Position È®ÀÎ
+					// Item Position È®ï¿½ï¿½
 					for(int i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
 					{
 						ITEMBASE* pItemBase = (ITEMBASE*)pSlot->GetItemInfoAbs( i+pSlot->GetStartPos() );
@@ -955,7 +956,7 @@ void CShopItemManager::CheckEndTime()
 							break;
 						}
 					}
-					// ÀåºñÀÎÁö È®ÀÎ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 					if( !bfind )
 					{
 						CShopInvenSlot* pSlot = (CShopInvenSlot*)m_pPlayer->GetSlot( eItemTable_Weared );
@@ -1033,7 +1034,7 @@ void CShopItemManager::CheckEndTime()
 						TakeOffAvatarItem( pShopItem->ShopItem.ItemBase.wIconIdx, pShopItem->ShopItem.ItemBase.Position );
 					}
 
-					//2007. 12. 11. CBH - ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã Ã³¸®
+					//2007. 12. 11. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 					if( (pItemInfo->ItemKind == eSHOP_ITEM_NOMALCLOTHES_SKIN) || (pItemInfo->ItemKind == eSHOP_ITEM_COSTUME_SKIN) )
 						DiscardSkinItem( pItemInfo->ItemIdx );					
 				}
@@ -1042,7 +1043,7 @@ void CShopItemManager::CheckEndTime()
 					listDel.AddTail(pShopItem);
 				}
 
-				// player¿¡°Ô ¼ÂÆÃ
+				// playerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				CalcShopItemOption( pShopItem->ShopItem.ItemBase.wIconIdx, FALSE );
 				SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_USEEND, pShopItem->ShopItem.ItemBase.wIconIdx);				
 			}
@@ -1052,20 +1053,20 @@ void CShopItemManager::CheckEndTime()
 				checksum = EndTime;
 				checksum -= curtime;
 
-				// 1ºÐ ¹Ì¸¸
+				// 1ï¿½ï¿½ ï¿½Ì¸ï¿½
 				if( !checksum.GetYear() && !checksum.GetMonth() && !checksum.GetDay() && !checksum.GetHour() && !checksum.GetMinute() )
 					SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_ONEMINUTE, pShopItem->ShopItem.ItemBase.wIconIdx);				
 
-				// ÇÁ¸®¹Ì¾ö ¾ÆÀÌÅÛ ÆÐ³ÎÆ¼ °»½ÅÃß°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 			}
 		}
-		// ÇÃ·¹ÀÌ½Ã°£
+		// ï¿½Ã·ï¿½ï¿½Ì½Ã°ï¿½
 		else if( pItemInfo->SellPrice == eShopItemUseParam_Playtime )
 		{
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÀÌ¸é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ì¸ï¿½
 			if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 			{
-				// ÇÃ·¯½ºÅ¸ÀÓ°ú °ãÄ¡¸é ½Ã°£ÀÌ ¾È°¡µµ·Ï
+				// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½Ó°ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½
 				if( pShopItem->ShopItem.Remaintime && gEventRate[pItemInfo->MeleeAttackMin] != gEventRateFile[pItemInfo->MeleeAttackMin] )
 				{
 					pShopItem->LastCheckTime = gCurTime;
@@ -1081,12 +1082,12 @@ void CShopItemManager::CheckEndTime()
 			{				
 				pShopItem->ShopItem.Remaintime = 0;
 												  
-				// player¿¡°Ô ¼ÂÆÃ
+				// playerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				CalcShopItemOption( pShopItem->ShopItem.ItemBase.wIconIdx, FALSE );
 				SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_USEEND, pShopItem->ShopItem.ItemBase.wIconIdx);
 
 				/*
-				// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÀÌ »èÁ¦ÇÏÁö ¾Ê°í º¸°üÇÑ´Ù. (°°ÀºÁ¾·ù´Â ÇÏ·ç¿¡ ÇÏ³ª¸¸ »ç¿ëÇÏµµ·Ï ÇÏ±âÀ§ÇØ)
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ç¿¡ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½)
 				if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )				
 					ShopItemUpdatetimeToDB( m_pPlayer->GetID(), pShopItem->ShopItem.ItemBase.wIconIdx, 0 );
 				else
@@ -1100,7 +1101,7 @@ void CShopItemManager::CheckEndTime()
 
 				DeleteDupParam( pItemInfo );
 
-				// LogÃß°¡
+				// Logï¿½ß°ï¿½
 				LogItemMoney( m_pPlayer->GetID(), m_pPlayer->GetObjectName(), 0, "",
 					eLog_ShopItemUseEnd, m_pPlayer->GetMoney(eItemTable_Inventory), pShopItem->ShopItem.BeginTime.value, pShopItem->ShopItem.Remaintime,
 					pShopItem->ShopItem.ItemBase.wIconIdx, pShopItem->ShopItem.ItemBase.dwDBIdx, pShopItem->ShopItem.ItemBase.Position, 0, pShopItem->ShopItem.ItemBase.Durability, m_pPlayer->GetPlayerExpPoint());
@@ -1147,30 +1148,30 @@ void CShopItemManager::CheckAvatarEndtime()
 	curtime.value = GetCurTime();
 	m_UsingItemTable.SetPositionHead();
 
-	// Á¾·á½Ã°£ Á¶»ç
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	while( pShopItem = m_UsingItemTable.GetData() )
 	{
 		pItemInfo = ITEMMGR->GetItemInfo( pShopItem->ShopItem.ItemBase.wIconIdx );
 		if( !pItemInfo)		continue;
 
-		// ÇöÀç½Ã°£
+		// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 		if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 		{
 			stTIME EndTime;
 			EndTime.SetTime( pShopItem->ShopItem.Remaintime );
 			if( curtime > EndTime )
 			{
-				// Item Áö¿ì°í
+				// Item ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, pShopItem->ShopItem.ItemBase.Position, pShopItem->ShopItem.ItemBase.wIconIdx, 1 ))
 				{
 					ASSERTMSG(0, "ShoItem - CheckEndTime");
 					continue;
 				}
-				// player¿¡°Ô ¼ÂÆÃ
+				// playerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				SendMsgDwordToPlayer(MP_ITEM_SHOPITEM_USEEND, pShopItem->ShopItem.ItemBase.wIconIdx);
 				ShopItemDeleteToDB( m_pPlayer->GetID(), pShopItem->ShopItem.ItemBase.dwDBIdx );
 
-				// LogÃß°¡
+				// Logï¿½ß°ï¿½
 				LogItemMoney( m_pPlayer->GetID(), m_pPlayer->GetObjectName(), 0, "",
 					eLog_ShopItemUseEnd, m_pPlayer->GetMoney(eItemTable_Inventory), pShopItem->ShopItem.BeginTime.value, pShopItem->ShopItem.Remaintime,
 					pShopItem->ShopItem.ItemBase.wIconIdx, pShopItem->ShopItem.ItemBase.dwDBIdx, pShopItem->ShopItem.ItemBase.Position, 0, pShopItem->ShopItem.ItemBase.Durability, m_pPlayer->GetPlayerExpPoint());
@@ -1202,19 +1203,19 @@ void CShopItemManager::UpdateLogoutToDB()
 	curtime.value = GetCurTime();
 	m_UsingItemTable.SetPositionHead();
 
-	// Á¾·á½Ã°£ Á¶»ç
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	while( pShopItem = m_UsingItemTable.GetData() )
 	{
 		pItemInfo = ITEMMGR->GetItemInfo( pShopItem->ShopItem.ItemBase.wIconIdx );
 		if( !pItemInfo )		continue;
 
-		// ÇÃ·¹ÀÌ½Ã°£
+		// ï¿½Ã·ï¿½ï¿½Ì½Ã°ï¿½
 		if( pItemInfo->SellPrice == eShopItemUseParam_Playtime )
 		{
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÀÌ¸é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ì¸ï¿½
 			if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 			{
-				// ÇÃ·¯½ºÅ¸ÀÓ°ú °ãÄ¡¸é ½Ã°£ÀÌ ¾È°¡µµ·Ï
+				// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½Ó°ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½
 				if( pShopItem->ShopItem.Remaintime && gEventRate[pItemInfo->MeleeAttackMin] != gEventRateFile[pItemInfo->MeleeAttackMin] )
 				{
 					pShopItem->LastCheckTime = gCurTime;
@@ -1239,10 +1240,10 @@ void CShopItemManager::UpdateLogoutToDB()
 
 
 
-// ¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-// ¦­RaMa - 04.11.08                                           ¦­
-// ¦­Sub. ShopItem		                                       ¦­
-// ¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½RaMa - 04.11.08                                           ï¿½ï¿½
+// ï¿½ï¿½Sub. ShopItem		                                       ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 {
 	if( wIdx == 0 )			return FALSE;
@@ -1259,7 +1260,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			wIdx != eIncantation_StatePoint )
 		{
 			char buf[256]= { 0, };
-			sprintf(buf, "S ItemInfo°¡ ¾ø´Ù. PlayerIdx[%d] Idx[%d]", m_pPlayer->GetID(), wIdx);
+			sprintf(buf, "S ItemInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. PlayerIdx[%d] Idx[%d]", m_pPlayer->GetID(), wIdx);
 			ASSERTMSG(0, buf);
 			return FALSE;
 		}
@@ -1269,25 +1270,25 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 
 /*	if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 	{
-		// °æÇèÄ¡   GenGol
+		// ï¿½ï¿½ï¿½ï¿½Ä¡   GenGol
 		if( pItemInfo->GenGol>0 )
 		{
 			pShopItemOption->AddExp += (pItemInfo->GenGol*calc);
 			if(pShopItemOption->AddExp < 0)
 				pShopItemOption->AddExp=0;			
 		}
-		// ¾ÆÀÌÅÛ µå¶øÈ®·ü
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->MinChub>0 )
 		{
 			pShopItemOption->AddItemDrop += (pItemInfo->MinChub*calc);
 			if(pShopItemOption->AddItemDrop < 0)
 				pShopItemOption->AddItemDrop=0;
 		}
-		// Á×¾úÀ»¶§ °æÇèÄ¡¿Í µ· ÆÐ³ÎÆ¼ ¾ø´Â°Í		
+		// ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½Â°ï¿½		
 	}*/
 	if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 	{
-		// Á¶ÇÕÈ®·ü
+		// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½
 		if( pItemInfo->ItemIdx == eIncantation_MixUp )
 		{
 			pShopItemOption->ItemMixSuccess += (10*calc);
@@ -1436,21 +1437,21 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd == FALSE )
 				STATSMGR->CalcCharStats( m_pPlayer );
 		}
-		// ³»°øµ¥¹ÌÁö   Life
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   Life
 		if( pItemInfo->Life>0 )
 		{
 			pShopItemOption->NeagongDamage += (char)(pItemInfo->Life*calc);
 			if(pShopItemOption->NeagongDamage < 0)
 				pShopItemOption->NeagongDamage=0;
 		}
-		// ¿Ü°ø´ë¹ÌÁö   Shield
+		// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   Shield
 		if( pItemInfo->Shield>0 )
 		{
 			pShopItemOption->WoigongDamage += (char)(pItemInfo->Shield*calc);
 			if(pShopItemOption->WoigongDamage < 0)
 				pShopItemOption->WoigongDamage=0;
 		}
-		// ¹«°øÆ¯±âÄ¡ 1¾¿  Plus_MugongIdx
+		// ï¿½ï¿½ï¿½ï¿½Æ¯ï¿½ï¿½Ä¡ 1ï¿½ï¿½  Plus_MugongIdx
 		if( pItemInfo->NaeRyuk>0 )
 		{
 			pShopItemOption->AddSung += (pItemInfo->NaeRyuk*calc);
@@ -1460,45 +1461,45 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( m_pPlayer->GetInited() )
 				ABILITYMGR->UpdateAbilityState(ABILITYUPDATE_ABILITYLEVEL_CHANGED,0,m_pPlayer->GetAbilityGroup());
 		}
-		// ±âº»µ¥¹ÌÁö  Plus_Value
+		// ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Plus_Value
 		if( pItemInfo->LimitJob>0 )
 		{
 			pShopItemOption->ComboDamage += (pItemInfo->LimitJob*calc);
 			if(pShopItemOption->ComboDamage < 0)
 				pShopItemOption->ComboDamage=0;
 		}
-		// Å©¸®Æ¼ÄÃ È®·ü   CriticalPercent
+		// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ È®ï¿½ï¿½   CriticalPercent
 		if( pItemInfo->LimitGender>0 )
 		{
 			pShopItemOption->Critical += (pItemInfo->LimitGender*calc);
 			if(pShopItemOption->Critical < 0)
 				pShopItemOption->Critical=0;
 		}
-		// Å©¸®Æ¼ÄÃ½Ã ½ºÅÏÈ®·ü    RangeAttackMin
+		// Å©ï¿½ï¿½Æ¼ï¿½Ã½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½    RangeAttackMin
 		if( pItemInfo->LimitLevel>0 )
 		{
 			pShopItemOption->StunByCri += (pItemInfo->LimitLevel*calc);
 			if(pShopItemOption->StunByCri < 0)
 				pShopItemOption->StunByCri=0;
 		}
-		// ¹°¸®¹æ¾î·Â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitGenGol>0 )
 		{
 			pShopItemOption->RegistPhys += (pItemInfo->LimitGenGol*calc);
 			if(pShopItemOption->RegistPhys < 0)
 				pShopItemOption->RegistPhys = 0;
 		}
-		// ¼Ó¼º¹æ¾î·Â
+		// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitMinChub>0 )
 		{
 			pShopItemOption->RegistAttr += (pItemInfo->LimitMinChub*calc);
 			if(pShopItemOption->RegistAttr < 0)
 				pShopItemOption->RegistAttr = 0;
 		}
-		// ³»·Â¼Ò¸ð°¨¼Ò
+		// ï¿½ï¿½ï¿½Â¼Ò¸ð°¨¼ï¿½
 		if( pItemInfo->LimitCheRyuk>0 )
 		{
-			// ÇÃ·¯½ºÅ¸ÀÓ
+			// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 			if( pItemInfo->MeleeAttackMin )
 			{
 				if( bAdd && gEventRate[pItemInfo->MeleeAttackMin] == gEventRateFile[pItemInfo->MeleeAttackMin] )
@@ -1513,10 +1514,10 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 					pShopItemOption->NeaRyukSpend = 0;
 			}
 		}
-		// °æÇèÄ¡ Áõ°¡
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitSimMek>0 )
 		{
-			// ÇÃ·¯½ºÅ¸ÀÓ
+			// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 			if( pItemInfo->MeleeAttackMin )
 			{				
 				if( bAdd && gEventRate[pItemInfo->MeleeAttackMin] == gEventRateFile[pItemInfo->MeleeAttackMin] )
@@ -1531,10 +1532,10 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 					pShopItemOption->AddExp=0;
 			}
 		}
-		// ¼ö·ÃÄ¡ Áõ°¡
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemGrade>0 )
 		{
-			// ÇÃ·¯½ºÅ¸ÀÓ
+			// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 			if( pItemInfo->MeleeAttackMin )
 			{
 				if( bAdd && gEventRate[pItemInfo->MeleeAttackMin] == gEventRateFile[pItemInfo->MeleeAttackMin] )
@@ -1549,14 +1550,14 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 					pShopItemOption->AddAbility=0;
 			}
 		}
-		// ¹«°ø¼ö·ÃÄ¡ Áõ°¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->RangeType>0 )
 		{
 			pShopItemOption->AddMugongExp += (pItemInfo->RangeType*calc);
 			if(pShopItemOption->AddMugongExp < 0)
 				pShopItemOption->AddMugongExp=0;
 		}
-		// ÃÖ´ë»ý¸í·Â Áõ°¡Ä¡
+		// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->Plus_MugongIdx )
 		{
 			pShopItemOption->Life += (pItemInfo->Plus_MugongIdx*calc);
@@ -1566,7 +1567,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd==FALSE )
 				STATSMGR->CalcCharLife(m_pPlayer);
 		}
-		// ÃÖ´ëÈ£½Å°­±â Áõ°¡Ä¡
+		// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->Plus_Value )
 		{
 			pShopItemOption->Shield += (pItemInfo->Plus_Value*calc);
@@ -1576,7 +1577,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd==FALSE )
 				STATSMGR->CalcCharShield(m_pPlayer);
 		}
-		// ÃÖ´ë³»·Â Áõ°¡Ä¡
+		// ï¿½Ö´ë³»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->AllPlus_Kind )
 		{
 			pShopItemOption->Naeryuk += (pItemInfo->AllPlus_Kind*calc);
@@ -1586,17 +1587,17 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd==FALSE )
 				STATSMGR->CalcCharNaeruyk(m_pPlayer);
 		}
-		// °æ°øµô·¹ÀÌ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->RangeAttackMin )
 		{
 			pShopItemOption->bKyungGong += (pItemInfo->RangeAttackMin*calc);
 		}
-		// °æ°ø¼Óµµ »ó½Â
+		// ï¿½ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½
 		if( pItemInfo->RangeAttackMax )
 		{
 			pShopItemOption->KyungGongSpeed += (pItemInfo->RangeAttackMax*calc);
 		}
-		// °­È­ ÁõÆø ¼öÄ¡
+		// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 		if( pItemInfo->CriticalPercent )
 		{
 			pShopItemOption->ReinforceAmp += (pItemInfo->CriticalPercent*calc);
@@ -1604,13 +1605,13 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( m_pPlayer->GetInited() )
 				STATSMGR->CalcItemStats( m_pPlayer );
 		}
-		// ¾ÆÀÌÅÛµå¶øÈ®·ü 
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ 
 		if( pItemInfo->PhyDef )
 		{
 			pShopItemOption->AddItemDrop += (pItemInfo->PhyDef*calc);
 		}
 		//////////////////////////////////////////////////////////////////////
-		// 06. 07. ³»°ø ÀûÁß(ÀÏ°Ý) - ÀÌ¿µÁØ
+		// 06. 07. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ï°ï¿½) - ï¿½Ì¿ï¿½ï¿½ï¿½
 		if( pItemInfo->NaeRyukRecover > 0 )
 		{
 			pShopItemOption->Decisive += (pItemInfo->NaeRyukRecover*calc);
@@ -1618,7 +1619,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 				pShopItemOption->Decisive = 0;
 		}
 		//////////////////////////////////////////////////////////////////////
-/*		// ³»·ÂÈ¸º¹·ê 1.5¹è
+/*		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ 1.5ï¿½ï¿½
 		if( pItemInfo->NaeRyukRecoverRate>0 )
 		{
 			m_ShopItemOption.RecoverRate += (pItemInfo->NaeRyukRecoverRate*calc);
@@ -1626,7 +1627,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 				m_ShopItemOption.RecoverRate = 0;
 
 		}*/
-		// ³ëÁ¡»ó ²Ù¹Ì±â(³ëÁ¡»ó²Ù¹Ì±âÀÌ¸é ¼¥¾ÆÀÌÅÛ ¿É¼Ç¿¡ ÇØ´ç ¾ÆÀÌÅÛ ÀÎµ¦½º¸¦ ³Ö´Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¹Ì±ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼Ç¿ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 		if( (DWORD)(pItemInfo->AttrRegist.GetElement_Val(ATTR_FIRE)) > 0 )
 		{
 			pShopItemOption->dwStreetStallDecoration = pItemInfo->ItemIdx;
@@ -1639,7 +1640,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 	}
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 	{
-		// ÃÖ´ë»ý¸í·Â Áõ°¡Ä¡
+		// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->Life > 0 )
 		{
 			pShopItemOption->Life += (WORD)(pItemInfo->Life*calc);
@@ -1649,7 +1650,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd==FALSE )
 				STATSMGR->CalcCharLife(m_pPlayer);
 		}
-		// ÃÖ´ëÈ£½Å°­±â Áõ°¡Ä¡
+		// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->Shield > 0 )
 		{
 			pShopItemOption->Shield += (WORD)(pItemInfo->Shield*calc);
@@ -1659,7 +1660,7 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 			if( bAdd==FALSE )
 				STATSMGR->CalcCharShield(m_pPlayer);
 		}
-		// ÃÖ´ë³»·Â Áõ°¡Ä¡
+		// ï¿½Ö´ë³»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->NaeRyuk > 0 )
 		{
 			pShopItemOption->Naeryuk += (pItemInfo->NaeRyuk*calc);
@@ -1677,11 +1678,11 @@ BOOL CShopItemManager::CalcShopItemOption( DWORD wIdx, BOOL bAdd, DWORD Param )
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 	{
 #ifdef _HK_LOCAL_
-		// ³ëÁ¡°³¼³
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->CheRyuk )
 			pShopItemOption->bStreetStall += (pItemInfo->CheRyuk*calc);
 #endif
-		// Ã¼ÀÎÁö¾ÆÀÌÅÛ
+		// Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		/*if( pItemInfo->SimMek )
 		{
 			CHANGEITEMMGR->UseChangeItemFromShopItem( m_pPlayer, pItemInfo->SimMek );
@@ -1857,7 +1858,7 @@ BOOL CShopItemManager::PutOnAvatarItem( WORD ItemIdx, WORD ItemPos, BOOL bCalcSt
 			{
 				if( pAvatar[i] )
 				{
-					// ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¹þ°ÜÁ³À¸¸é ±âº»¾ÆÀÌÅÛÀ» ´Ù½Ã ¼ÂÆÃÇØÁØ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 					AVATARITEM* pTemp = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pAvatar[i] );
 					if( !pTemp )		continue;
 					ITEM_INFO* ptInfo = ITEMMGR->GetItemInfo( pAvatar[i] );
@@ -1883,7 +1884,7 @@ BOOL CShopItemManager::PutOnAvatarItem( WORD ItemIdx, WORD ItemPos, BOOL bCalcSt
 			
 			if( !pAvatarEquip->Item[i] && pAvatar[i] )
 			{
-				// ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¹þ°ÜÁ³À¸¸é ±âº»¾ÆÀÌÅÛÀ» ´Ù½Ã ¼ÂÆÃÇØÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				AVATARITEM* pTemp = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pAvatar[i] );
 				if( !pTemp )		continue;
 				ITEM_INFO* ptInfo = ITEMMGR->GetItemInfo( pAvatar[i] );
@@ -1954,7 +1955,7 @@ BOOL CShopItemManager::TakeOffAvatarItem( WORD ItemIdx, WORD ItemPos, BOOL bCalc
 			}				
 			else
 			{				
-				if(pAvatar[pAvatarEquip->Position] <= 1)	//2007. 10. 12. CBH - ¹«±â ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ °»½Å ºÎºÐÀÌ ºüÁ®ÀÖ¾î¼­ Ãß°¡
+				if(pAvatar[pAvatarEquip->Position] <= 1)	//2007. 10. 12. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾î¼­ ï¿½ß°ï¿½
 					pAvatar[pAvatarEquip->Position] = 0;
 				else
 					bCheck = TRUE;
@@ -1990,7 +1991,7 @@ BOOL CShopItemManager::TakeOffAvatarItem( WORD ItemIdx, WORD ItemPos, BOOL bCalc
 			}
 			if( pAvatarEquip->Item[i] == 0 )
 			{
-				// °°ÀÌ ¹þ°ÜÁ®¾ßÇÒ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛµé
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½
 				if( i>=eAvatar_Hat && i<eAvatar_Weared_Hair )
 				{
 					ITEM_INFO* poffinfo = ITEMMGR->GetItemInfo( pAvatar[i] );
@@ -2036,88 +2037,88 @@ void CShopItemManager::CalcAvatarOption( BOOL bCalcStats )
 		ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( pAvatar[i] );
 		if( !pItemInfo )		continue;
 
-		// ±Ù°ñ
+		// ï¿½Ù°ï¿½
 		if( pItemInfo->GenGol > 0 )
 			pAvatarOption->Gengol += pItemInfo->GenGol;
-		// ¹ÎÃ¸
+		// ï¿½ï¿½Ã¸
 		if( pItemInfo->MinChub > 0 )
 			pAvatarOption->Minchub += pItemInfo->MinChub;
-		// Ã¼·Â
+		// Ã¼ï¿½ï¿½
 		if( pItemInfo->CheRyuk > 0 )
 			pAvatarOption->Cheryuk += pItemInfo->CheRyuk;
-		// ½É¸Æ
+		// ï¿½É¸ï¿½
 		if( pItemInfo->SimMek > 0 )
 			pAvatarOption->Simmek += pItemInfo->SimMek;
-		// ÃÖ´ë»ý¸í·Â
+		// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->Life > 0 )
 			pAvatarOption->Life += (WORD)pItemInfo->Life;
-		// ÃÖ´ëÈ£½Å°­±â
+		// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½
 		if( pItemInfo->Shield > 0 )
 			pAvatarOption->Shield += (WORD)pItemInfo->Shield;
-		// ÃÖ´ë³»·Â
+		// ï¿½Ö´ë³»ï¿½ï¿½
 		if( pItemInfo->NaeRyuk > 0 )
 			pAvatarOption->Naeruyk += pItemInfo->NaeRyuk;
-		// ¹«±â°ø°Ý·Â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
 		if( pItemInfo->MeleeAttackMin > 0 )
 			pAvatarOption->Attack += pItemInfo->MeleeAttackMin;
-		// Å©¸®Æ¼ÄÃ¼öÄ¡
+		// Å©ï¿½ï¿½Æ¼ï¿½Ã¼ï¿½Ä¡
 		if( pItemInfo->CriticalPercent > 0 )
 			pAvatarOption->Critical += pItemInfo->CriticalPercent;
-		// ¹Ý°ÝÈ®À²
+		// ï¿½Ý°ï¿½È®ï¿½ï¿½
 		if( pItemInfo->Plus_MugongIdx > 0 )
 			pAvatarOption->CounterPercent += pItemInfo->Plus_MugongIdx;
-		// ¹Ý°Ý½Ã µ¥¹ÌÁöÀ²
+		// ï¿½Ý°Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->Plus_Value > 0 )
 			pAvatarOption->CounterDamage += pItemInfo->Plus_Value;
-		// °æ°øµô·¹ÀÌ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->AllPlus_Kind == 1 )
 			pAvatarOption->bKyungGong = 1;
-		// ³»·Â¼Ò¸ð°¨¼Ò
+		// ï¿½ï¿½ï¿½Â¼Ò¸ð°¨¼ï¿½
 		if( pItemInfo->LimitCheRyuk > 0 )
 			pAvatarOption->NeaRyukSpend += pItemInfo->LimitCheRyuk;
-		// ³»°ø µ¥¹ÌÁö
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitJob > 0 )
 			pAvatarOption->NeagongDamage += pItemInfo->LimitJob;
-		// ¿Ü°ø µ¥¹ÌÁö
+		// ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitGender > 0 )
 			pAvatarOption->WoigongDamage += pItemInfo->LimitGender;
-		// ¸ó½ºÅÍ ¹°¸®¹æ¾î·Â °¨¼Ò
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitLevel > 0 )
 			pAvatarOption->TargetPhyDefDown += pItemInfo->LimitLevel;
-		// ¸ó½ºÅÍ ¼Ó¼ºÀúÇ×·Â °¨¼Ò
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitGenGol > 0 )
 			pAvatarOption->TargetAttrDefDown += pItemInfo->LimitGenGol;
-		// ¸ó½ºÅÍ °ø°Ý·Â °¨¼Ò
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->LimitMinChub > 0 )
 			pAvatarOption->TargetAtkDown += pItemInfo->LimitMinChub;
-		// È¸º¹·® Ãß°¡ Áõ°¡Ä¡
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->LimitSimMek )
 			pAvatarOption->RecoverRate += pItemInfo->LimitSimMek;
-		// °æ°ø¼Óµµ »ó½Â
+		// ï¿½ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemGrade )
 			pAvatarOption->KyunggongSpeed += pItemInfo->ItemGrade;
-		// ¹¬È¥°ÔÀÌÁö ÃæÀü¼Óµµ
+		// ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
         if( pItemInfo->RangeType )
 			pAvatarOption->MussangCharge += pItemInfo->RangeType;
-		// °æ°ø»ç¿ë½Ã ³»·Â¼Ò¸ð¿©ºÎ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¼Ò¸ð¿©ºï¿½
 		if( pItemInfo->EquipKind == 1 )
 			pAvatarOption->NaeruykspendbyKG = 1;
 		///////////////////////////////////////////////////////////////////////////////////////////////////
-		// 06. 07 ³»°ø ÀûÁß(ÀÏ°Ý) - ÀÌ¿µÁØ
+		// 06. 07 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ï°ï¿½) - ï¿½Ì¿ï¿½ï¿½ï¿½
 		if( pItemInfo->NaeRyukRecover > 0 )
 			pAvatarOption->Decisive += pItemInfo->NaeRyukRecover;
 		///////////////////////////////////////////////////////////////////////////////////////////////////
-		// ³»·ÂÈ¸º¹½Ã Ãß°¡ È£½Å°­±â È¸º¹·®
+		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->RangeAttackMin > 0 )
 			pAvatarOption->ShieldRecoverRate += pItemInfo->RangeAttackMin;
-		// ¹¬È¥¹ßµ¿½Ã Áõ°¡°ø°Ý·Â
+		// ï¿½ï¿½È¥ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
 		if( pItemInfo->RangeAttackMax > 0 )
 			pAvatarOption->MussangDamage += pItemInfo->RangeAttackMax;
 	}
 
-	/* //SW º¢²É ÀÌº¥Æ® °ü·Ã ÀÓ½Ã ÇÏµå ÄÚµå
-	// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ®
-	// ´«³»¸±¶§ Ãß°¡¿É¼Ç Àû¿ë
+	/* //SW ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½Ïµï¿½ ï¿½Úµï¿½
+	// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( WEATHERMGR->GetWeatherState() == eWS_Snow )
 	{
 		if(	(pAvatar[eAvatar_Dress] == EVENT_SHOPITEM_SNOWMAN_DRESS && pAvatar[eAvatar_Hat] == EVENT_SHOPITEM_SNOWMAN_HAT) ||
@@ -2244,8 +2245,10 @@ void CShopItemManager::CalcPlusTime( DWORD dwEventIdx, DWORD dwType )
 			case 0:
 				{
 					if( pShopItem->ShopItem.Remaintime )
-					if( gEventRate[pItem->MeleeAttackMin] != gEventRateFile[pItem->MeleeAttackMin] )
-						CalcShopItemOption( pItem->ItemIdx, FALSE );
+					{
+						if( gEventRate[pItem->MeleeAttackMin] != gEventRateFile[pItem->MeleeAttackMin] )
+							CalcShopItemOption( pItem->ItemIdx, FALSE );
+					}
 				}
 				break;
 			case MP_CHEAT_PLUSTIME_ON:
@@ -2270,16 +2273,18 @@ void CShopItemManager::CalcPlusTime( DWORD dwEventIdx, DWORD dwType )
 			case MP_CHEAT_PLUSTIME_ALLOFF:
 				{
 					if( pShopItem->ShopItem.Remaintime )
-					if( gEventRate[pItem->MeleeAttackMin] != gEventRateFile[pItem->MeleeAttackMin] )
 					{
-						pShopItem->LastCheckTime = gCurTime;
-						CalcShopItemOption( pItem->ItemIdx, TRUE );
+						if( gEventRate[pItem->MeleeAttackMin] != gEventRateFile[pItem->MeleeAttackMin] )
+						{
+							pShopItem->LastCheckTime = gCurTime;
+							CalcShopItemOption( pItem->ItemIdx, TRUE );
+						}
 					}
 				}
 				break;
 			}
 		}
-	}	
+	}
 }
 
 
@@ -2287,55 +2292,55 @@ void CShopItemManager::AddDupParam( ITEM_INFO* pItemInfo )
 {
 	if( !pItemInfo )			return;
 
-	// ºÎÀû
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->AllPlus_Value )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->AllPlus_Value );
 		if( !pDupOption )		return;
 
-		if( pDupOption->Param & eDontDupUse_WoigongDamage )			// ±Í½ÅÀÇ ºÎÀû(¿Ü°øµ¥¹ÌÁö)
+		if( pDupOption->Param & eDontDupUse_WoigongDamage )			// ï¿½Í½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			m_DupCharm |= eDontDupUse_WoigongDamage;
-		if( pDupOption->Param & eDontDupUse_NaegongDamage )			// °­½ÃÀÇ ºÎÀû(³»°øµ¥¹ÌÁö)
+		if( pDupOption->Param & eDontDupUse_NaegongDamage )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			m_DupCharm |= eDontDupUse_NaegongDamage;	
-		if( pDupOption->Param & eDontDupUse_Exppoint )				// ÇÃ·¯½ºÅ¸ÀÓ °æÇèÄ¡
+		if( pDupOption->Param & eDontDupUse_Exppoint )				// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 			m_DupCharm |= eDontDupUse_Exppoint;	
-		if( pDupOption->Param & eDontDupUse_Reinforce )				// °­È­ÁõÆø
+		if( pDupOption->Param & eDontDupUse_Reinforce )				// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Reinforce;	
-		if( pDupOption->Param & eDontDupUse_Kyunggong )				// °æ°øÀÇºÎÀû
+		if( pDupOption->Param & eDontDupUse_Kyunggong )				// ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Kyunggong;
-		//2007. 10. 9. CBH - ¿ä±«. ¿Ü°ø, ³»°ø ÁÖ¹®¼­ Áßº¹ Ã³¸® Ãß°¡
-		if( pDupOption->Param & eDontDupUse_Ghost )					// ¿ä±«ÀÇºÎÀû
+		//2007. 10. 9. CBH - ï¿½ä±«. ï¿½Ü°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ßºï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
+		if( pDupOption->Param & eDontDupUse_Ghost )					// ï¿½ä±«ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Ghost;			
-		if( pDupOption->Param & eDontDupUse_Woigong )				// ¿Ü°øÀÇºÎÀû
+		if( pDupOption->Param & eDontDupUse_Woigong )				// ï¿½Ü°ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Woigong;			
-		if( pDupOption->Param & eDontDupUse_Naegong )				// ³»°øÀÇºÎÀû
+		if( pDupOption->Param & eDontDupUse_Naegong )				// ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Naegong;			
-		// »ç³É²Û ºÎÀû/°æÇèÄ¡ ºÎÀû Ãß°¡ by Stiner(2008/06/25)
-		if( pDupOption->Param & eDontDupUse_Hunter )				// »ç³É²Û ºÎÀû
+		// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/06/25)
+		if( pDupOption->Param & eDontDupUse_Hunter )				// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_Hunter;
-		if( pDupOption->Param & eDontDupUse_ExpDay )				// °æÇèÄ¡ ºÎÀû
+		if( pDupOption->Param & eDontDupUse_ExpDay )				// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm |= eDontDupUse_ExpDay;
 	}
 	
-	// ¹°¾à
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongNum )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongNum );
 		if( !pDupOption )		return;
 
-		if( pDupOption->Param & eDontDupUse_Life )				// »ý¸íÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_Life )				// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_Life;
-		if( pDupOption->Param & eDontDupUse_Shield )			// È£½ÅÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_Shield )			// È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_Shield;
-		if( pDupOption->Param & eDontDupUse_Naeruyk )			// ³»·ÂÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_Naeruyk )			// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_Naeruyk;
-		if( pDupOption->Param & eDontDupUse_GreateLife )		// °­È­»ý¸íÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_GreateLife )		// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_GreateLife;
-		if( pDupOption->Param & eDontDupUse_GreateShield )		// °­È­È£½ÅÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_GreateShield )		// ï¿½ï¿½È­È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_GreateShield;
-		if( pDupOption->Param & eDontDupUse_GreateNaeruyk )		// °­È­³»·ÂÀÇ¹°¾à
+		if( pDupOption->Param & eDontDupUse_GreateNaeruyk )		// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_GreateNaeruyk;
-		if( pDupOption->Param & eDontDupUse_EventSatang )		// ÀÌº¥Æ®»çÅÁ
+		if( pDupOption->Param & eDontDupUse_EventSatang )		// ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 			m_DupHerb |= eDontDupUse_EventSatang;
 		if( pDupOption->Param & eDontDupUse_Doll )				// 
 			m_DupHerb |= eDontDupUse_Doll;
@@ -2343,27 +2348,27 @@ void CShopItemManager::AddDupParam( ITEM_INFO* pItemInfo )
 		
 	}
 
-	// ÁÖ¹®¼­
+	// ï¿½Ö¹ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongType )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongType );
 		if( !pDupOption )		return;
 
-		if( pDupOption->Param & eDontDupUse_MemoryMove )		// ±â¾ïÀÌµ¿ ÁÖ¹®¼­
+		if( pDupOption->Param & eDontDupUse_MemoryMove )		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_MemoryMove;			
-		if( pDupOption->Param & eDontDupUse_ProtectAll )		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+		if( pDupOption->Param & eDontDupUse_ProtectAll )		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_ProtectAll;
-		if( pDupOption->Param & eDontDupUse_LevelCancel50 )		// 50·¾ÀÌÇÏ ÀåºñÇØÁ¦
+		if( pDupOption->Param & eDontDupUse_LevelCancel50 )		// 50ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_LevelCancel50;
-		if( pDupOption->Param & eDontDupUse_LevelCancel70 )		// 70·¾ÀÌÇÏ ÀåºñÇØÁ¦
+		if( pDupOption->Param & eDontDupUse_LevelCancel70 )		// 70ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_LevelCancel70;
-		if( pDupOption->Param & eDontDupUse_LevelCancel90 )		// 90·¾ÀÌÇÏ ÀåºñÇØÁ¦
+		if( pDupOption->Param & eDontDupUse_LevelCancel90 )		// 90ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_LevelCancel90;
-		if( pDupOption->Param & eDontDupUse_ShowPyoguk )		// Ã¢°í¼ÒÈ¯ÁÖ¹®¼­
+		if( pDupOption->Param & eDontDupUse_ShowPyoguk )		// Ã¢ï¿½ï¿½ï¿½ï¿½È¯ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_ShowPyoguk;
-		if( pDupOption->Param & eDontDupUse_Chase )				// ÃßÀûÁÖ¹®¼­
+		if( pDupOption->Param & eDontDupUse_Chase )				// ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_Chase;
-		if( pDupOption->Param & eDontDupUse_TownMove )			// ¸¶À»ÀÌµ¿ÁÖ¹®¼­
+		if( pDupOption->Param & eDontDupUse_TownMove )			// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation |= eDontDupUse_TownMove;
 	}
 
@@ -2372,7 +2377,7 @@ void CShopItemManager::AddDupParam( ITEM_INFO* pItemInfo )
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->LifeRecover );
 		if( !pDupOption )		return;
 
-		if( pDupOption->Param & eDontDupUse_StreeStall )		// ³ëÁ¡°³¼³
+		if( pDupOption->Param & eDontDupUse_StreeStall )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			m_DupSundries |= eDontDupUse_StreeStall;
 			m_pPlayer->GetShopItemStats()->bStreetStall = 1;
@@ -2383,7 +2388,7 @@ void CShopItemManager::AddDupParam( ITEM_INFO* pItemInfo )
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( (DWORD)pItemInfo->LifeRecoverRate );
 		if( !pDupOption )		return;
 
-		if( pDupOption->Param & eDupPetEquip_PomanRing )		// Æ÷¸¸ÀÇ±Í°ÉÀÌ
+		if( pDupOption->Param & eDupPetEquip_PomanRing )		// ï¿½ï¿½ï¿½ï¿½ï¿½Ç±Í°ï¿½ï¿½ï¿½
 		{
 			m_DupPetEquip |= eDupPetEquip_PomanRing;
 		}
@@ -2395,84 +2400,84 @@ void CShopItemManager::DeleteDupParam( ITEM_INFO* pItemInfo )
 {
 	if( !pItemInfo )			return;
 
-	// ºÎÀû
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->AllPlus_Value )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->AllPlus_Value );
 		if( !pDupOption )		return;
 
 		if( (pDupOption->Param & eDontDupUse_WoigongDamage) &&
-			(m_DupCharm & eDontDupUse_WoigongDamage) )				// ±Í½ÅÀÇ ºÎÀû(¿Ü°øµ¥¹ÌÁö)
+			(m_DupCharm & eDontDupUse_WoigongDamage) )				// ï¿½Í½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			m_DupCharm ^= eDontDupUse_WoigongDamage;
 		if( (pDupOption->Param & eDontDupUse_NaegongDamage) &&
-			(m_DupCharm & eDontDupUse_NaegongDamage) )				// °­½ÃÀÇºÎÀû(³»°øµ¥¹ÌÁö)
+			(m_DupCharm & eDontDupUse_NaegongDamage) )				// ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			m_DupCharm ^= eDontDupUse_NaegongDamage;	
 		if( (pDupOption->Param & eDontDupUse_Exppoint) &&
-			(m_DupCharm & eDontDupUse_Exppoint) )					// ÇÃ·¯½ºÅ¸ÀÓ °æÇèÄ¡
+			(m_DupCharm & eDontDupUse_Exppoint) )					// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 			m_DupCharm ^= eDontDupUse_Exppoint;
 		if( (pDupOption->Param & eDontDupUse_Reinforce) &&
-			(m_DupCharm & eDontDupUse_Reinforce) )					// °­È­ÁõÆø
+			(m_DupCharm & eDontDupUse_Reinforce) )					// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Reinforce;
 		if( (pDupOption->Param & eDontDupUse_Kyunggong) &&
-			(m_DupCharm & eDontDupUse_Kyunggong) )					// °æ°øÀÇºÎÀû
+			(m_DupCharm & eDontDupUse_Kyunggong) )					// ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Kyunggong;
-		//2007. 10. 9. CBH - ¿ä±«. ¿Ü°ø, ³»°ø ÁÖ¹®¼­ Áßº¹ Ã³¸® Ãß°¡
-		if( pDupOption->Param & eDontDupUse_Ghost )					// ¿ä±«ÀÇºÎÀû
+		//2007. 10. 9. CBH - ï¿½ä±«. ï¿½Ü°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ßºï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
+		if( pDupOption->Param & eDontDupUse_Ghost )					// ï¿½ä±«ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Ghost;			
-		if( pDupOption->Param & eDontDupUse_Woigong )				// ¿Ü°øÀÇºÎÀû
+		if( pDupOption->Param & eDontDupUse_Woigong )				// ï¿½Ü°ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Woigong;			
-		if( pDupOption->Param & eDontDupUse_Naegong )				// ³»°øÀÇºÎÀû
+		if( pDupOption->Param & eDontDupUse_Naegong )				// ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Naegong;			
-		// »ç³É²Û ºÎÀû/°æÇèÄ¡ ºÎÀû Ãß°¡ by Stiner(2008/06/25)
-		if( pDupOption->Param & eDontDupUse_Hunter )				// »ç³É²Û ºÎÀû
+		// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/06/25)
+		if( pDupOption->Param & eDontDupUse_Hunter )				// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_Hunter;
-		if( pDupOption->Param & eDontDupUse_ExpDay )				// °æÇèÄ¡ ºÎÀû
+		if( pDupOption->Param & eDontDupUse_ExpDay )				// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 			m_DupCharm ^= eDontDupUse_ExpDay;
 	}
 	
-	// ¹°¾à
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongNum )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongNum );
 		if( !pDupOption )		return;
 
 		if( (pDupOption->Param & eDontDupUse_Life) &&
-			(m_DupHerb & eDontDupUse_Life) )				// »ý¸íÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_Life) )				// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_Life;
 		if( (pDupOption->Param & eDontDupUse_Shield) &&
-			(m_DupHerb & eDontDupUse_Shield) )				// È£½ÅÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_Shield) )				// È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_Shield;
 		if( (pDupOption->Param & eDontDupUse_Naeruyk) &&
-			(m_DupHerb & eDontDupUse_Naeruyk) )				// ³»·ÂÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_Naeruyk) )				// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_Naeruyk;
 		if( (pDupOption->Param & eDontDupUse_GreateLife) &&
-			(m_DupHerb & eDontDupUse_GreateLife) )				// °­È­»ý¸íÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_GreateLife) )				// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_GreateLife;
 		if( (pDupOption->Param & eDontDupUse_GreateShield) &&
-			(m_DupHerb & eDontDupUse_GreateShield) )				// °­È­È£½ÅÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_GreateShield) )				// ï¿½ï¿½È­È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_GreateShield;
 		if( (pDupOption->Param & eDontDupUse_GreateNaeruyk) &&
-			(m_DupHerb & eDontDupUse_GreateNaeruyk) )				// °­È­³»·ÂÀÇ¹°¾à
+			(m_DupHerb & eDontDupUse_GreateNaeruyk) )				// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_GreateNaeruyk;
 		if( (pDupOption->Param & eDontDupUse_EventSatang) &&
-			(m_DupHerb & eDontDupUse_EventSatang) )				// ÀÌº¥Æ®»çÅÁ
+			(m_DupHerb & eDontDupUse_EventSatang) )				// ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_EventSatang;
 		if( (pDupOption->Param & eDontDupUse_Doll) &&
-			(m_DupHerb & eDontDupUse_Doll) )				// ÀÌº¥Æ®»çÅÁ
+			(m_DupHerb & eDontDupUse_Doll) )				// ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 			m_DupHerb ^= eDontDupUse_Doll;
 	}
 
-	// ÁÖ¹®¼­
+	// ï¿½Ö¹ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongType )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongType );
 		if( !pDupOption )		return;
 
 		if( (pDupOption->Param & eDontDupUse_MemoryMove) && 
-			(m_DupIncantation & eDontDupUse_MemoryMove) )					// ±â¾ïÀÌµ¿ ÁÖ¹®¼­
+			(m_DupIncantation & eDontDupUse_MemoryMove) )					// ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation ^= eDontDupUse_MemoryMove;			
 		if( (pDupOption->Param & eDontDupUse_ProtectAll) &&
-			(m_DupIncantation & eDontDupUse_ProtectAll) )					// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+			(m_DupIncantation & eDontDupUse_ProtectAll) )					// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			m_DupIncantation ^= eDontDupUse_ProtectAll;
 	}
 
@@ -2482,7 +2487,7 @@ void CShopItemManager::DeleteDupParam( ITEM_INFO* pItemInfo )
 		if( !pDupOption )		return;
 
 		if( (pDupOption->Param & eDontDupUse_StreeStall) &&
-			(m_DupSundries & eDontDupUse_StreeStall) )					// ³ëÁ¡°³¼³
+			(m_DupSundries & eDontDupUse_StreeStall) )					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			m_DupSundries ^= eDontDupUse_StreeStall;
 			m_pPlayer->GetShopItemStats()->bStreetStall = 0;
@@ -2494,7 +2499,7 @@ void CShopItemManager::DeleteDupParam( ITEM_INFO* pItemInfo )
 		if( !pDupOption )		return;
 
 		if( (pDupOption->Param & eDupPetEquip_PomanRing) &&
-			(m_DupPetEquip & eDupPetEquip_PomanRing) )					// Æ÷¸¸ÀÇ±Í°ÉÀÌ
+			(m_DupPetEquip & eDupPetEquip_PomanRing) )					// ï¿½ï¿½ï¿½ï¿½ï¿½Ç±Í°ï¿½ï¿½ï¿½
 		{
 			m_DupPetEquip ^= eDupPetEquip_PomanRing;			
 		}
@@ -2506,117 +2511,117 @@ BOOL CShopItemManager::IsDupAble( ITEM_INFO* pItemInfo )
 {
 	if( !pItemInfo )			return FALSE;
 
-	// ºÎÀû
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->AllPlus_Value )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->AllPlus_Value );
 		if( !pDupOption )		return FALSE;
 
-		if( (pDupOption->Param & eDontDupUse_WoigongDamage) &&			// ±Í½ÅÀÇ ºÎÀû(¿Ü°øµ¥¹ÌÁö)
+		if( (pDupOption->Param & eDontDupUse_WoigongDamage) &&			// ï¿½Í½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			(m_DupCharm & eDontDupUse_WoigongDamage) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_NaegongDamage) &&			// °­½ÃÀÇ ºÎÀû(³»°øµ¥¹ÌÁö)
+		if( (pDupOption->Param & eDontDupUse_NaegongDamage) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 			(m_DupCharm & eDontDupUse_NaegongDamage) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Exppoint) &&				// ÇÃ·¯½ºÅ¸ÀÓ °æÇèÄ¡
+		if( (pDupOption->Param & eDontDupUse_Exppoint) &&				// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 			(m_DupCharm & eDontDupUse_Exppoint) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Reinforce) &&				// °­È­ÁõÆø
+		if( (pDupOption->Param & eDontDupUse_Reinforce) &&				// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Reinforce) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Kyunggong) &&				// °æ°øÀÇºÎÀû
+		if( (pDupOption->Param & eDontDupUse_Kyunggong) &&				// ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Kyunggong) )
 			return FALSE;
-		//2007. 10. 9. CBH - ¿ä±«. ¿Ü°ø, ³»°ø ÁÖ¹®¼­ Áßº¹ Ã³¸® Ãß°¡
-		if( (pDupOption->Param & eDontDupUse_Ghost) &&				// ¿ä±«ÀÇºÎÀû
+		//2007. 10. 9. CBH - ï¿½ä±«. ï¿½Ü°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ßºï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
+		if( (pDupOption->Param & eDontDupUse_Ghost) &&				// ï¿½ä±«ï¿½Çºï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Ghost) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Woigong) &&				// ¿Ü°øÀÇºÎÀû
+		if( (pDupOption->Param & eDontDupUse_Woigong) &&				// ï¿½Ü°ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Woigong) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Naegong) &&				// ³»°øÀÇºÎÀû
+		if( (pDupOption->Param & eDontDupUse_Naegong) &&				// ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Naegong) )
 			return FALSE;		
-		// »ç³É²Û ºÎÀû/°æÇèÄ¡ ºÎÀû Ãß°¡ by Stiner(2008/06/25)
-		if( (pDupOption->Param & eDontDupUse_Hunter) && 				// »ç³É²Û ºÎÀû
+		// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/06/25)
+		if( (pDupOption->Param & eDontDupUse_Hunter) && 				// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_Hunter) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_ExpDay) &&				// °æÇèÄ¡ ºÎÀû
+		if( (pDupOption->Param & eDontDupUse_ExpDay) &&				// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 			(m_DupCharm & eDontDupUse_ExpDay) )
 			return FALSE;
 	}
 	
-	// ¹°¾à
+	// ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongNum )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongNum );
 		if( !pDupOption )		return FALSE;
 
-		if( (pDupOption->Param & eDontDupUse_Life) &&			// »ý¸íÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_Life) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_Life) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Shield) &&			// È£½ÅÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_Shield) &&			// È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_Shield) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Naeruyk) &&			// ³»·ÂÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_Naeruyk) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_Naeruyk) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_GreateLife) &&			// °­È­»ý¸íÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_GreateLife) &&			// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_GreateLife) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_GreateShield) &&			// °­È­È£½ÅÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_GreateShield) &&			// ï¿½ï¿½È­È£ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_GreateShield) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_GreateNaeruyk) &&			// °­È­³»·ÂÀÇ¹°¾à
+		if( (pDupOption->Param & eDontDupUse_GreateNaeruyk) &&			// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_GreateNaeruyk) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_EventSatang) &&			// ÀÌº¥Æ®»çÅÁ
+		if( (pDupOption->Param & eDontDupUse_EventSatang) &&			// ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_EventSatang) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Doll) &&			// ÀÌº¥Æ®»çÅÁ
+		if( (pDupOption->Param & eDontDupUse_Doll) &&			// ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 			(m_DupHerb & eDontDupUse_Doll) )
 			return FALSE;
 	}
 
-	// ÁÖ¹®¼­
+	// ï¿½Ö¹ï¿½ï¿½ï¿½
 	if( pItemInfo->MugongType )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->MugongType );
 		if( !pDupOption )		return FALSE;
 
-		if( (pDupOption->Param & eDontDupUse_MemoryMove) &&			// ±â¾ïÀÌµ¿ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_MemoryMove) &&			// ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_MemoryMove) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_ProtectAll) &&			// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_ProtectAll) &&			// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_ProtectAll) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_LevelCancel50) &&		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_LevelCancel50) &&		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_LevelCancel50) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_LevelCancel70) &&		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_LevelCancel70) &&		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_LevelCancel70) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_LevelCancel90) &&		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_LevelCancel90) &&		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_LevelCancel90) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_ShowPyoguk) &&			// Ã¢°í¼ÒÈ¯ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_ShowPyoguk) &&			// Ã¢ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_ShowPyoguk) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_Chase) &&				// ÃßÀû ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_Chase) &&				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_Chase) )
 			return FALSE;
-		if( (pDupOption->Param & eDontDupUse_TownMove) &&			// ¸¶À»ÀÌµ¿ ÁÖ¹®¼­
+		if( (pDupOption->Param & eDontDupUse_TownMove) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 			(m_DupIncantation & eDontDupUse_TownMove) )
 			return FALSE;
 	}
 
-	// ÀâÈ­·ù
+	// ï¿½ï¿½È­ï¿½ï¿½
 	if( pItemInfo->LifeRecover )
 	{
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( pItemInfo->LifeRecover );
 		if( !pDupOption )		return FALSE;
 
-		if( (pDupOption->Param & eDontDupUse_StreeStall) &&			// ³ëÁ¡°³¼³
+		if( (pDupOption->Param & eDontDupUse_StreeStall) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			(m_DupSundries & eDontDupUse_StreeStall) )
 			return FALSE;
 	}
@@ -2626,7 +2631,7 @@ BOOL CShopItemManager::IsDupAble( ITEM_INFO* pItemInfo )
 		SHOPITEMDUP* pDupOption = GAMERESRCMNGR->m_ShopItemDupOptionTable.GetData( (DWORD)pItemInfo->LifeRecoverRate );
 		if( !pDupOption )		return FALSE;
 
-		if( (pDupOption->Param & eDupPetEquip_PomanRing) &&			// Æ÷¸¸ÀÇ±Í°ÉÀÌ
+		if( (pDupOption->Param & eDupPetEquip_PomanRing) &&			// ï¿½ï¿½ï¿½ï¿½ï¿½Ç±Í°ï¿½ï¿½ï¿½
 			(m_DupPetEquip & eDupPetEquip_PomanRing) )
 			return FALSE;
 	}
@@ -2634,7 +2639,7 @@ BOOL CShopItemManager::IsDupAble( ITEM_INFO* pItemInfo )
 	return TRUE;
 }
 
-// 2007. 12. 5. CBH - ¼±ÅÃÇÑ ½ºÅ² ¾ÆÀÌÅÆ ¼¼Æ® ÀÎµ¦½º Ã³¸®
+// 2007. 12. 5. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 DWORD CShopItemManager::PutSkinSelectItem(MSG_DWORD2* pMsg)
 {
 	SKIN_SELECT_ITEM_INFO* pSkinInfo = NULL;
@@ -2662,31 +2667,31 @@ DWORD CShopItemManager::PutSkinSelectItem(MSG_DWORD2* pMsg)
 	if(pSkinInfo == NULL)
 		return eSkinResult_Fail;
 
-	//·¹º§ Ã¼Å© (ÀÏ¹ÝÀÇº¹ÀÏ¶§¸¸ ·¹º§ Ã¼Å© ÇÑ´Ù.)
+	//ï¿½ï¿½ï¿½ï¿½ Ã¼Å© (ï¿½Ï¹ï¿½ï¿½Çºï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ñ´ï¿½.)
 	if(dwSkinKind == eSHOP_ITEM_NOMALCLOTHES_SKIN)
 	{
 		if(m_pPlayer->GetLevel() < pSkinInfo->dwLimitLevel)
 			return eSkinResult_LevelFail;
 	}	
 
-	//µô·¹ÀÌ Ã¼Å©
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(m_pPlayer->GetSkinDelayResult() == TRUE)
 		return eSkinResult_DelayFail;
 
-	//½ºÅ² ÀÎµ¦½ºÀÇ µ¥ÀÌÅÍ(3°³)¸¦ Ã¼Å©ÇÏ°í Àû¿ëÇÑ´Ù.
+	//ï¿½ï¿½Å² ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(3ï¿½ï¿½)ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	for(int i = 0 ; i < SKINITEM_LIST_MAX ; i++)
 	{
 		ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( pSkinInfo->wEquipItem[i] );
 		if(pItemInfo == NULL)
 			continue;
 
-		//½ºÅ² ºÎÀ§ Á¤º¸¸¦ Ã¼Å©ÇÏ¿© Àû¿ëÇÑ´Ù.
+		//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		DWORD dwSkinType = pItemInfo->Part3DType;
 		DWORD dwEquipIndex = 0;
 
-        if( (dwSkinType == eSkinItem_Hat) || (dwSkinType == 6) ) //¸ðÀÚ³ª ¸Ó¸®¶ì(6)
+        if( (dwSkinType == eSkinItem_Hat) || (dwSkinType == 6) ) //ï¿½ï¿½ï¿½Ú³ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½(6)
 			dwEquipIndex = eSkinItem_Hat;
-		else if(dwSkinType == eSkinItem_Mask)	//¾È´ë, °¡¸é, º¹¸é
+		else if(dwSkinType == eSkinItem_Mask)	//ï¿½È´ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½
 			dwEquipIndex = eSkinItem_Mask;
 		else if(dwSkinType == eSkinItem_Dress)
 			dwEquipIndex = eSkinItem_Dress;
@@ -2695,7 +2700,7 @@ DWORD CShopItemManager::PutSkinSelectItem(MSG_DWORD2* pMsg)
 
 		m_pPlayer->GetShopItemStats()->wSkinItem[dwEquipIndex] = pItemInfo->ItemIdx;		
 
-		//ÄÚ½ºÆ¬ ¿ÊÀº ½Å¹ß°ú ÀÏÃ¼ÇüÀÌ¹Ç·Î Àû¿ë½Ã ½Å¹ßÀº ¹þ°ÜÁØ´Ù.
+		//ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ß°ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		if( (dwSkinType == eSkinItem_Dress) && (dwSkinKind == eSHOP_ITEM_COSTUME_SKIN) )
 			m_pPlayer->GetShopItemStats()->wSkinItem[eSkinItem_Shoes] = 0;
 	}
@@ -2703,13 +2708,13 @@ DWORD CShopItemManager::PutSkinSelectItem(MSG_DWORD2* pMsg)
 	return eSkinResult_Success;
 }
 
-// 2007. 12. 11. CBH - ½ºÅ² ¾ÆÀÌÅÆ »èÁ¦½Ã °ü·Ã Ã³¸®
+// 2007. 12. 11. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 void CShopItemManager::DiscardSkinItem(DWORD dwItemIndex)
 {
 	ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( dwItemIndex );
 	if(!pItemInfo)		return;
 
-	//Àû¿ëµÇ¾îÁø ½ºÅ²ÀÇ Á¾·ù°¡ °°Àº ÀüºÎ ÃÊ±âÈ­ ÇÑ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ñ´ï¿½.
 	RemoveEquipSkin(pItemInfo->ItemKind);
 	CharacterSkinInfoUpdate(m_pPlayer);
 
@@ -2721,14 +2726,14 @@ void CShopItemManager::DiscardSkinItem(DWORD dwItemIndex)
 	PACKEDDATA_OBJ->QuickSend( m_pPlayer, &msg, sizeof(msg) );
 }
 
-// 2008. 1. 21. CBH - ÀåÂøµÈ ½ºÅ² ¾ÆÀÌÅÆ »èÁ¦
+// 2008. 1. 21. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CShopItemManager::RemoveEquipSkin(DWORD dwSkinKind)
 {
 	SKIN_SELECT_ITEM_INFO* pSkinInfo = NULL;
 	CYHHashTable<SKIN_SELECT_ITEM_INFO>* pSkinListTable = NULL;
 	WORD* wSkinItem = m_pPlayer->GetShopItemStats()->wSkinItem;
 		
-	//Skin Á¾·ù¿¡ µû¶ó ÇØ´ç Å×ÀÌºíÀ» °¡Á®¿È
+	//Skin ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	switch(dwSkinKind)
 	{
 	case eSHOP_ITEM_NOMALCLOTHES_SKIN:
@@ -2746,7 +2751,7 @@ void CShopItemManager::RemoveEquipSkin(DWORD dwSkinKind)
 	if(pSkinListTable == NULL)
 		return;
 
-	//°°Àº Á¾·ùÀÇ ½ºÅ² Àåºñ¸¦ Ã£¾Æ ÀÏ°ý ÃÊ±âÈ­ÇÑ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 	DWORD dwSkinMaxNum = pSkinListTable->GetDataNum();
 	pSkinListTable->SetPositionHead();	
 	for(int nCount = 0 ; nCount < dwSkinMaxNum ; nCount++)
@@ -2788,7 +2793,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	if( EVENTMAPMGR->IsEventMap() )
 		return eItemUseErr_Err;
 
-	// º¸½º¸÷ÀÌ ÀÖ´Â ¸ÊÀº ±â¾ï¼®À¸·Î ÀúÀå ÇÒ ¼ö ¾øÀ½.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	DWORD dwCheckBit = eBossMap | eSiegeWarMap | eQuestRoom | eEventMap | eSurvivalMap;
 	if( pItemBase->wIconIdx == eIncantation_MemoryStone &&
 		g_pServerSystem->GetMap()->IsMapKind(dwCheckBit) )
@@ -2807,14 +2812,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	ITEM_INFO * pItemInfo = ITEMMGR->GetItemInfo(UseBaseInfo.ShopItemIdx);
 	if(!pItemInfo)		return eItemUseErr_Err;
 
-	//2007. 9. 21. CBH - ˜Þ ¾ÆÀÌÅÆ ·¹º§Á¦ÇÑ Ã¼Å© Ãß°¡
+	//2007. 9. 21. CBH - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ß°ï¿½
 	if(pItemInfo->NaeRyukRecoverRate > m_pPlayer->GetLevel())
 	{
 		return eItemUseErr_Err;
 	}
 
 
-	// 05.05.20  ¹®ÆÄÅä³Ê¸ÕÆ®½Ã¿¡ »ç¿ëºÒ°¡´É ¾ÆÀÌÅÛ
+	// 05.05.20  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//if( g_pServerSystem->GetMapNum() == Tournament )
 	if( g_pServerSystem->GetMap()->IsMapKind(eTournament) )
 	{
@@ -2825,13 +2830,13 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 
 
 
-	//°ø¼ºÀü¿¡¼­´Â ±â¾ï¼® »ç¿ë ¸øÇÔ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( m_pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SIEGEWAR )
 	{
 		if( pItemBase->wIconIdx == eIncantation_MemoryStone )
 			return eItemUseErr_Err;
 
-		if( m_pPlayer->GetBattleTeam() == 2 ) //°ü¶÷¸ðµå
+		if( m_pPlayer->GetBattleTeam() == 2 ) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION && pItemInfo->LimitLevel )
 				return eItemUseErr_Err;
@@ -2839,7 +2844,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	}
 
 
-	//	ÀÓ½Ã·Î ³ÖÀ½ - ¼º´ë
+	//	ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½
 	/*	SHOPITEMWITHTIME* pAddShopItem = NULL;
 	if( pItemBase->wIconIdx == 55134 || pItemBase->wIconIdx == 55142 )
 	{
@@ -2862,7 +2867,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		if( pItemInfo->SellPrice && pItemInfo->ItemType == 10 )
 		{
 
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓ Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ Ã¼Å©
 			if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 			{
 				if( pUsingShopItem->ShopItem.Remaintime )
@@ -2878,14 +2883,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 					return eItemuseErr_DontUseToday;
 					else
 					{
-					// ±âÁ¸¿¡ »ç¿ëÇß´ø °³ÀÎÇÃ·¯½ºÅ¸ÀÓ »èÁ¦
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					ShopItemDeleteToDB( m_pPlayer->GetID(), pAddShopItem->ShopItem.ItemBase.dwDBIdx );
 					m_UsingItemTable.Remove( pAddShopItem->ShopItem.ItemBase.wIconIdx );
 					m_UsingItemPool->Free( pAddShopItem );
 					pAddShopItem = NULL;
 					}
 					*/
-					// ±âÁ¸¿¡ »ç¿ëÇß´ø °³ÀÎÇÃ·¯½ºÅ¸ÀÓ »èÁ¦
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					ShopItemDeleteToDB( m_pPlayer->GetID(), pUsingShopItem->ShopItem.ItemBase.dwDBIdx );
 					m_UsingItemTable.Remove( pUsingShopItem->ShopItem.ItemBase.wIconIdx );
 					m_UsingItemPool->Free( pUsingShopItem );
@@ -2969,7 +2974,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	goto Not_DupAbleCheck;
 	}*/
 
-	// Áßº¹»ç¿ë Ã¼Å©
+	// ï¿½ßºï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( pItemBase->wIconIdx != 55353 && pItemBase->wIconIdx != 57504 &&
 		pItemBase->wIconIdx != 57505 )
 	{
@@ -2983,7 +2988,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 	AddShopItem.ShopItem.ItemBase = *pItemBase;
 	AddShopItem.ShopItem.Param = pItemInfo->SellPrice;
 
-	// »ç¿ë±â°£ÀÌ ÀÖ´Â ¾ÆÀÌÅÛ Rarity()
+	// ï¿½ï¿½ï¿½â°£ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Rarity()
 	if( AddShopItem.ShopItem.Param && pItemInfo->ItemType == 10 )
 	{
 		SYSTEMTIME systime;
@@ -2996,8 +3001,8 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		{
 			endtime = startime;
 			
-			// ÀÓ½Ã·Î 
-			if( pItemInfo->Rarity >= 525600 )	// 365ÀÏ
+			// ï¿½Ó½Ã·ï¿½ 
+			if( pItemInfo->Rarity >= 525600 )	// 365ï¿½ï¿½
 			{
 				DWORD day = pItemInfo->Rarity/(24*60) - 365;
 				usetime.SetTime(1, 0, day, 0, 0, 0);
@@ -3029,7 +3034,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 	}
 
-	// »ç¿ëÇÏ¸é ¹Ù·Î ¾ø¾îÁö´Â ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 	{
 		if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
@@ -3037,7 +3042,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			return eItemUseErr_Err;
 		}
 
-		// ¹°¾à
+		// ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD2	msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_SHOPITEM_EFFECT;
@@ -3062,7 +3067,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			PACKEDDATA_OBJ->QuickSend( m_pPlayer, &msg, sizeof(msg) );	
 
 
-		// ¼ø°£È¸º¹
+		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		if( pItemInfo->SellPrice == 0 )
 		{
 			if( pItemInfo->GenGol > 0 )
@@ -3080,12 +3085,12 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			AddUsingShopItem(&AddShopItem, AddShopItem.ShopItem.ItemBase.wIconIdx);			
 		}
 	}
-	// ÁÖ¹®¼­
+	// ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 	{
 		if( pItemInfo->ItemType == 10 )
 		{
-			// ·¹º§ Á¦ÇÑ ÇØÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( pItemInfo->LimitJob )
 			{
 				if( pItemInfo->LimitGender == 0 && m_pPlayer->GetLevel() > 50 )
@@ -3099,7 +3104,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
 				return eItemUseErr_Err;			
 
-			// µ·+°æÇèÄ¡ º¸È£, ·¹º§ Á¦ÇÑ ÇØÁ¦
+			// ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½È£, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( pItemInfo->CheRyuk || pItemInfo->LimitJob )
 			{
 				CalcShopItemOption( pItemInfo->ItemIdx, TRUE );
@@ -3107,7 +3112,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				AddUsingShopItem(&AddShopItem, AddShopItem.ShopItem.ItemBase.wIconIdx);			
 			}
 #ifdef _JAPAN_LOCAL_
-			//Ã¢°íÈ®Àå, ÀÎº¥È®Àå
+			//Ã¢ï¿½ï¿½È®ï¿½ï¿½, ï¿½Îºï¿½È®ï¿½ï¿½
 			else if( pItemInfo->ItemIdx == eIncantation_InvenExtend )
 			{
 				if( m_pPlayer->GetExtraInvenSlot() )
@@ -3282,7 +3287,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				}
 			}
 #endif
-			// ½ºÅÈ ÀçºÐ¹è
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½
 			else if( pItemInfo->GenGol )
 			{
 				SHOPITEMWITHTIME* pUsedItem = m_UsingItemTable.GetData( eIncantation_StatePoint );
@@ -3300,7 +3305,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				}
 
 			}
-			// ½ºÅ³Æ÷ÀÎÆ® ÀçºÐ¹è
+			// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½
 			else if( pItemInfo->Life )
 			{
 				SHOPITEMWITHTIME* pUsedItem = m_UsingItemTable.GetData( eIncantation_SkPointRedist );
@@ -3323,8 +3328,8 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				UsingShopItemUpdateToDB( 0, m_pPlayer->GetID(), AddShopItem.ShopItem.ItemBase.wIconIdx, AddShopItem.ShopItem.ItemBase.dwDBIdx, pItemInfo->SellPrice, AddShopItem.ShopItem.BeginTime.value, AddShopItem.ShopItem.Remaintime );
 				AddUsingShopItem(&AddShopItem, AddShopItem.ShopItem.ItemBase.wIconIdx);			
 			}
-			// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
-			// magi82(45) - ½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­¿¡ ·¹º§Á¦ÇÑÀ» ÇÑ´Ù.
+			// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
+			// magi82(45) - ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 #define LEVEL_70		70
 #define BASIC_STATUS	12
 			else if( pItemInfo->ItemIdx == eIncantation_StatusPointReset_71 ||
@@ -3348,7 +3353,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				int nLevelStatus = 0;
 				BYTE bExpFlag = m_pPlayer->GetExpFlag();
 
-				// ·¹º§ 70 ÃÊ°ú ½Ã 8Æ÷ÀÎÆ®¸¦ ÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ 70 ï¿½Ê°ï¿½ ï¿½ï¿½ 8ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ø´ï¿½.
 				if( LEVEL_70 < dwMaxLevel )
 				{
 					nLevelStatus = ( (LEVEL_70 - 1) * 6 ) + ( (dwMaxLevel - LEVEL_70) * 8 );
@@ -3357,7 +3362,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 				{
 					nLevelStatus = (dwMaxLevel - 1) * 6;
 				}
-				// ·¹º§ ±¸°£È­ÀÇ ½ºÅÝÆ÷ÀÎÆ®µµ ÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ø´ï¿½.
 				for( int i = 0; i < 4; i++ )
 				{
 					if( CheckBit(bExpFlag, i) )
@@ -3373,24 +3378,24 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 			}
 		}
 	}
-	// ºÎÀû
+	// ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM ||
 		pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 	{
-		// »ç¿ëÁ¦ÇÑ·¹º§ Ãß°¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->EquipKind )
 		{
 			if( m_pPlayer->GetMaxLevel() < pItemInfo->EquipKind )
 				return eItemUseErr_Err;
 		}
 
-		// Ã¼ÀÎÁö¾ÆÀÌÅÛ
+		// Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES && pItemInfo->SimMek )
 		{
 			int err = CHANGEITEMMGR->UseChangeItemFromShopItem( m_pPlayer, pItemInfo->SimMek );
 			if(  err == 2 )
 			{
-				//°ø°£ÀÌ ºÎÁ·ÇÏ´Ù´Â ¸Þ½ÃÁö¸¦ ³¯¸°´Ù.
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				MSG_WORD msg;
 				msg.Category = MP_ITEM;
 				msg.Protocol = MP_ITEM_CHANGEITEM_NACK;
@@ -3403,8 +3408,8 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 
 		if( pItemInfo->ItemType == 10 )
+		{
 			if(EI_TRUE != ITEMMGR->DiscardItem( m_pPlayer, UseBaseInfo.ShopItemPos, UseBaseInfo.ShopItemIdx, 1 ))
-			{
 				return eItemUseErr_Err;
 			}
 
@@ -3440,7 +3445,7 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		CalcShopItemOption( AddShopItem.ShopItem.ItemBase.wIconIdx, TRUE );
 		AddUsingShopItem(&AddShopItem, AddShopItem.ShopItem.ItemBase.wIconIdx);			
 
-		// ´Ù¸¥»ç¶÷µé¿¡°Ô ¾ÆÀÌÅÛ Âø¿ë Á¤º¸¸¦ º¸³½´Ù.
+		// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_DWORD2 msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_SHOPITEM_AVATAR_PUTON;
@@ -3459,14 +3464,14 @@ int CShopItemManager::UseShopItem( ITEMBASE* pItemBase, SHOPITEMUSEBASE UseBaseI
 		}
 		m_pPlayer->GetPetManager()->SummonPet(pItemBase->dwDBIdx);
 		//m_pPlayer->GetPetManager()->SummonPet(PET_ID_START);
-		//ÇØ´ç À¯ÀúÀÇ Æê ¸Å´ÏÁ®¿¡¼­ ÇØ´ç ÆÖÀ» Ã£¾Æ ÇöÀçÆÖÀ¸·Î ¼³Á¤ÇÏ°í
-		//ÇØ´ç ÆÖÀÇ Á¤º¸¸¦ ±×¸®µå¿¡ º¸³½´Ù.
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		goto LogNotUse;
 	}
-	//SW060406 Æê ÀåÂø
+	//SW060406 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP )
 	{
-		//Æê ¼ÒÈ¯ÁßÀÌ ¾Æ´Ï¸é
+		//ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 		if(!m_pPlayer->GetPetManager()->GetCurSummonPet())
 		{
 			return eItemUseErr_Err;
@@ -3524,7 +3529,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 		pOption->UseStatePoint = 30 - (WORD)RemainTime;
 		pItemBase->wIconIdx = eIncantation_StatePoint;
 
-		// ItemIdx, Param, RemainTimeÀ» ¾÷µ¥ÀÌÆ® ½ÃÄÑ¾ß ÇÑ´Ù.
+		// ItemIdx, Param, RemainTimeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½.
 		ShopItemAllUseInfoUpdateToDB( pItemBase->dwDBIdx, m_pPlayer->GetID(), eIncantation_StatePoint, pOption->StatePoint, pOption->UseStatePoint );
 	}
 
@@ -3537,7 +3542,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 
 	if( pItemInfo && pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
-		// Á¾·á½Ã°£À» Ã¼Å©ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 		stTIME ctime, rtime;
 		ctime.value = GetCurTime();
 		rtime.SetTime( ShopItem.ShopItem.Remaintime );
@@ -3562,7 +3567,7 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 				}
 				if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP )
 				{
-					// ¾ÆÀÌÅÛ ¾ø¾Ø´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 				}
 
 			}
@@ -3606,14 +3611,14 @@ BOOL CShopItemManager::UsedShopItem( ITEMBASE* pItemBase, DWORD Param, stTIME Be
 	}
 	else
 	{
-		// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÀÌ Á¾·áµÇ¾úÀ¸¸é Àû¿ë ¾È½ÃÅ²´Ù
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È½ï¿½Å²ï¿½ï¿½
 		if( pItemInfo && pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin && RemainTime==0 )
 			return TRUE;
 		else
 			CalcShopItemOption(pItemBase->wIconIdx, TRUE, ShopItem.ShopItem.Remaintime);
 	}
 
-	// Áßº¹Ã¼Å© ÆÄ¶ó¹ÌÅÍ ¼³Á¤
+	// ï¿½ßºï¿½Ã¼Å© ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	AddDupParam( pItemInfo );
 
 	return TRUE;

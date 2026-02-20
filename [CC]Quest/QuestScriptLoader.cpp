@@ -5,7 +5,11 @@
 #include "stdafx.h"
 #include "QuestScriptLoader.h"
 
-#include "MHFile.h"
+#ifdef _MAPSERVER_
+#include "..\[Server]Map\MHFile.h"
+#else
+#include "..\\[Client]MH\\MHFile.h"
+#endif
 #include "QuestInfo.h"
 #include "SubQuestInfo.h"
 #include "QuestString.h"
@@ -91,7 +95,7 @@ CSubQuestInfo* CQuestScriptLoader::LoadSubQuestInfo( CMHFile* pFile, DWORD dwQue
 		{
 			pFile->GetLine( buf, 1024 );
 			CStrTokenizer tok( buf, " \t\n" );
-			// ¹Ýº¹Äù½ºÆ®ÀÇ È®ÀÎÀ» À§ÇØ¼­ Ãß°¡ RaMa - 04.10.26
+			// ÝºÆ® È® Ø¼ ß° RaMa - 04.10.26
 			CQuestTrigger* pQuestTrigger = new CQuestTrigger( &tok, dwQuestIdx, dwSubQuestIdx );
 			if(pQuestTrigger)
 				pQuestInfo->SetEndParam( pQuestTrigger->GetEndParam() );

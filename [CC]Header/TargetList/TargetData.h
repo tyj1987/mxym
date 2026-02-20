@@ -9,6 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "..\..\[CC]Header\CommonDefine.h"
+
 #define TARGET_FLAG_TITAN_OBSORB_DAMAGE	0x1000
 #define TARGET_FLAG_DECISIVE		0x0800
 #define TARGET_FLAG_DISPELFROMEVIL	0x0400
@@ -44,7 +46,19 @@ struct RESULTINFO
 
 	void Clear()
 	{
-		memset(this,0,sizeof(RESULTINFO));
+		bDispelFromEvil = FALSE;
+		bDodge = FALSE;
+		bCritical = FALSE;
+		bDecisive = FALSE;
+		ShieldDamage = 0;
+		RealDamage = 0;
+		CounterDamage = 0;
+		HealLife = 0;
+		RechargeNaeryuk = 0;
+		StunTime = 0;
+		Vampiric_Life = 0;
+		Vampiric_Naeryuk = 0;
+		TitanObsorbDamage = 0;
 	}
 };
 

@@ -188,9 +188,11 @@ ITEMBASE* CFortWarWareSlot::GetSameItemForDupItem( DWORD dwItemIdx, WORD wItemNu
 	for( WORD i = m_StartAbsPos; i < wEndPos; ++i )
 	{
 		if( m_ItemBaseArray[i].wIconIdx == dwItemIdx )
+		{
 		if( m_ItemBaseArray[i].Durability + wItemNum <= MAX_YOUNGYAKITEM_DUPNUM )
 			return &m_ItemBaseArray[i];
 	}
+		}
 	return NULL;
 }
 
