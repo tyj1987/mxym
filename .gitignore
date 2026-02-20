@@ -361,3 +361,263 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# ========================================
+# Project-specific ignores
+# ========================================
+
+# DirectX SDK installer files
+*.cab
+
+# Game resource files (large binaries)
+*.pak
+
+# Backup files
+*.bak
+*.bak2
+*.bak3
+*.backup
+*.backup_*
+*_backup*
+*_bak
+
+# Temporary Python scripts
+*.py
+
+# Temporary PowerShell scripts (except main ones)
+AnalyzeAgentServer.ps1
+AutoFix.ps1
+AutoLaunch_PS.ps1
+CheckAndStartServers.ps1
+CheckDB.ps1
+CheckDBThread.ps1
+CheckFullStatus.ps1
+CheckMapServer.ps1
+CheckResult.ps1
+CheckServersStatus.ps1
+CheckSQLServer.ps1
+CheckVC2008.ps1
+CopyVC90DLLs.ps1
+CreateGameDB.ps1
+CreateMHDBs.ps1
+DiagnoseServers.ps1
+FinalAttempt.ps1
+FinalDiagnosisAndSolution.ps1
+FinalSolution_SQLEnableMixed.ps1
+FixSQLPort.ps1
+Generate*.ps1
+GetCrashDetails.ps1
+GetCrashInfo.ps1
+GetCurrentStatus.ps1
+InspectSQLiteDB.ps1
+LaunchClientAndTest.ps1
+NODE_MEMORY_FIX.ps1
+RestoreDB*.ps1
+Run_*.ps1
+StartGame.ps1
+StartServersWithConfig.ps1
+TestDatabasesAndStartServers.ps1
+TestServerStartup.ps1
+TryAdminStart.ps1
+VerifyAndStartAll.ps1
+build_*.ps1
+compile_*.ps1
+fix_*.ps1
+regenerate_*.ps1
+run_with_memory.ps1
+
+# Temporary batch files
+check_*.bat
+compile_*.bat
+build_*.bat
+test_*.bat
+run_*.bat
+diagnose_*.bat
+start_*.bat
+stop_*.bat
+*_test.bat
+*_debug.bat
+
+# Temporary documentation
+ALL_MODULES_COMPLETE.md
+ARCHITECTURE_EVALUATION.md
+BATTLESYSTEM_CLIENT_SUCCESS.md
+BUILD_COMPLETE_REPORT.md
+BUILD_ORDER.md
+BUILD_PROGRESS_SUMMARY.md
+C2065_*.md
+COMPILATION_*.md
+COMPILE_GUIDE_DETAILED.md
+DATABASE_RESTORE_REPORT.md
+FINAL_*.md
+MANUAL_FIX_ASSESSMENT.md
+MAPSERVER_BUILD_SUCCESS.md
+MHCLIENT_*.md
+PCH_ERROR_ANALYSIS.md
+PLAN_C_*.md
+PROGRESS_REPORT_*.md
+PROJECT_PLAN.md
+SESSION_*.md
+SKILL_MODULE_BUILD_REPORT.md
+TASK_SUMMARY.md
+UPGRADE_GUIDE.md
+VS2008*.md
+VS2026*.md
+HackShield*.md
+C2065*.md
+
+# Build output directories
+Lib/
+DLL/
+Output/
+ServerRelease/
+
+# IDE and editor files
+.claude/
+.trae/
+.npmrc
+*.code-workspace
+
+# Generated project files
+*.vcxproj.filters
+*.vcxproj.user
+
+# Empty files
+nul
+
+# Database files
+Database/
+DBBackup/
+
+# Client patches
+ClientrPatchMaker/
+
+# Custom launcher
+CustomLauncher/
+
+# GM Tools (large)
+GMTools/
+
+# Working directories
+cworking/
+PlayDH/
+
+# Server deployment directory (keep config, ignore exe/dll)
+Server/*.exe
+Server/*.dll
+Server/*.pdb
+Server/Log/
+Server/*.txt
+!Server/serverset/
+!Server/*.bat
+!Server/*.ini
+
+# Client build outputs
+[Client]MH/Debug/
+[Client]MH/Release/
+[Client]MH/Release_x64/
+[Client]MH/MHClient/
+[Client]MH/*.txt
+[Client]MH/*.md
+[Client]MH/*.vcxproj.*
+
+# Library client releases
+[CC]*/ClientRelease/
+[CC]*/build_output.txt
+[CC]*/compile_*.txt
+
+# DirectX setup files
+DSETUP.dll
+DXSETUP.exe
+Eula.txt
+
+# Archives
+*.zip
+
+# Misc temp files
+*.temp
+*.incomplete
+*.without_exclusion
+AutoLaunch_PS_*.txt
+MS_Debug.txt
+ServerStatus.md
+
+# Root level temp scripts
+/AutoLaunch_NoPause.bat
+/AutoStart_Game.bat
+/FIX_NODE_MEMORY_PERMANENT.bat
+/NODE_MEMORY_FIX.bat
+/QuickDiag.bat
+/QuickStartGame.bat
+/RestoreDB.bat
+/RestoreDatabases.ps1
+/SimpleStart.bat
+/TestServerStart.bat
+/Shaders/
+
+# D3D12 project files (keep source, ignore extras)
+4DYUCHIGX_RENDER_D3D12/PROJECT_README.md
+4DYUCHIGX_RENDER_D3D12/Shaders/
+
+# Chinese named files (temp docs)
+MHClient*.md
+VS2026*.md
+VS2008*.md
+D*rebuild*.bat
+NODE_MEMORY_FIX_GUIDE.md
+
+# More temp files and scripts
+/*.txt
+/*.sh
+/*.bat
+/*.ps1
+/*.md
+!CLAUDE.md
+!QUICK_REFERENCE.md
+!BUILD_GUIDE.md
+!TROUBLESHOOTING.md
+!TESTING_GUIDE.md
+!REGRESSION_TEST.md
+!README.md
+!build_all.ps1
+!verify_system.ps1
+
+# Procdump tools
+procdump*.exe
+
+# Test directories
+testCWorking/
+
+# Tool outputs
+[Tool]DS_RMTool/build.ps1
+[Tool]DS_RMTool/compile_output.txt
+
+# Web project
+[web]*/
+
+# DLL files
+*.dll
+
+# BSC files
+*.bsc
+
+# Server directory (keep specific files)
+Server/
+!Server/*.bat
+!Server/*.ini
+!Server/serverset/
+
+# Client MH temp files
+[Client]MH/*.md
+[Client]MH/*.txt
+[Client]MH/*.bat
+[Client]MH/*.ps1
+[Client]MH/MHClient/
+[Client]MH/Release_x64/
+
+# CC module build outputs
+[CC]*/ClientRelease/
+[CC]*/*.txt
+
+# Source file list
+source_files.xml
