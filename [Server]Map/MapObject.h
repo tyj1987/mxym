@@ -4,6 +4,7 @@
 
 #if !defined(AFX_MAPOBJECT_H__D84C4D07_428D_427E_A1F0_390A8401E3E4__INCLUDED_)
 #define AFX_MAPOBJECT_H__D84C4D07_428D_427E_A1F0_390A8401E3E4__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

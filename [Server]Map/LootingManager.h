@@ -4,6 +4,7 @@
 
 #if !defined(AFX_LOOTINGMANAGER_H__4CC47E46_1F53_463C_8A19_C021E23BCAF2__INCLUDED_)
 #define AFX_LOOTINGMANAGER_H__4CC47E46_1F53_463C_8A19_C021E23BCAF2__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -46,7 +47,7 @@ public:
 
 	void ProcessTimeOutCheck();
 
-	//자동루팅 (for guildfieldwar)
+	//湄 (for guildfieldwar)
 	int AutoLooting( CPlayer* pDiePlayer, CPlayer* pAttackPlayer );
 
 };

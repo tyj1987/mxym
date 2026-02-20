@@ -64,7 +64,7 @@
 #include "RareCreateDialog.h"
 
 #include "ReinforceManager.h"
-#include "../StatsCalcManager.h"
+#include "StatsCalcManager.h"
 
 #include "TitanPartsMakeDlg.h"
 #include "TitanMixDlg.h"
@@ -106,7 +106,7 @@ CItemManager::CItemManager()
 	m_bAddPrice = FALSE;
 	m_RareItemInfoTable.Initialize(64);
 	memset(&m_TempDeleteItem, 0, sizeof(ITEMBASE));
-	m_SetItemOptionList.Initialize(MAX_SETITEM_KIND_NUM); //2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ¸®½ºÆ® ÃÊ±âÈ­ Ãß°¡
+	m_SetItemOptionList.Initialize(MAX_SETITEM_KIND_NUM); //2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­ ï¿½ß°ï¿½
 
 	m_nItemUseCount = 0;
 }
@@ -157,7 +157,7 @@ CItemManager::~CItemManager()
 	}
 	m_RareItemInfoTable.RemoveAll();
 
-	////////// 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ¸®½ºÆ® »èÁ¦ //////////
+	////////// 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ //////////
 	SET_ITEM_OPTION* pSetItemOption = NULL;
 	m_SetItemOptionList.SetPositionHead();
 	while(pSetItemOption = m_SetItemOptionList.GetData())
@@ -197,7 +197,7 @@ CItem* CItemManager::MakeNewItem(ITEMBASE* pBaseInfo, char* strKind)
 	if(!(pItem = GetItem(pBaseInfo->dwDBIdx)))
 	{
 		pItem = new CItem(pBaseInfo);
-		m_ItemHash.Add(pItem,pItem->GetDBIdx());						// HASH¢¯¢® ¨ú¨¡AIAU ©øO¡¾a
+		m_ItemHash.Add(pItem,pItem->GetDBIdx());						// HASHï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Oï¿½ï¿½a
 		cImage tmpIconImage;
 		pItem->Init(0,0,DEFAULT_ICONSIZE,DEFAULT_ICONSIZE,
 					GetIconImage(pItem->GetItemIdx(), &tmpIconImage),
@@ -208,12 +208,12 @@ CItem* CItemManager::MakeNewItem(ITEMBASE* pBaseInfo, char* strKind)
 
 		WINDOWMGR->AddWindow(pItem);
 		//////////////////////////////////////////////////////////////////////////
-		// tooltip ¶ç¿ì´Â ºÎºÐ¨¢
+		// tooltip ï¿½ï¿½ï¿½ï¿½ ï¿½ÎºÐ¨ï¿½
 //		if(pItem->GetDurability() != 0 && !IsDupItem(pItem->GetItemIdx()))
 //			SetToolTipIcon(pItem, GetItemOption(pItem->GetDurability()));
-		//!!! NULL È®ÀÎ SW050920 Rare
+		//!!! NULL È®ï¿½ï¿½ SW050920 Rare
 
-		// magi82 - Source ÃÖÀûÈ­(¾ÆÀÌÅÛ ÅøÆÁÇÔ¼ö ½ÇÇàÀÇ ÃÖ¼ÒÈ­)
+		// magi82 - Source ï¿½ï¿½ï¿½ï¿½È­(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½È­)
 		//if( pItem->GetDurability() != 0 && !IsDupItem((pItem->GetItemIdx())) )
 		//{
 		//	SetToolTipIcon(pItem, GetItemOption(pItem->GetDurability()), GetItemRareOption(pItem->GetRareness()) );
@@ -225,7 +225,7 @@ CItem* CItemManager::MakeNewItem(ITEMBASE* pBaseInfo, char* strKind)
 	else
 	{
 		char buf[64];
-		sprintf(buf, "Áßº¹µÈ DBÀÎµ¦½º¸¦ »ç¿ë! DBIndex: %d", pBaseInfo->dwDBIdx);
+		sprintf(buf, "ï¿½ßºï¿½ï¿½ï¿½ DBï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½! DBIndex: %d", pBaseInfo->dwDBIdx);
 		ASSERTMSG(0, buf);
 	}
 
@@ -241,7 +241,7 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );
-	// ""¸¦ ³ÖÀ¸¸é ÃÊ±âÈ­¸¸ ÇÑ´Ù.
+	// ""ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	pIcon->SetToolTip( "", RGBA_MAKE(255, 255, 255, 255), &imgToolTip, TTCLR_ITEM_CANEQUIP );
 
 	if(bits & eEQUIP_ITEM)
@@ -350,7 +350,7 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 			char line[128];
 			wsprintf( line, "[%s]", pInfo->ItemName );
 			DWORD dwColor = TTTC_DEFAULT;
-			// 2008. 2. 27. CBH - ·¹º§ÇØÁ¦ ÁÖ¹®¼­ ¾ÆÀÌÅÆ ÀÌ¸§ ÅøÆÁ »ö»ó Ã³¸®
+			// 2008. 2. 27. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			if( pInfo->ItemKind == eSHOP_ITEM_INCANTATION && pInfo->LimitJob )
 			{				
 				if( pInfo->LimitGender == 0 && HERO->GetLevel() > 50 )
@@ -366,13 +366,13 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 					dwColor = TTTC_LIMIT;
 				}
 			}
-			else if( HERO->GetLevel() < pInfo->NaeRyukRecoverRate )	//¾ÆÀÌÅÆ ·¹º§º¸´Ù Ä³¸¯ÅÍ ·¹º§ÀÌ ÀÛÀ¸¸é »¡°£»ö
+			else if( HERO->GetLevel() < pInfo->NaeRyukRecoverRate )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				dwColor = TTTC_LIMIT;
 			}
 			pIcon->AddToolTipLine( line, dwColor );
 
-			//2007. 9. 21. CBH - ·¾Á¦ ÀÖ´Â ˜Þ ¾ÆÀÌÅÆ ·¹º§ »Ñ·ÁÁÖ±â
+			//2007. 9. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½
 			if( pInfo->NaeRyukRecoverRate != 0 )
 			{
 				pIcon->AddToolTipLine("");
@@ -394,7 +394,7 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 						SetPetSummonItemToolTip(pIcon,pInfo,dwItemDBIdx);
 					}
 
-					// ºÀÀÎ°ü·Ã ÅøÆÁÀº 6000¹ø
+					// ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6000ï¿½ï¿½
 					AddItemDescriptionToolTip( pIcon, 6000 );
 					AddItemDescriptionToolTip( pIcon, pInfo->ItemTooltipIdx );
 				}
@@ -429,9 +429,9 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 							wsprintf( line, CHATMGR->GetChatMsg(1245), pPetInfo->PetFriendly/1000 );
 							pIcon->AddToolTipLine( line, TTTC_QUESTITEM );
 						}
-						else	//»õ·Î È¹µæÇÑ Æê ¾ÆÀÌÅÛÀÌ¸é
+						else	//ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 						{
-							wsprintf( line, CHATMGR->GetChatMsg(1244), 1 );	// ±âº» 1´Ü°è
+							wsprintf( line, CHATMGR->GetChatMsg(1244), 1 );	// ï¿½âº» 1ï¿½Ü°ï¿½
 							pIcon->AddToolTipLine( line, TTTC_QUESTITEM );
 							wsprintf( line, CHATMGR->GetChatMsg(1245), PET_DEFAULT_FRIENDLY/1000 );
 							pIcon->AddToolTipLine( line, TTTC_QUESTITEM );
@@ -480,9 +480,9 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 			}
 			if( pIcon->GetType()==WT_ITEM && (pItem->GetItemParam() & ITEM_PARAM_SEAL) )
 			{
-				// ºÀÀÎ°ü·Ã ÅøÆÁÀº 6000¹ø
+				// ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6000ï¿½ï¿½
 				AddItemDescriptionToolTip( pIcon, 6000 );
-				// 060911 KKR ÅøÆÁ, »ç¿ë±â°£ »Ñ·ÁÁÖ±â
+				// 060911 KKR ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½â°£ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½
  				AddShopItemToolTip( (cIcon*)pItem, pInfo );
 				PrintShopItemUseTime( pItem, pInfo );
 				
@@ -490,7 +490,7 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 			else
 			{
 				AddItemDescriptionToolTip( pIcon, pInfo->ItemTooltipIdx );
-				// 060911 KKR ÅøÆÁ, »ç¿ë±â°£ »Ñ·ÁÁÖ±â
+				// 060911 KKR ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½â°£ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½
 				AddShopItemToolTip( (cIcon*)pItem, pInfo );                
 							
 				//if( !(pInfo->ItemKind == eSHOP_ITEM_SUNDRIES) )
@@ -501,10 +501,10 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 						SHOPITEMBASE* pShopItemBase = m_UsedItemList.GetData( pItem->GetItemIdx() );
 						if( pShopItemBase )
 						{
-							// ÇöÀç½Ã°£ °è»êµÇ´Â°Í
+							// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ç´Â°ï¿½
 							if( pInfo->SellPrice == eShopItemUseParam_Realtime )
 							{
-								// Á¾·á½Ã°£
+								// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 								pItem->AddToolTipLine("");
 								pItem->AddToolTipLine( CHATMGR->GetChatMsg(766), TTTC_DEFAULT );
 
@@ -514,10 +514,10 @@ void CItemManager::SetToolTipIcon(cIcon * pIcon, ITEM_OPTION_INFO * pOptionInfo,
 								wsprintf( buf, CHATMGR->GetChatMsg(767), time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute() );
 								pItem->AddToolTipLine( buf, TTTC_QUESTITEM );
 							}
-							// ±â°£Á¦
+							// ï¿½â°£ï¿½ï¿½
 							else 
 							{
-								// »ç¿ë±â°£ Ç¥½Ã.
+								// ï¿½ï¿½ï¿½â°£ Ç¥ï¿½ï¿½.
 								pItem->AddToolTipLine("");
 								pItem->AddToolTipLine( CHATMGR->GetChatMsg(1442), TTTC_DEFAULT );
 								pItem->AddToolTipLine( CHATMGR->GetChatMsg(1444), TTTC_QUESTITEM );
@@ -729,31 +729,31 @@ void CItemManager::SetYoungyakItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo )
 	}
 
 #ifdef TAIWAN_LOCAL
-//========================= ´Þ°¿ ÇÏµåÄÚµù
+//========================= ï¿½Þ°ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 	if( pInfo->ItemIdx == 53031 || pInfo->ItemIdx == 53094 )
 	{
-		wsprintf(line, "%s %d%%", "»¤Ìå»Ö¸´", 100);
+		wsprintf(line, "%s %d%%", "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½", 100);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	else if( pInfo->ItemIdx == 53032 || pInfo->ItemIdx == 53095 )
 	{
-		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//»ý¸í·ÂÈ¸º¹
+		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//³»·ÂÈ¸º¹
+		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d%%", "»¤Ìå»Ö¸´", 100);
+		wsprintf(line, "%s %d%%", "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½", 100);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 //==========================
 #else
-//========================= ´Þ°¿ ÇÏµåÄÚµù
+//========================= ï¿½Þ°ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 	if( pInfo->ItemIdx == 53102 )
 	{
-		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(270), 1000);	//»ý¸í·ÂÈ¸º¹
+		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(270), 1000);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(271), 1000);	//³»·ÂÈ¸º¹
+		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(271), 1000);	//ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(181), 1000);	//È£½Å°­±âÈ¸º¹
+		wsprintf(line, "%s %d", CHATMGR->GetChatMsg(181), 1000);	//È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	else if( pInfo->ItemIdx == 53031 || pInfo->ItemIdx == 53094 )
@@ -774,11 +774,11 @@ void CItemManager::SetYoungyakItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo )
 	else if( pInfo->ItemIdx == 53032 || pInfo->ItemIdx == 53095 
 		|| pInfo->ItemIdx == 53103 || pInfo->ItemIdx == 53217 || pInfo->ItemIdx == 53223)
 	{
-		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//»ý¸í·ÂÈ¸º¹
+		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(270), 100);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//³»·ÂÈ¸º¹
+		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(271), 100);	//ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
-		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(181), 100);	//È£½Å°­±âÈ¸º¹
+		wsprintf(line, "%s %d%%", CHATMGR->GetChatMsg(181), 100);	//È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 
@@ -814,7 +814,7 @@ void CItemManager::SetMugongItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo )
 	case eMUGONG_ITEM_JINBUB:		pIcon->AddToolTipLine( CHATMGR->GetChatMsg(244), TTTC_MUGONGKIND ); break;
 	case eMUGONG_ITEM_KYUNGGONG:	pIcon->AddToolTipLine( CHATMGR->GetChatMsg(245), TTTC_MUGONGKIND ); break;
 	case 1040:	pIcon->AddToolTipLine( CHATMGR->GetChatMsg(1362), TTTC_MUGONGKIND ); break;
-    case eMUGONG_ITEM_JOB:	pIcon->AddToolTipLine( CHATMGR->GetChatMsg(1669), TTTC_MUGONGKIND ); break;		//2007. 10. 28. CBH - Àü¹®±â¼ú ¼­Àû
+    case eMUGONG_ITEM_JOB:	pIcon->AddToolTipLine( CHATMGR->GetChatMsg(1669), TTTC_MUGONGKIND ); break;		//2007. 10. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 #ifdef _JAPAN_LOCAL_
 	if( pInfo->wItemAttr > 0 && pInfo->wItemAttr < 6 )
@@ -909,8 +909,8 @@ void CItemManager::SetMugongItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo )
 	}
 
 	////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°øº¯È¯
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯
 	if(pInfo->ItemKind == 1040)
 	{
 		SKILLOPTION* pOption = SKILLMGR->GetSkillOptionByItemIndex(pInfo->ItemIdx);
@@ -1057,7 +1057,7 @@ void CItemManager::SetMugongItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo )
 	}
 	////////////////////////////////////////////////////////////////////////////////
 
-	// ¹«°øÀÏ °æ¿ì
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 //	if(pInfo->ItemKind>=1024 && pInfo->ItemKind<=eMUGONG_ITEM_KYUNGGONG)	
 //		AddItemDescriptionToolTip( pIcon, SKILLMGR->GetSkillTooltipInfo(pInfo->MugongNum));	
 //	else
@@ -1075,12 +1075,12 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 	
 	int nLen = strlen( pInfo->ItemName );
 
-	//SW050920 ·¹¾î
+	//SW050920 ï¿½ï¿½ï¿½ï¿½
 	if(pRareOptionInfo && pRareOptionInfo->dwItemDBIdx)
 		pIcon->AddToolTipLine( line, TTTC_RAREITEM );
 	else if(pInfo->wSetItemKind != 0)
 		pIcon->AddToolTipLine( line, TTTC_SETITEM_NAME);
-	else if( *(pInfo->ItemName + nLen - 2) == '+' || *(pInfo->ItemName + nLen - 3) == '+' )	// +10ÀÌ»ó ¾ÆÀÌÅÛ Ãß°¡ ÀÛ¾÷ by Stiner(2008/06/10)-10+Item
+	else if( *(pInfo->ItemName + nLen - 2) == '+' || *(pInfo->ItemName + nLen - 3) == '+' )	// +10ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½ by Stiner(2008/06/10)-10+Item
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTRITEM );
 	else if(pInfo->ItemKind == eEQUIP_ITEM_UNIQUE)	// magi82 - UniqueItem(070628)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
@@ -1090,7 +1090,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 
 	float attrvalue = 0;
 	float attroptvalue = 0;
-	//SW050920 ·¹¾î
+	//SW050920 ï¿½ï¿½ï¿½ï¿½
 	float attrRareOptValue = 0;
 	// stage limit
 	SetItemToolTipForStage( pIcon, pInfo );
@@ -1163,7 +1163,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare ±Ù°ñ
+	//SW050920 Rare ï¿½Ù°ï¿½
 	DWORD RareState;
 	if( pRareOptionInfo && pRareOptionInfo->GenGol )
 		RareState = pRareOptionInfo->GenGol;
@@ -1217,7 +1217,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare ¹ÎÃ¸
+	//SW050920 Rare ï¿½ï¿½Ã¸
 	if( pRareOptionInfo && pRareOptionInfo->MinChub )
 		RareState = pRareOptionInfo->MinChub;
 	else
@@ -1270,7 +1270,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare Ã¼·Â
+	//SW050920 Rare Ã¼ï¿½ï¿½
 	if( pRareOptionInfo && pRareOptionInfo->CheRyuk )
 		RareState = pRareOptionInfo->CheRyuk;
 	else
@@ -1323,7 +1323,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare ½É¸Æ
+	//SW050920 Rare ï¿½É¸ï¿½
 	if( pRareOptionInfo && pRareOptionInfo->SimMek )
 		RareState = pRareOptionInfo->SimMek;
 	else
@@ -1376,7 +1376,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare »ý¸í·Â
+	//SW050920 Rare ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pRareOptionInfo && pRareOptionInfo->Life )
 		RareState = pRareOptionInfo->Life;
 	else
@@ -1429,7 +1429,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare ³»·Â
+	//SW050920 Rare ï¿½ï¿½ï¿½ï¿½
 	if( pRareOptionInfo && pRareOptionInfo->NaeRyuk )
 		RareState = pRareOptionInfo->NaeRyuk;
 	else
@@ -1482,7 +1482,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare È£½Å°­±â
+	//SW050920 Rare È£ï¿½Å°ï¿½ï¿½ï¿½
 	if( pRareOptionInfo && pRareOptionInfo->Shield )
 		RareState = pRareOptionInfo->Shield;
 	else
@@ -1520,7 +1520,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 
 #ifdef _JAPAN_LOCAL_
 	//265, 268, 269, 267, 266
-	int Arr_ReviseAttr[5] = { 1, 4, 5, 3, 2 };	//È­ ¼ö ¸ñ ±Ý Åä ¼ø¼­
+	int Arr_ReviseAttr[5] = { 1, 4, 5, 3, 2 };	//È­ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(int i = ATTR_FIRE; i <= ATTR_MAX; ++i )
 	{
 		attrvalue = pInfo->AttrRegist.GetElement_Val(Arr_ReviseAttr[i-1]);
@@ -1563,9 +1563,9 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			}
 			else
 			{
-				if(attroptvalue)	continue;	//¼Ò¼öÁ¡ ÀÌÇÏ´Â Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+				if(attroptvalue)	continue;	//ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d", CHATMGR->GetChatMsg(265+i-1), (int)(attrRareOptValue) );
 			}
 			if(attrRareOptValue)
@@ -1577,7 +1577,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 	}
 #else
 
-	//SW050920 ·¹¾îÃß°¡ ¼Ó¼ºÀúÇ×
+	//SW050920 ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	for(int i = ATTR_FIRE; i <= ATTR_MAX; ++i )
 	{
 		attrvalue = 100 * pInfo->AttrRegist.GetElement_Val(i);
@@ -1590,9 +1590,9 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		}
 		else attrRareOptValue = 0;
 		
-		if( (int)(attrvalue) != 0 )	//±âº»¿É¼Ç¿¡ ¼Ó¼ºÀúÇ×ÀÌ ÀÖ´Ù.
+		if( (int)(attrvalue) != 0 )	//ï¿½âº»ï¿½É¼Ç¿ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
-			if( (int)(attroptvalue) != 0 )	//°­È­¾ÆÀÌÅÛÀÌ´Ù.
+			if( (int)(attroptvalue) != 0 )	//ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				sprintf( line, "%s +%d%% (+%d%%)", CHATMGR->GetChatMsg(265+i-1), (int)(attrvalue + attrRareOptValue), (int)(attroptvalue));
 			else
 				sprintf( line, "%s +%d%%", CHATMGR->GetChatMsg(265+i-1), (int)(attrvalue + attrRareOptValue) );
@@ -1603,18 +1603,18 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		
 		}
-		else	//±âº»¿É¼Ç¿¡ ¼Ó¼ºÀúÇ×ÀÌ ¾ø´Ù.
+		else	//ï¿½âº»ï¿½É¼Ç¿ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
-			if( (int)(attroptvalue) != 0 )	//°­È­¾ÆÀÌÅÛÀÌ´Ù.
+			if( (int)(attroptvalue) != 0 )	//ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			{
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d%% (+%d%%)", CHATMGR->GetChatMsg(265+i-1), (int)(attrRareOptValue), (int)(attroptvalue) );
 				else
 					sprintf( line, "%s (+%d%%)", CHATMGR->GetChatMsg(265+i-1), (int)(attroptvalue) );
 			}
 			else
 			{
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d%%", CHATMGR->GetChatMsg(265+i-1), (int)(attrRareOptValue) );
 			}
 			if(attrRareOptValue)
@@ -1736,7 +1736,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		break;
 	}
 
-//SW050920 ¹°¸®°ø°Ý·Â
+//SW050920 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
 	WORD RareOptPhyAttack;
 	if( pRareOptionInfo && pRareOptionInfo->PhyAttack )
 		RareOptPhyAttack = pRareOptionInfo->PhyAttack;
@@ -1745,11 +1745,11 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 	
 	if( pInfo->MeleeAttackMin || pInfo->MeleeAttackMax )
 	{
-		if( pInfo->ItemKind != eEQUIP_ITEM_ARMLET )	//ÆÈÂî Á¦¿Ü ¾ÆÀÌÅÛÀÇ °æ¿ì
+		if( pInfo->ItemKind != eEQUIP_ITEM_ARMLET )	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			if( pInfo->MeleeAttackMin == pInfo->MeleeAttackMax )
 			{
-				if( pOptionInfo && pOptionInfo->PhyAttack )	//¹°¸® °ø°Ý °­È­ ¾ÆÀÌÅÛ
+				if( pOptionInfo && pOptionInfo->PhyAttack )	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					sprintf( line, "%s %d (+%d)", CHATMGR->GetChatMsg(389), (pInfo->MeleeAttackMin + RareOptPhyAttack), pOptionInfo->PhyAttack );
 				else
 					sprintf( line, "%s %d", CHATMGR->GetChatMsg(389), (pInfo->MeleeAttackMin + RareOptPhyAttack) );
@@ -1767,7 +1767,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			else
 				pIcon->AddToolTipLine( line, TTTC_NUMBER );
 		}
-		else //ÆÈÂî ·¹¾î ¿É¼ÇÀº ½ºÅÈÀÌ ºÙ´Â´Ù. ÀÌ°÷ Ã³¸® ¾ÈÇÔ.
+		else //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Â´ï¿½. ï¿½Ì°ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
 			if( pInfo->MeleeAttackMin == pInfo->MeleeAttackMax )
 			{
@@ -1835,8 +1835,8 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	
-//SW050920 ¿ø°Å¸® °ø°Ý
-//Áßº¹
+//SW050920 ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+//ï¿½ßºï¿½
 //	if( !pRareOptionInfo )
 //		RareOptPhyAttack = 0;
 //	else
@@ -1844,11 +1844,11 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 	
 	if( pInfo->RangeAttackMin || pInfo->RangeAttackMax )
 	{
-		if( pInfo->ItemKind != eEQUIP_ITEM_ARMLET)	//ÆÈÂî Á¦¿Ü ¾ÆÀÌÅÛÀÇ °æ¿ì
+		if( pInfo->ItemKind != eEQUIP_ITEM_ARMLET)	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			if( pInfo->RangeAttackMin == pInfo->RangeAttackMax )
 			{
-				if( pOptionInfo && pOptionInfo->PhyAttack )	//¹°¸® °ø°Ý °­È­ ¾ÆÀÌÅÛ
+				if( pOptionInfo && pOptionInfo->PhyAttack )	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					sprintf( line, "%s %d (+%d)", CHATMGR->GetChatMsg(391), (pInfo->RangeAttackMin + RareOptPhyAttack), pOptionInfo->PhyAttack );
 				else
 					sprintf( line, "%s %d", CHATMGR->GetChatMsg(391), (pInfo->RangeAttackMin + RareOptPhyAttack) );
@@ -1866,7 +1866,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			else
 				pIcon->AddToolTipLine( line, TTTC_NUMBER );
 		}
-		else //ÆÈÂî ·¹¾î ¿É¼ÇÀº ½ºÅÈÀÌ ºÙ´Â´Ù. ÀÌ°÷ Ã³¸® ¾ÈÇÔ.
+		else //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Â´ï¿½. ï¿½Ì°ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
 			if( pInfo->RangeAttackMin == pInfo->RangeAttackMax )
 			{
@@ -2003,9 +2003,9 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			}
 			else
 			{
-				if(attroptvalue)	continue;	//¼Ò¼öÁ¡ ÀÌÇÏ´Â Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+				if(attroptvalue)	continue;	//ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d", CHATMGR->GetChatMsg(392+i-1), (int)(attrRareOptValue) );
 			}
 			if(attrRareOptValue)
@@ -2216,7 +2216,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		}
 	}*/
 
-	//SW050920 ·¹¾îÃß°¡ ¼Ó¼º°ø°Ý
+	//SW050920 ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	for(int j = ATTR_FIRE; j <= ATTR_MAX; ++j )
 	{
 		attrvalue = 100 * pInfo->AttrAttack.GetElement_Val(j);
@@ -2229,9 +2229,9 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		}
 		else attrRareOptValue = 0;
 		
-		if( (int)(attrvalue) != 0 )	//±âº»¿É¼Ç¿¡ ¼Ó¼º°ø°ÝÀÌ ÀÖ´Ù.
+		if( (int)(attrvalue) != 0 )	//ï¿½âº»ï¿½É¼Ç¿ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
-			if( (int)(attroptvalue) != 0 )	//°­È­¾ÆÀÌÅÛÀÌ´Ù.
+			if( (int)(attroptvalue) != 0 )	//ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				sprintf( line, "%s +%d%% (+%d%%)", CHATMGR->GetChatMsg(392+j-1), (int)(attrvalue + attrRareOptValue), (int)(attroptvalue));
 			else
 				sprintf( line, "%s +%d%%", CHATMGR->GetChatMsg(392+j-1), (int)(attrvalue + attrRareOptValue) );
@@ -2241,18 +2241,18 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			else
 				pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		else	//±âº»¿É¼Ç¿¡ ¼Ó¼º°ø°ÝÀÌ ¾ø´Ù.
+		else	//ï¿½âº»ï¿½É¼Ç¿ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
-			if( (int)(attroptvalue) != 0 )	//°­È­¾ÆÀÌÅÛÀÌ´Ù.
+			if( (int)(attroptvalue) != 0 )	//ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			{
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d%% (+%d%%)", CHATMGR->GetChatMsg(392+j-1), (int)(attrRareOptValue), (int)(attroptvalue) );
 				else
 					sprintf( line, "%s (+%d%%)", CHATMGR->GetChatMsg(392+j-1), (int)(attroptvalue) );
 			}
 			else
 			{
-				if( attrRareOptValue )	//·¹¾î¾ÆÀÌÅÛÀÌ´Ù.
+				if( attrRareOptValue )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 					sprintf( line, "%s +%d%%", CHATMGR->GetChatMsg(392+j-1), (int)(attrRareOptValue) );
 			}
 			if(attrRareOptValue)
@@ -2264,22 +2264,22 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 
 	/*if( (int)(pInfo->AttrAttack.GetElement_Val(ATTR_FIRE) * 100.0f) != 0 )
 	{
-		sprintf(line, "È­¼Ó¼º°ø°Ý·Â +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_FIRE) * 100.0f) );
+		sprintf(line, "È­ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_FIRE) * 100.0f) );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	if( (int)(pInfo->AttrAttack.GetElement_Val(ATTR_WATER) * 100.0f) != 0 )
 	{
-		sprintf(line, "¼ö¼Ó¼º°ø°Ý·Â +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_WATER) * 100.0f) );
+		sprintf(line, "ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_WATER) * 100.0f) );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	if( (int)(pInfo->AttrAttack.GetElement_Val(ATTR_TREE) * 100.0f) != 0 )
 	{
-		sprintf(line, "¸ñ¼Ó¼º°ø°Ý·Â +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_TREE) * 100.0f) );
+		sprintf(line, "ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_TREE) * 100.0f) );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 	if( (int)(pInfo->AttrAttack.GetElement_Val(ATTR_IRON) * 100.0f) != 0 )
 	{
-		sprintf(line, "±Ý¼Ó¼º°ø°Ý·Â +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_IRON) * 100.0f) );
+		sprintf(line, "ï¿½Ý¼Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ +%d%%", (int)(pInfo->AttrAttack.GetElement_Val(ATTR_IRON) * 100.0f) );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}*/
 
@@ -2302,13 +2302,13 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}*/
-	//SW050920 Rare ¹°¸®¹æ¾î·Â
+	//SW050920 Rare ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	WORD RareOptPhyDef;
 	if( pRareOptionInfo && pRareOptionInfo->PhyDefense )
 		RareOptPhyDef = pRareOptionInfo->PhyDefense;
 	else
 		RareOptPhyDef = 0;
-	if( pInfo->PhyDef != 0 )	//±âº» Á¤º¸¿¡ ¹æ¾î·ÂÀÌ ÀÖ´Ù.
+	if( pInfo->PhyDef != 0 )	//ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 	{
 		if(pOptionInfo && pOptionInfo->PhyDefense != 0)
 			sprintf(line, "%s +%d (+%d)", CHATMGR->GetChatMsg(397), pInfo->PhyDef + RareOptPhyDef, pOptionInfo->PhyDefense);
@@ -2366,7 +2366,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 
-	// 060911 KKR ÅøÆÁ»Ñ·ÁÁÖ±â
+	// 060911 KKR ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½Ö±ï¿½
 	if(pInfo->ItemKind & eSHOP_ITEM)
 	{
 		AddShopItemToolTip( (cIcon*)pIcon, pInfo );
@@ -2374,7 +2374,7 @@ void CItemManager::SetEquipItemToolTip( cIcon* pIcon, ITEM_INFO* pInfo, ITEM_OPT
 
 	if(pInfo->wSetItemKind != 0)
 	{
-		AddSetItemToolTip( (cIcon*)pIcon, pInfo); // 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ÅøÆÁÃ³¸® Ãß°¡
+		AddSetItemToolTip( (cIcon*)pIcon, pInfo); // 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	}
 
 	// magi82 - UniqueItem(070628)
@@ -2495,16 +2495,16 @@ void CItemManager::SetPetSummonItemToolTip( cIcon * pIcon, ITEM_INFO * pInfo, DW
 
 	if( pPetInfo )
 	{
-		//Á×ÀºÆê Ç¥½Ã
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 		if( !pPetInfo->bAlive )
 		{
 			DWORD RedFilter = RGBA_MAKE(255,10,10,255);
 			SetIconColorFilter(pIcon,RedFilter);
 		}
-		//´Ü°è
+		//ï¿½Ü°ï¿½
 		wsprintf( line, CHATMGR->GetChatMsg(1244), pPetInfo->PetGrade );
 		pIcon->AddToolTipLine( line, TTTC_QUESTITEM );
-		//»ç¿ë°¡´É·¹º§
+		//ï¿½ï¿½ë°¡ï¿½É·ï¿½ï¿½ï¿½
 //		wsprintf( line, CHATMGR->GetChatMsg(1281), pInfo->LimitLevel );
 //		pIcon->AddToolTipLine( line, TTTC_QUESTITEM	);
 		
@@ -2526,7 +2526,7 @@ void CItemManager::SetPetSummonItemToolTip( cIcon * pIcon, ITEM_INFO * pInfo, DW
 	}
 	pIcon->AddToolTipLine( line, TTTC_QUESTITEM );
 
-	//ÀåÂøÄ­ °¹¼öÇ¥½Ã 06/02/25
+	//ï¿½ï¿½ï¿½ï¿½Ä­ ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ 06/02/25
 	//wsprintf( line, CHATMGR->GetChatMsg(1265), pPetInfo->PetGrade );
 	/*
 	if(pList)
@@ -2614,7 +2614,7 @@ void CItemManager::SetPetSummonItemToolTip( cIcon * pIcon, ITEM_INFO * pInfo, DW
 		}
 	}
 
-	//»ç¿ë°¡´É·¹º§
+	//ï¿½ï¿½ë°¡ï¿½É·ï¿½ï¿½ï¿½
 	wsprintf( line, CHATMGR->GetChatMsg(1281), pInfo->LimitLevel );
 	pIcon->AddToolTipLine( line, TTTC_QUESTITEM	);
 	/*
@@ -2651,7 +2651,7 @@ void CItemManager::SetTitanEquipItemToolTip(cIcon * pIcon, ITEM_INFO * pInfo)
 
 	CItem* pItem = (CItem*)pIcon;
 
-	//·¹º§ Á¦ÇÑ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pInfo->LimitLevel != 0 )
 	{		
 		sprintf(line, CHATMGR->GetChatMsg(238), pInfo->LimitLevel);
@@ -2660,7 +2660,7 @@ void CItemManager::SetTitanEquipItemToolTip(cIcon * pIcon, ITEM_INFO * pInfo)
 		else
 			pIcon->AddToolTipLine( line, TTTC_FREELIMIT );				
 	}
-	//Å¸ÀÌÅº Å¾½Â »ç¿ë°¡´É À¯¹«
+	//Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(HERO->InTitan() == TRUE)
 		pIcon->AddToolTipLine( CHATMGR->GetChatMsg(1655), TTTC_FREELIMIT );
 	else
@@ -2668,50 +2668,50 @@ void CItemManager::SetTitanEquipItemToolTip(cIcon * pIcon, ITEM_INFO * pInfo)
 	
 	pIcon->AddToolTipLine("");
 
-	//¹«±â Á¾·ù
-	//±Ù°Å¸® ÃÖ¼Ò°ø°Ý
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//ï¿½Ù°Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½ï¿½
 	if(pInfo->MeleeAttackMin > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1521), pInfo->MeleeAttackMin);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//±Ù°Å¸® ÃÖ´ë°ø°Ý
+	//ï¿½Ù°Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->MeleeAttackMax > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1522), pInfo->MeleeAttackMax);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¿ø°Å¸® ÃÖ¼Ò°ø°Ý
+	//ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½ï¿½
 	if(pInfo->RangeAttackMin > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1523), pInfo->RangeAttackMin);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¿ø°Å¸® ÃÖ´ë°ø°Ý
+	//ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->RangeAttackMax > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1524), pInfo->RangeAttackMax);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//ÀÏ°Ý
+	//ï¿½Ï°ï¿½
 	if(pInfo->CriticalPercent > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1525), pInfo->CriticalPercent);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//»çÁ¤°Å¸®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½
 	if(pInfo->MugongNum > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		wsprintf( line, CHATMGR->GetChatMsg(1526), pInfo->MugongNum);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¹æ¾î·Â
+	//ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->PhyDef > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
@@ -2733,69 +2733,69 @@ void CItemManager::SetTitanEquipItemToolTip(cIcon * pIcon, ITEM_INFO * pInfo)
 		pIcon->AddToolTipLine( line );
 	}
 	*/
-	//¸¶¹ý °ø°Ý·Â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	if(pInfo->AttrAttack.GetElement_Val(ATTR_FIRE) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1667), pInfo->AttrAttack.GetElement_Val(ATTR_FIRE));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//È­¼Ó¼º ÀúÇ×
+	//È­ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->AttrRegist.GetElement_Val(ATTR_FIRE) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1530), pInfo->AttrRegist.GetElement_Val(ATTR_FIRE));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¼ö¼Ó¼º ÀúÇ×
+	//ï¿½ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->AttrRegist.GetElement_Val(ATTR_WATER) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1531), pInfo->AttrRegist.GetElement_Val(ATTR_WATER));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¸ñ¼Ó¼º ÀúÇ×
+	//ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->AttrRegist.GetElement_Val(ATTR_TREE) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1532), pInfo->AttrRegist.GetElement_Val(ATTR_TREE));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//±Ý¼Ó¼º ÀúÇ×
+	//ï¿½Ý¼Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->AttrRegist.GetElement_Val(ATTR_IRON) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1533), pInfo->AttrRegist.GetElement_Val(ATTR_IRON));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//Åä¼Ó¼º ÀúÇ×
+	//ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->AttrRegist.GetElement_Val(ATTR_EARTH) > 0)
 	{
 		ZeroMemory(&line, sizeof(line));
 		sprintf( line, CHATMGR->GetChatMsg(1534), pInfo->AttrRegist.GetElement_Val(ATTR_EARTH));
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	//¹«±âÁ¾·ù
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->WeaponType > 0)
 	{		
 		switch(pInfo->WeaponType)
 		{
-		case WP_GUM:	//°Ë
+		case WP_GUM:	//ï¿½ï¿½
 			sprintf(line, CHATMGR->GetChatMsg(1661));
 			break;
-		case WP_GWUN:	//±Ç
+		case WP_GWUN:	//ï¿½ï¿½
 			sprintf(line, CHATMGR->GetChatMsg(1663));
 			break;
-		case WP_DO:		//µµ
+		case WP_DO:		//ï¿½ï¿½
 			sprintf(line, CHATMGR->GetChatMsg(1662));
 			break;
 		case WP_CHANG:	//Ã¢
 			sprintf(line, CHATMGR->GetChatMsg(1664));
 			break;
-		case WP_GUNG:	//±Ã
+		case WP_GUNG:	//ï¿½ï¿½
 			sprintf(line, CHATMGR->GetChatMsg(1665));
 			break;
-		case WP_AMGI:	//¾Ï±â
+		case WP_AMGI:	//ï¿½Ï±ï¿½
 			sprintf(line, CHATMGR->GetChatMsg(1666));
 			break;
 		}
@@ -2833,7 +2833,7 @@ void CItemManager::ItemDelete(CItem* pItem)
 	}
 //
 
-//	WINDOWMGR->DeleteWindowForID(pItem->GetID());	//KES Áï½ÃÁö¿ìÁö¸¶½Ã¿À. 031128
+//	WINDOWMGR->DeleteWindowForID(pItem->GetID());	//KES ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½. 031128
 	WINDOWMGR->AddListDestroyWindow( pItem );
 }
 
@@ -2860,9 +2860,9 @@ void CItemManager::Release()
 		delete pRareInfo;
 	m_ItemRareOptionList.RemoveAll();
 
-	// À©µµ¿ì ¸Þ´ÏÁ®¿¡¼­ DeleteÇØÁÖ±â ¶§¹®¿¡ µû·Î ÇÒÇÊ¿ä°¡ ¾ø´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Deleteï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½
 
-	// À©µµ¿ì¸¦ Áö¿ìÁö ¾Ê±â ¶§¹®¿¡ µû·Î delete¸¦ ÇØÁÖ¾î¾ß ÇÑ´Ù. KES 040316
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ deleteï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½. KES 040316
 	GAMEIN->GetInventoryDialog()->ReleaseInventory();
 
 	m_nItemUseCount = 0;
@@ -2956,7 +2956,7 @@ void CItemManager::MoveItem( MSG_ITEM_MOVE_ACK * pMsg )
 		}
 		else if(FromTableIdx == eItemTable_Shop)
 		{
-			// ÈÄ¿¡ ¼¥¾ÆÀÌÅÛ ÀÎº¥¿¡¸¸ µé¾î°¡µµ·Ï Ãß°¡
+			// ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
 			pShop->DeleteItem( pMsg->FromPos, &FromItem );
 		}
@@ -2971,7 +2971,7 @@ void CItemManager::MoveItem( MSG_ITEM_MOVE_ACK * pMsg )
 
 			HERO->GetTitanAppearInfo()->WearedItemIdx[pMsg->FromPos-TP_TITANWEAR_START] = 0;
 			
-			// »ç¿ëÁßÀÎ Å¸ÀÌÅº ÀåÂøÅÛ ¸®½ºÆ®¿¡ Á¦¿Ü. // ¼ÒÈ¯ÀÌ³ª ½ºÅ³ »ç¿ë½Ã Ã¼Å©.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. // ï¿½ï¿½È¯ï¿½Ì³ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©.
 			TITANMGR->RemoveTitanUsingEquipItemList(FromItem->GetDBIdx());
 		}
 		else 
@@ -3046,7 +3046,7 @@ void CItemManager::MoveItem( MSG_ITEM_MOVE_ACK * pMsg )
 		QUICKMGR->RefreshQickItem();
 
 		APPEARANCEMGR->InitAppearance( HERO );
-		//2007. 10. 5. CBH - Å¸ÀÌÅº Å¾½Â½Ã Àåºñ ±³Ã¼°ü·Ã EP DLG ¼ÂÆÃ
+		//2007. 10. 5. CBH - Å¸ï¿½ï¿½Åº Å¾ï¿½Â½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ EP DLG ï¿½ï¿½ï¿½ï¿½
 		if(HERO->InTitan() == TRUE)
 		{			
 			GAMEIN->GetTitanGuageDlg()->SetLife(TITANMGR->GetCurRidingTitan()->GetTitanTotalInfo()->Fuel);
@@ -3247,7 +3247,7 @@ void CItemManager::MoveItemToShopInven(MSG_ITEM_MOVE_ACK* pMsg)
 	
 	if(ToItem)
 	{
-		// ShopInven³»¿¡¼­¸¸ ÀÌµ¿ÇÑ´Ù.
+		// ShopInvenï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ñ´ï¿½.
 		ToItem->SetPosition( pMsg->FromPos );
 
 		if(FromTableIdx == eItemTable_Shop)		
@@ -3310,7 +3310,7 @@ void CItemManager::MoveItemToPetInven(MSG_ITEM_MOVE_ACK* pMsg)
 		}
 		if(ToItem->GetQuickPosition())
 		{
-			ASSERT(0);	// ÆêÀÎº¥Àº Äü Àû¿ë ¾ÈµÊ. ±âÈ¹.
+			ASSERT(0);	// ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½. ï¿½ï¿½È¹.
 			QUICKMGR->RemQuickItem(ToItem->GetQuickPosition());
 			ToItem->SetQuickPosition(0);
 		}
@@ -3386,9 +3386,9 @@ void CItemManager::MoveItemToTitanInven(MSG_ITEM_MOVE_ACK* pMsg)
 
 	HERO->GetTitanAppearInfo()->WearedItemIdx[pMsg->ToPos-TP_TITANWEAR_START] = pMsg->wFromItemIdx;
 	APPEARANCEMGR->InitAppearance( HERO );	
-	GAMEIN->GetTitanGuageDlg()->SetLife(TITANMGR->GetCurRidingTitan()->GetTitanTotalInfo()->Fuel); //2007. 10. 5. CBH - Å¸ÀÌÅº Àåºñ Âø¿ë½Ã EP DLG ¼ÂÆÃ
+	GAMEIN->GetTitanGuageDlg()->SetLife(TITANMGR->GetCurRidingTitan()->GetTitanTotalInfo()->Fuel); //2007. 10. 5. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ EP DLG ï¿½ï¿½ï¿½ï¿½
 	
-	// »ç¿ëÁßÀÎ Å¸ÀÌÅº ÀåÂøÅÛ ¸®½ºÆ®¿¡ Ãß°¡. // ¼ÒÈ¯ÀÌ³ª ½ºÅ³ »ç¿ë½Ã Ã¼Å©.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½. // ï¿½ï¿½È¯ï¿½Ì³ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©.
 	TITAN_ENDURANCE_ITEMINFO* pInfo = TITANMGR->GetTitanEnduranceInfo(FromItem->GetDBIdx());
 	if(pInfo)
 		TITANMGR->AddTitanUsingEquipItemList(pInfo);
@@ -3536,9 +3536,9 @@ void CItemManager::DeleteItem( POSTYPE absPos, CItem** ppItemOut, ITEM_OPTION_IN
 					DURTYPE dur = GAMEIN->GetInventoryDialog()->GetTotalItemDurability((*ppItemOut)->GetItemIdx());
 					if(dur)
 					{
-						// ¼­¹ö·Î Quickposition¹Ù²î¾ú´Ù°í ³¯¸²
-						// ´Ù¸¥ Link¸¦ ¿¬°áÇØ ÁØ´Ù.	
-						// Áö¿ìÁö ¾ÊÀ½
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Quickpositionï¿½Ù²ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½
+						// ï¿½Ù¸ï¿½ Linkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.	
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						//pQItem->SetLinkItem(GAMEIN->GetInventoryDialog()->GetItemLike((*ppItemOut)->GetItemIdx()));
 						GAMEIN->GetQuickDialog()->FakeAddItem((*ppItemOut)->GetQuickPosition(), GAMEIN->GetInventoryDialog()->GetItemLike((*ppItemOut)->GetItemIdx()));
 					}
@@ -3692,8 +3692,8 @@ void CItemManager::DeleteItemofTable(WORD TableIdx, POSTYPE absPos, ITEM_OPTION_
 					DURTYPE dur = GAMEIN->GetInventoryDialog()->GetTotalItemDurability(pItemOut->GetItemIdx());
 					if(dur)
 					{
-						// ¼­¹ö·Î Quickposition¹Ù²î¾ú´Ù°í ³¯¸²
-						// ´Ù¸¥ Link¸¦ ¿¬°áÇØ ÁØ´Ù.	
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Quickpositionï¿½Ù²ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½
+						// ï¿½Ù¸ï¿½ Linkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.	
 						GAMEIN->GetQuickDialog()->FakeAddItem(pItemOut->GetQuickPosition(), GAMEIN->GetInventoryDialog()->GetItemLike(pItemOut->GetItemIdx()));
 					}
 				}
@@ -3705,9 +3705,9 @@ void CItemManager::DeleteItemofTable(WORD TableIdx, POSTYPE absPos, ITEM_OPTION_
 		{
 			TITANMGR->RemoveTitanInfo(pItemOut->GetDBIdx());
             
-			// ¸¸ÀÏ Áö¿î ¾ÆÀÌÅÛÀÌ Áõ¼­¾ÆÀÌÅÛÀÌ°í Áõ¼­¾ÆÀÌÅÛÀÇ DBÀÎµ¦½º¿Í µî·ÏÁßÀÎ ¾ÆÀÌÅÛÀÇ DBÀÎµ¦½º°¡ °°´Ù¸é
-			// µî·ÏÇÑ Å¸ÀÌÅº Áõ¼­¸¦ Áö¿î°ÍÀÌ¹Ç·Î µî·ÏÁßÀÎ ¾ÆÀÌÅÛÀÇ DBÀÎµ¦½ºµµ 0À¸·Î ÃÊ±âÈ­ÇØ¾ßÇÑ´Ù
-			// µî·ÏµÈ Å¸ÀÌÅº Áõ¼­´Â ÀÌÁ¦ ¹ö¸±¼ö°¡ ¾ø¾î¼­ ÇÊ¿ä°¡ ¾ø´Â ÄÚµåÀÌ±ä ÇÏÁö¸¸ È¤½Ã ¸ð¸£´Ï ³²°ÜµÒ..
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½
+			// ï¿½ï¿½Ïµï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¤ï¿½ï¿½ ï¿½ð¸£´ï¿½ ï¿½ï¿½ï¿½Üµï¿½..
 			if(pItemOut->GetDBIdx() != TITANMGR->GetRegistedTitanItemDBIdx())
 			{
 				TITANMGR->SetRegistedTitanItemDBIdx(0);
@@ -3720,10 +3720,10 @@ void CItemManager::DeleteItemofTable(WORD TableIdx, POSTYPE absPos, ITEM_OPTION_
 		}
 		ItemDelete( pItemOut );
 
-		// magi82 - Titan(070503) Å¸ÀÌÅº ÀÎº¥Ã¢¿¡µµ °»½ÅÇØ¾ßÇÔ
+		// magi82 - Titan(070503) Å¸ï¿½ï¿½Åº ï¿½Îºï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
 		if(pItemOut->GetItemKind() & eTITAN_EQUIPITEM)
 		{
-			// ¸¸¾à Å¸ÀÌÅº ÀåÂøÃ¢ÀÇ ÀåÂø¾ÆÀÌÅÛÀ» Áö¿ü´Ù¸é..
+			// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½..
 			if( TableIdx == eItemTable_Titan )
 			{
 				TITANMGR->RemoveTitanUsingEquipItemList(pItemOut->GetDBIdx());
@@ -3765,7 +3765,7 @@ ITEM_RARE_OPTION_INFO* CItemManager::GetItemRareOption(DWORD dwRareOptionIdx)
 		return pInfo;
 
 	return NULL;
-	//ÀÌÀ¯°¡ ÀÖ°ÚÁö..
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ï¿½ï¿½..
 //	static ITEM_RARE_OPTION_INFO NULLINFO;
 //	memset(&NULLINFO,0,sizeof(ITEM_RARE_OPTION_INFO));
 //	return &NULLINFO;
@@ -3821,7 +3821,7 @@ ITEM_OPTION_INFO * CItemManager::GetItemOption(DWORD dwOptionIdx)
 	if(pInfo)
 		return pInfo;
 	
-	// ÀÓ½Ã ÄÚµå
+	// ï¿½Ó½ï¿½ ï¿½Úµï¿½
 	static ITEM_OPTION_INFO NULLINFO;
 	memset(&NULLINFO,0,sizeof(ITEM_OPTION_INFO));
 	return &NULLINFO;
@@ -3840,8 +3840,9 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 	case MP_ITEM_TOTALINFO_LOCAL:
 		{
 			ITEM_TOTALINFO * msg = (ITEM_TOTALINFO *)pMsg;
+			int i;
 
-			for(int i = 0 ; i < SLOT_INVENTORY_NUM ; i++)
+			for(i = 0 ; i < SLOT_INVENTORY_NUM ; i++)
 			{
 				GAMEIN->GetInventoryDialog()->AddItem(&msg->Inventory[i]);	
 				if(msg->Inventory[i].QuickPosition != 0)
@@ -3851,14 +3852,14 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 						ITEM_INFO* pItemInfo = GetItemInfo(msg->Inventory[i].wIconIdx);
 						if( pItemInfo )
 							if( pItemInfo->ItemKind != eYOUNGYAK_ITEM )
-								// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-								// ÃÊ±â ¼³Á¤ ÇÔ¼ö AddQuickItemReal -> SetQuickItemReal
+								// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+								// ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ AddQuickItemReal -> SetQuickItemReal
 								QUICKMGR->SetQuickItemReal(msg->Inventory[i].QuickPosition,msg->Inventory[i].Position, msg->Inventory[i].wIconIdx);
 					}
 					else
 					{
-						// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-						// ÃÊ±â ¼³Á¤ ÇÔ¼ö AddQuickItemReal -> SetQuickItemReal
+						// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+						// ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ AddQuickItemReal -> SetQuickItemReal
 						QUICKMGR->SetQuickItemReal(msg->Inventory[i].QuickPosition,msg->Inventory[i].Position, msg->Inventory[i].wIconIdx);
 					}
 				}
@@ -3868,8 +3869,8 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				GAMEIN->GetInventoryDialog()->AddItem(&msg->ShopInventory[i]);
 				if(msg->ShopInventory[i].QuickPosition != 0)
 				{
-					// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-					// ÃÊ±â ¼³Á¤ ÇÔ¼ö AddQuickItemReal -> SetQuickItemReal
+					// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+					// ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ AddQuickItemReal -> SetQuickItemReal
 					QUICKMGR->SetQuickItemReal(msg->ShopInventory[i].QuickPosition,msg->ShopInventory[i].Position, msg->ShopInventory[i].wIconIdx);
 				}
 			}
@@ -3878,8 +3879,8 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				GAMEIN->GetInventoryDialog()->AddItem(&msg->WearedItem[i]);
 				if(msg->WearedItem[i].QuickPosition != 0)
 				{
-					// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
-					// ÃÊ±â ¼³Á¤ ÇÔ¼ö AddQuickItemReal -> SetQuickItemReal
+					// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
+					// ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ AddQuickItemReal -> SetQuickItemReal
 					QUICKMGR->SetQuickItemReal(msg->WearedItem[i].QuickPosition,msg->WearedItem[i].Position,msg->WearedItem[i].wIconIdx);
 				}
 			}
@@ -3900,7 +3901,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					QUICKMGR->SetQuickItemReal(msg->TitanWearedItem[i].QuickPosition,msg->TitanWearedItem[i].Position,msg->TitanWearedItem[i].wIconIdx);
 				}
 
-				//DBIdx ·ÎºÎÅÍ usinglist¿¡ Ãß°¡ÇÑ´Ù.
+				//DBIdx ï¿½Îºï¿½ï¿½ï¿½ usinglistï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 				DWORD itemDBIdx = msg->TitanWearedItem[i].dwDBIdx;
 				if(itemDBIdx)
 				{
@@ -3924,7 +3925,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			}
 			//////////////////////////////////////////////////////////////////////////
 
-			// QuickDur´Ù½Ã °è»ê
+			// QuickDurï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
 			QUICKMGR->RefreshQickItem();
 		}
 		break;
@@ -4084,7 +4085,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			GAMEIN->GetPetInventoryDialog()->SetItemInfoInit(TRUE);
 
-			//Æê ´É·Â¿¡ ¸Â°Ô ÅÇ ¾ÆÀÌÅÛ Ç¥½Ã
+			//ï¿½ï¿½ ï¿½É·Â¿ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 			PETMGR->SetPetValidInvenTab();
 
 			GAMEIN->GetPetInventoryDialog()->SetActive(TRUE);
@@ -4112,11 +4113,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			GAMEEVENTMGR->AddEvent(eGameEvent_ObtainItem);
 
-			//³ª´©±âÃ¢ÀÌ ÀÖÀ¸¸é Áö¿î´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 			cDialog* pDlg = WINDOWMGR->GetWindowForID( DBOX_DIVIDE_INV );
 			if( pDlg )
 			{
-				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//Ãë¼Ò¹öÆ° ´©¸£±â
+				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//ï¿½ï¿½Ò¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			if( pItem )
@@ -4139,7 +4140,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			// 1. add option
 			AddItemOption(&pmsg->OptionInfo);
 
-			// 2. Àç·á »èÁ¦
+			// 2. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			CItem * ItemOut;
 			for(int i = 1 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
 			{
@@ -4148,11 +4149,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					DeleteItem(pVItem->GetSrcPosition(), &ItemOut);
 			}
 
-			//SW051021 °­È­Ã¢ Àç·á ºñÁß Á¤º¸ ÃÊ±âÈ­.
+			//SW051021 ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 			REINFORCEMGR->SetRareMaterialTotalGravity(0);
 			GAMEIN->GetReinforceDialog()->SetGravityText();
 
-			// 3. ¿ø·á Dura º¯°æ
+			// 3. ï¿½ï¿½ï¿½ï¿½ Dura ï¿½ï¿½ï¿½ï¿½
 			CItem * pTItem = NULL;
 			CVirtualItem * pVItem = GAMEIN->GetReinforceDialog()->GetVirtualItem(0);
 			if( pVItem )
@@ -4184,7 +4185,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		{
 			MSG_ITEM_REINFORCE_SYN * pmsg = (MSG_ITEM_REINFORCE_SYN*)pMsg;
 
-			//SW051021 °­È­Ã¢ Àç·á ºñÁß Á¤º¸ ÃÊ±âÈ­.
+			//SW051021 ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 			REINFORCEMGR->SetRareMaterialTotalGravity(0);
 			GAMEIN->GetReinforceDialog()->SetGravityText();
 
@@ -4203,11 +4204,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		break;
 	case MP_ITEM_REINFORCE_NACK:
 		{
-			//SW051021 °­È­Ã¢ Àç·á ºñÁß Á¤º¸ ÃÊ±âÈ­.
+			//SW051021 ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 			REINFORCEMGR->SetRareMaterialTotalGravity(0);
 			GAMEIN->GetReinforceDialog()->SetGravityText();
 
-			ASSERTMSG(0, "¹Î¿íÀ» ºÒ·¯º¸¾Æ¿ä!-°­È­¼­¹ö¿¡·¯. Reinforce Error.");
+			ASSERTMSG(0, "ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½!-ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Reinforce Error.");
 			GAMEIN->GetReinforceDialog()->SetDisable(FALSE);
 		}
 		break;
@@ -4220,13 +4221,13 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			switch( pmsg->ECode )
 			{
-			case 3:				// °­È­¾ÆÀÌÅÛÀÌ ¾Æ´Ï´Ù.
+			case 3:				// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1081) );
 				break;
-			case 4:				// ¾ÆÀÌÅÛ ·¹º§ÀÌ ¸ÂÁö ¾Ê´Â´Ù.
+			case 4:				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1082) );
 				break;
-			case 10:			// ¼öÄ¡°¡ ³·¾Æ¼­ º¸È£µÆ´Ù.
+			case 10:			// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½È£ï¿½Æ´ï¿½.
 				{					
 					CItem * ItemOut;
 					for(int i = 1 ; i < MAX_REINFORCEGRID_NUM+1 ; ++i)
@@ -4252,16 +4253,16 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					sprintf( buf, CHATMGR->GetChatMsg(1083) );
 				}
 				break;
-			case 11:			// °­È­ÇÒ ¼ö ¾ø´Â Àç·á¾ÆÀÌÅÛÀÌ´Ù.
+			case 11:			// ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1084) );
 				break;
-			case 12:			// °­È­º¸È£ÀÇ µ¹ÀÌ ¾ø´Ù.
+			case 12:			// ï¿½ï¿½È­ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1085) );
 				break;				
-			case 13:			// Àç·á¾ÆÀÌÅÛÀÌ ¾ø´Ù.
+			case 13:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1089) );
 				break;
-			case 14:			// 2°¡ÁöÀÌ»ó °­È­µÈ ¾ÆÀÌÅÛÀÌ´Ù.
+			case 14:			// 2ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1090) );
 			default:
 				break;
@@ -4333,7 +4334,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				}
 			}
 
-			// QuickDur´Ù½Ã °è»ê
+			// QuickDurï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
 			QUICKMGR->RefreshQickItem();
 
 			WINDOWMGR->DragWindowNull();
@@ -4368,11 +4369,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				GAMEEVENTMGR->AddEvent(eGameEvent_ObtainItem);
 			}
 
-			//³ª´©±âÃ¢ÀÌ ÀÖÀ¸¸é Áö¿î´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 			cDialog* pDlg = WINDOWMGR->GetWindowForID( DBOX_DIVIDE_INV );
 			if( pDlg )
 			{
-				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//Ãë¼Ò¹öÆ° ´©¸£±â
+				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//ï¿½ï¿½Ò¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			if( pItem )
@@ -4472,7 +4473,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			switch( pmsg->bData )
 			{
-			case 1:	//»ý¸í·Â È¸º¹ ÀÌÆåÆ®
+			case 1:	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 				{
 					if(pPlayer->InTitan())
 					{
@@ -4486,7 +4487,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					}
 				}
 				break;
-			case 2:	//³»·Â È¸º¹ ÀÌÆåÆ®
+			case 2:	//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 				{
 					if(pPlayer->InTitan())
 					{
@@ -4500,7 +4501,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					}
 				}
 				break;
-			case 3:	//È£½Å°­±â È¸º¹ ÀÌÆåÆ®
+			case 3:	//È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 				{
 					if(pPlayer->InTitan())
 					{
@@ -4514,7 +4515,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					}
 				}
 				break;
-			case 4:	//¿Ã È¸º¹ ÀÌÆåÆ®
+			case 4:	//ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 				{
 					if(pPlayer->InTitan())
 					{
@@ -4554,7 +4555,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 						if(item->GetDurability() > 1)
 						{
-							//°³¼ö Ã³¸®
+							//ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 							GAMEIN->GetInventoryDialog()->UpdateItemDurabilityAdd(pmsg->TargetPos,-1);
 						}
 						else
@@ -4574,7 +4575,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 								item->GetItemIdx() == 53217 || item->GetItemIdx() == 53223 ||
 								item->GetItemIdx() == 53232 || item->GetItemIdx() == 53234 )
 							{
-								// magi82(4) - Titan(071022) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(¿ÏÀüÈ¸º¹¹°¾à)
+								// magi82(4) - Titan(071022) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 								if( HERO->InTitan() == TRUE )
                                     EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_UseItem_FullYoungYak);
 								else
@@ -4585,11 +4586,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 								//if( item->GetItemKind() != eYOUNGYAK_ITEM )	return;
 								if( !(item->GetItemKind() & eYOUNGYAK_ITEM) )	return;
 
-								if( item->GetItemKind() == eYOUNGYAK_ITEM )	//Æê ¾Æ´Ñ ÇÃ·¹ÀÌ¾î¿¡°Ô¸¸ ÇØ´ç
+								if( item->GetItemKind() == eYOUNGYAK_ITEM )	//ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½Ô¸ï¿½ ï¿½Ø´ï¿½
 								{
 									if( item->GetItemInfo()->LifeRecover || item->GetItemInfo()->LifeRecoverRate )
 									{
-										// magi82(4) - Titan(071022) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(»ý¸í·ÂÈ¸º¹¹°¾à)
+										// magi82(4) - Titan(071022) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 										if( HERO->InTitan() == TRUE )
 											EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_UseItem_LifeYoungYak);
 										else
@@ -4597,25 +4598,25 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 									}
 									if( item->GetItemInfo()->NaeRyukRecover || item->GetItemInfo()->NaeRyukRecoverRate )
 									{
-										// magi82(4) - Titan(071022) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(³»·ÂÈ¸º¹¹°¾à)
+										// magi82(4) - Titan(071022) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 										if( HERO->InTitan() == TRUE )
 											EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_UseItem_ManaYoungYak);
 										else
 											EFFECTMGR->StartHeroEffectProcess(eEffect_UseItem_ManaYoungYak);
 									}								
-									//========================= ´Þ°¿ ÇÏµåÄÚµù
+									//========================= ï¿½Þ°ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 									if( item->GetItemIdx() == 53031 || item->GetItemIdx() == 53094 || item->GetItemIdx() == 53109 )										
 									{
-										// magi82(4) - Titan(071022) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(È£½Å°­±âÈ¸º¹¹°¾à)
+										// magi82(4) - Titan(071022) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 										if( HERO->InTitan() == TRUE )
 											EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_UseItem_HosinYoungYak);
 										else
 											EFFECTMGR->StartHeroEffectProcess(eEffect_UseItem_HosinYoungYak);
 									}
-									//========================= Ãß¼®ÀÌº¥Æ®
+									//========================= ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 									if( item->GetItemIdx() == 53216 || item->GetItemIdx() == 53222 )
 									{
-										// magi82(4) - Titan(071022) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(È£½Å°­±âÈ¸º¹¹°¾à)
+										// magi82(4) - Titan(071022) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 										if( HERO->InTitan() == TRUE )
 											EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_UseItem_HosinYoungYak);
 										else
@@ -4624,7 +4625,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 								}
 								else if( item->GetItemKind() == eYOUNGYAK_ITEM_PET )
 								{
-									//Æê ¸ÔÀÌ ÀÌÆåÆ®
+									//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 									// 									TARGETSET set;
 									// 									set.pTarget = HEROPET;
 									// 									EFFECTMGR->StartEffectProcess(eEffect_FeedUp,HEROPET,&set,0,HEROPET->GetID());
@@ -4660,7 +4661,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					{
 						if(item->GetDurability() > 1)
 						{
-							//¡Æ©ø¨ùo A©ø¢¬¢ç
+							//ï¿½Æ©ï¿½ï¿½ï¿½o Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							GAMEIN->GetInventoryDialog()->UpdateItemDurabilityAdd(pmsg->TargetPos,-1);
 						}
 						else
@@ -4677,7 +4678,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 						if(item->GetDurability() > 1)
 						{
-							//°³¼ö Ã³¸®
+							//ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 							GAMEIN->GetInventoryDialog()->UpdateItemDurabilityAdd(pmsg->TargetPos,-1);
 						}
 						else
@@ -4696,13 +4697,13 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 
 
-						//»óÅÂ º¯°æ
+						//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						GAMEIN->GetInventoryDialog()->SetState(eITEMUPGRADE_STATE);
 
-						// ¸Þ½ÃÁö Ãâ·Â
-						//						GAMEIN->GetChatDialog()->AddChatMsg(WHOLE,RGBA_MAKE(255,0,0,255), "¨¬n¡¾¨­¨ù¡©¢¬| ¡íc¢¯eCO¢¥I¢¥U.");
+						// ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						//						GAMEIN->GetChatDialog()->AddChatMsg(WHOLE,RGBA_MAKE(255,0,0,255), "ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| ï¿½ï¿½cï¿½ï¿½eCOï¿½ï¿½Iï¿½ï¿½U.");
 						CHATMGR->AddMsg( CTC_TOWHOLE, CHATMGR->GetChatMsg(173) );
-						//TAIYO Ä¿¼­ º¯°æ
+						//TAIYO Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						*/
 
 					}
@@ -4810,15 +4811,15 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			GAMEIN->GetMixDialog()->Release( eMixAllRelease, FALSE );
 			GAMEIN->GetMixDialog()->DieCheck();
 
-			//error msgÃâ·ÂÇÏ±â
+			//error msgï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		}
 		break;
 	case MP_ITEM_MIX_SUCCESS_ACK:
 		{
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
-			// ±âº» ¾ÆÀÌÅÛ »èÁ¦
-			// Àç·á »èÁ¦
-			// °á°ú ¾ÆÀÌÅÛ »ðÀÔ
+			// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			GAMEIN->GetMixDialog()->Release(eMixAllRelease, FALSE);
 
@@ -4883,8 +4884,8 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		break;
 	case MP_ITEM_MIX_BIGFAILED_ACK:
 		{
-			// ±âº» ¾ÆÀÌÅÛ »èÁ¦
-			// Àç·á »èÁ¦
+			// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
 			GAMEIN->GetMixDialog()->Release();
 
@@ -4922,7 +4923,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 	case MP_ITEM_MIX_FAILED_ACK:
 		{
 			GAMEIN->GetMixDialog()->ResetCurSelCellPos();
-			// Àç·á »èÁ¦
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
 
 			CItem * pMatItemOut;
@@ -4961,20 +4962,20 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			switch( pmsg->dwData1 )
 			{
-			case 20:			// ShopItemÀÌ ¾ø´Ù.
+			case 20:			// ShopItemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1086) );
 				break;
-			case 21:			// ´ë½ÇÆÐ·Î ºÎÅÍ º¸È£µÆ´Ù.
+			case 21:			// ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Æ´ï¿½.
 				{
 					CItem * BasicItemOut;
 					DeleteItem( (POSTYPE)pmsg->dwData2, &BasicItemOut );
 					sprintf( buf, CHATMGR->GetChatMsg(1088) );
 				}
 				break;
-			case 22:			// ½ÇÆÐ·ÎºÎÅÍ º¸È£µÆ´Ù.
+			case 22:			// ï¿½ï¿½ï¿½Ð·Îºï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Æ´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1087) );
 				break;
-			case 23:			// LevelÁ¦ÇÑ¿¡ °É¸®´Ù.
+			case 23:			// Levelï¿½ï¿½ï¿½Ñ¿ï¿½ ï¿½É¸ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1082) );
 				break;
 			}
@@ -5017,17 +5018,17 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			GAMEIN->GetTitanPartsMakeDlg()->Release( eTPMAllRelease, FALSE );
 			GAMEIN->GetTitanPartsMakeDlg()->DieCheck();
 
-			//error msgÃâ·ÂÇÏ±â
+			//error msgï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		}
 		break;
 	case MP_ITEM_TPM_SUCCESS_ACK:
 		{
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
-			// ±âº» ¾ÆÀÌÅÛ »èÁ¦
-			// Àç·á »èÁ¦
-			// °á°ú ¾ÆÀÌÅÛ »ðÀÔ
+			// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-			// magi82(15) - Titan(071101) Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛ Á¶ÇÕ °ü·Ã
+			// magi82(15) - Titan(071101) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			TITAN_ENDURANCE_ITEMINFO EnduranceInfo;
 			ITEM_INFO* pBaseInfo = GetItemInfo(pmsg->wBasicItemIdx);
 			if(!pBaseInfo)
@@ -5090,7 +5091,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(207), pResultItem->GetItemInfo()->ItemName );
 			QUICKMGR->RefreshQickItem();
 
-			// magi82(15) - Titan(071101) Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛ Á¶ÇÕ °ü·Ã
+			// magi82(15) - Titan(071101) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( (eITEM_KINDBIT)pBaseInfo->ItemKind & eTITAN_EQUIPITEM )
 			{
                 TITANMGR->AddTitanEquipItemEnduranceInfo(&EnduranceInfo);
@@ -5107,8 +5108,8 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		break;
 	case MP_ITEM_TPM_BIGFAILED_ACK:
 		{
-			// ±âº» ¾ÆÀÌÅÛ »èÁ¦
-			// Àç·á »èÁ¦
+			// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
 			GAMEIN->GetTitanPartsMakeDlg()->Release();
 
@@ -5146,7 +5147,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 	case MP_ITEM_TPM_FAILED_ACK:
 		{
 			GAMEIN->GetTitanPartsMakeDlg()->ResetCurSelCellPos();
-			// Àç·á »èÁ¦
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MSG_ITEM_MIX_ACK * pmsg = (MSG_ITEM_MIX_ACK *)pMsg;
 
 			CItem * pMatItemOut;
@@ -5185,20 +5186,20 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			switch( pmsg->dwData1 )
 			{
-			case 20:			// ShopItemÀÌ ¾ø´Ù.
+			case 20:			// ShopItemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1086) );
 				break;
-			case 21:			// ´ë½ÇÆÐ·Î ºÎÅÍ º¸È£µÆ´Ù.
+			case 21:			// ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Æ´ï¿½.
 				{
 					CItem * BasicItemOut;
 					DeleteItem( (POSTYPE)pmsg->dwData2, &BasicItemOut );
 					sprintf( buf, CHATMGR->GetChatMsg(1088) );
 				}
 				break;
-			case 22:			// ½ÇÆÐ·ÎºÎÅÍ º¸È£µÆ´Ù.
+			case 22:			// ï¿½ï¿½ï¿½Ð·Îºï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Æ´ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1087) );
 				break;
-			case 23:			// LevelÁ¦ÇÑ¿¡ °É¸®´Ù.
+			case 23:			// Levelï¿½ï¿½ï¿½Ñ¿ï¿½ ï¿½É¸ï¿½ï¿½ï¿½.
 				sprintf( buf, CHATMGR->GetChatMsg(1082) );
 				break;
 			}
@@ -5657,7 +5658,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		{
 			MSG_ITEM_UPGRADE_ACK * pmsg = (MSG_ITEM_UPGRADE_ACK *)pMsg;
 			//			CItem * item = GAMEIN->GetInventoryDialog()->GetItemForPos(pmsg->ItemPos);
-			// ±âÁ¸ ¾ÆÀÌÅÛ »èÁ¦ 
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 			CItem * itemOut;
 			CItem * MaterialItemOut;
 			ITEM_OPTION_INFO OptionInfo;
@@ -5665,7 +5666,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			DeleteItem(pmsg->MaterialItemPos, &MaterialItemOut);
 			//GAMEIN->GetInventoryDialog()->DeleteItem(pmsg->ItemPos, &itemOut);
 
-			// ¸Þ½ÃÁö Ãâ·Â
+			// ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			int grade = pmsg->wItemIdx - itemOut->GetItemIdx();
 			if(grade>0)
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(176), grade );
@@ -5686,9 +5687,9 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			//ItemDelete(itemOut);
 
-			// »õ·Î¿î ¾ÆÀÌÅÛ »ðÀÔ
+			// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			GAMEIN->GetInventoryDialog()->AddItem(&NewItem);
-			// »õ·Î¿î Virtual Item »ðÀÔ
+			// ï¿½ï¿½ï¿½Î¿ï¿½ Virtual Item ï¿½ï¿½ï¿½ï¿½
 			GAMEIN->GetUpgradeDialog()->Release();
 			CItem * pResultItem = GAMEIN->GetInventoryDialog()->GetItemForPos(pmsg->ItemPos);
 			GAMEIN->GetUpgradeDialog()->AddVirtualItemWrap(eRESULTITEM_POS, pResultItem);
@@ -5698,7 +5699,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 	case MP_ITEM_UPGRADE_NACK:
 		{
 			ASSERT(0);
-			//			GAMEIN->GetChatDialog()->AddChatMsg(WHOLE,RGBA_MAKE(255,0,0,255), "µî±Þ¾÷ÀÌ Ãë¼Ò µÇ¾ú½À´Ï´Ù.");
+			//			GAMEIN->GetChatDialog()->AddChatMsg(WHOLE,RGBA_MAKE(255,0,0,255), "ï¿½ï¿½Þ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(176) );
 			//GAMEIN->GetInventoryDialog()->SetState(eITEMDEFAULT_STATE);
 		}
@@ -5728,7 +5729,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				pItem->SetDurability( pItem->GetDurability() - pmsg->SellItemNum );
 				//				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(218), pItem->GetItemInfo()->ItemName, pmsg->SellItemNum, AddComma( pItem->GetItemInfo()->SellPrice*pmsg->SellItemNum ) );
 				DWORD SellPrice = SWPROFIT->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
-				// ¿ä»õÀü
+				// ï¿½ï¿½ï¿½ï¿½ï¿½
 				SellPrice = FORTWARMGR->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(218), pItem->GetItemInfo()->ItemName, pmsg->SellItemNum, AddComma( SellPrice*pmsg->SellItemNum ) );
 			}
@@ -5740,7 +5741,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				//				else
 				//					CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(218), pItem->GetItemInfo()->ItemName, pmsg->SellItemNum, AddComma( pItem->GetItemInfo()->SellPrice*pmsg->SellItemNum ) );
 				DWORD SellPrice = SWPROFIT->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
-				// ¿ä»õÀü
+				// ï¿½ï¿½ï¿½ï¿½ï¿½
 				SellPrice = FORTWARMGR->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
 				if( pmsg->SellItemNum == 0 || IsOptionItem(pItem->GetItemIdx(), pItem->GetDurability()) )
 					CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(217), pItem->GetItemInfo()->ItemName, AddComma( SellPrice ) );
@@ -5827,7 +5828,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 						ASSERTMSG(0, buf);
 					}
 
-					//¸¸¾à ÀÌ ¾ÆÀÌÅÛÀÇ ÀÎµ¦½º·Î ÄüÃ¢¿¡ µî·ÏµÈ°ÍÀÌ ÀÖ´Ù¸é? ÄüÃ¢¿¡¼­ Áö¿ìÀÚ.
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ÏµÈ°ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½? ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//CQuickItem *pOldQuick = GAMEIN->GetQuickDialog()->GetQuickItem(pItem->GetQuickPosition());
 					//GAMEIN->GetQuickDialog()->FakeAddItem(pItem->GetQuickPosition(), pItem, pOldQuick );
 
@@ -5849,7 +5850,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				BuyPrice = (MONEYTYPE)(BuyPrice * 1.2);
 			}
 			BuyPrice = SWPROFIT->CalTexRateForBuy( BuyPrice );
-			// ¿ä»õÀü
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			BuyPrice = FORTWARMGR->CalTexRateForBuy( BuyPrice );
 			if( pmsg->wObtainCount > 1 )
 			{
@@ -5935,7 +5936,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			}
 		}
 		break;
-		//SW070127 Å¸ÀÌÅº
+		//SW070127 Å¸ï¿½ï¿½Åº
 	case MP_ITEM_TITAN_APPEARANCE_CHANGE:
 		{
 			SEND_TITAN_APPEARANCEINFO* pmsg = (SEND_TITAN_APPEARANCEINFO*)pMsg;
@@ -5966,7 +5967,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					{
 						CHATMGR->AddMsg( CTC_GETMONEY, CHATMGR->GetChatMsg( 120 ), AddComma( PrintMoney ) );
 
-						// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(µ· È¹µæ)
+						// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ È¹ï¿½ï¿½)
 						if( HERO->InTitan() == TRUE )
 							EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetMoney);
 						else
@@ -5984,7 +5985,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					if( PrintMoney )
 					{
 						CHATMGR->AddMsg( CTC_GETMONEY, CHATMGR->GetChatMsg( 120 ), AddComma( PrintMoney ) );
-						// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(µ· È¹µæ)
+						// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ È¹ï¿½ï¿½)
 						if( HERO->InTitan() == TRUE )
 							EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetMoney);
 						else
@@ -6020,7 +6021,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			/*
 			CChatDialog * dlg = GAMEIN->GetChatDialog();
 			dlg->AddChatMsg(WHOLE,RGBA_MAKE(0,0,255,255),
-			"[%s] µ·À» %d ¾ò¾ú½À´Ï´Ù.", HERO->GetObjectName(), pmsg->dwData - HERO->GetMoney());// pjslocal [5/29/2003]
+			"[%s] ï¿½ï¿½ï¿½ï¿½ %d ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.", HERO->GetObjectName(), pmsg->dwData - HERO->GetMoney());// pjslocal [5/29/2003]
 			*/
 
 			DWORD OriMoney = HERO->GetMoney();
@@ -6029,7 +6030,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			if( PrintMoney )
 			{
 				CHATMGR->AddMsg( CTC_GETMONEY, CHATMGR->GetChatMsg( 120 ), PrintMoney );
-				// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(µ· È¹µæ)
+				// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ È¹ï¿½ï¿½)
 				if( HERO->InTitan() == TRUE )
 					EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetMoney);
 				else
@@ -6057,7 +6058,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		break;
 
 		//////////////////////////////////////////////////////////////////////////
-		// ¹®ÆÄÃ¢°í	
+		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½	
 	case MP_ITEM_GUILD_MOVE_ACK:
 		{
 			MoveItemToGuild((MSG_ITEM_MOVE_ACK*)pMsg);
@@ -6189,7 +6190,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 		case MP_ITEM_MUNPA_WAREHOUSE_INFO_NACK:
 		{
-		//Ã¢°í ÀÌ¿ë±ÇÇÑÀÌ ¾ø½À´Ï´Ù.
+		//Ã¢ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(48) );
 		}
 		break;*/
@@ -6198,7 +6199,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		case MP_ITEM_PYOGUK_INFO_ACK:
 		{
 		SEND_PYOGUK_ITEM_INFO* pmsg = (SEND_PYOGUK_ITEM_INFO*)pMsg;
-		//È¤½Ã³ª ÇØ¼­ ¹®ÆÄ Ã¢ ´ÝÀ½.
+		//È¤ï¿½Ã³ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½.
 		GAMEIN->GetMunpaDialog()->SetActive(FALSE);
 		GAMEIN->GetInventoryDialog()->SetActive(TRUE);
 		GAMEIN->GetPyogukDialog()->SetActive(TRUE);
@@ -6286,7 +6287,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			//////////////////////////////////////////////////////////////////////////
 		}
 		break;
-	case MP_ITEM_CHANGEITEM_NACK: //¾ÆÀÌÅÛ º¯È¯ ½ÇÆÐ
+	case MP_ITEM_CHANGEITEM_NACK: //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½
 		{
 			MSG_WORD * pmsg = (MSG_WORD*)pMsg;
 
@@ -6316,11 +6317,11 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				}
 			}
 
-			//©ø¨£¢¥¨Ï¡¾aA¡ËAI AOA¢¬¢¬e Ao¢¯i¢¥U.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½aAï¿½ï¿½AI AOAï¿½ï¿½ï¿½ï¿½e Aoï¿½ï¿½iï¿½ï¿½U.
 			cDialog* pDlg = WINDOWMGR->GetWindowForID( DBOX_DIVIDE_INV );
 			if( pDlg )
 			{
-				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//Ae¨ùO©öo¨¡¡Æ ¢¥¨Ï¢¬¡Ì¡¾a
+				((cDivideBox*)pDlg)->ExcuteDBFunc( 0 );	//Aeï¿½ï¿½Oï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ì¡ï¿½a
 			}
 
 			if( pItem )
@@ -6367,7 +6368,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 						pItem->SetUseParam( 1 );
 				}
 
-				// ¿É¼ÇÀ» µû·Î¾ÈÁá´Ù. ±×³É ÇÏµåÄÚµù.
+				// ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½. ï¿½×³ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½.
 				if( pmsg->Item[i].ItemBase.wIconIdx == eIncantation_MemoryMoveExtend ||
 					pmsg->Item[i].ItemBase.wIconIdx == eIncantation_MemoryMoveExtend7 ||
 					pmsg->Item[i].ItemBase.wIconIdx == eIncantation_MemoryMove2 ||
@@ -6401,7 +6402,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 
-			// ±â°£Á¦ ÀÌµ¿ÁÖ¹®¼­¸¦ Áö¿öÁà¾ß ÇÑ´Ù.
+			// ï¿½â°£ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			ITEM_INFO* pInfo = GetItemInfo((WORD)pmsg->dwData );
 			if( !pInfo )		return;
 			SHOPITEMBASE* pShopItemBase = m_UsedItemList.GetData((WORD)pmsg->dwData);
@@ -6887,8 +6888,8 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		{
 			SEND_SHOPITEM_USEONE* pmsg = (SEND_SHOPITEM_USEONE*)pMsg;
 
-			//!!!Å¬¶óÀÌ¾ðÆ®¿¡¼­ Æê»ý¼º. ¶Ç´Â ¸Ê¼­¹ö »ý¼ºµÈ Æê ¸®ÅÏÈÄ »ý¼º
-			//!!!ÇØÁ¦ÈÄ ¾ÆÀÌÄÜ ÅøÆÁµî º¯È­.
+			//!!!Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ç´ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			//!!!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­.
 			AddUsedItemInfo(&pmsg->ShopItemBase);
 		}
 		break;
@@ -6968,7 +6969,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			WINDOWMGR->MsgBox( MBI_CHANGENAME_ACK, MBT_OK, CHATMGR->GetChatMsg(917) );
 
-			// Item Position È®ÀÎ
+			// Item Position È®ï¿½ï¿½
 			for(int i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
 			{
 				ITEMBASE* pItemBase = (ITEMBASE*)GetItemInfoAbsIn( HERO, i+TP_SHOPINVEN_START );
@@ -7093,7 +7094,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			CChangeJobDialog* pDlg = GAMEIN->GetChangeJobDlg();
 			if( !pDlg )		return;
 
-			// Item Position È®ÀÎ
+			// Item Position È®ï¿½ï¿½
 			for(int i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
 			{
 				ITEMBASE* pItemBase = (ITEMBASE*)GetItemInfoAbsIn( HERO, i+TP_SHOPINVEN_START );
@@ -7114,9 +7115,9 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			switch( pmsg->dwData )
 			{
-			case 1:			// È­°æÀÌ³ª ±Ø¸¶°¡ ¾Æ´Ô
+			case 1:			// È­ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Ø¸ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½
 				break;
-			case 2:			// ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾øÀ½
+			case 2:			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				break;
 			}
 
@@ -7202,13 +7203,13 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			{
 				EFFECTMGR->StartPlayerEffectProcess( pPlayer, FindEffectNum("m_ba_079.beff") );
 			}
-			// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ® ÄÚµå
+			// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½
 			if( pmsg->dwData2 == EVENT_ITEM_FIRECRACKER )
 			{
 				EFFECTMGR->StartPlayerEffectProcess( pPlayer, EVENT_EFFECT_FIRECRACKER );
 			}
 
-			// 06. 03. È­ÀÌÆ®µ¥ÀÌ ÀÌº¥Æ®
+			// 06. 03. È­ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
 			if( pmsg->dwData2 = 53151 )
 			{
 				EFFECTMGR->StartPlayerEffectProcess( pPlayer, FindEffectNum("m_ba_082.beff") );
@@ -7216,7 +7217,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		}
 		break;
 #else
-		// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ® ÄÚµå
+		// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½
 	case MP_ITEM_EVENTITEM_USE:
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
@@ -7227,7 +7228,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				EFFECTMGR->StartPlayerEffectProcess( pPlayer, EVENT_EFFECT_FIRECRACKER );
 			}
 
-			// 06. 03. È­ÀÌÆ®µ¥ÀÌ ÀÌº¥Æ®
+			// 06. 03. È­ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
 			if( pmsg->dwData2 == 53151 )
 			{
 				EFFECTMGR->StartPlayerEffectProcess( pPlayer, FindEffectNum("m_ba_082.beff") );
@@ -7287,7 +7288,7 @@ void CItemManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 
-			// 0ÀÌ¸é ¼ö¸®ºñ ºÎÁ·, 1ÀÌ¸é ÇØ´ç¾ÆÀÌÅÛÀÇ ³»±¸µµ Ç®, 2¸é ¸ðµç ¾ÆÀÌÅÛÀÇ ³»±¸µµ Ç®
+			// 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 1ï¿½Ì¸ï¿½ ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®, 2ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®
 			if(pmsg->dwData == 0)
 			{
 				CHATMGR->AddMsg(CTC_SYSMSG, CHATMGR->GetChatMsg(1579));
@@ -7468,7 +7469,7 @@ void CItemManager::NetworkMsgParseExt(BYTE Protocol,void* pMsg)
 			}
 		}
 		break;
-    case MP_ITEMEXT_SKINITEM_SELECT_ACK:	//2007. 12. 5. CBH - ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã Ã³¸® ¼º°ø
+    case MP_ITEMEXT_SKINITEM_SELECT_ACK:	//2007. 12. 5. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			SEND_SKIN_INFO* pmsg = (SEND_SKIN_INFO*)pMsg;
 			CPlayer* pPlayer = (CPlayer*)OBJECTMGR->GetObject(pmsg->dwObjectID);
@@ -7481,7 +7482,7 @@ void CItemManager::NetworkMsgParseExt(BYTE Protocol,void* pMsg)
 			pPlayer->StartSkinDelayTime();			
 		}
 		break;
-	case MP_ITEMEXT_SKINITEM_SELECT_NACK:	//2007. 12. 5. CBH - ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã Ã³¸® ½ÇÆÐ
+	case MP_ITEMEXT_SKINITEM_SELECT_NACK:	//2007. 12. 5. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			MSG_DWORD3* pmsg = (MSG_DWORD3*)pMsg;
 			CPlayer* pPlayer = (CPlayer*)OBJECTMGR->GetObject(pmsg->dwObjectID);
@@ -7489,10 +7490,10 @@ void CItemManager::NetworkMsgParseExt(BYTE Protocol,void* pMsg)
 
 			switch(pmsg->dwData1)
 			{
-			case eSkinResult_Fail:	//»ç¿ë ½ÇÆÐ
+			case eSkinResult_Fail:	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(786));
 				break;
-			case eSkinResult_DelayFail:	//µô·¹ÀÌ
+			case eSkinResult_DelayFail:	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1355), pmsg->dwData2/1000+1);
 				break;
 			case eSkinResult_LevelFail:
@@ -7501,7 +7502,7 @@ void CItemManager::NetworkMsgParseExt(BYTE Protocol,void* pMsg)
 			}
 		}
 		break;
-	case MP_ITEMEXT_SKINITEM_DISCARD_ACK:	//2007. 12. 11. CBH - ½ºÅ² ¾ÆÀÌÅÆ »èÁ¦½Ã Ã³¸®
+	case MP_ITEMEXT_SKINITEM_DISCARD_ACK:	//2007. 12. 11. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		{
 			SEND_SKIN_INFO* pmsg = (SEND_SKIN_INFO*)pMsg;
 			CPlayer* pPlayer = (CPlayer*)OBJECTMGR->GetObject(pmsg->dwObjectID);
@@ -7712,7 +7713,7 @@ void CItemManager::RefreshAllItem()
 			char buf[128];
 //			wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(pItem->GetItemInfo()->SellPrice) );
 			DWORD SellPrice = SWPROFIT->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
-			// ¿ä»õÀü
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			SellPrice = FORTWARMGR->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
 			wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(SellPrice) );
 			pItem->AddToolTipLine( buf, TTTC_SELLPRICE );
@@ -7762,7 +7763,7 @@ void CItemManager::RefreshItem( CItem* pItem )
 
 //	if(pItem->GetDurability() != 0 && !IsDupItem(pItem->GetItemIdx()))
 //		SetToolTipIcon(pItem, GetItemOption(pItem->GetDurability()));
-	//!!!NULL È®ÀÎ SW050920 Rare
+	//!!!NULL È®ï¿½ï¿½ SW050920 Rare
 	if( pItem->GetDurability() != 0 && !IsDupItem(pItem->GetItemIdx()) )
 	{
 		SetToolTipIcon( pItem, GetItemOption(pItem->GetDurability()), GetItemRareOption(pItem->GetRareness()) );
@@ -7774,7 +7775,7 @@ void CItemManager::RefreshItem( CItem* pItem )
 		char buf[128];
 //		wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(pItem->GetItemInfo()->SellPrice) );
 		DWORD SellPrice = SWPROFIT->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
-		// ¿ä»õÀü
+		// ï¿½ï¿½ï¿½ï¿½ï¿½
 		SellPrice = FORTWARMGR->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
 		wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(SellPrice) );
 		pItem->AddToolTipLine( buf, TTTC_SELLPRICE );
@@ -7811,7 +7812,7 @@ void CItemManager::SetPriceToItem( BOOL bAddPrice )
 		{
 //			wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(pItem->GetItemInfo()->SellPrice) );
 			DWORD SellPrice = SWPROFIT->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
-			// ¿ä»õÀü
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			SellPrice = FORTWARMGR->CalTexRateForSell( pItem->GetItemInfo()->SellPrice );
 			wsprintf( buf, CHATMGR->GetChatMsg(214), AddComma(SellPrice) );
 			pItem->AddToolTipLine( buf, TTTC_SELLPRICE );			
@@ -7823,7 +7824,7 @@ void CItemManager::SetPriceToItem( BOOL bAddPrice )
 		{
 //			if(pItem->GetDurability() != 0 && !IsDupItem(pItem->GetItemIdx()))
 //				SetToolTipIcon(pItem, GetItemOption(pItem->GetDurability()));
-	//!!!NULL È®ÀÎ SW050920 Rare
+	//!!!NULL È®ï¿½ï¿½ SW050920 Rare
 //			if( (pItem->GetDurability() != 0 || pItem->GetRareness() != 0)
 //				&& !IsDupItem(pItem->GetItemIdx()) )
 			if(pItem->GetDurability() != 0 && !IsDupItem(pItem->GetItemIdx()))
@@ -7840,7 +7841,7 @@ void CItemManager::SetPriceToItem( BOOL bAddPrice )
 
 
 
-// ¹«°ø¼­ÀûÀ» ¹«°øÀ¸·Î º¯È¯
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 BOOL CItemManager::CanConvertToMugong(WORD wItemIdx,MUGONG_TYPE MugongType)
 {
 	ITEM_INFO * pInfo = GetItemInfo(wItemIdx);
@@ -7851,28 +7852,28 @@ BOOL CItemManager::CanConvertToMugong(WORD wItemIdx,MUGONG_TYPE MugongType)
 	}	
 
 	/*
-	WORD Limit_Level;		//ÀåÂø°¡´É·¹º§	
-	WORD Limit_Job;			//ÀåÂø°¡´ÉÁ÷¾÷
+	WORD Limit_Level;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½	
+	WORD Limit_Job;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	WORD Limit_GuenRyuk;	//ÀåÂø°¡´É±Ù·Â	
-	WORD Limit_MinChub;		//ÀåÂø°¡´É¹ÎÃ¸	
-	WORD Limit_CheRyuk;		//ÀåÂø°¡´É Ã¼·Â	
-	WORD Limit_SimMeak;		//ÀåÂø°¡´É ½É¸Æ
+	WORD Limit_GuenRyuk;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±Ù·ï¿½	
+	WORD Limit_MinChub;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ã¸	
+	WORD Limit_CheRyuk;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½	
+	WORD Limit_SimMeak;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½
 
-	WORD Limit_NaeGong;		//ÀåÂø°¡´É³»°ø	
-	WORD Limit_Element;		//ÀåÂø°¡´É¼Ó¼º	
-	WORD Limit_Kindness;	//ÀåÂø°¡´É°æÁö	
+	WORD Limit_NaeGong;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É³ï¿½ï¿½ï¿½	
+	WORD Limit_Element;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¼Ó¼ï¿½	
+	WORD Limit_Kindness;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É°ï¿½ï¿½ï¿½	
 	*/
 
 	
 	//////////////////////////////////////////////////////////////////////////	
-	// YH2DO  ItemKind ¿¡ µû¶ó Á¦´ë·Î Á¤¸® ÇÊ¿ä
+	// YH2DO  ItemKind ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 	if(MugongType == MUGONGTYPE_NORMAL)
 	{
 		if(1025 <= pInfo->ItemKind && pInfo->ItemKind <= 1036)
 		{
 		}
-		else if(pInfo->ItemKind == eMUGONG_ITEM_TITAN)	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+		else if(pInfo->ItemKind == eMUGONG_ITEM_TITAN)	// magi82 - Titan(070910) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		{
 		}
 		else
@@ -7894,7 +7895,7 @@ BOOL CItemManager::CanConvertToMugong(WORD wItemIdx,MUGONG_TYPE MugongType)
 		else
 			return FALSE;
 	}
-	if(MugongType == MUGONGTYPE_JOB)	//2007. 10. 28. CBH - Àü¹®±â¼ú ¹«°ø Ãß°¡
+	if(MugongType == MUGONGTYPE_JOB)	//2007. 10. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	{
 		if(eMUGONG_ITEM_JOB == pInfo->ItemKind)
 		{
@@ -7910,7 +7911,7 @@ BOOL CItemManager::CanConvertToMugong(WORD wItemIdx,MUGONG_TYPE MugongType)
 		return FALSE;
 	}
 
-	// ±Ù·Â.¹ÎÃ¸,½É¸Æ,Ã¼·Â
+	// ï¿½Ù·ï¿½.ï¿½ï¿½Ã¸,ï¿½É¸ï¿½,Ã¼ï¿½ï¿½
 	if(pInfo->LimitGenGol > HERO->GetGenGol())
 	{
 		return FALSE;
@@ -7948,16 +7949,16 @@ BOOL CItemManager::CanConvertToMugong(WORD wItemIdx,MUGONG_TYPE MugongType)
 
 	return TRUE;
 }
-// ÇöÀç ÀåÂø ¾ÆÀÌÅÛ¸¸¢¬
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½
 BOOL CItemManager::CanEquip(WORD wItemIdx)
 {
 	ITEM_INFO * pInfo = GetItemInfo(wItemIdx);
 
-	// ÀåÂø°¡´É ³²¿©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	/*
-	ÀüÃ¼:0
-	³²:1
-	¿©:2
+	ï¿½ï¿½Ã¼:0
+	ï¿½ï¿½:1
+	ï¿½ï¿½:2
 	*/
 	if(pInfo->LimitGender)
 	if(pInfo->LimitGender != HERO->GetGender()+1)
@@ -7965,14 +7966,14 @@ BOOL CItemManager::CanEquip(WORD wItemIdx)
 		return FALSE;
 	}
 	
-	// ÀåÂø°¡´É ·¹º§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(pInfo->LimitLevel > HERO->GetLevel())
 	{
 		switch(pInfo->ItemKind)
 		{
-		case 1: // ¹«°ø¼­
+		case 1: // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			break;
-		case 2: // ÀåÂø ¾ÆÀÌÅÛ
+		case 2: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			break;
 		default:
 			break;
@@ -7992,7 +7993,7 @@ BOOL CItemManager::CanEquip(WORD wItemIdx)
 	}
 	
 
-	// ±Ù·Â.¹ÎÃ¸,½É¸Æ,Ã¼·Â
+	// ï¿½Ù·ï¿½.ï¿½ï¿½Ã¸,ï¿½É¸ï¿½,Ã¼ï¿½ï¿½
 	if(pInfo->LimitGenGol > HERO->GetGenGol())
 	{
 		return FALSE;
@@ -8010,25 +8011,25 @@ BOOL CItemManager::CanEquip(WORD wItemIdx)
 		return FALSE;
 	}
 
-	// ÀåÂø°¡´É ³»°ø
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	/*
-	¹«:0
-	¾ç:1
-	À½:2
+	ï¿½ï¿½:0
+	ï¿½ï¿½:1
+	ï¿½ï¿½:2
 	/*
 	
-	// ÀåÂø°¡´É ¼Ó¼º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½
 	/*
-	¹«:0
+	ï¿½ï¿½:0
 	È­:1
-	¼ö:2
-	¸ñ:3
-	±Ý:4
-	Åä:5
-	µ¶:6
+	ï¿½ï¿½:2
+	ï¿½ï¿½:3
+	ï¿½ï¿½:4
+	ï¿½ï¿½:5
+	ï¿½ï¿½:6
 	 */
 
-	// ÀåÂø°¡´É °æÁö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// stage
 	if( pInfo->LimitJob != eItemStage_Normal )
 	{
@@ -8072,7 +8073,7 @@ void CItemManager::LoadItemToolTipList()
 		return;
 #endif
 
-	char buf[512];	//ÅøÆÁÀÇ ±æÀÌÁ¦ÇÑ...22		//256±îÁö Áö¿øÇÏ°í..
+	char buf[512];	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...22		//256ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½..
 	TOOLTIP_TEXT* pToolTipText;
 	TOOLTIP_TEXT* pTemp;
 	DWORD dwIndex;
@@ -8091,7 +8092,7 @@ void CItemManager::LoadItemToolTipList()
 		if( strcmp( buf, "#Msg" ) == 0 )
 		{
 			dwIndex = file.GetDword();	//msg index
-//			ASSERT( dwIndex >= 0 && dwIndex <= 10000 );	//index°¡ ¿Ã¹Ù¸¥°¡?//confirm
+//			ASSERT( dwIndex >= 0 && dwIndex <= 10000 );	//indexï¿½ï¿½ ï¿½Ã¹Ù¸ï¿½ï¿½ï¿½?//confirm
 
 			//file.GetString( buf );
 			SafeStrCpy( buf, file.GetString(), 512 );
@@ -8127,7 +8128,7 @@ void CItemManager::LoadItemToolTipList()
 
 							if( *str == ' ' )
 							{
-								++str;	//¶óÀÎ Ã¹±ÛÀÚ°¡ ½ºÆäÀÌ½º°¡ ¾Æ´Ïµµ·Ï...
+								++str;	//ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Æ´Ïµï¿½ï¿½ï¿½...
 								++i;
 							}
 
@@ -8292,7 +8293,7 @@ void CItemManager::LoadItemList()
 		pInfo->wAcquireSkillIdx2 = file.GetWord();
 		pInfo->wDeleteSkillIdx = file.GetWord();
 #endif
-		pInfo->wSetItemKind = file.GetWord();	// 2007. 6. 7. CBH ¼¼Æ®ÀÌ¾ÆÅÆ °ü·Ã Ãß°¡
+		pInfo->wSetItemKind = file.GetWord();	// 2007. 6. 7. CBH ï¿½ï¿½Æ®ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
 		ASSERT(m_ItemInfoList.GetData(pInfo->ItemIdx) == FALSE);
 		
@@ -8333,7 +8334,7 @@ BOOL CItemManager::CanGradeUp(CItem * pItem)
 	{
 		if(m_dwStateParam == 50700)
 		{
-			// ¹«±â
+			// ï¿½ï¿½ï¿½ï¿½
 			if((bits >= eEQUIP_ITEM_WEAPON && bits < eEQUIP_ITEM_WEAPON+6))
 			{
 				return TRUE;
@@ -8342,7 +8343,7 @@ BOOL CItemManager::CanGradeUp(CItem * pItem)
 		}
 		else if(m_dwStateParam == 50701)
 		{
-			// ¹æ¾î±¸  
+			// ï¿½ï¿½î±¸  
 			if(bits == eEQUIP_ITEM_DRESS ||
 				bits == eEQUIP_ITEM_HAT ||
 				bits == eEQUIP_ITEM_SHOES)
@@ -8398,7 +8399,7 @@ BOOL CItemManager::IsPetSummonItem( WORD wItemIdx )
 		return FALSE;
 }
 
-BOOL CItemManager::IsRareOptionItem( WORD wItemIdx, DWORD dwRareIdx )	//RareIdx ¶õ DB»ó Id
+BOOL CItemManager::IsRareOptionItem( WORD wItemIdx, DWORD dwRareIdx )	//RareIdx ï¿½ï¿½ DBï¿½ï¿½ Id
 {
 	if(dwRareIdx && !IsDupItem(wItemIdx))
 		return TRUE;
@@ -8414,7 +8415,7 @@ BOOL CItemManager::IsOptionItem( WORD wItemIdx, DURTYPE wDurability )
 }
 BOOL CItemManager::IsDupItem( WORD wItemIdx )
 {
-	//¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é... //KES 040503
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½... //KES 040503
 //	if( wItemIdx < MIN_YOUNGYAKITEM_INDEX || wItemIdx >= MIN_ABILITY_INDEX )
 //		return FALSE;
 
@@ -8439,9 +8440,9 @@ BOOL CItemManager::IsDupItem( WORD wItemIdx )
 			ITEM_INFO* pItem = GetItemInfo( wItemIdx );
 			if( !pItem )			return FALSE;
 
-			if( pItem->SimMek )			// ShopItem¿¡¼­ ChangeItem ÀÎ°Íµé
+			if( pItem->SimMek )			// ShopItemï¿½ï¿½ï¿½ï¿½ ChangeItem ï¿½Î°Íµï¿½
 				return FALSE;
-			else if( pItem->CheRyuk )	// ³ëÁ¡
+			else if( pItem->CheRyuk )	// ï¿½ï¿½ï¿½ï¿½
 				return FALSE;
 			else if( eSundries_Shout == wItemIdx )
 				return FALSE;				
@@ -8537,7 +8538,7 @@ CItem* CItemManager::GetItemofTable(WORD TableIDX, POSTYPE absPos)
 	return pItem;
 }
 
-// yunho StatsCalcManager °øÀ¯¸¦ À§ÇØ
+// yunho StatsCalcManager ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 const ITEMBASE* CItemManager::GetItemInfoAbsIn(CHero* pHero,POSTYPE absPos)
 {
 	BYTE TableIdx = GetTableIdxForAbsPos(absPos);
@@ -8608,7 +8609,7 @@ void CItemManager::SetDisableDialog(BOOL val, BYTE TableIdx)
 		break;
 	default:
 		{
-			ASSERTMSG(0, "Å×ÀÌºí ÀÎµ¦½º°¡ ¹þ¾î³µÀ½´Ù.DisableDlg()-Taiyo. Invalid Table Index.");
+			ASSERTMSG(0, "ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ï¿½ï¿½.DisableDlg()-Taiyo. Invalid Table Index.");
 			break;
 		}
 	}
@@ -8692,15 +8693,15 @@ void CItemManager::ReLinkQuickPosition(CItem* pItem)
 	{
 		if(pItem->GetQuickPosition())
 		{
-//			if(pItem->GetDurability() == 1)		//1???????	//1¡Æ©øAI¢Ò¡× ¡íc¢¯eC©¬A¡í¢Ò¡×¢¬¢¬
+//			if(pItem->GetDurability() == 1)		//1???????	//1ï¿½Æ©ï¿½AIï¿½Ò¡ï¿½ ï¿½ï¿½cï¿½ï¿½eCï¿½ï¿½Aï¿½ï¿½ï¿½Ò¡×¢ï¿½ï¿½ï¿½
 			{			
 				DURTYPE dur = GAMEIN->GetInventoryDialog()->GetTotalItemDurability(pItem->GetItemIdx());
 				if(dur)
 				{
-					// ¼­¹ö·Î Quickposition¹Ù²î¾ú´Ù°í ³¯¸²
-					// ´Ù¸¥ Link¸¦ ¿¬°áÇØ ÁØ´Ù.	
-					// Áö¿ìÁö ¾ÊÀ½
-					// 06. 01 ÀÌ¿µÁØ - ´ÜÃàÃ¢ º¯°æ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Quickpositionï¿½Ù²ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½
+					// ï¿½Ù¸ï¿½ Linkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.	
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+					// 06. 01 ï¿½Ì¿ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 					//GAMEIN->GetQuickDialog()->FakeAddItem(pItem->GetQuickPosition(), GAMEIN->GetInventoryDialog()->GetItemLike(pItem->GetItemIdx()));
 					CItem* pNewItem = GAMEIN->GetInventoryDialog()->GetItemLike(pItem->GetItemIdx());
 					WORD QuickPos = pItem->GetQuickPosition() | pNewItem->GetQuickPosition();
@@ -8725,14 +8726,14 @@ void CItemManager::SetPreItemData(sPRELOAD_INFO* pPreLoadInfo, int* Level, int C
 		{
 			if(pItemInfo->LimitLevel == Level[i])
 			{
-				// ³ª¸ÓÁö°¡ ÀÖÀ¸¸é ±âº»¹«±â¿¡ +°¡ ºÙÀº ¾ÆÀÌÅÛÀÌ´Ù. ±×·¡¼­ ÆÐ½º~
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½â¿¡ +ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½~
 				if( pItemInfo->ItemIdx%10 )			continue;
 				
 				ItemIndex = pPreLoadInfo->Count[ePreLoad_Item];
 				pPreLoadInfo->Kind[ePreLoad_Item][ItemIndex] = pItemInfo->ItemIdx;
 				++pPreLoadInfo->Count[ePreLoad_Item];
 				
-				// Max¸¦ ³Ñ¾î°¡¸é ±×¸¶¾È~~
+				// Maxï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½~~
 				if(pPreLoadInfo->Count[ePreLoad_Item] >= MAX_KIND_PERMAP)		return;
 			}
 		}
@@ -8740,14 +8741,14 @@ void CItemManager::SetPreItemData(sPRELOAD_INFO* pPreLoadInfo, int* Level, int C
 		/*
 		if(pItemInfo->LimitLevel == Level)					
 		{
-			// ³ª¸ÓÁö°¡ ÀÖÀ¸¸é ±âº»¹«±â¿¡ +°¡ ºÙÀº ¾ÆÀÌÅÛÀÌ´Ù. ±×·¡¼­ ÆÐ½º~
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½â¿¡ +ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½~
 			if( pItemInfo->ItemIdx%10 )			continue;
 
 			ItemIndex = pPreLoadInfo->Count[ePreLoad_Item];
 			pPreLoadInfo->Kind[ePreLoad_Item][ItemIndex] = pItemInfo->ItemIdx;
 			++pPreLoadInfo->Count[ePreLoad_Item];
 
-			// Max¸¦ ³Ñ¾î°¡¸é ±×¸¶¾È~~
+			// Maxï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½~~
 			if(pPreLoadInfo->Count[ePreLoad_Item] >= MAX_KIND_PERMAP)		break;
 		}
 		*/
@@ -8762,7 +8763,7 @@ void CItemManager::ItemDropEffect( WORD wItemIdx )
 	{
 		if( bits == eEQUIP_ITEM_WEAPON )
 		{
-			// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(¹«±â¾ÆÀÌÅÛ È¹µæ)
+			// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½)
 			if( HERO->InTitan() == TRUE )
 				EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetItem_Weapon);
 			else
@@ -8770,7 +8771,7 @@ void CItemManager::ItemDropEffect( WORD wItemIdx )
 		}
 		else if( bits == eEQUIP_ITEM_DRESS || bits == eEQUIP_ITEM_HAT || bits == eEQUIP_ITEM_SHOES)
 		{
-			// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(¹æ¾î±¸¾ÆÀÌÅÛ È¹µæ)
+			// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½î±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½)
 			if( HERO->InTitan() == TRUE )
 				EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetItem_Dress);
 			else
@@ -8778,7 +8779,7 @@ void CItemManager::ItemDropEffect( WORD wItemIdx )
 		}
 		else
 		{
-			// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(¾Ç¼¼»ç¸®¾ÆÀÌÅÛ È¹µæ)
+			// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½Ç¼ï¿½ï¿½ç¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½)
 			if( HERO->InTitan() == TRUE )
 				EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetItem_Accessory);
 			else
@@ -8788,7 +8789,7 @@ void CItemManager::ItemDropEffect( WORD wItemIdx )
 	}
 	else
 	{
-		// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(¿µ¾à¾ÆÀÌÅÛ È¹µæ)
+		// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½)
 		if( HERO->InTitan() == TRUE )
 			EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetItem_Youngyak);
 		else
@@ -8798,7 +8799,7 @@ void CItemManager::ItemDropEffect( WORD wItemIdx )
 
 void CItemManager::MoneyDropEffect()
 {
-	// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(µ· È¹µæ)
+	// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(ï¿½ï¿½ È¹ï¿½ï¿½)
 	if( HERO->InTitan() == TRUE )
 		EFFECTMGR->StartHeroEffectProcess(eEffect_Titan_GetMoney);
 	else
@@ -8818,7 +8819,7 @@ void CItemManager::AddUsedItemInfo(SHOPITEMBASE* pInfo)
 	pShopItemBase = m_UsedItemList.GetData(pInfo->ItemBase.wIconIdx );
 	if( pShopItemBase )
 	{
-		// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÃ¼Å©
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½Ã¼Å©
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 		{
 			SAFE_DELETE( pShopItemBase );
@@ -8832,7 +8833,7 @@ void CItemManager::AddUsedItemInfo(SHOPITEMBASE* pInfo)
 	memcpy(pShopItemBase, pInfo, sizeof(SHOPITEMBASE));
 	m_UsedItemList.Add(pShopItemBase, pShopItemBase->ItemBase.wIconIdx);
 
-	// °³ÀÎÇÃ·¯½ºÅ¸ÀÓÃ¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½Ã¼Å©
 	if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM && pItemInfo->MeleeAttackMin )
 	{
 		if( pShopItemBase->Remaintime == 0 )
@@ -8854,7 +8855,7 @@ void CItemManager::AddUsedItemInfo(SHOPITEMBASE* pInfo)
 	if( pShopItemBase->Remaintime <= MINUTETOSECOND*1000 )
 		STATUSICONDLG->SetOneMinuteToShopItem( pShopItemBase->ItemBase.wIconIdx );
 
-	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛÀº ÅøÆÁÀ» µû·Î ¼³Á¤
+	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->ItemKind == eSHOP_ITEM_MAKEUP || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 	{
 		AddUsedAvatarItemToolTip( pInfo );
@@ -8863,7 +8864,7 @@ void CItemManager::AddUsedItemInfo(SHOPITEMBASE* pInfo)
 	{
 		AddUsedShopEquipItemToolTip( pInfo );
 	}
-	// ±â°£Á¦ ÅøÆÁ µû·Î ¼³Á¤
+	// ï¿½â°£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->ItemType == 11 )
 	{
 		CItem* pItem = GetItem( pInfo->ItemBase.dwDBIdx );
@@ -8907,7 +8908,7 @@ void CItemManager::Process()
 	while( pShopItem = m_UsedItemList.GetData() )
 	{
 		pInfo = GetItemInfo( pShopItem->ItemBase.wIconIdx );
-		// ÇÃ·¹ÀÌÅ¸ÀÓ
+		// ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 		if( pInfo && pInfo->SellPrice == eShopItemUseParam_Playtime )
 		{
 			if( NOTIFYMGR->IsEventNotifyUse() )
@@ -9055,7 +9056,7 @@ void CItemManager::SendDeleteItem()
 
 	if( !pItem )	return;
 	// magi82 - Titan(070430)
-	// µî·ÏµÈ Áõ¼­´Â ¹ö¸±¼ö¾ø´Ù.
+	// ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	if(pItem->GetDBIdx() == TITANMGR->GetRegistedTitanItemDBIdx())
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1535) );
@@ -9083,29 +9084,29 @@ void CItemManager::SendDeleteItem()
 }
 
 // 060911 KKR 
-// ¼¥ ¾ÆÀÌÅÛ »ç¿ë½Ã°£ »Ñ¸®±â 
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½Ñ¸ï¿½ï¿½ï¿½ 
 void CItemManager::PrintShopItemUseTime( CItem* pItem, ITEM_INFO* pItemInfo )
 {
-	// »ç¿ë±â°£ Ç¥½Ã.
+	// ï¿½ï¿½ï¿½â°£ Ç¥ï¿½ï¿½.
 	pItem->AddToolTipLine("");
 	pItem->AddToolTipLine( CHATMGR->GetChatMsg(1442), TTTC_DEFAULT );
 
-	// ÇöÀç½Ã°£ °è»êµÇ´Â°Í
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ç´Â°ï¿½
 	if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(1444), TTTC_QUESTITEM );
 	}
-	// ½Ã°£Á¦ÇÑ ¾øÀ½
+	// ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Forever )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(1443), TTTC_QUESTITEM );
 	}
-	// ÇÃ·¹ÀÌ½Ã°£ 
+	// ï¿½Ã·ï¿½ï¿½Ì½Ã°ï¿½ 
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Playtime )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(1444), TTTC_QUESTITEM );
 	}
-	// »ç¿ëÇØ ³õ°í ³ªÁß¿¡ È¿°ú°¡ ¹ßµ¿µÇ´Â°Í 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½Ç´Â°ï¿½ 
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Continue )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(1444), TTTC_QUESTITEM );
@@ -9124,17 +9125,17 @@ void CItemManager::AddUsedAvatarItemToolTip( SHOPITEMBASE* pInfo )
 	stTIME time;
 	time.value = pInfo->Remaintime;
 	
-	// ÃÊ±âÈ­
+	// ï¿½Ê±ï¿½È­
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );		
 	pItem->SetToolTip( "", RGBA_MAKE(255, 255, 255, 255), &imgToolTip, TTCLR_ITEM_CANEQUIP );
 	
-	// ¾ÆÀÌÅÛ ÀÌ¸§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 	char buf[256] = { 0, };
 	wsprintf( buf, "[%s]", pItemInfo->ItemName );
 	pItem->AddToolTipLine( buf );
 
-	//2007. 9. 21. CBH - ·¾Á¦ ÀÖ´Â ˜Þ ¾ÆÀÌÅÆ ·¹º§ »Ñ·ÁÁÖ±â
+	//2007. 9. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½
 	if( pItemInfo->NaeRyukRecoverRate != 0 )
 	{
 		pItem->AddToolTipLine("");
@@ -9148,25 +9149,25 @@ void CItemManager::AddUsedAvatarItemToolTip( SHOPITEMBASE* pInfo )
 	// 060908 KKR
 	AddShopItemToolTip( (cIcon*)pItem, pItemInfo );
 	
-	// ¾ÆÀÌÅÛ ¿É¼Ç  05.02.17
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½  05.02.17
 	//AddAvatarItemOptionTooltip( (cIcon*)pItem, pItemInfo );
 	
 	
 	
-	// ¾ÆÀÌÅÛ ¼³¸í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	AddItemDescriptionToolTip( pItem, pItemInfo->ItemTooltipIdx );
 	
-	// Á¾·á½Ã°£
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 	pItem->AddToolTipLine("");
 	pItem->AddToolTipLine( CHATMGR->GetChatMsg(766), TTTC_DEFAULT );
 	
-	// ÇöÀç½Ã°£ °è»êµÇ´Â°Í
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ç´Â°ï¿½
 	if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
 		wsprintf( buf, CHATMGR->GetChatMsg(767), time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute() );			
 		pItem->AddToolTipLine( buf, TTTC_QUESTITEM );
 	}
-	// ½Ã°£Á¦ÇÑ ¾øÀ½
+	// ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Forever )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(749), TTTC_QUESTITEM );
@@ -9179,7 +9180,7 @@ void CItemManager::AddUsedShopEquipItemToolTip( SHOPITEMBASE* pInfo )
 	ITEM_INFO* pItemInfo = GetItemInfo( pInfo->ItemBase.wIconIdx );
 	if( !pItem || !pItemInfo )		return;
 
-	// ÃÊ±âÈ­
+	// ï¿½Ê±ï¿½È­
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );		
 	pItem->SetToolTip( "", RGBA_MAKE(255, 255, 255, 255), &imgToolTip, TTCLR_ITEM_CANEQUIP );
@@ -9192,17 +9193,17 @@ void CItemManager::AddUsedShopEquipItemToolTip( SHOPITEMBASE* pInfo )
 	stTIME time;
 	time.value = pInfo->Remaintime;
 	
-	// Á¾·á½Ã°£
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 	pItem->AddToolTipLine("");
 	pItem->AddToolTipLine( CHATMGR->GetChatMsg(766), TTTC_DEFAULT );
 
-	// ÇöÀç½Ã°£ °è»êµÇ´Â°Í
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ç´Â°ï¿½
 	if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
 		wsprintf( buf, CHATMGR->GetChatMsg(767), time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute() );			
 		pItem->AddToolTipLine( buf, TTTC_QUESTITEM );
 	}
-	// ½Ã°£Á¦ÇÑ ¾øÀ½
+	// ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Forever )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(749), TTTC_QUESTITEM );
@@ -9221,12 +9222,12 @@ void CItemManager::AddUsedPetEquipItemToolTip( SHOPITEMBASE* pInfo )
 	stTIME time;
 	time.value = pInfo->Remaintime;
 
-	// ÃÊ±âÈ­
+	// ï¿½Ê±ï¿½È­
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );		
 	pItem->SetToolTip( "", RGBA_MAKE(255, 255, 255, 255), &imgToolTip, TTCLR_ITEM_CANEQUIP );
 
-	// ¾ÆÀÌÅÛ ÀÌ¸§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 	char buf[256] = { 0, };
 	wsprintf( buf, "[%s]", pItemInfo->ItemName );
 	pItem->AddToolTipLine( buf );
@@ -9237,20 +9238,20 @@ void CItemManager::AddUsedPetEquipItemToolTip( SHOPITEMBASE* pInfo )
 	// 060908 KKR
 	AddShopItemToolTip( (cIcon*)pItem, pItemInfo );
 
-	// ¾ÆÀÌÅÛ ¼³¸í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	AddItemDescriptionToolTip( pItem, pItemInfo->ItemTooltipIdx );
 
-	// Á¾·á½Ã°£
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 	pItem->AddToolTipLine("");
 	pItem->AddToolTipLine( CHATMGR->GetChatMsg(766), TTTC_DEFAULT );
 
-	// ÇöÀç½Ã°£ °è»êµÇ´Â°Í
+	// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ç´Â°ï¿½
 	if( pItemInfo->SellPrice == eShopItemUseParam_Realtime )
 	{
 		wsprintf( buf, CHATMGR->GetChatMsg(767), time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute() );			
 		pItem->AddToolTipLine( buf, TTTC_QUESTITEM );
 	}
-	// ½Ã°£Á¦ÇÑ ¾øÀ½
+	// ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if( pItemInfo->SellPrice == eShopItemUseParam_Forever )
 	{
 		pItem->AddToolTipLine( CHATMGR->GetChatMsg(749), TTTC_QUESTITEM );
@@ -9276,7 +9277,7 @@ void CItemManager::RefreshStatsBuffIcon()
 }
 
 // 060908 KKR
-// ¼¥ ¾ÆÀÌÅÛ ºÀÀÎµÈ ¾ÆÀÌÅÛ ÅøÆÁ »Ñ¸®±â 
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½ï¿½ï¿½ 
 void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 {
 	char line[128];	
@@ -9286,31 +9287,31 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 
     if( pItemInfo->GenGol != 0 )
 	{
-		// °æÇèÄ¡Ãß°¡ È¹µæÈ®·ü
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ß°ï¿½ È¹ï¿½ï¿½È®ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1395), pItemInfo->GenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡µÇ´Â ±Ù·Â
+		// ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½Ù·ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1437), pItemInfo->GenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// »ý¸í·Â È¸º¹·®
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1409), pItemInfo->GenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ½ºÅÈÆ÷ÀÎÆ®
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1470), pItemInfo->GenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// °­È­Á¦ÇÑ½ÃÀÛ·¹º§
+		// ï¿½ï¿½È­ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½Û·ï¿½ï¿½ï¿½
 		/*if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1), pItemInfo->GenGol);
@@ -9319,25 +9320,25 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MinChub != 0 )
 	{
-		// µ· Ãß°¡ µå¶ø È®·ü
+		// ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1403), pItemInfo->MinChub);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡µÇ´Â ¹ÎÃ¸
+		// ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Ã¸
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1438), pItemInfo->MinChub);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// È£½Å°­±â È¸º¹·®
+		// È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1433), pItemInfo->MinChub);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// °­È­Á¦ÇÑÁ¾·á·¹º§
+		// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á·¹ï¿½ï¿½
 		/*if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(57), pItemInfo->MinChub);
@@ -9346,25 +9347,25 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->CheRyuk != 0 )
 	{
-		// ÇÏ·çµ¿¾È °æÇèÄ¡ ÆÐ³ÎÆ¼ ¹æÁö È½¼ö
+		// ï¿½Ï·çµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1430), pItemInfo->CheRyuk);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡µÇ´Â Ã¼·Â
+		// ï¿½ß°ï¿½ï¿½Ç´ï¿½ Ã¼ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1441), pItemInfo->CheRyuk);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ³»·Â È¸º¹·®
+		// ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1399), pItemInfo->CheRyuk);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// °æÇèÄ¡+µ·º¸È£ÁÖ¹®¼­ È½¼ö
+		// ï¿½ï¿½ï¿½ï¿½Ä¡+ï¿½ï¿½ï¿½ï¿½È£ï¿½Ö¹ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1396), pItemInfo->CheRyuk);
@@ -9374,17 +9375,17 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	/*
 	if( pItemInfo->CheRyuk == 0 )
 	{
-		// ³ëÁ¡»ó ºÒ°¡´É
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
-			sprintf(line, CHATMGR->GetChatMsg(1402), "ºÒ°¡´É");
+			sprintf(line, CHATMGR->GetChatMsg(1402), "ï¿½Ò°ï¿½ï¿½ï¿½");
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 	}
 	*/
 	if( pItemInfo->CheRyuk == 1 )
 	{
-		// ³ëÁ¡±â´É
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1402));
@@ -9394,25 +9395,25 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 
 	if( pItemInfo->SimMek != 0 )
 	{
-		// ÇÏ·çµ¿¾È µ· Æä³ÎÆ¼ ¹æÁö È½¼ö
+		// ï¿½Ï·çµ¿ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1431), pItemInfo->SimMek);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡µÇ´Â ½É¸Æ
+		// ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½É¸ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1439), pItemInfo->SimMek);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡ ³»·ÂÈ¸º¹¼Óµµ(100%-100)
+		// ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½Óµï¿½(100%-100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1421), pItemInfo->SimMek);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ã¼ÀÎÁö¾ÆÀÌÅÛ ÀÎµ¦½º
+		// Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 		/*if( pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(33), pItemInfo->SimMek);
@@ -9421,25 +9422,25 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->Life != 0 )
 	{
-		// »óÁ¡¿¡ ¹°°ÇÆÈ¶§ µ·ÀÇ Ãß°¡È¹µæ È®·ü (100% = 100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½È¹ï¿½ï¿½ È®ï¿½ï¿½ (100% = 100)
 		/*if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(22), pItemInfo->Life);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}*/
-		// ³»°øµ¥¹ÌÁö Áõ°¡·®(100% - 100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100% - 100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1397), pItemInfo->Life);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ÃÖ´ë»ý¸í·Â Áõ°¡·®
+		// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1419), pItemInfo->Life);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ÀçºÐ¹èÇÒ ¼ö ÀÖ´Â Æ¯±âÄ¡
+		// ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Æ¯ï¿½ï¿½Ä¡
 		if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1417), pItemInfo->Life);
@@ -9448,13 +9449,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->Shield != 0 )
 	{
-		// ¿Ü°øµ¥¹ÌÁö Áõ°¡·®(100% - 100)
+		// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100% - 100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1416), pItemInfo->Shield);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ÃÖ´ëÈ£½Å°­±â Áõ°¡·®
+		// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1420), pItemInfo->Shield);
@@ -9463,13 +9464,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->NaeRyuk != 0 )
 	{
-		// Æ¯±âÄ¡ Áõ°¡·®
+		// Æ¯ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1428), pItemInfo->NaeRyuk);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ÃÖ´ë³»·Â Áõ°¡·®
+		// ï¿½Ö´ë³»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_HERB || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1418), pItemInfo->NaeRyuk);
@@ -9478,19 +9479,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitJob != 0 )
 	{
-		// ÄÞº¸µ¥¹ÌÁö Áõ°¡·®(100%-100)
+		// ï¿½Þºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100%-100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1422), pItemInfo->LimitJob);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ÇØÁ¦µÇ¾î ´õÇØÁö´Â ·¹º§
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION  )
 		{            
 			sprintf(line, CHATMGR->GetChatMsg(1432), pItemInfo->LimitJob);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ³»°øµ¥¹ÌÁö Áõ°¡·®(100% - 100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100% - 100)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1397), pItemInfo->LimitJob);
@@ -9499,13 +9500,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitGender != 0 )
 	{
-		// Å©¸®Æ¼ÄÃ Áõ°¡·®
+		// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1423), pItemInfo->LimitGender);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ¿Ü°øµ¥¹ÌÁö Áõ°¡·®(100% - 100)
+		// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100% - 100)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1416), pItemInfo->LimitGender);
@@ -9514,13 +9515,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitLevel != 0 )
 	{
-		// Å©¸®Æ¼ÄÃ½Ã ½ºÅÏÈ®·ü(100%-100)
+		// Å©ï¿½ï¿½Æ¼ï¿½Ã½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½(100%-100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1424), pItemInfo->LimitLevel);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Å¸°ÙÀÇ ¹°¸®¹æ¾î·Â ÇÏ¶ô(100%-100)
+		// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½(100%-100)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1426), pItemInfo->LimitLevel);
@@ -9529,19 +9530,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitGenGol != 0 )
 	{
-		// ¹°¸®¹æ¾î·ÂÁõ°¡(100%-100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100%-100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1406), pItemInfo->LimitGenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Å¸°ÙÀÇ ¼Ó¼ºÀúÇ×·Â°¨¼Ò(100%-100)
+		// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·Â°ï¿½ï¿½ï¿½(100%-100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1427), pItemInfo->LimitGenGol);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ½ºÅÂ¹Ì³ª ¼Òºñ °¨¼Ò·®(%)
+		// ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½Òºï¿½ ï¿½ï¿½ï¿½Ò·ï¿½(%)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1450), pItemInfo->LimitGenGol);
@@ -9550,19 +9551,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitMinChub != 0 )
 	{
-		// ¼Ó¼º¹æ¾î·ÂÁõ°¡(100%-100)
+		// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100%-100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1410), pItemInfo->LimitMinChub);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Å¸°ÙÀÇ °ø°Ý·Â°¨¼Ò(100%-100)
+		// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·Â°ï¿½ï¿½ï¿½(100%-100)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1425), pItemInfo->LimitMinChub);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ½ºÅÂ¹Ì³ª ÃÖ´ëÄ¡ Áõ°¡·®(val)
+		// ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½Ö´ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(val)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1451), pItemInfo->LimitMinChub);
@@ -9572,13 +9573,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitCheRyuk != 0 )
 	{
-		// ³»·Â¼Ò¸ð°¨¼ÒÀ²(100%-100)
+		// ï¿½ï¿½ï¿½Â¼Ò¸ð°¨¼ï¿½ï¿½ï¿½(100%-100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1400), pItemInfo->LimitCheRyuk);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ½ºÅÂ¹Ì³ª È¸º¹ Áõ°¡·®(%)
+		// ï¿½ï¿½ï¿½Â¹Ì³ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(%)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1448), pItemInfo->LimitCheRyuk);
@@ -9587,19 +9588,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LimitSimMek != 0 )
 	{
-		// °æÇèÄ¡ Ãß°¡(100% - 100)
+		// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ß°ï¿½(100% - 100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1395), pItemInfo->LimitSimMek);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// È¸º¹·® Ãß°¡Áõ°¡Ä¡
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1434), pItemInfo->LimitSimMek);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ½ºÅÂ¹Ì³ª È¸º¹ Ãß°¡·®(val)
+		// ï¿½ï¿½ï¿½Â¹Ì³ï¿½ È¸ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½(val)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1448), pItemInfo->LimitSimMek);
@@ -9608,19 +9609,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->ItemGrade != 0 )
 	{
-		// Æ¯±âÄ¡Ãß°¡(100% - 100)
+		// Æ¯ï¿½ï¿½Ä¡ï¿½ß°ï¿½(100% - 100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1429), pItemInfo->ItemGrade);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// °æ°ø¼Óµµ»ó½ÂÁ¤µµ
+		// ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1394), pItemInfo->ItemGrade);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ä£¹Ðµµ Ãß°¡ È¹µæ·®(%)
+		// Ä£ï¿½Ðµï¿½ ï¿½ß°ï¿½ È¹ï¿½æ·®(%)
  		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1447), pItemInfo->ItemGrade);
@@ -9629,19 +9630,19 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->RangeType != 0 )
 	{
-		// ¹«°ø°æÇèÄ¡Ãß°¡(100% - 100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ß°ï¿½(100% - 100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1452), pItemInfo->RangeType);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ¹¬È¥°ÔÀÌÁö Ãß°¡·Î Â÷´Â¼Óµµ( 100 ->100%Ãß°¡)
+		// ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¼Óµï¿½( 100 ->100%ï¿½ß°ï¿½)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1405), pItemInfo->RangeType);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ä£¹Ðµµ °¨¼Ò º¸È£·®(%)
+		// Ä£ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½(%)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PET_EQUIP  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1551), pItemInfo->RangeType);
@@ -9650,14 +9651,14 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->EquipKind != 0 )
 	{
-		// »ç¿ëÁ¦ÇÑ·¹º§
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½
        /* if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(63), pItemInfo->RangeType);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
 		*/
-		// °æ°ø»ç¿ë½Ã ³»·Â¼Ò¸ð¿©ºÎ(¼Ò¸ð¾ÈµÇ¸é 1 )
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¼Ò¸ð¿©ºï¿½(ï¿½Ò¸ï¿½ÈµÇ¸ï¿½ 1 )
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1393), pItemInfo->RangeType);
@@ -9666,13 +9667,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MeleeAttackMin != 0 )
 	{
-		// °ãÄ¡¸é ¾ÈµÇ´Â ÇÃ·¯½ºÅ¸ÀÓÀÇ ÀÌº¥Æ® ¹øÈ£
+		// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½È£
         /*if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(4), pItemInfo->MeleeAttackMin);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}*/
-		// ¹«±â °ø°Ý·Â
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1449), pItemInfo->MeleeAttackMin);
@@ -9681,13 +9682,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->RangeAttackMin != 0 )
 	{
-		// °æ°øµô·¹ÀÌ ¾øÀ¸¸é 1
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1392));
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ³»·ÂÈ¸º¹½Ã È£½Å°­±â È¸º¹·® (100->100%È¸º¹)
+		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ (100->100%È¸ï¿½ï¿½)
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1401), pItemInfo->RangeAttackMin);
@@ -9696,13 +9697,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->RangeAttackMax != 0 )
 	{
-		// °æ°ø¼Óµµ »ó½ÂÁ¤µµ
+		// ï¿½ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1394), pItemInfo->RangeAttackMax);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ¹¬È¥¸ðµå½Ã °ø°Ý·ÂÁõ°¡
+		// ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1474), pItemInfo->RangeAttackMax);
@@ -9711,13 +9712,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->CriticalPercent != 0 )
 	{
-		// °­È­ÁõÆø¼öÄ¡
+		// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1390), pItemInfo->CriticalPercent);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// Ãß°¡µÇ´Â ÀÏ°Ý
+		// ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½Ï°ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			//sprintf(line, CHATMGR->GetChatMsg(1440), pItemInfo->CriticalPercent);
@@ -9727,7 +9728,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->PhyDef != 0 )
 	{
-		// ¾ÆÀÌÅÛÃß°¡ µå¶øÈ®À²(100% - 100)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ ï¿½ï¿½ï¿½È®ï¿½ï¿½(100% - 100)
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1415), pItemInfo->PhyDef);
@@ -9736,13 +9737,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->Plus_MugongIdx != 0 )
 	{
-		// ÃÖ´ë»ý¸í·ÂÁõ°¡·®
+		// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1419), pItemInfo->Plus_MugongIdx);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ¹Ý°Ý È®·ü 100%=100
+		// ï¿½Ý°ï¿½ È®ï¿½ï¿½ 100%=100
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1407), pItemInfo->Plus_MugongIdx);
@@ -9751,13 +9752,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->Plus_Value != 0 )
 	{
-		// ÃÖ´ëÈ£½Å°­±âÁõ°¡·®
+		// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1420), pItemInfo->Plus_Value);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// ¹Ý°Ý½Ã µ¥¹ÌÁö% 100%=100
+		// ï¿½Ý°Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½% 100%=100
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1408), pItemInfo->Plus_Value);
@@ -9766,13 +9767,13 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->AllPlus_Kind != 0 )
 	{
-		// ÃÖ´ë³»·ÂÁõ°¡·®
+		// ï¿½Ö´ë³»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1418), pItemInfo->AllPlus_Kind);
 			pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 		}
-		// °æ°øµô·¹ÀÌ°¡ ¾øÀ¸¸é 1
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1
 		if( pItemInfo->ItemKind == eSHOP_ITEM_DECORATION  )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1392));
@@ -9781,7 +9782,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	/*if( pItemInfo->AllPlus_Value != 0 )
 	{
-		// Áßº¹»ç¿ë¾ÈµÇ´Â ºÎÀû·ù
+		// ï¿½ßºï¿½ï¿½ï¿½ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_HERB ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
@@ -9791,7 +9792,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MugongNum != 0 )
 	{
-		// Áßº¹»ç¿ë¾ÈµÇ´Â ¹°¾à·ù
+		// ï¿½ßºï¿½ï¿½ï¿½ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_HERB ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
@@ -9801,7 +9802,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MugongType != 0 )
 	{
-		// Áßº¹»ç¿ë¾ÈµÇ´Â ÁÖ¹®¼­·ù
+		// ï¿½ßºï¿½ï¿½ï¿½ï¿½ÈµÇ´ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_HERB ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
@@ -9811,7 +9812,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->LifeRecover != 0 )
 	{
-		// Áßº¹»ç¿ë¾ÈµÇ´Â ÀâÈ­·ù
+		// ï¿½ßºï¿½ï¿½ï¿½ï¿½ÈµÇ´ï¿½ ï¿½ï¿½È­ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_CHARM || pItemInfo->ItemKind == eSHOP_ITEM_HERB ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_SUNDRIES )
 		{
@@ -9823,7 +9824,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	/*
 	if( pItemInfo->LifeRecover != 0 )
 	{
-		// ³»°øÀûÁß
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM || pItemInfo->ItemKind == eSHOP_ITEM_CHARM ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_MAKEUP ||
 			pItemInfo->ItemKind == eSHOP_ITEM_MAKEUP || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION ||
@@ -9834,10 +9835,10 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 		}
 	}
 	*/
-	//2007. 12. 24. CBH - ³»°øÀÏ°Ý ¾ÆÀÌÅÆ ¼öÄ¡ Àß¸ø Ã³¸®µÈ ºÎºÐ ¼öÁ¤
+	//2007. 12. 24. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ß¸ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->NaeRyukRecover != 0 )
 	{
-		// ³»°øÀûÁß
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_PREMIUM || pItemInfo->ItemKind == eSHOP_ITEM_CHARM ||
 			pItemInfo->ItemKind == eSHOP_ITEM_INCANTATION || pItemInfo->ItemKind == eSHOP_ITEM_MAKEUP ||
 			pItemInfo->ItemKind == eSHOP_ITEM_MAKEUP || pItemInfo->ItemKind == eSHOP_ITEM_DECORATION ||
@@ -9849,7 +9850,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->BuyPrice  == 1 )
 	{
-		// °Å·¡ºÒ°¡´É
+		// ï¿½Å·ï¿½ï¿½Ò°ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemInfo->ItemKind == eSHOP_ITEM_PET )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1391), CHATMGR->GetChatMsg(1465));
@@ -9858,7 +9859,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->BuyPrice  == 0 )
 	{
-		// °Å·¡°¡´É
+		// ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemInfo->ItemKind == eSHOP_ITEM_PET )
 		{
 			if( pItemInfo->ItemType == 11 )
@@ -9876,7 +9877,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MeleeAttackMax == 0 )
 	{
-		// °Å·¡°¡´É 
+		// ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemInfo->ItemKind == eSHOP_ITEM_PET )
 		{
 
@@ -9895,7 +9896,7 @@ void CItemManager::AddShopItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo )
 	}
 	if( pItemInfo->MeleeAttackMax == 1 )
 	{
-		// °Å·¡ºÒ°¡´É 
+		// ï¿½Å·ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ 
 		if( pItemInfo->ItemKind == eSHOP_ITEM_EQUIP || pItemInfo->ItemKind == eSHOP_ITEM_PET )
 		{
 			sprintf(line, CHATMGR->GetChatMsg(1391), CHATMGR->GetChatMsg(1465));
@@ -9910,74 +9911,74 @@ void CItemManager::AddAvatarItemOptionTooltip( cIcon* pIcon, ITEM_INFO* pItemInf
 /*	char line[128];	
 	pIcon->AddToolTipLine("");
 
-	// ±Ù°ñ
+	// ï¿½Ù°ï¿½
 	if( pItemInfo->GenGol > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(382), pItemInfo->GenGol);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ¹ÎÃ¸
+	// ï¿½ï¿½Ã¸
 	if( pItemInfo->MinChub > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(383), pItemInfo->MinChub);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// Ã¼·Â
+	// Ã¼ï¿½ï¿½
 	if( pItemInfo->CheRyuk > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(384), pItemInfo->CheRyuk);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ½É¸Æ
+	// ï¿½É¸ï¿½
 	if( pItemInfo->SimMek > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(385), pItemInfo->SimMek);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ÃÖ´ë»ý¸í·Â
+	// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->Life > 0 )
 	{
 		sprintf(line, "%s +%d", 
 			CHATMGR->GetChatMsg(386), pItemInfo->Life);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ÃÖ´ëÈ£½Å°­±â
+	// ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½
 	if( pItemInfo->Shield > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(388), pItemInfo->Shield);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ÃÖ´ë³»·Â
+	// ï¿½Ö´ë³»ï¿½ï¿½
 	if( pItemInfo->NaeRyuk > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(387), pItemInfo->NaeRyuk);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ¹«±â°ø°Ý·Â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
 	if( pItemInfo->MeleeAttackMin > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(747), pItemInfo->MeleeAttackMin);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// Å©¸®Æ¼ÄÃ¼öÄ¡
+	// Å©ï¿½ï¿½Æ¼ï¿½Ã¼ï¿½Ä¡
 	if( pItemInfo->CriticalPercent > 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(390), pItemInfo->CriticalPercent);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ¹Ý°ÝÈ®À²
+	// ï¿½Ý°ï¿½È®ï¿½ï¿½
 	if( pItemInfo->Plus_MugongIdx > 0 )
 	{
 		sprintf(line, "%s +%d%%", CHATMGR->GetChatMsg(746), pItemInfo->Plus_MugongIdx);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// ¹Ý°Ý½Ã µ¥¹ÌÁöÀ²
+	// ï¿½Ý°Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->Plus_Value > 0 )
 	{
 		sprintf(line, "%s +%d%%", CHATMGR->GetChatMsg(745), pItemInfo->Plus_Value);
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
-	// °æ°øµô·¹ÀÌ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pItemInfo->AllPlus_Kind == 1 )
 	{
 		sprintf(line, "%s", CHATMGR->GetChatMsg(744));
@@ -9987,20 +9988,20 @@ void CItemManager::AddAvatarItemOptionTooltip( cIcon* pIcon, ITEM_INFO* pItemInf
 	
 	
 #ifdef TAIWAN_LOCAL	
-	//ÇÏµåÄÚµù!!! avartar item
+	//ï¿½Ïµï¿½ï¿½Úµï¿½!!! avartar item
 	if( pItemInfo->ItemIdx == 55533 || pItemInfo->ItemIdx == 55534 )
 	{
-		sprintf(line, "Çá¹¦ÔìÒè +%d", 100 );
+		sprintf(line, "ï¿½á¹¦ï¿½ï¿½ï¿½ï¿½ +%d", 100 );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );		
 	}
-	//ÇÏµåÄÚµù!!! avartar item
+	//ï¿½Ïµï¿½ï¿½Úµï¿½!!! avartar item
 	if( pItemInfo->ItemIdx == 55535 || pItemInfo->ItemIdx == 55536 )
 	{
-		sprintf(line, "»Ö¸´Á¿ +%d%%", 10 );
+		sprintf(line, "ï¿½Ö¸ï¿½ï¿½ï¿½ +%d%%", 10 );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );
 	}
 #else
-	//ÇÏµåÄÚµù!!! avartar item
+	//ï¿½Ïµï¿½ï¿½Úµï¿½!!! avartar item
 	if( pItemInfo->ItemIdx == 55533 || pItemInfo->ItemIdx == 55534 ||
 		pItemInfo->ItemIdx == 57569 || pItemInfo->ItemIdx == 57570 ||
 		pItemInfo->ItemIdx == 57571 || pItemInfo->ItemIdx == 57572 ||
@@ -10009,7 +10010,7 @@ void CItemManager::AddAvatarItemOptionTooltip( cIcon* pIcon, ITEM_INFO* pItemInf
 		sprintf(line, CHATMGR->GetChatMsg(1290), 100 );
 		pIcon->AddToolTipLine( line, TTTC_EXTRAATTR );		
 	}
-	//ÇÏµåÄÚµù!!! avartar item
+	//ï¿½Ïµï¿½ï¿½Úµï¿½!!! avartar item
 	if( pItemInfo->ItemIdx == 55535 || pItemInfo->ItemIdx == 55536 ||
 		pItemInfo->ItemIdx == 57575 || pItemInfo->ItemIdx == 57576 ||
 		pItemInfo->ItemIdx == 57577 || pItemInfo->ItemIdx == 57578 ||
@@ -10168,7 +10169,7 @@ void CItemManager::CheckInvenFullForAlert(int flg)
 #endif
 #endif
 #endif
-	//ÀÏ¹Ý ¾ÆÀÌÅÛ°ú ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛ Ç®ÀÎº¥ »óÅÂ¸¦ Ã¼Å©. °æ°í ¸Þ½ÃÁö¸¦ º¸¿©ÁØ´Ù.
+	//ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½Îºï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ Ã¼Å©. ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	CInventoryExDialog* pInven = GAMEIN->GetInventoryDialog();
 	CItemShopInven* pSInven = pInven->GetShopInven();
 
@@ -10284,7 +10285,7 @@ void CItemManager::GetItemOptionsAndToolTipFromInfoMsg( cIcon* pIcon, MSG_LINKIT
 	}
 }
 
-///// 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ °ü·Ã ÇÔ¼ö Ãß°¡ ///////////////////////////
+///// 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½ ///////////////////////////
 BOOL CItemManager::LoadSetItemOption()
 {
 	CMHFile file;
@@ -10376,7 +10377,7 @@ SET_ITEM_OPTION* CItemManager::GetSetItemOption(WORD wSetItemKind, WORD wSetValu
 
 SET_ITEM_OPTION* CItemManager::GetSetItemOption(WORD wSetItemKind)
 {
-	//ÇØ´ç ¼¼Æ® ¾ÆÀÌÅÆ Á¾·ùÀÇ ÃÖ°í Ç®¼Â ¿É¼Ç Á¤º¸¸¦ ¹ÝÈ¯
+	//ï¿½Ø´ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ Ç®ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	SET_ITEM_OPTION* pSetItemOption = NULL;
 
 	m_SetItemOptionList.SetPositionHead();
@@ -10417,7 +10418,7 @@ void CItemManager::AddSetItemToolTip(cIcon* pIcon, ITEM_INFO* pItemInfo )
 		
 	dwSetItemCount = GetSetItemEquipValue(pItemInfo);
 
-	//ÇöÀç ¾ÆÀÌÅÆÀÇ ¼¼Æ®Á¾·ù°¡ ÃÖ°í ¸î¼¼Æ® Á¤º¸±îÁö ÀÖ´ÂÁö °Ë»ç		
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½î¼¼Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½		
 	m_SetItemOptionList.SetPositionHead();	
 	SET_ITEM_OPTION* pSetItemOption = NULL;
 	while( pSetItemOption = m_SetItemOptionList.GetData() )
@@ -10446,7 +10447,7 @@ DWORD CItemManager::GetSetItemEquipValue(ITEM_INFO* pItemInfo)
 	CItem* pItem = NULL;
 	DWORD dwSetItemCount = 0;
 
-	//ÀåºñÃ¢¿¡ °°Àº Á¾·ùÀÇ ¼¼Æ® ¾ÆÀÌÅÆÀÌ ¸î°³ ÀåÂø µÇÀÖ´ÂÁö °Ë»ç
+	//ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î°³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	for(unsigned int ui = TP_WEAR_START ; ui < TP_WEAR_END ; ui++)
 	{
 		pItem = GAMEIN->GetInventoryDialog()->GetItemForPos( ui );
@@ -10488,49 +10489,49 @@ void CItemManager::SetSetItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo, BOOL b
 		return;
 	}	
 
-	/// ±Ù°ñ
+	/// ï¿½Ù°ï¿½
 	if( pSetItemOption->wGenGol != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(382), pSetItemOption->wGenGol);		
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//¹ÎÃ¸
+	//ï¿½ï¿½Ã¸
 	if( pSetItemOption->wMinChub != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(383), pSetItemOption->wMinChub);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//Ã¼·Â
+	//Ã¼ï¿½ï¿½
 	if( pSetItemOption->wCheRyuk != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(384), pSetItemOption->wCheRyuk);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//½É¸Æ
+	//ï¿½É¸ï¿½
 	if( pSetItemOption->wSimMek != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(385), pSetItemOption->wSimMek);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//ÃÖ´ë»ý¸í·Â
+	//ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pSetItemOption->dwLife != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(386), pSetItemOption->dwLife);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//È£½Å°­±â
+	//È£ï¿½Å°ï¿½ï¿½ï¿½
 	if( pSetItemOption->dwShield != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(388), pSetItemOption->dwShield);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//ÃÖ´ë³»·Â
+	//ï¿½Ö´ë³»ï¿½ï¿½
 	if( pSetItemOption->dwNaeRyuk != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(387), pSetItemOption->dwNaeRyuk);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//¼Ó¼º ÀúÇ×·Â
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½×·ï¿½
 	for(int i = ATTR_FIRE; i <= ATTR_MAX; ++i )
 	{
 		attrvalue = pSetItemOption->AttrRegist.GetElement_Val(i);
@@ -10541,25 +10542,25 @@ void CItemManager::SetSetItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo, BOOL b
 		}
 		attrvalue = 0;
 	}
-	//±Ù°Å¸® °ø°Ý·Â
+	//ï¿½Ù°Å¸ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	if( pSetItemOption->wMeleeAttackMin != 0 || pSetItemOption->wMeleeAttackMax != 0)
 	{
 		sprintf( line, "%s %d ~ %d", CHATMGR->GetChatMsg(389), pSetItemOption->wMeleeAttackMin, pSetItemOption->wMeleeAttackMax );
 		pIcon->AddToolTipLine( line, dwColor );
 	}	
-	//¿ø°Å¸® °ø°Ý·Â
+	//ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	if( pSetItemOption->wRangeAttackMin != 0 || pSetItemOption->wRangeAttackMax != 0)
 	{
 		sprintf( line, "%s %d ~ %d", CHATMGR->GetChatMsg(391), pSetItemOption->wRangeAttackMin, pSetItemOption->wRangeAttackMax );
 		pIcon->AddToolTipLine( line, dwColor );
 	}	
-	//Å©¸®Æ¼ÄÃ
+	//Å©ï¿½ï¿½Æ¼ï¿½ï¿½
 	if( pSetItemOption->wCriticalPercent != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(390), pSetItemOption->wCriticalPercent);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//¼Ó¼º °ø°Ý·Â
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½
 	for(int i = ATTR_FIRE; i <= ATTR_MAX; ++i )
 	{
 		attrvalue = pSetItemOption->AttrAttack.GetElement_Val(i);
@@ -10570,31 +10571,31 @@ void CItemManager::SetSetItemToolTip( cIcon* pIcon, ITEM_INFO* pItemInfo, BOOL b
 		}
 		attrvalue = 0;
 	}		
-	//¹°¸®¹æ¾î·Â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( pSetItemOption->wPhyDef != 0 )
 	{
 		sprintf(line, "%s +%d", CHATMGR->GetChatMsg(397), pSetItemOption->wPhyDef);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//»ý¸í·Â È¸º¹ (°íÁ¤)	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)	
 	if(pSetItemOption->wLifeRecover != 0)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1564), pSetItemOption->wLifeRecover);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//»ý¸í·Â È¸º¹
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 	if(pSetItemOption->fLifeRecoverRate != 0)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1566), (WORD)(pSetItemOption->fLifeRecoverRate * 100));
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//³»·Â È¸º¹ (°íÁ¤)
+	//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	if(pSetItemOption->wNaeRyukRecover != 0)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1565), pSetItemOption->wNaeRyukRecover);
 		pIcon->AddToolTipLine( line, dwColor );
 	}
-	//³»·Â È¸º¹
+	//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 	if(pSetItemOption->fNaeRyukRecoverRate != 0)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1567), (WORD)(pSetItemOption->fNaeRyukRecoverRate * 100));
@@ -10609,11 +10610,11 @@ CYHHashTable<SET_ITEM_OPTION>* CItemManager::GetSetItemOptionList()
 
 void CItemManager::SetItemEffectProcess(CPlayer* pPlayer)
 {
-	//Ä³¸¯ÅÍ ÀÌÆåÆ® Ã³¸® 
+	//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ 
 	SET_ITEM_INFO setItemInfo[MAX_SETITEM_KIND_NUM];
 	memset(setItemInfo, 0, sizeof(SET_ITEM_INFO) * MAX_SETITEM_KIND_NUM);		
 
-	//Å¸ÀÌÅºÀ» Å¸°í ÀÖÀ¸¸é ÀÌÆåÆ® ²ö´Ù
+	//Å¸ï¿½ï¿½Åºï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	if( (pPlayer->InTitan() == TRUE) && (pPlayer->GetSetItemEffectID() != 0) )
 	{
 		pPlayer->RemoveObjectEffect( pPlayer->GetSetItemEffectID() );
@@ -10621,7 +10622,7 @@ void CItemManager::SetItemEffectProcess(CPlayer* pPlayer)
 		return;
 	}
 
-	//Ä³¸¯ÅÍÀÇ ÀåÂø ¾ÆÀÌÅÆ °Ë»öÇÏ¿© ¹è¿­¿¡ ÀúÀå
+	//Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CHARACTER_TOTALINFO* pCharacterinfo = pPlayer->GetCharacterTotalInfo();
 
 	for(unsigned int i = 0 ; i < eWearedItem_Max ; i++)
@@ -10656,7 +10657,7 @@ void CItemManager::SetItemEffectProcess(CPlayer* pPlayer)
 	SET_ITEM_OPTION* pSetItemOption = NULL;		
 	for(unsigned int ui = 0 ; ui < MAX_SETITEM_KIND_NUM ; ui++)
 	{
-		//3°³ ¼¼Æ® ÀÌ»ó Âø¿ë½ÃºÎÅÍ °Ë»ç
+		//3ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 		if(setItemInfo[ui].wCount != 0)
 		{			
 			pSetItemOption = GetSetItemOption(setItemInfo[ui].wKind);
@@ -10708,7 +10709,7 @@ void CItemManager::AddUniqueItemToolTip(cIcon* pIcon, ITEM_INFO* pItemInfo )
 
 	pIcon->AddToolTipLine("");
 
-	// °Å·¡, ³ëÁ¡»ó
+	// ï¿½Å·ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pUniqueInfo->ExchangeFlag == 1)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1607));
@@ -10720,7 +10721,7 @@ void CItemManager::AddUniqueItemToolTip(cIcon* pIcon, ITEM_INFO* pItemInfo )
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 	}
 
-	// Á¶ÇÕ
+	// ï¿½ï¿½ï¿½ï¿½
 	if(pUniqueInfo->MixFlag == 1)
 	{
 		sprintf(line, CHATMGR->GetChatMsg(1609));
@@ -10746,84 +10747,84 @@ void CItemManager::AddUniqueItemToolTip(cIcon* pIcon, ITEM_INFO* pItemInfo )
 	else if( pUniqueInfo->nMp < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// È£½Å°­±â
+	// È£ï¿½Å°ï¿½ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1613), pUniqueInfo->nShield);
 	if(pUniqueInfo->nShield > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nShield < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ¹°¸®µ¥¹ÌÁö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1614), pUniqueInfo->nPhyDamage);
 	if(pUniqueInfo->nPhyDamage > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nPhyDamage < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ÀÏ°Ýµ¥¹ÌÁö
+	// ï¿½Ï°Ýµï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1615), pUniqueInfo->nCriDamage);
 	if(pUniqueInfo->nCriDamage > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nCriDamage < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ÀÏ°ÝÈ®·ü
+	// ï¿½Ï°ï¿½È®ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1616), pUniqueInfo->nCriRate);
 	if(pUniqueInfo->nCriRate > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nCriRate < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ±Ù°ñ
+	// ï¿½Ù°ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1617), pUniqueInfo->nGengol);
 	if(pUniqueInfo->nGengol > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nGengol < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ¹ÎÃ¸
+	// ï¿½ï¿½Ã¸
 	sprintf(line, CHATMGR->GetChatMsg(1618), pUniqueInfo->nMinChub);
 	if(pUniqueInfo->nMinChub > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nMinChub < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// Ã¼·Â
+	// Ã¼ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1619), pUniqueInfo->nCheRyuk);
 	if(pUniqueInfo->nCheRyuk > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nCheRyuk < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ½É¸Æ
+	// ï¿½É¸ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1620), pUniqueInfo->nSimMek);
 	if(pUniqueInfo->nSimMek > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nSimMek < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ¹æ¾î·Â
+	// ï¿½ï¿½ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1621), pUniqueInfo->nDefen);
 	if(pUniqueInfo->nDefen > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nDefen < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// »çÁ¤°Å¸®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1622), pUniqueInfo->nRange);
 	if(pUniqueInfo->nRange > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nRange < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// ¼Ó¼º°ø°Ý
+	// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1623), pUniqueInfo->nAttR);
 	if(pUniqueInfo->nAttR > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );
 	else if( pUniqueInfo->nAttR < 0)
 		pIcon->AddToolTipLine( line, TTCLR_ENERMY );
 
-	// Àû¹æ¾î°¨¼Ò
+	// ï¿½ï¿½ï¿½ï¿½î°¨ï¿½ï¿½
 	sprintf(line, CHATMGR->GetChatMsg(1624), pUniqueInfo->nEnemyDefen);
 	if(pUniqueInfo->nEnemyDefen > 0)
 		pIcon->AddToolTipLine( line, TTTC_MUGONGKIND );

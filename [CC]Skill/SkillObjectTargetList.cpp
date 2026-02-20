@@ -4,14 +4,14 @@
 
 #include "stdafx.h"
 #include "SkillObjectTargetList.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 
 #ifdef _MAPSERVER_
 #include "SkillObject_server.h"
 #include "SkillManager_server.h"
-#include "UserTable.h"
-#include "CharMove.h"
+#include "..\\[Client]MH\\UserTable.h"
+#include "..\\[Client]MH\\CharMove.h"
 #else
 #include "SkillObject_Client.h"
 #include "ObjectManager.h"
@@ -195,7 +195,7 @@ void CSkillObjectTargetList::InitTargetList(CSkillObject* pSkillObject,CTargetLi
 		bMainPos = GetMainTargetPos(pMainTarget,&MainTargetPos,NULL);
 	}
 
-	/// 06. 09. 변환무공범위 버그 수정 - 이영준
+	/// 06. 09. 환   - 結
 	SKILLOPTION* pSkillOption = NULL;
 	int addrange = 0;
 
@@ -233,7 +233,7 @@ void CSkillObjectTargetList::InitTargetList(CSkillObject* pSkillObject,CTargetLi
 				
 				m_TargetTable.Add(pList,pObject->GetID());
 				
-				// 그림범위까지 0 이면 혼자쓰는 타겟이다.
+				// 琉 0 見 혼岷 타甄.
 				if(m_SkillAreaIdx == 0)
 					break;
 			}

@@ -4,10 +4,13 @@
 
 #if !defined(AFX_MHFILE_H__CF584ED8_B10C_4E1B_A1CF_4E098D34E802__INCLUDED_)
 #define AFX_MHFILE_H__CF584ED8_B10C_4E1B_A1CF_4E098D34E802__INCLUDED_
+#include <stdio.h>
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
+
+#include "..\[CC]Header\CommonStruct.h"
 
 #define MHFILE_FLAG_DONOTDISPLAY_NOTFOUNDERROR 0x00000001
 

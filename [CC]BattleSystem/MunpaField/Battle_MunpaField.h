@@ -7,6 +7,9 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 #include "Battle.h"

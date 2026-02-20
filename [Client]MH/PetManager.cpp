@@ -92,7 +92,7 @@ void CPetManager::InitPetInfo( PET_TOTALINFO* pPetInfo, int num )
 void CPetManager::AddPetInfo( PET_TOTALINFO* pPetInfo )
 {
 	PET_TOTALINFO* pInfo = m_PetInfoList.GetData(pPetInfo->PetSummonItemDBIdx);
-	if( pInfo )	//Àç±³È¯½Ã
+	if( pInfo )	//ï¿½ç±³È¯ï¿½ï¿½
 	{
 		memcpy(pInfo, pPetInfo, sizeof(PET_TOTALINFO));
 	}
@@ -168,7 +168,7 @@ void CPetManager::OnPetRemove(CPet* pPet)
 		if(TRUE == CheckPetAlive(m_pCurSummonPet->m_PetTotalInfo.PetSummonItemDBIdx))
 			UpdateCurPetInfo(pPet);
 
-		//ÇØ´ç¾ÆÀÌÅÛ ÅøÆÁ ´Ù½Ã Âï±â
+		//ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
 		//DWORD ItemDBIdx = pPet->m_PetTotalInfo.PetSummonItemDBIdx;
 		//ITEMMGR->RefreshItemToolTip(ItemDBIdx);
 
@@ -176,7 +176,7 @@ void CPetManager::OnPetRemove(CPet* pPet)
 
 		m_pCurSummonPet = NULL;
 
-		//Æê Áö¼Ó¹öÇÁ °ü·Ã Ãß°¡ ½ºÅÈ °»½Å
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		RefleshPetMaintainBuff();
 	}
 }
@@ -307,7 +307,7 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 		{
 			MSG_DWORD4* pmsg = (MSG_DWORD4*)pMsg;
 
-			//!!!ÀÓ½Ã
+			//!!!ï¿½Ó½ï¿½
 			if(!m_pCurSummonPet) return;
 			if(pmsg->dwData4 != m_pCurSummonPet->GetID())
 			{
@@ -321,13 +321,13 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 			m_pCurSummonPet->m_PetTotalInfo.PetStamina = pmsg->dwData1;
 			m_pCurSummonPet->m_PetTotalInfo.PetFriendly = pmsg->dwData2;
 
-			static Stamina = 0;
+			static DWORD Stamina = 0;
 
 			if( Stamina && (0==pmsg->dwData1) )
 			{
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1264));
 			}
-			//ÅøÆÁ °»½Å	//Ä£¹Ðµµ °»½Å
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	//Ä£ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½
 			DWORD Friendship = pmsg->dwData2 / 1000;
 			if( m_dwOldFriendShipForToolTipChange != Friendship )
 			{
@@ -367,7 +367,7 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 
 			if(pmsg->dwData2)
 			{
-				if(ePM_SKILL != pmsg->dwData2 || ePM_STAMINA_ZERO != pmsg->dwData2 )	//½ºÅÂ¹Ì³ª 0ÀÏ ¶§ ¸ð¼Ç¾øÀ½.
+				if(ePM_SKILL != pmsg->dwData2 || ePM_STAMINA_ZERO != pmsg->dwData2 )	//ï¿½ï¿½ï¿½Â¹Ì³ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½.
 				{
 					//pPet->m_ObjectState.State_Start_Motion = pmsg->dwData2;
 					pPet->ChangeMotion(pmsg->dwData2, FALSE);
@@ -392,11 +392,11 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 			if(!m_pCurSummonPet)	return;
 			m_pCurSummonPet->SetPetRest(TRUE);
 			SetReadyToSendRestMsg(TRUE);
-			//!!!¹öÆ° ¼³Á¤ È®ÀÎ (´ÜÃàÅ°·Î ÈÞ½Ä¼³Á¤ÀÌ °¡´É)
+			//!!!ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Þ½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 			//m_pStateDlg->SetBtnClick(ePetRestBtn);
 			SetPetStateDlgUseRestInfo(m_pCurSummonPet);
 
-			//Æê Áö¼Ó¹öÇÁ °ü·Ã Ãß°¡ ½ºÅÈ °»½Å
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			RefleshPetMaintainBuff();
 		}
 		break;
@@ -408,7 +408,7 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 			//m_pStateDlg->SetBtnClick(ePetUseBtn);
 			SetPetStateDlgUseRestInfo(m_pCurSummonPet);
 
-			//Æê Áö¼Ó¹öÇÁ °ü·Ã Ãß°¡ ½ºÅÈ °»½Å
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			RefleshPetMaintainBuff();
 		}
 		break;
@@ -456,7 +456,7 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 			if(HEROID == pmsg->dwObjectID)
 			{
 				CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1260) );
-				//Æê Á¤º¸Ã¢ °ÔÀÌÁö ÃÊ±âÈ­
+				//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 				SetPetGuageText(0,0);
 
 				if(!CheckCurSummonPetKindIs(ePK_EventPet))
@@ -464,24 +464,24 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 
 				ClosePetAllDlg();
 			//SetCurSummonPet(NULL);
-				//HERO->SetPet(NULL); //GAMEIN removeobject¿¡¼­ ÇØÁÖÀÚ.
+				//HERO->SetPet(NULL); //GAMEIN removeobjectï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				
 			}
 		}
 		break;
 	case MP_PET_USE_SKILL_ACK:
 		{
-			//½ºÅ³ °ÔÀÌÁö ÃÊ±âÈ­ & ½ºÅ³ ÁØºñ »óÅÂ ÃÊ±âÈ­
+			//ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ & ï¿½ï¿½Å³ ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 			//m_dwSkillRechargeAmount = 0;
 			SetSkillRechargeAmount(0);
 			m_bSkillGuageFull		= FALSE;
-			//¸Þ½ÃÁö À¯È¿È­
+			//ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿È­
 			SetReadyToSendSkillMsg(TRUE);
 		}
 		break;
 	case MP_PET_USE_SKILL_NACK:
 		{
-			//¸Þ½ÃÁö À¯È¿È­
+			//ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿È­
 			SetReadyToSendSkillMsg(TRUE);
 		}
 		break;
@@ -516,11 +516,11 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 	case MP_PET_REVIVAL_ACK:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
-			//pmsg->dwData 0Àº ¾ÆÀÌÅÛ¸ôºÎÈ°, 1,2,3Àº °ÔÀÓ³» ´Ü°èº°
+			//pmsg->dwData 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½È°, 1,2,3ï¿½ï¿½ ï¿½ï¿½ï¿½Ó³ï¿½ ï¿½Ü°èº°
 			GAMEIN->GetPetRevivalDialog()->PetRevivalAck(pmsg->dwData);
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1262) );
-			//Æê ½ºÅ³°ÔÀÌÁö ÃÊ±âÈ­
-			//Æê ÈÞ½Ä»óÅÂ
+			//ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+			//ï¿½ï¿½ ï¿½Þ½Ä»ï¿½ï¿½ï¿½
 // 			m_dwSkillRechargeAmount = 0;
 // 			m_bSkillGuageFull = FALSE;
 // 			SetReadyToSendSkillMsg(FALSE);
@@ -557,7 +557,7 @@ void CPetManager::NetworkMsgParse(BYTE Protocol, void* pMsg)
 		break;
 	case MP_PET_MAXSTAMINA_NOTIFY:
 		{
-			//½ºÅÂ¹Ì³ª ÃÖ´ë°ª º¯°æ.
+			//ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½Ö´ë°ª ï¿½ï¿½ï¿½ï¿½.
 			if(!m_pCurSummonPet)	return;
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 			m_pCurSummonPet->SetMaxStamina(pmsg->dwData);
@@ -585,12 +585,12 @@ void CPetManager::PetMgrProcess()
 
 void CPetManager::CalcSkillRecharge()
 {
-	//ÆêÀÎÆ÷¸®½ºÆ®¿¡´Â Æê ÃæÀü ¼Óµµ¸¦ °¡Áö°í ÀÖ´Ù.
-	//ÃÖ´ëÄ¡´Â °íÁ¤
-	//Æ¯Á¤ ½Ã°£ °£°Ý ¸¶´Ù ¼Óµµ¸¸Å­ ´õÇØÁØ´Ù.
-	//¹Ù·Î °ÔÀÌÁö¿¡ º¸¿©ÁØ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
+	//ï¿½Ö´ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//Æ¯ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+	//ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	if(!m_pCurSummonPet)	return;
-	//!!!ÈÞ½Ä »óÅÂ¸é È¦µù.
+	//!!!ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ È¦ï¿½ï¿½.
 	if(m_pCurSummonPet->IsPetRest())
 	{
 		//m_dwSkillRechargeCheckTime = gCurTime;
@@ -644,11 +644,11 @@ void CPetManager::SetSkillRechargeAmount( DWORD amount )
 void CPetManager::CheckDistWithMaster()
 {
 //	if( !m_pCurSummonPet ) return;
-	//1ÃÊ¸¶´Ù È÷¾î·ÎÀÇ ÇöÀç À§Ä¡¸¦ ÆÖ À§Ä¡¿Í ºñ±³ÇÏ°í
-	//À¯È¿ °Å¸® ÀÌ»óÀÌ¸é
-	//È÷¾î·Î ³ëµå·Î ºÎÅÍ Æê ³ëµå¸¦ ±¸ÇØ
-	//¼­¹ö·Î Á¤º¸ º¸³»°í
-	//Æê ÀÌµ¿½ÃÀÛÇÑ´Ù.
+	//1ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½
+	//ï¿½ï¿½È¿ ï¿½Å¸ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if( gCurTime - m_dwDistCheckTime < PET_DIST_CHECKTIME ) return;
 
 	float dist = CalcDistanceXZ(&m_pCurSummonPet->GetCurPosition(), &HERO->GetCurPosition());
@@ -656,7 +656,7 @@ void CPetManager::CheckDistWithMaster()
 	/*
 	if( MAX_LIMIT_PET_DIST < dist )
 	{
-		//¿öÇÁ¸Þ½ÃÁö. ¼­¹ö¿¡¼­ ¼ø°£ÀÌµ¿ Ã³¸®.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ Ã³ï¿½ï¿½.
 		MOVE_POS	msg;
 		msg.Category = MP_MOVE;
 		msg.Protocol = MP_MOVE_PET_WARP_SYN;
@@ -680,9 +680,9 @@ void CPetManager::CheckDistWithMaster()
 }
 
 void CPetManager::OpenPetStateDlg()
-{	//¸ÊÀÌµ¿½Ã¿¡µµ ¸ÕÀú ¼±ÅÃÇÑ »óÅÂÃ¢ À¯Áö.
+{	//ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½.
 
-	//Æê ¼ÒÈ¯Áß ¾Æ´Ï¸é ¸®ÅÏ & ¸Þ½ÃÁö
+	//ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ & ï¿½Þ½ï¿½ï¿½ï¿½
 	if(!CheckPetSummoned())
 		return;
 
@@ -703,7 +703,7 @@ void CPetManager::OpenPetStateDlg()
 // 			m_pStateMiniDlg->SetActive(TRUE);
 		m_pStateMiniDlg->SetActive(!m_pStateMiniDlg->IsActive());
 	}*/
-	//060310 ¼öÁ¤
+	//060310 ï¿½ï¿½ï¿½ï¿½
 	if(!m_bIsPetStateDlgToggle)
 	{
 		if(m_pStateMiniDlg)	m_pStateMiniDlg->SetActive(FALSE);
@@ -727,7 +727,7 @@ void CPetManager::OpenPetInvenDlg()
 	if(!m_pInvenDlg)	return;
 
 	if(m_pInvenDlg->IsItemInfoInit())
-	{//Ã³À½ ¿©´Â °ÍÀÌ ¾Æ´Ï¸é.
+	{//Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½.
 		if(m_pInvenDlg)
 		{
 			if(!m_pInvenDlg->IsActive())
@@ -739,8 +739,8 @@ void CPetManager::OpenPetInvenDlg()
 				m_pInvenDlg->SetActive(FALSE);
 		}		
 	}
-	else//Ã³À½ ¿©´Â °ÍÀÌ¸é
-	{//¸ÊÀ¸·Î Á¤º¸ ¿äÃ» ¸Þ½ÃÁö
+	else//Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Þ½ï¿½ï¿½ï¿½
 		MSG_DWORD msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_PETINVEN_INFO_SYN;
@@ -752,14 +752,14 @@ void CPetManager::OpenPetInvenDlg()
 }
 
 /*
-void CPetManager::SetPetDlgToggle( BOOL bVal )	//FALSE °¡ Å«Ã¢(±âº»)
-{//±×³É ½±°Ô ±âº»¼¼ÆÃ(Å«Ã¢)±âÁØÀ¸·Î Åä±ÛÀ» ÇÑ¹ø ÇØÁÙ °ÍÀÎ°¡..
-	//¾Æ´Ï¸é ÇöÀçÃ¢ ÁöÁ¤À» ÇØ³õÀ» °ÍÀÎ°¡..
-	//Å«Ã¢(±âº»)->ÀÛÀºÃ¢
+void CPetManager::SetPetDlgToggle( BOOL bVal )	//FALSE ï¿½ï¿½ Å«Ã¢(ï¿½âº»)
+{//ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½(Å«Ã¢)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½..
+	//ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½..
+	//Å«Ã¢(ï¿½âº»)->ï¿½ï¿½ï¿½ï¿½Ã¢
 	m_bIsPetStateDlgToggle = bVal;
 }*/
 
-void CPetManager::TogglePetStateDlg()	//ÇöÀçÃ¢ È°¼ºÈ­ »óÅÂ¿¡¼­ µé¾î¿Â´Ù.
+void CPetManager::TogglePetStateDlg()	//ï¿½ï¿½ï¿½ï¿½Ã¢ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 {
 //	if(!CheckPetSummoned())
 //		return;
@@ -803,7 +803,7 @@ void CPetManager::SetPetStateDlgInfo( CPet* pPet )
 	PET_TOTALINFO* pInfo = &pPet->m_PetTotalInfo;
 	if(!pList||!pInfo)	return;
 
-	//»óÅÂÃ¢ ÆêÀÌ¸§°ú ´Ü°è Ç¥½ÃÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½
 	if(!m_pStateDlg)	return;
 	
 	cStatic* pName = (cStatic*)m_pStateDlg->GetNameTextWin();
@@ -828,7 +828,7 @@ void CPetManager::SetPetStateDlgInfo( CPet* pPet )
 		p2DImage->SetBasicImage(GetPetImage(pList->PetKind));
 	}
 
-	//Æê ½ºÅ³ Á¤º¸
+	//ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
 	if(pList->BuffList)
 	{
 		PET_BUFF_LIST* pBuffList = NULL;
@@ -1009,7 +1009,7 @@ void CPetManager::SetPetStateMiniDlgInfo( CPet* pPet )
 
 	PET_TOTALINFO* pInfo = &pPet->m_PetTotalInfo;
 	BASE_PET_LIST* pList = GAMERESRCMNGR->GetPetListInfo(pPet->GetPetIdx());
-	//Æê À¯È¿ ÀÎº¥Åä¸® °¹¼ö
+	//ï¿½ï¿½ ï¿½ï¿½È¿ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½
 	if( pInvenNum )
 	{
 		char szValue[32];
@@ -1027,7 +1027,7 @@ void CPetManager::SetPetStateMiniDlgInfo( CPet* pPet )
 		pInvenNum->SetStaticText(szValue);
 	}
 
-	//Æê ½ºÅ³ Á¤º¸
+	//ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
 
 	/*if(pList->BuffList)
 	{
@@ -1087,7 +1087,7 @@ void CPetManager::SetPetValidInvenTab()
 
 	DWORD ValidTabNum = GetPetValidInvenMaxTabNum();	//0 ~ 3
 
-	//ÀÎº¥Ã¢ ÅÇ ²¨ÁÖ±â ¶Ç´Â ÅÇ ½½·Ôµé ¶ôÇØÁÖ±â
+	//ï¿½Îºï¿½Ã¢ ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	m_pInvenDlg->ApplyValidInvenTab(ValidTabNum);
 }
 
@@ -1103,7 +1103,7 @@ void CPetManager::SetCurPetRest( BOOL bRest )
 	//m_pStateDlg->SetBtnClick(!bRest);
 }
 
-void CPetManager::SendPetRestMsg( BOOL bRest )//Æê »ç¿ë/ÈÞ½Ä Á¤º¸ º¸³»±â
+void CPetManager::SendPetRestMsg( BOOL bRest )//ï¿½ï¿½ ï¿½ï¿½ï¿½/ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	if(!CheckPetSummoned())
 		return;
@@ -1119,7 +1119,7 @@ void CPetManager::SendPetRestMsg( BOOL bRest )//Æê »ç¿ë/ÈÞ½Ä Á¤º¸ º¸³»±â
 
 	if(m_pCurSummonPet->IsPetRest() == bRest) return;
 
-	//SetCurPetRest(bRest); //¸®ÅÏ¹Þ°í Ã³¸®.
+	//SetCurPetRest(bRest); //ï¿½ï¿½ï¿½Ï¹Þ°ï¿½ Ã³ï¿½ï¿½.
 
 	MSGBASE msg;
 	msg.Category = MP_PET;
@@ -1150,7 +1150,7 @@ void CPetManager::SendPetSealMsg()
 	NETWORK->Send( &msg, sizeof(msg) );
 }
 
-void CPetManager::CheckRestNSkillUse()	//¹«°øÃ¢ ½ºÅ³¹öÆ° ±â´É. ÈÞ½Ä»óÅÂ¸é ÇØÁ¦½ÃÅ°°í °ÔÀÌÁöÇ®ÀÌ¸é ½ºÅ³ »ç¿ë. ±âÈ¹ÀÚ¿¡°Ô ¹®ÀÇÈÄ ¾Ë°ÔµÊ.
+void CPetManager::CheckRestNSkillUse()	//ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½Å³ï¿½ï¿½Æ° ï¿½ï¿½ï¿½. ï¿½Þ½Ä»ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®ï¿½Ì¸ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½. ï¿½ï¿½È¹ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°Ôµï¿½.
 {
 	if(!CheckPetSummoned())
 		return;
@@ -1177,7 +1177,7 @@ void CPetManager::UseCurPetSkill()
 	if(!CheckPetSummoned())
 		return;
 
-	//½ºÅ³ °ÔÀÌÁö Ç® »óÅÂ Ã¼Å©
+	//ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç® ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(!IsSkillGuageFull())
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1241) );
@@ -1186,7 +1186,7 @@ void CPetManager::UseCurPetSkill()
 	if(!IsReadyToSendSkillMsg())
 		return;
 //	MP_PET_USE_SKILL_SYN,
-//	MP_PET_USE_SKILL_ACK,	//Ä³¸¯ÀÌ »ç¿ëÁßÀÎ ½ºÅ³°ú Áßº¹ÀÌ ¾Æ´Ï°í, Æê ½ºÅ³ °ÔÀÌÁö°¡ Ç® »óÅÂ.
+//	MP_PET_USE_SKILL_ACK,	//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½, ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç® ï¿½ï¿½ï¿½ï¿½.
 //	MP_PET_USE_SKILL_NACK,
 
 	MSGBASE msg;
@@ -1224,7 +1224,7 @@ void CPetManager::AddMasterStatFromPetBuff( player_calc_stats* pMasterAdditional
 
 		}
 
-		//SW060906 ½Å±ÔÆê ½ºÅÈ ¹Ý¿Ã¸²
+		//SW060906 ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿Ã¸ï¿½
 		if(pList->BuffKind == ePB_MasterAllStatRound)
 		{
 			pMasterAdditionalStat->GenGol += GetAddStatFromRound(HERO->GetGenGol());
@@ -1236,13 +1236,13 @@ void CPetManager::AddMasterStatFromPetBuff( player_calc_stats* pMasterAdditional
 }
 
 void CPetManager::RefleshPetMaintainBuff()
-{//Æê Áö¼Ó¹öÇÁ °ü·Ã Ãß°¡ ½ºÅÈ °»½Å	//ÆêÈ°¼º/ÈÞ½Ä/¼ÒÈ¯/ºÀÀÎ½Ã¿¡ ÇÑ´Ù.	//¼ÒÈ¯,ºÀÀÎ½Ã´Â °³³äÀûÀÌ ¾Æ´Ñ ¹°¸®Àû Ãß°¡/Á¦°Å½Ã. 
+{//ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	//ï¿½ï¿½È°ï¿½ï¿½/ï¿½Þ½ï¿½/ï¿½ï¿½È¯/ï¿½ï¿½ï¿½Î½Ã¿ï¿½ ï¿½Ñ´ï¿½.	//ï¿½ï¿½È¯,ï¿½ï¿½ï¿½Î½Ã´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½/ï¿½ï¿½ï¿½Å½ï¿½. 
 	STATSMGR->CalcItemStats( HERO );
 	GAMEIN->GetCharacterDialog()->RefreshInfo();	
 }
 
 WORD CPetManager::GetPetEquipItemMax( DWORD dwItemDBIdx )
-{//Æê ÀåÂø ¾ÆÀÌÅÛ ÃÖ´ë°¹¼ö
+{//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°¹ï¿½ï¿½
 	PET_TOTALINFO* pInfo = GetPetInfo(dwItemDBIdx);
 
 	if( !pInfo )	return 0;

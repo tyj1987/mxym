@@ -20,10 +20,10 @@ class CChannelDialog  : public cDialog
 	cListCtrl * m_pChannelLCtrl;
 	BOOL m_bInit;
 	int m_SelectRowIdx;
-#ifdef _KOR_LOCAL_
-	WORD m_wMoveMapNum;	//2008. 5. 9. CBH - ÀÌµ¿ÇÒ ¸ÊÀÇ ¹øÈ£¸¦ ÀúÀå
-	DWORD m_dwChangeMapState;	//2008. 5. 9. CBH - ÀÌµ¿ÇÒ ¸ÊÀÇ ¸Å°³Ã¼ Á¾·ù
-#endif
+	//2008. 5. 9. CBH - ç§»åŠ¨åˆ°é¢‘é“æ—¶çš„åœ°å›¾ç¼–å·ä¿å­˜
+	WORD m_wMoveMapNum;
+	//2008. 5. 9. CBH - ç§»åŠ¨åˆ°é¢‘é“æ—¶çš„çŠ¶æ€å¯¹è±¡ä¿å­˜
+	DWORD m_dwChangeMapState;
 
 public:
 	CChannelDialog();
@@ -37,11 +37,9 @@ public:
 	void SelectChannel(int rowidx);
 	void OnConnect();
 
-#ifdef _KOR_LOCAL_
-	//2008. 5. 8. CBH - ¸ÊÀÌµ¿ Ã¤³Î ¼±ÅÃ °ü·Ã ÇÔ¼ö Ãß°¡
-	void SendMapChannelInfoSYN(WORD wMapNum, DWORD dwState = eMapChange_General);	//ÀÌµ¿ÇÒ ¸ÊÀÇ Ã¤³Î Á¤º¸¸¦ ¿äÃ»ÇÏ´Â ÇÔ¼ö
+	//2008. 5. 8. CBH - æ–°ç§»åŠ¨é¢‘é“ç³»ç»Ÿéœ€è¦æ·»åŠ çš„å‡½æ•°
+	void SendMapChannelInfoSYN(WORD wMapNum, DWORD dwState = eMapChange_General);	//ç§»åŠ¨åˆ°æŒ‡å®šé¢‘é“çš„è¯·æ±‚å‡½æ•°
 	void MapChange();
-#endif
 };
 
 #endif // !defined(AFX_CHANNELDIALOG_H__2799AAF3_2A8B_402D_86D4_EB2547D1888B__INCLUDED_)

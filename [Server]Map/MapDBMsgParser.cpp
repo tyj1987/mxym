@@ -30,30 +30,31 @@
 #include "SiegeWarProfitMgr.h"
 #include "cJackpotManager.h"
 #include "QuestManager.h"
-#include "GuildManager.h"	// magi82 - ¹®ÇÏ»ý°ü·Ã(070123)
+#include "GuildManager.h"	// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070123)
 #include "PackedData.h"
 
 #include "ItemLimitManager.h"
 #include "FortWarManager.h"
 
-#include "MapItemDrop.h"	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/29)-MapDropItem
+#include "MapItemDrop.h"	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapDropItem
+#include "ServerSystem.h"
 
 //taiyo 
-//sprintf %d¢®¢´I AeAI¡ÍiC¡§ui AO¡Ë¡ÍA ¢®¨¡A ¡§uod!!!! ¨Ïoo¢®¨ú¢®¢¯ /¨Ïo¨Ï¡þ!!
-//¡Íi¢®IAIAI A¡Ë¡þAO¡§¡þ¢®¨¡¢®¢´I ¡§uod!
+//sprintf %dï¿½ï¿½ï¿½ï¿½I AeAIï¿½ï¿½iCï¿½ï¿½ui AOï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½uod!!!! ï¿½ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /ï¿½ï¿½oï¿½Ï¡ï¿½!!
+//ï¿½ï¿½iï¿½ï¿½IAIAI Aï¿½Ë¡ï¿½AOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½uod!
 
 extern BOOL g_bPlusTime;
 
 
 //////////////////////////////////////////////////////////////////
-// DB¢®¢´I¡§¡þIAI ¡Ë¡þ¡§¡©¡§oAAo¡Ë¡þ| ¨Ïi©ö¡Ëi¨ö¡§u¡§¢®¡§u¢®¨Ï ¢®¨ú¡Ë¡þ¡§¡þ¡§¡ËCI¡Ë¡ÍA CO¡§uo¡Íie.
+// DBï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½IAI ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAoï¿½Ë¡ï¿½| ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CIï¿½Ë¡ï¿½A COï¿½ï¿½uoï¿½ï¿½ie.
 DBMsgFunc g_DBMsgFunc[MaxQuery] =
 {
 	NULL,
-	RCharacterNumSendAndCharacterInfo,		/// CI¨Ï©ª¡§¡ÌAC A¨Ï©ª¡Ë¡þ?d¡§¡þ¡Ë¡þ¡Ë¡þ¨Ï¡Ì¡ÍiI¡Ë¡þ| ¡§uo¡§ui¡Ë?A¡Ë¡ÍU.
-	RCharacterMugongInfo,		/// ¨Ïo¢®i¢®¨¡¨Ï¨£d¡§¡þ¡Ë¡þ¡Ë¡þ| ¡§uo¡§ui¡Ë?A¡Ë¡ÍU
+	RCharacterNumSendAndCharacterInfo,		/// CIï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½AC Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½iIï¿½Ë¡ï¿½| ï¿½ï¿½uoï¿½ï¿½uiï¿½ï¿½?Aï¿½Ë¡ï¿½U.
+	RCharacterMugongInfo,		/// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| ï¿½ï¿½uoï¿½ï¿½uiï¿½ï¿½?Aï¿½Ë¡ï¿½U
 	RCharacterItemSlotInfo,					// eCharacterItemSlotQuery
-	RCharacterItemInfo,		/// ¡§u¡§¢®AIAU d¡§¡þ¡Ë¡þ¡Ë¡þ| ¡§uo¡§ui¡Ë?A¡Ë¡ÍU
+	RCharacterItemInfo,		/// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| ï¿½ï¿½uoï¿½ï¿½uiï¿½ï¿½?Aï¿½Ë¡ï¿½U
 	RCharacterItemOptionInfo,
 	NULL,						// eCharacterItemOptionDeleteQuery
 	RCharacterItemRareOptionInfo,	// eCharacterItemRareOptionQuery
@@ -105,20 +106,20 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	RMugongInsert,				// MugongInsertToDB
 	NULL,						// MugongDeleteToDB
 
-//	NULL,				/// ¨Ïo¢®i¢®¨¡¨Ï¨£¢®ief
-	RMapBaseEconomy,				/// ¢®¨úaA¡§¨£¡§oA¡§u¡§uC¢®IAo¡Ë¡þ¡Ëc
-	NULL,				/// ¢®¨¡¨Ï¢®¡Ë¡þA¡Íii¢®¢´ICwI¡§oAn
-	NULL,			/// A¨Ï©ª¡Ë¡þ?d¡§¡þ¡Ë¡þ ¡§u¢®%i¢®IAI¡§¢®¡Ëc
-	NULL,			/// HeroInfo ¡§u¢®%i¢®IAI¡§¢®¡Ëc
-	NULL,			/// TotalInfo ¡§u¢®%i¢®IAI¡§¢®¡Ëc
+//	NULL,				/// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½ï¿½ï¿½ief
+	RMapBaseEconomy,				/// ï¿½ï¿½ï¿½ï¿½aAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½uï¿½ï¿½uCï¿½ï¿½IAoï¿½Ë¡ï¿½ï¿½ï¿½c
+	NULL,				/// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ICwIï¿½ï¿½oAn
+	NULL,			/// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½uï¿½ï¿½%iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
+	NULL,			/// HeroInfo ï¿½ï¿½uï¿½ï¿½%iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
+	NULL,			/// TotalInfo ï¿½ï¿½uï¿½ï¿½%iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	NULL,			// eBadFameUpdate,
 	
 	RAuctionCheck,
 	RAuctionPageList,
 	RAuctionConfirm,
-	RPartyLoad,	//¡§¢®A¡§¢®¡§u		
+	RPartyLoad,	//ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½u		
 
-	///// 2008. 6. CBH - ÆÄÆ¼¸ÅÄª Ãß°¡µÈ ¿É¼Ç °ü·Ã ¼öÁ¤ ///////////////////
+	///// 2008. 6. CBH - ï¿½ï¿½Æ¼ï¿½ï¿½Äª ï¿½ß°ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ///////////////////
 	//RPartyInfoByUserLogin,
 	//RPartyCreate,
 	NULL,
@@ -134,7 +135,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	RSaveMapChangePointReturn,
 	
 	/*
-	RMunpaLoad, //¨Ïo¡Ëc¡§¢®A 1
+	RMunpaLoad, //ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A 1
 	RMunpaItemLoad,
 	RMunpaItemOption,
 	RMunpaLoadSyn,
@@ -210,7 +211,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	NULL,					// eJournalSaveUpdate,
 	NULL,					// eJournalDelete,
 	/////////////////////////////////////////////
-	// Log ¢®¨¡u¢®¢´A 
+	// Log ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A 
 	NULL,					// eLogCharacter,
 	NULL,					// eLogExp,
 	NULL,					// eLogMoney,
@@ -335,7 +336,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	NULL,								//eCharacterExpFlag
 	////////////////////////////////////////////////////////////////////////////////////
 
-	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
     RGuildTraineeInfo,					//eGuildTraineeInfo
 	NULL,								//eGuildTraineeInsert
 	NULL,								//eGuildTraineeDelete
@@ -353,7 +354,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	// magi82 - Titan(070209)
 	RTitanWearItemInfo,					// eTitanWearItemInfo,
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	RCharacterTitanInfo,				//eCharacterTitanInfoQuery,
 	RCharacterTitanEquipItemEnduranceInfo,	//eCharacterTitanEquipItemEnduranceInfoQuery
 	RTitanInsertToDB,					//eTitanInsert,
@@ -367,7 +368,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	RTestGameQuery,							// eTestGameQuery
 	RTestLogQuery,							// eTestLogQuery
 
-	// magi82 - Titan(071015) Ã¢°í¿¡ Å¸ÀÌÅº Àåºñ °ü·Ã
+	// magi82 - Titan(071015) Ã¢ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	RPyogukTitanEnduranceInfo,			// ePyogukTitanEnduranceOptionQuery
 
 	NULL,								// eQuest_EndQuest_New
@@ -378,7 +379,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	RTitanEquipInsertExceptionPyogukToDB,		//eTitanEquipInfoInsertExceptionPyoguk
 	NULL,		//eCharacterSkinInfoUpdate
 
-	// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
+	// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
 	NULL,		//eCharacterUpdateResetStatusPoint
 
 	RCharacterSkinInfo,	//eCharacterSkinInfo
@@ -389,7 +390,7 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 	RAutoNoteListLoad,		// eAutoNoteListLoad
 	RAutoNoteListAdd,		// eAutoNoteListAdd
 
-	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/28)-MapItemDrop
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/28)-MapItemDrop
 	RMapItemDropListSelect,		// eMapItemDropListSelect
 	RMapItemDropListUpdate,		// eMapItemDropListUpdate
 	NULL,						// eMapItemDropListInit
@@ -407,10 +408,10 @@ DBMsgFunc g_DBMsgFunc[MaxQuery] =
 //////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////
-// DB¢®¢´I Query¨Ïo¡Ëc; ¨Ï©ª?¡Ë¡þ¢®¨ú¡ËO¢®¡¿ ¡§u¨Ï¡À¡Ë¡ÍA CO¡§uo¡Íie.
+// DBï¿½ï¿½ï¿½ï¿½I Queryï¿½ï¿½oï¿½ï¿½c; ï¿½Ï©ï¿½?ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½Ï¡ï¿½ï¿½Ë¡ï¿½A COï¿½ï¿½uoï¿½ï¿½ie.
 //pjs
-//¢®¨¡¨Ï¢®¡Ë¡þA ¢®¨¡a¢®¨¡u¢®¨¡¡Ë¢ç AO¡Ë¡ÍAAo ¢®¨¡E¢®ic 
-char txt[512];	//¢®¨¡¨Ï¨£Ae ¢®ic¡Ë?e
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ AOï¿½Ë¡ï¿½AAo ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ic 
+char txt[512];	//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½Ae ï¿½ï¿½icï¿½ï¿½?e
 
 void CheckAuction(MSGBASE* msg)
 {
@@ -420,7 +421,7 @@ void CheckAuction(MSGBASE* msg)
 	g_DB.Query(eQueryType_FreeQuery,eAuctionCheck,CharacterIDX,txt);
 
 }
-//¡Ë¡þ¡Ëc¡§i©ö¡Ëi¨ù¡§¢®¡Ëc ¢®¨¡E¢®io ¨Ïi©ö|i¡¾¨Ïoy; CASE¨Ïo¡Ëc8¢®¢´I..
+//ï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½io ï¿½ï¿½iï¿½ï¿½|iï¿½ï¿½ï¿½ï¿½oy; CASEï¿½ï¿½oï¿½ï¿½c8ï¿½ï¿½ï¿½ï¿½I..
 void AuctionSearch(SEARCHLIST* msg)
 {
 //	char txt[128];
@@ -433,7 +434,7 @@ void AuctionSearch(SEARCHLIST* msg)
 	sprintf(txt, "EXEC %s %d \'%s\'", STORED_AUCTION_SEARCH, searchtype, name );
 	g_DB.Query(eQueryType_FreeQuery,eAuctionPageList,CharacterIDX,txt);
 }
-//¡Ë¡þ¡Ëc¡§i©ö¡Ëi¨ù¡§¢®¡Ëc d¢®¢´A; CASE¨Ïo¡Ëc8¢®¢´I..
+//ï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c dï¿½ï¿½ï¿½ï¿½A; CASEï¿½ï¿½oï¿½ï¿½c8ï¿½ï¿½ï¿½ï¿½I..
 void AuctionSort(SORTLIST* msg)
 {
 //	char txt[128];
@@ -445,7 +446,7 @@ void AuctionSort(SORTLIST* msg)
 	sprintf(txt, "EXEC %s %d \'%s\'", STORED_AUCTION_SEARCH, type, page );
 	g_DB.Query(eQueryType_FreeQuery,eAuctionPageList,CharacterIDX,txt);
 }
-//¢®¨¡¨Ï¢®¡Ë¡þA ¡Íii¢®¢´I 
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ë¡ï¿½A ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½I 
 void AuctionRegister(REGISTERAUCTION* msg)
 {
 //	char txt[128];
@@ -463,7 +464,7 @@ void AuctionRegister(REGISTERAUCTION* msg)
 	sprintf(txt, "EXEC %s %d %d %s %d %d %s", STORED_AUCTION_REGISTER,index,amount,duedate,price,immediate,name);
 	g_DB.Query(eQueryType_FreeQuery,eAuctionConfirm,CharacterIDX,txt);
 }
-//¢®¨¡¨Ï¢®¡Ë¡þA Au¡Ë?¡§I
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ë¡ï¿½A Auï¿½ï¿½?ï¿½ï¿½I
 void AuctionJoin(JOINAUCTION* msg)
 {
 //	char txt[128];
@@ -475,7 +476,7 @@ void AuctionJoin(JOINAUCTION* msg)
 	sprintf(txt, "EXEC %s %d %d %s", STORED_AUCTION_JOIN, index, price, name);
 	g_DB.Query(eQueryType_FreeQuery,eAuctionConfirm,CharacterIDX,txt);
 }
-//¢®¨¡¨Ï¢®¡Ë¡þA ¡Íii¢®¢´I, Au¡Ë?¡§I¡Ë¡þ| CASE¢®¢´I 
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ë¡ï¿½A ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½I, Auï¿½ï¿½?ï¿½ï¿½Iï¿½Ë¡ï¿½| CASEï¿½ï¿½ï¿½ï¿½I 
 void AuctionCancel(AUCTIONCANCEL *msg)
 {
 //	char txt[128];
@@ -737,7 +738,7 @@ void CharacterPetInfo( DWORD CharacterIDX, DWORD UserID )
 	g_DB.Query(eQueryType_FreeQuery, eCharacterPetInfoQuery, CharacterIDX, txt);
 }
 
-//SW070127 Å¸ÀÌÅº
+//SW070127 Å¸ï¿½ï¿½Åº
 void CharacterTitanInfo( DWORD CharacterIDX, DWORD UserID )
 {
 	sprintf(txt, "EXEC dbo.MP_CHARACTER_TitanInfo %d", UserID);
@@ -905,9 +906,9 @@ void ItemMovePetInvenUpdateToDB( DWORD CharacterIDX, DWORD dwfromDBIdx, POSTYPE 
 	g_DB.Query(eQueryType_FreeQuery, eItemMovePetInvenUpdate, 0, txt);
 }
 
-/* dwKey¢®¨¡¡§¡Ì: DB¡Ë?¡Ë¢ç ¢®io¢®¢´I ¨Ï©ªO; ItemAI ARRAYAC ¨Ï©ª¡Ë¢ç ItemAIAo¡Ë?I ArrayIdx¡Ë¡þ| ¨Ï©ªO¡Ë¡ÍA¡Ë¡ÍU.
-   CI¨Ï©ª¡§¡ÌAC ARRAY¢®¨¡¡Ë¢ç DB¡Ë?¡Ë¢ç ¡Ë¡þ¨Ï¡Ì¡ÍiI ¢®¨ú¡Ë¡þ¡§u¡§¡þ ¡ÍiC¡§uu;¡ËO¢®¡¿¡Ë¡þ¡Ë¡þ ¡Ë¡ÍU= AU¡§u¢®A; ¡§uoCaCI¢®¨úa'C¡§¨£¡§u¢®¨Ï CE¡Ë?a
-   0AI¡Ë¡þe ~¢®¢´a ¨Ï©ª¡§¡Ì¡Ë¡þOAo¡Ë¡ÍA ¢®¨¡e¡§uO A¨Ï¨£Ca (¢®¨¡¨Ïo¡§uo¡Ë¡þ| C¢®I¡§oACI¢®¨úa¡Íi¡Íi CN¡Ë¡ÍU.)
+/* dwKeyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: DBï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ioï¿½ï¿½ï¿½ï¿½I ï¿½Ï©ï¿½O; ItemAI ARRAYAC ï¿½Ï©ï¿½ï¿½Ë¢ï¿½ ItemAIAoï¿½ï¿½?I ArrayIdxï¿½Ë¡ï¿½| ï¿½Ï©ï¿½Oï¿½Ë¡ï¿½Aï¿½Ë¡ï¿½U.
+   CIï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½AC ARRAYï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ DBï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½iI ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iCï¿½ï¿½uu;ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ ï¿½Ë¡ï¿½U= AUï¿½ï¿½uï¿½ï¿½A; ï¿½ï¿½uoCaCIï¿½ï¿½ï¿½ï¿½a'Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ CEï¿½ï¿½?a
+   0AIï¿½Ë¡ï¿½e ~ï¿½ï¿½ï¿½ï¿½a ï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ì¡Ë¡ï¿½OAoï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½uO Aï¿½Ï¨ï¿½Ca (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½uoï¿½Ë¡ï¿½| Cï¿½ï¿½Iï¿½ï¿½oACIï¿½ï¿½ï¿½ï¿½aï¿½ï¿½iï¿½ï¿½i CNï¿½Ë¡ï¿½U.)
    LOWORD():EndValue, HIWORD(): ArrayIdx
 */
 void ItemInsertToDB(DWORD CharacterIdx, WORD wItemIdx, DURTYPE Durability, POSTYPE bPosition, DWORD dwKey, WORD bSeal)
@@ -1082,7 +1083,7 @@ void MugongUpdateToDB(MUGONGBASE* msg, char* type)
 		msg->dwDBIdx, msg->wIconIdx, msg->ExpPoint, msg->Sung, msg->Position, msg->QuickPosition, msg->bWear, msg->OptionIndex);
 	g_DB.Query(eQueryType_FreeQuery, eMugongUpdate2, 0, txt);
 	
-	//¾÷µ¥ÀÌÆ® ÇßÀ½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	msg->bWear = FALSE;
 }
 
@@ -1158,8 +1159,8 @@ void CharacterDivideNewItemIDX(DWORD CharacterIDX, DWORD OwnerID, WORD ItemIDX, 
 
 // --------------------------------------------------------------------------------------------------
 // taiyo code
-// CharacterDupItemInsertAC wKey¡Ë¡ÍA RCharacterDupItemInsert¡Ë?¡Ë¢ç¡§u¢®¨Ï E¢®IAaAU¡Ë¡þ| ¢®¨ú¡Ë¡þ¡§¡þ¡§¡ËCI¢®¨úa 'CN ¢®¨ú¡Ë¡þ¡§¡þ¡§¡ËAUAI¡Ë¡ÍU
-// 0¢®¨¡u 0AI¡Ë?UAC ¢®¨¡¡§¡Ì; ¢®ic¡Ë?eCI¡Ë¡ÍA BOOL¢®¨¡¡§¡ÌAC CuAA¡Ë¡þ| AeCN¡Ë¡ÍU
+// CharacterDupItemInsertAC wKeyï¿½Ë¡ï¿½A RCharacterDupItemInsertï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½IAaAUï¿½Ë¡ï¿½| ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CIï¿½ï¿½ï¿½ï¿½a 'CN ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AUAIï¿½Ë¡ï¿½U
+// 0ï¿½ï¿½ï¿½ï¿½u 0AIï¿½ï¿½?UAC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½icï¿½ï¿½?eCIï¿½Ë¡ï¿½A BOOLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AC CuAAï¿½Ë¡ï¿½| AeCNï¿½Ë¡ï¿½U
 /*
 void CharacterDupItemInsert( DWORD dwKey, DWORD CharacterIDX, WORD ItemIDX, DURTYPE Durability, POSTYPE bPosition, BYTE TableIDX )
 {
@@ -1186,7 +1187,7 @@ void UnRegistLoginMapInfo(DWORD CharacterIDX)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ¡§¢®A¡§¢®¡§u ¢®¨¡u¢®¢´A DBAo¡Ë¡þ¡Ëc
+// ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½u ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A DBAoï¿½Ë¡ï¿½ï¿½ï¿½c
 void PartyLoad(DWORD PartyIDX)
 {
 //	char txt[128];
@@ -1201,7 +1202,7 @@ void PartyBreakup(DWORD PartyIDX)
 	g_DB.Query(eQueryType_FreeQuery, ePartyBreakup, PartyIDX, txt);
 }
 
-//2008. 5. 21. CBH - ¹æÆÄ »ý¼º ¿É¼Ç Ãß°¡ °ü·Ã ÇÔ¼ö ¼öÁ¤
+//2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 void PartyInfoByUserLogin(DWORD PartyIDX, DWORD CharacterIDX) 
 {
 	//	char txt[128];
@@ -1243,7 +1244,7 @@ void PartyCreate(DWORD MasterIDX, BYTE Option)
 */
 
 //////////////////////////////////////////////////////////////////////////
-//¨Ïo¡Ëc¡§¢®A ¢®¨¡u¢®¢´A DBAo¡Ë¡þ¡Ëc
+//ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A DBAoï¿½Ë¡ï¿½ï¿½ï¿½c
 /*
 void MunpaItemOption(DWORD MapNum, DWORD StartDBIdx)
 {
@@ -1252,7 +1253,7 @@ void MunpaItemOption(DWORD MapNum, DWORD StartDBIdx)
 	g_DB.Query(eQueryType_FreeQuery, eMunpaItemOption, 0, txt);
 }
 
-void MunpaLoad(DWORD MapNum, DWORD StartMunpaID) // ¡Ë¡þE¡§u¢®¨Ï¨Ïoo¢®¨¡¡Ë¢ç ANs; ¡ËO¢®¡¿ ¨Ïo¡Ëc¡§¢®A d¡§¡þ¡Ë¡þ ¨Ïi©ö¡Ëi¨ö¡§u¡§¢®¡Ë?E
+void MunpaLoad(DWORD MapNum, DWORD StartMunpaID) // ï¿½Ë¡ï¿½Eï¿½ï¿½uï¿½ï¿½ï¿½Ï¨ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ANs; ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?E
 {
 //	char txt[128];
 	sprintf(txt, "EXEC %s %d, %d", STORED_MUNPA_LOADMUNPALIST_FIRST, MapNum, StartMunpaID);
@@ -1268,7 +1269,7 @@ void MunpaItemLoad(DWORD MapNum, DWORD StartItemDBIDx)
 
 
 
-void MunpaLoadSyn(DWORD PlayerID, MAPTYPE MapNum, DWORD GotoPage, DWORD PageUnit, char* OrderType) //A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç¡§u¢®¨Ï ¡Ë?aA¢®iAI AO; ¡ËO¢®¡¿
+void MunpaLoadSyn(DWORD PlayerID, MAPTYPE MapNum, DWORD GotoPage, DWORD PageUnit, char* OrderType) //Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½?aAï¿½ï¿½iAI AO; ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
 {
 
 //	char txt[384];
@@ -1414,21 +1415,21 @@ void MunpaBoardBackContent(DWORD PlayerID, DWORD BoardIdx, DWORD StartContentID,
 {
 	g_DB.FreeLargeQuery(RMunpaBoardReadContent,PlayerID,
 		"EXEC %s %d, %d, %d, %d, %d",  STORED_MUNPA_BOARDREADCONTENT, 
-		BoardIdx, StartContentID, 1, MyMunpaRank, PlayerID); //1 : AIAu¢®¨úU
+		BoardIdx, StartContentID, 1, MyMunpaRank, PlayerID); //1 : AIAuï¿½ï¿½ï¿½ï¿½U
 }
 
 void MunpaBoardFrontContent(DWORD PlayerID, DWORD BoardIdx, DWORD StartContentID, DWORD MyMunpaRank)
 {
 	g_DB.FreeLargeQuery(RMunpaBoardReadContent,PlayerID,
 		"EXEC %s %d, %d, %d, %d, %d",  STORED_MUNPA_BOARDREADCONTENT, 
-		BoardIdx, StartContentID, 0, MyMunpaRank, PlayerID); //0: ¡Ë¡ÍU=¢®¨úU
+		BoardIdx, StartContentID, 0, MyMunpaRank, PlayerID); //0: ï¿½Ë¡ï¿½U=ï¿½ï¿½ï¿½ï¿½U
 }
 
 void MunpaBoardCurrentContent(DWORD PlayerID, DWORD BoardIdx, DWORD StartContentID, DWORD MyMunpaRank)
 {	
 	g_DB.FreeLargeQuery(RMunpaBoardReadContent,PlayerID,
 		"EXEC %s %d, %d, %d, %d, %d",  STORED_MUNPA_BOARDREADCONTENT, 
-		BoardIdx, StartContentID, 2, MyMunpaRank, PlayerID); //2: CoAc¢®¨úU
+		BoardIdx, StartContentID, 2, MyMunpaRank, PlayerID); //2: CoAcï¿½ï¿½ï¿½ï¿½U
 }
 
 void MunpaBoardWrite(DWORD PlayerID, DWORD BoardIDX, char* Subject, char* Content, DWORD RootContentsID, DWORD MyMunpaRank)
@@ -1479,7 +1480,7 @@ void GuildLoadGuild(DWORD StartGuildIdx)
 	g_DB.Query(eQueryType_FreeQuery, eGuildLoadGuild, 0, txt);
 }
 
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void GuildLoadNotice(DWORD StartDBIdx)
 {
 //	sprintf(txt, "EXEC %s %u", STORED_GUILD_LOADNOTICE, StartDBIdx);
@@ -1591,13 +1592,13 @@ void GuildItemLoadInNeed( DWORD MapNum, DWORD GuildIdx )
 	g_DB.Query(eQueryType_FreeQuery, eGuildItemLoadInNeed, GuildIdx, txt);
 }
 
-//Á¤ÆÀÀå´Ô Áö½Ã "Ã³¸®ÇÔ¼ö ºÙ¿©³õÀ»°Í~"
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ "Ã³ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~"
 void RGuildItemLoadInNeed( LPQUERY pData, LPDBMESSAGE pMessage )
 {
 	ITEMBASE guilditem;
 	DWORD GuildIdx = pMessage->dwID;
 
-	if( 0 == pMessage->dwResult )	//¹®ÆÄÃ¹ »ý¼ºÀÌ°Å³ª ºóÃ¢°íÀÏ °æ¿ì.
+	if( 0 == pMessage->dwResult )	//ï¿½ï¿½ï¿½ï¿½Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	{
 		GUILDMGR->SetGuildItemInfoInited(GuildIdx, TRUE);
 
@@ -1628,7 +1629,7 @@ void RGuildItemLoadInNeed( LPQUERY pData, LPDBMESSAGE pMessage )
 	}	
 	else
 	{
-		// SLOT_GUILDWAREHOUSE_NUM < MAX_QUERY_RESULT ÀÌ°÷¿¡ µé¾î¿Ã ÀÏ ¾ø´Ù.
+		// SLOT_GUILDWAREHOUSE_NUM < MAX_QUERY_RESULT ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		GuildItemLoad(GAMERESRCMNGR->GetLoadMapNum(), guilditem.dwDBIdx);
 	}
 }
@@ -1737,7 +1738,7 @@ void RGuildItemRareOptionInNeed( LPQUERY pData, LPDBMESSAGE pMessage )
 	}
 }
 
-//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 void GuildLoadGuildPointInfo( DWORD startGuildDBIdx )
 {
 	sprintf(txt, "EXEC dbo.MP_GUILD_LOAD_GUILDPOINTINFO %d", startGuildDBIdx);
@@ -1763,7 +1764,7 @@ void RGuildLoadGuildPointInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 		GuildPointInfo.GuildHuntedMonsterTotalCount = atoi((char*)pData[i].Data[eGPII_GuildHuntedMonsterTotalCount]);
 		//GuildPointInfo.DBProcessTime = 0;
 		//GuildPointInfo.GuildPlusTimeflg = 0;
-		//µû·Î..
+		//ï¿½ï¿½ï¿½ï¿½..
 		//for( int plustimeKind = 0; plustimeKind < eGPT_Kind_Max; ++plustimeKind )
 		//{
 		//	GuildPointInfo.GuildUsingPlusTimeInfo[plustimeKind].PlusTimeEndTime = atoi((char*)pData[i].Data[eGPII_EndTimePerGuildPlustimeKind + plustimeKind]);
@@ -1813,9 +1814,9 @@ void RGuildLoadGuildPlustimeInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 	}
 	else
 	{
-		//RSiegeWarProfitInfoLoad(.. ¿¡¼­ ÀÌµ¿
+		//RSiegeWarProfitInfoLoad(.. ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 		ItemLimitInfoLoadAll( 0 );
-		// ¿ä»õÀü
+		// ï¿½ï¿½ï¿½ï¿½ï¿½
         FortWarInfoLoad();
 		FORTWARMGR->TotalFortWarItemLoad();
 		//
@@ -1832,7 +1833,7 @@ void GuildAddHuntedMonsterCount( DWORD GuildIdx, DWORD MonsterCount )
 
 void RGuildAddHuntedMonsterCount( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	//DB ÃÑ ÇÕ»ê °ª ¹Þ¾Æ¿Í¼­ ±æµå Á¤º¸ ¼¼ÆÃ. ¸Ê¼­¹öµé¿¡°Ô ÀüÆÄ.
+	//DB ï¿½ï¿½ ï¿½Õ»ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿Í¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	DWORD GuildIdx = pMessage->dwID;
 	DWORD count = pMessage->dwResult;
 
@@ -1852,8 +1853,8 @@ void GuildGetHuntedMonsterTotalCountWithInit( DWORD GuildIdx )
 
 void RGuildGetHuntedMonsterTotalCountWithInit( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	//!!!·Î±× ³²°ÜÁÖ±â(¸Ê¹øÈ£,ÃÑÇÕ,º¯È¯µÈÆ÷ÀÎÆ®)
-	//DB ÃÑ ÇÕ»ê °ª ¹Þ¾Æ¿Í Æ÷ÀÎÆ®·Î Á¤»ê
+	//!!!ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½(ï¿½Ê¹ï¿½È£,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®)
+	//DB ï¿½ï¿½ ï¿½Õ»ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	DWORD GuildIdx = pMessage->dwID;
 	DWORD count = pMessage->dwResult;
 
@@ -1902,7 +1903,7 @@ void RGuildUseGuildPoint( LPQUERY pData, LPDBMESSAGE pMessage )
 	if(!count)	return;
 
 	DWORD GuildUsePoint =	atoi((char*)pData->Data[eGUGP_UsePoint]);
-	// ±æµåÆ÷ÀÎÆ®»ç¿ë½Ã ¿¡·¯Ã³¸®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	if( GuildUsePoint <= 0 )
 		return;
 	DWORD GuildTotalPoint = atoi((char*)pData->Data[eGUGP_TotalPoint]);
@@ -1976,12 +1977,12 @@ void SaveCharInfoBeforeLogout(DWORD PlayerIdx, DWORD dwConnectionIndex, DWORD Us
 }
 
 
-/* A¨Ï¡þ¢®¨¡¡Ë¢çEA ¢®ief
+/* Aï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½EA ï¿½ï¿½ief
 #define STORED_PYOCUK_INFO				"MP_PYOGUK_Info"
 #define STORED_PYOCUK_ITEMINFO			"MP_PYOGUK_ItemInfo"
 */
 
-/* C¢®I¢®¨ú¨Ïo d¡§¡þ¡Ë¡þ ¡§uod AU¡§u¢®A */
+/* Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½uod AUï¿½ï¿½uï¿½ï¿½A */
 void CharacterPyogukInfo(DWORD UserIdx, DWORD CharacterIdx)
 {
 //	char txt[128];
@@ -2039,7 +2040,7 @@ void WantedGiveUpRight(DWORD CharacterIDX, DWORD WantedIDX)
 
 void WantedComplete(DWORD CharacterIDX, char* TargetName, WANTEDTYPE WantedIDX)
 {
-	/*A¡Ë¡Í¢®ii¢®¨úC 100¢®¨¡¨Ï©ª¢®¨¡¡Ë¢ç ¡Ë¡þ¡§¢®¡§o¡§¡þ*/
+	/*Aï¿½Ë¡Í¢ï¿½iiï¿½ï¿½ï¿½ï¿½C 100ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½*/
 	sprintf(txt, "EXEC %s %d, \'%s\', %d", STORED_WANTED_COMPLETE, CharacterIDX, TargetName, WantedIDX);
 	g_DB.Query(eQueryType_FreeQuery, eWantedComplete, WantedIDX, txt);
 }
@@ -2107,7 +2108,7 @@ void JournalDelete(DWORD CharacterIDX, DWORD JournalIndex)
 
 //////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////// 
-// Update¨Ïo¡Ëc
+// Updateï¿½ï¿½oï¿½ï¿½c
 //void CharacterItemInsert(DWORD CharacterIDX, WORD ItemIDX, DURTYPE Durability, POSTYPE bPosition, WORD qPosition)
 /*
 void CharacterItemUpdate(DWORD CharacterIDX, DWORD dwDBIdx, WORD wItemIdx, DURTYPE Durability, POSTYPE bPosition, WORD qPosition)
@@ -2196,8 +2197,8 @@ void CharacterTotalInfoUpdate(CPlayer* pPlayer)
 	CHARACTER_TOTALINFO totinfo;
 	pPlayer->GetCharacterTotalInfo(&totinfo);
 
-	// 06. 06 - ÀÌ¿µÁØ Áß¿ä!!!
-	//MP_CHARACTER_TotalInfoUpdate ¼öÁ¤ ÇÊ¿äÇÔ
+	// 06. 06 - ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½!!!
+	//MP_CHARACTER_TotalInfoUpdate ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½
 //	char txt[512];
 	sprintf(txt, "EXEC  %s %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
 		STORED_CHARACTER_TOTALINFOUPDATE,
@@ -2328,7 +2329,7 @@ void CharacterMugongInfoUpdate(CPlayer* pPlayer)
 		MugongUpdateToDB(pMugong, "TOTALUPDATE");
 	}
 	
-	// magi82(2) - Titan(071022) Å¸ÀÌÅº ¹«°ø °æÇèÄ¡ DB ÀúÀåÇÏ´Â ºÎºÐ
+	// magi82(2) - Titan(071022) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ DB ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 	for(int n=TP_TITANMUGONG_START; n<TP_TITANMUGONG_END; ++n)
 	{
 		pMugong = pPlayer->GetMugongBase(n);
@@ -2337,7 +2338,7 @@ void CharacterMugongInfoUpdate(CPlayer* pPlayer)
 		MugongUpdateToDB(pMugong, "TOTALUPDATE");
 	}
 
-	for(n=TP_JINBUB_START; n<TP_JINBUB_END; ++n)
+	for(int n=TP_JINBUB_START; n<TP_JINBUB_END; ++n)
 	{
 		pMugong = pPlayer->GetMugongBase(n);
 		if(pMugong == NULL || pMugong->dwDBIdx==0 || pMugong->bWear==0)
@@ -2583,8 +2584,8 @@ void Quest_EndSubQuest_New( DWORD PlayerID, DWORD mQuestIdx, DWORD sQuestIdx, QS
 
 
 //////////////////////////////////////////////////////////////////////////
-// Log ¢®¨¡u¢®¢´A E¢®IAa CO¡§uo
-/* ¢®¢´¨Ïi©ö¡Ëi¨ù¢®¡¿¡§u¢®(oA, ¡§o¡§¡þAE¡§¡þ?E¢®¨Ï¡§oA E¢®IAa */
+// Log ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A Eï¿½ï¿½IAa COï¿½ï¿½uo
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½(oA, ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AEï¿½ï¿½ï¿½ï¿½?Eï¿½ï¿½ï¿½Ï¡ï¿½oA Eï¿½ï¿½IAa */
 void InsertLogCharacter( DWORD charIdx, LEVELTYPE level, HERO_TOTALINFO* pTotalInfo )
 {
 //	char txt[128];
@@ -2596,7 +2597,7 @@ void InsertLogCharacter( DWORD charIdx, LEVELTYPE level, HERO_TOTALINFO* pTotalI
 	g_DB.LogQuery(eQueryType_FreeQuery, eLogCharacter, 0, txt);
 }
 
-/* ¡§oA¢®¨¡¢®I¡Ë¡Íe¡§¡þ¢®¨¡ E¢®IAa */
+/* ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½IAa */
 void InsertLogExp( BYTE bType, DWORD charIdx, LEVELTYPE level, DWORD changeValue, EXPTYPE NowExp, WORD MurdererKind, DWORD MurdererIdx, DWORD CurAbilPoint)
 {
 	sprintf(txt, "EXEC  %s %d, %d, %d, %u, %I64d, %d, %d, %d",	"dbo.up_ExpPointLog", bType, charIdx, level, changeValue, NowExp, MurdererKind, MurdererIdx, CurAbilPoint);
@@ -2786,7 +2787,7 @@ void InsertLogTool( DWORD dwLogType, DWORD dwLogKind, DWORD dwOperIdx, char* sOp
 
 
 //////////////////////////////////////////////////////////////////
-// DB¢®¢´I¡§¡þIAI ¡Ë¡þ¡§¡©¡§oAAo¡Ë¡þ| ¨Ïi©ö¡Ëi¨ö¡§u¡§¢®¡§u¢®¨Ï A¨Ï©ª¡Ë¡þ¡ËcCI¡Ë¡ÍA CO¡§uo¡Íie.
+// DBï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½IAI ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAoï¿½Ë¡ï¿½| ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½cCIï¿½Ë¡ï¿½A COï¿½ï¿½uoï¿½ï¿½ie.
 
 //pjs
 void  RAuctionCheck(LPQUERY pData,LPDBMESSAGE PMessage)
@@ -2873,8 +2874,8 @@ void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	DWORD count = pMessage->dwResult;
 	if(!count)
 	{
-		// A¨Ï©ª¡Ë¡þ?AI d¡§¡þ¡Ë¡þ¨Ïi©ö¡Ëi¨ö¢®¨úa ¡§oC¡§¢®¡§¡Ë¡Ë?7u
-		ASSERTMSG(0,"DB¡Ë?¡Ë¢ç AE¡Ë¡þ?AI ¡Íi¢®IAIA¡Ë¡þ¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡§o4I¡Ë¡ÍU.");
+		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?AI dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½?7u
+		ASSERTMSG(0,"DBï¿½ï¿½?ï¿½Ë¢ï¿½ AEï¿½Ë¡ï¿½?AI ï¿½ï¿½iï¿½ï¿½IAIAï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½ï¿½ï¿½o4Iï¿½Ë¡ï¿½U.");
 		return;
 	}
 	
@@ -2894,7 +2895,7 @@ void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	Objinfo.BattleID = 0;
 	Objinfo.BattleTeam = 0;
 	
-	// UserIDX¡Ë¡ÍA ¨Ï©ªN¢®¨úaAo ¡§uE¡Ë¡ÍA¡Ë¡ÍU
+	// UserIDXï¿½Ë¡ï¿½A ï¿½Ï©ï¿½Nï¿½ï¿½ï¿½ï¿½aAo ï¿½ï¿½uEï¿½Ë¡ï¿½Aï¿½Ë¡ï¿½U
 	Heroinfo.PartyID = atoi((char*)pData->Data[eCS_PartyID]);
 	
 	Totalinfo.Gender = atoi((char*)pData->Data[eCS_Gender]);
@@ -2957,16 +2958,16 @@ void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 
 	// magi82 //////////////////////////////////////////////////////////////////////////
 
-	// ±¸Á¶Ã¼¿¡ ÇÃ·¡±×°ª Áý¾î³Ö¾î¾ßÇÔ(flag : LevelUp±¸°£È­ °ü·Ã)
+	// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½(flag : LevelUpï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½)
 	Heroinfo.ExpFlag = (BYTE)(atoi((char*)pData->Data[eCS_ExpFlag]));
 	////////////////////////////////////////////////////////////////////////////////////
 
-	// magi82 Levelup ±¸°£È­ ¼öÁ¤ (±¸°£È­·Î ÀÎÇÑ ±âÁ¸ Ä³¸¯¿¡°Ô °øÂ¥ Æ÷ÀÎÆ®¸¦ ¾ÈÁÖ°Ô ¸·´Â ÀÛ¾÷) ///////
+	// magi82 Levelup ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½) ///////
 
-	// LevelUp ±¸°£È­ °ü·Ã ÇÃ·¡±×°¡ ÇÑ¹øµµ Àû¿ëµÇÁö ¾Ê¾ÒÀ»¶§
+	// LevelUp ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½×°ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(!CheckBit(Heroinfo.ExpFlag, 4))
 	{
-		// Ã³À½ Á¢¼ÓÇßÀ»¶§ ·¹º§ ´Ù¿îµÈ »óÅÂ¸é ¸ðµç ÇÃ·¡±× TRUE·Î ¹Ù²ãÁØ´Ù.
+		// Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ TRUEï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ø´ï¿½.
 		if(Totalinfo.Level < Heroinfo.MaxLevel)
 		{
 			Heroinfo.ExpFlag = 0x0F;
@@ -2983,8 +2984,8 @@ void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			}
 		}
 
-		SetOnBit(&Heroinfo.ExpFlag, 4);	// ÇÑ¹ø Àû¿ë µÇ¾úÀ¸¹Ç·Î ´ÙÀ½ºÎÅÏ Àû¿ë ¾ÈÇÔ
-		UCharacterExpFlag(Objinfo.dwObjectID, Heroinfo.ExpFlag);	// ÀÛ¾÷ÈÄ DB°»½Å
+		SetOnBit(&Heroinfo.ExpFlag, 4);	// ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		UCharacterExpFlag(Objinfo.dwObjectID, Heroinfo.ExpFlag);	// ï¿½Û¾ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -3028,7 +3029,7 @@ void RCharacterNumSendAndCharacterInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	pPlayer->SetInitState(PLAYERINITSTATE_HERO_INFO,pMessage->dwID);
    	CharacterPetInfo(Objinfo.dwObjectID, Objinfo.dwUserID);
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	CharacterTitanInfo(Objinfo.dwObjectID, Objinfo.dwUserID);
 
 #ifdef _JAPAN_LOCAL_
@@ -3151,11 +3152,11 @@ void	RCharacterMugongInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 //	if(count > MAX_TOTALMUGONG_NUM)
 	if(count > SLOT_MUGONGTOTAL_NUM)
 	{
-		// ¡Íi¢®IAIAI¢®¨¡¡Ë¢ç AE¢®¨¡u¡Íi¡§¢®¡Ë¡ÍU.
+		// ï¿½ï¿½iï¿½ï¿½IAIAIï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ AEï¿½ï¿½ï¿½ï¿½uï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 	}
 	else if((count == 1) && (atoi((char*)pData->Data[0]) == 0))
 	{
-		// ¡Íi¢®IAIAI¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡§ui¡§u¢®¨Ï PlayerID¡Ë¡þ| ¨ÏoYE?CO ¢®¨¡¨Ï¢®¡Ë?i¢®¨¡E¢®ic
+		// ï¿½ï¿½iï¿½ï¿½IAIAIï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½ï¿½ï¿½uiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ PlayerIDï¿½Ë¡ï¿½| ï¿½ï¿½oYE?CO ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ic
 		CPlayer* pPlayer = (CPlayer *)g_pUserTable->FindUser(atoi((char*)pData->Data[1]));
 		if(pPlayer == NULL)
 			return;
@@ -3186,11 +3187,11 @@ void	RCharacterMugongInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			POSTYPE MugongPos = ConvAbsPos2MugongPos(atoi((char*)pData[i].Data[eCM_Position]));
 			MUGONGBASE* pMugongBase = &Mugonginfo.mugong[MugongPos];
 
-			//¹«°ø Æ÷Áö¼ÇÀÌ °ãÃÆ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ´ï¿½.
 			if(pMugongBase->dwDBIdx != 0 && overlapcount < maxoverlap)
 			{
-				// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
-				// Å¸ÀÌÅº ¹«°øÀÎµ¦½º´Â Ä³¸¯ÅÍ¹«°øÀÎµ¦½º+10000 ÀÌ´Ù
+				// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
+				// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½+10000 ï¿½Ì´ï¿½
 				//if(Mugongidx == pMugongBase->wIconIdx+10000 )
 				//{
 				//	pMugongBase = &Mugonginfo.Titanmugong[MugongPos];
@@ -3211,18 +3212,19 @@ void	RCharacterMugongInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			pMugongBase->bWear = FALSE;
 
 			//////////////////////////////////////////////////////////////////////////
-			// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-			// ¹«°ø º¯È¯ Ãß°¡
+			// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 			pMugongBase->OptionIndex = atoi((char*)pData[i].Data[eCM_Option]);
 			//////////////////////////////////////////////////////////////////////////
 		}
 		
-		//Áßº¹µÈ ¹«°øÀÌ ÀÖÀ¸¸é ºóÄ­¿¡ ³Ö¾îÁØ´Ù.
+		//ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 		for(int n=0;n<overlapcount;++n)
 		{
-			for(int m=0;m<SLOT_MUGONG_NUM;++m)
+			int m;
+			for(m=0;m<SLOT_MUGONG_NUM;++m)
 			{
-				//ºóÄ­ÀÌ¸é ³Ö¾îÁØ´Ù.
+				//ï¿½ï¿½Ä­ï¿½Ì¸ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 				if(Mugonginfo.mugong[m].dwDBIdx == 0)
 				{
 					Mugonginfo.mugong[m] = OverLapMugong[n];
@@ -3239,12 +3241,12 @@ void	RCharacterMugongInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 				}
 			}
 
-			//¸¸¾à ºóÄ­ÀÌ ¾øÀ¸¸é ´õÀÌ»ó Ã³¸®ÇÏÁö ¾ÊÀ½
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(m==SLOT_MUGONG_NUM)
 				break;
 		}
 
-		// Player¡Ë?¡Ë¢ç ¨Ïo¢®i¢®¨¡¨Ï¨£d¡§¡þ¡Ë¡þ A¨Ï¡þ¢®¨¡¡Ë¢ç
+		// Playerï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ Aï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½
 		pPlayer->InitMugongTotalInfo(&Mugonginfo);
 		pPlayer->SetInitState(PLAYERINITSTATE_MUGONG_INFO,pMessage->dwID);
 	}
@@ -3296,7 +3298,7 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	DWORD count = pMessage->dwResult;
 	if((count == 1) && (atoi((char*)pData->Data[0]) == 0))
 	{
-		// ¡Íi¢®IAIAI¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡§ui¡§u¢®¨Ï PlayerID¡Ë¡þ| ¨ÏoYE?CO ¢®¨¡¨Ï¢®¡Ë?i¢®¨¡E¢®ic
+		// ï¿½ï¿½iï¿½ï¿½IAIAIï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½ï¿½ï¿½uiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ PlayerIDï¿½Ë¡ï¿½| ï¿½ï¿½oYE?CO ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ic
 		pPlayer = (CPlayer *)g_pUserTable->FindUser(atoi((char*)pData->Data[1]));
 		if(pPlayer == NULL)
 			return;
@@ -3322,7 +3324,7 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 		{
 			POSTYPE ItemPos = atoi((char*)pData[i].Data[eCI_Position]);
 			ITEMBASE* pItemBase = NULL;
-			// ¢®¨ú¢®¢¯¡Ë¡þ¡Ëc¡Íia(AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc)¡§u¡§¢®AIAU ¡§uA¡§¢®A
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½ia(AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½c)ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A
 			if(ItemPos >= TP_INVENTORY_START && ItemPos < TP_INVENTORY_END)
 			{
 				ItemPos -= TP_INVENTORY_START;
@@ -3347,7 +3349,7 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 							if( pItemInfo->ItemKind & eSHOP_ITEM )
 							{
 								pItemBase->dwDBIdx = atoi((char*)pData[i].Data[eCI_DBIDX]);
-								// DB¿¡ Æ÷Áö¼ÇÀ» ¾÷µ¥ÀÌÆ®ÇØÁØ´Ù.
+								// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ø´ï¿½.
 								ItemMoveUpdateToDB( pPlayer->GetID(), 0, 0, pItemBase->dwDBIdx, 240 );
 								continue;
 							}
@@ -3362,12 +3364,12 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 
 			if(pItemBase == NULL)
 			{
-				// ¡Ë?¡§I¢®¨úa¡Ë?¡Ë¢ç ¡Íie¡§ui¡Ë?8e ¡§u¡§¢®AIAU ¡§¢®¢®AAo¡§uC ¡Ë?¡Ë¢ç¢®¢´?AO
+				// ï¿½ï¿½?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½aï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ieï¿½ï¿½uiï¿½ï¿½?8e ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AAoï¿½ï¿½uC ï¿½ï¿½?ï¿½Ë¢ç¢®ï¿½ï¿½?AO
 				ASSERT(0);
 				continue;
 			}
 			
-			//¾ÆÀÌÅÛ Æ÷Áö¼ÇÀÌ °ãÃÆ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ´ï¿½.
 			if(pItemBase->dwDBIdx != 0 && overlapcount < maxoverlap)
 			{
 				pItemBase = &OverLapItem[overlapcount];
@@ -3382,7 +3384,7 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			pItemBase->QuickPosition = atoi((char*)pData[i].Data[eCI_QPosition]);
 			pItemBase->ItemParam = atoi((char*)pData[i].Data[eCI_Param]);
 
-			// magi82(33) Ä³¸¯ÅÍ ÀÎº¥¿¡ ÀÖ´Â Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛÀÇ ¿¹¿ÜÃ³¸®
+			// magi82(33) Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 			ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(pItemBase->wIconIdx);
 			if( pInfo && pInfo->ItemKind & eTITAN_EQUIPITEM )
 			{
@@ -3394,12 +3396,13 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			}
 		}
 
-		//Áßº¹µÈ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é ºóÄ­¿¡ ³Ö¾îÁØ´Ù.
+		//ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 		for(int n=0;n<overlapcount;++n)
 		{
-			for(int m=TP_INVENTORY_START;m<TP_INVENTORY_END;++m)
+			int m;
+			for(m=TP_INVENTORY_START;m<TP_INVENTORY_END;++m)
 			{
-				//ºóÄ­ÀÌ¸é ³Ö¾îÁØ´Ù.
+				//ï¿½ï¿½Ä­ï¿½Ì¸ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 				if(Iteminfo.Inventory[m].dwDBIdx == 0)
 				{
 					Iteminfo.Inventory[m] = OverLapItem[n];
@@ -3408,24 +3411,24 @@ void	RCharacterItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 				}
 			}
 
-			//¸¸¾à ºóÄ­ÀÌ ¾øÀ¸¸é ´õÀÌ»ó Ã³¸®ÇÏÁö ¾ÊÀ½
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(m==TP_INVENTORY_END)
 				break;
 		}
 		
-		// Player¡Ë?¡Ë¢ç ¡§u¡§¢®AIAU d¡§¡þ¡Ë¡þA¨Ï¡þ¢®¨¡¡Ë¢ç
+		// Playerï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Aï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½
 		pPlayer->InitItemTotalInfo(&Iteminfo);
 		ShopItemInvenInfo( pPlayer->GetID() );
 
-		// ¨Ï©ªeaA¢®E¡Ë?¡Ë¢ç ¨Ï©ª¨Ï¡À¡§u¡§¢® AO¡Ë¡ÍA ¡§u¡§¢®AIAU; AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc¢®¢´I ¡Ë?A¢®¨úa¡Ë¡ÍU???
-		// ¡Ë?i¡§u¢®¨ú AO¡§u¡Ëc A¨Ï©ª¡Ë¡þ¡Ëc : taiyo 
+		// ï¿½Ï©ï¿½eaAï¿½ï¿½Eï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½Ï©ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ AOï¿½Ë¡ï¿½A ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU; AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½?Aï¿½ï¿½ï¿½ï¿½aï¿½Ë¡ï¿½U???
+		// ï¿½ï¿½?iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ AOï¿½ï¿½uï¿½ï¿½c Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½c : taiyo 
 		///ITEMMGR_OBJ->QuitStreetStall(pPlayer,FALSE);		
 	}
 }
 
 void RPyogukItemRareOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 {
-	// C¢®I¢®¨ú¨Ïo A¢®E¢®¨¡i
+	// Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½i
 	CPlayer* pPlayer = NULL;
 	pPlayer = (CPlayer *)g_pUserTable->FindUser(pMessage->dwID);
 	if(pPlayer == NULL)
@@ -3469,7 +3472,7 @@ void RPyogukItemRareOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 
 void RPyogukItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 {
-	// C¢®I¢®¨ú¨Ïo A¢®E¢®¨¡i
+	// Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½i
 	CPlayer* pPlayer = NULL;
 	pPlayer = (CPlayer *)g_pUserTable->FindUser(pMessage->dwID);
 	if(pPlayer == NULL)
@@ -3512,7 +3515,7 @@ void RPyogukItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	{
 		PyogukItemRareOptionInfo(pPlayer->GetID(), pPlayer->GetUserID(), 0);
 	}
-	//SW051007 PyogukItemRareOptionInfo ·Î ¿Å±è.
+	//SW051007 PyogukItemRareOptionInfo ï¿½ï¿½ ï¿½Å±ï¿½.
 //	else
 //		CharacterPyogukItemInfo(pMessage->dwID, 0);
 }
@@ -3577,14 +3580,14 @@ void	RCharacterItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	if(pPlayer == NULL)
 		return;
 
-	// AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc
+	// AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½c
 	if(pMessage->dwResult == 1 && atoi((char*)pData->Data[eCIOI_OptionID]) == 0)
 	{
 		pPlayer->SetInitState(PLAYERINITSTATE_ITEM_OPTION_INFO,pMessage->dwID);
 	}
 	else
 	{
-		ASSERTMSG(pMessage->dwResult <= 90, "Item Option > 90 Error : ¨ÏoI¡Ë?i; ¡§¡þO¢®¢´?¡§¡þ¡Ë¡þ¡§u¡§¢®¡Ë?a~!");
+		ASSERTMSG(pMessage->dwResult <= 90, "Item Option > 90 Error : ï¿½ï¿½oIï¿½ï¿½?i; ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?a~!");
 
 		ITEM_OPTION_INFO OptionInfo;
 		for( DWORD  i = 0 ; i < pMessage->dwResult ; ++i )
@@ -3621,7 +3624,7 @@ void	RCharacterItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	/*
 	if(count == 1 && atoi((char*)pData->Data[1]) == 0)
 	{
-		// ¡Íi¢®IAIAI¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡§ui¡§u¢®¨Ï PlayerID¡Ë¡þ| ¨ÏoYE?CO ¢®¨¡¨Ï¢®¡Ë?i¢®¨¡E¢®ic
+		// ï¿½ï¿½iï¿½ï¿½IAIAIï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½ï¿½ï¿½uiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ PlayerIDï¿½Ë¡ï¿½| ï¿½ï¿½oYE?CO ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ic
 		pPlayer = (CPlayer *)g_pUserTable->FindUser(atoi((char*)pData->Data[eCIOI_ObjectID]));
 		if(pPlayer == NULL)
 			return;
@@ -3629,7 +3632,7 @@ void	RCharacterItemOptionInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 	else
 	{
-		ASSERTMSG(count <= 90, "Item Option > 90 Error : ¨ÏoI¡Ë?i; ¡§¡þO¢®¢´?¡§¡þ¡Ë¡þ¡§u¡§¢®¡Ë?a~!");
+		ASSERTMSG(count <= 90, "Item Option > 90 Error : ï¿½ï¿½oIï¿½ï¿½?i; ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?a~!");
 
 		pPlayer = (CPlayer *)g_pUserTable->FindUser((DWORD)atoi((char*)pData[0].Data[eCIOI_ObjectID]));
 		if(pPlayer == NULL)
@@ -3718,14 +3721,14 @@ void RPetInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 	//WORD lastNo = LOWORD(pMessage->dwID);
 	//WORD ArrayID = HIWORD(pMessage->dwID);
 
-	//ÇÃ·¹ÀÌ¾î°¡ ÀÖ´ÂÁö
+	//ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö´ï¿½ï¿½ï¿½
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(atoi((char*)pData->Data[ePII_MasterObjectID]));
 	if( NULL == pPlayer )
 		return;
 	if( FALSE == pPlayer->GetInited() )
 		return;
 
-	//!!!¼ÒÈ¯¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö
+	//!!!ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
 	//ePTI_PetSummonItemIdx
 
 	PET_TOTALINFO PetInfo;
@@ -3749,7 +3752,7 @@ void RPetInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 
 	pPlayer->GetPetManager()->AddPetTotalInfo(&PetInfo,eServerNClient);
-	//Æê »ý¼º°ú Á¤º¸ ÃÊ±âÈ­
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	/*
 	CPet* pPet = g_pServerSystem->AddPet(pPlayer, dwPetObjectID, &PetInfo);
 	if(pPet)
@@ -3766,7 +3769,7 @@ void PetDeleteToDB( DWORD dwPetDBIdx )
 
 void PetUpdateToDB( DWORD UserIdx, const PET_TOTALINFO* pPetTotalInfo )
 {
-	//°»½ÅµÈ Æê Á¤º¸ DB ÀúÀå.
+	//ï¿½ï¿½ï¿½Åµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½.
 	sprintf(txt, "EXEC dbo.MP_PET_Update %d, %d, %d, %d, %d,  %d, %d, %d",
 		UserIdx,
 		//dwItemDBIdx,
@@ -3795,7 +3798,7 @@ void RCharacterPetInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	if(pPlayer == NULL)
 		return;
 
-	//!!!¼ÒÈ¯¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö	//DB·ÎºÎÅÍ ¾ÆÀÌÅÛ Á¤º¸°¡ ¸ÕÀú ´Ù µµÂøÇÑ´Ù´Â º¸ÀåÀÌ ¾ø´Ù.
+	//!!!ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½	//DBï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	//ePTI_PetSummonItemIdx
 
 	PET_TOTALINFO PetInfo;
@@ -3939,7 +3942,7 @@ void RPetInvenItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 				PetInvenItem.PetInven[ItemPos].dwDBIdx = atoi((char*)pData[i].Data[ePIII_DBIDX]);
 				PetInvenItem.PetInven[ItemPos].wIconIdx = atoi((char*)pData[i].Data[ePIII_IDX]);
 				PetInvenItem.PetInven[ItemPos].Position = atoi((char*)pData[i].Data[ePIII_Position]);
-				//PetInvenItem.PetInven[ItemPos].QuickPosition = 0	//(±âÈ¹))ÆêÀÎº¥ Äü¼³Á¤¾ÈµÊ
+				//PetInvenItem.PetInven[ItemPos].QuickPosition = 0	//(ï¿½ï¿½È¹))ï¿½ï¿½ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½
 				PetInvenItem.PetInven[ItemPos].Durability	= atoi((char*)pData[i].Data[ePIII_Durability]);
 				PetInvenItem.PetInven[ItemPos].RareIdx	= atoi((char*)pData[i].Data[ePIII_RareIdx]);
 			}
@@ -4021,12 +4024,12 @@ void RPetWearItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 	}
 
 	/*
-	//Áßº¹µÈ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é ºóÄ­¿¡ ³Ö¾îÁØ´Ù.
+	//ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 	for(int n=0; n<OverlapCount; n++)
 	{
 		for(int m=0; m<SLOT_PETWEAR_NUM; m++)
 		{
-			//ºóÄ­ÀÌ¸é ³Ö¾îÁØ´Ù.
+			//ï¿½ï¿½Ä­ï¿½Ì¸ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 			if( ItemBase[m].dwDBIdx == 0)
 			{
 				ItemBase[m] = ItemOverlap[n];
@@ -4035,7 +4038,7 @@ void RPetWearItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 			}
 		}
 
-		//¸¸¾à ºóÄ­ÀÌ ¾øÀ¸¸é ´õÀÌ»ó Ã³¸®ÇÏÁö ¾ÊÀ½
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( m==SLOT_PETWEAR_NUM )
 			break;
 	}*/
@@ -4046,7 +4049,7 @@ void RPetWearItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 	TitanWearItemInfo(pPlayer->GetID(), TP_TITANWEAR_START, TP_TITANSHOPITEM_END);
 }
 
-//SW070127 Å¸ÀÌÅº
+//SW070127 Å¸ï¿½ï¿½Åº
 void TitanInsertToDB(DWORD UserIdx, DWORD CharacterIdx, DWORD dwItemIdx, TITAN_TOTALINFO* pTitanTotalInfo)
 {
 	sprintf(txt, "EXEC dbo.MP_TITAN_Insert %d,%d,%d,%d,%d, %d,%d,%d,%d,%d, %d,%d",
@@ -4342,13 +4345,13 @@ void RSSItemInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// Insert ¡§oC¡§¢®¡§¡Ë
+		// Insert ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 	}
 	else
 	{
-		// Insert ¡§u¡§¡þ¢®¨¡¨Ï¨£
-		DWORD dwPlayerID = atoi((char*)pData->Data[eCI_ObjectID]);		// A¨Ï©ª¡Ë¡þ?¡§u¡§¢®AI¡Íi¨Ï¡Ì
+		// Insert ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½
+		DWORD dwPlayerID = atoi((char*)pData->Data[eCI_ObjectID]);		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡ï¿½
 		ITEMBASE info;
 		info.Position = atoi((char*)pData->Data[eCI_Position]);		// Item_Position
 		info.QuickPosition = atoi((char*)pData->Data[eCI_QPosition]);
@@ -4367,13 +4370,13 @@ void	RCharacterItemGetCheatIDX(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// Insert ¡§oC¡§¢®¡§¡Ë
+		// Insert ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 	}
 	else
 	{
-		// Insert ¡§u¡§¡þ¢®¨¡¨Ï¨£
-		DWORD dwPlayerID = atoi((char*)pData->Data[eCI_ObjectID]);		// A¨Ï©ª¡Ë¡þ?¡§u¡§¢®AI¡Íi¨Ï¡Ì
+		// Insert ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½
+		DWORD dwPlayerID = atoi((char*)pData->Data[eCI_ObjectID]);		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡ï¿½
 		ITEMBASE info;
 		info.Position = atoi((char*)pData->Data[eCI_Position]);		// Item_Position
 		info.dwDBIdx = atoi((char*)pData->Data[eCI_DBIDX]);		// Item_DBIDX
@@ -4395,12 +4398,12 @@ void	RCharacterItemGetDivideIDX(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// Insert ¡§oC¡§¢®¡§¡Ë
+		// Insert ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	else
 	{
-		// Insert ¡§u¡§¡þ¢®¨¡¨Ï¨£
-		atoi((char*)pData->Data[eCI_ObjectID]);		// A¨Ï©ª¡Ë¡þ?¡§u¡§¢®AI¡Íi¨Ï¡Ì
+		// Insert ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½
+		atoi((char*)pData->Data[eCI_ObjectID]);		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡ï¿½
 		atoi((char*)pData->Data[eCI_DBIDX]);		// Item_DBIDX
 		atoi((char*)pData->Data[eCI_IDX]);			// Item_IDX
 		atoi((char*)pData->Data[eCI_Position]);		// Item_Position
@@ -4412,7 +4415,7 @@ void RItemOptionInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if( pMessage->dwResult )
 	{
-		// Insert ¡§u¡§¡þ¢®¨¡¨Ï¨£
+		// Insert ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½
 		CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser((DWORD)atoi((char*)pData[0].Data[eCIO_ObjectID]));
 		if(pPlayer == NULL)
 			return;
@@ -4467,18 +4470,18 @@ void RItemRareInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 		if(pItemArrayInfo == NULL)
 			return;
 
-		pItemArrayInfo->ItemArray.AddItem( atoi((char*)pData->Data[eCIR_ItemDBID]),	//¿øº» ¾ÆÀÌÅÛ DB ÀÎµ¦½º
-							atoi((char*)pData->Data[eCIR_ItemIdx]),	//¿øº» ¾ÆÀÌÅÛ ¸®½ºÆ® ÀÎµ¦½º
-							0,	//atoi((char*)pData->Data[eCIR_Durability]),	//°¹¼ö(°­È­ÀÎµ¦½º)
-							atoi((char*)pData->Data[eCIR_Position]), //ÀÎº¥ Æ÷Áö¼Ç
-							0,	//atoi((char*)pData->Data[eCIR_QPosition]),	//´ÜÃàÃ¢ Æ÷Ä¡¼Ç
+		pItemArrayInfo->ItemArray.AddItem( atoi((char*)pData->Data[eCIR_ItemDBID]),	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½Îµï¿½ï¿½ï¿½
+							atoi((char*)pData->Data[eCIR_ItemIdx]),	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½
+							0,	//atoi((char*)pData->Data[eCIR_Durability]),	//ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½È­ï¿½Îµï¿½ï¿½ï¿½)
+							atoi((char*)pData->Data[eCIR_Position]), //ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							0,	//atoi((char*)pData->Data[eCIR_QPosition]),	//ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½Ä¡ï¿½ï¿½
 							0,	//atoi((char*)pData->Data[eCIR_Param]),
-							atoi((char*)pData->Data[eCIR_RareID])	//·¹¾î DB ÀÎµ¦½º
+							atoi((char*)pData->Data[eCIR_RareID])	//ï¿½ï¿½ï¿½ï¿½ DB ï¿½Îµï¿½ï¿½ï¿½
 							);	
 		
 		ITEM_RARE_OPTION_INFO RareOptionInfo;
 
-		RareOptionInfo.dwRareOptionIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_RareID]);	//!»ó¼ö µû·Î ¾È¸¸µé¾îµµ µÉµí
+		RareOptionInfo.dwRareOptionIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_RareID]);	//!ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¸ï¿½ï¿½ï¿½îµµ ï¿½Éµï¿½
 		RareOptionInfo.dwItemDBIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_ItemDBID]);
 		RareOptionInfo.GenGol					= (WORD)atoi((char*)pData[0].Data[eCIR_GenGol]);
 		RareOptionInfo.MinChub					= (WORD)atoi((char*)pData[0].Data[eCIR_MinChub]);				
@@ -4525,7 +4528,7 @@ void RItemInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 
 	if( pMessage->dwResult )
 	{
-		// Insert ¡§u¡§¡þ¢®¨¡¨Ï¨£
+		// Insert ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½
 
 		DWORD dwObjectID = atoi((char*)pData->Data[eCI_ObjectID]);
 		DWORD dwItemIdx = atoi((char*)pData->Data[eCI_IDX]);
@@ -4561,8 +4564,8 @@ void RItemInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 		}
 		else
 		{
-			//¡§u¡§¢®¡Ë¡ÍO¡ËO¢®¡¿¡Ë¡ÍA ¡§ui¡ËO¢®i¢®¨¡O A¨Ï©ª¡Ë¡þ¡ËcCO¢®¨¡IAI¢®¨¡¡Ë¢ç?
-			//A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc¢®¨¡¡Ë¢ç ¡Ë¡þ¡§¨£A¨Ï¡þ¡Ë¡ÍA¡Íi¢®I.. ¡Ë¡þ¡§¡©¡§oAAo¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡§ui¡§u¢®¨Ï.
+			//ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Oï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½A ï¿½ï¿½uiï¿½ï¿½Oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½O Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½cCOï¿½ï¿½ï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½?
+			//Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Ï¡ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I.. ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAoï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½ï¿½ï¿½uiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½.
 		}
 	}
 	else
@@ -4576,7 +4579,7 @@ void RMugongInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// ¡§oC¡§¢®¡§¡Ë
+		// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		/*
 		MSG_MUGONG_ADD_NACK msg;
 		msg.Category = MP_MUGONG;
@@ -4606,8 +4609,8 @@ void RMugongInsert(LPQUERY pData, LPDBMESSAGE pMessage)
 		sMugong.bWear			= FALSE;
 
 		////////////////////////////////////////////////////////////////////////////////
-		// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-		// ¹«°ø º¯È¯
+		// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		//sMugong.OptionIndex = 0;
 		////////////////////////////////////////////////////////////////////////////////
 
@@ -4619,7 +4622,7 @@ void RMapBaseEconomy(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// Ai¡ËO¢®Ei¡§u¡§oC¡§¢®¡§¡Ë
+		// Aiï¿½ï¿½Oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	else
 	{
@@ -4642,7 +4645,7 @@ void RAuctionPageQuery(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 /*	if((atoi((char*)pData->Data[0]) == 0))
 	{
-		// Ai¡ËO¢®Ei¡§u¡§oC¡§¢®¡§¡Ë
+		// Aiï¿½ï¿½Oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	else
 */	{
@@ -4675,7 +4678,7 @@ void RPartyLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 }
 
-//2008. 5. 21. CBH - ¹æÆÄ »ý¼º Ãß°¡ ¿É¼Ç °ü·Ã Ã³¸® ¼öÁ¤
+//2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void RPartyCreate(LPMIDDLEQUERY pData, LPDBMESSAGE pMessage) 
 {
 	DWORD CreateErr, MasterIdx;
@@ -4884,7 +4887,7 @@ void RMunpaLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 	ASSERT(pMessage->dwResult <= MAX_MUNPALOAD_LIST);
 	if(pMessage->dwResult == MAX_MUNPALOAD_LIST)
 	{
-		// ¨Ï©ª¨Ï¡À¡§u¡§¢®AO¡Ë¡ÍA ¨Ïo¡Ëc¡§¢®A¢®¨¡¡Ë¢ç ¡Ë¡Ío AO8¡Ë¡ÍI ¡Ë¡ÍU¡§oA ¡Ë¡þ¡Ëc¡§i©ö¡Ëi¨ù¡§¢®¡Ëc¡Ë¡þ| ¨Ïi©ö¡Ëi¨ö¡§u¡§¢®¡Ë?A¡Ë¡ÍU.
+		// ï¿½Ï©ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AOï¿½Ë¡ï¿½A ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½o AO8ï¿½Ë¡ï¿½I ï¿½Ë¡ï¿½Uï¿½ï¿½oA ï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½Ë¡ï¿½| ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?Aï¿½Ë¡ï¿½U.
 		MunpaLoad(GAMERESRCMNGR->GetLoadMapNum(), munpa.MunpaID);
 	}
 	else
@@ -4953,7 +4956,7 @@ void RMunpaItemLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 	if(pMessage->dwResult < MAX_MUNPALOAD_LIST)
 	{
 	//	g_pServerSystem->SetStart(TRUE);
-		//¨Ïo¡Ëc¡§¢®AA¢®E¢®¨¡i ¢®¨úCCN; A¡§¡Ë¡§ui¡Ë?A¡Ë¡ÍU.
+		//ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½i ï¿½ï¿½ï¿½ï¿½CCN; Aï¿½ï¿½ï¿½Ë¡ï¿½uiï¿½ï¿½?Aï¿½Ë¡ï¿½U.
 		MUNPAMGR->LoadWarehouseAuthority();
 
 		WantedLoad(0);
@@ -5008,12 +5011,12 @@ void RMunpaCreate(LPLARGEQUERY pData, LPDBMESSAGE pMessage)
 	munpa.MunpaID	=	atoi((char*)pData->Data[eMu_MCMunpaid]);
 	if(!munpa.MunpaID)
 	{
-		ASSERTMSG(0, "¨Ïo¡Ëc¡§¢®A¡Ë¡þ| ¢®iy¡§u¡§¡þC¨Ï¡þ¡Ë¡ÍA¡Íi¢®I ¡§u¡§¢®AI¡Íi¨Ï¡Ì¡Ë¡þ| A¨Ï¡þ¡Ë¡þ¨Ï¨£ ¨Ïi©ö¡Ëi¨ö¡§u¡§¢®¡Ë?O¡§o4I¡Ë¡ÍU.");
+		ASSERTMSG(0, "ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Aï¿½Ë¡ï¿½| ï¿½ï¿½iyï¿½ï¿½uï¿½ï¿½ï¿½ï¿½Cï¿½Ï¡ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡Ì¡Ë¡ï¿½| Aï¿½Ï¡ï¿½ï¿½Ë¡ï¿½ï¿½Ï¨ï¿½ ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?Oï¿½ï¿½o4Iï¿½Ë¡ï¿½U.");
 		return;
 	}
 	munpa.MasterID = atoi((char*)pData->Data[eMu_MCMasterid]);
 	SafeStrCpy(munpa.MunpaName, (char*)pData->Data[eMu_MCMunpaname], MAX_MUNPA_NAME + 1);
-	munpa.Famous = 0; //AI¡Ë¡ÍU 0
+	munpa.Famous = 0; //AIï¿½Ë¡ï¿½U 0
 	munpa.MemberNum = 1;
 	munpa.MunpaRank = atoi((char*)pData->Data[eMu_MCMunpaRank]);
 
@@ -5055,7 +5058,7 @@ void RMunpaBreakUp(LPQUERY pData, LPDBMESSAGE pMessage)
 		MUNPAMGR->MarkChange(pMaster, 0, MUNPA_NOTMEMBER);
 	}
 
-	//¨Ïo¡Ëc¡§¢®A¡Ë?¨Ï¨£¡Íie ¡§uA¡§¢®AC¡§¨£¡§u¨Ï¡þAo
+	//ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½?ï¿½Ï¨ï¿½ï¿½ï¿½ie ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½ACï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½Ï¡ï¿½Ao
 	MunpaBreakUpMembers(0, pMessage->dwID);
 
 	MUNPAMGR->BreakUpMunpaResult(pMessage->dwID);
@@ -5070,9 +5073,9 @@ void RMunpaBreakUpMembers(LPQUERY pData, LPDBMESSAGE pMessage)
 
 	for(DWORD i=0; i<pMessage->dwResult; ++i)
 	{
-		//¢®¢´I¢®¨ú¢®¢¯ ¡§u¡§¢®¡Ë?o CO¡ËO¢®¡¿ MP_CHARACTER_TotalInfoUpdated ¡Ë?¡Ë¢ç¡§u¢®¨Ï 
-		//tb_munpaA¢®¢¯AI¡§¡þi; Au¢®¨¡iC¡§¨£¡§u¢®¨Ï ¡§u¢®%i¢®IAI¡§¢®¡ËcCI¡Ë¡þe¡§u¢®¨Ï A¢®¢¯AI¡§¡þi d¡§¡þ¡Ë¡þ¡Ë¡þ| AIA¡Ë¢ç¡§oAA¨Ï¡À¡Ë¡ÍU. 
-		MemberID = atoi((char*)pData[i].Data[eMu_MBmemberid]);  //¡Ë?A¡ËOoAI ¡ÍiC¡§ui AO¡Ë¡ÍA ¡Ë¡þa¨Ïoo¡Ë¡þ¡Ë¡þ ¡§¡þ¡Ë¡þ¨Ï©ª¢®iA¡§¨£¡Ë¡ÍU.
+		//ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?o COï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ MP_CHARACTER_TotalInfoUpdated ï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ 
+		//tb_munpaAï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½i; Auï¿½ï¿½ï¿½ï¿½iCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½%iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cCIï¿½Ë¡ï¿½eï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½i dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| AIAï¿½Ë¢ç¡§oAAï¿½Ï¡ï¿½ï¿½Ë¡ï¿½U. 
+		MemberID = atoi((char*)pData[i].Data[eMu_MBmemberid]);  //ï¿½ï¿½?Aï¿½ï¿½OoAI ï¿½ï¿½iCï¿½ï¿½ui AOï¿½Ë¡ï¿½A ï¿½Ë¡ï¿½aï¿½ï¿½ooï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½iAï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 		pMember = (CPlayer*)g_pUserTable->FindUser(MemberID);
 		if(pMember)
 		{
@@ -5106,7 +5109,7 @@ void RMunpaBreakUpMembers(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 	else
 	{
-		//A¨Ï©ª¡Ë¡þ?AI A¢®¢¯AI¡§¡þi¡Ë?¡Ë¢ç AO¡Ë¡ÍA ¡Íi¢®IAIA¡Ë¡þ¡Ë¡þ| Ao¡Ë?i¡Ë¡ÍU.
+		//Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?AI Aï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½iï¿½ï¿½?ï¿½Ë¢ï¿½ AOï¿½Ë¡ï¿½A ï¿½ï¿½iï¿½ï¿½IAIAï¿½Ë¡ï¿½ï¿½Ë¡ï¿½| Aoï¿½ï¿½?iï¿½Ë¡ï¿½U.
 		MunapBreakupClr(pMessage->dwID);
 	}
 }
@@ -5114,9 +5117,9 @@ void RMunpaBreakUpMembers(LPQUERY pData, LPDBMESSAGE pMessage)
 void RMunpaChangeMemberRank(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	CPlayer* pMaster = (CPlayer*)g_pUserTable->FindUser(pMessage->dwID);
-	if(atoi((char*)pData->Data[eMu_MCRchangeerr]) != 0) //¡§¡þ?¢®¨¡¨Ï¢® ¡Ë¡þ¨Ï¨£C¨Ï¡þ=.
+	if(atoi((char*)pData->Data[eMu_MCRchangeerr]) != 0) //ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ ï¿½Ë¡ï¿½ï¿½Ï¨ï¿½Cï¿½Ï¡ï¿½=.
 	{
-		if(atoi((char*)pData->Data[eMu_MCRchangeerr]) == 5) //¢®¨¡¢®¨¡: A¢®AA¢®I
+		if(atoi((char*)pData->Data[eMu_MCRchangeerr]) == 5) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: Aï¿½ï¿½AAï¿½ï¿½I
 			return;
 		if(pMaster)
 		{
@@ -5143,7 +5146,7 @@ void RMunpaChangeMemberRank(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 
 	DWORD TargetID = atoi((char*)pData->Data[eMu_MCRtargetid]);
-	if(TargetID == 0)  //¢®¢´I¢®¨ú¢®¢¯AI CIAo ¡§uE¡§uO8¨ÏoC¢®¢´I
+	if(TargetID == 0)  //ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI CIAo ï¿½ï¿½uEï¿½ï¿½uO8ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½I
 		return;
 	CPlayer* pTargetPlayer  = (CPlayer*)g_pUserTable->FindUser(TargetID);
 	if(pTargetPlayer)
@@ -5153,7 +5156,7 @@ void RMunpaChangeMemberRank(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 	else
 	{
-		//¡Ë¡þ¨Ï¡Ì¡Íic ¡Ë?¡Ë¢çAIAu¡§¢®¡Ëc¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¢®i¡§u¢®¨Ï AO8¡Ë¡þe ¡Ë?¢®©­¢®¨¡a¡ÍiE ¡Ë¡þE¡§u¢®¨Ï¨Ïoo¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¡§o¡Ë¡ÍU. 
+		//ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½ic ï¿½ï¿½?ï¿½Ë¢ï¿½AIAuï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ AO8ï¿½Ë¡ï¿½e ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½iE ï¿½Ë¡ï¿½Eï¿½ï¿½uï¿½ï¿½ï¿½Ï¨ï¿½ooï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½oï¿½Ë¡ï¿½U. 
 		SEND_MUNPAMEMBER_RANK_CHANGE_ACK msg;
 		msg.Category = MP_MUNPA;
 		msg.Protocol = MP_MUNPA_NOTIFY_CHANGERANK_TO_MAPSERVER;
@@ -5196,12 +5199,12 @@ void RMunpaAcceptMember(LPQUERY pData, LPDBMESSAGE pMessage)
 		}
 	}
 
-	//A¡Ë¡þ¢®¨¡U CA¢®¢´¨ÏoAI¡§ui¢®¨¡¡Ë¢ç ¡Ë?A¡ËOoAI ¡ÍiC¡§uiAO8¡Ë¡þe ¡§u¡§¢®AI¡Íi¨Ï¡Ì¡Ë¡þ| ¡§u¡§¢®¡Ë¡ÍI¡Ë¡þe 0; ¡Ë¡þ¡ËcAICN¡Ë¡ÍU. 
+	//Aï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½U CAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAIï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½?Aï¿½ï¿½OoAI ï¿½ï¿½iCï¿½ï¿½uiAO8ï¿½Ë¡ï¿½e ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡Ì¡Ë¡ï¿½| ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Iï¿½Ë¡ï¿½e 0; ï¿½Ë¡ï¿½ï¿½ï¿½cAICNï¿½Ë¡ï¿½U. 
 	DWORD TargetID = atoi((char*)pData->Data[eMu_MACtargetid]);
-	if(TargetID != 0) //¡Ë?A¡ËOoAIAI¡Íi¢®I
+	if(TargetID != 0) //ï¿½ï¿½?Aï¿½ï¿½OoAIAIï¿½ï¿½iï¿½ï¿½I
 	{	
 		CPlayer* pTargetPlayer = (CPlayer*)g_pUserTable->FindUser(TargetID); 
-		if(!pTargetPlayer) //AI ¡Ë¡þE¡§u¢®¨Ï¨Ïoo¡Ë?¡Ë¢ç ¡§u¨Ï¨£8¡Ë¡þe ¡§¡þe¢®¢´I¡ÍiaA¨Ï©ª¡§i©ö¡Ëi¨ù¡§¢®A
+		if(!pTargetPlayer) //AI ï¿½Ë¡ï¿½Eï¿½ï¿½uï¿½ï¿½ï¿½Ï¨ï¿½ooï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½uï¿½Ï¨ï¿½8ï¿½Ë¡ï¿½e ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½iaAï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A
 		{
 			MUNPAMGR->NotifyAcceptMemberOtherMapServer(TargetID, (char*)pData->Data[eMu_MACMunpaname], atoi((char*)pData->Data[eMu_MACmunpaid]));
 		}	
@@ -5244,14 +5247,14 @@ void RMunpaBanMember(LPQUERY pData, LPDBMESSAGE pMessage)
 		}
 	}
 	
-	//A¡Ë¡þ¢®¨¡U CA¢®¢´¨ÏoAI¡§ui¢®¨¡¡Ë¢ç ¡Ë?A¡ËOoAI ¡ÍiC¡§uiAO8¡Ë¡þe ¡§u¡§¢®AI¡Íi¨Ï¡Ì¡Ë¡þ| ¡§u¡§¢®¡Ë¡ÍI¡Ë¡þe 0; ¡Ë¡þ¡ËcAICN¡Ë¡ÍU. 
+	//Aï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½U CAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAIï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½ï¿½?Aï¿½ï¿½OoAI ï¿½ï¿½iCï¿½ï¿½uiAO8ï¿½Ë¡ï¿½e ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½iï¿½Ï¡Ì¡Ë¡ï¿½| ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Iï¿½Ë¡ï¿½e 0; ï¿½Ë¡ï¿½ï¿½ï¿½cAICNï¿½Ë¡ï¿½U. 
 	DWORD TargetID = atoi((char*)pData->Data[eMu_MBMtargetid]);
-	if(TargetID != 0) //¡Ë?A¡ËOoAIAI¡Ë¡þe
+	if(TargetID != 0) //ï¿½ï¿½?Aï¿½ï¿½OoAIAIï¿½Ë¡ï¿½e
 	{	
 		CPlayer* pTargetPlayer = (CPlayer*)g_pUserTable->FindUser(TargetID); 
 		if(!pTargetPlayer)
 		{	
-			//¡Ë¡þ¨Ï¡Ì¡Íic ¡Ë?¡Ë¢çAIAu¡§¢®¡Ëc¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¢®i¡§u¢®¨Ï AO8¡Ë¡þe ¡Ë?¢®©­¢®¨¡a¡ÍiE ¡Ë¡þE¡§u¢®¨Ï¨Ïoo¢®¢´I ¡§¡þ¡Ë¡þ¨Ï©ª¡§o¡Ë¡ÍU. 
+			//ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡ï¿½ic ï¿½ï¿½?ï¿½Ë¢ï¿½AIAuï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ AO8ï¿½Ë¡ï¿½e ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½iE ï¿½Ë¡ï¿½Eï¿½ï¿½uï¿½ï¿½ï¿½Ï¨ï¿½ooï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½oï¿½Ë¡ï¿½U. 
 			MSG_DWORD2 msg;
 			msg.Category = MP_MUNPA;
 			msg.Protocol = MP_MUNPA_NOTIFYBAN_TO_MAPSERVER;
@@ -5333,7 +5336,7 @@ void RMunpaDenyMember(LPQUERY pData, LPDBMESSAGE pMessage)
 			return;
 	}
 	
-	if(TargetID != 0) //¡Ë?A¡ËOoAIAI¡Ë¡þe
+	if(TargetID != 0) //ï¿½ï¿½?Aï¿½ï¿½OoAIAIï¿½Ë¡ï¿½e
 	{
 		CPlayer* pTargetPlayer = (CPlayer*)g_pUserTable->FindUser(TargetID); 
 		if(!pTargetPlayer)
@@ -5370,7 +5373,7 @@ void RMunpaJoinMember(LPQUERY pData, LPDBMESSAGE pMessage)
 		pPlayer->SetMunpaMemberRank(MUNPA_SEMIMEMBER);
 		pPlayer->SetMunpaName((char*)pData->Data[2]);
 
-		//¨Ïo¡Ëc¡§¢®AAI¡Íi|¡§i©ö¡Ëi¨ù¡Ë?I AI¡Ë¡þ¢®¡¿; ¡§¡þ¡Ë¡þ¨Ï©ª¡Ë?		
+		//ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAIï¿½ï¿½i|ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½?I AIï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½?		
 		SEND_MUNPA_ACCEPT_TO_MAP msg;
 		msg.Category = MP_MUNPA;
 		msg.Protocol = MP_MUNPA_JOINMEMBER_ACK;
@@ -5607,7 +5610,7 @@ void RMunpaBoardReadContent(LPLARGEQUERY pData, LPDBMESSAGE pMessage)
 	if(err!=0)
 	{
 		DWORD ErrorCode;
-		// ¢®¨¡O¡§oA¨Ïo¢®¨¡AI xAcCIAo ¡§uE¢®¨¡A¨Ï©ª¡§¡Ì ¢®ief¡ÍiC¡§uu¡§o4I¡Ë¡ÍU.
+		// ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½oAï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AI xAcCIAo ï¿½ï¿½uEï¿½ï¿½ï¿½ï¿½Aï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iefï¿½ï¿½iCï¿½ï¿½uuï¿½ï¿½o4Iï¿½Ë¡ï¿½U.
 		if(err==1)
 			ErrorCode = ERROR_MUNPABOARDCONTENTS_NOCONTENTS;
 		else if(err==2)
@@ -5630,7 +5633,7 @@ void RMunpaBoardReadContent(LPLARGEQUERY pData, LPDBMESSAGE pMessage)
 	SafeStrCpy(msg.BoardListInfo.RegDate, (char*)pData->Data[eMu_MBCIRegDate], 32);
 	SafeStrCpy(msg.BoardListInfo.Subject, (char*)pData->Data[eMu_MBCISubject], MAX_MUNPA_BOARD_SUBJECT+1);
 	SafeStrCpy(msg.BoardListInfo.WriterName, (char*)pData->Data[eMu_MBCIWriter], MAX_NAME_LENGTH+1);
-	// ¢®¨¡¨Ï¨£¨Ïoe AU¡Ë¡þ¢®I¢®¨úa
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¨ï¿½ï¿½ï¿½oe AUï¿½Ë¡ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½a
 //	char* pc = msg.BoardListInfo.WriterName;
 //	while(*pc != 0)
 //	{
@@ -5800,7 +5803,7 @@ void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	BYTE PyogukNum;
 	DWORD UserIDX;
 	
-	if(pMessage->dwResult < MAX_MUNPALOAD_LIST) //¡§u¡§¢®AIAU; ¡§ui¡ËO¢®i¢®¨¡O ¨Ï¡À¢®(ui¡Ë?AAo? 100¢®¨¡¨Ï©ª
+	if(pMessage->dwResult < MAX_MUNPALOAD_LIST) //ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU; ï¿½ï¿½uiï¿½ï¿½Oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½O ï¿½Ï¡ï¿½ï¿½ï¿½(uiï¿½ï¿½?AAo? 100ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½
 	{
 		PyogukNum = atoi((char*)pData[0].Data[ePyo_MaxPosition]);
 		UserIDX = atoi((char*)pData[0].Data[ePyo_Userid]);
@@ -5811,7 +5814,7 @@ void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			ASSERT(0);
 			
 			FILE* fp = fopen("PYOGUK_ERROR_LOG.txt","a+");
-			fprintf(fp, "CharacterPyogukItemInfo¡Ë?¡Ë¢ç¡§u¢®¨Ï  UserIDX : %d ", atoi((char*)pData[0].Data[ePyo_Userid]));
+			fprintf(fp, "CharacterPyogukItemInfoï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½  UserIDX : %d ", atoi((char*)pData[0].Data[ePyo_Userid]));
 			fprintf(fp,", CharacterIDX : %d\n", atoi((char*)pData[0].Data[ePyo_Userid+1]));
 			fclose(fp);
 			return;
@@ -5830,7 +5833,7 @@ void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			
 			pPlayer->AddPyogukItem(&pyogukitem);
 		}
-		// ¡Íi¢®¢´
+		// ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½
 		PyogukMoneyInit(pPlayer->GetID());
 	}
 	else 
@@ -5941,7 +5944,7 @@ void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 			}
 			else
 			{
-				//¡§u¡§¢®AIAU ¡§¢®¢®AAo¡§uC ¡Ë?¡Ë¢ç¢®¢´?
+				//ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AAoï¿½ï¿½uC ï¿½ï¿½?ï¿½Ë¢ç¢®ï¿½ï¿½?
 				ASSERT(0);
 			}
 		}
@@ -5950,7 +5953,7 @@ void RCharacterPyogukItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	
 	if( pMessage->dwResult >= MAX_PYOGUKLOAD_ITEM)
 		CharacterPyogukItemInfo(pMessage->dwID, atoi((char*)pData[pMessage->dwResult-1].Data[ePI_DBIdx]));
-	else //¡Ë¡ÍU A¡§¡Ë¡§ui¡Ë?8e A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç ¡§¡þ¡Ë¡þ¨Ï©ª¢®iAU. 
+	else //ï¿½Ë¡ï¿½U Aï¿½ï¿½ï¿½Ë¡ï¿½uiï¿½ï¿½?8e Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½iAU. 
 		PYOGUKMGR->SendPyogukItemInfo(pPlayer);
 }
 
@@ -5987,8 +5990,9 @@ void RWantedLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 {
 	WANTEDINFO_LOAD info;
 	memset(&info, 0, sizeof(WANTEDINFO_LOAD));
-	
-	for(DWORD i=0; i<pMessage->dwResult; ++i)
+
+	DWORD i;
+	for(i=0; i<pMessage->dwResult; ++i)
 	{
 		info.m_WantedInfo[i].WantedIDX = (DWORD)atoi((char*)pData[i].Data[eWa_LWantedIDX]);
 		info.m_WantedInfo[i].WantedChrIDX = (DWORD)atoi((char*)pData[i].Data[eWa_LPlayerID]);
@@ -5998,9 +6002,9 @@ void RWantedLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 		info.m_WantedInfo[i].TotalVolunteerNum = (int)atoi((char*)pData[i].Data[eWa_LTotalVolunteerNum]);
 		info.count++;
 	}
-	
-	WANTEDMGR->LoadWantedList(&info);	
-	
+
+	WANTEDMGR->LoadWantedList(&info);
+
 	if(pMessage->dwResult >= MAX_QUERY_RESULT)
 		WantedLoad(info.m_WantedInfo[i-1].WantedIDX);
 	else
@@ -6021,7 +6025,7 @@ void RWantedInfoByUserLogIn(LPQUERY pData, LPDBMESSAGE pMessage)
 //	msg.WantedIdx = (WORD)atoi((char*)pData[0].Data[eWa_LIMyWantedIDX]);
 	msg.WantedIdx = (WANTEDTYPE)atoi((char*)pData[0].Data[eWa_LIMyWantedIDX]);
 	for(DWORD i=0; i<pMessage->dwResult; ++i)
-	{ //¨Ïo¢®iv¢®¨¡C 1¢®¨¡¨Ï©ª¡Ë¡ÍA ¨Ï©ªN¡§ui¡Ë?A¡Ë¡ÍU.
+	{ //ï¿½ï¿½oï¿½ï¿½ivï¿½ï¿½ï¿½ï¿½C 1ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½Ë¡ï¿½A ï¿½Ï©ï¿½Nï¿½ï¿½uiï¿½ï¿½?Aï¿½Ë¡ï¿½U.
 //		if((WORD)atoi((char*)pData[i].Data[eWa_LIWantedIDX]) != 0)
 		if((WANTEDTYPE)atoi((char*)pData[i].Data[eWa_LIWantedIDX]) != 0)
 		{
@@ -6204,7 +6208,7 @@ void RQuestTotalInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pMessage->dwID);
 	if( !pPlayer ) return;
 
-	// client¡Ë?¡Ë¢ç ¡§¡þ¡Ë¡þ¨Ï©ª¡§u ¢®¨ú¡Ë¡þvA¡§u ¢®iy¡§u¡§¡þ..
+	// clientï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½u ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½vAï¿½ï¿½u ï¿½ï¿½iyï¿½ï¿½uï¿½ï¿½ï¿½ï¿½..
 	msg.Category = MP_QUEST;
 	msg.Protocol = MP_QUEST_TOTALINFO;
 	msg.dwObjectID = pMessage->dwID;
@@ -6233,7 +6237,7 @@ void RQuestTotalInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 
 				pPlayer->AddQuest( pQuest );
 
-				// A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc ¡Ë¡þ¡§¡©¡§u¡§uAo ¡§uA¡§¢®A..
+				// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uAo ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A..
 				msg.QuestList[count].QuestIdx = QuestIdx;
 				msg.QuestList[count].state = flag.value;
 				count++;
@@ -6252,7 +6256,7 @@ void RQuestMainQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pMessage->dwID);
 	if( !pPlayer ) return;
 
-	// client¡Ë?¡Ë¢ç ¡§¡þ¡Ë¡þ¨Ï©ª¡§u ¢®¨ú¡Ë¡þvA¡§u ¢®iy¡§u¡§¡þ..
+	// clientï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½u ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½vAï¿½ï¿½u ï¿½ï¿½iyï¿½ï¿½uï¿½ï¿½ï¿½ï¿½..
 	msg.Category = MP_QUEST;
 	msg.Protocol = MP_QUEST_MAINDATA_LOAD;
 	msg.dwObjectID = pMessage->dwID;				// UserID
@@ -6281,7 +6285,7 @@ void RQuestMainQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 			bCheckType = (BYTE)atoi((char*)pData[i].Data[eQi_CheckType]);
 			dwCheckTime = (DWORD)atoi((char*)pData[i].Data[eQi_CheckTime]);
 			
-			// A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc ¡Ë¡þ¡§¡©¡§u¡§uAo ¡§uA¡§¢®A..
+			// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uAo ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A..
 			msg.QuestList[count].QuestIdx = QuestIdx;
 			msg.QuestList[count].state.value = state;
 			msg.QuestList[count].EndParam = EndParam;
@@ -6308,7 +6312,7 @@ void RQuestMainQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 		}
 	}	
 
-	// ¸ÞÀÎ Äù½ºÆ® ·ÎµåÈÄ Äù½ºÆ®¾ÆÀÌÅÛÁ¤º¸ ¾ò¾î¿Â´Ù...
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½...
 	QuestItemload( pMessage->dwID );
 //	QuestSubQuestLoad( pMessage->dwID );
 }
@@ -6322,7 +6326,7 @@ void RQuestSubQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pMessage->dwID);
 	if( !pPlayer ) return;
 
-	// client¡Ë?¡Ë¢ç ¡§¡þ¡Ë¡þ¨Ï©ª¡§u ¢®¨ú¡Ë¡þvA¡§u ¢®iy¡§u¡§¡þ..
+	// clientï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï©ï¿½ï¿½ï¿½u ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½vAï¿½ï¿½u ï¿½ï¿½iyï¿½ï¿½uï¿½ï¿½ï¿½ï¿½..
 	msg.Category = MP_QUEST;
 	msg.Protocol = MP_QUEST_SUBDATA_LOAD;
 	msg.dwObjectID = pMessage->dwID;				// UserID
@@ -6347,7 +6351,7 @@ void RQuestSubQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 			state = (DWORD)atoi((char*)pData[i].Data[eQsi_Data]);
 			time = (DWORD)atoi((char*)pData[i].Data[eQsi_RegistTime]);
 			
-			// A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc ¡Ë¡þ¡§¡©¡§u¡§uAo ¡§uA¡§¢®A..
+			// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uAo ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A..
 			msg.QuestList[count].QuestIdx = QuestIdx;
 			msg.QuestList[count].SubQuestIdx = SubQuestIdx;
 			msg.QuestList[count].state = state;
@@ -6369,7 +6373,7 @@ void RQuestSubQuestLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 
 //	QuestItemload( pMessage->dwID );
 
-	// ¼­ºêÄù½ºÆ® ·ÎµåÈÄ ¸ÞÀÎÄù½ºÆ® ·ÎµåÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½Ñ´ï¿½.
 	QuestMainQuestLoad( pMessage->dwID );
 }
 
@@ -6404,7 +6408,7 @@ void RQuestItemLoad(LPQUERY pData, LPDBMESSAGE pMessage)
 			Count = (int)atoi((char*)pData[i].Data[eQit_ItemCount]);			
 			QuestIdx = (WORD)atoi((char*)pData[i].Data[eQit_QuestIdx]);
 			
-			// A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc ¡Ë¡þ¡§¡©¡§u¡§uAo ¡§uA¡§¢®A..
+			// Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½c ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uAo ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A..
 			msg.ItemList[wcount].ItemIdx = ItemIdx;
 			msg.ItemList[wcount].Count = Count;
 			msg.ItemList[wcount].QuestIdx = QuestIdx;
@@ -6493,7 +6497,7 @@ void RCharacterShopItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 		pPlayer->GetShopItemManager()->SendMsgDwordToPlayer( MP_ITEM_SHOPITEM_SLOTOVERITEM, pMessage->dwResult );
 	}
 
-	// magi82 - ÇÊ¿ä¾ø¾î¼­ ÁÖ¼®Ã³¸®
+	// magi82 - ï¿½Ê¿ï¿½ï¿½ï¿½î¼­ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 	//stTIME curtime, endtime;
 	//curtime.value = GetCurTime();
 
@@ -6534,25 +6538,25 @@ void RCharacterShopItemInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 		}
 
 
-		// »ç¿ëÇÏ·Á¸é ÇÁ·Î½ÃÀú¿¡ Order by item_dbidxÃß°¡
+		// ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ Order by item_dbidxï¿½ß°ï¿½
 		//StartItemDBIdx = ShopItem.Item[itempos].dwDBIdx;
 	}
 
 
-	// Æ÷Áö¼ÇÀÌ ¾ø´Â »õ·Î¿î ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	if( nitemcnt )
 	{
 		for(DWORD ni=0; ni<nitemcnt; ni++)
 		{
 			for(int si=0; si<SLOT_SHOPITEM_IMSI; si++)
 			{
-				// ÀÚ¸®°¡ ¾ø´Â°ÍÀÌ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù.
+				// ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				if( ShopItem.Item[si].dwDBIdx == 0 )
 				{
 					ShopItem.Item[si] = NewShopItem.Item[ni];
 					ShopItem.Item[si].Position = si+TP_SHOPITEM_START;
 
-					// DB¿¡ PositionÀ» UpdateÇØÁØ´Ù.
+					// DBï¿½ï¿½ Positionï¿½ï¿½ Updateï¿½ï¿½ï¿½Ø´ï¿½.
 					ItemMoveShopUpdateToDB( pPlayer->GetID(), pPlayer->GetUserID(), ShopItem.Item[si].dwDBIdx, ShopItem.Item[si].Position, 0, 0  );
 					break;
 				}
@@ -6618,27 +6622,28 @@ void RShopItemInvenInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 		}
 	}
 
-	//Áßº¹µÈ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é ºóÄ­¿¡ ³Ö¾îÁØ´Ù.
+	//ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 	for(int n=0; n<OverlapCount; n++)
 	{
-		for(int m=0; m<TABCELL_SHOPINVEN_NUM; m++)
+		int m;
+		for(m=0; m<TABCELL_SHOPINVEN_NUM; m++)
 		{
-			//ºóÄ­ÀÌ¸é ³Ö¾îÁØ´Ù.
+			//ï¿½ï¿½Ä­ï¿½Ì¸ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 			if( ItemBase[m].dwDBIdx == 0 )
 			{
 				ItemBase[m] = ItemOverlap[n];
 				ItemBase[m].Position = m+TP_SHOPINVEN_START;
-                
-				// DB¿¡ Æ÷Áö¼ÇÀ» ¾÷µ¥ÀÌÆ®ÇØÁØ´Ù.
+
+				// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ø´ï¿½.
 				ItemMoveUpdateToDB( pPlayer->GetID(), 0, 0, ItemBase[m].dwDBIdx, ItemBase[m].Position );
 				break;
 			}
 		}
 
-		//¸¸¾à ºóÄ­ÀÌ ¾øÀ¸¸é ´õÀÌ»ó Ã³¸®ÇÏÁö ¾ÊÀ½
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( m == TABCELL_SHOPINVEN_NUM )
 		{
-			// ¾ÆÀÌÅÛÀÌ ´Ù Â÷ÀÖ´Ù.;;
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½.;;
 			break;
 		}
 	}
@@ -6682,7 +6687,7 @@ void RUsingShopItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 			msg.Item[msg.ItemCount].BeginTime,
 			msg.Item[msg.ItemCount].Remaintime) )
 		{
-			// ÀåºñÇÏ°í ÀÖ´Â ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ
+			// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( msg.Item[msg.ItemCount].Param == eShopItemUseParam_EquipAvatar )
 				pPlayer->GetShopItemManager()->PutOnAvatarItem( 
 				msg.Item[msg.ItemCount].ItemBase.wIconIdx, msg.Item[msg.ItemCount].ItemBase.Position, FALSE );
@@ -6691,7 +6696,7 @@ void RUsingShopItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 		}
 		else
 		{
-			memset( &msg.Item[msg.ItemCount], 0, sizeof(SHOPITEMBASE) );	//Å¬¶óÀÌ¾ðÆ®·Î ¸Þ¼¼Áö °¥ÇÊ¿ä°¡ ¾ø´Ù.
+			memset( &msg.Item[msg.ItemCount], 0, sizeof(SHOPITEMBASE) );	//Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½.
 		}
 
 		if( msg.ItemCount >= 100 )
@@ -6700,7 +6705,7 @@ void RUsingShopItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 			break;
 		}
 
-//		++msg.ItemCount;	//if¹® ¾ÈÀ¸·Î ¿Å±è KES
+//		++msg.ItemCount;	//ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ KES
 	}
 
 	pPlayer->GetShopItemManager()->CalcPlusTime( 0, 0 );
@@ -6736,7 +6741,7 @@ void RSavedMovePointInfo( LPMIDDLEQUERY pData, LPDBMESSAGE pMessage )
 		pPlayer->GetShopItemManager()->AddMovePoint( &msg.Data[i] );
 	}
 
-	// ¸Ê¿¡ µé¾î¿À¸é ÇÑ¹ø º¸³»ÁØ´Ù.
+	// ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	if( pPlayer->GetSavePointInit() )
 	{
 		msg.bInited = 1;
@@ -6916,7 +6921,7 @@ void RGuildLoadGuild(LPQUERY pData, LPDBMESSAGE pMessage)
 		SafeStrCpy(LoadGuildInfo.GuildInfo[i].MasterName, (char*)pData[i].Data[eGu_LGMasterName], MAX_NAME_LENGTH+1);
 		LoadGuildInfo.GuildMoney[i] = atoi((char*)pData[i].Data[eGu_LGMoney]);
 		LoadGuildInfo.GuildInfo[i].MarkName = atoi((char*)pData[i].Data[eGu_LGMarkName]);
-		//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+		//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 		LoadGuildInfo.GuildInfo[i].LvUpCounter = atoi((char*)pData[i].Data[eGu_LGMarkName+2]);
 		LoadGuildInfo.GuildInfo[i].bNeedMasterChecking = atoi((char*)pData[i].Data[eGu_LGMarkName+3]);
 
@@ -6936,13 +6941,13 @@ void RGuildLoadGuild(LPQUERY pData, LPDBMESSAGE pMessage)
 	{
 		GuildLoadNotice(0);
 		GuildLoadMember(0);
-		// RaMa - Guild Tournament - GuildÁ¤º¸ ÀÐ¾î¿Â ÈÄ¿¡ ÀÐ´Â´Ù.
+		// RaMa - Guild Tournament - Guildï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½Ð´Â´ï¿½.
 		GuildTournamentInfoLoad();
-		// RaMa - SiegeWar Ãß°¡
+		// RaMa - SiegeWar ï¿½ß°ï¿½
 		if( SIEGEWARMGR->IsNeedLoadSiegeInfo() )		
 			SiegeWarInfoLoad( SIEGEWARMGR->GetSiegeMapNum() );
 		
-		//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ /////////////////////////////////////////
+		//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ /////////////////////////////////////////
 		GuildTraineeInfo(0);
 
 		GuildTraineeGuildInfo(0);
@@ -6952,12 +6957,13 @@ void RGuildLoadGuild(LPQUERY pData, LPDBMESSAGE pMessage)
 	}
 }
 
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 void RGuildLoadNotice(LPMIDDLEQUERY pData, LPDBMESSAGE pMessage)
 {
 	LOAD_GUILDNOTICE GuildNotice;
 	memset(&GuildNotice, 0, sizeof(LOAD_GUILDNOTICE));
-	for(DWORD i=0; i<pMessage->dwResult; ++i)
+	DWORD i;
+	for(i=0; i<pMessage->dwResult; ++i)
 	{
 		GuildNotice.DBIdx[i] = atoi((char*)pData[i].Data[eGu_GNDBIdx]);
 		GuildNotice.GuildIdx[i] = atoi((char*)pData[i].Data[eGu_GNGuildIdx]);
@@ -7014,8 +7020,8 @@ void RGuildLoadMark(LPLARGEQUERY pData, LPDBMESSAGE pMessage)
 	// server start!
 	//	g_pServerSystem->SetStart(TRUE);
 	
-		//SW060526 ¹®ÆÄÃ¢°í ¾ÆÀÌÅÛ Á¤º¸ÀúÀå ½ÃÁ¡ º¯°æ
-		//GuildItemLoad(GAMERESRCMNGR->GetLoadMapNum(), 0);	//±âÁ¸ ÇÁ·Î½ÃÁ®´Â µÐ´Ù. //GuildItemOption(.. //GuildItemRareOption(..
+		//SW060526 ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//GuildItemLoad(GAMERESRCMNGR->GetLoadMapNum(), 0);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½. //GuildItemOption(.. //GuildItemRareOption(..
 		LoadGuildWarRecord( 0 );
 	}
 }
@@ -7043,7 +7049,7 @@ void RGuildCreate(LPQUERY pData, LPDBMESSAGE pMessage)
 	SafeStrCpy(Info.MasterName, (char*)pData->Data[eGu_CMasterName], MAX_NAME_LENGTH+1);
 	memset(Info.GuildNotice, 0, MAX_GUILD_NOTICE+1);
 
-	//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+	//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 	Info.LvUpCounter = 0;
 	Info.bNeedMasterChecking = FALSE;
 
@@ -7089,7 +7095,7 @@ void RConfirmUserOut( LPQUERY pData, LPDBMESSAGE pMessage )
 
 	switch( dwKind )
 	{
-	case 1:		// Ä³¸¯¼±ÅÃÃ¢
+	case 1:		// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢
 		{
 			MSGBASE msg;
 			msg.Category = MP_USERCONN;
@@ -7114,7 +7120,7 @@ void RConfirmUserOut( LPQUERY pData, LPDBMESSAGE pMessage )
 
 void RSaveCharInfoBeforeLogout( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	// ¸Ê¾Æ¿ôÃ³¸®
+	// ï¿½Ê¾Æ¿ï¿½Ã³ï¿½ï¿½
 	CPlayer * pPlayer = (CPlayer*)g_pUserTable->FindUser(pMessage->dwID);
 	if(pPlayer == 0)
 		return;
@@ -7218,7 +7224,7 @@ void RGuildItemOption(LPQUERY pData, LPDBMESSAGE pMessage)
 	{
 		GuildItemOption(GAMERESRCMNGR->GetLoadMapNum(), OptionInfo.dwOptionIdx);
 	}
-	//SW051007 RGuildItemRareOption À¸·Î ¿Å±è.
+	//SW051007 RGuildItemRareOption ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½.
 //	else
 //	{
 ////		g_pServerSystem->SetStart(TRUE);
@@ -7375,17 +7381,18 @@ void RCharacterChangeName( LPQUERY pData, LPDBMESSAGE pMessage )
 
 	switch( Result )
 	{
-	case 0:		// ¼º°ø
+	case 0:		// ï¿½ï¿½ï¿½ï¿½
 		{
 			DBIdx = (DWORD)atoi((char*)pData->Data[1]);
 			ITEMBASE* pItemBase = NULL;
 
-			// Item Position È®ÀÎ
-			for(int i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
+			// Item Position È®ï¿½ï¿½
+			int i;
+			for(i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
 			{
 				pItemBase = (ITEMBASE*)ITEMMGR->GetItemInfoAbsIn( pPlayer, i+TP_SHOPINVEN_START );
 				if( !pItemBase )	continue;
-				
+
 				if( pItemBase->dwDBIdx == DBIdx )
 				{
 					if( EI_TRUE != ITEMMGR->DiscardItem( pPlayer, i+TP_SHOPINVEN_START, pItemBase->wIconIdx, 1 ) )
@@ -7398,7 +7405,7 @@ void RCharacterChangeName( LPQUERY pData, LPDBMESSAGE pMessage )
 					break;
 				}
 			}
-			
+
 			if( i >= SLOT_SHOPINVEN_NUM/2 )
 			{
 				char buf[64];
@@ -7420,7 +7427,7 @@ void RCharacterChangeName( LPQUERY pData, LPDBMESSAGE pMessage )
 			msg.dwData = Result;
 
 
-			// magi82 - ¹®ÇÏ»ý°ü·Ã(070123) /////////////////////////////////////////////
+			// magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½(070123) /////////////////////////////////////////////
 
 			DWORD dwGuildIdx = 0;
 			BOOL bFlag = FALSE;
@@ -7451,7 +7458,7 @@ void RCharacterChangeName( LPQUERY pData, LPDBMESSAGE pMessage )
 			msg.dwData = pMessage->dwID;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			// ¹®ÁÖÇÑÅ× º¸³»ÁØ´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 			CGuild* pGuild = (CGuild*)GUILDMGR->GetGuild( dwGuildIdx );
 			if( !pGuild )
 				return;
@@ -7463,7 +7470,7 @@ void RCharacterChangeName( LPQUERY pData, LPDBMESSAGE pMessage )
 			SafeStrCpy( Sendmsg.Name, pPlayer->GetObjectName(), MAX_NAME_LENGTH+1 );
 			g_Network.Send2AgentServer((char*)&Sendmsg, sizeof(Sendmsg));
 
-			// ºÎ¹®ÁÖ³ª Àå·ÎÇÑÅ×µµ º¸³¿
+			// ï¿½Î¹ï¿½ï¿½Ö³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ ï¿½ï¿½ï¿½ï¿½
 			pos = pGuild->GetMemberList()->GetHeadPosition();
 			while(pos)
 			{
@@ -7556,8 +7563,8 @@ void RGuildTournamentInfoLoad( LPQUERY pData, LPDBMESSAGE pMessage )
 	int count = 0;
 	for( DWORD i=0; i<pMessage->dwResult; ++i )
 	{
-		// magi82 ¹®ÆÄÅä³Ê¸ÕÆ® -> 32ÆÀ ÀÌ»óÀÇ µ¥ÀÌÅÍ°¡ ¸®ÅÏµÇ´Â °æ¿ì¸¦ À§ÇÑ ¿¹¿ÜÃ³¸®(ÀÓ½Ã)
-		// DB¿¡¼­ Æ÷Áö¼ÇÀÌ °ãÃÄÁö´Â ¹®ÆÄµéÀ» Ã³¸®ÇØ¾ßÇÑ´Ù.
+		// magi82 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® -> 32ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ÏµÇ´ï¿½ ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½(ï¿½Ó½ï¿½)
+		// DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 		if( count >= MAXGUILD_INTOURNAMENT )
 		{
 			if(IDYES == MessageBox(NULL, "Error - RGuildTournamentInfoLoad( LPQUERY pData, LPDBMESSAGE pMessage )", NULL, MB_YESNO|MB_TOPMOST))
@@ -7648,7 +7655,7 @@ void RJackpotPrizeInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 //	if(!pPlayer)		return;
 	DWORD PlayerID = pMessage->dwID;
 
-	JACKPOTMGR->SetPrizeInfo( TotalMoney, PrizeMoney, PlayerID, PrizeKind ); //µÎ°¡Áö ÀÏÀ»ÇÑ´Ù. ÇØ´ç ID·Î PrizeMoneyµî·Ï°ú Àü¼­¹ö °øÁö
+	JACKPOTMGR->SetPrizeInfo( TotalMoney, PrizeMoney, PlayerID, PrizeKind ); //ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ø´ï¿½ IDï¿½ï¿½ PrizeMoneyï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
 // guildunion
@@ -7665,7 +7672,7 @@ void RGuildUnionLoad( LPQUERY pData, LPDBMESSAGE pMessage )
 	{
 		dwStartGuildIdx = (DWORD)atoi((char*)pData[i].Data[0]);
 
-		//SW070112 º¯°æ
+		//SW070112 ï¿½ï¿½ï¿½ï¿½
 /*
 		GUILDUNIONMGR->LoadGuildUnion( (DWORD)atoi((char*)pData[i].Data[0])		// guildidx
 			, (char*)pData[i].Data[1]					// name
@@ -7794,9 +7801,9 @@ void RGuildUnionMarkRegist( LPLARGEQUERY pData, LPDBMESSAGE pMessage )
 		(DWORD)atoi((char*)pData->Data[2]), (char*)pData->Data[3] );
 }
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­ SiegeWar													  ¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ SiegeWar													  ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void SiegeWarInfoLoad( DWORD MapNum )
 {
 	sprintf( txt, "EXEC %s %d", STORED_SIEGE_INFOLOAD, MapNum );
@@ -7923,7 +7930,7 @@ void RSiegeWarProfitInfoLoad( LPQUERY pData, LPDBMESSAGE pMessage )
 	g_pServerSystem->SetStart( TRUE );
 	//GuildLoadGuildPointInfo(0);
 #else
-	//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+	//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	GuildLoadGuildPointInfo(0);
 #endif
 }
@@ -8015,7 +8022,7 @@ void RShopItemRareInsertToDB(LPQUERY pData,  LPDBMESSAGE pMessage)
 
 
 	ITEM_RARE_OPTION_INFO RareOptionInfo;
-	RareOptionInfo.dwRareOptionIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_RareID]);	//!»ó¼ö µû·Î ¾È¸¸µé¾îµµ µÉµí
+	RareOptionInfo.dwRareOptionIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_RareID]);	//!ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¸ï¿½ï¿½ï¿½îµµ ï¿½Éµï¿½
 	RareOptionInfo.dwItemDBIdx				= (DWORD)atoi((char*)pData[0].Data[eCIR_ItemDBID]);
 	RareOptionInfo.GenGol					= (WORD)atoi((char*)pData[0].Data[eCIR_GenGol]);
 	RareOptionInfo.MinChub					= (WORD)atoi((char*)pData[0].Data[eCIR_MinChub]);				
@@ -8042,7 +8049,7 @@ void RShopItemRareInsertToDB(LPQUERY pData,  LPDBMESSAGE pMessage)
 
 	pItem->RareIdx = RareOptionInfo.dwRareOptionIdx;
 
-	// Log±â·Ï
+	// Logï¿½ï¿½ï¿½
 	LogItemRareOption(pPlayer->GetID(), pItem->dwDBIdx, &RareOptionInfo);
 
 	MSG_ITEM_RAREITEM_GET msg;
@@ -8068,18 +8075,18 @@ void QuestEventCheck( DWORD dwUserIdx, DWORD dwCharacterIdx, DWORD dwNpcIdx, DWO
 		DWORD dwRet = 0;
 		switch( dwRet )
 		{
-		case 0:		// ÇÒ¼öÀÖ´Ù
+		case 0:		// ï¿½Ò¼ï¿½ï¿½Ö´ï¿½
 			{
 				Msg.Protocol = MP_QUESTEVENT_NPCTALK_ACK;
 	
 			}
 			break;
-		case 1:		// ÀÌ¹Ì Çß´Ù
+		case 1:		// ï¿½Ì¹ï¿½ ï¿½ß´ï¿½
 			{
 				Msg.Protocol = MP_QUESTEVENT_NPCTALK_NACK;
 			}
 			break;
-		case 2:		// ÇÒ ¼ö ¾ø´Ù
+		case 2:		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				Msg.Protocol = MP_QUESTEVENT_NPCTALK_NACK;
 			}
@@ -8107,7 +8114,7 @@ void RQuestEventCheck( LPQUERY pData, LPDBMESSAGE pMessage )
 	DWORD dwRet = (DWORD)atoi((char*)pData[0].Data[2]);
 	switch( dwRet )
 	{
-	case 0:		// ÇÒ¼öÀÖ´Ù
+	case 0:		// ï¿½Ò¼ï¿½ï¿½Ö´ï¿½
 		{
 			Msg.Protocol = MP_QUESTEVENT_NPCTALK_ACK;
 			
@@ -8117,12 +8124,12 @@ void RQuestEventCheck( LPQUERY pData, LPDBMESSAGE pMessage )
 			QUESTMGR->AddQuestEvent( pPlayer, &qe );
 		}
 		break;
-	case 1:		// ÀÌ¹Ì Çß´Ù
+	case 1:		// ï¿½Ì¹ï¿½ ï¿½ß´ï¿½
 		{
 			Msg.Protocol = MP_QUESTEVENT_NPCTALK_NACK;
 		}
 		break;
-	case 2:		// ÇÒ ¼ö ¾ø´Ù
+	case 2:		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			Msg.Protocol = MP_QUESTEVENT_NPCTALK_NACK;
 		}
@@ -8144,7 +8151,7 @@ void QuestEventEnd( DWORD dwUserIdx, DWORD dwCharacterIdx, char* pTime )
 
 
 
-// event 060627 - ¿î¿µÆÀ ÀÌº¥Æ®
+// event 060627 - ï¿½î¿µï¿½ï¿½ ï¿½Ìºï¿½Æ®
 void GMEvent01( DWORD dwUserIdx, DWORD dwCharacterIdx, DWORD dwLevel, int nServerSetNum )
 {
 	sprintf( txt, "EXEC dbo.MP_GMEvent01 %d, %d, %d, %d", dwUserIdx, dwCharacterIdx, dwLevel, nServerSetNum );
@@ -8159,7 +8166,7 @@ void UCharacterExpFlag(DWORD CharacterIDX, BYTE ExpFlag)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ ///////////////////////////////////////////////////
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ ///////////////////////////////////////////////////
 void GuildTraineeInfo(DWORD StartDBIdx)
 {
 	sprintf(txt, "EXEC %s %u", STORED_GUILD_TRAINEE_INFO, StartDBIdx);
@@ -8372,7 +8379,7 @@ void RGuildStudentLvUpCtInit( LPQUERY pData, LPDBMESSAGE pMessage )
 	if(!count)	return;
 
 	BOOL bInited = atoi((char*)pData->Data[0]);
-	//¹®ÆÄ¿¡°Ô ÃàÇÏ±Ý Áö±Þ
+	//ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(bInited)
 		GUILDMGR->GiveGuildCerebrationMoney(GuildIdx);
 	else
@@ -8457,7 +8464,7 @@ void RTitanWearItemInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 					pItemBase->QuickPosition = atoi((char*)pData[i].Data[eCI_QPosition]);
 					pItemBase->ItemParam = atoi((char*)pData[i].Data[eCI_Param]);
 
-					// magi82(33) Å¸ÀÌÅº ÀåÂøÀÎº¥¿¡ ÀÖ´Â Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛÀÇ ¿¹¿ÜÃ³¸®
+					// magi82(33) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 					ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(pItemBase->wIconIdx);
 					if( pInfo && pInfo->ItemKind & eTITAN_EQUIPITEM )
 					{
@@ -8535,7 +8542,7 @@ void PyogukTitanEnduranceInfo(DWORD CharacterIdx, DWORD UserIdx, DWORD StartDBId
 
 void RPyogukTitanEnduranceInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	// C¢®I¢®¨ú¨Ïo A¢®E¢®¨¡i
+	// Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½i
 	CPlayer* pPlayer = NULL;
 	pPlayer = (CPlayer *)g_pUserTable->FindUser(pMessage->dwID);
 	if(pPlayer == NULL)
@@ -8559,7 +8566,7 @@ void RPyogukTitanEnduranceInfo( LPQUERY pData, LPDBMESSAGE pMessage )
 		CharacterPyogukItemInfo(pMessage->dwID, 0);
 }
 
-//2007. 12. 10. CBH - ½ºÅ² ÀúÀå
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 void CharacterSkinInfoUpdate(CPlayer* pPlayer)
 {
 	WORD* pSkinItem = pPlayer->GetShopItemStats()->wSkinItem;
@@ -8569,7 +8576,7 @@ void CharacterSkinInfoUpdate(CPlayer* pPlayer)
 	g_DB.Query(eQueryType_FreeQuery, eCharacterSkinInfoUpdate, 0, txt);
 }
 
-//2008. 1. 23. CBH - ½ºÅ² ·Îµå
+//2008. 1. 23. CBH - ï¿½ï¿½Å² ï¿½Îµï¿½
 void CharacterSkinInfo(DWORD dwCharacterIndex)
 {
 	sprintf(txt, "EXEC MP_CHARACTER_SkinInfo %d", dwCharacterIndex);
@@ -8590,7 +8597,7 @@ void RCharacterSkinInfo(LPQUERY pData, LPDBMESSAGE pMessage)
 	pPlayer->GetShopItemStats()->wSkinItem[4] = (WORD)atoi((char*)pData->Data[5]);
 }
 
-// magi82(41) - ¼¥¾ÆÀÌÅÛ Ãß°¡(½ºÅÝ ÃÊ±âÈ­ ÁÖ¹®¼­)
+// magi82(41) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½)
 void CharacterUpdateResetStatusPoint(DWORD dwCharacterIDX, DWORD dwStatusPoint)
 {
 	sprintf(txt, "EXEC %s %d, %d", STORED_CHARACTER_UPDATE_RESETSTATUSPOINT, dwCharacterIDX, dwStatusPoint);
@@ -8706,7 +8713,7 @@ void RAutoNoteListAdd( LPQUERY pData, LPDBMESSAGE pMessage )
 	pPlayer->SendMsg( &msg, sizeof(msg) );
 }
 
-/// ¸Ê µå¶ø ¾ÆÀÌÅÛ Ãß°¡ ÀÛ¾÷ by Stiner(2008/05/28)-MapDropItem
+/// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½ by Stiner(2008/05/28)-MapDropItem
 void MapItemDropLog( WORD wUserIDX, WORD wCharacterIDX, WORD wItemIDX, WORD wMap, WORD wChannel, WORD wDropCount, WORD wMaxDropCount )
 {
 	sprintf( txt, "EXEC dbo.UP_MapItemDropLog %d, %d, %d, %d, %d, %d, %d",
@@ -8735,7 +8742,7 @@ void MapItemDropListInit( WORD wMapNum )
 
 void RMapItemDropListSelect( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	// DB°á°ú°ªÀ¸·Î µ¥ÀÌÅÍ µ¿±âÈ­
+	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
 	if( 0 == pMessage->dwResult )
 		return;
 
@@ -8753,7 +8760,7 @@ void RMapItemDropListSelect( LPQUERY pData, LPDBMESSAGE pMessage )
 
 void RMapItemDropListUpdate( LPQUERY pData, LPDBMESSAGE pMessage )
 {
-	// DB°á°ú°ªÀ¸·Î µ¥ÀÌÅÍ µ¿±âÈ­
+	// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
 	if( 0 == pMessage->dwResult )
 		return;
 
@@ -8770,7 +8777,7 @@ void RMapItemDropListUpdate( LPQUERY pData, LPDBMESSAGE pMessage )
 }
 
 
-// ¿ä»õÀü
+// ï¿½ï¿½ï¿½ï¿½ï¿½
 void FortWarInfoLoad()
 {
 	sprintf(txt, "EXEC dbo.MP_FORTWARINFO_LOAD" );

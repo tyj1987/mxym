@@ -33,7 +33,7 @@
 
 CAttackManager::CAttackManager()
 {
-	m_nDamageRate = 100.0f;	// magi82 cheat damage Ã³À½¿¡´Â 100%ÀÇ µ¥¹ÌÁö·Î Àû¿ë(Ä¡Æ®Å°¸¦ ¾²¸é º¯°æµÊ)
+	m_nDamageRate = 100.0f;	// magi82 cheat damage Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Ä¡Æ®Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
 }
 
 CAttackManager::~CAttackManager()
@@ -65,22 +65,24 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 	pDamageInfo->bCritical = m_ATTACKCALC.getCritical(pAttacker,pTargetObject,fCriticalRate);
 	double attackPhyDamage = m_ATTACKCALC.getPhysicalAttackPower(pAttacker,PhyAttackRate,pDamageInfo->bCritical);
 
-	// RaMa - Å©¸®Æ¼ÄÃÀÏ¶§ ½ºÅÏÈ®·ü Ãß°¡ÇØ¾ßÇÔ
-	//#ifndef _JAPAN_LOCAL_	//´Ù¸¥°÷(getPlayerPhysicalAttackPower) ¸·¾Ò´Ù.
+	// RaMa - Å©ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+	//#ifndef _JAPAN_LOCAL_	//ï¿½Ù¸ï¿½ï¿½ï¿½(getPlayerPhysicalAttackPower) ï¿½ï¿½ï¿½Ò´ï¿½.
 	if(pDamageInfo->bCritical)
 	{
 		attackPhyDamage *= 1.5f;
 		/*
-		// ½ºÅÏ
+		// ï¿½ï¿½ï¿½ï¿½
 		if( pAttacker->GetObjectKind() == eObjectKind_Player )
-		if((rand()%100) < ((CPlayer*)pAttacker)->GetShopItemStats()->StunByCri)
 		{
-		// RaMa - 04.11.18
-		// ¾ÆÀÌÅÛ¸ô¿¡°üÇÑ ¼¼ºÎ°èÈ¹¼­´Â ´ÙÀ½ÁÖÁß( ~11.27)¿¡ ¹Þ±â·Î ÇÔ.
-		// pTargetObject->StartSpecialState( eSpecialState_Stun, 10, 0, 0, 0, FindEffectNum("monster_stun_s.beff"), 0 );
+			if((rand()%100) < ((CPlayer*)pAttacker)->GetShopItemStats()->StunByCri)
+			{
+			// RaMa - 04.11.18
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½( ~11.27)ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ ï¿½ï¿½.
+			// pTargetObject->StartSpecialState( eSpecialState_Stun, 10, 0, 0, 0, FindEffectNum("monster_stun_s.beff"), 0 );
+			}
 		}
 		}*/
-		//SW060906 ½Å±ÔÆê
+		//SW060906 ï¿½Å±ï¿½ï¿½ï¿½
 		if( (pAttacker->GetObjectKind() & eObjectKind_Monster) && pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			((CPlayer*)pTargetObject)->GetPetManager()->GetPetBuffResultRt(ePB_ReduceCriticalDmg, &attackPhyDamage);
@@ -102,7 +104,7 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 	attackPhyDamage *= fDecreaseDamageRate;
 	//
 
-	//PvP ÀÏ¶§´Â °ø°Ý·ÂÀÇ 50%¸¸
+	//PvP ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ 50%ï¿½ï¿½
 	if( pAttacker->GetObjectKind() == eObjectKind_Player &&
 		pTargetObject->GetObjectKind() == eObjectKind_Player )
 #ifdef _JAPAN_LOCAL_
@@ -115,7 +117,7 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 	DWORD ShieldDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_COMBO_DAMAGE));
 	attackPhyDamage -= ShieldDamage;
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	DWORD ShieldDamage = 0;
 	DWORD ReduceDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_COMBO_DAMAGE), ShieldDamage);
 	attackPhyDamage -= ReduceDamage;
@@ -126,7 +128,7 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 	double defencePhyLevel = m_ATTACKCALC.getPhyDefenceLevel(pTargetObject,pAttacker);
 	attackPhyDamage *= (1-defencePhyLevel);
 
-	// RaMa - 04.11.24   ->µ¥¹ÌÁöºñÀ²
+	// RaMa - 04.11.24   ->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pAttacker->GetObjectKind() == eObjectKind_Player && pTargetObject->GetObjectKind() & eObjectKind_Monster)	
 	{
 		attackPhyDamage *= gEventRate[eEvent_DamageRate];
@@ -140,19 +142,19 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 		attackPhyDamage = 1;
 
 	float fdam = 0.0f;
-	// RaMa - 04.11.10    -> ShopItemOptionÃß°¡
+	// RaMa - 04.11.10    -> ShopItemOptionï¿½ß°ï¿½
 	if(pAttacker->GetObjectKind() == eObjectKind_Player)
 	{
 		attackPhyDamage *= (((CPlayer*)pAttacker)->GetShopItemStats()->ComboDamage*0.01f+1.0f);
 
-		//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+		//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( ((CPlayer*)pAttacker)->GetGuildIdx() )
 			GUILDMGR->GetGuildPlustimeRt( ((CPlayer*)pAttacker)->GetGuildIdx(), eGPT_DamageUp, &attackPhyDamage );
 
-		//PET %°ø°Ý·Â
+		//PET %ï¿½ï¿½ï¿½Ý·ï¿½
 		((CPlayer*)pAttacker)->GetPetManager()->GetPetBuffResultRt(ePB_Demage_Percent, &attackPhyDamage);
 
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() & eObjectKind_Monster )
 		{
 			//if( g_pServerSystem->GetMapNum() == BOSSMONSTER_MAP ||
@@ -163,7 +165,7 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 			fdam = ((CPlayer*)pAttacker)->GetAvatarOption()->TargetPhyDefDown*0.01f;
 			attackPhyDamage *= (fdam+1.0f);
 		}
-		// RaMa - 06.11.13 -> ¹«½Ö¸ðµåÀÏ¶§ °ø°Ý·ÂÁõ°¡ ¾Æ¹ÙÅ¸
+		// RaMa - 06.11.13 -> ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸
 		if( ((CPlayer*)pAttacker)->IsMussangMode() && ((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage )
 			attackPhyDamage *= (((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage*0.01f+1.0f);
 
@@ -174,7 +176,7 @@ DWORD CAttackManager::GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObjec
 	}	
 	else if( pAttacker->GetObjectKind() & eObjectKind_Monster )
 	{
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			//if( g_pServerSystem->GetMapNum() == BOSSMONSTER_MAP ||
@@ -199,22 +201,22 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 	pDamageInfo->bCritical = m_ATTACKCALC.getCritical(pAttacker,pTargetObject,fCriticalRate);
 	double attackPhyDamage = m_ATTACKCALC.getPhysicalAttackPower(pAttacker,PhyAttackRate,pDamageInfo->bCritical );
 
-	// RaMa - Å©¸®Æ¼ÄÃÀÏ¶§ ½ºÅÏÈ®·ü Ãß°¡ÇØ¾ßÇÔ
-	//#ifndef _JAPAN_LOCAL_ //´Ù¸¥°÷(getPlayerPhysicalAttackPower) ¸·¾Ò´Ù.
+	// RaMa - Å©ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+	//#ifndef _JAPAN_LOCAL_ //ï¿½Ù¸ï¿½ï¿½ï¿½(getPlayerPhysicalAttackPower) ï¿½ï¿½ï¿½Ò´ï¿½.
 	if(pDamageInfo->bCritical)
 	{
 		attackPhyDamage *= 1.5f;
 		/*
-		// ½ºÅÏ
+		// ï¿½ï¿½ï¿½ï¿½
 		if( pAttacker->GetObjectKind() == eObjectKind_Player )
 		if((rand()%100) < ((CPlayer*)pAttacker)->GetShopItemStats()->StunByCri)
 		{
 		// RaMa - 04.11.18
-		// ¾ÆÀÌÅÛ¸ô¿¡°üÇÑ ¼¼ºÎ°èÈ¹¼­´Â ´ÙÀ½ÁÖÁß( ~11.27)¿¡ ¹Þ±â·Î ÇÔ.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½( ~11.27)ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ ï¿½ï¿½.
 		// pTargetObject->StartSpecialState( eSpecialState_Stun, 10, 0, 0, 0, FindEffectNum("monster_stun_s.beff"), 0 );
 		}
 		*/
-		//SW060906 ½Å±ÔÆê
+		//SW060906 ï¿½Å±ï¿½ï¿½ï¿½
 		if( (pAttacker->GetObjectKind() & eObjectKind_Monster) && pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			((CPlayer*)pTargetObject)->GetPetManager()->GetPetBuffResultRt(ePB_ReduceCriticalDmg, &attackPhyDamage);
@@ -236,7 +238,7 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 	attackPhyDamage *= fDecreaseDamageRate;
 	//
 
-	//PvP ÀÏ¶§´Â °ø°Ý·ÂÀÇ 50%¸¸
+	//PvP ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ 50%ï¿½ï¿½
 	if( pAttacker->GetObjectKind() == eObjectKind_Player &&
 		pTargetObject->GetObjectKind() == eObjectKind_Player )
 #ifdef _JAPAN_LOCAL_
@@ -249,7 +251,7 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 	DWORD ShieldDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_OUT_MUGONG_DAMAGE));
 	attackPhyDamage -= ShieldDamage;
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	DWORD ShieldDamage = 0;
 	DWORD ReduceDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_OUT_MUGONG_DAMAGE), ShieldDamage);
 	attackPhyDamage -= ReduceDamage;
@@ -260,7 +262,7 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 	double defencePhyLevel = m_ATTACKCALC.getPhyDefenceLevel(pTargetObject,pAttacker);
 	attackPhyDamage *= (1-defencePhyLevel);
 
-	// RaMa - 04.11.24   ->µ¥¹ÌÁöºñÀ²
+	// RaMa - 04.11.24   ->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pAttacker->GetObjectKind() == eObjectKind_Player && pTargetObject->GetObjectKind() & eObjectKind_Monster)
 	{
 		attackPhyDamage *= gEventRate[eEvent_DamageRate];
@@ -275,21 +277,21 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 
 
 	float fdam = 0.0f;
-	// RaMa - 04.11.10    -> ShopItemOptionÃß°¡, AvatarItemOptionÃß°¡(05.08.16)
+	// RaMa - 04.11.10    -> ShopItemOptionï¿½ß°ï¿½, AvatarItemOptionï¿½ß°ï¿½(05.08.16)
 	if(pAttacker->GetObjectKind() == eObjectKind_Player)
 	{
 		fdam = (((CPlayer*)pAttacker)->GetShopItemStats()->WoigongDamage*0.01f) + 
 			(((CPlayer*)pAttacker)->GetAvatarOption()->WoigongDamage*0.01f);
 		attackPhyDamage *= (fdam+1.0f);
 
-		//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+		//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( ((CPlayer*)pAttacker)->GetGuildIdx() )
 			GUILDMGR->GetGuildPlustimeRt( ((CPlayer*)pAttacker)->GetGuildIdx(), eGPT_DamageUp, &attackPhyDamage );
 
-		////PET %°ø°Ý·Â========================================================
+		////PET %ï¿½ï¿½ï¿½Ý·ï¿½========================================================
 		((CPlayer*)pAttacker)->GetPetManager()->GetPetBuffResultRt(ePB_Demage_Percent, &attackPhyDamage);
 
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() & eObjectKind_Monster )
 		{
 			//if( g_pServerSystem->GetMapNum() != BOSSMONSTER_MAP &&
@@ -300,7 +302,7 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 				attackPhyDamage *= (fdam+1.0f);
 			}
 		}
-		// RaMa - 06.11.13 -> ¹«½Ö¸ðµåÀÏ¶§ °ø°Ý·ÂÁõ°¡ ¾Æ¹ÙÅ¸
+		// RaMa - 06.11.13 -> ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸
 		if( ((CPlayer*)pAttacker)->IsMussangMode() && ((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage )
 			attackPhyDamage *= (((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage*0.01f+1.0f);
 
@@ -311,7 +313,7 @@ DWORD CAttackManager::GetMugongPhyDamage(CObject* pAttacker,CObject* pTargetObje
 	}	
 	else if( pAttacker->GetObjectKind() & eObjectKind_Monster )
 	{
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			//if( g_pServerSystem->GetMapNum() != BOSSMONSTER_MAP &&
@@ -345,7 +347,7 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 	{
 		attackAttrDamage *= 2.25f;
 
-		//SW060906 ½Å±ÔÆê
+		//SW060906 ï¿½Å±ï¿½ï¿½ï¿½
 		if( (pAttacker->GetObjectKind() & eObjectKind_Monster) && pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			((CPlayer*)pTargetObject)->GetPetManager()->GetPetBuffResultRt(ePB_ReduceCriticalDmg, &attackAttrDamage);
@@ -360,7 +362,7 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 		}
 	}
 	//
-	//PvP ÀÏ¶§´Â °ø°Ý·ÂÀÇ 50%¸¸
+	//PvP ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ 50%ï¿½ï¿½
 #ifdef _JAPAN_LOCAL_	
 	//	int nRel = eCAR_None;
 	if( pAttacker->GetObjectKind() == eObjectKind_Player &&
@@ -383,7 +385,7 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 	DWORD ShieldDamage = pTargetObject->CalcShieldDamage((DWORD)(attackAttrDamage * SHIELD_IN_MUGONG_DAMAGE));
 	attackAttrDamage -= ShieldDamage;
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	DWORD ShieldDamage = 0;
 	DWORD ReduceDamage = pTargetObject->CalcShieldDamage((DWORD)(attackAttrDamage * SHIELD_IN_MUGONG_DAMAGE), ShieldDamage);
 	attackAttrDamage -= ReduceDamage;
@@ -404,9 +406,9 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 	float RegVal = pTargetObject->GetAttDefense(Attrib);
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
-	// ¼Ó¼º¹æ¾î·Â
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+	// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pTargetObject->GetObjectKind() == eObjectKind_Player)
 	{
 		float val = 1 + ((CPlayer*)pTargetObject)->GetSkillStatsOption()->AttDef;
@@ -423,13 +425,13 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 
 	RegVal *= 0.7f;
 #endif
-	// RaMa - 05.02.04  -> ½É·ÉÀÇ ºÎÀû
+	// RaMa - 05.02.04  -> ï¿½É·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//	if( pTargetObject->GetObjectKind() == eObjectKind_Player )
 	//		RegVal += (((CPlayer*)pTargetObject)->GetShopItemStats()->RegistAttr*0.01f*0.7f);
 
 	double resAttrDamage = (attackAttrDamage * (1 - RegVal) );
 
-	// RaMa - 04.11.24   ->µ¥¹ÌÁöºñÀ²
+	// RaMa - 04.11.24   ->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pAttacker->GetObjectKind() == eObjectKind_Player && pTargetObject->GetObjectKind() & eObjectKind_Monster)
 	{
 		resAttrDamage = (resAttrDamage*gEventRate[eEvent_DamageRate]);
@@ -440,21 +442,21 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 	}
 
 	float fdam = 0.0f;
-	// RaMa - 04.11.10    -> ShopItemOptionÃß°¡, AvatarItemOptionÃß°¡(05.08.16)
+	// RaMa - 04.11.10    -> ShopItemOptionï¿½ß°ï¿½, AvatarItemOptionï¿½ß°ï¿½(05.08.16)
 	if(pAttacker->GetObjectKind() == eObjectKind_Player)
 	{
 		fdam = (((CPlayer*)pAttacker)->GetShopItemStats()->NeagongDamage*0.01f)+
 			(((CPlayer*)pAttacker)->GetAvatarOption()->NeagongDamage*0.01f);
 		resAttrDamage = (resAttrDamage*(fdam+1.0f));
 
-		//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+		//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( ((CPlayer*)pAttacker)->GetGuildIdx() )
 			GUILDMGR->GetGuildPlustimeRt( ((CPlayer*)pAttacker)->GetGuildIdx(), eGPT_DamageUp, &resAttrDamage );
 
-		//PET %°ø°Ý·Â
+		//PET %ï¿½ï¿½ï¿½Ý·ï¿½
 		((CPlayer*)pAttacker)->GetPetManager()->GetPetBuffResultRt(ePB_Demage_Percent, &resAttrDamage);
 
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() & eObjectKind_Monster )
 		{
 			//if( g_pServerSystem->GetMapNum() == BOSSMONSTER_MAP ||
@@ -465,7 +467,7 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 			fdam = ((CPlayer*)pAttacker)->GetAvatarOption()->TargetAttrDefDown*0.01f;
 			resAttrDamage = (resAttrDamage*(fdam+1.0f));
 		}
-		// RaMa - 06.11.13 -> ¹«½Ö¸ðµåÀÏ¶§ °ø°Ý·ÂÁõ°¡ ¾Æ¹ÙÅ¸
+		// RaMa - 06.11.13 -> ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸
 		if( ((CPlayer*)pAttacker)->IsMussangMode() && ((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage )
 			resAttrDamage *= (((CPlayer*)pAttacker)->GetAvatarOption()->MussangDamage*0.01f+1.0f);
 
@@ -474,7 +476,7 @@ DWORD CAttackManager::GetMugongAttrDamage(CObject* pAttacker,CObject* pTargetObj
 	}	
 	else if( pAttacker->GetObjectKind() & eObjectKind_Monster )
 	{
-		// RaMa - 05.10.10 -> ÇØ°ñ°¡¸é ¿É¼ÇÃß°¡
+		// RaMa - 05.10.10 -> ï¿½Ø°ñ°¡¸ï¿½ ï¿½É¼ï¿½ï¿½ß°ï¿½
 		if( pTargetObject->GetObjectKind() == eObjectKind_Player )
 		{
 			//if( g_pServerSystem->GetMapNum() == BOSSMONSTER_MAP ||
@@ -501,7 +503,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 {	
 	pDamageInfo->Clear();
 
-	//È¸ÇÇ	//SW060330 ÀÌµ¿ Object->CalcRealDamage(... ¿¡¼­..
+	//È¸ï¿½ï¿½	//SW060330 ï¿½Ìµï¿½ Object->CalcRealDamage(... ï¿½ï¿½ï¿½ï¿½..
 	float fDodgeRate = pTarget->GetDodgeRate();
 
 	if(fDodgeRate != 0)
@@ -517,7 +519,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 
 	if(pTarget->GetObjectKind() == eObjectKind_Player)
 	{
-		//Æê ¹öÇÁ È¸ÇÇ
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		BOOL rtDodge = FALSE;
 		((CPlayer*)pTarget)->GetPetManager()->GetPetBuffResultRt(ePB_Dodge, &rtDodge);
 		if( TRUE == rtDodge )
@@ -528,27 +530,27 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 			return;
 		}
 
-		//SW060911 È«Äá¿äÃ» ¼öÁ¤.
+		//SW060911 È«ï¿½ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½.
 		if( ((CPlayer*)pTarget)->GetUserLevel() <= eUSERLEVEL_GM && ((CPlayer*)pTarget)->IsVisible() == FALSE )
 		{
 			return;
 		}
 	}
 
-	// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ®
+	// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
 	if(( pAttacker->GetObjectKind() == eObjectKind_Player ) && ( pTarget->GetObjectKind() & eObjectKind_Monster ))
-	{	// ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍ °ø°Ý½Ã
+	{	// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý½ï¿½
 		CPlayer* pPlayer = (CPlayer*)pAttacker;
 		CMonster* pMonster = (CMonster*)pTarget;
 
-		// ¸¸¾à ÀÌº¥Æ® ¹«±â ÀåÂøÁßÀÌ¶ó¸é
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
 		if( pPlayer->GetWeaponEquipType() == WP_EVENT || pPlayer->GetWeaponEquipType() == WP_EVENT_HAMMER )
 		{
-			// ¹«°øÀ» »ç¿ëÇÑ°ÍÀÌ¸é ¸®ÅÏÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if(bMugong)
 				return;
 
-			// Áö¼Ó °ø°Ýµµ ¸®ÅÏ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ýµï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(bContinueAttack)
 				return;
 		}
@@ -592,7 +594,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 	if( pParty )
 	if( pParty->IsHelpPartyMember( pAttackPlayer->GetID() ) )
 	{
-	pAttackPlayer->SetPartyHelp( TRUE );	//ÆÄÆ¼ »ó»ý È¿°ú 
+	pAttackPlayer->SetPartyHelp( TRUE );	//ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ 
 	}
 	}
 	}
@@ -615,14 +617,14 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 		AttrDamage = GetMugongAttrDamage(pAttacker,pTarget,Attrib,AttAttackMin,AttAttackMax,AttAttackRate,fCriticalRate,pDamageInfo,fDecreaseDamageRate );
 	}
 
-	// ÀÓ½Ã Å×½ºÆ®
+	// ï¿½Ó½ï¿½ ï¿½×½ï¿½Æ®
 	//	PhyDamage = 10000000;
 	//	AttrDamage = 10000000;
 
-	//»ó±Ø¿¡ ´ëÇÑ 1.5¹è.. ¿©±â°¡ ÃÖÀûÀÇ À§Ä¡´Ù.
+	//ï¿½ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.5ï¿½ï¿½.. ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½.
 #ifdef _JAPAN_LOCAL_
-	//Attrib ¿Ü°ø¿¡´ëÇÑ ¼Ó¼º
-	//AmplifiedPowerAttrib ³»°ø¿¡´ëÇÑ ¼Ó¼º
+	//Attrib ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½
+	//AmplifiedPowerAttrib ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½
 	if( pAttacker->GetObjectKind() == eObjectKind_Player && pTarget->GetObjectKind() == eObjectKind_Player )
 	{
 		if( ((CPlayer*)pTarget)->WhatIsAttrRelation(Attrib) == eCAR_Weak_Opposite )
@@ -639,14 +641,14 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 
 	pAttacker->CalcRealAttack(pTarget, PhyDamage, AttrDamage, pDamageInfo, bContinueAttack );
 
-	//== ÀÌ»óÇÏ°Ô µÇ¾úµû T_T ÀÏ´Ü ÀÓ½Ã·Î ±×³É °©½Ã´Ù!
+	//== ï¿½Ì»ï¿½ï¿½Ï°ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ T_T ï¿½Ï´ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½!
 	DWORD UpAttackDamage = 0;
 	if( PhyDamage + AttrDamage < pDamageInfo->RealDamage )
 		UpAttackDamage = ( pDamageInfo->RealDamage - ( PhyDamage + AttrDamage ) ) / 2;
 	//===
 
-	//SW070811 ±âÈ¹º¯°æ pvp ÀÏ ¶§ 10% µ¥¹ÌÁö.	//attackPhyDamage *= 0.1f;	//attackAttrDamage *= 0.1f;
-	// °ø¼ºÀü½Ã¿¡´Â µ¥¹ÌÁö Àû¿ë
+	//SW070811 ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ pvp ï¿½ï¿½ ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.	//attackPhyDamage *= 0.1f;	//attackAttrDamage *= 0.1f;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	/*float fsiegedamage = 0.2f;
 	#ifdef _HK_LOCAL_
 	fsiegedamage = 0.5f;
@@ -660,7 +662,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 	{
 		if( pAttacker->GetObjectKind() == eObjectKind_Player && pTarget->GetObjectKind() == eObjectKind_Player )
 		{
-			// °è»êÇØ¼­ 0ÀÌ ³ª¿Ã¶§¸¦ À§ÇØ¼­ +1
+			// ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ +1
 			if( PhyDamage )
 				PhyDamage = (DWORD)(PhyDamage*fsiegedamage + 1);
 			if( AttrDamage )
@@ -676,7 +678,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 
 	pTarget->CalcRealDamage(pAttacker,PhyDamage+UpAttackDamage,AttrDamage+UpAttackDamage,pDamageInfo);
 
-	// RaMa - µ¥¹ÌÁö ÀÌ»ó¼öÄ¡ È®ÀÎ¿ë ÄÚµå
+	// RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ä¡ È®ï¿½Î¿ï¿½ ï¿½Úµï¿½
 	if( (pAttacker->GetObjectKind() & eObjectKind_Monster) && pDamageInfo->RealDamage > 1000000 )
 	{
 		char buf[256] = { 0, };
@@ -692,7 +694,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 		CPlayer* pAttackPlayer = (CPlayer*)pAttacker;
 		/*
 		#ifdef _JAPAN_LOCAL_
-		pAttackPlayer->SetPartyHelp( FALSE );	//°è»ê ³¡³µ´Ù. ÃÊ±âÈ­ÇÏÀÚ.
+		pAttackPlayer->SetPartyHelp( FALSE );	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½.
 		#endif
 		*/
 #ifdef _JAPAN_LOCAL_
@@ -714,15 +716,15 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 		{
 			CPlayer* pTargetPlayer = (CPlayer*)pTarget;
 
-			//PK¸ðµå½Ã¿¡ PK½Ã°£ °»½Å
-			if( pAttackPlayer->IsPKMode() /*&& pAttackPlayer->IsVimuing() == FALSE*/ ) //ºñ¹«ÀÏ¸®°¡ ¾ø´Ù.
+			//PKï¿½ï¿½ï¿½Ã¿ï¿½ PKï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
+			if( pAttackPlayer->IsPKMode() /*&& pAttackPlayer->IsVimuing() == FALSE*/ ) //ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			{
 				if( AttrDamage || PhyDamage )
 					if( pTargetPlayer->IsPKMode() == FALSE )
 						pAttackPlayer->SetPKStartTimeReset();
 			}
 
-			// 06.09.25 RaMa Ãß¼®ÀÌº¥Æ®
+			// 06.09.25 RaMa ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 			if( pAttackPlayer->GetWeaponEquipType() == WP_EVENT_HAMMER )
 				pTargetPlayer->IncreaseEventHammerCount();
 			//#ifndef _HK_LOCAL_	//hk block christmas
@@ -739,9 +741,9 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 	else
 		pDamageInfo->CounterDamage = 0;
 
-	//-----¹Þ´Â µ¥¹ÌÁö¿¡ µû¸¥ Ã¼·Â ³»·Â Èí¼ö
+	//-----ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	pTarget->CalcReverseVampiric(pDamageInfo);	//ÀÌÆåÆ® Ã³¸®´Â ¾ÈÇÑ´Ù --;
+	pTarget->CalcReverseVampiric(pDamageInfo);	//ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½ --;
 	//-----
 
 
@@ -751,7 +753,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 	pAttacker->CalcVampiric(pDamageInfo);
 	//	}
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
 	if( pAttacker->GetObjectKind() == eObjectKind_Player )
 	{
@@ -769,12 +771,12 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 		pDamageInfo->RealDamage *= (DWORD)fRate;
 	//////////////////////////////////////////////////////////////////////////
 
-	//2007. 10. 30. CBH - ÆÐ³ÎÆ¼ µ¥¹ÌÁö Ã³¸® Ãß°¡
+	//2007. 10. 30. CBH - ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	DWORD dwRealDemage = pDamageInfo->RealDamage;
 
 	pDamageInfo->RealDamage = GetPenaltyDemege(pAttacker, pTarget, dwRealDemage);	
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( pAttacker->GetObjectKind() == eObjectKind_Player )
 	{
 		CPlayer* pPlayer = (CPlayer*)pAttacker;
@@ -788,7 +790,7 @@ void CAttackManager::Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DW
 
 	if(pDamageInfo->CounterDamage != 0)
 	{
-		// ¹Ý°ÝÀº ¹«¼Ó¼º µ¥¹ÌÁöÀÌ´Ù. (cf: ¹«¼Ó¼ºÀº ¹Ý°Ý´çÇÏÁö ¾ÊÀ¸¹Ç·Î ¹Ý°ÝÀÇ ¹Ý°ÝÀº ÀÖÀ»¼ö ¾ø´Ù.)
+		// ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. (cf: ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½Ý°Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.)
 		RESULTINFO counterdmginfo;
 		PhyDamage = 0;
 		AttrDamage = pDamageInfo->CounterDamage;
@@ -842,7 +844,7 @@ void CAttackManager::AttackAbs( CObject* pAttacker, CObject* pTarget, int nAbsKi
 
 	pDamageInfo->Clear();
 
-	//È¸ÇÇ	//SW060330 ÀÌµ¿ Object->CalcRealDamage(... ¿¡¼­..
+	//È¸ï¿½ï¿½	//SW060330 ï¿½Ìµï¿½ Object->CalcRealDamage(... ï¿½ï¿½ï¿½ï¿½..
 	float fDodgeRate = pTarget->GetDodgeRate();
 
 	if(fDodgeRate != 0)
@@ -858,7 +860,7 @@ void CAttackManager::AttackAbs( CObject* pAttacker, CObject* pTarget, int nAbsKi
 
 	if(pTarget->GetObjectKind() == eObjectKind_Player)
 	{
-		//Æê ¹öÇÁ È¸ÇÇ
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		BOOL rtDodge = FALSE;
 		((CPlayer*)pTarget)->GetPetManager()->GetPetBuffResultRt(ePB_Dodge, &rtDodge);
 		if( TRUE == rtDodge )
@@ -883,7 +885,7 @@ void CAttackManager::AttackAbs( CObject* pAttacker, CObject* pTarget, int nAbsKi
 	}
 
 
-	//¿©±â°¡ ¸Â³ª? KES confirm	//ºñ¹«´Â ¾î¶»°Ô ÇÏÁö?
+	//ï¿½ï¿½ï¿½â°¡ ï¿½Â³ï¿½? KES confirm	//ï¿½ñ¹«´ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
 	if( pAttacker->GetObjectKind() == eObjectKind_Player )
 		if( ((CPlayer*)pAttacker)->IsPKMode() )
 		{
@@ -902,7 +904,7 @@ void CAttackManager::AttackAbs( CObject* pAttacker, CObject* pTarget, int nAbsKi
 		{
 			MinusLife = (DWORD)(TargetLife * AttackRate);
 		}
-		else if( nAbsKind & eAAK_SHIELD )	//ÀÏ´Ü µ¿½Ã¿¡ Ã¼·Â/È£½Å À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+		else if( nAbsKind & eAAK_SHIELD )	//ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ Ã¼ï¿½ï¿½/È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
 			MinusShield = (DWORD)(TargetShield * AttackRate);
 		}
@@ -921,7 +923,7 @@ void CAttackManager::AttackAbs( CObject* pAttacker, CObject* pTarget, int nAbsKi
 		/*	
 		if(pDamageInfo->CounterDamage != 0)
 		{
-		// ¹Ý°ÝÀº ¹«¼Ó¼º µ¥¹ÌÁöÀÌ´Ù. (cf: ¹«¼Ó¼ºÀº ¹Ý°Ý´çÇÏÁö ¾ÊÀ¸¹Ç·Î ¹Ý°ÝÀÇ ¹Ý°ÝÀº ÀÖÀ»¼ö ¾ø´Ù.)
+		// ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. (cf: ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½Ý°Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.)
 		RESULTINFO counterdmginfo;
 		PhyDamage = 0;
 		AttrDamage = pDamageInfo->CounterDamage;
@@ -950,7 +952,7 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 {
 	pDamageInfo->Clear();
 
-	//È¸ÇÇ	//SW060330 ÀÌµ¿ Object->CalcRealDamage(... ¿¡¼­..
+	//È¸ï¿½ï¿½	//SW060330 ï¿½Ìµï¿½ Object->CalcRealDamage(... ï¿½ï¿½ï¿½ï¿½..
 	float fDodgeRate = pTarget->GetDodgeRate();
 
 	if(fDodgeRate != 0)
@@ -966,7 +968,7 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 
 	if(pTarget->GetObjectKind() == eObjectKind_Player)
 	{
-		//Æê ¹öÇÁ È¸ÇÇ
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		BOOL rtDodge = FALSE;
 		((CPlayer*)pTarget)->GetPetManager()->GetPetBuffResultRt(ePB_Dodge, &rtDodge);
 		if( TRUE == rtDodge )
@@ -995,7 +997,7 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 	if( AttackPower == 0 )
 		return;
 
-	//¿©±â°¡ ¸Â³ª? KES confirm	//ºñ¹«´Â ¾î¶»°Ô ÇÏÁö?
+	//ï¿½ï¿½ï¿½â°¡ ï¿½Â³ï¿½? KES confirm	//ï¿½ñ¹«´ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
 	if( pAttacker->GetObjectKind() == eObjectKind_Player )
 		if( ((CPlayer*)pAttacker)->IsPKMode() )
 		{
@@ -1015,7 +1017,7 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 			pDamageInfo, fDecreaseDamageRate );
 
 
-		// °ø¼ºÀü½Ã¿¡´Â µ¥¹ÌÁö Àû¿ë
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		float fsiegedamage = 0.2f;
 //#ifdef _HK_LOCAL_
 #ifdef _KOR_LOCAL_
@@ -1025,7 +1027,7 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 		{
 			if( pAttacker->GetObjectKind() == eObjectKind_Player && pTarget->GetObjectKind() == eObjectKind_Player )
 			{
-				// °è»êÇØ¼­ 0ÀÌ ³ª¿Ã¶§¸¦ À§ÇØ¼­ +1
+				// ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ +1
 				if( RealAttack )
 					RealAttack = (WORD)(RealAttack*fsiegedamage + 1);
 				if( pDamageInfo->RealDamage )
@@ -1035,16 +1037,16 @@ void CAttackManager::AttackJinbub( CObject* pAttacker, CObject* pTarget, DWORD A
 			}
 		}
 
-		//1. °ø°Ý·Â °­È­ ¾ø´Ù.
-		//2.È¸ÇÇ/¿î±âÁßµ¥¹ÌÁö/¹æ¾î¹öÇÁ °è»ê (¹°¸®°ø°ÝÀÌ´Ù.)
+		//1. ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½.
+		//2.È¸ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.)
 		pTarget->CalcRealDamage( pAttacker, (WORD)RealAttack, 0, pDamageInfo );
-		//3.¹Ý°ÝÀº ¾ø´Ù.
-		//4.°ø°Ý¹Þ¾ÒÀ»½Ã ÇÇ Èí¼ö.
-		pTarget->CalcReverseVampiric(pDamageInfo);	//ÀÌÆåÆ® Ã³¸®´Â ¾ÈÇÑ´Ù --;
-		//5.ÇÇ»¡±â ¾ø´Ù.
+		//3.ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		//4.ï¿½ï¿½ï¿½Ý¹Þ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		pTarget->CalcReverseVampiric(pDamageInfo);	//ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½ --;
+		//5.ï¿½Ç»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		DWORD newLife = pTarget->Damage(pAttacker,pDamageInfo);
 
-		//6.¹Ý°ÝÀº ¾ø´Ù.
+		//6.ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 		//============
 		if(newLife == 0)
@@ -1061,7 +1063,7 @@ DWORD CAttackManager::GetJinbubDamage(CObject* pAttacker,CObject* pTargetObject,
 	DWORD attackPhyDamage = (DWORD)(AttackPower * fDecreaseDamageRate);
 	//
 
-	//PvP ÀÏ¶§´Â °ø°Ý·ÂÀÇ 50%¸¸
+	//PvP ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ 50%ï¿½ï¿½
 	if( pAttacker->GetObjectKind() == eObjectKind_Player &&
 		pTargetObject->GetObjectKind() == eObjectKind_Player )
 #ifdef _JAPAN_LOCAL_
@@ -1074,7 +1076,7 @@ DWORD CAttackManager::GetJinbubDamage(CObject* pAttacker,CObject* pTargetObject,
 	DWORD ShieldDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_OUT_MUGONG_DAMAGE));
 	attackPhyDamage -= ShieldDamage;
 #else
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	DWORD ShieldDamage = 0;
 	DWORD ReduceDamage = pTargetObject->CalcShieldDamage((DWORD)(attackPhyDamage * SHIELD_OUT_MUGONG_DAMAGE), ShieldDamage);
 	attackPhyDamage -= ReduceDamage;
@@ -1085,7 +1087,7 @@ DWORD CAttackManager::GetJinbubDamage(CObject* pAttacker,CObject* pTargetObject,
 	double defencePhyLevel = m_ATTACKCALC.getPhyDefenceLevel(pTargetObject,pAttacker);
 	attackPhyDamage = (DWORD)(attackPhyDamage*(1-defencePhyLevel));
 
-	// RaMa - 04.11.24   ->µ¥¹ÌÁöºñÀ²
+	// RaMa - 04.11.24   ->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(pAttacker->GetObjectKind() == eObjectKind_Player && pTargetObject->GetObjectKind() & eObjectKind_Monster)
 	{
 		// attackPhyDamage *= gDamageRate;
@@ -1103,7 +1105,7 @@ DWORD CAttackManager::GetJinbubDamage(CObject* pAttacker,CObject* pTargetObject,
 	return attackPhyDamage;
 }
 
-//2007. 10. 30. CBH - µ¥¹ÌÁö ÆÐ³ÎÆ¼ °è»ê ÇÔ¼ö
+//2007. 10. 30. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 DWORD CAttackManager::GetPenaltyDemege(CObject* pAttacker,CObject* pTargetObject, DWORD dwDemage)
 {
 	DWORD dwResultDemege = dwDemage;
@@ -1116,10 +1118,10 @@ DWORD CAttackManager::GetPenaltyDemege(CObject* pAttacker,CObject* pTargetObject
 		if(attackerKind == eObjectKind_Player)
 		{
 			CPlayer* pPlayer = (CPlayer*)pAttacker;
-			//Å¸ÀÌÅº Å¾½ÂÇßÀ»¶§¿Í ¹ÌÅ¾½Â ÇßÀ»¶§ ¸ó½ºÅÍ µ¥¹ÌÁö ÆÐ³ÎÆ¼
+			//Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼
 			if(targetKind == eObjectKind_TitanMonster)
 			{
-				//Å¸°ÙÀÌ Å¸ÀÌÅº ¸ó½ºÅÍÀÌ°í ÇÃ·¹ÀÌ¾î°¡ Å¸ÀÌÅº ¹Ì Å¾½Â½Ã ÆÐ³ÎÆ¼ µ¥¹ÌÁö (¿ø·¡ µ¥¹ÌÁöÀÇ 5%¸¸ µé¾î°¨)
+				//Å¸ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ Å¸ï¿½ï¿½Åº ï¿½ï¿½ Å¾ï¿½Â½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5%ï¿½ï¿½ ï¿½ï¿½î°¨)
 				if(pPlayer->InTitan() == FALSE)
 				{
 					dwResultDemege = (DWORD)( (float)dwDemage * 0.05f );
@@ -1127,7 +1129,7 @@ DWORD CAttackManager::GetPenaltyDemege(CObject* pAttacker,CObject* pTargetObject
 			}
 			else
 			{
-				//Å¸°ÙÀÌ ÀÏ¹Ý ¸ó½ºÅÍÀÌ°í ÇÃ·¹ÀÌ¾î°¡ Å¸ÀÌÅº Å¾½Â½Ã ÆÐ³ÎÆ¼ µ¥¹ÌÁö (¿ø·¡ µ¥¹ÌÁöÀÇ 50%¸¸ µé¾î°¨)
+				//Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ Å¸ï¿½ï¿½Åº Å¾ï¿½Â½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 50%ï¿½ï¿½ ï¿½ï¿½î°¨)
 				if(pPlayer->InTitan() == TRUE)
 				{
 					dwResultDemege = (DWORD)( (float)dwDemage * 0.5f );

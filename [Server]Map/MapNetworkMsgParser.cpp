@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "MapNetworkMsgParser.h"
 #include "Network.h"
 #include "MapDBMsgParser.h"
@@ -77,7 +78,7 @@ void MP_MonitorMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	{
 	case MP_MORNITORMAPSERVER_NOTICESEND_SYN:
 		{
-			// °øÁö»çÇ× 
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 			ASSERT(0);
 		}
 		break;
@@ -114,11 +115,11 @@ void MP_MonitorMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	case MP_MORNITORMAPSERVER_SERVEROFF_SYN:
 		{
 			/*
-			g_bCloseWindow = TRUE;	//ÄÜ¼ÖÃ¢ ´Ý´Â´Ù.
+			g_bCloseWindow = TRUE;	//ï¿½Ü¼ï¿½Ã¢ ï¿½Ý´Â´ï¿½.
 
 			g_pServerSystem->HandlingBeforeServerEND();*/
 
-			//SW060719 ¼öÁ¤
+			//SW060719 ï¿½ï¿½ï¿½ï¿½
 			g_pServerSystem->SetStart(FALSE);
 			g_pServerSystem->HandlingBeforeServerEND();
 
@@ -145,7 +146,7 @@ void MP_MAPSERVERMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		{
 			MSG_WORD * msg = (MSG_WORD *)pMsg;
 			SERVERINFO * info = g_pServerTable->FindServer(msg->wData);//port
-			//PACKDATA¿¡¼­ »ç¿ëÇÏ´Â º¯¼ö
+			//PACKDATAï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(g_pServerTable->GetMaxServerConnectionIndex() < dwConnectionIndex)
 				g_pServerTable->SetMaxServerConnectionIndex(dwConnectionIndex);
 			ASSERT(info);
@@ -200,7 +201,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(!pPlayer) return;
 
 			MSGBASE msg;			
-			// Áö±Ý ÇÃ·¹ÀÌ¾î°¡ Æ÷ÀÎÆ®¸¦ ¿Ã¸±¼ö ÀÖ´Â »óÅÂÀÎ°¡?Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?Ã¼Å©
 			if( CHARMGR->ArrangeCharLevelPoint(pPlayer, pmsg->wData) )
 				SetProtocol( &msg, MP_CHAR, MP_CHAR_POINTADD_ACK );
 			else
@@ -267,14 +268,14 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			msg.wData = pmsg->wData;
 			pPlayer->SendMsg(&msg,sizeof(msg));
 
-			// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+			// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifndef _JAPAN_LOCAL_
 			if(pmsg->wData == ABILITYINDEX_TACTIC_MUSSANG)
 				pPlayer->InitMussangPoint();
 #endif
 		}
 		break;
-		// magi82(42) - ¼¥¾ÆÀÌÅÛ Ãß°¡(¼ö·ÃÄ¡ ÃÊ±âÈ­)
+		// magi82(42) - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­)
 	case MP_CHAR_ABILITY_RESET_SKPOINT_SYN:
 		{
 			MSG_WORD2* pmsg = (MSG_WORD2*)pMsg;
@@ -285,7 +286,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			msg.Category = MP_CHAR;
 			if(ABILITYMGR->ResetAbilitySkPoint(pmsg->wData1,pPlayer->GetAbilityGroup()) == TRUE)
 			{
-				// ¹¬È¥ ¼ö·ÃÄ¡¸¦ ÃÊ±âÈ­¸¦ ÇÏ¸é ¹¬È¥ Æ÷ÀÎÆ® ¿ª½Ã ÃÊ±âÈ­ ÇØÁà¾ß ÇÑ´Ù.
+				// ï¿½ï¿½È¥ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½È¥ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 #ifndef _JAPAN_LOCAL_
 				if(pmsg->wData1 == ABILITYINDEX_TACTIC_MUSSANG)
 					pPlayer->InitMussangPoint();
@@ -293,7 +294,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 				msg.Protocol = MP_CHAR_ABILITY_RESET_SKPOINT_ACK;
 
-				// ShopItem »èÁ¦(ÃÊ±âÈ­¸¦ ¼º°ø ÇßÀ¸¹Ç·Î ÁÖ¹®¼­¸¦ »èÁ¦ ÇØ¾ßÇÑ´Ù)
+				// ShopItem ï¿½ï¿½ï¿½ï¿½(ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½)
 				const ITEMBASE* pItem = ITEMMGR->GetItemInfoAbsIn( pPlayer, (POSTYPE)pmsg->wData2 );
 				if( EI_TRUE == ITEMMGR->DiscardItem( pPlayer, (POSTYPE)pmsg->wData2, pItem->wIconIdx, 1 ) )
 				{
@@ -303,7 +304,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 					msg.ShopItemIdx = pItem->wIconIdx;
 					ITEMMGR->SendAckMsg( pPlayer, &msg, sizeof(msg) );
 
-					// LogÃß°¡
+					// Logï¿½ß°ï¿½
 					LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
 						eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 						pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint());
@@ -387,10 +388,10 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				pPlayer->SetMoney( pmsg->Fame * BAIL_PRICE, MONEY_SUBTRACTION, 0, eItemTable_Inventory, eMoneyLog_LoseBadFrameBail, pPlayer->GetID() );
 				CharacterBadFameUpdate( pPlayer->GetID(), pPlayer->GetBadFame(), pPlayer->GetMoney() );
 				
-				//ÀüÃ¼¿¡°Ô º¸³»±â
+				//ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				FAMEMGR->SendBadFameMsg( pPlayer, pPlayer->GetBadFame() );
 
-				//³ª¿¡°Ô È®ÀÎ º¸³»±â(¸Þ¼¼Áö º¸¿©ÁÖ±â)
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½)
 				MSG_FAME msg;
 				msg.Category	= MP_CHAR;
 				msg.Protocol	= MP_CHAR_BADFAME_ACK;
@@ -430,7 +431,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 				// Assert
 				char buf[256] = { 0, };
-				sprintf(buf, "ÇÃ·¹ÀÌ½Ã°£ÀÌ ¿ÀÂ÷¹üÀ§¸¦ ¹þ¾î³µ½À´Ï´Ù. player:%d Server:%d ecost:%d allowance:%d",
+				sprintf(buf, "ï¿½Ã·ï¿½ï¿½Ì½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ï¿½Ï´ï¿½. player:%d Server:%d ecost:%d allowance:%d",
 					pmsg->dwData, pPlayer->GetPlayTime(), edst, MAX_ALLOWANCE);
 				ASSERTMSG(0, buf);
 			}
@@ -444,7 +445,7 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(!pPlayer) return;
 
-			// Áö±Ý ÇÃ·¹ÀÌ¾î°¡ Æ÷ÀÎÆ®¸¦ ¿Ã¸±¼ö ÀÖ´Â »óÅÂÀÎ°¡?Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?Ã¼Å©
 			MSG_WORD msg;
 			msg.Category = MP_CHAR;			
 
@@ -467,11 +468,11 @@ void MP_CHARMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(!pPlayer) return;
 
-			//SW070912 ±âÈ¹º¯°æ
+			//SW070912 ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½
 			if( pPlayer->InTitan() )
 				return;
 
-			//SW061121 ¹«½Ö¹ßµ¿½Ã°£ ¼­¹ö·Î ºÎÅÍ ÃÊ±âÈ­·Î º¯°æ
+			//SW061121 ï¿½ï¿½ï¿½Ö¹ßµï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			/*
 			int rt = pPlayer->StartMussangMode();
 
@@ -533,7 +534,7 @@ void MP_CHATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			PACKEDDATA_OBJ->QuickSend(pPlayer,pmsg,dwLength);
 		}
 		break;
-	case MP_CHAT_SMALLSHOUT:			//°°Àº Ã¤³ÎÀÇ ¸ðµÎ¿¡°Ô º¸³»±â!
+	case MP_CHAT_SMALLSHOUT:			//ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
 		{
 			MSG_CHAT_WITH_SENDERID* pmsg = (MSG_CHAT_WITH_SENDERID*)pMsg;
 
@@ -601,21 +602,21 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 
-	case MP_USERCONN_GAMEIN_OTHERMAP_SYN:	//from agent. ´Ù¸¥¸ÊÀ¸·Î µé¾î°¬´Âµ¥..È¤½Ã¶óµµ ÀÌ¸Ê¿¡µµ ÀÖÀ¸¸é Áö¿öÁÖ·Á°í
+	case MP_USERCONN_GAMEIN_OTHERMAP_SYN:	//from agent. ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¬ï¿½Âµï¿½..È¤ï¿½Ã¶ï¿½ ï¿½Ì¸Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 			g_pServerSystem->RemovePlayer( pmsg->dwObjectID );
 		}
 		break;
 
-	case MP_USERCONN_GAMEIN_SYN:		//¿¡ÀÌÁ¯Æ®°¡ º¸³½°Í
+	case MP_USERCONN_GAMEIN_SYN:		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{			
 			MSG_DWORD4* pmsg = (MSG_DWORD4*)pMsg;
 			CObject* pObject = g_pUserTable->FindUser(pmsg->dwObjectID);
 
-			if( pObject != NULL )	//ÀÌ¹Ì ÀÖ´Ù.
+			if( pObject != NULL )	//ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½.
 			{
-				if( pObject->GetObjectKind() == eObjectKind_Player )	//À¯ÀúÀÎ°¡?
+				if( pObject->GetObjectKind() == eObjectKind_Player )	//ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 				{
 //					g_pServerSystem->RemovePlayer(pmsg->dwObjectID);
 
@@ -647,11 +648,11 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 //			CharacterGMControlInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 
-			QuestTotalInfo(pmsg->dwObjectID);		// ÃÊº¸ÀÚ Äù½ºÆ®
+			QuestTotalInfo(pmsg->dwObjectID);		// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-			// quest Á¤º¸ qurey Ãß°¡
+			// quest ï¿½ï¿½ï¿½ï¿½ qurey ï¿½ß°ï¿½
 			QUESTMGR->CreateQuestForPlayer( pPlayer );
-			// Ç×»ó ¼­ºêÄù½ºÆ® Á¤º¸ºÎÅÍ ÀÐ¾î¾ß ÇÔ...
+			// ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ ï¿½ï¿½...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);
@@ -659,8 +660,8 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CYHHashTable<HIDE_NPC_INFO>* pHideNpcTable = GAMERESRCMNGR->GetHideNpcTable();
 			HIDE_NPC_INFO* pInfo = NULL;
 
-			// 06. 05 HIDE NPC - ÀÌ¿µÁØ
-			// ÇöÀç ¸ÊÀÇ ¼û±è °¡´É NPCµéÀÇ Á¤º¸¸¦ º¸³»ÁØ´Ù
+			// 06. 05 HIDE NPC - ï¿½Ì¿ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 			pHideNpcTable->SetPositionHead();
 			while( pInfo = pHideNpcTable->GetData() )
 			{
@@ -673,7 +674,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				pPlayer->SendMsg( &msg, sizeof(msg) );
 			}
 
-			// ÇöÀç¸ÊÀÇ Ã¤³ÎÁ¤º¸ ´Ù½Ãº¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½Ãºï¿½ï¿½ï¿½ï¿½ï¿½.
 			MSG_CHANNEL_INFO msg1;
 			memset(&msg1, 0, sizeof(msg1));
 			msg1.Category = MP_USERCONN;
@@ -683,15 +684,15 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			pPlayer->SendMsg( &msg1, sizeof(msg1) );
 		}
 		break;
-	case MP_USERCONN_GAMEINPOS_SYN:		// Å¬¶óÀÌ¾ðÆ®¿¡¼­ º¸³½°Í
+	case MP_USERCONN_GAMEINPOS_SYN:		// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			MSG_DWORD4* pmsg = (MSG_DWORD4*)pMsg;
 
 			CObject* pObject = g_pUserTable->FindUser(pmsg->dwObjectID);
 
-			if( pObject != NULL )	//ÀÌ¹Ì ÀÖ´Ù.
+			if( pObject != NULL )	//ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½.
 			{
-				if( pObject->GetObjectKind() == eObjectKind_Player )	//À¯ÀúÀÎ°¡?
+				if( pObject->GetObjectKind() == eObjectKind_Player )	//ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 				{
 //					g_pServerSystem->RemovePlayer(pmsg->dwObjectID);
 
@@ -718,11 +719,11 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CharacterItemRareOptionInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 			CharacterAbilityInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 
-			QuestTotalInfo(pmsg->dwObjectID);		// ÃÊº¸ÀÚ Äù½ºÆ®
+			QuestTotalInfo(pmsg->dwObjectID);		// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-			// quest Á¤º¸ qurey Ãß°¡
+			// quest ï¿½ï¿½ï¿½ï¿½ qurey ï¿½ß°ï¿½
 			QUESTMGR->CreateQuestForPlayer( pPlayer );
-			// Ç×»ó ¼­ºêÄù½ºÆ® Á¤º¸ºÎÅÍ ÀÐ¾î¾ß ÇÔ...
+			// ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ ï¿½ï¿½...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);
@@ -730,8 +731,8 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CYHHashTable<HIDE_NPC_INFO>* pHideNpcTable = GAMERESRCMNGR->GetHideNpcTable();
 			HIDE_NPC_INFO* pInfo = NULL;
 
-			// 06. 05 HIDE NPC - ÀÌ¿µÁØ
-			// ÇöÀç ¸ÊÀÇ ¼û±è °¡´É NPCµéÀÇ Á¤º¸¸¦ º¸³»ÁØ´Ù
+			// 06. 05 HIDE NPC - ï¿½Ì¿ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 			pHideNpcTable->SetPositionHead();
 			while( pInfo = pHideNpcTable->GetData() )
 			{
@@ -747,8 +748,8 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 
 	case MP_USERCONN_GAMEIN_NACK:
-		{	// GAMEIN_ACK¸¦ º¸³ÂÀ»¶§ ¿¡ÀÌÁ¯Æ®¿¡¼­ À¯´ÏÅ© ¾ÆÀÌµð°¡ Æ²¸®¸é
-			// ÀÌ ¸Þ¼¼Áö¸¦ ³¯·ÁÁØ´Ù. ±× ÄÉ¸¯ÅÍ¸¦ ±×³É Áö¿ö¹ö¸®¸é µÈ´Ù.
+		{	// GAMEIN_ACKï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½Ìµï¿½ Æ²ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½. ï¿½ï¿½ ï¿½É¸ï¿½ï¿½Í¸ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
 			CPlayer* pPlayer = (CPlayer *)g_pUserTable->FindUser(pTempMsg->dwObjectID);
 			if(pPlayer == NULL)
 				return;
@@ -757,7 +758,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 
-	case MP_USERCONN_GAMEOUT_SYN:	//¿¡ÀÌÁ¯Æ®¿¡ Ä³¸¯ÅÍ°¡ ÀÖ´Âµ¥ ¶Ç Ä³¸¯ÅÍ ¼±ÅÃÀÌ ¿Ô´Ù. È¤½Ã ¸Ê¿¡µµ ³²¾Æ ÀÖ´ÂÁö º¸´Â°Å´Ù.
+	case MP_USERCONN_GAMEOUT_SYN:	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ö´Âµï¿½ ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´ï¿½. È¤ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°Å´ï¿½.
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 
@@ -781,13 +782,13 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 	case MP_USERCONN_DISCONNECTED:
 		{
-			//KES	//agent°¡ À¯Àú Á¤º¸ DB¾÷µ¥ÀÌÆ®¸¦ À§ÇØ¼­ º¸³»ÁØ´Ù.
+			//KES	//agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
 
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 			if(pPlayer == NULL)
 			{
-				//KES ·Î±×¾Æ¿ô ÇÁ·Î½ÃÁ® È£ÃâÇÏ±â À§ÇØ ¿¡ÀÌÁ¯Æ®·Î º¸³»ÁØ´Ù.
+				//KES ï¿½Î±×¾Æ¿ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				MSGBASE msgLogout;
 				msgLogout.Category		= MP_USERCONN;
 				msgLogout.Protocol		= MP_USERCONN_LOGINCHECK_DELETE;
@@ -799,18 +800,18 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 			if( !pPlayer->IsNormalExit() )
 			{
-				//°­Á¦ Á¾·á¿¡ µû¸¥ Á¦Á¦
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½á¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if( pPlayer->IsPKMode() )
 					PKMGR->PKModeExitPanelty( pPlayer, TRUE );
 				LOOTINGMGR->DiePlayerExitPanelty( pPlayer );
 
 				//AUTONOTE
-				if( pPlayer->GetAutoAskPlayerIdx() )				//---¿ÀÅä½Å°íÁßÀÎ Ä³¸¯ÅÍ
+				if( pPlayer->GetAutoAskPlayerIdx() )				//---ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½
 				{
 					AUTONOTEMGR->AutoPlayerLogOut( pPlayer );
 				}
 
-				//°­Á¦ Á¾·áÇÑ À¯Àú Àâ¾ÆµÎ±â
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÆµÎ±ï¿½
 #ifdef _CHINA_LOCAL_
 				if( pPlayer->IsWaitExitPlayer() )
 				{
@@ -871,7 +872,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if( pPlayer->IsPKMode() ||
 				LOOTINGMGR->IsLootedPlayer( pPlayer->GetID() ) ||
 				eObjectState_Die == pPlayer->GetState() ||
-				pPlayer->GetAutoAskPlayerIdx() )					// autonote ½Å°íÁßÀÌ¸é...
+				pPlayer->GetAutoAskPlayerIdx() )					// autonote ï¿½Å°ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½...
 			{
 				MSGBASE msgNack;
 				msgNack.Category	= MP_USERCONN;
@@ -895,14 +896,14 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			}
 
 			MAPCHANGE_INFO* ChangeInfo = NULL;
-			// Item»ç¿ëÃß°¡
+			// Itemï¿½ï¿½ï¿½ï¿½ß°ï¿½
 			if( eMapChange_SOS == pmsg->dwData4 )	// magi82 - SOS(070723)
 			{
 				// magi82(35) MapChange State
-				// ¸ÊÀÌµ¿ ÇÒ¶§ ¾î¶² »óÅÂÀÇ ¸ÊÀÌµ¿ÀÎÁö Ã¼Å©ÇÏ°Ô ¼öÁ¤
+				// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ò¶ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
 				ChangeInfo = GAMERESRCMNGR->GetMapChangeInfoForDestMapNum( (WORD)(pmsg->dwData1) );
 				if( !ChangeInfo )
-				{// Â÷ÈÄ¼öÁ¤
+				{// ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 					/*
 					MSG_ITEM_ERROR msg;
 					msg.Category = MP_ITEM;
@@ -982,7 +983,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				}
 			//
 			}			
-			//Pet ¸ÊÀÌµ¿½Ã Æê ¼ÒÈ¯»óÅÂ À¯Áö
+			//Pet ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pPlayer->GetPetManager()->SetPetSummonning(ePSS_SaveSummon);
 
 			pPlayer->GetTitanManager()->SetTitanRiding(TRUE);
@@ -993,7 +994,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			EXPTYPE exp = pPlayer->GetPlayerExpPoint();
 			g_pServerSystem->RemovePlayer(pPlayer->GetID());
 			
-			// ¸®ÅÏ ¹ÞÀ¸¸é ¸Ê ¾Æ¿ô ¸Þ½ÃÁö º¸³¿.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			SaveMapChangePointReturn(pmsg->dwObjectID, ChangeInfo->Kind, dwConnectionIndex, lvl, exp, pPlayer->GetMoney(eItemTable_Pyoguk));
 		}
 		break;
@@ -1023,7 +1024,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			WORD ServerMapNum = GAMERESRCMNGR->GetLoadMapNum();
 			SavePointUpdate(pmsg->dwObjectID, LoginInfo->Kind, ServerMapNum);
 		
-			// ¸ÊÀüÈ¯Æ÷ÀÎÆ®¸¦ Ç×»ó 0À¸·Î ¼ÂÆÃÇØÁØ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½×»ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 /*			MAPCHANGE_INFO* ChangeInfo = GAMERESRCMNGR->GetMapChangeInfoForDestMapNum( (WORD)pmsg->dwData1 );
 			if( !ChangeInfo ) return;
 			SaveMapChangePointUpdate( pPlayer->GetID(), ChangeInfo->Kind );*/
@@ -1036,7 +1037,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 	case MP_USERCONN_BACKTOCHARSEL_SYN:
 		{
-#ifndef _CHINA_LOCAL_ //Áß±¹Àº Ä³¸¯ÅÍ ¼±ÅÃÃ¢À¸·Î °¡´Â ¸Þ´º¸¦ ¾ø¿¡°í Ã³¸®µµ ¸·´Â´Ù				
+#ifndef _CHINA_LOCAL_ //ï¿½ß±ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½				
 			MSGBASE* pmsg = (MSGBASE*)pMsg;
 			CPlayer* pPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(pPlayer == NULL)
@@ -1048,7 +1049,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			GUILDMGR->UserLogOut(pPlayer);
 
 			SaveCharInfoBeforeLogout(pPlayer->GetID(), dwConnectionIndex, pPlayer->GetUserID(), pPlayer->GetMoney(eItemTable_Pyoguk));
-#endif  //_CHINA_LOCAL_ //Áß±¹Àº Ä³¸¯ÅÍ ¼±ÅÃÃ¢À¸·Î °¡´Â ¸Þ´º¸¦ ¾ø¿¡°í Ã³¸®µµ ¸·´Â´Ù
+#endif  //_CHINA_LOCAL_ //ï¿½ß±ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
 		}
 		break;
 
@@ -1113,7 +1114,7 @@ void MP_USERCONNMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 //-----------------------------------------------------------------------------------------------
 #ifdef _KOR_LOCAL_
-	//2008. 5. 9. CBH - GAMEIN »óÅÂÀÇ ¸Ê Ã¤³ÎÀÌµ¿ °ü·Ã Ã¤³Î Á¤º¸ ¿äÃ» ÇÁ·ÎÅäÄÝ
+	//2008. 5. 9. CBH - GAMEIN ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case MP_USERCONN_CHANGEMAP_CHANNELINFO_SYN:
 		{
 			MSG_DWORD3* pmsg = (MSG_DWORD3*)pTempMsg;
@@ -1146,8 +1147,8 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				return;
 
 			//////////////////////////////////////////////////////////////////////////
-			// Å¬¶óÀÌ¾ðÆ®µéÀÇ Ãæµ¹ Ã¼Å©(Å¬¶óÀÌ¾ðÆ®µé¿¡¼­ ÇÏ±â ¶§¹®¿¡ ÇÊ¿ä¾øÁö¸¸... È®ÀÎ¿ë)
-			// Å¬¶óÀÌ¾ðÆ®ÀÇ ÇØÅ·µîÀ» ¹æÁöÇÏ±â À§ÇØ..
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ Ã¼Å©(Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½é¿¡ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½... È®ï¿½Î¿ï¿½)
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½..
 			VECTOR3 colpos;
 			MAPTYPE MapNum = GAMERESRCMNGR->GetLoadMapNum();
 			if(g_pServerSystem->GetMap()->CollisionCheck(&Start,&Target,&colpos,MapNum))
@@ -1388,7 +1389,7 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pPet == NULL)
 				return;
 
-			//!!! SW060616 °¡²û¾¿ ³ª¿À´Â ¿À¹öÇÃ·Î¿ìÇö»ó Àâ±â
+			//!!! SW060616 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã·Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if((unsigned int)pPet == 0xfdfdfdfd)
 			{
 				CPetManager* AssertPetMgr = pPlayer->GetPetManager();
@@ -1398,7 +1399,7 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				ASSERTMSG(0, tmp);
 				return;
 			}
-			//!!! ÆêÀÌ³ª ÁÖÀÎ »óÅÂ°ü·Ã Ã³¸®µé
+			//!!! ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
 			
 			VECTOR3 Start;
 			pmsg->GetStartPos(&Start);
@@ -1445,11 +1446,11 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pPet == NULL)
 				return;
 
-			//SW061122 ¹æ¾î ÄÚµå Ãß°¡.
+			//SW061122 ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ß°ï¿½.
 			if( pmsg->tpos.PosNum > MAX_CHARTARGETPOSBUF_SIZE || pmsg->dwMoverID != pPet->GetID() )
 				return;
 
-			//SW060928 ¹æ¾î ÄÚµå //Àß¸øµÈ pet object °¡ µé¾îÀÖ´Â »óÈ²ÀÌ ÀÖ´Ù.
+			//SW060928 ï¿½ï¿½ï¿½ ï¿½Úµï¿½ //ï¿½ß¸ï¿½ï¿½ï¿½ pet object ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½Ö´ï¿½.
 			if(!pPet->GetMaster() || pPet->GetMaster() != pPlayer)
 			{
 				char tmp[256] = {0,};
@@ -1458,7 +1459,7 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				return;
 			}
 
-			//!!! ÆêÀÌ³ª ÁÖÀÎ »óÅÂ°ü·Ã Ã³¸®µé
+			//!!! ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
 
 			VECTOR3 Start;
 			pmsg->GetStartPos(&Start);
@@ -1498,15 +1499,15 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pPlayer == NULL)
 				return;
 
-			// »óÅÂ º¯°æ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			//if( !OBJECTSTATEMGR_OBJ->StartObjectState(pPlayer, eObjectState_None, 0) )
 			//	return;
 			if(pPlayer->GetState() == eObjectState_Move)
 				OBJECTSTATEMGR_OBJ->EndObjectState(pPlayer,eObjectState_Move);
 
 			//////////////////////////////////////////////////////////////////////////
-			// Å¬¶óÀÌ¾ðÆ®µéÀÇ Ãæµ¹ Ã¼Å©(Å¬¶óÀÌ¾ðÆ®µé¿¡¼­ ÇÏ±â ¶§¹®¿¡ ÇÊ¿ä¾øÁö¸¸... È®ÀÎ¿ë)
-			// Å¬¶óÀÌ¾ðÆ®ÀÇ ÇØÅ·µîÀ» ¹æÁöÇÏ±â À§ÇØ..
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ Ã¼Å©(Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½é¿¡ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½... È®ï¿½Î¿ï¿½)
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½..
 			VECTOR3 colpos;
 			VECTOR3* pCurPos = CCharMove::GetPosition(pPlayer);
 
@@ -1517,9 +1518,9 @@ void MP_MOVEMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				return;
 			}
 			//////////////////////////////////////////////////////////////////////////	
-			// Á¤»óÀûÀÎ ÀÌµ¿ÀÎÁö È®ÀÎÇÏ°í Æ²¸®¸é Correct¸¦ ÇØÁØ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½ Correctï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 			if(CCharMove::CheckVaildStop(pPlayer,gCurTime,&pos) == TRUE)
-				CCharMove::EndMove(pPlayer,gCurTime,&pos);	// Á¤»óÀûÀÌ¸é EndMove
+				CCharMove::EndMove(pPlayer,gCurTime,&pos);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ EndMove
 			
 			PACKEDDATA_OBJ->QuickSendExceptObjectSelf(pPlayer,pmsg,dwLength);
 		}
@@ -1887,7 +1888,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			BOOL bAllow = (BOOL)pmsg->wData2;
 			PKMGR->SetPKAllowWithMsg( bAllow );
 
-			// 06.09.11 RaMa - GMÅø »ç¿ë·Î±×Ãß°¡
+			// 06.09.11 RaMa - GMï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ï¿½ß°ï¿½
 			if( pSender )
                 LogGMToolUse( pSender->GetID(), eGMLog_PKAllow, (DWORD)g_pServerSystem->GetMapNum(), (DWORD)bAllow, 0 );
 		}
@@ -1921,7 +1922,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				CCharMove::SetPosition( pTarget,&TargetPos);
 				msg.cpos.Compress(&TargetPos);
 				((CPlayer*)pTarget)->SendMsg( &msg, sizeof(msg) );
-				//±×¸®µå¿¡¸¸ º¸³»¸é µÇ´Â°¡?
+				//ï¿½×¸ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´Â°ï¿½?
 			}
 
 /*			
@@ -2006,7 +2007,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			posMsg.cpos.Compress(&pos);
 
 			((CPlayer*)pObject)->SendMsg(&posMsg,sizeof(posMsg));
-			//³» ±×¸®µå¿¡¸¸ º¸³½´Ù?
+			//ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		}
 		break;
 		
@@ -2028,8 +2029,8 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pPlayer == NULL)
 				return;
 
-			//2008. 5. 20. CBH - ¸Ê Ã¤³Î ÀÌµ¿½Ã ÀÚ½Å ¸ÊÀÇ Ã¤³ÎÀ» °Ë»çÇÏ´Â ÄÚµåÀÎµ¥
-			//¸Ê Ã¤³Î ºÐ¸® ÀÛ¾÷À¸·Î ÀÎÇØ ¸ÊÀÇ Ã¤³ÎÀÌ °¢°¢ ´Ù¸£¹Ç·Î ÁÖ¼® Ã³¸®
+			//2008. 5. 20. CBH - ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½ï¿½Îµï¿½
+			//ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½Ð¸ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ç·ï¿½ ï¿½Ö¼ï¿½ Ã³ï¿½ï¿½
 			/*
 			if( CHANNELSYSTEM->GetChannelID( pmsg->dwData2 ) == 0 && !CHANNELSYSTEM->IsQuestMap() )
 			{
@@ -2110,7 +2111,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 //			}
 		}
 		break;
-		//SW051011 °­È­/·¹¾î Ä¡Æ®
+		//SW051011 ï¿½ï¿½È­/ï¿½ï¿½ï¿½ï¿½ Ä¡Æ®
 	case MP_CHEAT_ITEM_OPTION_SYN:
 		{
 			SEND_CHEAT_ITEM_OPTION* pmsg = (SEND_CHEAT_ITEM_OPTION*)pMsg;
@@ -2120,16 +2121,16 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			ITEM_INFO* pItemInfo = ITEMMGR->GetItemInfo( pmsg->wItemIdx );
 			if(!pItemInfo)	return;
 
-			//CommonGameDefine.h ¿¡ ³Ö°í ½Í´Ù.
+			//CommonGameDefine.h ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Í´ï¿½.
 			enum{ eKindOption_None=0, eKindOption_Reinforce=1, eKindOption_Rare=2, };
 
-			//ÀåÂø ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é ¸®ÅÏ.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if( !(pItemInfo->ItemKind & eEQUIP_ITEM) ) return;
 
-			//±âÁ¸¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» °­È­.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­.
 			if( pmsg->wOptionKind & eKindOption_Reinforce )
 			{
-				//ÇØ´ç ¾ÆÀÌÅÛ Á¤º¸¸¦ °¡Á®¿Í ±âÁ¸ °­È­ ¿É¼ÇÀÌ ÀÖÀ¸¸é Áö¿î´Ù.
+				//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 				const ITEMBASE * pTargetItemBase = ITEMMGR->GetItemInfoAbsIn(pPlayer, pmsg->bPosition);
 				if(pTargetItemBase->Durability != 0)
 					CharacterItemOptionDelete(pTargetItemBase->Durability, pTargetItemBase->dwDBIdx);
@@ -2139,7 +2140,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				{
 					return;
 				}
-				//Ä¡Æ® ¿É¼ÇÀ» µî·ÏÇÑ´Ù.
+				//Ä¡Æ® ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				pmsg->OptionInfo.dwItemDBIdx = pTargetItemBase->dwDBIdx;
 				ItemOptionInsertToDB(pPlayer->GetID(), pmsg->wItemIdx, pmsg->bPosition, &pmsg->OptionInfo);				
 
@@ -2406,7 +2407,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 					pParty->GetMemberInfo(i, &SendParty.Member[i]);
 				}
 				SendParty.Option = pParty->GetOption();
-				//2008. 5. 22. CBH - ¹æÆÄ Ãß°¡ ¿É¼Ç ¼ÂÆÃ
+				//2008. 5. 22. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 				PARTY_ADDOPTION* pAddOption = pParty->GetAddOption();
 				memcpy(&SendParty.PartyAddOption, pAddOption, sizeof(SendParty.PartyAddOption));
 			}
@@ -2455,20 +2456,21 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 			g_bPlusTime = FALSE;
 
-			// ¸ðµçÇÃ·¯½ºÅ¸ÀÓÀÌ Á¾·áµÇ¾îÀÖ´ÂÁö È®ÀÎ
-			for(int i=0; i<eEvent_Max; ++i)
+			// ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+			int i;
+			for(i=0; i<eEvent_Max; ++i)
 			{
 				if( gEventRate[i] != gEventRateFile[i] )
 					break;
 			}
-			
+
 			if( i != eEvent_Max )
 			{
-				// Àû¿ë
+				// ï¿½ï¿½ï¿½ï¿½
 				for(i=0; i<eEvent_Max; ++i)
 					gEventRate[i] = gEventRateFile[i];
 				
-				// °³ÀÎÇÃ·¯½ºÅ¸ÀÓ °è»ê
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 				CObject* pObject = NULL;
 				g_pUserTable->SetPositionHead();
 				while( pObject = g_pUserTable->GetData() )
@@ -2486,13 +2488,13 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 			g_bPlusTime = TRUE;
 
-			// ´Ù¸¥¿¡ÀÌÀüÆ®¿¡¼­ ¿À´Â°Ç ¸·´Â´Ù.
+			// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			if( gEventRate[pmsg->wData1] != pmsg->wData2*0.01f )
 				gEventRate[pmsg->wData1] = pmsg->wData2*0.01f;
 			else
 				return;
 
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓ °è»ê
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 			CObject* pObject = NULL;
 			g_pUserTable->SetPositionHead();
 			while( pObject = g_pUserTable->GetData() )
@@ -2507,21 +2509,22 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		{
 			MSG_WORD* pmsg = (MSG_WORD*)pMsg;
 
-			// ´Ù¸¥¿¡ÀÌÀüÆ® ¿¡¼­ ¿À´Â°Ç ¸·´Â´Ù.
+			// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 			if( gEventRate[pmsg->wData] != gEventRateFile[pmsg->wData] )
 				gEventRate[pmsg->wData] = gEventRateFile[pmsg->wData];
 			else
 				return;
 
-			// ¸ðµçÇÃ·¯½ºÅ¸ÀÓÀÌ Á¾·áµÇ¾úÀ¸¸é ÇÃ·¯½ºÅ¸ÀÓ Á¾·á
-			for(int i=0; i<eEvent_Max; ++i)
+			// ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			int i;
+			for(i=0; i<eEvent_Max; ++i)
 			{
 				if( gEventRate[i] != gEventRateFile[i] )
 					break;
 			}
 			if( i == eEvent_Max )			g_bPlusTime = FALSE;
 
-			// °³ÀÎÇÃ·¯½ºÅ¸ÀÓ °è»ê
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 			CObject* pObject = NULL;
 			g_pUserTable->SetPositionHead();
 			while( pObject = g_pUserTable->GetData() )
@@ -2707,7 +2710,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 			
-			enum {TIMELENGTH, };	//CommonHeader ·Î~
+			enum {TIMELENGTH, };	//CommonHeader ï¿½ï¿½~
 
 			if( pmsg->dwData1 == TIMELENGTH )
 			{
@@ -2766,7 +2769,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CPet* pPet = pPlayer->GetPetManager()->GetCurSummonPet();
 			if(!pPet)	return;
 
-			//pmsg->bData 1ÀÌ¸é ÃÖ´ë 0ÀÌ¸é ÃÖ¼Ò ¼¼ÆÃ.
+			//pmsg->bData 1ï¿½Ì¸ï¿½ ï¿½Ö´ï¿½ 0ï¿½Ì¸ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			pPlayer->GetPetManager()->SetSommonPetStamina(pmsg->bData);
 		}
 		break;
@@ -2780,7 +2783,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			CPet* pPet = pPlayer->GetPetManager()->GetCurSummonPet();
 			if(!pPet)	return;
 
-			//pmsg->bData 1ÀÌ¸é ÃÖ´ë 0ÀÌ¸é ÃÖ¼Ò ¼¼ÆÃ.
+			//pmsg->bData 1ï¿½Ì¸ï¿½ ï¿½Ö´ï¿½ 0ï¿½Ì¸ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			MSG_DWORD Msg;
 			Msg.Category = MP_CHEAT;
 			DWORD rt = 0;
@@ -2838,11 +2841,11 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				Msg.dwData1 = friendship;
 
 				if( pmsg->dwData2 )
-				{	//ÁöÁ¤ ¼öÄ¡·Î º¹±¸
+				{	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					friendship = pmsg->dwData2;					
 				}
 				else
-				{	//±âº» ÆÐ³ÎÆ¼ ¸¸Å­ º¹±¸
+				{	//ï¿½âº» ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
 					friendship += GAMERESRCMNGR->GetPetRule()->FriendShipPerMasterDie * -1;
 				}
 
@@ -2859,7 +2862,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 					pPet->SetPetFriendShip(friendship);
 					Msg.Protocol = MP_CHEAT_PET_SELECTED_FRIENDSHIP_ACK;
 					Msg.dwData2 = pPet->GetPetFriendShip();
-					//DB Æê Á¤º¸ °»½Å
+					//DB ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 			
@@ -2984,17 +2987,17 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 #endif
-	// 06. 05 HIDE NPC - ÀÌ¿µÁØ
+	// 06. 05 HIDE NPC - ï¿½Ì¿ï¿½ï¿½ï¿½
 	case MP_CHEAT_NPCHIDE_SYN:
 		{
 			MSG_WORD3* pmsg = (MSG_WORD3*)pMsg;
 
-			// ¼û±è °¡´É NPC Á¤º¸¸¦ °¡Á®¿Â´Ù
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 			HIDE_NPC_INFO* pInfo = GAMERESRCMNGR->GetHideNpcInfo(pmsg->wData1);
 
 			if(pInfo)
 			{
-				// ÀüÃ¼ Ã¤³Î
+				// ï¿½ï¿½Ã¼ Ã¤ï¿½ï¿½
 				if(pmsg->wData2 == 0)
 				{
 					for( DWORD i = 0 ; i < MAX_CHANNEL_NUM ; ++i )
@@ -3015,7 +3018,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 							pObject->SendMsg(&msg, sizeof(msg));
 					}
 				}
-				// Æ¯Á¤ Ã¤³Î
+				// Æ¯ï¿½ï¿½ Ã¤ï¿½ï¿½
 				else
 				{
 					pInfo->ChannelInfo[pmsg->wData2 - 1] = (BOOL)pmsg->wData3;
@@ -3149,7 +3152,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			{
 				AUTONOTEMGR->SetReplyChance( (int)pmsg->dwData2 );
 			}
-			else if( pmsg->dwData1 == 5 )	// ½Ã½ºÅÛ ÀÚÃ¼...
+			else if( pmsg->dwData1 == 5 )	// ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼...
 			{
 				AUTONOTEMGR->SetUseAutoNoet( (BOOL)pmsg->dwData2 );
 			}
@@ -3167,7 +3170,7 @@ void MP_CHEATMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 /*
-		//2008. 6. 4. CBH - ¾Ç¸íÄ¡ Ä¡Æ®
+		//2008. 6. 4. CBH - ï¿½Ç¸ï¿½Ä¡ Ä¡Æ®
 	case MP_CHEAT_BADFAME_SYN:
 		{
 			MSG_DWORD* pmsg = (MSG_DWORD*)pMsg;
@@ -3266,7 +3269,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 	case MP_PARTY_CREATE_SYN: 
 		{
-			//2008. 5. 21. CBH - ¹æÆÄ ¿É¼Ç Ãß°¡ °ü·Ã Ã³¸® ¼öÁ¤
+			//2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			/*
 			MSG_BYTE * pmsg = (MSG_BYTE*)pMsg;
 			CPlayer* pPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwObjectID);
@@ -3368,7 +3371,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 		*/
-	case MP_PARTY_NOTIFYCREATE_TO_MAPSERVER:	//2008. 6. 3. CBH - ¼öÁ¤
+	case MP_PARTY_NOTIFYCREATE_TO_MAPSERVER:	//2008. 6. 3. CBH - ï¿½ï¿½ï¿½ï¿½
 		{
 			PARTY_INFO* pmsg = (PARTY_INFO*)pMsg;
 			PARTYMGR->NotifyCreateParty(pmsg);
@@ -3386,7 +3389,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			PARTYMGR->DoMemberLevelUp(pmsg->dwData1, pmsg->dwData2, (LEVELTYPE)pmsg->dwData3);
 		}
 		break;		
-		//2008. 5. 23. CBH - ¹æÆÄÀå¿¡°Ô ÆÄÆ¼½ÅÃ»
+		//2008. 5. 23. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½Ã»
 	case MP_PARTY_MASTERTOREQUEST_SYN:
 		{
 			MSG_NAME_DWORD2* pmsg = (MSG_NAME_DWORD2*)pMsg;
@@ -3400,7 +3403,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			PARTYMGR->MasterToPartyRequest(pPlayer, pmsg);
 		}
 		break;		
-	case MP_PARTY_REQUEST_CONSENT_SYN:	//ÆÄÆ¼ ¼ö¶ô Ã³¸®
+	case MP_PARTY_REQUEST_CONSENT_SYN:	//ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 
@@ -3411,7 +3414,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pParty == NULL)
 				return;
 			
-			//¼ö¶ô °áÁ¤ Ä«¿îÆ® ½Ã°£ ÃÊ±âÈ­
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
 			pParty->SetRequestPlayerID(0);
 			pParty->InitRequestTime();
 
@@ -3459,7 +3462,7 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pParty == NULL)
 				return;
 			
-			//¼ö¶ô °áÁ¤ Ä«¿îÆ® ½Ã°£ ÃÊ±âÈ­
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
 			pParty->SetRequestPlayerID(0);
 			pParty->InitRequestTime();
 
@@ -3471,14 +3474,14 @@ void MP_PARTYMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			g_Network.Send2AgentServer( (char*)&msg, sizeof(msg) );
 		}
 		break;
-	case MP_PARTY_NOTIFY_INFO:	//ÆÄÆ¼ Á¤º¸ ¼ÂÆÃ
+	case MP_PARTY_NOTIFY_INFO:	//ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			PARTY_INFO* pPartyInfo = (PARTY_INFO*)pMsg;
 
 			PARTYMGR->NotifyPartyInfo(pPartyInfo);
 		}
 		break;
-	case MP_PARTY_MATCHING_INFO:	//ÆÄÆ¼¸ÅÄª ¸®½ºÆ® Á¤º¸ ¿äÃ»
+	case MP_PARTY_MATCHING_INFO:	//ï¿½ï¿½Æ¼ï¿½ï¿½Äª ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 		{
 			MSG_WORD* pmsg = (MSG_WORD*)pMsg;
 
@@ -3499,7 +3502,7 @@ void MP_UNGIJOSIKMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	if(pPlayer == NULL)
 		return;
 	
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( pPlayer->InTitan() )
 	{
 		ASSERT(0);
@@ -3917,7 +3920,7 @@ void MP_NPCMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				}
 				if(pNpc->GetNpcJob() == BOMUL_ROLE)
 				{
-					// 06.12.21 - RaMa : Å¬¸¯ÇÏ¸é ¾ÈµÇ´Â º¸¹°»óÀÚ.
+					// 06.12.21 - RaMa : Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					VECTOR3 pos;
 					pNpc->GetPosition( &pos );
 					if( pos.x == 0 && pos.z == 0 )
@@ -3973,7 +3976,7 @@ SPEECH_NACK:
 				return;
 			CNpc* pNpc = (CNpc*)g_pUserTable->FindUser(pmsg->dwData); //pmsg->dwData : NpcObjectIdx
 
-			// °Ë»ç
+			// ï¿½Ë»ï¿½
 			if((pNpc == 0) || (pNpc->GetFirstTalkCharacterID() != pPlayer->GetID()))
 				return;
 			else
@@ -4018,7 +4021,7 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	switch(pTempMsg->Protocol)
 	{
 	//////////////////////////////////////////////////////////////////////////
-	// ÀÏ¹Ý ¸Ê¼­¹ö¿¡¼­ ¹Þ´Â ºÎºÐ
+	// ï¿½Ï¹ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½Îºï¿½
 	case MP_MURIMNET_CHANGETOMURIMNET_SYN:
 		{
 			MSGBASE* pmsg = (MSGBASE*)pMsg;
@@ -4039,7 +4042,7 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// º£Æ² ¼­¹ö¿¡¼­ ¹Þ´Â ºÎºÐ
+	// ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½Îºï¿½
 	case MP_MURIMNET_PLAYROOM_INFO_SYN:
 		{
 /*			MSG_MNPLAYROOM_INFO* pmsg = (MSG_MNPLAYROOM_INFO*)pMsg;
@@ -4052,7 +4055,7 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			for(int n=0;n<pmsg->nTotalPlayerNum;++n)
 			{
 				BYTE Team = pmsg->PlayerInfo[n].cbTeam;
-				if(Team == 2)	// ¿ÉÀú¹ö
+				if(Team == 2)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 
 				}
@@ -4062,11 +4065,11 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				}
 			}
 			if(BATTLESYSTEM->CreateBattle(&binfo) == FALSE)
-			{	// º£Æ² »ý¼º ½ÇÆÐ
+			{	// ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				ASSERT(0);
 			}
 
-			// ¼º°ø ¸Þ¼¼Áö ¹«¸²³Ý¿¡ º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			pmsg->Protocol = MP_MURIMNET_PLAYROOM_INFO_ACK;
 			PACKEDDATA_OBJ->SendToMapServer(dwConnectionIndex,99,pmsg,dwLength);
 */	
@@ -4081,7 +4084,7 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			for( int n = 0; n < pmsg->nTotalPlayerNum; ++n )
 			{
 				BYTE Team = pmsg->PlayerInfo[n].cbTeam;
-				if(Team == 2)	// ¿ÉÀú¹ö
+				if(Team == 2)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 				}
 				else
@@ -4090,11 +4093,11 @@ void MP_MurimnetMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				}
 			}
 			if( BATTLESYSTEM->CreateBattle( &bInfo, pmsg->wMapNum ) == FALSE )
-			{	// º£Æ² »ý¼º ½ÇÆÐ
+			{	// ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				ASSERT(0);
 			}
 
-			// ¼º°ø ¸Þ¼¼Áö ¹«¸²³Ý¿¡ º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			pmsg->Protocol = MP_MURIMNET_PLAYROOM_INFO_ACK;
 			PACKEDDATA_OBJ->SendToMapServer( dwConnectionIndex, 99, pmsg, (WORD)dwLength );
 		}
@@ -4135,7 +4138,7 @@ void MP_QUESTMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			if(pPlayer == NULL)
 			{
 //				char buff[256] = {0,};
-//				sprintf(buff, "¿©±â¶ß¸é ¹ý¼®ÇÑÅ× ¿¬¶ôºÎÅ¹µå·Á¿° [Client ID : %d]", pmsg->dwObjectID);
+//				sprintf(buff, "ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ [Client ID : %d]", pmsg->dwObjectID);
 //				ASSERTMSG(0, buff);
 				return;
 			}		
@@ -4225,7 +4228,7 @@ void MP_SOCIETYACTMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			
 			PACKEDDATA_OBJ->QuickSendExceptObjectSelf( pPlayer, &msg, sizeof(msg) );
 			
-			//µ¿ÀÛÀ» ÇßÀ¸¹Ç·Î ¹«Àû»óÅÂ Ç®¾îÁÜ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ï¿½ï¿½
 			if( pPlayer->GetState() == eObjectState_Immortal )
 				OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer, eObjectState_Immortal, 0 );
 		}
@@ -4335,7 +4338,7 @@ void MP_PETMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 	case MP_PET_USE_SKILL_SYN:
 		{
-			//!!!Æê ½ºÅ³ °ÔÀÌÁö °Ë»ç
+			//!!!ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 			if(pPet->UsePetSkill())
 				pTempMsg->Protocol = MP_PET_USE_SKILL_ACK;
 			//return MP_PET_USE_SKILL_ACK
@@ -4379,7 +4382,7 @@ BOOL CheckHackNpc( CPlayer* pPlayer, WORD wNpcIdx )
 	float dist = CalcDistanceXZ( &vPos, &pInfo->vPos );
 	if( dist > 3000.0f )
 	{
-		ASSERT(0); //TLÀÓ½Ã
+		ASSERT(0); //TLï¿½Ó½ï¿½
 		return FALSE;
 	}
 

@@ -84,7 +84,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 // taiyo 
 CServerSystem * g_pServerSystem = NULL;
-// MAPSERVER¿¡¼­´Â USERINFO°¡ ¾Æ´Ï¶ó CPlayer°¡ µÈ´Ù!
+// MAPSERVERï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ USERINFOï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ CPlayerï¿½ï¿½ ï¿½È´ï¿½!
 CMemoryPoolTempl<USERINFO> g_UserInfoPool;
 #ifdef _NPROTECT_
 CMemoryPoolTempl<CCSAuth2> g_CCSAuth2Pool;
@@ -123,7 +123,7 @@ CServerSystem::~CServerSystem()
 void CServerSystem::Start(WORD ServerNum)
 {
 
-//ÀÓ½Ã ·ÎÄÃ
+//ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SetNation();
 
 	m_wServerNum = ServerNum;
@@ -139,8 +139,8 @@ void CServerSystem::Start(WORD ServerNum)
 //	ICInitialize(m_IdxCreater,5000);
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ÄÜ¼Ö ÃÊ±âÈ­
-	// ¹öÆ° ¼³Á¤.¿ÜºÎÀÔ·Â¿E¹öÆ°ÀÌ 28°³ ÁØºñµÇ¾ûÜÖ´Ù.ÇÑ°³µµ »ç¿EÏÁE¾ÊÀ» °æ¿EpCustomButton ÇÊµå¸¦ NULL·Î Ã¤¿ûĞÙ.
+	// ï¿½Ü¼ï¿½ ï¿½Ê±ï¿½È­
+	// ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½.ï¿½Üºï¿½ï¿½Ô·Â¿ï¿½Eï¿½ï¿½Æ°ï¿½ï¿½ 28ï¿½ï¿½ ï¿½Øºï¿½Ç¾ï¿½ï¿½Ö´ï¿½.ï¿½Ñ°ï¿½ï¿½ï¿½ ï¿½ç¿Eï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ ï¿½æ¿EpCustomButton ï¿½Êµå¸¦ NULLï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½.
 	MENU_CUSTOM_INFO pMenu[3];
 	strcpy(pMenu[0].szMenuName, "Button1");
 	pMenu[0].cbMenuCommand = ButtonProc1;
@@ -169,10 +169,10 @@ void CServerSystem::Start(WORD ServerNum)
 
 	SetMapChangeInfo();
 	//////////////////////////////////////////////////////////////////////////
-	// ³×Æ®¿öÅ© ¼³Á¤
+	// ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
 
-	/// ³×Æ®¿öÅ© ÆÄ¼­ ¼³Á¤-------------------------------
-	g_pServerMsgParser[0] = NULL;	// YH 0¹øÀº ºñ¿E? MP_SERVER == 1
+	/// ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½-------------------------------
+	g_pServerMsgParser[0] = NULL;	// YH 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½E? MP_SERVER == 1
 	for(int i=1 ; i<MP_MAX ; ++i)
 		g_pServerMsgParser[i] = TransToClientMsgParser;
 	g_pServerMsgParser[MP_SERVER] = MP_AGENTSERVERMsgParser;
@@ -221,7 +221,7 @@ void CServerSystem::Start(WORD ServerNum)
 
 
 
-	for(i=1 ; i<MP_MAX ; ++i)
+	for(int i=1 ; i<MP_MAX ; ++i)
 		g_pUserMsgParser[i] = TransToMapServerMsgParser;
 	g_pUserMsgParser[MP_USERCONN] = MP_USERCONNMsgParser;
 	g_pUserMsgParser[MP_CHAT] = MP_CHATMsgParser;
@@ -236,7 +236,7 @@ void CServerSystem::Start(WORD ServerNum)
 	g_pUserMsgParser[MP_GUILD_FIELDWAR] = MP_GUILD_FIELDWARUserMsgParser;
 	g_pUserMsgParser[MP_ITEM] = MP_ITEMUserMsgParser;
 	g_pUserMsgParser[MP_ITEMEXT] = MP_ITEMUserMsgParserExt;
-	g_pUserMsgParser[MP_PARTY] = MP_PARTYUserMsgParser;		//2008. 5. 26. CBH - ÆÄÆ¼ ¸ÅÄª ½Ã½ºÅÆ °ü·Ã Ãß°¡
+	g_pUserMsgParser[MP_PARTY] = MP_PARTYUserMsgParser;		//2008. 5. 26. CBH - ï¿½ï¿½Æ¼ ï¿½ï¿½Äª ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	g_pUserMsgParser[MP_GTOURNAMENT] = MP_GTOURNAMENTUserMsgParser;
 	g_pUserMsgParser[MP_JACKPOT] = MP_JACKPOTUserMsgParser;
 	g_pUserMsgParser[MP_SKILL] = MP_SkillUserMsgParser;
@@ -249,8 +249,8 @@ void CServerSystem::Start(WORD ServerNum)
 	g_pUserMsgParser[MP_EXCHANGE] = MP_EXCHANGEUserMsgParser;
 	g_pUserMsgParser[MP_STREETSTALL] = MP_STREETSTALLUserMsgParser;
 
-	// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ®
-	// GM¿¡ ÀÇÇÑ ³¯¾¾ ¼ÂÆÃÀ» ¸Êº°·Î ÇÏ±EÀ§ÇØ...
+	// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+	// GMï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½ï¿½ï¿½ ï¿½Ï±ï¿½Eï¿½ï¿½ï¿½ï¿½...
 	g_pUserMsgParser[MP_WEATHER] = MP_WEATHERUserMsgParser;
 	g_pUserMsgParser[MP_AUTONOTE] = MP_AUTONOTEUserMsgParser;
 
@@ -261,7 +261,7 @@ void CServerSystem::Start(WORD ServerNum)
 	g_pUserMsgParser[MP_NPROTECT] = MP_NPROTECTUserMsgParser;
 #endif
 
-	// servertable usertable ÃÊ±âÈ­ ---------------------
+	// servertable usertable ï¿½Ê±ï¿½È­ ---------------------
 	
 	g_UserInfoPool.Init(MAX_USER_IN_A_AGENT/2, 500,"UserInfoPool");
 #ifdef _NPROTECT_
@@ -320,7 +320,7 @@ void CServerSystem::Start(WORD ServerNum)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// DB ¼³Á¤
+	// DB ï¿½ï¿½ï¿½ï¿½
 	DWORD maxthread = 2;
 	DWORD maxqueryinsametime = 1024;
 	FILE* fp = fopen("AgentDBInfo.txt","r");
@@ -336,7 +336,7 @@ void CServerSystem::Start(WORD ServerNum)
 //	g_Network.Start();
 
 //KES
-	//ÇÊÅÍ¸µ ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ê±ï¿½È­
 	FILTERTABLE->Init();
 	GMINFO->Init();
 
@@ -348,7 +348,7 @@ void CServerSystem::Start(WORD ServerNum)
 	
 	SKILLDELAYMGR->LoadSkillUseInfo();
 
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	BOBUSANGMGR->BobusangMgr_Init();
 
 	// punish
@@ -368,10 +368,10 @@ void CServerSystem::Start(WORD ServerNum)
 #endif
 	
 	g_Console.LOG(4, "-----------   AGENT SERVER START  -----------------");
-	// ÀÌ ºÎºĞÀº À©µµ¿ìÀÇ ¸Ş½ÃÁö ·çÇÁ.CONSOLEÀ» »ç¿ëÇÏµç À©µµ¿ì ¸Ş½ÃÁö ±â¹İÀ¸·Î Â¥µç ¾î¶²½ÄÀ¸·Îµç ÀÌº¥Æ®¸¦ ´ë±âÇØ¾ßÇÏ
-	// ÇÏ¹Ç·Î ±ÍÂúÀº ¸Ş½ÃÁö ·çÇÁ ÀÛ¼ºÀ» ÇÏ°í ½ÍÁö ¾Ê´Ù¸é ÀÌ ¸Ş¼Òµå¸¦ »ç¿ëÇÑ´Ù.±× ´â°í ´âÀº ¸Ş½ÃÁö ·çÇÁ¿Í µ¿ÀÏÇÑ ±â´ÉÀ» 
-	// ¼öÇàÇÑ´Ù.ÀÌ ¸Ş¼Òµå´Â I4DyuchiCONSOLE ´ÙÀÌ¾ó·Î±×ÀÇ x¹öÆ°À» ´©¸¦¶§±îÁö ¸®ÅÏÇÏÁö ¾Ê´Â´Ù.ÀÌ ¸Ş¼Òµå°¡ ¸®ÅÏÇÑ´Ù¸é ÇÁ
-	// ·Î±×·¥ÀÌ Á¾·áÇÏ´Â °ÍÀÌ´Ù.
+	// ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.CONSOLEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Â¥ï¿½ï¿½ ï¿½î¶²ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+	// ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½ï¿½ ï¿½Ş¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.ï¿½ï¿½ ï¿½Ş¼Òµï¿½ï¿½ I4DyuchiCONSOLE ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ï¿½ï¿½ xï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.ï¿½ï¿½ ï¿½Ş¼Òµå°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½ ï¿½ï¿½
+	// ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 	
 	g_bReady = TRUE;
 
@@ -379,7 +379,7 @@ void CServerSystem::Start(WORD ServerNum)
 //	GM_GetGMPowerList( 0, 0 );
 	
 
-	//¿¡ÀÌÀüÆ®¸¦ Å³ ¶§ ÀÌ ¿¡ÀÌÀüÆ®¿¡ ÀÖ´Â À¯Àú¸¦ ·Î±×ÀÎ Å×ÀÌºí¿¡¼­ Áö¿î´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Å³ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	char txt[128];
 	sprintf(txt, "EXEC Up_Agent_Down %d, %d", g_nServerSetNum , g_pServerTable->GetSelfServer()->wServerNum);
 	g_DB.LoginQuery(eQueryType_FreeQuery, eAgentDown, 0, txt);
@@ -387,8 +387,8 @@ void CServerSystem::Start(WORD ServerNum)
 	g_Console.WaitMessage();
 }
 void CServerSystem::Process()
-{	// YH ÇöÀç 1ÃÊ¸¶´Ù ÇÑ¹ø¾¿ µé¾î¿È	
-	// KES ÇöÀç 0.1¸¶´Ù·Î ¹Ù²Ş 050113
+{	// YH ï¿½ï¿½ï¿½ï¿½ 1ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+	// KES ï¿½ï¿½ï¿½ï¿½ 0.1ï¿½ï¿½ï¿½Ù·ï¿½ ï¿½Ù²ï¿½ 050113
 
 	if(g_bCloseWindow)
 	{
@@ -412,7 +412,7 @@ void CServerSystem::Process()
 #endif
 */
 
-//db que³»¿ëÀ» Ç×»ó »ìÇÉ´Ù.
+//db queï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×»ï¿½ ï¿½ï¿½ï¿½É´ï¿½.
 	g_DB.ProcessingQueue();
 //	g_DB.ProcessingDBMessage();
 //
@@ -426,7 +426,7 @@ void CServerSystem::Process()
 
 	JACKPOTMGR->Process();
 
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	BOBUSANGMGR->BobusangMgr_Process();
 
 	// punish
@@ -438,7 +438,7 @@ void CServerSystem::Process()
 }
 
 void CServerSystem::ConnectionCheck()
-{	// YH ÇöÀE30ÃÊ¸¶´Ù ÇÑ¹ø¾¿ µé¾ûÛÈ
+{	// YH ï¿½ï¿½ï¿½ï¿½E30ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD _60sec = 60*1000;
 	USERINFO* pInfo;
 	DWORD elapsedtime;
@@ -455,7 +455,7 @@ void CServerSystem::ConnectionCheck()
 	{
 		if(pInfo->dwConnectionIndex == 0)
 		{
-			// ¾ÆÁ÷ Á¢¼ÓÀÌ Á¦´ë·Î ÀÌ·ïÁöÁö ¾ÊÀº °æ¿ì
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			elapsedtime = gCurTime - pInfo->dwLastConnectionCheckTime;
 			if(elapsedtime > _60sec*2)
 			{
@@ -464,8 +464,8 @@ void CServerSystem::ConnectionCheck()
 		}
 		else
 		{
-			//1. ¸Ê ·Îµù(¸ÊÀÌµ¿)ÁßÀÇ ½Ã°£Àº ¾î¶»°Ô Ã³¸®ÇÏ³ª?
-			//2. Ä³¸¯ÅÍ ¼±Ã¥Ã¢ÀÇ ½Ã°£Àº ¾î¶»°Ô Ã³¸®ÇÏ³ª?
+			//1. ï¿½ï¿½ ï¿½Îµï¿½(ï¿½ï¿½ï¿½Ìµï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï³ï¿½?
+			//2. Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¥Ã¢ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï³ï¿½?
 #ifdef _CHINA_LOCAL_
 			if( pInfo->bBillType == 8 || pInfo->bBillType == 7 )
 			{
@@ -495,8 +495,8 @@ void CServerSystem::ConnectionCheck()
 			
 			if( elapsedtime > _60sec*10 )	//10min
 			{
-				// Á¢¼ÓÀÌ ÀÌ·ïÁø °æ¿ì
-				if(pInfo->bConnectionCheckFailed)		// ¸¸¾à ÄÁ³Ø¼Ç Ã¼Å©¸¦ º¸³Â´Âµ¥ 1ºĞµ¿¾È ÀÀ´äÀÌ ¾ø¾ú´Ù¸é
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+				if(pInfo->bConnectionCheckFailed)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Â´Âµï¿½ 1ï¿½Ğµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
 				{
 					disconnectlist.AddTail(pInfo);
 					//DisconnectUser(pInfo->dwConnectionIndex, 1);
@@ -517,7 +517,7 @@ void CServerSystem::ConnectionCheck()
 	{
 		USERINFO* p = (USERINFO*)removelist.GetNext(pos);
 
-		LoginCheckDelete(p->dwUserID);		// ·Î±×ÀÎÃ¼Å© Å×ÀÌºí¿¡¼­ »èÁ¦
+		LoginCheckDelete(p->dwUserID);		// ï¿½Î±ï¿½ï¿½ï¿½Ã¼Å© ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		g_pUserTableForUserID->RemoveUser(p->dwUserID);
 		TRAFFIC->RemoveUser(p->dwUserID);
 #ifdef _NPROTECT_
@@ -542,7 +542,7 @@ void CServerSystem::ConnectionCheck()
 	disconnectlist.RemoveAll();
 
 
-	if( nForBill == 1 )		//2¹ø¿¡ ÇÑ¹ø... Áï, 1ºĞ¸¶´Ù.
+	if( nForBill == 1 )		//2ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½... ï¿½ï¿½, 1ï¿½Ğ¸ï¿½ï¿½ï¿½.
 	{
 #ifdef _CHINA_LOCAL_
 		BillingUpdateAll( m_wServerNum );
@@ -583,7 +583,7 @@ void CServerSystem::SendSpeedHackCheckMsg(USERINFO* pInfo)
 		MSG_DWORD msg;
 		msg.Category	= MP_HACKCHECK;
 		msg.Protocol	= MP_HACKCHECK_SPEEDHACK;
-		msg.dwData		= gCurTime;	//ÀÛÀº ½Ã°£À» ÁÖ´Â °ÍÀº ±¦Âú´Ù.
+		msg.dwData		= gCurTime;	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		g_Network.Send2User(pInfo->dwConnectionIndex,(char*)&msg,sizeof(msg));
 	}
 
@@ -591,14 +591,14 @@ void CServerSystem::SendSpeedHackCheckMsg(USERINFO* pInfo)
 	HACKSHIELDMGR->SendReq(pInfo);
 #endif
 #ifdef _NPROTECT_
-	// 3ºĞ °£°İÀ¸·Î Á¡°Ë
+	// 3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	static DWORD NProtectCheckTime = gCurTime;
 
-	if( pInfo->m_nCSAInit == 1 || pInfo->m_nCSAInit == 2 ) //·Î±×ÀÎ½Ã Ã³À½ 2¹ø ÀÎÁõ Áß
+	if( pInfo->m_nCSAInit == 1 || pInfo->m_nCSAInit == 2 ) //ï¿½Î±ï¿½ï¿½Î½ï¿½ Ã³ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	{
-		if( gCurTime - pInfo->dwLastNProtectCheck >= 1000*60 ) //60ÃÊ³»·Î ÀÎÁõ °ªÀÌ ¾È¿À¸é
+		if( gCurTime - pInfo->dwLastNProtectCheck >= 1000*60 ) //60ï¿½Ê³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ï¿½ï¿½
 		{
-			pInfo->m_nCSAInit = 4;	//Á¢¼Ó ²÷À½.
+			pInfo->m_nCSAInit = 4;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 			MSGBASE msg;
 			msg.Category = MP_NPROTECT;
@@ -725,7 +725,7 @@ MAPCHANGE_INFO* CServerSystem::GetMapChangeInfo(DWORD Index)
 	return NULL;
 }
 
-//¸Ê¼­¹ö ´Ù¿î½Ã ´Ù¿îµÈ ¸Ê¿¡ ÀÖ´Â À¯Àú¿¡°Ô ¸Ê´Ù¿îÀ» ¾Ë¸²
+//ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¿ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
 void CServerSystem::SendMsgMapServerDown( WORD wServerNum )
 {
 	USERINFO* pInfo;
@@ -739,10 +739,10 @@ void CServerSystem::SendMsgMapServerDown( WORD wServerNum )
 //			msg.Category = MP_USERCONN;
 //			msg.Protocol = MP_USERCONN_MAPSERVERDOWN_NOTIFY;
 									
-			//Á¢¼Ó Á¾·á¸¦ ¾Ë¸²//³ªÁß¿¡ ¸Ê¼­¹ö ´Ù¿îµÇ¾îµµ ÇÃ·¹ÀÌ °¡´É½Ã¿¡
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½á¸¦ ï¿½Ë¸ï¿½//ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Ç¾îµµ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É½Ã¿ï¿½
 //			g_Network.Send2User( pinfo->dwConnectionIndex, (char*)&msg, sizeof(msg) );
 
-			//agent¿¡¼­ ²÷´Â´Ù.
+			//agentï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //			DisconnectUser(pInfo->dwConnectionIndex);
 			DisconnectUser(pInfo->dwConnectionIndex);
 			
@@ -878,11 +878,11 @@ void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid)
 	if(!dwConnectionIndex) return;
 
 	char strr[255];
-	wsprintf(strr, ""%d ¹ø ¼­¹ö·Î Á¢¼Ó¼º°ø", dwConnectionIndex);//pjslocal
+	wsprintf(strr, ""%d ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½", dwConnectionIndex);//pjslocal
 	g_Console.LOG(4, strr);
 	
 
-	info->dwConnectionIndex = dwConnectionIndex;					// ÀÌ°Ô Á¦´ë·Î µ¿ÀÛÇÏ³ª? Ã¼Å©
+	info->dwConnectionIndex = dwConnectionIndex;					// ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½? Ã¼Å©
 	MSG_WORD msg;
 	msg.Category = MP_SERVER;
 	msg.Protocol = MP_SERVER_PWRUP;
@@ -891,7 +891,7 @@ void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid)
 
 
 	
-	//YH2DO ÁÖ¼®Ã³¸® µÇ¾îÀÖ´ø °ÍÀ» Áö¿ò
+	//YH2DO ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(g_pServerTable->GetMaxServerConnectionIndex() < dwConnectionIndex)			//??????
 		g_pServerTable->SetMaxServerConnectionIndex(dwConnectionIndex);	
 }
@@ -902,14 +902,14 @@ void OnDisconnectServer(DWORD dwConnectionIndex)
 	
 	SERVERINFO* serverinfo = g_pServerTable->FindServerForConnectionIndex(dwConnectionIndex);
 
-	wsprintf(strr, "%d ¹ø connectionIndex ¼­¹ö Á¢¼Ó ²÷±è", dwConnectionIndex);//pjslocal
+	wsprintf(strr, "%d ï¿½ï¿½ connectionIndex ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", dwConnectionIndex);//pjslocal
 	g_Console.LOG(4, strr);
 
-	// ¿©±â´Ù ³ÊµÎ µÅ³ª??------------------------------------------------------------------------
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ ï¿½Å³ï¿½??------------------------------------------------------------------------
 //	if( serverinfo )
-//	if( serverinfo->wServerKind == AGENT_SERVER )	//Agent¼­¹öÀÎ°æ¿ì
+//	if( serverinfo->wServerKind == AGENT_SERVER )	//Agentï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 //	{
-		//´Ù½ÃÁ¢¼Ó...
+		//ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //		SERVERINFO Info;
 //		g_Network->ConnectToServer( serverinfo->szIPForServer, serverinfo->wPortForServer, (void*)&Info );
 //		return;
@@ -917,9 +917,9 @@ void OnDisconnectServer(DWORD dwConnectionIndex)
 	//-------------------------------------------------------------------------------------------
 
 	if(serverinfo)
-	if( serverinfo->wServerKind == 3 )	//map¼­¹öÀÎ°æ¿ì
+	if( serverinfo->wServerKind == 3 )	//mapï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 	{
-		//¸Ê¼­¹ö¿¡ ¿¬°áµÈ À¯Àú¿¡°Ô ¸Ê¼­¹ö ´Ù¿îÀ» ¾Ë¸²
+		//ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
 		g_pServerSystem->SendMsgMapServerDown(serverinfo->wServerNum);
 	}
 
@@ -968,7 +968,7 @@ void OnAcceptUser(DWORD dwConnectionIndex)
 	send.Protocol = MP_USERCONN_AGENT_CONNECTSUCCESS;
 	g_Network.Send2User(dwConnectionIndex, (char*)&send, sizeof(send));
 
-	//event°øÁö
+	//eventï¿½ï¿½ï¿½ï¿½
 	if( g_pServerSystem->IsUseEventNotify() )
 	{
 		MSG_EVENTNOTIFY_ON msg;
@@ -989,7 +989,7 @@ void OnAcceptUser(DWORD dwConnectionIndex)
 		g_Network.Send2User(dwConnectionIndex, (char*)&msg, sizeof(msg));
 	}	
 	
-	//user count °è»ê=============================================================================
+	//user count ï¿½ï¿½ï¿½=============================================================================
 	SERVERINFO * myInfo = g_pServerTable->GetSelfServer();
 	++myInfo->wAgentUserCnt;
 
@@ -1008,11 +1008,11 @@ void OnAcceptUser(DWORD dwConnectionIndex)
 
 		g_Network.Send2Server(pOtherAgentInfo->dwConnectionIndex, (char *)&msg2, sizeof(msg2));
 	}
-	//user count °è»ê=============================================================================
+	//user count ï¿½ï¿½ï¿½=============================================================================
 	
 	
 
-	//¿¡ÀÌÁ¯Æ® ¼­¹öÀÌ¸é À¯Àú Ä«¿îÅÍ¸¦ Áõ°¡½ÃÅ²´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 	DWORD CurUserCount = g_pUserTable->GetUserCount();
 	g_pUserTable->SetCalcMaxCount(CurUserCount);
 	DWORD MaxUserCount = g_pUserTable->GetUserMaxCount();
@@ -1070,7 +1070,7 @@ void ReceivedMsgFromUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength)
 	USERINFO* pInfo = g_pUserTable->FindUser(dwConnectionIndex);
 
 
-	// RaMa ¸Ş¼¼Áö¸¦ º¸³½À¯Àú ÀÎÁö È®ÀÎÇÑ´Ù.
+	// RaMa ï¿½Ş¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//MSGBASE* pcMsg = reinterpret_cast<MSGBASE*>(pMsg);
 	if( pInfo )
 	{

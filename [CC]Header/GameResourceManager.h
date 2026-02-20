@@ -9,11 +9,22 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "CommonDefine.h"
+#include "CommonGameFunc.h"
 #include "GameResourceStruct.h"
+#include "ServerGameStruct.h"
 //#include "MapChange.h"
 class CMHFile;
-#include "ptrlist.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 #include <vector>
+
+// 在服务器端，避免包含<string>导致的cstdlib冲突
+#ifdef _MHCLIENT_
+#include <string>
+#else
+// 服务器端使用简单的前向声明或不使用std::string
+#include <string>
+#endif
 
 #define MIDRSLTN_W	1024
 #define MIDRSLTN_H	768

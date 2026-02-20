@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "EventMapMgr.h"
 #include "ChannelSystem.h"
 #include "Player.h"

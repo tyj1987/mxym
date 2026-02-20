@@ -1,6 +1,7 @@
 
 #ifndef __MAPNETWORKMSGPARSER_H__
 #define __MAPNETWORKMSGPARSER_H__
+#include "..\[CC]Header\CommonStruct.h"
 
 void MP_POWERUPMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 void MP_MAPSERVERMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
@@ -34,7 +35,7 @@ void MP_HACKCHECKMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 void MP_SOCIETYACTMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 
 
-// LBS 03.09.25 ≥Î¡°ªÛ
+// LBS 03.09.25 
 void MP_STREETSTALLMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 
 void MP_NPCMsgParser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);

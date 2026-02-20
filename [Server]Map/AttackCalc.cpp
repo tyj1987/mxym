@@ -12,6 +12,9 @@
 #ifdef _JAPAN_LOCAL_
 #include "..\[CC]BattleSystem\Battle.h"
 #endif
+
+// ä½¿ç”¨æ ‡å‡†åº“çš„minå‡½æ•°
+using std::min;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -28,7 +31,7 @@ CAttackCalc::~CAttackCalc()
 DWORD CAttackCalc::GetPlayerPoint(LEVELTYPE level1, int leve_gab)
 {
 	//////////////////////////////////////////////////////////////////////////
-	// ?Ã“Â½Ãƒ Â¶Â«Â»Â§ //½«µÈ¼¶ÏÞÖÆ99µÄ¹ÖÎï====ÕâÀïËÆºõÓÐÎÊÌâ,´æÒÉ
+	// ?Ã“Â½Ãƒ Â¶Â«Â»Â§ //ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½99ï¿½Ä¹ï¿½ï¿½ï¿½====ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½
 	if(level1 == MAX_CHARACTER_LEVEL_NUM) //99
 		return 0;
 	//////////////////////////////////////////////////////////////////////////
@@ -44,10 +47,10 @@ DWORD CAttackCalc::GetPlayerPoint(LEVELTYPE level1, int leve_gab)
 
 DWORD CAttackCalc::GetPlayerExpPoint( int level_gap, DWORD MonsterExp )
 {
-	//level_gap .. Ä³¸¯ÅÍ ·¹º§ - ¸ó½ºÅÍ ·¹º§
+	//level_gap .. Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	float Exp = 0.f;
-	if( level_gap < -8 )		// -9¡é
+	if( level_gap < -8 )		// -9ï¿½ï¿½
 	{
 		Exp = (float)(MonsterExp * 1.5);
 	}
@@ -57,18 +60,18 @@ DWORD CAttackCalc::GetPlayerExpPoint( int level_gap, DWORD MonsterExp )
 	}
 	else if( 0 < level_gap && level_gap < 5 )	// 1, 2, 3, 4
 	{
-		Exp = MonsterExp * ( 5 - level_gap ) * 0.2f;	//°ø½ÄÀÌ...?
+		Exp = MonsterExp * ( 5 - level_gap ) * 0.2f;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...?
 	}
 	else if( level_gap == 5 )	// 5
 	{
 		Exp = MonsterExp * 0.1f;
 	}
-	else if( level_gap > 5 )		// 5¡è
+	else if( level_gap > 5 )		// 5ï¿½ï¿½
 		return 0;
 	else
 		return 0;
 
-	if( (DWORD)(Exp * 10) > (DWORD)Exp * 10 )	//¼Ò¼öÁ¡ Ã¹Â°ÀÚ¸®ºÎÅÍ ºñ±³ //¿Ã¸²
+	if( (DWORD)(Exp * 10) > (DWORD)Exp * 10 )	//ï¿½Ò¼ï¿½ï¿½ï¿½ Ã¹Â°ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ //ï¿½Ã¸ï¿½
 	{
 		return (DWORD)Exp + 1;
 	}
@@ -222,9 +225,9 @@ double CAttackCalc::getPlayerPhysicalAttackPower(CPlayer * pPlayer,float PhyAtta
 	maxVal = pPlayer->GetPhyAttackPowerMax();	
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
-	// ÀÏ¹Ý °ø°Ý·Â Çâ»ó
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+	// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½
 	float val = 1 + pPlayer->GetSkillStatsOption()->BaseAtk;
 
 	if(val < 0)
@@ -247,7 +250,7 @@ double CAttackCalc::getPlayerPhysicalAttackPower(CPlayer * pPlayer,float PhyAtta
 
 	physicalAttackPower = physicalAttackPower*PhyAttackRate;
 
-#ifndef _JAPAN_LOCAL_	//ÀÏº»ÀÇ °æ¿ì´Â Å©¸®Æ¼ÄÃÀ» 2.25¹è°¡ ¾Æ´Ñ 1.5¹è·Î Á¤»óÀûÀ¸·Î ¼öÁ¤µÈ´Ù.
+#ifndef _JAPAN_LOCAL_	//ï¿½Ïºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ 2.25ï¿½è°¡ ï¿½Æ´ï¿½ 1.5ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 	if(bCritical)
 	{
 		physicalAttackPower = physicalAttackPower*1.5f;			// critical attack
@@ -280,7 +283,7 @@ double CAttackCalc::getPlayerAttributeAttackPower(CPlayer * pPlayer,
 		DWORD MinLVV = (pPlayer->GetLevel()+5) - 5;		// RateMin = (Level + 5) - 5
 		DWORD MaxLVV = (pPlayer->GetLevel()+5) + 5;		// RateMax = (Level + 5) + 5
 
-//--- ÀÏº» ¹æÆÄ½Ã »ó»ý°ü°è¿¡ µû¸¥ °ø°Ý·Â Áõ°¡
+//--- ï¿½Ïºï¿½ ï¿½ï¿½ï¿½Ä½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
 		if( pPlayer->IsPartyHelp() && pPlayer->GetBattle()->GetBattleKind() != eBATTLE_KIND_VIMUSTREET )
 		{
@@ -288,7 +291,7 @@ double CAttackCalc::getPlayerAttributeAttackPower(CPlayer * pPlayer,
 			MaxLVV = MaxLVV + MaxLVV * 20 / 100;
 		}
 */
-		//¾ÆÀÌÅÛ + Æ¯±âÀÇ ¼Ó¼º°ø°Ý·Â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½Ý·ï¿½
 		DWORD AttribPlus = (DWORD)pPlayer->GetAttribPlusPercent(Attrib);
 
 		MinV = ( MinLVV + AttribPlus + SimMek/2 ) * AttAttackRate + AttAttackMin;
@@ -379,7 +382,7 @@ double	CAttackCalc::getMonsterAttributeAttackPower(CMonster * pMonster, WORD Att
 	return AttAttackMin+rand()%gap;
 }
 
-//SW070127 Å¸ÀÌÅº
+//SW070127 Å¸ï¿½ï¿½Åº
 double	CAttackCalc::getTitanPhysicalAttackPower( CTitan* pTitan, CPlayer* pPlayer, float PhyAttackRate, BOOL bCritical )
 {
 	double physicalAttackPower = 0;
@@ -437,7 +440,7 @@ double	CAttackCalc::getPhysicalAttackPower(CObject * pObject,float PhyAttackRate
 {
 	/*if(pObject->GetObjectKind() == eObjectKind_Player)
 		return getPlayerPhysicalAttackPower((CPlayer*)pObject,PhyAttackRate,bCritical );*/
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( pObject->GetObjectKind() == eObjectKind_Player )
 	{
 		CPlayer* pPlayer = (CPlayer*)pObject;
@@ -466,7 +469,7 @@ double	CAttackCalc::getAttributeAttackPower(CObject * pObject, WORD Attrib, DWOR
 {
 	/*if(pObject->GetObjectKind() == eObjectKind_Player)
 		return getPlayerAttributeAttackPower((CPlayer*)pObject,Attrib,AttAttackMin,AttAttackMax,AttAttackRate);*/
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( pObject->GetObjectKind() == eObjectKind_Player )
 	{
 		CPlayer* pPlayer = (CPlayer*)pObject;
@@ -500,15 +503,15 @@ double	CAttackCalc::getPhyDefenceLevel(CObject* pObject, CObject* pAttacker)
 		phyDefence = phyDefence * ( 1.0f - (((CPlayer*)pAttacker)->GetUniqueItemStats()->nEnemyDefen * 0.01f) );
 	}
 
-	// RaMa - 05.02.04  -> ´ëÁöÀÇ ºÎÀû
+	// RaMa - 05.02.04  -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pObject->GetObjectKind() == eObjectKind_Player )
 	{
 		phyDefence += (phyDefence*((CPlayer*)pObject)->GetShopItemStats()->RegistPhys)/100;
 
 		//////////////////////////////////////////////////////////////////////////
-		// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-		// ¹«°ø º¯È¯ Ãß°¡
-		// ¹°¸®¹æ¾î·Â
+		// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		float val = 1.0f + ((CPlayer*)pObject)->GetSkillStatsOption()->PhyDef;
 
 		if(val < 0)
@@ -552,13 +555,13 @@ double	CAttackCalc::getPhyDefenceLevel(CObject* pObject, CObject* pAttacker)
 		phyDefenceLevel = 0.9;
 #endif
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	if( pObject->GetObjectKind() == eObjectKind_Player )
 	{
 		if( ((CPlayer*)pObject)->InTitan() )
 		{
 			WORD titanDefense =	((CPlayer*)pObject)->GetTitanManager()->GetTitanStats()->PhysicalDefense;
-			WORD shopItemTitanDefense = 0;	//Ãß°¡ ÀÛ¾÷
+			WORD shopItemTitanDefense = 0;	//ï¿½ß°ï¿½ ï¿½Û¾ï¿½
 
 			WORD totalTitanDefense = (titanDefense + shopItemTitanDefense);
 

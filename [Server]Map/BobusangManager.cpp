@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include ".\bobusangmanager.h"
 #include "UserTable.h"
 #include "ItemManager.h"
@@ -19,7 +20,7 @@ BobusangManager::BobusangManager(void)
 
 BobusangManager::~BobusangManager(void)
 {
-	// magi82(14) - Memory(071027) ¸Þ¸ð¸® ´©¼ö ¼öÁ¤
+	// magi82(14) - Memory(071027) ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	BobusangMgr_Release();
 }
 
@@ -43,7 +44,7 @@ void BobusangManager::BobusangMgr_Release()
 	{
 		RemoveBobusangNpc(i);
 	}
-	// magi82(14) - Memory(071027) ¸Þ¸ð¸® ´©¼ö ¼öÁ¤
+	// magi82(14) - Memory(071027) ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SAFE_DELETE_ARRAY(m_pBobusang);
 }
 
@@ -61,7 +62,7 @@ BOOL BobusangManager::MakeNewBobusangNpc( BOBUSANGINFO* pBobusangInfo )
 	//SetBobusanInfo( pBobusangInfo);
 	DWORD channelNum = pBobusangInfo->AppearanceChannel;
 
-	//2008. 5. 19. CBH - ¸ÊÀÇ Ã¤³Î °¹¼ö°¡ Æ²¸®¹Ç·Î MAX Ã¤³Îº¸´Ù Å©¸é º¸ºÎ»óÀÌ »ý¼º µÇ¸é ¾ÈµÈ´Ù.
+	//2008. 5. 19. CBH - ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ç·ï¿½ MAX Ã¤ï¿½Îºï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ÈµÈ´ï¿½.
 	if(channelNum > CHANNELSYSTEM->GetChannelCount()-1)
 		return FALSE;
 
@@ -102,7 +103,7 @@ BOOL BobusangManager::MakeNewBobusangNpc( BOBUSANGINFO* pBobusangInfo )
 
 	pInfo->pBobusang = g_pServerSystem->AddNpc( &Baseinfo, &Npcinfo, &(pPos->ApprPos), pPos->ApprDir );
 
-	// ÆÇ¸ÅÇ°¸ñ/°¹¼ö ¼¼ÆÃ
+	// ï¿½Ç¸ï¿½Ç°ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//DealerData* pData = ITEMMGR->GetDealer(...)
 	pInfo->pDealItemInfo = ITEMMGR->GetDealer(BOBUSANG_wNpcUniqueIdx);
 
@@ -131,15 +132,15 @@ BOOL BobusangManager::RemoveBobusangNpc( DWORD channelNum )
 	if(!pInfo->pBobusang)
 		return FALSE;
 
-	//2008. 5. 19. CBH - ¸ÊÀÇ Ã¤³Î °¹¼ö°¡ Æ²¸®¹Ç·Î MAX Ã¤³Îº¸´Ù Å©¸é Ã³¸® ¾ÈµÇ°Ô ¸·´Â´Ù.
+	//2008. 5. 19. CBH - ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ç·ï¿½ MAX Ã¤ï¿½Îºï¿½ï¿½ï¿½ Å©ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 	if(channelNum > CHANNELSYSTEM->GetChannelCount()-1)
 		return FALSE;
 
-	// NPC »èÁ¦
+	// NPC ï¿½ï¿½ï¿½ï¿½
 	g_pServerSystem->RemoveNpc(pInfo->pBobusang->GetID());
 	pInfo->pBobusang = NULL;
 
-	// ±âÅ¸ Á¤º¸ »èÁ¦
+	// ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	pInfo->pDealItemInfo = NULL;
 
 	PTRLISTPOS pos = pInfo->SellingItemList.GetHeadPosition();
@@ -161,7 +162,7 @@ BOOL BobusangManager::RemoveBobusangNpc( DWORD channelNum )
 		
 		CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pCustomer->GetID());
 		if(!pPlayer)
-			pInfo->pCustomerList.RemoveAt(pos);	// ¾ÈÇØÁàµµ ¹«¹æ
+			pInfo->pCustomerList.RemoveAt(pos);	// ï¿½ï¿½ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½
 		else
 			SendLeaveGuestMsg(pPlayer);
 
@@ -189,7 +190,7 @@ void BobusangManager::SetBobusanInfo( BOBUSANGINFO* pBobusangInfo )
 
 BOBUSANGTOTALINFO* BobusangManager::GetBobusang( DWORD mapChannelNum )
 {
-	// ¸Ê ¼­¹ö¿¡¼­ 0¹ø Ã¤³ÎÀº ¾ø´Ù 1ºÎÅÍ ½ÃÀÛ.
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if( 0 == mapChannelNum )
 	{
 		ASSERT(0);
@@ -226,10 +227,10 @@ int BobusangManager::GetBobusangSellingRt( DWORD channelNum, DealerItem* pItemLi
 
 void BobusangManager::AddGuest( CPlayer* pPlayer )
 {
-	// guestlist Ãß°¡.
+	// guestlist ï¿½ß°ï¿½.
 	BOBUSANGTOTALINFO* pInfo = GetBobusang(pPlayer->GetChannelID());
 
-	if( !pInfo->pBobusang )	return;	// º¸ºÎ»ó ÃâÇöÁß ¾Æ´Ï¸é
+	if( !pInfo->pBobusang )	return;	// ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 
 	PTRLISTPOS pos = pInfo->pCustomerList.GetHeadPosition();
 	while(pos)
@@ -264,22 +265,22 @@ void BobusangManager::LeaveGuest( CPlayer* pPlayer )
 	if( !pPlayer )
 		return;
 	
-	//¹«È¿ÇÑ Ã¤³Î °ª 
-	//Äù½ºÆ®¸Ê¿¡ º¸ºÎ»ó µé¾î°¥ ½Ã Á¦°Å.
+	//ï¿½ï¿½È¿ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ 
+	//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	if( QUESTMAPMGR->IsQuestMap() )
 		return;
 
-	//¹«È¿ÇÑ Ã¤³Î °ª 
+	//ï¿½ï¿½È¿ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ 
 	if( CHANNELSYSTEM->GetChannelCount() < pPlayer->GetChannelID() )
 	{
 		ASSERT(0);
 		return;
 	}
 
-	// guestlist Á¦¿Ü.
+	// guestlist ï¿½ï¿½ï¿½ï¿½.
 	BOBUSANGTOTALINFO* pInfo = GetBobusang(pPlayer->GetChannelID());
 
-	if( !pInfo->pBobusang )	return; // º¸ºÎ»ó ÃâÇöÁß ¾Æ´Ï¸é
+	if( !pInfo->pBobusang )	return; // ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 
 	PTRLISTPOS pos = pInfo->pCustomerList.GetHeadPosition();
 	while(pos)
@@ -298,7 +299,7 @@ void BobusangManager::LeaveGuest( CPlayer* pPlayer )
 
 void BobusangManager::SendLeaveGuestMsg( CPlayer* pPlayer )
 {
-	// Å¬¶óÀÌ¾ðÆ® ÆÇ¸Å ¾ÆÀÌÅÛ Á¤º¸ ÇØÁ¦
+	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD	msg;
 	msg.Category = MP_BOBUSANG;
 	msg.Protocol = MP_BOBUSANG_LEAVE_GUEST_ACK;
@@ -308,14 +309,14 @@ void BobusangManager::SendLeaveGuestMsg( CPlayer* pPlayer )
 
 BOOL BobusangManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD BuyItemNum )
 {
-	// ÇØ´ç º¸ºÎ»ó Á¤º¸¸¦ °¡Á®¿Í
+	// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BOBUSANGTOTALINFO* pInfo = GetBobusang(pPlayer->GetChannelID());
 	if(!pInfo)
 	{
 		return FALSE;
 	}
 
-	// ¼Õ´ÔÀÌ ¸Â´ÂÁö È®ÀÎÇÏ°í
+	// ï¿½Õ´ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½
 	BOOL bGuest = FALSE;
 	PTRLISTPOS pos = pInfo->pCustomerList.GetHeadPosition();
 	while(pos)
@@ -335,7 +336,7 @@ BOOL BobusangManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD BuyItemNu
 		return FALSE;
 	}
 
-	// °¹¼ö °¡´ÉÇÑÁö È®ÀÎÇÏ°í
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½
 	DealerItem* pBuyItem = NULL;
 	pBuyItem = GetSellingItem(&pInfo->SellingItemList, buyItemIdx);
 	if( !pBuyItem )
@@ -346,11 +347,11 @@ BOOL BobusangManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD BuyItemNu
 	{
 		return FALSE;
 	}
-	// ¾ÆÀÌÅÛ °¹¼ö »©ÁØµÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Øµï¿½
 	
 	pBuyItem->ItemCount -= BuyItemNum;
 	
-	// Á¤º¸¸¦ ¼Õ´Ôµé¿¡°Ô º¸³¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ôµé¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD3 msg;
 	msg.Category = MP_BOBUSANG;
 	msg.Protocol = MP_BOBUSANG_DEALITEMINFO_TO_GUEST;
@@ -388,7 +389,7 @@ void BobusangManager::AppearBobusang( MSG_BOBUSANG_INFO* pmsg )
 	// BobusangInfo.bin
 	if( TRUE == MakeNewBobusangNpc(&pmsg->bobusangInfo) )
 	{
-		// Agent·Î ¼º°ø ¸Þ½ÃÁö Àü´Þ
+		// Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD msg;
 		msg.Category = MP_BOBUSANG;
 		msg.Protocol = MP_BOBUSANG_APPEAR_MAP_TO_AGENT;
@@ -403,7 +404,7 @@ void BobusangManager::DisappearBobusang( MSG_DWORD2* pmsg )
 {
 	if( TRUE == RemoveBobusangNpc(pmsg->dwData1) )
 	{
-		// Agent·Î ¼º°ø ¸Þ½ÃÁö Àü´Þ
+		// Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD msg;
 		msg.Category = MP_BOBUSANG;
 		msg.Protocol = MP_BOBUSANG_DISAPPEAR_MAP_TO_AGENT;
@@ -435,7 +436,7 @@ BOOL BobusangManager::CheckHackBobusangDist( CPlayer* pGuest )
 
 void BobusangManager::SendDealerItemMsgToGuestAll( DWORD channelNum, MSGBASE* pmsg, int size )
 {
-	//2008. 5. 19. CBH - ¸ÊÀÇ Ã¤³Î °¹¼ö°¡ Æ²¸®¹Ç·Î MAX Ã¤³Îº¸´Ù Å©¸é Ã³¸®µÇ¸é ¾ÈµÈ´Ù.
+	//2008. 5. 19. CBH - ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ç·ï¿½ MAX Ã¤ï¿½Îºï¿½ï¿½ï¿½ Å©ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ÈµÈ´ï¿½.
 	if(channelNum > CHANNELSYSTEM->GetChannelCount()-1)
 		return;
 
@@ -497,7 +498,7 @@ void BobusangManager::NetworkMsgParser( DWORD dwConnectionIndex, BYTE Protocol, 
 
 			BOBUSANGTOTALINFO* pInfo = GetBobusang(channel);
 
-			if( !pInfo->pBobusang )	return;	//npc remove ÀÌ ÈÄ¿¡µµ ¹«¹æ.
+			if( !pInfo->pBobusang )	return;	//npc remove ï¿½ï¿½ ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 			LeaveGuest(pGuest);
 		}
@@ -505,20 +506,20 @@ void BobusangManager::NetworkMsgParser( DWORD dwConnectionIndex, BYTE Protocol, 
 	case MP_BOBUSANG_INFO_AGENT_TO_MAP:
 		{
 			MSG_BOBUSANG_INFO* pmsg = (MSG_BOBUSANG_INFO*)pMsg;
-			// º¸ºÎ»ó Á¤º¸
+			// ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-			// ÇöÀç º¸ºÎ»ó ÇØÁ¦ ÁßÀÎÁö
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			// º¸ºÎ»ó »ý¼º
+			// ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½
 			AppearBobusang(pmsg);	// add object
 		}
 		break;
 	case MP_BOBUSANG_DISAPPEAR_AGENT_TO_MAP:
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
-			// ÇöÀç º¸ºÎ»ó ÃâÇö ÁßÀÎÁö
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			// º¸ºÎ»ó ÇØÁ¦
+			// ï¿½ï¿½ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½
 			DisappearBobusang(pmsg);	// remove object
 
 			/*

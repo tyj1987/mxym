@@ -1,5 +1,6 @@
 #ifndef _VIMUMANAGER_H
 #define _VIMUMANAGER_H
+#include "..\[CC]Header\CommonStruct.h"
 
 
 #define VIMUMGR CVimuManager::GetInstance()

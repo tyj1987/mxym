@@ -80,7 +80,7 @@ void CStatusIconDlg::AddQuestTimeIcon( CObject* pObject,WORD StatusIconNum )
 {
 	if( pObject != m_pObject )	return;
 	if(StatusIconNum >= eStatusIcon_Max)
-		__asm int 3;
+		// // __asm int 3; // NOP
 	
 	++m_IconCount[StatusIconNum];
 
@@ -100,7 +100,7 @@ void CStatusIconDlg::RemoveIcon(CObject* pObject,WORD StatusIconNum, WORD ItemId
 		return;
 
 	if(StatusIconNum >= eStatusIcon_Max)
-		__asm int 3;
+		// // __asm int 3; // NOP
 
 	if(m_IconCount[StatusIconNum] == 0)
 		return;
@@ -130,7 +130,7 @@ void CStatusIconDlg::RemoveQuestTimeIcon( CObject* pObject,WORD StatusIconNum )
 	if(pObject != m_pObject)	return;
 
 	if(StatusIconNum >= eStatusIcon_Max)
-		__asm int 3;
+		// // __asm int 3; // NOP
 
 	if(m_IconCount[StatusIconNum] == 0)	return;
 	

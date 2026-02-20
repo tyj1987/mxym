@@ -9,7 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "BaseItem.h"
+#ifdef _MHCLIENT_
+#include "..\[Client]MH\BaseItem.h"
 class CAbilityInfo;
 class CAbility;
 
@@ -17,9 +18,9 @@ class CAbilityIcon : public CBaseItem
 {
 	int m_State;
 	int m_Level;
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// ÃÖÁ¾·¹º§¿¡ µµ´ÞÇÏ¸é èÇÀÚ¸¦ Âï¾îÁÖ¾î¾ß ÇÑ´Ù
-	// ·»´õÇÒ¶§¸¶´Ù °è»êÇÏ´Â°Åº¸´Ù ÃÊ±âÈ­½Ã¿¡ ÇÑ¹ø¸¸ °è»êÇÏÀÚ
+	// 06. 01. ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Åºï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ã¿ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int m_MaxLevel;
 	BOOL m_bAbilityActive;
 
@@ -49,4 +50,5 @@ public:
 
 };
 
+#endif // _MHCLIENT_
 #endif // !defined(AFX_ABILITYICON_H__704928D4_D243_4636_B070_C8ED0B758C66__INCLUDED_)

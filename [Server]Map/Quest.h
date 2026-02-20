@@ -4,6 +4,7 @@
 
 #if !defined(AFX_QUEST_H__8126C9A7_14D6_4D64_87FC_8BAE17A44978__INCLUDED_)
 #define AFX_QUEST_H__8126C9A7_14D6_4D64_87FC_8BAE17A44978__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -21,13 +22,13 @@ class CQuest
 {
 protected:
 	CPlayer*			m_pPlayer;
-	CQuestInfo*			m_pQuestInfo;							// script 정보
-	CSubQuestInfo*		m_CurSubQuestInfoArray[MAX_SUBQUEST];	// 현재 진행할 subquest
+	CQuestInfo*			m_pQuestInfo;							// script 
+	CSubQuestInfo*		m_CurSubQuestInfoArray[MAX_SUBQUEST];	//   subquest
 	
 	DWORD				m_dwSubQuestCount;
-	SUBQUEST			m_SubQuestTable[MAX_SUBQUEST];			// subquest 정보
+	SUBQUEST			m_SubQuestTable[MAX_SUBQUEST];			// subquest 
 	DWORD				m_dwSubQuestFlag;
-	DWORD				m_dwData;								// 0이 아니면 퀘스트 끝
+	DWORD				m_dwData;								// 0 틈玖 트 
 	DWORD				m_dwTime;
 	
 	BOOL				m_bCheckTime;
@@ -40,7 +41,7 @@ public:
 	CQuest( CPlayer* pPlayer, CQuestInfo* pQuestInfo );
 	virtual ~CQuest();
 
-	// 유저 접속 후 DB데이터 세팅 
+	//    DB  
 	BOOL	SetMainQuestData( DWORD dwSubQuestFlag, DWORD dwData, DWORD dwTime, BYTE bCheckType, DWORD dwCheckTime );
 	void	SetSubQuestData( DWORD dwSubQuestIdx, DWORD dwData, DWORD dwTime );
 

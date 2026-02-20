@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "TacticManager.h"
 #include "PartyManager.h"
 #include "Party.h"
@@ -167,7 +168,7 @@ BOOL CTacticManager::TacticProcess(CTacticObject* pTacObj)
 	}
 	if( pTacObj->CheckExecute() == TRUE)
 	{
-		//혹시나 안지워지는게 있으면
+		//혹처 째 
 		if(gCurTime - pTacObj->GetTacticStartTime() > 30000)
 		{
 			ASSERTMSG(0, "AddGarbageTactic!");
@@ -175,7 +176,7 @@ BOOL CTacticManager::TacticProcess(CTacticObject* pTacObj)
 		}
 	}
 	return FALSE;
-/* hs 스킬 발동하고 지우게 수정
+/* hs 킬 森構  
 	else if(pTacObj->CheckExecute() == TRUE)
 	{
 		AddGarbageTactic(pTacObj); 
@@ -220,7 +221,7 @@ DWORD CTacticManager::GetAttackValue( CPlayer* pOperator, DWORD AttackValue )
 		return 0;	
 
 	//////////////////////////////////////////////////////////////////////////
-	// 진법에 참여한 캐릭터의 레벨 합 * 진법 변수 + 진법 최소 공격력 + 진법 시전자의 주술력
+	//   캐   *   +  玲 賦 +   玲
 	BYTE AbilityLevel = 0;
 	BYTE stage = pOperator->GetStage();
 	if( stage == eStage_Hwa || stage == eStage_Hyun )
@@ -246,7 +247,7 @@ DWORD CTacticManager::GetAttackMaxValue( CPlayer* pOperator, WORD SkillIdx )
 	if( !pSkillInfo )	return 0;
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 진법에 참여한 캐릭터의 레벨 합 * 진법 변수 + 진법 최소 공격력 + 진법 시전자의 주술력
+	//   캐   *   +  玲 賦 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilityLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -281,7 +282,7 @@ DWORD CTacticManager::GetAttackMinValue( CPlayer* pOperator, WORD SkillIdx )
 	if( !pSkillInfo )	return 0;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 진법에 참여한 캐릭터의 레벨 합 * 진법 변수 + 진법 최소 공격력 + 진법 시전자의 주술력
+	//   캐   *   +  玲 賦 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -325,7 +326,7 @@ void CTacticManager::GetRecoverValue( CPlayer* pOperator, WORD SkillIdx, WORD &L
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 회복 수치 + 진법 시전자의 주술력
+	// 체 회 치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -363,7 +364,7 @@ float CTacticManager::GetBuffRateForPhyAttack( CPlayer* pOperator, WORD SkillIdx
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -392,7 +393,7 @@ float CTacticManager::GetBuffRateForPhyDefense( CPlayer* pOperator, WORD SkillId
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -421,7 +422,7 @@ float CTacticManager::GetBuffRateForAttrDefense( CPlayer* pOperator, WORD SkillI
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -450,7 +451,7 @@ DWORD CTacticManager::GetBuffValueForNaeryuk( CPlayer* pOperator, WORD SkillIdx 
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -479,7 +480,7 @@ DWORD CTacticManager::GetBuffValueForLife( CPlayer* pOperator, WORD SkillIdx )
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();
@@ -509,7 +510,7 @@ DWORD CTacticManager::GetBuffValueForShield( CPlayer* pOperator, WORD SkillIdx )
 	if( !pSkillInfo )	return 0;	
 	
 	//////////////////////////////////////////////////////////////////////////
-	//진법 자체의 버프상승 수치 + 진법 시전자의 주술력
+	// 체  치 +   玲
 //	BYTE AbilityLevel = ABILITYMGR->GetAbilityLevel( ABILITYINDEX_TACTIC, pOperator->GetAbilityGroup() );
 	BYTE AbilLevel = 0;
 	BYTE stage = pOperator->GetStage();

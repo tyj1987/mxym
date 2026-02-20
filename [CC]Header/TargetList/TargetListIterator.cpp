@@ -6,6 +6,7 @@
 #include "TargetListIterator.h"
 
 #include "TargetList.h"
+#include "..\..\[CC]Header\CommonGameFunc.h"  // for WriteAssertMsg
 
 #ifdef _DEBUG
 #undef THIS_FILE

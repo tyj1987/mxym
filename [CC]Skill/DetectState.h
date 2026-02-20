@@ -1,6 +1,6 @@
 #pragma once
 #include "..\[cc]skill\specialstate.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 class CObject;
 

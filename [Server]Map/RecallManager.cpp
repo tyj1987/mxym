@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "RecallManager.h"
 #include "..\[CC]Header\GameResourceStruct.h"
 #include "Monster.h"
@@ -103,7 +104,7 @@ void CRecallManager::EventRecall(CObject * pRecaller, WORD MonsterKind, BYTE cbM
 					/*
 					switch(MonsterKind)
 					{
-						// º¸½º¸÷ Á¾·ù
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					case 	eBOSSKIND_EMPERIORTOMB :
 					case	eBOSSKIND_EMPERIORTOMB_EVENT :
 
@@ -114,7 +115,7 @@ void CRecallManager::EventRecall(CObject * pRecaller, WORD MonsterKind, BYTE cbM
 					REGENMGR->RegenObject( dwID, dwSubID, dwChannelID, wObjectKind_Monster, MonsterKind, &vRecallPos, EVENTRECALL_GROUP_ID, DropItemID, dwDropRatio, FALSE, TRUE );
 					*/
 
-					// ¸ó½ºÅÍ ¸®½ºÆ®¿¡ ObjectKind Ãß°¡ 05.12.22 ÀÌ¿µÁØ
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ObjectKind ï¿½ß°ï¿½ 05.12.22 ï¿½Ì¿ï¿½ï¿½ï¿½
 					BASE_MONSTER_LIST* pList = GAMERESRCMNGR->GetMonsterListInfo(MonsterKind);
 					
 					if(pList)
@@ -162,7 +163,7 @@ void CRecallManager::EventRecall(CObject * pRecaller, WORD MonsterKind, BYTE cbM
 				
 				switch(MonsterKind)
 				{
-				// º¸½º¸÷ Á¾·ù
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				case 	eBOSSKIND_EMPERIORTOMB :
 				case	eBOSSKIND_EMPERIORTOMB_EVENT :
 					
@@ -172,7 +173,7 @@ void CRecallManager::EventRecall(CObject * pRecaller, WORD MonsterKind, BYTE cbM
 				
 				REGENMGR->RegenObject( dwID, dwSubID, dwChannelID, wObjectKind_Monster, MonsterKind, &vRecallPos, EVENTRECALL_GROUP_ID, DropItemID, dwDropRatio, FALSE, TRUE );
 				*/
-				// ¸ó½ºÅÍ ¸®½ºÆ®¿¡ ObjectKind Ãß°¡ 05.12.22 ÀÌ¿µÁØ
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ObjectKind ï¿½ß°ï¿½ 05.12.22 ï¿½Ì¿ï¿½ï¿½ï¿½
 				BASE_MONSTER_LIST* pList = GAMERESRCMNGR->GetMonsterListInfo(MonsterKind);
 
 				if(pList)

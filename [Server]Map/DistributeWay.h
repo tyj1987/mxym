@@ -4,6 +4,7 @@
 
 #if !defined(AFX_DISTRIBUTEWAY_H__7C8B1F62_199B_4707_B7C9_2BAFC4A54A20__INCLUDED_)
 #define AFX_DISTRIBUTEWAY_H__7C8B1F62_199B_4707_B7C9_2BAFC4A54A20__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -11,7 +12,7 @@
 
 class MONSTEREX_LIST;
 
-//060822 - 3¸¸ ÀÌ»óÀÇ ³­¼ö¸¦ »Ì¾Æ³»±â À§ÇÑ ·£´ý Å¬·¡½º by wonju
+//060822 - 3 Ì»  Ì¾Æ³   Å¬ by wonju
 //----------------------------------------------------------------
 class cRand_Big
 {

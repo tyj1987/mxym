@@ -8,10 +8,7 @@
 // TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
 
-void WriteAssertMsg(char* pStrFileName,int Line,char* pMsg)
-{
-//	MessageBox(NULL,pMsg,NULL,NULL);
-}
+// WriteAssertMsg 和 LOG 现在由 CommonGameFunc.cpp 和 MonitoringServer.cpp 提供
 
 void LOG( char* msg, ... )
 {

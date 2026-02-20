@@ -4,6 +4,7 @@
 
 #if !defined(AFX_QUESTGROUP_H__0A88AD15_F8B2_4FC9_AADB_26F663A4A647__INCLUDED_)
 #define AFX_QUESTGROUP_H__0A88AD15_F8B2_4FC9_AADB_26F663A4A647__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -41,9 +42,9 @@ public:
 	void	Release();
 	void	Initialize( PLAYERTYPE* pPlayer );
 
-	// 맨처음 유저가 접속했을때
+	// 처  
 	void	CreateQuest( DWORD dwQuestIdx, CQuestInfo* pQuestInfo );
-	// 유저 접속 후 DB데이터 세팅 
+	//    DB  
 	BOOL	SetMainQuestData( DWORD dwQuestIdx, DWORD dwSubQuestFlag, DWORD dwData, DWORD dwTime, BYTE bCheckType, DWORD dwCheckTime );
 	void	SetSubQuestData( DWORD dwQuestIdx, DWORD dwSubQuestIdx, DWORD dwData, DWORD dwTime );
 	void	SetQuestItem( DWORD dwQuestIdx, DWORD dwItemIdx, DWORD dwItemNum );

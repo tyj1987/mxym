@@ -4,6 +4,7 @@
 
 #if !defined(AFX_BOSSMONSTERINFO_H__ECED8E50_6782_4877_9C2D_8317902C04F8__INCLUDED_)
 #define AFX_BOSSMONSTERINFO_H__ECED8E50_6782_4877_9C2D_8317902C04F8__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -75,7 +76,7 @@ struct NEXTATTACKINFO
 			rValue -= pNextAttack->Rate;
 		}
 
-		ASSERT(0);		//¿©±ä Àý´ë °É¸®¸é ¾ÈµÊ.
+		ASSERT(0);		//  É¸ Èµ.
 		return -1;
 	}
 };
@@ -105,13 +106,13 @@ class CBossMonsterInfo
 	BOSSEVENTSTATE * m_EventState;
 	BOSSUNGIJOSIK m_BossUngijosik;
 	
-	/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// Å¸°ÙÆÃ ¹æ½Ä
-	/// 0: ±âÁ¸ ¹æ½Ä 1: ¸Å °ø°Ý½Ã ·£´ýÀ¸·Î Å¸°Ù º¯°æ
+	/// 06. 08. 2  - Ì¿
+	/// Å¸ 
+	/// 0:   1:  Ý½  Å¸ 
 	WORD m_TargetingType;
 
-	/// 06. 09. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// ¼Ò¸ê½Ã°£
+	/// 06. 09. 2  - Ì¿
+	/// Ò¸Ã°
 	DWORD m_DeleteTime;
 public:
 	CBossMonsterInfo();

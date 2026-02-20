@@ -64,36 +64,36 @@ void CCharacterInfo::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 
 	int i = 0;
-	//// Á¤º¸Ã¢ °ü·Ã º¯¼ö
+	//// ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i< eCharTemp_MAX;++i)
 		DDX_Control(pDX, IDC_CHAR_NAME+i, m_StatusEdit[i]);
 
-	//// ÀÎº¥Åä¸® °ü·Ã º¯¼ö
+	//// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(i = 0;i<TABCELL_INVENTORY_NUM;++i)
 		DDX_Control(pDX, IDC_BTN_INVENOBJ1+i, m_InvenItem[i]);
 
-	// ÀåÂø ¾ÆÀÌÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i<eWearedItem_Max;++i)
 		DDX_Control(pDX, IDC_BTN_WEAROBJ1+i, m_WearItem[i]);
 
-	//// ½ºÅ³Ã¢ °ü·Ã º¯¼ö
-	// ¹«°ø
+	//// ï¿½ï¿½Å³Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i<SLOT_MUGONG_NUM;++i)
 		DDX_Control(pDX, IDC_BTN_SKILL1+i, m_SkillMuGong[i]);
 
-	// Áø¹ý
+	// ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i<SLOT_JINBUB_NUM;++i)
 		DDX_Control(pDX, IDC_BTN_JINBUB1+i, m_SkillJinBub[i]);
 
-	//// Ç¥±¹Ã¢ °ü·Ã º¯¼ö
+	//// Ç¥ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i<TABCELL_PYOGUK_NUM;++i)
 		DDX_Control(pDX, IDC_BTN_PYOGUK1+i, m_PyoGukItem[i]);
 
-	//// Æ¯±â °ü·Ã º¯¼ö
+	//// Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(i=0;i<MAX_ABILITY_NUM_PER_GROUP;++i)
 		DDX_Control(pDX, IDC_BTN_ABLITY1+i, m_Ability[i]);
 
-	// ÀÎº¥ Æ÷Áö¼Ç °ãÄ¡´Â °Å
+	// ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½
 	for(i=0;i<10;++i)
 		DDX_Control(pDX, IDC_BTNINVEN_ERROR1+i, m_InvenItemError[i]);
 
@@ -185,7 +185,7 @@ void CCharacterInfo::InitControl(CCharacterDoc* pDoc)
 	SetMugongInfoError( &pDoc->m_MugongError );
 	SetAbilityInfo();
 
-	// °è»ê ¼öÄ¡¿¡ ´ëÇØ¼­...
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½...
 	ResetCalcInfo();
 
 	// login point combobox
@@ -238,7 +238,7 @@ void CCharacterInfo::SetBaseInfo(BASEOBJECT_INFO* objInfo, CHARACTER_TOTALINFO* 
 	str.Format( "%d", totalInfo->Life );
 	m_StatusEdit[eCharTemp_LIFE].SetWindowTextEx( (char*)(LPCTSTR)str, 1 );		// life
 	str.Format( "%d", heroInfo->wNaeRyuk );
-	m_StatusEdit[eCharTemp_MANA].SetWindowTextEx( (char*)(LPCTSTR)str, 1 );		// ³»·Â
+	m_StatusEdit[eCharTemp_MANA].SetWindowTextEx( (char*)(LPCTSTR)str, 1 );		// ï¿½ï¿½ï¿½ï¿½
 	str.Format( "%d", totalInfo->Shield );
 	m_StatusEdit[eCharTemp_SHIELD].SetWindowTextEx( (char*)(LPCTSTR)str, 1 );	// shield
 
@@ -260,7 +260,7 @@ void CCharacterInfo::SetBaseInfo(BASEOBJECT_INFO* objInfo, CHARACTER_TOTALINFO* 
 
 void CCharacterInfo::ResetCalcInfo()
 {
-// °è»ê ¼öÄ¡ Àû¿ëÀº ³ªÁß¿¡....
+// ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½....
 /*	WORD minChub = 0;
 	WORD genGol = 0;;
 	WORD attackMin = 0;
@@ -319,7 +319,7 @@ void CCharacterInfo::ResetCalcInfo()
 	}
 	*/
 
-// ÀÓ½Ã·Î...
+// ï¿½Ó½Ã·ï¿½...
 	m_StatusEdit[eCharTemp_ATTACK].SetWindowText( "-" );
 	m_StatusEdit[eCharTemp_CRITICAL].SetWindowText( "-" );
 	m_StatusEdit[eCharTemp_LONGATTACK].SetWindowText( "-" );
@@ -395,19 +395,19 @@ void CCharacterInfo::SetInvenInfoError( TMSG_CHARACTER_INVENINFO2* inven )
 
 	for( i = 0; i < inven->m_dwCount; ++i )
 	{
-		if( inven->m_ItemInfo[i].wIconIdx != 0 )
+		if( inven->m_ExtraItems[i].wIconIdx != 0 )
 		{
-			pInfo = GAMERESRCMNGR->GetItemInfo( inven->m_ItemInfo[i].wIconIdx );
+			pInfo = GAMERESRCMNGR->GetItemInfo( inven->m_ExtraItems[i].wIconIdx );
 			if( pInfo )
 				sprintf( buff, pInfo->ItemName );
 			else
-				sprintf( buff, "%d", inven->m_ItemInfo[i].wIconIdx );
+				sprintf( buff, "%d", inven->m_ExtraItems[i].wIconIdx );
 		}
 		else
 			sprintf( buff, "" );
 
 		m_InvenItemError[i].SetWindowText( buff );
-		m_InvenItemError[i].SetData( inven->m_ItemInfo[i].wIconIdx );	
+		m_InvenItemError[i].SetData( inven->m_ExtraItems[i].wIconIdx );	
 		m_InvenItemError[i].ShowWindow( TRUE );	
 	}
 }
@@ -501,7 +501,7 @@ void CCharacterInfo::SetMugongInfo( MUGONG_TOTALINFO* mugong )
 
 	MUGONGBASE* sMugong = mugong->mugong;
 
-	// ¹«°ø ³Ö±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 	for( i = 0, temp = 0; i < SLOT_MUGONG_NUM; ++i )
 	{
 		if( sMugong[i].wIconIdx != 0 )
@@ -521,7 +521,7 @@ void CCharacterInfo::SetMugongInfo( MUGONG_TOTALINFO* mugong )
 
 	temp = i;
 
-	// Áø¹ý ³Ö±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 	for( i = 0; i < SLOT_JINBUB_NUM; ++i )
 	{
 		if( sMugong[temp+i].wIconIdx != 0 )
@@ -578,7 +578,7 @@ void CCharacterInfo::SetAbilityInfo()
 	}
 	m_cbAbility.SetCurSel(0);
 
-	// Ability ÃÊ±âÈ­
+	// Ability ï¿½Ê±ï¿½È­
 	for( i = 0; i < MAX_ABILITY_NUM_PER_GROUP; ++i )
 	{
 		m_Ability[i].SetWindowText( "" );
@@ -681,7 +681,7 @@ void CCharacterInfo::OnSelchangeAbilityCombo()
 	int nCurSel = m_cbAbility.GetCurSel();
 	if( nCurSel == -1 ) return;
 
-	// Ability ÃÊ±âÈ­
+	// Ability ï¿½Ê±ï¿½È­
 	for( int i = 0; i < MAX_ABILITY_NUM_PER_GROUP; ++i )
 	{
 		m_Ability[i].SetWindowText( "" );
@@ -724,7 +724,7 @@ void CCharacterInfo::GetChangeBaseInfo(TMSG_CHARACTER_UPDATEBASEINFO* msg)
 	m_StatusEdit[eCharTemp_MUNPA].GetStringData(str.GetBuffer(0));
 	strcpy(msg->MunpaName, str);
 	msg->PositionInMunpa = (BYTE)m_StatusEdit[eCharTemp_MUNPAPOS].GetData();
-	msg->Fame = (FAMETYPE)m_StatusEdit[eCharTemp_FAME].GetData();
+	msg->BadFame = (FAMETYPE)m_StatusEdit[eCharTemp_FAME].GetData();
 //	msg->PartyID = m_StatusEdit[eCharTemp_PARTY].GetData();
 	msg->Stage = (BYTE)m_StatusEdit[eCharTemp_STEP].GetData();
 	msg->Level = (LEVELTYPE)m_StatusEdit[eCharTemp_LEVEL].GetData();
@@ -927,7 +927,7 @@ void CCharacterInfo::EditControlCommand(UINT nId)
 
 	if( nId >= IDC_CHAR_NAME && nId < IDC_CHAR_ABILITYPOINT+1 )
 	{
-		wPos = (WORD)(nId - IDC_CHAR_NAME);	// Tool µ¥ÀÌÅÍÀÇ ¹è¿­ÀÎµ¦½º
+		wPos = (WORD)(nId - IDC_CHAR_NAME);	// Tool ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½Îµï¿½ï¿½ï¿½
 		
 		if( wPos > eCharTemp_ABILITYPOINT )
 			return;
@@ -935,7 +935,7 @@ void CCharacterInfo::EditControlCommand(UINT nId)
 		BYTE type = 0;
 
 		/////////////////////////////////////////////////////
-		// error check (ÀÌÀü µ¥ÀÌÅÍ·Î ÀüÈ¯)
+		// error check (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½È¯)
 		TABLE_KIND kind = GetTableKindByControlID(nId);
 
 		if( m_StatusEdit[wPos].GetWindowTextLength() == 0 || kind == eTK_None )
@@ -953,20 +953,20 @@ void CCharacterInfo::EditControlCommand(UINT nId)
 			return;
 		}
 
-		// º¯°æµÈ µ¥ÀÌÅÍ°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 		if( !m_StatusEdit[wPos].IsChanged() )
 			return;
 		else
 			m_StatusEdit[wPos].SetChanged(FALSE);
 		/////////////////////////////////////////////////////
 
-		// str1:º¯°æData, str2:ÀÌÀüData
+		// str1:ï¿½ï¿½ï¿½ï¿½Data, str2:ï¿½ï¿½ï¿½ï¿½Data
 		m_StatusEdit[wPos].GetWindowText(str2);
 		if( m_StatusEdit[wPos].IsTextTypeData() )
 		{
 			m_StatusEdit[wPos].GetStringData(str1.GetBuffer(0));
 
-			if( strcmp(str1, str2) == 0 ) // º¯°æµÈ µ¥ÀÌÅ¸°¡ °°Àº°æ¿ì
+			if( strcmp(str1, str2) == 0 ) // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				CMREdit* pEdit = (CMREdit*)GetDlgItem(nId);
 				pEdit->ResetEditTextColor();
@@ -1015,7 +1015,7 @@ void CCharacterInfo::EditControlCommand(UINT nId)
 	else
 		return;
 	
-	// ControlÀÇ Index¸¦ Key°ªÀ¸·Î ÇÑ´Ù.
+	// Controlï¿½ï¿½ Indexï¿½ï¿½ Keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	m_pDocument->GetChangeManager()->Add(pData, nId);
 	CMREdit* pEdit = (CMREdit*)GetDlgItem(nId);
 	pEdit->SetEditTextColor(COLOR_EDIT_CHANGED);
@@ -1045,17 +1045,17 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 	WORD wPos;
 	int tab, result;
 
-	if( nId >= IDC_BTN_INVENOBJ1 && nId < IDC_BTN_INVENOBJ20+1 )	 // ÀÎº¥Åä¸®
+	if( nId >= IDC_BTN_INVENOBJ1 && nId < IDC_BTN_INVENOBJ20+1 )	 // ï¿½Îºï¿½ï¿½ä¸®
 	{
 		tab = m_cbInven.GetCurSel()*TABCELL_INVENTORY_NUM;
 		wPos = tab + nId - IDC_BTN_INVENOBJ1;
 
-		// ±âº» Á¤º¸
+		// ï¿½âº» ï¿½ï¿½ï¿½ï¿½
 		ITEMBASE* origin = &m_pDocument->m_sInven_org.Inventory[wPos];
 		ITEMBASE* base_before = &m_pDocument->m_sInven.Inventory[wPos];
 		ITEMBASE base_after;
 
-		// ¿É¼Ç Á¤º¸
+		// ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 		ITEM_OPTION_INFO* pOptionInfoOrigin = NULL;
 		ITEM_OPTION_INFO* pOptionInfo = NULL;
 		ITEM_OPTION_INFO Option_after;
@@ -1076,9 +1076,9 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		base_after.Position = TP_INVENTORY_START + wPos;
 		ResultItemEdit( eIF_INVENTORY, result, TP_INVENTORY_START + wPos, nId, origin, pOptionInfoOrigin, base_before, &base_after, pOptionInfo, &Option_after );
 	}
-	else if( nId >= IDC_BTN_WEAROBJ1 && nId < IDC_BTN_WEAROBJ10+1 )	// Âø¿ëÃ¢
+	else if( nId >= IDC_BTN_WEAROBJ1 && nId < IDC_BTN_WEAROBJ10+1 )	// ï¿½ï¿½ï¿½ï¿½Ã¢
 	{ 
-		// ÀåÂø ¹öÆ°
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 		wPos = nId - IDC_BTN_WEAROBJ1;
 		
 		ITEMBASE* origin = &m_pDocument->m_sInven_org.WearedItem[wPos];
@@ -1104,7 +1104,7 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		base_after.Position = TP_WEAR_START + wPos;
 		ResultItemEdit( eIF_WEAR, result, TP_WEAR_START + wPos, nId, origin, pOptionInfoOrigin, base_before, &base_after, pOptionInfo, &Option_after );
 	}
-	else if( nId >= IDC_BTN_PYOGUK1 && nId < IDC_BTN_PYOGUK30+1 )	// Ã¢°í
+	else if( nId >= IDC_BTN_PYOGUK1 && nId < IDC_BTN_PYOGUK30+1 )	// Ã¢ï¿½ï¿½
 	{ 
 		tab = m_cbPyoguk.GetCurSel()*TABCELL_PYOGUK_NUM;
 
@@ -1133,9 +1133,9 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		base_after.Position = TP_PYOGUK_START + wPos;
 		ResultItemEdit( eIF_PHYOGUK, result, TP_PYOGUK_START + wPos, nId, origin, pOptionInfoOrigin, base_before, &base_after, pOptionInfo, &Option_after );
 	}
-	else if( nId >= IDC_BTN_SKILL1 && nId < IDC_BTN_JINBUB5+1 )		// ¹«°ø
+	else if( nId >= IDC_BTN_SKILL1 && nId < IDC_BTN_JINBUB5+1 )		// ï¿½ï¿½ï¿½ï¿½
 	{ 
-		// ¹«°ø ¹öÆ°
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 		wPos = nId - IDC_BTN_SKILL1;
 		
 		MUGONGBASE* origin = &m_pDocument->m_sMugong_org.mugong[wPos];
@@ -1143,11 +1143,11 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		MUGONGBASE base_after;
 
 		if( nId < IDC_BTN_JINBUB1 )
-		{ // ÀÏ¹Ý ¹«°ø 
+		{ // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 			result = MugongEdit(eIF_MUGONG, wPos, base_before, base_after);
 		}
 		else
-		{ // Áø¹ý
+		{ // ï¿½ï¿½ï¿½ï¿½
 			result = MugongEdit(eIF_JINBUB, wPos, base_before, base_after);
 		}
 
@@ -1161,7 +1161,7 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		base_after.Position = TP_MUGONG_START + wPos;
 		ResultMugongEdit( result, TP_MUGONG_START + wPos, nId, origin, base_before, &base_after );
 	}
-	else if( nId >= IDC_BTN_ABLITY1 && nId < IDC_BTN_ABLITY40+1 )		// Æ¯±â
+	else if( nId >= IDC_BTN_ABLITY1 && nId < IDC_BTN_ABLITY40+1 )		// Æ¯ï¿½ï¿½
 	{ 
 		tab = m_cbAbility.GetCurSel();
 		wPos = nId - IDC_BTN_ABLITY1;
@@ -1191,8 +1191,8 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 	{
 		wPos = nId - IDC_BTNINVEN_ERROR1;
 
-		// ±âº» Á¤º¸
-		ITEMBASE* base_before = &m_pDocument->m_InvenInfoError.m_ItemInfo[wPos];
+		// ï¿½âº» ï¿½ï¿½ï¿½ï¿½
+		ITEMBASE* base_before = &m_pDocument->m_InvenInfoError.m_ExtraItems[wPos];
 		
 		int pos = GetEmptyPosition( 0 );
 		if( pos == -1 )
@@ -1342,7 +1342,7 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 			
 			if( total > GetEmptyPositionCount( 0 ) )
 			{
-				MessageBox( "ÀÎº¥Åä¸®°¡ ÃæºÐÇÏÁö ¾Ê½À´Ï´Ù.!!", "Error!!" );
+				MessageBox( "ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.!!", "Error!!" );
 			}
 			else
 			{
@@ -1352,7 +1352,7 @@ void CCharacterInfo::ButtonControlCommand(UINT nId)
 		SAFE_DELETE(m_pItemRecoverDlg);
 	}
 	else
-	{ // Ã³¸® ¾ÈÇÔ.
+	{ // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	}
 }
 
@@ -1452,7 +1452,7 @@ int CCharacterInfo::GetEmptyPositionCount( WORD wType )
 			}
 		}
 		break;
-	case 1:		// Ã¢°í
+	case 1:		// Ã¢ï¿½ï¿½
 		{
 			for( i = 0; i < TABCELL_PYOGUK_NUM*m_pDocument->m_sPyoguk.PyokukCount; ++i )
 			{
@@ -1482,7 +1482,7 @@ int CCharacterInfo::GetEmptyPosition( DWORD dwType )
 			return -1;
 		}
 		break;
-	case 1:		// Ã¢°í
+	case 1:		// Ã¢ï¿½ï¿½
 		{
 			for( i = 0; i < TABCELL_PYOGUK_NUM*m_pDocument->m_sPyoguk.PyokukCount; ++i )
 			{
@@ -1492,7 +1492,7 @@ int CCharacterInfo::GetEmptyPosition( DWORD dwType )
 			return -1;
 		}
 		break;
-	case 2:		// ¹«°ø
+	case 2:		// ï¿½ï¿½ï¿½ï¿½
 		{
 			for( i = 0; i < SLOT_MUGONG_NUM; ++i )
 			{
@@ -1502,7 +1502,7 @@ int CCharacterInfo::GetEmptyPosition( DWORD dwType )
 			return -1;
 		}
 		break;
-	case 3:		// Áø¹ý
+	case 3:		// ï¿½ï¿½ï¿½ï¿½
 		{
 			for( i = SLOT_MUGONG_NUM; i < SLOT_MUGONGTOTAL_NUM; ++i )
 			{
@@ -1532,13 +1532,13 @@ void CCharacterInfo::ResultPositionEdit( DWORD dwType, ICONBASE* pItem )
 			pPosition->SetData( 0, m_pDocument->m_dwCharIdx, pItem->dwDBIdx, pItem->Position );
 		}
 		break;
-	case 1:		// Ã¢°í
+	case 1:		// Ã¢ï¿½ï¿½
 		{
 			ITEMBASE* pp = (ITEMBASE*)pItem;
 			pPosition->SetData( 1, m_pDocument->m_dwUserIdx, pItem->dwDBIdx, pItem->Position );
 		}
 		break;
-	case 2:		// ¹«°ø
+	case 2:		// ï¿½ï¿½ï¿½ï¿½
 		{
 			MUGONGBASE* pp = (MUGONGBASE*)pItem;
 			pPosition->SetData( 2, m_pDocument->m_dwCharIdx, pItem->dwDBIdx, pItem->Position );
@@ -1599,7 +1599,7 @@ int CCharacterInfo::MugongEdit( INFOFIELD field, WORD wControlId, MUGONGBASE* ba
 	m_StatusEdit[eCharTemp_LEVEL].GetWindowText(str);
 //	if( atoi(str.GetBuffer(0)) < 4 )
 //	{
-//		MessageBox("¹«°øÀ» ¹è¿ï¼ö ¾ø´Â ·¹º§ÀÔ´Ï´Ù.");
+//		MessageBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 //		return eMR_Cancel;
 //	}
 
@@ -1638,10 +1638,10 @@ int CCharacterInfo::AbilityEdit( WORD wPos, WORD wAbilityIdx, char base_before, 
 BOOL CCharacterInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int nControlIdx, ITEMBASE* Origin, ITEM_OPTION_INFO* OriginOption,
 										ITEMBASE* pBItem, ITEMBASE* pAItem, ITEM_OPTION_INFO* pBOption, ITEM_OPTION_INFO* pAOption )
 {
-	// ½ÇÁ¦ ¾ÆÀÌÅÛÀÇ Æ÷Áö¼ÇÀ» ¹Þ´Â´Ù. wPos
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½. wPos
 	CChangeManager* pManager = m_pDocument->GetChangeManager();
 
-	// ¾î¶² DB Table¿¡ ³ÖÀ»°ÍÀÎÁö¸¦ ¾Ë¾Æ ¿Â´Ù.
+	// ï¿½î¶² DB Tableï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½Â´ï¿½.
 	TABLE_KIND kind = pManager->GetTableKind_ByField(field);
 	if( kind == eTK_None )
 		return FALSE;
@@ -1649,15 +1649,15 @@ BOOL CCharacterInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int
 	BOOL bAdd = FALSE;
 	CChangeItem* pItem = (CChangeItem*)pManager->ExistChangeInfo(wPos, FALSE);
 
-	if( !pItem ) // ±âÁ¸ ¼öÁ¤ Á¤º¸°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù. (ÀÖ¾îµµ ¹«½Ã!)
+	if( !pItem ) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½. (ï¿½Ö¾îµµ ï¿½ï¿½ï¿½ï¿½!)
 	{
 		pItem = new CChangeItem;
 		bAdd = TRUE;
 	}
 
-	if( result == eMR_Delete )// DeleteÀÎ °æ¿ì
+	if( result == eMR_Delete )// Deleteï¿½ï¿½ ï¿½ï¿½ï¿½
 	{ 
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( GAMERESRCMNGR->IsOptionItem(pBItem->wIconIdx, pBItem->Durability) )
 			m_pDocument->DelLocalOptionInfo(pBItem->Durability);
 
@@ -1665,18 +1665,18 @@ BOOL CCharacterInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int
 		memset(pAItem, 0, sizeof(ITEMBASE));
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pItem->Init( eOp_Delete, kind, wPos );
 		pItem->SetData(Origin, pAItem, OriginOption, pAOption);
 		///////////////////
 	}
 	else if( result == eMR_Edit )
 	{
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( GAMERESRCMNGR->IsOptionItem(pBItem->wIconIdx, pBItem->Durability) )
 			m_pDocument->DelLocalOptionInfo(pBItem->Durability);
 
-		if( pAItem->Durability == 9999 ) // ¿É¼Ç ¼ÂÆÃ
+		if( pAItem->Durability == 9999 ) // ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			if( OriginOption && OriginOption->dwOptionIdx != 0 )
 			{
@@ -1691,16 +1691,16 @@ BOOL CCharacterInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int
 			pAItem->Durability = (WORD)pAOption->dwOptionIdx;
 		}
 
-		memcpy(pBItem, pAItem, sizeof(ITEMBASE)); // ±âº» ¾ÆÀÌÅÛ º¯°æ
+		memcpy(pBItem, pAItem, sizeof(ITEMBASE)); // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
-		if( Origin->dwDBIdx == 0 ) // InsertÀÎ °æ¿ì
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		if( Origin->dwDBIdx == 0 ) // Insertï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			pItem->Init( eOp_Insert, kind, wPos );
 			pItem->SetData(Origin, pAItem, OriginOption, pAOption);
 		}
-		else // UpdateÀÎ °æ¿ì
+		else // Updateï¿½ï¿½ ï¿½ï¿½ï¿½
 		{ 
 			pItem->Init( eOp_Update, kind, wPos );
 			pItem->SetData(Origin, pAItem, OriginOption, pAOption);
@@ -1744,7 +1744,7 @@ BOOL CCharacterInfo::ResultItemEdit( INFOFIELD field, int result, WORD wPos, int
 void CCharacterInfo::ResultMugongEdit( int result, WORD wPos, int nControlIdx, MUGONGBASE* Origin, MUGONGBASE* pBMugong, MUGONGBASE* pAMugong )
 {
 	////////////////////////////////////////////////////////////////////////////////////////////
-	//// ¹«°øÀº Áßº¹ÀÌ Çã¿ëµÇÁö ¾ÊÀ¸¹Ç·Î Ã¼Å©ÇÑ´Ù.
+	//// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 	int i;
 	for(i=0;i<SLOT_MUGONG_NUM;++i)
 	{
@@ -1769,7 +1769,7 @@ void CCharacterInfo::ResultMugongEdit( int result, WORD wPos, int nControlIdx, M
 	BOOL bAdd = FALSE;
 	CChangeMugong* pMugong = (CChangeMugong*)pManager->ExistChangeInfo(wPos, FALSE);
 
-	if( !pMugong ) // ±âÁ¸ ¼öÁ¤ Á¤º¸°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù. (ÀÖ¾îµµ ¹«½Ã!)
+	if( !pMugong ) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½. (ï¿½Ö¾îµµ ï¿½ï¿½ï¿½ï¿½!)
 	{
 		pMugong = new CChangeMugong;
 		bAdd = TRUE;
@@ -1777,22 +1777,22 @@ void CCharacterInfo::ResultMugongEdit( int result, WORD wPos, int nControlIdx, M
 
 	if( result == eMR_Delete ) // Delete
 	{
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		memset(pBMugong, 0, sizeof(MUGONGBASE));
 		memset(pAMugong, 0, sizeof(MUGONGBASE));
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pMugong->Init( eOp_Delete, eTK_MugongInfo, wPos );
 		///////////////////
 	}
 	else if( result == eMR_Edit )
 	{
-		/////////////////// Local InfoÀÇ ¼öÁ¤
+		/////////////////// Local Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		memcpy(pBMugong, pAMugong, sizeof(MUGONGBASE));
 		///////////////////
 
-		/////////////////// DB InfoÀÇ ¼öÁ¤
+		/////////////////// DB Infoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( Origin->dwDBIdx == 0 ) // Insert
 			pMugong->Init( eOp_Insert, eTK_MugongInfo, wPos );
 		else // Update
@@ -2015,8 +2015,8 @@ void CCharacterInfo::MakeToolTip(BYTE type, POSTYPE pos, WORD idx, char* str)
 			}
 		}
 		break;
-	case 3: // ¹«°ø
-	case 4: // Áø¹ý
+	case 3: // ï¿½ï¿½ï¿½ï¿½
+	case 4: // ï¿½ï¿½ï¿½ï¿½
 		{
 			SKILLINFO* pSkill = GAMERESRCMNGR->GetSkillInfo(idx);
 			if(!pSkill) break;

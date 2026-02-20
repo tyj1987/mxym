@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 // 메모리 카피를 안할 순 없다.메모리 블럭을 체인지 하는 경우 남은 패킷을 카피할때...또 메인 메시지 큐에
 // 넣을때 메모리 카피를 한다.

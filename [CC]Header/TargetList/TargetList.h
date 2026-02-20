@@ -9,6 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "..\..\[CC]Header\CommonDefine.h"
+
 class CTargetData;
 
 #define MAX_TARGETLISTBUFFER_LENGTH	8192

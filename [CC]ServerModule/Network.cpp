@@ -4,11 +4,23 @@
 
 #include "stdafx.h"
 #include "Network.h"
+#include "..\[CC]Header\ServerTable.h"  // Always include ServerTable.h for all servers
 
-#include "ServerTable.h"
-#ifdef __AGENTSERVER__
+// Forward declarations for server callbacks
+void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid);
+void OnConnectServerFail(void* pVoid);
+
+// ServerSystem.h is server-specific
+// åœ¨æœåŠ¡å™¨é¡¹ç›®ä¸­åŒ…å«ServerSystem.hä»¥èŽ·å¾—å®Œæ•´çš„ç±»åž‹å®šä¹‰
+#if defined(_AGENTSERVER_) || defined(_DISTRIBUTESERVER_) || defined(_MAPSERVER_) || defined(__AGENTSERVER__) || defined(__DISTRIBUTESERVER__) || defined(__MAPSERVER__)
+#include "..\[CC]Header\ServerSystem.h"
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 #include "TrafficLog.h"
 #include "UserTable.h"
+#endif
+#if defined(_DISTRIBUTESERVER_) || defined(__DISTRIBUTESERVER__)
+#include "UserManager.h"
+#endif
 #endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -16,7 +28,7 @@
 
 BOOL g_bReady = FALSE;
 
-// ³×Æ®¿öÅ©¿Í °ü·Ã µÈ Ã³¸®µéÀº ¿©±â¼­ ´ÙÇÔ.
+// ï¿½ï¿½Æ®ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½.
 // send, recv, get info
 CNetwork g_Network;
 
@@ -131,7 +143,7 @@ void CNetwork::Send2AgentServer(char * msg, DWORD size)
 
 void CNetwork::Send2User(DWORD dwConnectionIndex, char * msg, DWORD size)
 {
-#ifdef __AGENTSERVER__
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 
 	MSGBASE* pMsg = (MSGBASE*)msg;
 	ASSERT(pMsg->Category != 0);
@@ -159,7 +171,7 @@ void CNetwork::Send2User(DWORD dwConnectionIndex, char * msg, DWORD size)
 	TRAFFIC->AddSendPacket(((MSGROOT*)msg)->Category, size);
 #endif
 
-#else	// distribute sereverÀÏ¶§ 
+#else	// distribute sereverï¿½Ï¶ï¿½ 
 	BOOL rt = m_pINet->SendToUser(dwConnectionIndex, msg, size, FLAG_SEND_NOT_ENCRYPTION);
 #endif
 
@@ -168,7 +180,7 @@ void CNetwork::Send2User(DWORD dwConnectionIndex, char * msg, DWORD size)
 }
 
 
-#ifdef __AGENTSERVER__
+#if defined(_AGENTSERVER_) || defined(__AGENTSERVER__)
 
 void CNetwork::Send2User(MSGBASE * msg, DWORD size)
 {

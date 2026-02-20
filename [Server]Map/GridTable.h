@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GRIDTABLE_H__E9B024E2_95D5_4B3C_902E_5345F31CBF3F__INCLUDED_)
 #define AFX_GRIDTABLE_H__E9B024E2_95D5_4B3C_902E_5345F31CBF3F__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -42,8 +43,8 @@ public:
 	virtual void SendCurrentObjectInfo(int GridNumX,int GridNumZ,int LastGridNumX,int LastGridNumZ,CObject* pNewObject)=0;
 	virtual void SendRemoveObjectInfo(int GridNumX,int GridNumZ,int LastGridNumX,int LastGridNumZ,CObject* pLeavedObject)=0;
 	
-	// FALSE를 반환하면 그리드가 변하지 않음
-	// TRUE를 반환하면 dwChangeTime후에 이동계산과 그리드 계산을 해주어야 한다.
+	// FALSE 환玖 琉弱�  
+	// TRUE 환玖 dwChangeTime커 絹 琉  羚 磯.
 	virtual BOOL GetGridChangeTime(VECTOR3* pStartPos,VECTOR3* pTargetPos,float MoveSpeed,DWORD& dwChangeTime) = 0;
 	
 	
@@ -85,8 +86,8 @@ public:
 */
 
 	//////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2차 보스 - 이영준
-	/// 유효그리드내 랜덤으로 타겟 설정
+	/// 06. 08. 2  - 結
+	/// 효琉約�  타 
 	virtual CObject* FindPlayerRandom(CObject* pObject);
 	//////////////////////////////////////////////////////////////////////////
 };

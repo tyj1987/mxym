@@ -2,11 +2,29 @@
 
 #include <math.h>
 
+// Windows类型定义
+#ifndef BOOL
+#define BOOL int
+#endif
+#ifndef TRUE
+#define TRUE 1
+#endif
+#ifndef FALSE
+#define FALSE 0
+#endif
+#ifndef NULL
+#define NULL 0
+#endif
+
+// 检查是否已经定义了 VECTOR3 和 VECTOR2
+#if !defined(VECTOR3_ALREADY_DEFINED)
+
 struct VECTOR2
 {
 	float		x;
 	float		y;
 };
+
 struct MATRIX4;
 
 struct VECTOR3
@@ -41,6 +59,8 @@ struct VECTOR3
 	void			operator /=(const VECTOR3 &v3);
 	*/
 };
+
+#endif // !defined(VECTOR3_ALREADY_DEFINED)
 
 inline VECTOR3		VECTOR3::operator +(const VECTOR3 &v3)
 {
@@ -95,7 +115,7 @@ inline	BOOL		VECTOR3::operator==( const VECTOR3& v)
 	return	bResult;
 	//	if( (*this-v)*(*this-v) >0.25)	return FALSE;
 	//	return	TRUE;
-	// �Ÿ� ���ؼ� 
+	// �Ÿ� ���ؼ� 
 	/*
 	VECTOR3		a;
 	if( float(int(this->x + 0.5)) == float(int(v.x	+	0.5)))

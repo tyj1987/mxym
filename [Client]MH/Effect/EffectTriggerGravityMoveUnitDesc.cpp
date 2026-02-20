@@ -54,8 +54,7 @@ BOOL EFFECTPOSITIONDESC::GetEffectPos(CObject* pTarget,CObject* pOperator,MAINTA
 	return TRUE;
 }
 
-// ÀÓ½Ã -_-;
-BOOL IsVillage()	{ return 0;}
+// Ó½ -_-;
 
 void CEffectTriggerGravityMoveUnitDesc::CalcGravityMoveInfo(CObject* pTarget,CObject* pOperator,MAINTARGET* pMainTarget,GRAVITYMOVEINFO* pInfo)
 {
@@ -86,7 +85,7 @@ void CEffectTriggerGravityMoveUnitDesc::ParseScript(CMHFile* pFile)
 	pFile->GetString(buf);	// skip  '{'
 	if(buf[0] != '{')
 	{
-		ERRORBSGBOX("ERROR[%s]!! { } °¡ ÇÊ¿äÇÑ Æ®¸®°ÅÀÔ´Ï´Ù!!!",pFile->GetFileName());
+		ERRORBSGBOX("ERROR[%s]!! { }  Ê¿ Æ®Ô´Ï´!!!",pFile->GetFileName());
 		return;
 	}
 

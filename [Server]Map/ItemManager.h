@@ -4,14 +4,16 @@
 
 #if !defined(AFX_ITEMMANAGER_H__B48BE6A4_2998_4459_B958_995D81EAAF1E__INCLUDED_)
 #define AFX_ITEMMANAGER_H__B48BE6A4_2998_4459_B958_995D81EAAF1E__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "IndexGenerator.h"
-#include "cLinkedList.h"
-#include "HashTable.h"
+#include "D:\mxym\[Lib]YHLibrary\IndexGenerator.h"
+#include "D:\mxym\[Lib]YHLibrary\cLinkedList.h"
+#include "D:\mxym\[Lib]YHLibrary\HashTable.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 #include "..\[CC]Header\GameResourceStruct.h"
 
 class CMHFile;
@@ -20,9 +22,10 @@ class ITEM_MIX_INFO;
 struct MATERIAL_ARRAY;
 class ITEM_MIX_RES;
 class ITEM_REINFORCE_INFO;
-// < гт╪Ж╦╕ ╠╦гЖ гр ╤╖ ╧щ╣Е╫ц аЖдя╬ъ гр ╟м >
-// 1. гт╪Ж©║╪╜ ©║╥╞цЁ╦╝╢б ©о╨╝хВ цЁ╦╝ гр ╟м
-// 2. ©║╥╞цЁ╦╝ гр╤╖ (©Ь╥║ юш╬Вю╦╥н ╣г╣╧╦╠ ╟м RollBack!!!)
+class CPlayer;
+// < О©╫т╪О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫ О©╫щ╣О©╫О©╫ О©╫О©╫О©╫я╬О©╫ О©╫О©╫ О©╫О©╫ >
+// 1. О©╫т╪О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫цЁО©╫О©╫О©╫О©╫ О©╫о╨О©╫О©╫О©╫ цЁО©╫О©╫ О©╫О©╫ О©╫О©╫
+// 2. О©╫О©╫О©╫О©╫цЁО©╫О©╫ О©╫р╤О©╫ (О©╫О©╫О©╫О©╫ О©╫ш╬О©╫О©╫О©╫О©╫О©╫ О©╫г╣О©╫О©╫О©╫ О©╫О©╫ RollBack!!!)
 #define MAX_MIX_PERCENT	10000
 #define MAX_MIX_LARGE_PERCENT	1000000
 #define ITEMMGR CItemManager::GetInstance()
@@ -52,29 +55,29 @@ public:
 		POS pos = m_DealItemList.GetFirstPos();
 		while(DealerItem* pItem = m_DealItemList.GetNextPos(pos) )
 		{
-			//SW070626 ╨╦╨н╩СNPC
+			//SW070626 О©╫О©╫О©╫н╩О©╫NPC
 			//if(pItem->ItemIdx == ItemIdx)
-			if(pItem->ItemIdx == ItemIdx && pItem->ItemCount != 0)	// -1 : ╧╚а╕гя		1~5 : ╪Ж╥╝ д╚©Нф╝╢ы©Н(╨╦╨н╩С©║╪╜╦╦ ╬╡юс)
+			if(pItem->ItemIdx == ItemIdx && pItem->ItemCount != 0)	// -1 : О©╫О©╫О©╫О©╫О©╫О©╫		1~5 : О©╫О©╫О©╫О©╫ д╚О©╫О©╫ф╝О©╫ы©О©╫(О©╫О©╫О©╫н╩С©║╪О©╫О©╫О©╫ О©╫О©╫О©╫О©╫)
 				return TRUE;
 		}
 
 		return FALSE;
 	}
 
-	//SW070626 ╨╦╨н╩СNPC
+	//SW070626 О©╫О©╫О©╫н╩О©╫NPC
 	DealerItem*	GetItem(WORD ItemIdx)
 	{
 		POS pos = m_DealItemList.GetFirstPos();
 		while(DealerItem* pItem = m_DealItemList.GetNextPos(pos) )
 		{
-			if(pItem->ItemIdx == ItemIdx && pItem->ItemCount != 0)	// -1 : ╧╚а╕гя		1~5 : ╪Ж╥╝ д╚©Нф╝╢ы©Н(╨╦╨н╩С©║╪╜╦╦ ╬╡юс)
+			if(pItem->ItemIdx == ItemIdx && pItem->ItemCount != 0)	// -1 : О©╫О©╫О©╫О©╫О©╫О©╫		1~5 : О©╫О©╫О©╫О©╫ д╚О©╫О©╫ф╝О©╫ы©О©╫(О©╫О©╫О©╫н╩С©║╪О©╫О©╫О©╫ О©╫О©╫О©╫О©╫)
 				return pItem;
 		}
 
 		return NULL;
 	}
 
-	//SW070626 ╨╦╨н╩СNPC
+	//SW070626 О©╫О©╫О©╫н╩О©╫NPC
 	void MakeSellingList(cPtrList* pList, DWORD tabNum)
 	{
 		POS pos = m_DealItemList.GetFirstPos();
@@ -92,10 +95,13 @@ public:
 	cLinkedList<DealerItem> m_DealItemList;
 };
 
+// Ф°█Е┼║Е≥╗Д╦⌠Г■╗О╪ Г║╝Д©²Е▐╙Е°╗Ф°█Е┼║Е≥╗Г╪√Х╞▒Ф≈╤Е╝ Д╧┴Х©≥Д╨⌡Г╠╩Е·▀
+#ifdef _MAPSERVER_
+
 class CItemManager  
 {
 	CYHHashTable<DealerData>	m_DealerTable;
-	DWORD m_Key; //а╤гу, ╟╜х╜, ╣Н╠ч╬В╫ц ╥н╠в Ё╡╠Ф ╤╖ ╟╟ю╨ а╤гуюл╬З╢ы╢б ╟мю╩ г╔╫цго╠Б ю╖гь.
+	DWORD m_Key; //О©╫О©╫О©╫О©╫, О©╫О©╫х╜, О©╫О©╫ч╬О©╫О©╫О©╫ О©╫н╠О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫л╬О©╫О©╫ы╢О©╫ О©╫О©╫О©╫О©╫ г╔О©╫О©╫О©╫о╠О©╫ О©╫О©╫О©╫О©╫.
 
 	DWORD MakeNewKey();
 	
@@ -126,8 +132,8 @@ public:
 	int SellItem( CPlayer* pPlayer, POSTYPE whatPos, WORD wSellItemIdx, DURTYPE sellItemDur, DWORD DealerIdx );
 	int BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD buyItemNum, WORD DealerIdx );
 	
-	// гй╣Е╨╦╫╨ - 05.12 юл©╣аь
-	// ╦С╫╨ем╟║ ╣©юо ╬фюлешю╩ ©╘╥╞╟т ╣Е╤Ьгр╪Ж юж╣╣╥о ╨╞╟Ф
+	// О©╫й╣Е╨╦О©╫О©╫ - 05.12 О©╫л©О©╫О©╫О©╫
+	// О©╫О©╫О©╫м╟О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫р╪О©╫ О©╫ж╣О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
 	void MonsterObtainItem(CPlayer * pPlayer, WORD obtainItemIdx, DWORD dwFurnisherIdx, WORD ItemNum = 1);
 
 	int CheatObtainItem( CPlayer* pPlayer, WORD obtainItemIdx, WORD ItemNum );
@@ -203,16 +209,16 @@ private:
 	CYHHashTable<ITEM_MIX_INFO> m_MixItemInfoList;
 	CYHHashTable<HILEVEL_ITEM_MIX_RATE_INFO> m_HiLevelItemMixRateInfoList;
 	CYHHashTable<ITEM_REINFORCE_INFO> m_ReinforceItemInfoList;
-	CYHHashTable<SET_ITEM_OPTION>	m_SetItemOptionList; ///// 2007. 6. 8. CBH - ╪╪ф╝╬фюлеф ╟Э╥ц ╦╝╫╨ф╝ цъ╟║
+	CYHHashTable<SET_ITEM_OPTION>	m_SetItemOptionList; ///// 2007. 6. 8. CBH - О©╫О©╫ф╝О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ф╝ О©╫ъ╟О©╫
 	CMemoryPoolTempl<ITEMOBTAINARRAYINFO> m_ItemArrayPool;
 	CIndexGenerator		m_ArrayIndexCreator;
 	//
 	CYHHashTable<AVATARITEM>		m_AvatarEquipTable;
 
 	/////////////////////////////////////////////
-	// 06. 06. 2бВ юЭаВ - юл©╣аь
-	// ю╨╫е/гЩ╬х
-	// ю╨╫е╫ц ╩Г©К╦Ьго╢б ╬фюлеш
+	// 06. 06. 2О©╫О©╫ О©╫О©╫О©╫О©╫ - О©╫л©О©╫О©╫О©╫
+	// О©╫О©╫О©╫О©╫/О©╫О©╫О©╫О©╫
+	// О©╫О©╫О©╫е╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫О©╫О©╫О©╫О©╫О©╫
 	CYHHashTable<ITEM_INFO> m_UnfitItemInfoListForHide;
 	/////////////////////////////////////////////
 
@@ -239,16 +245,16 @@ public:
 	BOOL	CheckHackItemMove( CPlayer* pPlayer, CItemSlot* pFromSlot, CItemSlot* pToSlot );
 
 	/////////////////////////////////////////////
-	// 06. 06. 2бВ юЭаВ - юл©╣аь
-	// ю╨╫е/гЩ╬х
-	// ю╨╫е╫ц ╩Г©К╦Ьго╢б ╬фюлеш
+	// 06. 06. 2О©╫О©╫ О©╫О©╫О©╫О©╫ - О©╫л©О©╫О©╫О©╫
+	// О©╫О©╫О©╫О©╫/О©╫О©╫О©╫О©╫
+	// О©╫О©╫О©╫е╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫О©╫О©╫О©╫О©╫О©╫
 	ITEM_INFO* IsUnfitItemInfoListForHide(WORD idx) { return m_UnfitItemInfoListForHide.GetData(idx); }
 	/////////////////////////////////////////////
 
-	//SW070308 ╬фюлеш╨н╟║©и╪г╣И а╓╦╝
+	//SW070308 О©╫О©╫О©╫О©╫О©╫ш╨н╟О©╫О©╫и╪г╣О©╫ О©╫О©╫О©╫О©╫
 	void	SetItemOptionsInfoMsg(CPlayer* pItemOwner, ITEMBASE* pItemBase, MSG_LINKITEMOPTIONS* rtMsg);
 
-	///// 2007. 6. 8. CBH - ╪╪ф╝╬фюлеф ╟Э╥ц гт╪Ж цъ╟║ ///////////////////////////
+	///// 2007. 6. 8. CBH - О©╫О©╫ф╝О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫т╪О©╫ О©╫ъ╟О©╫ ///////////////////////////
 	BOOL LoadSetItemOption();
 	SET_ITEM_OPTION* GetSetItemOption(WORD wSetItemKind, WORD wSetValue);
 	void RemoveSetItemOption(WORD wIndex, SET_ITEM_OPTION* pSetItemOptionOut = NULL);
@@ -258,11 +264,12 @@ public:
 	BOOL	CheckDemandItem(CPlayer* pPlayer, MSG_ITEM_BUY_SYN* pmsg);
 	BOOL	PayForDeal(CPlayer* pPlayer, DWORD DealerIdx, DWORD dwPayItemIdx, POSTYPE PayItemPos = 99, DWORD dwPayItemNum = 1);
 
-	BOOL CheckWeaponToShopItem(CPlayer* pPlayer, WORD wItemIndex); //2007. 10. 15. CBH - ╧╚╠Б ╬ф╧ые╦ ╬фюлеф юЕбЬ ╟Э╥ц гт╪Ж цъ╟║
+	BOOL CheckWeaponToShopItem(CPlayer* pPlayer, WORD wItemIndex); //2007. 10. 15. CBH - О©╫О©╫О©╫О©╫ О©╫ф╧О©╫е╦ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫т╪О©╫ О©╫ъ╟О©╫
 
-	// юл╨╔ф╝╦╕ еКгь╪╜ 
+	// О©╫л╨О©╫ф╝О©╫О©╫ О©╫О©╫О©╫ь╪О©╫
 	WORD ObtainItemFromGameEvent( CPlayer* pPlayer, DWORD dwItemIdx, WORD wItemNum );
 };
 
+#endif // _MAPSERVER_
 
 #endif // !defined(AFX_ITEMMANAGER_H__B48BE6A4_2998_4459_B958_995D81EAAF1E__INCLUDED_)

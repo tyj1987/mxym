@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 
 class CPlayer;
@@ -14,7 +15,7 @@ struct GAMEEVEN_LEVELUP
 	~GAMEEVEN_LEVELUP()	{ if( pLevel ) { delete [] pLevel; } }
 };
 
-//EventKind	On(1)/Off(0)	ItemIdx(º¸»ó)	TotalLevelCount	Level	Level	Level	Level
+//EventKind	On(1)/Off(0)	ItemIdx()	TotalLevelCount	Level	Level	Level	Level
 
 #define GAMEEVENTMGR	USINGTON(CGameEventManager)
 

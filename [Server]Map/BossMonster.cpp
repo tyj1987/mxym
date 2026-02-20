@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "BossMonster.h"
 #include "BossMonsterManager.h"
 #include "BossMonsterInfo.h"
@@ -36,7 +37,7 @@ BOOL CBossMonster::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseO
 {
 	CMonster::Init(kind, AgentNum, pBaseObjectInfo);
 	
-	/// 06. 08. 2차 보스 - 이영준
+	/// 06. 08. 2  - 結
 	/*m_CurAttackIdx = 1601;*/
 	m_AttackStartTime = 0 ;
 	m_EventActionValue = 0;
@@ -52,10 +53,10 @@ BOOL CBossMonster::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* pBaseO
 
 void CBossMonster::DoDie(CObject* pAttacker)
 {
-	// 보물 소환 
+	//  환 
 	BOSSMONMGR->RegenGroup(this, GetSummonFileNum(), m_pBossMonsterInfo->GetDieGroupID());
 	
-	// 리젠 정보 등록
+	//   
 	BOSSMONMGR->SetBossRandRegenChannel(GetMonsterKind(), GetGridID(), GetMonsterGroupNum());
 
 	DistributePerDamage();
@@ -198,8 +199,8 @@ void CBossMonster::Attack()
 	m_bDelete = FALSE;
 
 	////////////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2차 보스 - 이영준
-	/// 보스의 타겟팅 방식이 매회 랜덤 결정일 경우 타겟을 새로 잡는다
+	/// 06. 08. 2  - 結
+	///  타  회    타  쨈
 	if( m_pBossMonsterInfo->GetTargetingType() == 1 )
 	{
 		CObject* pTarget = 	g_pServerSystem->GetGridSystem()->FindPlayerRandom(this);
@@ -258,9 +259,9 @@ void CBossMonster::Attack()
 					ChangeTargetForSkill(&ObjectPos);
 
 				///////////////////////////////////////////////////////////////////////
-				/// 06. 08. 2차 보스 - 이영준
-				/// 안전 거리
-				/// 안전 거리가 있는 스킬은 스킬 범위 안에 있는 타겟으로 설정해야 한다.
+				/// 06. 08. 2  - 結
+				///  타
+				///  타 獵 킬 킬  효 獵 타 瞞 磯.
 				if(pSkillInfo->GetSafeRange())
 				{
 					m_pBossMonsterInfo->SetChangeTargetRange(pSkillInfo->GetSafeRange(), pSkillInfo->GetSkillRange());
@@ -302,7 +303,7 @@ void CBossMonster::Pursuit()
 		return;
 	}
 
-	if(m_BossState.IsStateFirst()) // 처음 시작한거면 
+	if(m_BossState.IsStateFirst()) // 처 璣타 
 	{		
 		m_aiParam.PursuitForgiveStartTime = gCurTime;
 		m_BossState.SetStateStartTime(0);
@@ -396,8 +397,8 @@ void CBossMonster::SetShield(DWORD val, BOOL bSendMsg)
 
 void CBossMonster::WalkAround()
 {
-	/// 06. 09. 2차 보스 - 이영준
-	/// 소멸시간
+	/// 06. 09. 2  - 結
+	/// 恬챨
 	if( m_pBossMonsterInfo->GetDeleteTime() )
 	{
 		if( m_bDelete )
@@ -442,8 +443,8 @@ void CBossMonster::WalkAround()
 
 void CBossMonster::Stand()
 {
-	/// 06. 09. 2차 보스 - 이영준
-	/// 소멸시간
+	/// 06. 09. 2  - 結
+	/// 恬챨
 	if( m_pBossMonsterInfo->GetDeleteTime() )
 	{
 		if( m_bDelete )
@@ -729,7 +730,7 @@ BOOL CBossMonster::DoWalkAround()
 		}
 		return TRUE;
 	}
-	// 250 :  충돌시 Search하는 Delay
+	// 250 :  役� Search求 Delay
 	else if(m_CurAttackIdx && m_aiParam.CollSearchLastTime + 250 < gCurTime )
 	{
 		m_aiParam.CollSearchLastTime = gCurTime;
@@ -760,9 +761,9 @@ void CBossMonster::SetTargetObject(CObject* TObject)
 			return;
 		}
 		////////////////////////////////////////////////////////////////////////////////
-		// 06. 06. 2차 전직 - 이영준
-		// 은신 / 혜안
-		// 은신 사용중인 플레이어는 인식안함
+		// 06. 06. 2  - 結
+		//  / 
+		//   첨潔 館컁
 		//if( pPlayer->GetSingleSpecialState() == eSingleSpecialState_Hide )
 		//	return;
 		////////////////////////////////////////////////////////////////////////////////
@@ -786,7 +787,7 @@ void CBossMonster::ChangeTargetForSkill(VECTOR3 * pPivotPos)
 	}
 	else
 	{
-		/// 06. 08. 2차 보스 - 이영준
+		/// 06. 08. 2  - 結
 		/*m_CurAttackIdx = 1601; // force...*/
 		m_CurAttackIdx = m_pBossMonsterInfo->GetFirstAttackIdx();
 		DWORD delay = SKILLMGR->GetSkillInfo((WORD)m_CurAttackIdx)->GetDelayTime();
@@ -796,7 +797,7 @@ void CBossMonster::ChangeTargetForSkill(VECTOR3 * pPivotPos)
 
 void CBossMonster::Delete()
 {
-	// 리젠 정보 등록
+	//   
 	BOSSMONMGR->SetBossRandRegenChannel( GetMonsterKind(), GetGridID(), GetMonsterGroupNum() );
 
 	BOSSMONMGR->DeleteBossMonster( this );

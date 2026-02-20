@@ -7,9 +7,11 @@
 
 #include "QuestScriptLoader.h"
 #ifdef _MAPSERVER_
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 #else
+#ifndef _MHCLIENT_LIBRARY_
 #include "ObjectManager.h"
+#endif
 #endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

@@ -11,12 +11,15 @@
 
 #include "SkillInfo.h"
 #include "SkillObject_Server.h"
-#include "IndexGenerator.h"
+#include "D:\mxym\[Lib]YHLibrary\IndexGenerator.h"
 #include "SkillAreaManager.h"
 #include "../4DyuchiGXGFunc/global.h"
 
 
 #define SKILLMGR	CSkillManager::GetInstance()
+
+class CPlayer;
+class CPet;
 
 enum errnum
 {
@@ -39,23 +42,23 @@ class CSkillManager
 
 	CSkillAreaManager m_SkillAreaMgr;
 	
-	// È­°æ, ±Ø¸¶
+	// È­ï¿½ï¿½, ï¿½Ø¸ï¿½
 	CYHHashTable<CSkillInfo>	m_HwaKyungSkillTable;
 	CYHHashTable<CSkillInfo>	m_GeukMaSkillTable;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	CYHHashTable<SKILLOPTION>	m_SkillOptionTable;
 	CYHHashTable<SKILLOPTION>	m_SkillOptionByItemTable;
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È	
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½	
 	CYHHashTable<SPECIAL_STATE_INFO> m_SpecialStateInfoTable;
 	//////////////////////////////////////////////////////////////////////////
 
-	////////// 2007. 6. 28. CBH - Àü¹®±â¼ú È®·ü ¸®½ºÆ® //////////////////////
+	////////// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® //////////////////////
 	CYHHashTable<JOB_SKILL_PROBABILITY_INFO>	m_JobSkillProbabilityTable;	
 	/////////////////////////////////////////////////////////////////////////
 
@@ -77,13 +80,13 @@ public:
 	void LoadSkillChangeInfoList();
 	void LoadJobSkillList();
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	void LoadSkillOptionList();
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	void LoadStateList();
 	//////////////////////////////////////////////////////////////////////////
 
@@ -110,7 +113,7 @@ public:
 	void MonsterAttack(WORD SkillIdx,CObject* pMonster,CObject* pTarget);
 	void MonsterAttack(WORD SkillIdx,CObject* pMonster,VECTOR3* pTargetPos,DWORD TargetID);
 	
-	void PetOperSkill(WORD SkillIdx,CPet* pPet,CObject* pTarget);	//Æêµî±Þ À¸·Î ½ºÅ³ ·¹º§ ¼¼ÆÃ
+	void PetOperSkill(WORD SkillIdx,CPet* pPet,CObject* pTarget);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	void Process();
 	
@@ -121,25 +124,25 @@ public:
 	void ReleaseAllSkillInBattle(DWORD BattleID);
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	SKILLOPTION* GetSkillOption(WORD index) { return (SKILLOPTION*)(m_SkillOptionTable.GetData(index)); }
 	SKILLOPTION* GetSkillOptionByItemIndex(WORD index) { return (SKILLOPTION*)(m_SkillOptionByItemTable.GetData(index)); }
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	SPECIAL_STATE_INFO* GetSpecialStateInfo(WORD index) { return (SPECIAL_STATE_INFO*)(m_SpecialStateInfoTable.GetData(index)); }
 	//////////////////////////////////////////////////////////////////////////
 
-	////////// 2007. 6. 28. CBH - Àü¹®±â¼ú °ü·Ã ÇÔ¼ö Ãß°¡ ////////////////////
-	BOOL LoadJobSkillProbability();		//Àü¹®±â¼ú È®·ü ½ºÅ©¸³Æ® ·Îµù
-	BOOL IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* pSkillInfo);	//½ºÅ³°ú Àü¹®±â¼ú ¿ÀºêÁ§Æ® °£ÀÇ Ã³¸®
-	WORD GetJobSkillProbability(WORD wSkillLevel, WORD wTargetLevel);	//ÇØ´ç Àü¹®±â¼ú È®·ü ¹ÝÈ¯	
+	////////// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½ ////////////////////
+	BOOL LoadJobSkillProbability();		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Îµï¿½
+	BOOL IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* pSkillInfo);	//ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+	WORD GetJobSkillProbability(WORD wSkillLevel, WORD wTargetLevel);	//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½È¯	
 	BOOL CheckSkillKind(WORD wSkillKind);
 	///////////////////////////////////////////////////////////////////////////////
 
-	///// 2007. 10. 15. CBH - Å¸ÀÌÅº ¹«°ø°ú ¹«±â Ã¼Å©(SkillInfo¿¡¼­ ÀÌµ¿) /////////////
+	///// 2007. 10. 15. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©(SkillInfoï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½) /////////////
 	BOOL CheckTitanWeapon(CObject* pObject, SKILLINFO* SkillInfo);
 	//////////////////////////////////////////////////////////////////////////////////////
 };

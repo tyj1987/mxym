@@ -52,12 +52,13 @@ CJournalDialog::~CJournalDialog()
 
 void CJournalDialog::Linking()
 {
+int i;
 	m_pMoveBtn[0] = (cButton*)GetWindowForID(QUE_JOURNALFRONTBTN);
 	m_pMoveBtn[1] = (cButton*)GetWindowForID(QUE_JOURNALBACKBTN);
 	m_pJournalBtn[0] = (cButton*)GetWindowForID(QUE_JOURNALSAVE);
 	m_pJournalBtn[1] = (cButton*)GetWindowForID(QUE_JOURNALSAVEDLIST);
 	
-	for(int i=0; i<MAX_JOURNAL_PAGEBTN; ++i)
+	for( i=0; i<MAX_JOURNAL_PAGEBTN; ++i)
 		m_pPageBtn[i] = (cPushupButton*)GetWindowForID(QUE_JOURNALPAGE1BTN+i);
 	m_pPageBtn[0]->SetPush(TRUE);
 
@@ -82,7 +83,7 @@ void CJournalDialog::JournalItemAdd(JOURNALINFO* pJournalInfo)
 		CQuestString* pQString = QUESTMGR->GetQuestString(Key);
 
 		/////////////////////////////////////////////////////////////////////
-		// SubQuest´Â ±â·ÏÇÏÁö ¾Ê´Â´Ù.
+		// SubQuestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 /*		CQuestString* pSubQString = NULL;
 		if(pJournalInfo->Param_2 > 0)
 		{			
@@ -114,7 +115,7 @@ void CJournalDialog::JournalItemAdd(DWORD Index, CQuestString* pQString, CQuestS
 	pItem->JournalDBIndex = Index;
 	pItem->pQuestString = pQString;
 	/////////////////////////////////////////////////////////////////////
-	// SubQuest´Â ±â·ÏÇÏÁö ¾Ê´Â´Ù.
+	// SubQuestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //	pItem->pSubQuestString = pSubQString;
 	pItem->pSubQuestString = NULL;
 
@@ -204,7 +205,7 @@ void CJournalDialog::JournalListReset()
 	int CheckBoxCount = 0;
 	bool bAdd = false;
 
-	// CheckBox ÃÊ±âÈ­
+	// CheckBox ï¿½Ê±ï¿½È­
 	for(int i=0; i<MAX_CHECKBOX_PERPAGE; i++)
 	{
  		if(m_bCheckItem[i])		m_pCheckBox[i]->SetChecked(TRUE);
@@ -212,7 +213,7 @@ void CJournalDialog::JournalListReset()
 		m_pCheckBox[i]->SetActive(FALSE);
 	}
 
-	// MaxPage ¼³Á¤
+	// MaxPage ï¿½ï¿½ï¿½ï¿½
 	JournalItem* pItem = NULL;
 	PTRLISTPOS pos = NULL;
 	int ItemCount = 0;
@@ -231,7 +232,7 @@ void CJournalDialog::JournalListReset()
 	if(ItemCount%JOURNALVIEW_PER_PAGE)
 		++m_MaxPage;
 
-	// È­¸é¿¡ º¸¿©¾ß ÇÒ ÆäÀÌÁöÀÇ Item¸¸ Add
+	// È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Itemï¿½ï¿½ Add
 	int viewindex = 0;
 	while(pos)
 	{
@@ -240,7 +241,7 @@ void CJournalDialog::JournalListReset()
 
 		if(pItem && count >= ViewStartIdx && count < ViewStartIdx+JOURNALVIEW_PER_PAGE)
 		{
-			// ViewIndex ¼³Á¤
+			// ViewIndex ï¿½ï¿½ï¿½ï¿½
 			pItem->ViewIndex = viewindex;
 			++viewindex;
 
@@ -279,7 +280,7 @@ void CJournalDialog::JournalListQuestAdd(JournalItem* pItem)
 		m_pTextList->AddItem(pBuf->Str, QUEST_DESC_COLOR);
 
 	/////////////////////////////////////////////////////////////////////
-	// SubQuest´Â ±â·ÏÇÏÁö ¾Ê´Â´Ù.
+	// SubQuestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	// SubQuest Title
 /*	if(pItem->Param_2 && pItem->pSubQuestString)
 	{
@@ -297,7 +298,7 @@ void CJournalDialog::JournalListQuestAdd(JournalItem* pItem)
 		m_pTextList->AddItem(CHATMGR->GetChatMsg(599), QUEST_DESC_HIGHLIGHT);
 
 	/////////////////////////////////////////////////////////////////////
-	// SubQuest´Â ±â·ÏÇÏÁö ¾Ê´Â´Ù.
+	// SubQuestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 /*	if(!pItem->Param_2 || !pItem->pSubQuestString)
 		m_pTextList->AddItem(" ", 0);*/
 
@@ -311,11 +312,11 @@ void CJournalDialog::JournalListWantedAdd(JournalItem* pItem)
 
 	m_pTextList->AddItem(pItem->RegDate, SUBQUEST_TITLE_COLOR_SEL);
 
-	// Ã´»ì
+	// Ã´ï¿½ï¿½
 	sprintf(buf, "%s", CHATMGR->GetChatMsg(614));
 	m_pTextList->AddItem(buf, QUEST_DESC_COLOR);
 
-	// xxx(À»)¸¦ Ã´»ì¿¡ ¼º°ø or ½ÇÆÐ
+	// xxx(ï¿½ï¿½)ï¿½ï¿½ Ã´ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½ï¿½
 	switch(pItem->Param_1)
 	{
 	case eJournal_Wanted_Succeed:
@@ -363,6 +364,7 @@ void CJournalDialog::SetBasePage(BOOL bNext)
 
 	if(bNext)
 	{
+	int i;
 		if(m_BasePage+MAX_JOURNAL_PAGEBTN <= m_MaxPage)
 			m_BasePage += MAX_JOURNAL_PAGEBTN;
 	}
@@ -376,12 +378,13 @@ void CJournalDialog::SetBasePage(BOOL bNext)
 }
 
 void CJournalDialog::SetPage(int Index)
-{	
+{
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
 	int ShowPage = m_MaxPage-m_BasePage;
 	if(ShowPage > 4)	ShowPage = 4;
 
 	char buf[16] = { 0, };
-	for(int i=0; i<MAX_JOURNAL_PAGEBTN; i++)
+	for( i=0; i<MAX_JOURNAL_PAGEBTN; i++)
 	{
 		if(i>ShowPage+1 || m_BasePage+i>m_MaxPage)		m_pPageBtn[i]->SetActive(FALSE);
 		else
@@ -410,7 +413,7 @@ void CJournalDialog::SetPage(int Index)
  		m_bCheckItem[i] = FALSE;	
 
 	
-	// °°Àº ÆäÀÌÁö¹øÈ£¸¦ ´­·¶À»¶§
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if((m_BasePage+Index) == m_CurPage)			return;
 
 	m_CurPage = m_BasePage+Index;
@@ -455,7 +458,7 @@ void CJournalDialog::SelectedJournalSave()
 	{
 		if(m_bCheckItem[i])
 		{
-			// ÀúÀå¸ñ·ÏÀº 50°³±îÁö
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(m_JournalSavedList.GetCount() >= 50)
 			{
 				CHATMGR->AddMsg(CTC_SYSMSG, CHATMGR->GetChatMsg(671));
@@ -496,7 +499,7 @@ void CJournalDialog::SelectedJournalDelete()
 			PTRLISTSEARCHSTART(m_JournalSavedList, JournalItem*, pItem);		
 				if(pItem->ViewIndex == i)
 				{
-					// ViewIndex¿Í ºñ±³ÇØ¼­ »èÁ¦
+					// ViewIndexï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 					SendNetMsg(pItem->JournalDBIndex, eJournal_Delete);					
 					m_JournalSavedList.Remove(pItem);
 					delete pItem;

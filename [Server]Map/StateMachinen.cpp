@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "StateMachinen.h"
 #include "MsgRouter.h"
 #include "AIParam.h"
@@ -68,16 +69,18 @@ void CStateMachinen::RecvMsg( CObject * pSrcObject, CObject * pDestObject, MSG_O
 			{
 				CRegenObject * pORInfo = GROUPMGR->GetRegenObject(pTargetMonster->GetMonsterGroupNum(), pTargetMonster->GetGridID(), pTargetMonster->GetID());
 				if(pORInfo)
-				if(pORInfo->IsHearing())
 				{
-					VECTOR3 ObjectPos	= *CCharMove::GetPosition(pSrcObject);
-					VECTOR3 TObjectPos	= *CCharMove::GetPosition(pDestObject);
-					DWORD	Distance	= (DWORD)CalcDistance( &ObjectPos, &TObjectPos );
-					if(Distance < pORInfo->GetHearingDistance() && ((CMonster *)pSrcObject)->GetTObject())
+					if(pORInfo->IsHearing())
 					{
-//						CHelpRequestManager::SetHelperMonster((CMonster *)pDestObject, (CPlayer *)((CMonster *)pSrcObject)->GetTObject());
-						//SW050901
-						CHelpRequestManager::SetHelperMonster((CMonster*)pSrcObject, pTargetMonster, (CPlayer *)((CMonster *)pSrcObject)->GetTObject());
+						VECTOR3 ObjectPos	= *CCharMove::GetPosition(pSrcObject);
+						VECTOR3 TObjectPos	= *CCharMove::GetPosition(pDestObject);
+						DWORD	Distance	= (DWORD)CalcDistance( &ObjectPos, &TObjectPos );
+						if(Distance < pORInfo->GetHearingDistance() && ((CMonster *)pSrcObject)->GetTObject())
+						{
+//							CHelpRequestManager::SetHelperMonster((CMonster *)pDestObject, (CPlayer *)((CMonster *)pSrcObject)->GetTObject());
+							//SW050901
+							CHelpRequestManager::SetHelperMonster((CMonster*)pSrcObject, pTargetMonster, (CPlayer *)((CMonster *)pSrcObject)->GetTObject());
+						}
 					}
 				}
 			}
@@ -168,18 +171,18 @@ void CStateMachinen::SubProcess( CObject * obj, eStateEvent evt, MSG_OBJECT * ms
 						break;
 					}
 					////////////////////////////////////////////////////////////////////////////////
-					// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-					// Àº½Å / Çý¾È
-					// Àº½Å »ç¿ëÁßÀÎ ÇÃ·¹ÀÌ¾î´Â ÀÎ½Ä¾ÈÇÔ
+					// 06. 06. 2  - Ì¿
+					//  / 
+					//   Ã·Ì¾ Î½Ä¾
 					BYTE objectKind = po->GetObjectKind();
 					if( (objectKind == eObjectKind_Monster) || (objectKind == eObjectKind_TitanMonster) )
 					if( pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide) )
 						break;
 					////////////////////////////////////////////////////////////////////////////////
 
-					//SW060703 Æê¹öÇÁ Ãß°¡
-					//2008. 6. 9. CBH - º¸½º Á¹°³°¡ º®¿¡ ºÙ´Â Çö»ó ‹š¹®¿¡ º¸½º Á¹°³¸¦ ÀÏ¹Ý¸÷À¸·Î
-					//¼öÁ¤ ÈÄ ·ç·çÆÖ¿¡ ¿µÇâ ¹Þ´Â ¹ö±× ¼öÁ¤
+					//SW060703  ß°
+					//2008. 6. 9. CBH -    Ù´     Ï¹Ý¸
+					//  Ö¿  Þ´  
 					if( FALSE == g_pServerSystem->GetMap()->IsMapKind(eBossMap) )
 					{
 						if( (objectKind == eObjectKind_Monster) || (objectKind == eObjectKind_TitanMonster) )
@@ -203,7 +206,7 @@ void CStateMachinen::SubProcess( CObject * obj, eStateEvent evt, MSG_OBJECT * ms
 					SetState( po, eMA_PERSUIT );
 			}
 		}
-		// 250 :  Ãæµ¹½Ã SearchÇÏ´Â Delay
+		// 250 :  ï¿½ SearchÏ´ Delay
 		else if(apr->AttackNum && aprm->CollSearchLastTime + 250 < gCurTime )
 		{
 			aprm->CollSearchLastTime = gCurTime;
@@ -222,9 +225,9 @@ void CStateMachinen::SubProcess( CObject * obj, eStateEvent evt, MSG_OBJECT * ms
 						break;
 					}
 					////////////////////////////////////////////////////////////////////////////////
-					// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-					// Àº½Å / Çý¾È
-					// Àº½Å »ç¿ëÁßÀÎ ÇÃ·¹ÀÌ¾î´Â ÀÎ½Ä¾ÈÇÔ
+					// 06. 06. 2  - Ì¿
+					//  / 
+					//   Ã·Ì¾ Î½Ä¾
 					BYTE objectKind = po->GetObjectKind();
 					if( (objectKind == eObjectKind_Monster) || (objectKind == eObjectKind_TitanMonster) )
 					if( pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide) )
@@ -299,7 +302,7 @@ BEGIN_EVENT(evt)
 	OnEnter
 		po->SetTObject(NULL);
 		pr->stateStartTime	= gCurTime;
-		pr->stateEndTime	= pr->stateStartTime + apr->StandTime /*+Á¤ÁöÀ¯Áö ½Ã°£*/;
+		pr->stateEndTime	= pr->stateStartTime + apr->StandTime /*+ Ã°*/;
 		po->DoStand();
 	OnLeave
 	/////////////////////////////////////
@@ -382,7 +385,7 @@ void CStateMachinen::DoPursuit( CObject * pObject, eStateEvent evt, MSG_OBJECT *
 	BASE_MONSTER_LIST	* apr = ((CMonster*)pObject)->m_pSInfo;
 	CAIParam * aprm = &((CMonster*)pObject)->m_aiParam;
 	
-	// yh »¶³ª¼­ °íÄ§(È²¸ªº¸¹°ÀÌ Ãß°Ý¸ðµå... -_-)
+	// yh  Ä§(È² ß°Ý¸... -_-)
 	if(apr->SkillInfo[aprm->GetCurAttackKind()] == NULL)
 	{
 		ASSERT(0);
@@ -419,7 +422,7 @@ BEGIN_EVENT(evt)
 //		if( aprm->prePursuitForgiveTime == 0 && ( apr->PursuitForgiveStartTime + apr->PursuitForgiveTime < gCurTime || apr->PursuitForgiveDistance < Distance ) )
 		if( aprm->prePursuitForgiveTime == 0 && ( aprm->PursuitForgiveStartTime + apr->PursuitForgiveTime < gCurTime || apr->PursuitForgiveDistance < Distance ) )
 		{
-			aprm->SearchLastTime = gCurTime + 3000; //3ÃÊ°£ ¼±°ø¸÷ ¼­Ä¡¸¦ ¾ÈÇÏ°Ô ÇÏ±â À§ÇØ¼­.
+			aprm->SearchLastTime = gCurTime + 3000; //3Ê°  Ä¡ Ï° Ï± Ø¼.
 			SetState( po, eMA_WALKAROUND );
 			//SW050902
 			MonSpeechInfo* pTemp = MON_SPEECHMGR->GetCurStateSpeechIndex( po->GetMonsterKind(), eMon_Speech_ForgivePursuit );
@@ -432,7 +435,7 @@ BEGIN_EVENT(evt)
 			if( aprm->prePursuitForgiveTime != 0 && aprm->PursuitForgiveStartTime + aprm->prePursuitForgiveTime < gCurTime )
 			{
 				aprm->prePursuitForgiveTime = 0;
-				aprm->SearchLastTime = gCurTime + 3000; //3ÃÊ°£ ¼±°ø¸÷ ¼­Ä¡¸¦ ¾ÈÇÏ°Ô ÇÏ±â À§ÇØ¼­.
+				aprm->SearchLastTime = gCurTime + 3000; //3Ê°  Ä¡ Ï° Ï± Ø¼.
 				SetState( po, eMA_WALKAROUND );
 			}
 			else if( Distance < apr->SkillInfo[aprm->GetCurAttackKind()]->GetSkillRange() )
@@ -446,7 +449,7 @@ BEGIN_EVENT(evt)
 				{
 					pr->stateStartTime = gCurTime;
 					po->DoPursuit();
-					//Ãß°ÝÇÏ¸é¼­ °ø°ÝÆÐÅÏÀ» ¹Ù²Û´Ù. //KES ºÎÇÏ°¡ ÀÖÀ¸·Á³ª?
+					//ß°Ï¸ï¿½  Ù²Û´. //KES Ï° ?
 					CAIManager::RandCurAttackKind(apr, aprm);
 				}
 			}
@@ -461,7 +464,7 @@ void CStateMachinen::DoAttack( CObject * pObject, eStateEvent evt, MSG_OBJECT * 
 	BASE_MONSTER_LIST	* apr = ((CMonster*)pObject)->m_pSInfo;
 	CAIParam * aprm = &((CMonster*)pObject)->m_aiParam;
 
-	// targetobject°¡ NULLÀÎ°æ¿ì°¡ ³ª¿È!!
+	// targetobject NULLÎ°ï¿½ !!
 	if( !po->GetTObject() || (po->GetTObject() && ( po->GetTObject()->GetState() == eObjectState_Die ||  po->GetTObject()->GetInited() == FALSE ) ) )
 	{
 		SetState(pObject, eMA_STAND);

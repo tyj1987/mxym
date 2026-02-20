@@ -4,6 +4,8 @@
 
 #if !defined(AFX_PARTY_H__87E3B123_4418_45C7_B287_81730C428C79__INCLUDED_)
 #define AFX_PARTY_H__87E3B123_4418_45C7_B287_81730C428C79__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
+#include <string.h>
 
 #if _MSC_VER > 1000
 #pragma once
@@ -69,7 +71,7 @@ struct PARTYMEMBER
 class CParty
 {
 private:
-	//2008. 6. 3. CBH - ÆÄÆ¼ ½ÅÃ» °áÁ¤ Ä«¿îÆ® ½Ã°£(10ÃÊ)
+	//2008. 6. 3. CBH - Æ¼ Ã»  Ä«Æ® Ã°(10)
 	enum
 	{
 		eDICISION_TIME = 10000,
@@ -81,15 +83,15 @@ private:
 	BYTE m_Option;
 	DWORD m_OldSendtime;	
 
-	//2008. 5. 21. CBH - ÆÄÆ¼»ý¼º Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+	//2008. 5. 21. CBH - Æ¼ ß° É¼  
 	PARTY_ADDOPTION m_AddPotion;
-	//2008. 6. 4. CBH - ÆÄÆ¼ ½ÅÃ»½Ã 10ÃÊÀÇ ¼±ÅÃ½Ã°£ Ã³¸®
-    DWORD m_dwRequestPlayerID; //ÆÄÆ¼ ½ÅÃ»ÀÚ ID
-	DWORD m_dwRequestProcessTime;	//ÆÄÆ¼ ½ÅÃ» °áÁ¤ Ä«¿îÆ® ½Ã°£
+	//2008. 6. 4. CBH - Æ¼ Ã» 10 Ã½Ã° Ã³
+    DWORD m_dwRequestPlayerID; //Æ¼ Ã» ID
+	DWORD m_dwRequestProcessTime;	//Æ¼ Ã»  Ä«Æ® Ã°
 
 	CDistributeWay* m_pDistributeWay;
 
-	//2008. 5. 21. CBH - ÆÄÆ¼»ý¼º Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+	//2008. 5. 21. CBH - Æ¼ ß° É¼  
 	//CParty(DWORD id,DWORD MasterID,char* strMasterName,CPlayer* pMaster,BYTE Option);
 	CParty(DWORD id,DWORD MasterID,char* strMasterName,CPlayer* pMaster,PARTY_ADDOPTION* pAddOption);
 	~CParty();
@@ -157,7 +159,7 @@ public:
 
 	DWORD GetMemberNum();
 
-	//2008. 5. 21. CBH - ÆÄÆ¼»ý¼º Ãß°¡ ¿É¼Ç °ü·Ã ¼öÁ¤
+	//2008. 5. 21. CBH - Æ¼ ß° É¼  
 	void SetAddOption(PARTY_ADDOPTION* pAddOption);
 	PARTY_ADDOPTION* GetAddOption();
 

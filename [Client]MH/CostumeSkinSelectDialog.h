@@ -15,7 +15,7 @@
 #include "./interface/cPushupButton.h"
 #include "ItemShow.h"
 #include "GameResourceStruct.h"
-#include "../input/Mouse.h"
+#include "input/Mouse.h"
 
 class cListDialog;
 
@@ -38,13 +38,13 @@ private:
 	CItemShow		m_CostumeSkinView;
 
 	DWORD m_dwSelectIdx;
-	DWORD m_dwSkinDelayTime;	//µô·¹ÀÌ ÃÑ ½Ã°£ º¯¼ö
-	BOOL m_bSkinDelayResult;	//µô·¹ÀÌÁßÀÎÁö Ã¼Å©ÇÏ´Â º¯¼ö
+	DWORD m_dwSkinDelayTime;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	BOOL m_bSkinDelayResult;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinHat;	//¸Ó¸® Á¾·ù µ¥ÀÌÅÍ
-	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinDress;	//¿Ê Á¾·ù µ¥ÀÌÅÍ
-	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinAccessory;	//¾Ç¼¼»ç¸® Á¾·ù µ¥ÀÌÅÍ
-	CYHHashTable<SKIN_SELECT_ITEM_INFO>* m_pCurrentSkinTable; //ÇöÀç ÅÇÀÇ Å×ÀÌºí 
+	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinHat;	//ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinDress;	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	CYHHashTable<SKIN_SELECT_ITEM_INFO>	m_CostumeSkinAccessory;	//ï¿½Ç¼ï¿½ï¿½ç¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	CYHHashTable<SKIN_SELECT_ITEM_INFO>* m_pCurrentSkinTable; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ 
 
 public:
 	CCostumeSkinSelectDialog();
@@ -55,8 +55,8 @@ public:
 	BOOL OnActionEvent(LONG lId, void * p, DWORD we);
 	//virtual void Render();
 
-	void CostumeSkinKindData();	//ÅÇ Á¾·ùº° ½ºÅ² µ¥ÀÌÅÍ Á¤·ÄÇÏ´Â ÇÔ¼ö
-	void CostumeSkinListInfo(TAB_BTN eCostumeKind);	//Á¾·ù¿¡ µû¶ó ½ºÅ² µ¥ÀÌÅÍ¸¦ ¸®½ºÆ®¿¡ AddÇÏ´Â ÇÔ¼ö
+	void CostumeSkinKindData();	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+	void CostumeSkinListInfo(TAB_BTN eCostumeKind);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Addï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	/*
 	void InitSkinDelayTime();
 	void StartSkinDelayTime();

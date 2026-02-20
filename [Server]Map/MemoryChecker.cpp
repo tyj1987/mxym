@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "MemoryChecker.h"
+#include "ServerSystem.h"
 
 
 //

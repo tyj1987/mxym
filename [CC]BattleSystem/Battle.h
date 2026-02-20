@@ -7,6 +7,9 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 class CPlayer;
@@ -48,12 +51,12 @@ protected:
 		struct{
 			CBattleTeam* m_Team1;
 			CBattleTeam* m_Team2;
-			//CBattleTeam* m_TeamObserver;	<-- 여기 왜 있지?
+			//CBattleTeam* m_TeamObserver;	<--   ?
 		};
 		CBattleTeam* m_TeamArray[eBattleTeam_Max];
 	};
 
-	CBattleTeam* m_TeamObserver; //Union에서 따로 뺐다 KES
+	CBattleTeam* m_TeamObserver; //Union   KES
 
 	DWORD m_BattleFlag;
 	int m_WinnerTeam;
@@ -86,15 +89,15 @@ public:
 	BOOL IsDestroyed()	{	return m_bDestroyFlag;	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// { start virtual func 반드시 오버라이딩 해야함
+	// { start virtual func 訃 絹 瞞
 
-	// Battle 정보 관련
+	// Battle  
 #ifdef _MAPSERVER_
 	virtual void GetBattleInfo(char* pInfo,WORD* size);
 	virtual DWORD GetTeamMemberNum(int i);
 #endif
 
-	// 적,아군 구별
+	// ,튿 
 	virtual BOOL IsEnemy(CObject* pOperator,CObject* pTarget);
 	virtual BOOL IsFriend(CObject* pOperator,CObject* pTarget);
 	
@@ -112,8 +115,8 @@ public:
 
 	virtual void OnTick();
 	
-	// 승패 판정
-	virtual BOOL Judge();		// Judge에서 Victory나 Draw 함수를 호출해주어야 한다.
+	//  
+	virtual BOOL Judge();		// Judge Victory Draw 獨 호羚 磯.
 	virtual void Victory(int WinnerTeamNum,int LoserTeamNum);
 	virtual void Draw();
 
@@ -121,7 +124,7 @@ public:
 	virtual DWORD GetBattleTeamID( CObject* pObject );			// 1 = Battleteam1, 2 = Battleteam2
 	
 #ifdef _MHCLIENT_
-	// Render		(클라이언트만 사용함)
+	// Render		(클潔트 )
 	virtual void Render();	
 #endif
 

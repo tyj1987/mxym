@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "ExchangeManager.h"
 #include "ExchangeRoom.h"
 #include "UserTable.h"
@@ -296,9 +297,11 @@ void CExchangeManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			CExchangeRoom* pRoom = pPlayer1->GetExchangeContainer()->pRoom;
 
 			if( pRoom ) 
+			{
 			if( pRoom->GetExchangeState() == EXCS_DOING )
 				break;
 
+			}
 			if( pPlayer1->GetState() == eObjectState_Exchange )
 				OBJECTSTATEMGR_OBJ->EndObjectState(pPlayer1, eObjectState_Exchange);
 
@@ -521,7 +524,7 @@ void CExchangeManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 			
 			pPlayer2->SendMsg( &ItemOptionMsg, ItemOptionMsg.GetSize() );
 			*/
-			//SW070308 아이템부가옵션들 정리
+			//SW070308 아이템부�옵션� 정리
 			MSG_LINKITEMOPTIONS itemOpts;
 			itemOpts.Category		= MP_EXCHANGE;
 			itemOpts.Protocol		= MP_EXCHANGE_ADDITEM;

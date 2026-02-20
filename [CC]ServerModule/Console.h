@@ -7,6 +7,9 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 //#include "iconsole.h"
@@ -37,7 +40,15 @@ public:
 	void WaitMessage();
 
 	void Log(int nLogType,int LogLevel,char* strMsg,...);
+
+	// 临时取消LOG宏定义，以便声明LOG函数
+	#ifdef LOG
+	#undef LOG
+	#endif
 	void LOG(int LogLevel,char* strMsg,...);
+	#ifdef LOG
+	#undef LOG
+	#endif
 
 };
 

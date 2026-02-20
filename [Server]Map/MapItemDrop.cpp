@@ -1,14 +1,15 @@
 //----------------------------------------------------------------------------------------------------
-//  MapItemDrop   version:  1.0   ¡¤  date: 05/22/2008
+//  MapItemDrop   version:  1.0   ï¿½ï¿½  date: 05/22/2008
 //
 //  Copyright (C) 2008 - All Rights Reserved
 //----------------------------------------------------------------------------------------------------
 ///	Index	Stiner(MapDropItem)
 ///	@file	MapItemDrop.cpp
-///	@author	ÀÌ¼º¹Î
-///	@brief	¸Ê ¾ÆÀÌÅÛ µå¶ø Å¬·¡½º
+///	@author	ï¿½Ì¼ï¿½ï¿½ï¿½
+///	@brief	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 #include "StdAfx.h"
+#include "ServerSystem.h"
 #include ".\mapitemdrop.h"
 #include "MHFile.h"
 #include "time.h"
@@ -56,7 +57,7 @@ BOOL CMapItemDrop::LoadMapDropItemList()
 #endif
 	else
 	{
-		// ÃÊ±âÈ­ ³¯Â¥ ·Îµù
+		// ï¿½Ê±ï¿½È­ ï¿½ï¿½Â¥ ï¿½Îµï¿½
 		while(1)
 		{
 			if( mhDateFile.IsEOF() )
@@ -65,14 +66,14 @@ BOOL CMapItemDrop::LoadMapDropItemList()
 			WORD	wInitDay	= mhDateFile.GetWord();
 			WORD	wInitHour	= mhDateFile.GetWord();
 
-			// °ªÀÌ ÀÌ»óÇÑ °æ¿ì ±âº» °ªÀ¸·Î ¼¼ÆÃ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( !( 0 <= wInitDay && wInitDay <= 6 ) ||
 				!( 0 <= wInitHour && wInitHour <= 23 ) )
 			{
 				g_Console.LOG( 4, "Wrong value in file(%s)", strFileName );
 
-				wInitDay = 5;	// ±Ý¿äÀÏ
-				wInitHour = 0;	// 0½Ã
+				wInitDay = 5;	// ï¿½Ý¿ï¿½ï¿½ï¿½
+				wInitHour = 0;	// 0ï¿½ï¿½
 			}
 
 			m_wInitDay	= wInitDay;
@@ -98,25 +99,25 @@ BOOL CMapItemDrop::LoadMapDropItemList()
 	}
 #endif
 
-	// µå¶ø ¸®½ºÆ® ·Îµù
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½
 	while(1)
 	{
 		if( mhListFile.IsEOF() )
 			break;
 
-		// m_MapItemDropTable¿¡ Ã¤¿ö ³Ö±â
+		// m_MapItemDropTableï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½Ö±ï¿½
 		WORD	wItemCount = 0;
 
-		WORD	wMapNumber = mhListFile.GetWord();		// ¸Ê ¹øÈ£
+		WORD	wMapNumber = mhListFile.GetWord();		// ï¿½ï¿½ ï¿½ï¿½È£
 
-		// ÀÚ½ÅÀÇ ¸Ê ¹øÈ£¿¡ ÇØ´çµÇ´Â °Í¸¸ ÀÐ¾îµéÀÎ´Ù.
+		// ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ø´ï¿½Ç´ï¿½ ï¿½Í¸ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½Î´ï¿½.
 		if( wMapNumber == g_pServerSystem->GetMapNum() )
 		{
 			MAP_DROP_ITEM*	pDropItem = new MAP_DROP_ITEM;
 			ZeroMemory( pDropItem, sizeof(MAP_DROP_ITEM) );
 
-			pDropItem->wChannel = mhListFile.GetWord();		// Ã¤³Î
-			pDropItem->wMaxDropNum = mhListFile.GetWord();	// ÃÖ´ë µå¶ø°³¼ö
+			pDropItem->wChannel = mhListFile.GetWord();		// Ã¤ï¿½ï¿½
+			pDropItem->wMaxDropNum = mhListFile.GetWord();	// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			for( int i = 0 ; i < MAX_DROPITEM_NUM ; i++ )
 			{
@@ -143,9 +144,9 @@ BOOL CMapItemDrop::LoadMapDropItemList()
 		}
 		else
 		{
-			// ÀÚ±â ¸ÊÀÇ µ¥ÀÌÅÍ°¡ ¾Æ´Ï±â ¶§¹®¿¡ ¹«½Ã
-			mhListFile.GetWord();	// Ã¤³Î
-			mhListFile.GetWord();	// ÃÖ´ë µå¶ø°³¼ö
+			// ï¿½Ú±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Æ´Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			mhListFile.GetWord();	// Ã¤ï¿½ï¿½
+			mhListFile.GetWord();	// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			for( int i = 0 ; i < MAX_DROPITEM_NUM ; i++ )
 			{
@@ -182,7 +183,7 @@ BOOL CMapItemDrop::LoadInitedTimeFile()
 
 	if( fp == NULL )
 	{
-		// ÆÄÀÏÀÌ ¾øÀ» ½Ã »õ·Î »ý¼ºÇÔ.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		fp = fopen( "InitedDate", "w" );
 		fclose( fp );
 
@@ -235,7 +236,7 @@ MAP_ITEM* CMapItemDrop::GetMapItem( WORD wChannel, WORD wItemIdx )
 
 void CMapItemDrop::DropItem( CPlayer* pPlayer, MAP_ITEM* pMapItem, WORD MonsterKind )
 {
-	if( pMapItem->wItemIdx == 0 )	// wItemIdx°¡ 0ÀÌ¸é NoItem
+	if( pMapItem->wItemIdx == 0 )	// wItemIdxï¿½ï¿½ 0ï¿½Ì¸ï¿½ NoItem
 		return;
 	else
 	{
@@ -243,9 +244,9 @@ void CMapItemDrop::DropItem( CPlayer* pPlayer, MAP_ITEM* pMapItem, WORD MonsterK
 		{
 			ITEMMGR->MonsterObtainItem( pPlayer, pMapItem->wItemIdx, MonsterKind );
 			
-			++pMapItem->wDropCount;	// µå¶øµÈ °³¼ö Áõ°¡
+			++pMapItem->wDropCount;	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-			// DBÀÇ µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+			// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 			UpdateItemDropInfoToDB( pPlayer->GetID(),
 									g_pServerSystem->GetMapNum(),
 									pPlayer->GetChannelID(),
@@ -254,7 +255,7 @@ void CMapItemDrop::DropItem( CPlayer* pPlayer, MAP_ITEM* pMapItem, WORD MonsterK
 									pMapItem->wMaxDropCount
 									);
 
-			// ·Î±× ±â·Ï
+			// ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 			LogMapDropItem( pPlayer->GetUserID(),
 							pPlayer->GetID(),
 							pMapItem->wItemIdx,
@@ -275,16 +276,16 @@ void CMapItemDrop::Init()
 		SYSTEMTIME	sTime;
 		GetLocalTime( &sTime );
 
-		// ÀÌÀü ÃÊ±âÈ­ ³¯Â¥ ±â·ÏÀÌ ¾øÀ¸¸é Áö±Ý ³¯Â¥·Î Àû¿ë
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( !LoadInitedTimeFile() )
 			SetPrevInitedTime( &sTime );
 
-		// ¼­¹ö¸¦ ½ÃÀÛÇÑ ¿äÀÏÀÌ ÃÊ±âÈ­ ÇÒ ¿äÀÏÀÌ¶ó¸é..
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½..
 		if(	sTime.wDayOfWeek == m_wInitDay )
 		{
-			// ¼­¹ö¸¦ ½ÃÀÛÇÑ ½Ã°¢ÀÌ ÃÊ±âÈ­ ÇÒ ½Ã°¢ÀÌ¶ó¸é ÃÊ±âÈ­ ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ñ´ï¿½.
 			if( sTime.wHour		== m_wInitHour &&
-				sTime.wMinute	<= 5 )						// 0~5ºÐ »çÀÌ
+				sTime.wMinute	<= 5 )						// 0~5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				InitItemDropInfo();
 				SetPrevInitedTime( &sTime );
@@ -292,7 +293,7 @@ void CMapItemDrop::Init()
 			}
 			else
 			{
-				// ÀÌÀü ÃÊ±âÈ­ ÇÑ ½Ã°£°ú Áö±Ý »çÀÌ¿¡ ÃÊ±âÈ­ÇÒ ½Ã°£ÀÌ ÀÖ¾ú´Ù¸é ÃÊ±âÈ­¸¦ ÇÑ¹ø ÇØ ÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½.
 				if( m_PrevInitedTime.wHour < m_wInitHour &&
 					m_wInitHour < sTime.wHour + ( sTime.wHour < m_PrevInitedTime.wHour ) ? 24 : 0 )
 				{
@@ -304,7 +305,7 @@ void CMapItemDrop::Init()
 		}
 		else
 		{
-			// ÀÌÀü ÃÊ±âÈ­ ÇÑ ³¯°ú Áö±Ý »çÀÌ¿¡ ÃÊ±âÈ­ÇÒ ³¯ÀÌ ÀÖ¾ú´Ù¸é ÃÊ±âÈ­¸¦ ÇÑ¹ø ÇØ ÁØ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½.
 			if( m_PrevInitedTime.wDayOfWeek < m_wInitDay &&
 				m_wInitDay < sTime.wDayOfWeek + ( sTime.wDayOfWeek < m_PrevInitedTime.wDayOfWeek ) ? 7 : 0 )
 			{
@@ -314,14 +315,14 @@ void CMapItemDrop::Init()
 			}
 		}
 
-		// DBÀÇ µ¥ÀÌÅÍ·Î ¾÷µ¥ÀÌÆ®
+		// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		GetDropItemInfoFromDB();
 
 		srand((unsigned)time(NULL));
 	}
 }
 
-void CMapItemDrop::Process()	// 5ºÐ¸¶´Ù È£ÃâµÊ.
+void CMapItemDrop::Process()	// 5ï¿½Ð¸ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½.
 {
 	SYSTEMTIME	sTime;
 	GetLocalTime( &sTime );
@@ -329,22 +330,22 @@ void CMapItemDrop::Process()	// 5ºÐ¸¶´Ù È£ÃâµÊ.
 	if( m_bLoadSucceed )
 	{
 		if(		/*
-			sTime.wDay			!= m_PrevInitedTime.wDay	// ´Ù¸¥ ³¯
+			sTime.wDay			!= m_PrevInitedTime.wDay	// ï¿½Ù¸ï¿½ ï¿½ï¿½
 						&&*/
 				sTime.wDayOfWeek	== m_wInitDay
 			&&	sTime.wHour			== m_wInitHour )
 		{
-			if( sTime.wMinute <= 5 )	// 0~5ºÐ »çÀÌ
+			if( sTime.wMinute <= 5 )	// 0~5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				InitItemDropInfo();
 				SetPrevInitedTime( &sTime );
 
 				m_bInited = TRUE;
 			}
-			else if( 5 < sTime.wMinute && sTime.wMinute <= 10 )	// 6~10ºÐ »çÀÌ
+			else if( 5 < sTime.wMinute && sTime.wMinute <= 10 )	// 6~10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
-				// ·ºÀ¸·Î ÀÎÇÑ Áö¿¬ÀÌ ÀÖÀ» ¼ö ÀÖ¾î¼­
-				// 0~5ºÐ»çÀÌÀÇ ·çÇÁ¿¡¼­ ÃÊ±âÈ­¸¦ ÇØÁÖÁö ¸øÇÒ °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾î¼­
+				// 0~5ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if( m_bInited == FALSE )
 				{
 					InitItemDropInfo();
@@ -361,7 +362,7 @@ void CMapItemDrop::Process()	// 5ºÐ¸¶´Ù È£ÃâµÊ.
 
 void CMapItemDrop::InitItemDropInfo()
 {
-	// µå¶ø Ä«¿îÆÃ ÇÑ ¼öµé ÀüºÎ ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	MAP_DROP_ITEM*	pDropItem;
 	m_MapItemDropTable.SetPositionHead();
 	while( pDropItem = m_MapItemDropTable.GetData() )
@@ -370,7 +371,7 @@ void CMapItemDrop::InitItemDropInfo()
 			pDropItem->arrMapItems[i].wDropCount = 0;
 	}
 
-	// DBÀÇ µ¥ÀÌÅÍµµ °°ÀÌ ÃÊ±âÈ­
+	// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	InitItemDropInfoToDB();
 }
 

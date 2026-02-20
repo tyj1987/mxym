@@ -12,7 +12,9 @@
 #include "SpecialState.h"
 
 #ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 #include "..\Effect\EffectManager.h"
+#endif
 #endif
 
 class CObject;
@@ -20,6 +22,7 @@ class CObject;
 class CStunState  : public CSpecialState
 {
 public:
+	CStunState(); // Default constructor
 	CStunState(CObject* pParent);
 	~CStunState();
 };

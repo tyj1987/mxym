@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "ptrlist.h"
+#include "D:\\mxym\\[Lib]YHLibrary\\PtrList.h"
 #include "..\[CC]Quest\QuestDefines.h"
 
 

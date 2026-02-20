@@ -13,7 +13,10 @@
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 
 #include <windows.h>
-#include <winsock.h>
+#include <winsock2.h>   // 改为winsock2.h，避免与主项目的winsock2.h冲突
+#include <stdlib.h>     // for rand, srand
+#include <time.h>       // for time
+#include <crtdbg.h>     // for _ASSERTE
 
 // TODO: reference additional headers your program requires here
 

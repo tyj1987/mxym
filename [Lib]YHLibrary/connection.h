@@ -1,7 +1,6 @@
 #pragma once
 
-#include "stdafx.h"
-#include <winsock.h>
+#include "stdafx.h"  // stdafx.h已经包含了winsock2.h
 #include "define.h"
 
 #define CONNECTION_CLOSED_BIT_MASK	0x00000008

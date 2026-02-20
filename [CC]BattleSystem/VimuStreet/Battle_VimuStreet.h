@@ -4,11 +4,15 @@
 #include "battle.h"
 #include "BattleTeam_VimuStreet.h"
 
-#ifndef _MAPSERVER_
-#include "../ImageNumber.h"
+#ifdef _MHCLIENT_LIBRARY_
+#include "ImageNumber_Client.h"
+#include "cImage.h"
+#elif defined(_MHCLIENT_)
+#include "../[Client]MH/ImageNumber.h"
+#include "cImage.h"
 #endif
 
-#define BATTLE_VIMUSTREET_READYTIME		6000	//½ÇÁ¦ Å¬¶óÀÌ¾ğÆ®°¡ ´À³¢±â¿£ 5ÃÊ..
+#define BATTLE_VIMUSTREET_READYTIME		6000	// Å¬Ì¾Æ® â¿£ 5..
 #define BATTLE_VIMUSTREET_FIGHTTIME		60000
 #define BATTLE_VIMUSTREET_RESULTTIME	10000
 
@@ -32,7 +36,7 @@ class CBattle_VimuStreet : public CBattle
 	CBattleTeam_VimuStreet m_Team[2];
 	
 //	BOOL JudgeOneTeamWinsOtherTeam(int TheTeam,int OtherTeam);
-#ifndef _MAPSERVER_
+#ifdef _MHCLIENT_LIBRARY_
 	CImageNumber	m_ImageNumber;
 
 //	cImage			m_ImageReady;
@@ -45,32 +49,50 @@ class CBattle_VimuStreet : public CBattle
 	VECTOR2			m_vTitlePos;
 	VECTOR2			m_vTitleScale;
 
-////È¿°ú ÀÓ½Ã
+////È¿ Ó½
 	DWORD	m_dwFadeOutStartTime;
 	BOOL	m_bFadeOut;
 
 
+#elif defined(_MHCLIENT_)
+	// MHClientç¼–è¯‘æ¨¡å¼ï¼šè¿™äº›æˆå‘˜ç”±MHClientçš„å®ç°å®šä¹‰
+	CImageNumber	m_ImageNumber;
+	cImage			m_ImageStart;
+	cImage			m_ImageWin;
+	cImage			m_ImageLose;
+	cImage			m_ImageDraw;
+	cImage*			m_pCurShowImage;
+
+	VECTOR2			m_vTitlePos;
+	VECTOR2			m_vTitleScale;
+
+	DWORD			m_dwFadeOutStartTime;
+	BOOL			m_bFadeOut;
+
 #else
 	/////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. µ¿½Ã¿¡ Á×À»½Ã 2¹ø Player´Â ºñ¹« Á×À½ Ã³¸® ¾ÈµÇ´Â ¹®Á¦ ÇØ°á - ÀÌ¿µÁØ
-	// º¯¼ö°¡ ÇÏ³ª¹Û¿¡ ¾ø¾î¼­ µÎ¹øÂ° ÄÉ¸¯ Ã³¸® ºÒ°¡ÇÏ¿©
-	// °¢°¢ÀÇ Player¸¶´Ù µû·Î Ã³¸® ÇÏµµ·Ï º¯°æ
-	BOOL			m_bDieByOp[2];	//»ó´ë¹æ¿¡°Ô Á×¾ú³ª?(¸ó½ºÅÍÇÑÅ× Á×À¸¸é FALSE)
+	// 06. 06. Ã¿  2 Player   Ã³ ÈµÇ´  Ø° - Ì¿
+	//  Ï³Û¿ î¼­ Î¹Â° É¸ Ã³ Ò°Ï¿
+	//  Player  Ã³ Ïµ 
+	BOOL			m_bDieByOp[2];	//æ¿¡ ×¾?(  FALSE)
 
 #endif
 	
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 public:
 	CBattle_VimuStreet();
 	virtual ~CBattle_VimuStreet();
 
 	void Initialize(BATTLE_INFO_BASE* pCreateInfo, CBattleTeam* pTeam1, CBattleTeam* pTeam2);
-	// Battle Á¤º¸ °ü·Ã
+	// Battle  
 #ifdef _MAPSERVER_
 	virtual void GetBattleInfo(char* pInfo,WORD* size);
 //	virtual void GetBattleInfo(BATTLE_INFO_BASE*& pInfo,int& size);
 #endif
 
-	// Àû,¾Æ±º ±¸º°
+	// ,Æ± 
 	virtual BOOL IsEnemy(CObject* pOperator,CObject* pTarget);
 	virtual BOOL IsFriend(CObject* pOperator,CObject* pTarget);
 	
@@ -88,7 +110,7 @@ public:
 
 	virtual void OnTick();
 
-	// ½ÂÆĞ ÆÇÁ¤
+	//  
 	virtual BOOL Judge();
 	BOOL JudgeOneTeamWinsOtherTeam(int TheTeam,int OtherTeam);
 	virtual void Victory(int WinnerTeamNum,int LoserTeamNum);
@@ -99,7 +121,7 @@ public:
 	
 
 #ifdef _MHCLIENT_
-	// Render		(Å¬¶óÀÌ¾ğÆ®¸¸ »ç¿ëÇÔ)
+	// Render		(Å¬Ì¾Æ® )
 	virtual void Render();
 #endif	
 };

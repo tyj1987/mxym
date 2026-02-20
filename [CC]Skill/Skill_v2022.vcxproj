@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ClientRelease|Win32">
+      <Configuration>ClientRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC52}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Skill_v2022</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'">
+    <OutDir>$(SolutionDir)Lib\x86\Release\</OutDir>
+    <IntDir>$(ProjectDir)ClientRelease\</IntDir>
+    <TargetName>Skill_Client_v2022</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ClientRelease|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SILENCE_C4819;_MHCLIENT_;_MHCLIENT_LIBRARY_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\BattleSystem;..\Skill;..\..\[Lib]YHLibrary;..\..\[Client]MH;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)Lib\x86\Debug\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <TargetName>Skill_v2022</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)Lib\x86\Release\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <TargetName>Skill_v2022</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SILENCE_C4819;_MAPSERVER_;__MAPSERVER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\Ability;..\BattleSystem;..\Quest;..\Suryun;..\..\[Lib]YHLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_SILENCE_C4819;_MAPSERVER_;__MAPSERVER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;..\..\[CC]Header;..\..\[CC]ServerModule;..\Ability;..\BattleSystem;..\Quest;..\Suryun;..\..\[Lib]YHLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AmplifiedPower.cpp" />
+    <ClCompile Include="DelayGroup.cpp" />
+    <ClCompile Include="DetectState.cpp" />
+    <ClCompile Include="SkillArea.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillAreaData.cpp" />
+    <ClCompile Include="SkillAreaManager.cpp" />
+    <ClCompile Include="SkillManager_client.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillManager_server.cpp" />
+    <ClCompile Include="SkillObjectAttachUnit.cpp" />
+    <ClCompile Include="SkillObjectAttachUnit_Attack.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_CounterAttack.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_Defence.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_Dodge1.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_Immune.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_MaxLife.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_MoveSpeed.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_SkipEffect.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectAttachUnit_Vampiric.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectFactory.cpp" />
+    <ClCompile Include="SkillObjectFirstUnit.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectFirstUnit_Attack.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectFirstUnit_Job.cpp" />
+    <ClCompile Include="SkillObjectFirstUnit_Recover.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectFirstUnit_SingleSpecialState.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectSingleUnit.cpp" />
+    <ClCompile Include="SkillObjectSingleUnit_Attack.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectSingleUnit_Heal.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectSingleUnit_Recharge.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectStateUnit.cpp" />
+    <ClCompile Include="SkillObjectStateUnit_AmplifiedPower.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectStateUnit_DummyState.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectStateUnit_StatusAttach.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectStateUnit_TieUp.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectTargetList.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObjectTargetList_Area.cpp" />
+    <ClCompile Include="SkillObjectTargetList_Circle.cpp" />
+    <ClCompile Include="SkillObjectTargetList_Fixed.cpp" />
+    <ClCompile Include="SkillObjectTargetList_One.cpp" />
+    <ClCompile Include="SkillObjectTerminator.cpp" />
+    <ClCompile Include="SkillObjectTerminator_Time.cpp" />
+    <ClCompile Include="SkillObject_Mine.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SkillObject_client.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="SpecialState.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="Status.cpp" />
+    <ClCompile Include="StunState.cpp" />
+    <ClCompile Include="ValueInSung.cpp" />
+    <ClCompile Include="skillinfo.cpp" Condition="'$(Configuration)'!='ClientRelease'" />
+    <ClCompile Include="skillobject_server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AmplifiedPower.h" />
+    <ClInclude Include="DelayGroup.h" />
+    <ClInclude Include="DetectState.h" />
+    <ClInclude Include="SkillArea.h" />
+    <ClInclude Include="SkillAreaData.h" />
+    <ClInclude Include="SkillAreaManager.h" />
+    <ClInclude Include="SkillInfo.h" />
+    <ClInclude Include="SkillManager_client.h" />
+    <ClInclude Include="SkillManager_server.h" />
+    <ClInclude Include="SkillObjectAttachUnit.h" />
+    <ClInclude Include="SkillObjectAttachUnit_Attack.h" />
+    <ClInclude Include="SkillObjectAttachUnit_CounterAttack.h" />
+    <ClInclude Include="SkillObjectAttachUnit_Defence.h" />
+    <ClInclude Include="SkillObjectAttachUnit_Dodge1.h" />
+    <ClInclude Include="SkillObjectAttachUnit_Immune.h" />
+    <ClInclude Include="SkillObjectAttachUnit_MaxLife.h" />
+    <ClInclude Include="SkillObjectAttachUnit_MoveSpeed.h" />
+    <ClInclude Include="SkillObjectAttachUnit_SkipEffect.h" />
+    <ClInclude Include="SkillObjectAttachUnit_Vampiric.h" />
+    <ClInclude Include="SkillObjectFactory.h" />
+    <ClInclude Include="SkillObjectFirstUnit.h" />
+    <ClInclude Include="SkillObjectFirstUnit_Attack.h" />
+    <ClInclude Include="SkillObjectFirstUnit_Recover.h" />
+    <ClInclude Include="SkillObjectFirstUnit_SingleSpecialState.h" />
+    <ClInclude Include="SkillObjectFirstUnit_job.h" />
+    <ClInclude Include="SkillObjectSingleUnit.h" />
+    <ClInclude Include="SkillObjectSingleUnit_Attack.h" />
+    <ClInclude Include="SkillObjectSingleUnit_Heal.h" />
+    <ClInclude Include="SkillObjectSingleUnit_Recharge.h" />
+    <ClInclude Include="SkillObjectStateUnit.h" />
+    <ClInclude Include="SkillObjectStateUnit_AmplifiedPower.h" />
+    <ClInclude Include="SkillObjectStateUnit_DummyState.h" />
+    <ClInclude Include="SkillObjectStateUnit_StatusAttach.h" />
+    <ClInclude Include="SkillObjectStateUnit_TieUp.h" />
+    <ClInclude Include="SkillObjectTargetList.h" />
+    <ClInclude Include="SkillObjectTargetList_Area.h" />
+    <ClInclude Include="SkillObjectTargetList_Circle.h" />
+    <ClInclude Include="SkillObjectTargetList_Fixed.h" />
+    <ClInclude Include="SkillObjectTargetList_One.h" />
+    <ClInclude Include="SkillObjectTerminator.h" />
+    <ClInclude Include="SkillObjectTerminator_Time.h" />
+    <ClInclude Include="SkillObject_Mine.h" />
+    <ClInclude Include="SkillObject_client.h" />
+    <ClInclude Include="SpecialState.h" />
+    <ClInclude Include="Status.h" />
+    <ClInclude Include="StunState.h" />
+    <ClInclude Include="ValueInSung.h" />
+    <ClInclude Include="skillobject_server.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

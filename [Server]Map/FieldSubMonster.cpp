@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "fieldsubmonster.h"
 #include "PackedData.h"
 #include "CharMove.h"
@@ -17,7 +18,7 @@ void CFieldSubMonster::DoDie(CObject* pAttacker)
 {
 	CMonster::DoDie(pAttacker);	
 
-	// CFieldBossMonsterManager¿¡ Á×¾ú´Ù´Â°ÍÀ» Åëº¸ÇØÁØ´Ù
+	// CFieldBossMonsterManagerï¿½ï¿½ ï¿½×¾ï¿½ï¿½Ù´Â°ï¿½ï¿½ï¿½ ï¿½ëº¸ï¿½ï¿½ï¿½Ø´ï¿½
 	FIELDBOSSMONMGR->SubDead(this);
 }
 
@@ -55,16 +56,16 @@ void CFieldSubMonster::SetShield(DWORD Shield,BOOL bSendMsg)
 
 BOOL CFieldSubMonster::IsBattle()
 {
-	// ÆòÈ­ ¸ðµå ÀÏ¶§ FALSE ¸®ÅÏ
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 	if( m_stateParam.stateCur < eMA_PERSUIT )
 		return FALSE;
 
-	// ÀüÅõ ¸ðµå ÀÏ¶§ ¼Ò¸ê½Ã°£ Ä«¿îÆ® ¸®¼Â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½Ò¸ï¿½Ã°ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	m_Info.m_dwCountTime = m_Info.m_dwDistructTime;
-	// È¸º¹½Ã°£µµ ¸®¼Â
+	// È¸ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_Info.m_dwPieceTime = gCurTime;
 
-	// TRUE ¸®ÅÏ
+	// TRUE ï¿½ï¿½ï¿½ï¿½
 	return TRUE;
 }
 
@@ -72,7 +73,7 @@ BOOL CFieldSubMonster::IsDistruct()
 {
 	BOOL rt = FALSE;
 	
-	// ¸¶Áö¸· Ã¼Å© ½Ã°£ÀÌ 0ÀÏ °æ¿ì ÇöÀç ½Ã°£À¸·Î ¼³Á¤ÇÏ°í FALSE ¸®ÅÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ã°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 	if( m_Info.m_dwLastCheckTime != 0 )
 	{
 		if( ( gCurTime - m_Info.m_dwLastCheckTime )  <  m_Info.m_dwCountTime )
@@ -131,7 +132,7 @@ VECTOR3* CFieldSubMonster::GetRegenPos()
 
 	int dwRange = (int)m_pSInfo->DomainRange;
 
-	//º¸½º ¸®Á¨À§Ä¡ÀÇ ¼ÂÆÃµÈ ¹Ý°æ¹üÀ§·Î ·£´ýÇÏ°Ô ¿òÁ÷ÀÎ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½.
 	vTargetPos.x = domainPoint.x + ( (rand() % 2) ? -1 : 1 ) * (rand() % dwRange) * 100;
 	vTargetPos.z = domainPoint.z + ( (rand() % 2) ? -1 : 1 ) * (rand() % dwRange) * 100;	
 
@@ -175,7 +176,7 @@ BOOL CFieldSubMonster::DoWalkAround()
 	else if(Target.z > 51200.0f)
 		Target.z = 51200.0f;
 
-	//taiyo ÀÓ½ÃÃ³¸® 
+	//taiyo ï¿½Ó½ï¿½Ã³ï¿½ï¿½ 
 	VECTOR3 CollisonPos;
 
 	MAPTYPE MapNum = GAMERESRCMNGR->GetLoadMapNum();

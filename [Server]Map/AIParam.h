@@ -4,6 +4,7 @@
 
 #if !defined(AFX_AIPARAM_H__FF49E282_44D5_4CDB_AD3A_AE8E4119A9A6__INCLUDED_)
 #define AFX_AIPARAM_H__FF49E282_44D5_4CDB_AD3A_AE8E4119A9A6__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -11,6 +12,10 @@
 
 #include "..\[CC]Header\GameResourceStruct.h"
 #include "StateParam.h"
+
+// 前向声明
+class CMonster;
+class CPlayer;
 
 class AIPARAM
 {

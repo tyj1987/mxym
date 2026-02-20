@@ -1,0 +1,107 @@
+<ns0:Project xmlns:ns0="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ns0:ItemGroup Label="ProjectConfigurations">
+    <ns0:ProjectConfiguration Include="Release|Win32">
+      <ns0:Configuration>Release</ns0:Configuration>
+      <ns0:Platform>Win32</ns0:Platform>
+    </ns0:ProjectConfiguration>
+    <ns0:ProjectConfiguration Include="Release|x64">
+      <ns0:Configuration>Release</ns0:Configuration>
+      <ns0:Platform>x64</ns0:Platform>
+    </ns0:ProjectConfiguration>
+  </ns0:ItemGroup>
+  <ns0:PropertyGroup Label="Globals">
+    <ns0:VCProjectVersion>18.0</ns0:VCProjectVersion>
+    <ns0:ProjectGuid>{11C374EF-B577-491C-9E45-A6DC10AE142D}</ns0:ProjectGuid>
+    <ns0:RootNamespace>MHClient</ns0:RootNamespace>
+  </ns0:PropertyGroup>
+  <ns0:Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ns0:PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ns0:ConfigurationType>Application</ns0:ConfigurationType>
+    <ns0:PlatformToolset>v145</ns0:PlatformToolset>
+    <ns0:UseOfMfc>false</ns0:UseOfMfc>
+    <ns0:CharacterSet>MultiByte</ns0:CharacterSet>
+  </ns0:PropertyGroup>
+  <ns0:PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ns0:ConfigurationType>Application</ns0:ConfigurationType>
+    <ns0:PlatformToolset>v145</ns0:PlatformToolset>
+    <ns0:UseOfMfc>false</ns0:UseOfMfc>
+    <ns0:CharacterSet>MultiByte</ns0:CharacterSet>
+  </ns0:PropertyGroup>
+  <ns0:Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ns0:ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <ns0:Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ns0:ImportGroup>
+  <ns0:ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <ns0:Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ns0:ImportGroup>
+  <ns0:PropertyGroup Label="UserMacros" />
+  <ns0:PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ns0:OutDir>$(SolutionDir)$(Configuration)\</ns0:OutDir>
+    <ns0:IntDir>$(Configuration)\</ns0:IntDir>
+    <ns0:LinkIncremental>false</ns0:LinkIncremental>
+  </ns0:PropertyGroup>
+  <ns0:PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ns0:OutDir>$(SolutionDir)$(Configuration)_x64\</ns0:OutDir>
+    <ns0:IntDir>$(Configuration)_x64\</ns0:IntDir>
+    <ns0:LinkIncremental>false</ns0:LinkIncremental>
+  </ns0:PropertyGroup>
+  <ns0:ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ns0:ClCompile>
+      <ns0:Optimization>MaxSpeed</ns0:Optimization>
+      <ns0:InlineFunctionExpansion>OnlyExplicitInline</ns0:InlineFunctionExpansion>
+      <ns0:AdditionalIncludeDirectories>.\;..\[Lib]yhlibrary;\.\interface;\.\INTERFACE;..\[CC]BattleSystem;..\[CC]Skill;..\[CC]Ability;../[CC]Header/;\.\Audio;../[Lib]dx81;./interface;./Audio;..\[CC]Quest;..\[CC]Suryun;..\[CC]ServerModule;%(AdditionalIncludeDirectories)</ns0:AdditionalIncludeDirectories>
+      <ns0:PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;USE_WMA;_MHCLIENT_;_ASSERTENABLE_;%(PreprocessorDefinitions)</ns0:PreprocessorDefinitions>
+      <ns0:StringPooling>true</ns0:StringPooling>
+      <ns0:RuntimeLibrary>MultiThreadedDLL</ns0:RuntimeLibrary>
+      <ns0:FunctionLevelLinking>true</ns0:FunctionLevelLinking>
+      <ns0:PrecompiledHeader>Create</ns0:PrecompiledHeader>
+      <ns0:PrecompiledHeaderFile>stdafx.h</ns0:PrecompiledHeaderFile>
+      <ns0:PrecompiledHeaderOutputFile>$(IntDir)MHClient.pch</ns0:PrecompiledHeaderOutputFile>
+      <ns0:WarningLevel>Level3</ns0:WarningLevel>
+      <ns0:SuppressStartupBanner>true</ns0:SuppressStartupBanner>
+      <ns0:CompileAs>Default</ns0:CompileAs>
+      <ns0:AdditionalOptions>/Zc:forScope- %(AdditionalOptions)</ns0:AdditionalOptions>
+    </ns0:ClCompile>
+    <ns0:Link>
+      <ns0:AdditionalDependencies>ComCtl32.lib;strmiids.lib;vfw32.lib;Audio/SoundLib.lib;imm32.lib;odbc32.lib;odbccp32.lib;Winmm.lib;../4DyuchiGXGFunc/SS3DGFunc.lib;d3dx8.lib;../[lib]yhlibrary/yhlibrary.lib;../[lib]yhlibrary/IndexGenerator.lib;wsock32.lib;dinput8.lib;Ability_Client_v2022.lib;Quest_Client_v2022.lib;Suryun_Client_v2022.lib;%(AdditionalDependencies)</ns0:AdditionalDependencies>
+      <ns0:OutputFile>..\CWorking\MHClient-Connect.exe</ns0:OutputFile>
+      <ns0:SuppressStartupBanner>true</ns0:SuppressStartupBanner>
+      <ns0:AdditionalLibraryDirectories>..\LIB;..\yhlibrary;..\[Lib]dx81;%(AdditionalLibraryDirectories)</ns0:AdditionalLibraryDirectories>
+      <ns0:IgnoreSpecificDefaultLibraries>msvcrtd.lib;libc.lib ;%(IgnoreSpecificDefaultLibraries)</ns0:IgnoreSpecificDefaultLibraries>
+      <ns0:ProgramDatabaseFile>$(OutDir)MHClient-Connect.pdb</ns0:ProgramDatabaseFile>
+      <ns0:SubSystem>Windows</ns0:SubSystem>
+      <ns0:TargetMachine>MachineX86</ns0:TargetMachine>
+      <ns0:AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</ns0:AdditionalOptions>
+    </ns0:Link>
+  </ns0:ItemDefinitionGroup>
+  <ns0:ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ns0:ClCompile>
+      <ns0:Optimization>MaxSpeed</ns0:Optimization>
+      <ns0:InlineFunctionExpansion>OnlyExplicitInline</ns0:InlineFunctionExpansion>
+      <ns0:AdditionalIncludeDirectories>.\;..\[Lib]yhlibrary;\.\interface;\.\INTERFACE;..\[CC]BattleSystem;..\[CC]Skill;..\[CC]Ability;../[CC]Header/;\.\Audio;./interface;./Audio;..\[CC]Quest;..\[CC]Suryun;..\[CC]ServerModule;%(AdditionalIncludeDirectories)</ns0:AdditionalIncludeDirectories>
+      <ns0:PreprocessorDefinitions>NDEBUG;_WIN64;_WINDOWS;USE_WMA;USE_DX12;_MHCLIENT_;_ASSERTENABLE_;%(PreprocessorDefinitions)</ns0:PreprocessorDefinitions>
+      <ns0:StringPooling>true</ns0:StringPooling>
+      <ns0:RuntimeLibrary>MultiThreadedDLL</ns0:RuntimeLibrary>
+      <ns0:FunctionLevelLinking>true</ns0:FunctionLevelLinking>
+      <ns0:PrecompiledHeader>Create</ns0:PrecompiledHeader>
+      <ns0:PrecompiledHeaderFile>stdafx.h</ns0:PrecompiledHeaderFile>
+      <ns0:PrecompiledHeaderOutputFile>$(IntDir)MHClient.pch</ns0:PrecompiledHeaderOutputFile>
+      <ns0:WarningLevel>Level3</ns0:WarningLevel>
+      <ns0:SuppressStartupBanner>true</ns0:SuppressStartupBanner>
+      <ns0:CompileAs>Default</ns0:CompileAs>
+      <ns0:AdditionalOptions>/Zc:forScope- %(AdditionalOptions)</ns0:AdditionalOptions>
+    </ns0:ClCompile>
+    <ns0:Link>
+      <ns0:AdditionalDependencies>ComCtl32.lib;strmiids.lib;vfw32.lib;Audio/SoundLib.lib;imm32.lib;odbc32.lib;odbccp32.lib;Winmm.lib;../4DyuchiGXGFunc/SS3DGFunc.lib;../[lib]yhlibrary/yhlibrary.lib;../[lib]yhlibrary/IndexGenerator.lib;wsock32.lib;dinput8.lib;dxgi.lib;d3d12.lib;d3dcompiler.lib;%(AdditionalDependencies)</ns0:AdditionalDependencies>
+      <ns0:OutputFile>..\CWorking\MHClient-Connect_x64.exe</ns0:OutputFile>
+      <ns0:SuppressStartupBanner>true</ns0:SuppressStartupBanner>
+      <ns0:AdditionalLibraryDirectories>..\LIB;..\yhlibrary;%(AdditionalLibraryDirectories)</ns0:AdditionalLibraryDirectories>
+      <ns0:IgnoreSpecificDefaultLibraries>msvcrtd.lib;libc.lib ;%(IgnoreSpecificDefaultLibraries)</ns0:IgnoreSpecificDefaultLibraries>
+      <ns0:ProgramDatabaseFile>$(OutDir)MHClient-Connect_x64.pdb</ns0:ProgramDatabaseFile>
+      <ns0:SubSystem>Windows</ns0:SubSystem>
+      <ns0:TargetMachine>MachineX64</ns0:TargetMachine>
+      <ns0:AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</ns0:AdditionalOptions>
+    </ns0:Link>
+  </ns0:ItemDefinitionGroup>
+  <ns0:Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</ns0:Project>

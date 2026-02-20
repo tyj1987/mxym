@@ -5,12 +5,14 @@
 #include "stdafx.h"
 #include "QuestLimitKind_Quest.h"
 
+#include "../[Client]MH/Quest.h"
+#include "QuestLimit.h"
 #include "QuestScriptLoader.h"
-#include "Quest.h"
+#include "QuestInfo.h"
 #ifdef _MAPSERVER_
-#include "QuestGroup.h"
+#include "../[Client]MH/QuestGroup.h"
 #else
-#include "QuestManager.h"
+#include "../[Client]MH/QuestManager.h"
 #endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -51,6 +53,7 @@ BOOL CQuestLimitKind_Quest::CheckLimit( PLAYERTYPE* pPlayer, CQuestGroup* pQuest
 BOOL CQuestLimitKind_Quest::CheckLimit( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 {
 #ifndef _MAPSERVER_
+#ifndef _MHCLIENT_LIBRARY_
 	switch( m_dwLimitKind )
 	{
 	case eQuestLimitKind_Quest:
@@ -66,6 +69,7 @@ BOOL CQuestLimitKind_Quest::CheckLimit( DWORD dwQuestIdx, DWORD dwSubQuestIdx )
 		}
 		break;
 	}
+#endif
 #endif
 	return FALSE;
 }

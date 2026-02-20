@@ -1,4 +1,5 @@
 #pragma once 
+#include "..\[CC]Header\CommonStruct.h"
 #define PARTYMGR CPartyManager::GetInstance()
 
 
@@ -20,7 +21,7 @@ public:
 	CParty* GetParty(DWORD partyIDx); 
 	
 	CParty* RegistParty(DWORD PartyIDX);
-	// 2008. 5. 21. CBH - ÆÄÆ¼ »ý¼º Ãß°¡µÈ ¿É¼Ç °ü·Ã ¼öÁ¤ ////
+	// 2008. 5. 21. CBH - Æ¼  ß° É¼   ////
 	//void CreatePartyQuery(CPlayer * pMaster, BYTE bOption);
 	//void CreatePartyResult(CPlayer * pMaster, DWORD PartyIDX, BYTE Option);
 	void CreatePartyQuery(CPlayer * pMaster, PARTY_ADDOPTION* pAddOption);
@@ -43,8 +44,8 @@ public:
 
 	void AddPartyInvite(DWORD MasterID, DWORD TargetID);
 
-	// À¯Àú°¡ ·Î±×ÀÎ ÇßÀ»¶§ ÆÄÆ¼°¡ ¾øÀ¸¸é DB¿¡¼­ ÆÄÆ¼Á¤º¸¸¦ ¾ò¾î¿ÔÀ»¶§ È£ÃâÇÏ´Â ÇÔ¼ö
-	//2008. 5. 22. CBH - ¹æÆÄ Ãß°¡µÈ ¿É¼Ç °ü·Ã ¼öÁ¤
+	//  Î±  Æ¼  DB Æ¼  È£Ï´ Ô¼
+	//2008. 5. 22. CBH -  ß° É¼  
 	//void UserLogInAfterDBQuery(DWORD CharacterID,DWORD PartyIdx,PARTYMEMBER* PartyInfo, BYTE Option);
 	void UserLogInAfterDBQuery(DWORD CharacterID,DWORD PartyIdx,PARTYMEMBER* PartyInfo, PARTY_ADDOPTION AddOption);
 
@@ -72,11 +73,11 @@ public:
 	
 	void SendObtainItemMsg(CPlayer* pPlayer, WORD ObtainIdx);
 
-	void MasterToPartyRequest(CPlayer* pPlayer, MSG_NAME_DWORD2* pMsg);	// 2008. 5. 23. CBH - ¹æÆÄÀå¿¡°Ô ¹æÆÄ ½ÅÃ» ////
-	void MasterToPartyRequestErr(DWORD dwPlayerID, DWORD dwErrIndex);	//2008. 5. 23. CBH - ¹æÆÄ ½ÅÃ» ½ÇÆÐ	
-	void NotifyPartyInfoSyn(DWORD dwPartyID);		//2008. 5. 27. CBH - ÇØ´ç ¹æÆÄÀÇ Á¤º¸¸¦ ¸ðµç ¸Ê¼­¹ö¿¡ º¸³»´Â ÇÔ¼ö
-	void NotifyPartyInfo(PARTY_INFO* pPartyInfo);		//2008. 5. 27. CBH - ÆÄÆ¼ Á¤º¸¸¦ ¼ÂÆÃÇÑ´Ù.
-	void PartyMatchingInfo(CPlayer* pPlayer, MSG_WORD* pMsg);		//2008. 5. 28. CBH - ¹æÆÄ¸ÅÄª ¸®½ºÆ® Á¤º¸
-	void Process();		//2008. 6. 4. CBH - ¹æÆÄ½ÅÃ» Ä«¿îÆ® Ã³¸®
+	void MasterToPartyRequest(CPlayer* pPlayer, MSG_NAME_DWORD2* pMsg);	// 2008. 5. 23. CBH - å¿¡  Ã» ////
+	void MasterToPartyRequestErr(DWORD dwPlayerID, DWORD dwErrIndex);	//2008. 5. 23. CBH -  Ã» 	
+	void NotifyPartyInfoSyn(DWORD dwPartyID);		//2008. 5. 27. CBH - Ø´    Ê¼  Ô¼
+	void NotifyPartyInfo(PARTY_INFO* pPartyInfo);		//2008. 5. 27. CBH - Æ¼  Ñ´.
+	void PartyMatchingInfo(CPlayer* pPlayer, MSG_WORD* pMsg);		//2008. 5. 28. CBH - Ä¸Äª Æ® 
+	void Process();		//2008. 6. 4. CBH - Ä½Ã» Ä«Æ® Ã³
 };
 

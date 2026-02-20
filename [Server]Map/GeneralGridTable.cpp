@@ -10,6 +10,9 @@
 #include "Object.h"
 #include "GridSystem.h"
 
+// ä½¿ç”¨æ ‡å‡†åº“çš„minå‡½æ•°
+using std::min;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -23,7 +26,7 @@ float TransToGridCoordinateFloat(float val)
 {
 	return val*0.01f;
 }
-// 0¿¡¼­ 1»çÀÌÀÌ¸é Åë°úÇÑ´Ù.
+// 0ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 float IsIntersect(float alp,float pos0,float pos1)
 {
 	float rt = 1.f + (pos1 - alp) / (pos0 - pos1);
@@ -49,7 +52,7 @@ void CGeneralGridTable::Init(DWORD GridID,int MaxWidth,int MaxHeight)
 	m_ID = GridID;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 2ÀÇ Á¦°ö¼ö·Î ±æÀÌ¸¦ ¸ÂÃá´Ù
+	// 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_nMaxLength = max(MaxWidth,MaxHeight) - 1;
 	
 	int exponent = 0;
@@ -60,7 +63,8 @@ void CGeneralGridTable::Init(DWORD GridID,int MaxWidth,int MaxHeight)
 	}
 
 	m_nMaxLength = 1;
-	for(int n=0;n<exponent;++n)
+	int n;
+	for(n=0;n<exponent;++n)
 		m_nMaxLength *= 2;
 	//////////////////////////////////////////////////////////////////////////
 
@@ -69,7 +73,7 @@ void CGeneralGridTable::Init(DWORD GridID,int MaxWidth,int MaxHeight)
 		m_GridSize *= 2;
 
 	m_GridNum = (m_nMaxLength-1) / m_GridSize + 1;
-	
+
 	m_ppGrid = new CGrid*[m_GridNum];
 	for(n=0;n<m_GridNum;++n)
 	{
@@ -78,7 +82,7 @@ void CGeneralGridTable::Init(DWORD GridID,int MaxWidth,int MaxHeight)
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// °¢ Grid°¡ ÁÖº¯ GridµéÀ» ±â¾ïÇÏ°Ô ÇÔ
+	// ï¿½ï¿½ Gridï¿½ï¿½ ï¿½Öºï¿½ Gridï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½
 	int nx,nz;
 	int temp[16] = {
 		-1,-1,
@@ -280,7 +284,7 @@ void CGeneralGridTable::ChangeGrid(CObject* pObject, VECTOR3* pPos)
 	static char Msg[1024] = {0,};
 	WORD MsgLen;
 	
-	// »õ·Îµé¾î°¥ ±×¸®µå¿¡ ÀÖ´ø ¾Öµé¿¡°Ô »õ·Î µé¾î ¿ÔÀ½À» ¾Ë·ÁÁØ´Ù
+	// ï¿½ï¿½ï¿½Îµï¿½î°¥ ï¿½×¸ï¿½ï¿½å¿¡ ï¿½Ö´ï¿½ ï¿½Öµé¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½
 	pObject->SetAddMsg(Msg,&MsgLen,0,FALSE);
 	if(MsgLen)
 	{
@@ -291,13 +295,13 @@ void CGeneralGridTable::ChangeGrid(CObject* pObject, VECTOR3* pPos)
 	}
 	
 	CGrid* pLastGrid = GetGrid(pObject->GridPos.LastX, pObject->GridPos.LastZ);
-	// »õ·Îµé¾î°¥ ±×¸®µå¿¡ ÀÖ´ø ¾ÖµéÀÇ Á¤º¸¸¦ º¸q³»ÁØ´Ù
+	// ï¿½ï¿½ï¿½Îµï¿½î°¥ ï¿½×¸ï¿½ï¿½å¿¡ ï¿½Ö´ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½qï¿½ï¿½ï¿½Ø´ï¿½
 	CGrid* pCurrentGrid = GetGrid(pObject->GridPos.x,pObject->GridPos.z);
 	if(pCurrentGrid)
 		pCurrentGrid->SendCurrentObjectInfo(pObject, pLastGrid);
 	
 	
-	// ±âÁ¸¿¡ ÀÖ´ø ±×¸®µåÀÇ ¾Öµé¿¡°Ô ³ª°¬À½À» ¾Ë¸°´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Öµé¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½.
 	pObject->SetRemoveMsg(Msg,&MsgLen,0);
 	if(MsgLen)
 	{
@@ -308,7 +312,7 @@ void CGeneralGridTable::ChangeGrid(CObject* pObject, VECTOR3* pPos)
 	}
 	
 	CGrid* pCurGrid = GetGrid(pObject->GridPos.x, pObject->GridPos.z);
-	// ±âÁ¸¿¡ ÀÖ´ø ¾ÖµéÀ» RemoveÇÏ¶ó´Â ¸Þ¼¼Áö¸¦ º¸³½´Ù.	
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Öµï¿½ï¿½ï¿½ Removeï¿½Ï¶ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.	
 	pLastGrid = GetGrid(pObject->GridPos.LastX, pObject->GridPos.LastZ);
 	if(pLastGrid)
 		pLastGrid->SendRemoveObjectInfo(pObject, pCurGrid);
@@ -358,12 +362,12 @@ BOOL CGeneralGridTable::GetGridChangeTime(VECTOR3* pStartPos,VECTOR3* pTargetPos
 
 	if(t_min >= 0 && t_min <= 1)
 	{
-		//±×¸®µå º¯È­°¡ ÀÖÀ»°ÍÀÌ´Ù.
+		//ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		float distance = CalcDistanceXZ(pStartPos,pTargetPos);
 		float totalTime = TransToGridCoordinateFloat(distance) / TransToGridCoordinateFloat(MoveSpeed);
 
-		dwChangeTime = (DWORD)(totalTime * t_min * 1000);	// ÃµºÐÀÇ ÀÏÃÊ ´ÜÀ§·Î º¯È¯
-		++dwChangeTime;		// ¿ÀÂ÷¿¡ ´ëÇÑ °í·Á
+		dwChangeTime = (DWORD)(totalTime * t_min * 1000);	// Ãµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+		++dwChangeTime;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		return TRUE;
 	}
@@ -377,8 +381,8 @@ void CGeneralGridTable::OnDelete()
 }
 
 //////////////////////////////////////////////////////////////////////////
-/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-/// À¯È¿±×¸®µå³» ·£´ýÀ¸·Î Å¸°Ù ¼³Á¤
+/// 06. 08. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+/// ï¿½ï¿½È¿ï¿½×¸ï¿½ï¿½å³» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 CObject* CGeneralGridTable::FindPlayerRandom(CObject* pObject)
 {
 	CGrid* pGrid = GetGrid(pObject->GridPos.x, pObject->GridPos.z);

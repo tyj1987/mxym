@@ -45,21 +45,18 @@ typedef struct tagUSERINFO
 	WORD	wUserMapNum;
 	CHARSELECTINFO SelectInfoArray[MAX_CHARACTER_NUM];
 
-	DWORD	DistAuthKey;			// Distribute ¼­¹ö¿¡¼­ º¸³»¿Â AuthKey º¸°ü
-//KES ¿¬¼Ó Ã¤ÆÃ ±ÝÁö
-	DWORD	dwLastChatTime;	
+	DWORD	DistAuthKey;			// Distribute ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AuthKey ï¿½ï¿½ï¿½ï¿½
+//KES ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwLastChatTime;
 
-#ifdef _CHINA_LOCAL
-//KES China Billing
+	// Billing support (moved from _CHINA_LOCAL)
 	int		nRemainTime;
 	BYTE	bBillType;
 	DWORD	dwLastCheckRemainTime;
-//
-#endif
 
 	WORD	wChannel;
-	DWORD	dwUniqueConnectIdx;	// ¼­¹ö¿¡¼­ÀÇ °íÀ¯ ¿¬°á ¹øÈ£
-								// dwConnectionIdx¿Í´Â ´Ù¸§. °è¼Ó Áõ°¡ÇÔ
+	DWORD	dwUniqueConnectIdx;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+								// dwConnectionIdxï¿½Í´ï¿½ ï¿½Ù¸ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	CCrypt crypto;
 	aGAMEOPTION GameOption;

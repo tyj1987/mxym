@@ -1,46 +1,40 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZipArchive", "ZipArchive.vcproj", "{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZipArchive", "ZipArchive.vcxproj", "{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccLocalPath0 = .
-		CanCheckoutShared = true
-		SolutionUniqueID = {E8EC0DE9-E311-47BE-B23A-7F906CB53AEC}
-		SccProjectUniqueName1 = ZipArchive.vcproj
-		SccLocalPath1 = .
-		CanCheckoutShared = true
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+		Static Debug|x86 = Static Debug|x86
+		Static Release|x86 = Static Release|x86
+		Unicode Debug|x86 = Unicode Debug|x86
+		Unicode Release|x86 = Unicode Release|x86
+		Unicode Static Release|x86 = Unicode Static Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
-		Static Debug = Static Debug
-		Static Release = Static Release
-		Unicode Debug = Unicode Debug
-		Unicode Release = Unicode Release
-		Unicode Static Release = Unicode Static Release
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Debug|x86.ActiveCfg = Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Debug|x86.Build.0 = Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Release|x86.ActiveCfg = Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Release|x86.Build.0 = Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Debug|x86.ActiveCfg = Static Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Debug|x86.Build.0 = Static Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Release|x86.ActiveCfg = Static Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Release|x86.Build.0 = Static Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Debug|x86.ActiveCfg = Unicode Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Debug|x86.Build.0 = Unicode Debug|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Release|x86.ActiveCfg = Unicode Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Release|x86.Build.0 = Unicode Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Static Release|x86.ActiveCfg = Unicode Static Release|Win32
+		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Static Release|x86.Build.0 = Unicode Static Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Debug.ActiveCfg = Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Debug.Build.0 = Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Release.ActiveCfg = Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Release.Build.0 = Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Debug.ActiveCfg = Static Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Debug.Build.0 = Static Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Release.ActiveCfg = Static Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Static Release.Build.0 = Static Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Debug.Build.0 = Unicode Debug|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Release.ActiveCfg = Unicode Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Release.Build.0 = Unicode Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Static Release.ActiveCfg = Unicode Static Release|Win32
-		{221F4E31-AB2B-4DF4-BBE7-921E584FCC66}.Unicode Static Release.Build.0 = Unicode Static Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {724DF3CB-FFB8-43FD-B141-AD63984E5562}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

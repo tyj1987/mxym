@@ -4,47 +4,48 @@
 
 #if !defined(AFX_CJACKPOTMANAGER_H__8F994787_2618_43B5_B144_32070D18B413__INCLUDED_)
 #define AFX_CJACKPOTMANAGER_H__8F994787_2618_43B5_B144_32070D18B413__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define MAX_PROBABILITY_LIMIT	100000000 //확률최대범위 1억
+#define MAX_PROBABILITY_LIMIT	100000000 //확獵 1
 
 #define JACKPOTMGR	USINGTON(cJackpotManager)
 
-enum ePrizeKind{ NO_PRIZE = -1, FST_PRIZE, SND_PRIZE, THR_PRIZE, FTH_PRIZE, NUM_PRIZE };	//당첨 종류
+enum ePrizeKind{ NO_PRIZE = -1, FST_PRIZE, SND_PRIZE, THR_PRIZE, FTH_PRIZE, NUM_PRIZE };	//첨 
 enum {EXCP_MAP_COUNT = 8};
 
 struct stPrize
 {
 	stPrize():m_dwProbability(0),m_dwPercent(0),AbsMoney(0){};
-	DWORD	m_dwProbability;	//정수화된 확률
-	DWORD	m_dwPercent;	//상금 퍼센트 ((%) == m_dwPercent /100)
+	DWORD	m_dwProbability;	//화 확
+	DWORD	m_dwPercent;	// 蒡트 ((%) == m_dwPercent /100)
 	DWORD	AbsMoney;
 };
 
 class cJackpotManager  
 {
-	DWORD	m_dwTotalJPMoney;	//서버 총적립금 Fr_DB
-	DWORD	m_dwMapJPMoney;	//맵 누적금
-	DWORD	m_dwPrizeMoney;	//당첨 금액(Fr_DB)
+	DWORD	m_dwTotalJPMoney;	//  Fr_DB
+	DWORD	m_dwMapJPMoney;	// 
+	DWORD	m_dwPrizeMoney;	//첨 附(Fr_DB)
 	DWORD	m_dwPercentage;
 
 	CPlayer*	m_pPlayer;
 	CMonster*	m_pMonster;
 
-	int		m_nPrizeKind;	//당첨 종류(NO_PRIZE = -1)
+	int		m_nPrizeKind;	//첨 (NO_PRIZE = -1)
 	
-	DWORD	m_dwChipPerMon;	//몹당 적립금(Fr_Script)
-	DWORD	m_dwUpDateTimeLen;	//적립 금액 Update 시간 간격(Fr_Script)
-	DWORD	m_dwLastDBUpdateTime;	//이전 DBUpdate 시각
-	stPrize	m_stPrize[NUM_PRIZE];	//당첨별 정보(Fr_Script)
+	DWORD	m_dwChipPerMon;	// (Fr_Script)
+	DWORD	m_dwUpDateTimeLen;	// 附 Update 챨 (Fr_Script)
+	DWORD	m_dwLastDBUpdateTime;	// DBUpdate 챨
+	stPrize	m_stPrize[NUM_PRIZE];	//첨 (Fr_Script)
 	
 //	bool	m_bActive;		//JPMgr active
 	BOOL	m_bDoPrize;		//JPMgr active
-	BOOL	m_bIsAppMon;	//적용 몹인지
-	BOOL	m_bIsAppMap;	//적용 맵인지
+	BOOL	m_bIsAppMon;	// 
+	BOOL	m_bIsAppMap;	// 
 
 public:
 	cJackpotManager();
@@ -75,9 +76,9 @@ public:
 	void	DoJackpot(CPlayer* pPlayer, CMonster* pMonster);
 	void	SendMsgDBMapMoney();
 	void	SendMsgDBPrizeInfo(CPlayer* pPlayer, int PrizeKind);
-//	void	SendMsgAllUserPrizeNotify();	//!임시
+//	void	SendMsgAllUserPrizeNotify();	//!擔
 	void	SendMsgAllUserPrizeNotify(DWORD TotalMoney, DWORD PrizeMoney, DWORD PlayerID, DWORD PrizeKind );
-//	void	SendMsgMapUserTotalMoney();	//!임시
+//	void	SendMsgMapUserTotalMoney();	//!擔
 //	void	SendMsgMapUserTotalMoney(DWORD TotalMoney);
 //	void	SendMsgAddUserTotalMoney(CObject* pObject);
 //	void	SendMsgPrizeEffect(DWORD PlayerID);
@@ -93,46 +94,46 @@ EXTERNGLOBALTON(cJackpotManager)
 #endif // !defined(AFX_CJACKPOTMANAGER_H__8F994787_2618_43B5_B144_32070D18B413__INCLUDED_)
 
 /*
- *	몹이 죽을 시 잭팟 조건에 맞을 경우 잭팟 머니를 누적하며
- *	시간 단위로 DB로 업데이트를 하며 총금액을 리턴 받는다
- *	리턴 받은 총금액은 AG통해 CL로 전달 된다
- *	잭팟 머니 누적후 플레이어와 몹의 상태를 통해 잭팟여부를 결정하며
- *	당첨시 당첨 종류 MSG를 DB로 보내고 당첨금액수를 리턴 받는다
- *	AG를 통해 CL로 전달된다
- *	평상시 시간단위 업데이트/ 리턴
- *	당첨시 업데이트/ 리턴
+ *	    퓻    鍛玖 玖
+ *	챨  DB 트 玖 畸附  濱쨈
+ *	  畸附 AG CL  홱
+ *	 鍛  첨潔  쨍  結罐 玖
+ *	첨 첨  MSG DB  첨附硫  濱쨈
+ *	AG  CL 瀕홱
+ *	 챨 트/ 
+ *	첨 트/ 
  */
 
 /*
- *	초기화		
- *		적용 맵인지 확인	IsAppMap(WORD MapNum)
- *		잭팟 초기 설정 로딩	LoadJackpotInfo()
+ *	珂화		
+ *		  확	IsAppMap(WORD MapNum)
+ *		 珂  琯	LoadJackpotInfo()
  *
  *
- *	두가지 루틴이 있다.
- *	1.잭팟
+ *	寬 틴 獵.
+ *	1.
  *	2.DB UPDATE
  *
- *	1.MONSTER:OBJECT :: DoDie() 에서 시작
+ *	1.MONSTER:OBJECT :: DoDie()  
  *		DoJackpot()
- *		맵과 몹의 조건이 맞는지 확인하고	GetIsAppMap()/	IsAppMon()
- *		맵에 적립금을 쌓고
- *		당첨여부를 확인한다	CheckPrize()
- *			랜덤값과 당첨확률비교			MakeRndValue()/	CalcAddProb(int kind)
- *			당첨일 경우 해당 배당률과 당첨 정보를 DB로 Query	G_ JackpotPrizeInfo( MONEYTYPE MapMoney, DWORD PlayerID, DWORD PrizeKind, DWORD PrizePercentage)
- *				받아온 정보를	G_ RJackpotPrizeInfo( LPQUERY pData, LPDBMESSAGE pMessage )
- *				맵에 세팅하고	SetPrizeInfo(DWORD TotalMoney, DWORD PrizeMoney, DWORD PlayerID, DWORD PrizeKind)
- *				전체 공지와 이펙트 렌더 메시지를 보낸다	SendMsgAllUserPrizeNotify(DWORD TotalMoney, DWORD PrizeMoney, DWORD PlayerID, DWORD PrizeKind )/	SendMsgPrizeEffect(DWORD PlayerID)
+ *		歌   쨈 확構	GetIsAppMap()/	IsAppMon()
+ *		却  陋
+ *		첨罐 확磯	CheckPrize()
+ *			 첨확			MakeRndValue()/	CalcAddProb(int kind)
+ *			첨  娩  첨  DB Query	G_ JackpotPrizeInfo( MONEYTYPE MapMoney, DWORD PlayerID, DWORD PrizeKind, DWORD PrizePercentage)
+ *				騁틸 	G_ RJackpotPrizeInfo( LPQUERY pData, LPDBMESSAGE pMessage )
+ *				却 構	SetPrizeInfo(DWORD TotalMoney, DWORD PrizeMoney, DWORD PlayerID, DWORD PrizeKind)
+ *				체  트  聘 	SendMsgAllUserPrizeNotify(DWORD TotalMoney, DWORD PrizeMoney, DWORD PlayerID, DWORD PrizeKind )/	SendMsgPrizeEffect(DWORD PlayerID)
  *		
  *	2.Process()
- *		DB 업데이트 시간과 유저 접속 여부 확인후	IsUserIn()
- *		맵 적립금을 보내고	SendMsgDBMapMoney():JackpotAddTotalMoney( MONEYTYPE MapMoney )
- *		합산한 총 금액을 받아온다	RJackpotAddTotalMoney( LPQUERY pData, LPDBMESSAGE pMessage )
- *		맵 접속 유저들에게 보낸다	SendMsgMapUserTotalMoney(DWORD TotalMoney)
+ *		DB 트 챨    확	IsUserIn()
+ *		  	SendMsgDBMapMoney():JackpotAddTotalMoney( MONEYTYPE MapMoney )
+ *		攬  附 騁틸쨈	RJackpotAddTotalMoney( LPQUERY pData, LPDBMESSAGE pMessage )
+ *		  涌� 	SendMsgMapUserTotalMoney(DWORD TotalMoney)
  *		
  *		
  *	ETC
- *		맵에 접속한 유저들에게 맵저장 총적립금을 보낸다		void	SendMsgAddUserTotalMoney(CObject* pObject)
+ *		却  涌�   		void	SendMsgAddUserTotalMoney(CObject* pObject)
  *		
  *		
  */

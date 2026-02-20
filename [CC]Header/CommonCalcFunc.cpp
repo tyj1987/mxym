@@ -1,5 +1,13 @@
 #include "stdafx.h"
 #include "CommonCalcFunc.h"
+#include "CommonStruct.h"
+#include "CommonGameFunc.h"
+#include "CommonGameDefine.h"
+
+// Define min macro if not available
+#ifndef min
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#endif
 
 #ifdef _MAPSERVER_
 #include "Object.h"
@@ -8,39 +16,28 @@
 DWORD CalcRangeAttackPower(WORD MinChub,WORD Weapon)
 {
 #ifdef _JAPAN_LOCAL_
-
 	return Weapon + MinChub + MinChub/3;
-
 #else
-
 	double dW = Weapon;
 	double dS = MinChub;
-
 	return (DWORD)((dW * ((dS+200)/200)*((dS+1000)/500)+dS)*0.74 + min(dS-12,25));
-
 #endif	
 }
-
 
 DWORD CalcMeleeAttackPower(WORD GenGol,WORD Weapon)
 {
 #ifdef _JAPAN_LOCAL_
-
 	return Weapon + GenGol + GenGol/3;
-
 #else
-
 	double dW = Weapon;
 	double dS = GenGol;
-
 	return (DWORD)((dW * ((dS+200)/200)*((dS+1000)/500)+dS)*0.74 + min(dS-12,25));
-
 #endif
 }
 
 WORD GetPercent(float SeedVal,LEVELTYPE OperatorLevel,LEVELTYPE TargetLevel)
 {	
-	//SeedVal+{(ÀÚ½ÅÀÇ ·¹º§ - »ó´ë ·¹º§)/2.5*0.01}
+	// SeedVal + {(OperatorLevel - TargetLevel)/2.5*0.01}
 	int LevelGap = OperatorLevel - TargetLevel;
 	float fRate = SeedVal + LevelGap*0.025f;
 	if(fRate <= 0)

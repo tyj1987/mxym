@@ -4,6 +4,7 @@
 
 #if !defined(AFX_DISTRIBUTER_H__925C29CC_0A77_451A_8755_6CB51833B600__INCLUDED_)
 #define AFX_DISTRIBUTER_H__925C29CC_0A77_451A_8755_6CB51833B600__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -17,6 +18,8 @@ struct DAMAGEOBJ
 class CParty;
 class CDistributeWay;
 class MONSTEREX_LIST;
+class CMonster;
+class CPlayer;
 
 class CDistributer  //responsible for decision who will get compensation when monster died
 {
@@ -38,19 +41,19 @@ public:
 	void Release();
 	void DamageInit();
 	void CalcAndSendPartyExp(CParty* pParty, DWORD TotalDamage, VECTOR3* pKilledPosition, DWORD MonsterTotalLife, DWORD GridID, DWORD KillerID, LEVELTYPE MonsterLevel);
-	//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °è»ê °ø½ÄÈ­·Î º¯°æ
+	//SW050806 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ä½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	void CalcAndSendPartyExp(CParty* pParty, DWORD TotalDamage, VECTOR3* pKilledPosition, DWORD MonsterTotalLife, DWORD GridID, DWORD KillerID, LEVELTYPE MonsterLevel, DWORD MonsterExp=0);
 	void AddDamageObject(CPlayer* pPlayer, DWORD damage, DWORD plusdamage);
 	void DoAddDamageObj(CYHHashTable<DAMAGEOBJ> * pTable, DWORD dwID, DWORD damage);
 	void Distribute(DWORD KillerID,VECTOR3* pKilledPosition, WORD DropItemID, DWORD DropItemRatio,CMonster* pMob);
 	DWORD CalcObtainExp(LEVELTYPE MonsterLevel,LEVELTYPE KillerLevel,DWORD TotalLife,DWORD Damage, DWORD dwPlayerMaxNum);
-	//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °è»ê °ø½ÄÈ­·Î º¯°æ
+	//SW050806 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ä½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //	DWORD CalcObtainExp(LEVELTYPE MonsterLevel,LEVELTYPE KillerLevel,DWORD TotalLife,DWORD Damage,DWORD MonsterExp=0);
 
 	DWORD CalcObtainAbilityExp(LEVELTYPE MonsterLevel,LEVELTYPE KillerLevel);
 	
 	BOOL Chk(CPlayer* pPlayer, VECTOR3* pKilledPosition, DWORD GridID);
-	//°Å¸®¿¡ µû¸¥ °æÇèÄ¡ ¾ò±â¸¦ »« Ã¼Å©
+	//ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½â¸¦ ï¿½ï¿½ Ã¼Å©
 	BOOL ChkExp(CPlayer* pPlayer, VECTOR3* pKilledPosition, DWORD GridID);//060628 - Add by wonju
 	
 	void ChooseOne(DAMAGEOBJ * pobj, DWORD* pBigDamage, DWORD* pBigID);
@@ -60,8 +63,8 @@ public:
 	void SendPersonalAbilandItem(CPlayer* pReceivePlayer, CMonster* pMonster, WORD DropItemID, DWORD DropItemRatio);
 	void DistributePerDamage(CMonster* pMob);
 	
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-	// ÇÊµåº¸½º¿ë ¾ÆÀÌÅÛ ºÐ¹è ÇÔ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ ï¿½ï¿½
 	void DistributeItemPerDamage(CMonster* pMob);
 	void DeleteDamagedPlayer(DWORD CharacterID);
 	

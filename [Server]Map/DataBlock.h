@@ -4,6 +4,7 @@
 
 #if !defined(AFX_DATA_H__109F1FF8_6075_4BF1_AF3E_6E7E80D5EA56__INCLUDED_)
 #define AFX_DATA_H__109F1FF8_6075_4BF1_AF3E_6E7E80D5EA56__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

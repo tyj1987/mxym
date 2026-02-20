@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "SiegeWarMgr.h"
 #include "BattleSystem_Server.h"
 #include "Guild.h"
@@ -137,7 +138,7 @@ void CSiegeWarMgr::LoadCastleGateInfo()
 			info.Shield[k] = file.GetDword();
 		}
 		info.Defence = file.GetDword();
-		for(k=0; k<ATTR_MAX; ++k)
+		for(int k=0; k<ATTR_MAX; ++k)
 			info.Regist.SetElement_Val( ATTR_FIRE+k, file.GetFloat() );
 		info.Radius = file.GetFloat();
 		info.Position.x = file.GetFloat();
@@ -147,7 +148,7 @@ void CSiegeWarMgr::LoadCastleGateInfo()
 		info.Angle = file.GetFloat();
 		info.Scale = file.GetFloat();		
 
-		// GateInfoÃß°¡
+		// GateInfoï¿½ß°ï¿½
 		if( info.MapNum == GetSiegeMapNum() )
 		{
 			memcpy( &m_CastleGateInfoList[m_CastleGateCount], &info, sizeof(CASTLEGATE_BASEINFO) );
@@ -172,14 +173,14 @@ void CSiegeWarMgr::CreateSiegeBattle()
 	//
 	DWORD count = 0;
 	CGuild* pGuild = NULL;
-	// ¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( m_CastleGuildIdx )
 	{
 		Info.GuildList[count] = m_CastleGuildIdx;
 		++Info.DefenceCount;
 		++count;
 	}
-	// ¼ö¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_DefenceAcceptList.SetPositionHead();
 	while( pGuild = m_DefenceAcceptList.GetData() )
 	{
@@ -187,7 +188,7 @@ void CSiegeWarMgr::CreateSiegeBattle()
 		++Info.DefenceCount;
 		++count;
 	}
-	// °ø¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_AttackGuildList.SetPositionHead();
 	while( pGuild = m_AttackGuildList.GetData() )
 	{
@@ -219,14 +220,14 @@ void CSiegeWarMgr::SetBattleInfo()
 	//
 	DWORD count = 0;
 	CGuild* pGuild = NULL;
-	// ¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( m_CastleGuildIdx )
 	{
 		Info.GuildList[count] = m_CastleGuildIdx;
 		++Info.DefenceCount;
 		++count;
 	}
-	// ¼ö¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_DefenceAcceptList.SetPositionHead();
 	while( pGuild = m_DefenceAcceptList.GetData() )
 	{
@@ -234,7 +235,7 @@ void CSiegeWarMgr::SetBattleInfo()
 		++Info.DefenceCount;
 		++count;
 	}
-	// °ø¼º¹®ÆÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_AttackGuildList.SetPositionHead();
 	while( pGuild = m_AttackGuildList.GetData() )
 	{
@@ -252,11 +253,11 @@ void CSiegeWarMgr::SetSiegeWarInfo( DWORD SiegeWarIdx, DWORD TaxRate, DWORD Regi
 	m_SiegeWarIdx = SiegeWarIdx;
 	m_TaxRate = TaxRate;
 	if( RegistTime )
-		m_SiegeWarTime[0].SetTime( RegistTime );			// ¼ö¼º¼±Æ÷½Ã°£
+		m_SiegeWarTime[0].SetTime( RegistTime );			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 	if( SiegeWarTime )
-		m_SiegeWarTime[1].SetTime( SiegeWarTime );			// °ø¼º½Ã°£
+		m_SiegeWarTime[1].SetTime( SiegeWarTime );			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 
-	// Level¼ÂÆÃ
+	// Levelï¿½ï¿½ï¿½ï¿½
 	stCASTLEGATELEVEL tmp;
 	tmp.value = Level;
 	for(int i=0; i<m_CastleGateCount; ++i)
@@ -274,7 +275,7 @@ void CSiegeWarMgr::SetSiegeWarInfo( DWORD SiegeWarIdx, DWORD TaxRate, DWORD Regi
 	}
 
 
-	// State¼³Á¤
+	// Stateï¿½ï¿½ï¿½ï¿½
 	stTIME ctime, cp, tp;
 	ctime.SetTime( GetCurTime() );
 
@@ -367,20 +368,20 @@ void CSiegeWarMgr::SetSiegeGuildInfo( SIEGEWAR_GUILDDBINFO* pGuildList, DWORD Co
 		pGuild = GUILDMGR->GetGuild( pGuildList[i].GuildIdx );
 		if( !pGuild )						continue;
 
-		if( pGuildList[i].Type == eSWGuildState_CastleGuild )					// ¼º±æµå
+		if( pGuildList[i].Type == eSWGuildState_CastleGuild )					// ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			m_CastleGuildIdx = pGuildList[i].GuildIdx;			
 			m_CastleUnionIdx = pGuild->GetGuildUnionIdx();
 		}
-		else if( pGuildList[i].Type == eSWGuildState_DefenceGuild )				// ¼ö¼º±æµå
+		else if( pGuildList[i].Type == eSWGuildState_DefenceGuild )				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			m_DefenceAcceptList.Add( pGuild, pGuild->GetIdx() );
 		}
-		else if( pGuildList[i].Type == eSWGuildState_DefenceProposalGuild )		// ¼ö¼º½ÅÃ»±æµå
+		else if( pGuildList[i].Type == eSWGuildState_DefenceProposalGuild )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		{
 			m_DefenceProposalList.Add( pGuild, pGuild->GetIdx() );
 		}
-		else if( pGuildList[i].Type == eSWGuildState_AttackGuild )				// °ø¼º±æµå
+		else if( pGuildList[i].Type == eSWGuildState_AttackGuild )				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			m_AttackGuildList.Add( pGuild, pGuild->GetIdx() );
 			
@@ -416,11 +417,11 @@ DWORD CSiegeWarMgr::AddProposalGuildList( DWORD GuildIdx )
 	if( m_DefenceProposalList.GetData( GuildIdx ) || m_DefenceAcceptList.GetData( GuildIdx ) )
 		return eSWError_AlreadyDefenceProposal;
 
-	// ÀÓ½Ã·Î Âü¿© ¹®ÆÄ ¼ýÀÚ Ã¼Å©
+	// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( SIEGEWAR_MAXGUILDCOUNT_PERTEAM < m_DefenceProposalList.GetDataNum() )
 		return eSWError_OverGuildCount;
 
-	// ¼ö¼º Çù·Â¹®ÆÄ·Î µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹ï¿½ï¿½Ä·ï¿½ ï¿½ï¿½ï¿½
 	m_DefenceProposalList.Add( pGuild, GuildIdx );
 
 	return eSWError_NoError;
@@ -463,11 +464,11 @@ DWORD CSiegeWarMgr::AddAttackGuildList( DWORD GuildIdx )
 		}
 	}
 	
-	// ÀÓ½Ã·Î Âü¿© ¹®ÆÄ ¼ýÀÚ Ã¼Å©
+	// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( SIEGEWAR_MAXGUILDCOUNT_PERTEAM < m_AttackGuildList.GetDataNum() )
 		return eSWError_OverGuildCount;
 
-	// °ø¼º¹®ÆÄ·Î µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ ï¿½ï¿½ï¿½
 	m_AttackGuildList.Add( pGuild, GuildIdx );
 	if( pGuild->GetGuildUnionIdx() &&
 		!m_AttackUnionList.GetData( pGuild->GetGuildUnionIdx() ) )
@@ -488,7 +489,7 @@ void CSiegeWarMgr::AddPlayer( CPlayer* pPlayer )
 
 	CGuild* pGuild = GUILDMGR->GetGuild( m_CastleGuildIdx );
 
-	// ObserverÀÎÁö Ã¼Å©
+	// Observerï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	int BattleIdx = pPlayer->GetObserverBattleIdx();
 	if( BattleIdx )
 	{
@@ -623,7 +624,7 @@ void CSiegeWarMgr::Process()
 
 	switch( m_SiegeWarState )
 	{
-	case eSWState_Before:				// °ø¼ºÀü
+	case eSWState_Before:				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			stTIME curTime;
 			curTime.value = GetCurTime();
@@ -646,7 +647,7 @@ void CSiegeWarMgr::Process()
 				MSG_DWORD tmsg = msg;
 				PACKEDDATA_OBJ->SendToMapServer( pAgentInfo->dwConnectionIndex, (MAPTYPE)GetVillageMapNum(), &tmsg, sizeof(tmsg) );
 
-				//¿©±â¼± ¸ÓÇÏ´Â°ÅÁö Befor¶ó ¾Æ¹«°Íµµ ¾Æ´Ò¶©°¡......
+				//ï¿½ï¿½ï¿½â¼± ï¿½ï¿½ï¿½Ï´Â°ï¿½ï¿½ï¿½ Beforï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½Æ´Ò¶ï¿½ï¿½ï¿½......
 				//////////////////////////////////////////////////////////////////////////
 				MSG_DWORD msg1;
 				SetProtocol( &msg1, MP_SIEGEWAR, MP_SIEGEWAR_FLAGCHANGE );
@@ -666,7 +667,7 @@ void CSiegeWarMgr::Process()
 			}			
 		}
 		break;
-	case eSWState_Proclamation:			// ¼±Æ÷±â°£
+	case eSWState_Proclamation:			// ï¿½ï¿½ï¿½ï¿½ï¿½â°£
 		{
 			stTIME curTime, cmpTime, tmpTime;
 			curTime.value = GetCurTime();
@@ -693,7 +694,7 @@ void CSiegeWarMgr::Process()
 				msg.dwData = m_SiegeWarState;
 				PACKEDDATA_OBJ->SendToMapServer( pAgentInfo->dwConnectionIndex, (MAPTYPE)GetVillageMapNum(), &msg, sizeof(msg) );
 
-				// ¼ö¼º/°ø¼º ½ÅÃ»±â°£ ±ê¹ß ¿ÀºêÁ§Æ®
+				// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½â°£ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				//////////////////////////////////////////////////////////////////////////
 				MSG_DWORD msg1;
 				SetProtocol( &msg1, MP_SIEGEWAR, MP_SIEGEWAR_FLAGCHANGE );
@@ -705,7 +706,7 @@ void CSiegeWarMgr::Process()
 			}
 		}
 		break;
-	case eSWState_Acceptance:			// °ø¼º ½ÅÃ»¹× ¼ö¶ô±â°£
+	case eSWState_Acceptance:			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£
 		{
 			stTIME curTime, cmpTime, tmpTime;
 			curTime.value = GetCurTime();
@@ -732,7 +733,7 @@ void CSiegeWarMgr::Process()
 				msg.dwData = m_SiegeWarState;
 				PACKEDDATA_OBJ->SendToMapServer( pAgentInfo->dwConnectionIndex, (MAPTYPE)GetVillageMapNum(), &msg, sizeof(msg) );
 
-				// °ø¼º ÁøÇà±â°£ ±ê¹ß ¿ÀºêÁ§Æ®
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½â°£ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				//////////////////////////////////////////////////////////////////////////
 				MSG_DWORD msg1;
 				SetProtocol( &msg1, MP_SIEGEWAR, MP_SIEGEWAR_FLAGCHANGE );
@@ -742,7 +743,7 @@ void CSiegeWarMgr::Process()
 			}
 		}
 		break;
-	case eSWState_BeforeSiegeWar:		// °ø¼º ½ÅÃ»¹× ¼ö¶ô±â°£
+	case eSWState_BeforeSiegeWar:		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£
 		{
 			stTIME curTime;
 			curTime.value = GetCurTime();
@@ -754,7 +755,7 @@ void CSiegeWarMgr::Process()
 			}
 		}
 		break;
-	case eSWState_SiegeWar:				// °ø¼ºÁøÇàÁß
+	case eSWState_SiegeWar:				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			stTIME curTime, cmpTime, tmpTime;
 			curTime.value = GetCurTime();
@@ -763,7 +764,7 @@ void CSiegeWarMgr::Process()
 
 			cmpTime = m_SiegeWarTime[1];
 			cmpTime += tmpTime;
-			if( curTime > cmpTime )				// °ø¼ºÁ¾·á
+			if( curTime > cmpTime )				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				if( m_SiegeWarSuccessTimer == 0 )
 				{
@@ -776,7 +777,7 @@ void CSiegeWarMgr::Process()
 			else
 				m_FightTime = 0;
 
-			if( m_SiegeWarSuccessTimer )			// °ø¼º¿¡ ¼º°ø
+			if( m_SiegeWarSuccessTimer )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				if( m_SiegeWarSuccessTimer > gTickTime )
 					m_SiegeWarSuccessTimer -= gTickTime;
@@ -791,7 +792,7 @@ void CSiegeWarMgr::Process()
 
 
 			}
-			else if( m_EngraveTimer )				// °¢ÀÎÁß
+			else if( m_EngraveTimer )				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				if( m_EngraveTimer > gTickTime )
 					m_EngraveTimer -= gTickTime;
@@ -820,11 +821,11 @@ void CSiegeWarMgr::Process()
 					//
 					MSG_DWORD2 msg;
 					SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_ENGRAVE_ACK );
-					msg.dwData1 = 1;			// °¢ÀÎ¼º°ø
+					msg.dwData1 = 1;			// ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 					msg.dwData2 = pPlayer->GetID();
 					PACKEDDATA_OBJ->QuickSend( pPlayer, &msg, sizeof(msg) );
 
-					// À¯ÀúÇÑÅ× ¾Ë¸°´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½.
 					SEND_SW_SUCCESSINFO msg2;
 					SetProtocol( &msg2, MP_SIEGEWAR, MP_SIEGEWAR_SUCCESS_SIEGEWAR );
 					CGuild* pGuild = GUILDMGR->GetGuild( pPlayer->GetGuildIdx() );
@@ -844,9 +845,9 @@ void CSiegeWarMgr::Process()
 			}
 		}
 		break;
-	case eSWState_EndSiegeWar:				// °ø¼ºÁ¾·á
+	case eSWState_EndSiegeWar:				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			// ¾ÖµéÀ» ÀüºÎ ¹ÛÀ¸·Î ³»º¸³½´Ù.	
+			// ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.	
 			if( m_SiegeWarEndTimer < 30000 )
 				m_SiegeWarEndTimer += gTickTime;
 			else
@@ -942,7 +943,7 @@ void CSiegeWarMgr::StartSiegeWar()
 
 void CSiegeWarMgr::CreateCastleGate()
 {
-	// È¤½Ã¶óµµ ¼º¹®ÀÌ ÀÖÀ¸¸é »èÁ¦ÇÑ´Ù.
+	// È¤ï¿½Ã¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if( m_CastleGateList.GetCount() )
 	{
 		CMapObject* pObject = NULL;
@@ -965,7 +966,7 @@ void CSiegeWarMgr::CreateCastleGate()
 	for(int i=0; i<m_CastleGateCount; ++i)
 	{
 		Level = m_GateInfo.GetLevel( m_CastleGateInfoList[i].Index );
-		// ¼º¹®À» Ãß°¡ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 		obInfo.BattleID = m_pBattle->GetBattleID();
 		obInfo.BattleTeam = eBattleTeam1;
 		obInfo.dwObjectID = m_CastleGateInfoList[i].Index;
@@ -1041,7 +1042,7 @@ void CSiegeWarMgr::EndSiegeWar()
 	MSG_DWORD tmsg = msg;
 	PACKEDDATA_OBJ->SendToMapServer( pAgentInfo->dwConnectionIndex, (MAPTYPE)GetVillageMapNum(), &tmsg, sizeof(tmsg) );
 
-	//¿©±â¼­ ¼ö¼º ¼±Æ÷±â°£ ±ê¹ß ¿ÀºêÁ§Æ®¸¦ º¸³»¾ßÇÏ³ª ÇÞ°¥¸°´Ù...
+	//ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½...
 	//////////////////////////////////////////////////////////////////////////
 	//MSG_DWORD msg1;
 	//SetProtocol( &msg1, MP_SIEGEWAR, MP_SIEGEWAR_FLAGCHANGE );
@@ -1060,11 +1061,11 @@ void CSiegeWarMgr::EndSiegeWar()
 		pObject->SendMsg( &tmsg, sizeof(tmsg) );
 	}
 	
-	// ¼ö¼º ¼±Æ÷±â°£À» Á¤ÇØÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	DWORD day = 0;
 	SYSTEMTIME st;
 	GetLocalTime( &st );
-	if( st.wDayOfWeek == 6 )				day = 9;		// Åä¿äÀÏÀÌ¸é 9ÀÏ
+	if( st.wDayOfWeek == 6 )				day = 9;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ 9ï¿½ï¿½
 	else if( st.wDayOfWeek == 0 )			day = 8;
 	
 	stTIME curTime, nextTime;
@@ -1074,10 +1075,10 @@ void CSiegeWarMgr::EndSiegeWar()
 	curTime.SetTime( curTime.GetYear(), curTime.GetMonth(), curTime.GetDay(), 0, 0, 0 );
 	m_SiegeWarTime[0] = curTime;
 	m_SiegeWarTime[1] = curTime;
-	nextTime.SetTime( 0, 0, 6, 18, 0, 0 );			// ÀÏ¿äÀÏ 18½Ã·Î ¼ÂÆÃ
+	nextTime.SetTime( 0, 0, 6, 18, 0, 0 );			// ï¿½Ï¿ï¿½ï¿½ï¿½ 18ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_SiegeWarTime[1] += nextTime;
 	
-	// °¢ÀÎÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½È­
 	CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( m_EngraveIdx );
 	if( pPlayer )
 	{		
@@ -1102,13 +1103,13 @@ void CSiegeWarMgr::EndSiegeWar()
 	SiegeWarInfoUpdate( 9999, m_SiegeWarIdx, 0, 0, GetSiegeMapNum() );	
 	SiegeWarInfoInsert( m_SiegeWarIdx, m_SiegeWarTime[0].value, m_SiegeWarTime[1].value, m_GateInfo.value, GetSiegeMapNum() );
 
-	// ¼º¹®ÆÄ Ãß°¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	if( m_CastleGuildIdx )
 	{
 		SiegeWarGuildInsert( m_SiegeWarIdx, m_CastleGuildIdx, eSWGuildState_CastleGuild, GetSiegeMapNum() );
 		SiegeWarAddLog( m_SiegeWarIdx, GetSiegeMapNum(), m_CastleGuildIdx, eSWLogKind_EndCastleGuild, 0 );
 	}
-	// µ¿¸Í¹®ÆÄ Ãß°¡
+	// ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	/*
 	m_DefenceAcceptList.SetPositionHead();
 	CGuild* pGuild = NULL;
@@ -1150,7 +1151,7 @@ void CSiegeWarMgr::SuccessSiegeWar( DWORD GuildIdx )
 		return;
 	}
 
-	// »õ·Î¿î ¼ºÁÖ°¡ µÈ ¹®ÆÄ
+	// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CGuild* pNewCastleGuild = GUILDMGR->GetGuild( GuildIdx );
 	if( !pNewCastleGuild )			return;
 
@@ -1186,13 +1187,13 @@ void CSiegeWarMgr::SuccessSiegeWar( DWORD GuildIdx )
 	m_DefenceAcceptList.RemoveAll();
 	m_AttackUnionList.RemoveAll();
 
-	// ±âÁ¸ °ø¼ºÁßÀÎ ¹®ÆÄÁß¿¡¼­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½
 	for(DWORD i=0; i<AtkCount; ++i)
 	{
 		pGuild = GUILDMGR->GetGuild( tmpAttackGuildList[i] );
 		if( pGuild )
 		{
-			// »õ·Î¿î ¼ºÁÖÀÇ µ¿¸ÍÀº ¼ö¼ºÀ¸·Î
+			// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( pGuild->GetGuildUnionIdx() && pGuild->GetGuildUnionIdx() == pNewCastleGuild->GetGuildUnionIdx() )
 			{
 				m_DefenceAcceptList.Add( pGuild, pGuild->GetIdx() );				
@@ -1200,7 +1201,7 @@ void CSiegeWarMgr::SuccessSiegeWar( DWORD GuildIdx )
 				// To LogDB
 				SiegeWarAddLog( m_SiegeWarIdx, GetSiegeMapNum(), pGuild->GetIdx(), eSWLogKind_SucceedMoveToDefence, 0 );				
 			}
-			// ³ª¸ÓÁø °ø¼ºÃø±×´ë·Î
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½
 			else
 			{
 				m_AttackGuildList.Add( pGuild, pGuild->GetIdx() );
@@ -1210,8 +1211,8 @@ void CSiegeWarMgr::SuccessSiegeWar( DWORD GuildIdx )
 			}
 		}
 	}
-	// ¼ö¼º ¹®ÆÄ´Â ÀüºÎ °ø¼ºÀ¸·Î
-	for(i=0; i<DefCount; ++i)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	for(int i=0; i<DefCount; ++i)
 	{
 		pGuild = GUILDMGR->GetGuild( tmpDefenceGuildList[i] );
 		if( pGuild )
@@ -1240,13 +1241,13 @@ void CSiegeWarMgr::SuccessSiegeWar( DWORD GuildIdx )
 	// To LogDB
 	SiegeWarAddLog( m_SiegeWarIdx, GetSiegeMapNum(), m_CastleGuildIdx, eSWLogKind_SucceedCastleGuild, 0 );
 
-	// ÆÀ¼³Á¤ ´Ù½Ã ÇØ¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	SetBattleInfo();
 	m_pBattle->BattleTeamChange();
 	m_pBattle->SendBattleInfoToPlayer();
 	m_pBattle->BattleTeamPositionChange();
 
-	// ÇØ´ç¸¶À»¸Ê¿¡ ¹Ù²ïÁ¤º¸¸¦ º¸³½´Ù.
+	// ï¿½Ø´ç¸¶ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	SendBattleInfoToVillageMap();
 }
 
@@ -1314,10 +1315,10 @@ DWORD CSiegeWarMgr::GetGuildTeamIdx( DWORD GuildIdx )
 
 DWORD CSiegeWarMgr::IsAbleOrganizeUnion( DWORD GuildIdx1, DWORD GuildIdx2 )
 {
-	// ¾î´ÀÇÑÂÊÀÌ °ø¼ºÀÌ³ª ¼ö¼º¿¡ Âü¿©ÇßÀ» °æ¿ì.
-	// ½ÅÃ»ÁßÀÏ °æ¿ì
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
+	// ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-	if( m_AttackGuildList.GetData( GuildIdx1 ) )			// °ø¼ºÂü¿©
+	if( m_AttackGuildList.GetData( GuildIdx1 ) )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if( m_CastleGuildIdx == GuildIdx2 )
 			return 1;
@@ -1326,18 +1327,18 @@ DWORD CSiegeWarMgr::IsAbleOrganizeUnion( DWORD GuildIdx1, DWORD GuildIdx2 )
 		if( m_DefenceProposalList.GetData( GuildIdx2 ) )
 			return 3;
 	}
-	if( m_DefenceAcceptList.GetData( GuildIdx1 ) )			// ¼ö¼ºÇù·Â¹®ÆÄ
+	if( m_DefenceAcceptList.GetData( GuildIdx1 ) )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½
 	{
 		if( m_AttackGuildList.GetData( GuildIdx2 ) )
 			return 4;
 	}
-	if( m_DefenceProposalList.GetData( GuildIdx1 ) )		// ¼ö¼ºÇù·Â¹®ÆÄ ½ÅÃ»
+	if( m_DefenceProposalList.GetData( GuildIdx1 ) )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	{
 		if( m_AttackGuildList.GetData( GuildIdx2 ) )
 			return 5;
 	}
 	
-	if( m_AttackGuildList.GetData( GuildIdx2 ) )			// °ø¼ºÂü¿©
+	if( m_AttackGuildList.GetData( GuildIdx2 ) )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if( m_CastleGuildIdx == GuildIdx1 )
 			return 1;
@@ -1346,12 +1347,12 @@ DWORD CSiegeWarMgr::IsAbleOrganizeUnion( DWORD GuildIdx1, DWORD GuildIdx2 )
 		if( m_DefenceProposalList.GetData( GuildIdx1 ) )
 			return 3;
 	}
-	if( m_DefenceAcceptList.GetData( GuildIdx2 ) )			// ¼ö¼ºÇù·Â¹®ÆÄ
+	if( m_DefenceAcceptList.GetData( GuildIdx2 ) )			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½
 	{
 		if( m_AttackGuildList.GetData( GuildIdx1 ) )
 			return 4;
 	}
-	if( m_DefenceProposalList.GetData( GuildIdx2 ) )		// ¼ö¼ºÇù·Â¹®ÆÄ ½ÅÃ»
+	if( m_DefenceProposalList.GetData( GuildIdx2 ) )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 	{
 		if( m_AttackGuildList.GetData( GuildIdx1 ) )
 			return 5;
@@ -1408,8 +1409,8 @@ BOOL CSiegeWarMgr::IsRegistTime( DWORD dwTime )
 
 	if( ctime > time )			return FALSE;
 
-	// ¼±Æ÷´Â ¿ù, È­
-	// Åä¿äÀÏ or ÀÏ¿äÀÏ ¿ÀÈÄ2½Ã ~ 8½Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, È­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ ~ 8ï¿½ï¿½
 	stTIME t1, t2;
 	t1.SetTime( time.GetYear(), time.GetMonth(), time.GetDay(), 0, 0, 0 );
 	t2.SetTime( ctime.GetYear(), ctime.GetMonth(), ctime.GetDay(), 0, 0, 0 );
@@ -1455,7 +1456,7 @@ void CSiegeWarMgr::BreakUpGuild( DWORD GuildIdx )
 	else if( m_AttackGuildList.GetData( GuildIdx ) )
 		m_AttackGuildList.Remove( GuildIdx );
 
-	// Broadcast¸¦ ÇØ¾ß ÇÏ´Â°¡?
+	// Broadcastï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ï´Â°ï¿½?
 }
 
 
@@ -1646,7 +1647,7 @@ int CSiegeWarMgr::AddEngraveSyn( CPlayer* pPlayer, DWORD GuildIdx )
 	if( m_SiegeWarSuccessTimer )								return eSWError_Error;
 
 
-	// »óÂ¡¹°°úÀÇ °Å¸®Ã¼Å© ÇÏµåÄÚµù..
+	// ï¿½ï¿½Â¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½Ã¼Å© ï¿½Ïµï¿½ï¿½Úµï¿½..
 	DWORD uniqueIdx = 0;
 	if( GetSiegeMapNum() == nakyang_siege )
 		uniqueIdx = m_SymbolIndex[NAKYANG_SYMBOL];
@@ -1666,7 +1667,7 @@ int CSiegeWarMgr::AddEngraveSyn( CPlayer* pPlayer, DWORD GuildIdx )
 	}
 
 	m_EngraveIdx = pPlayer->GetID();
-	m_EngraveTimer = 60000;				// 1ºÐ
+	m_EngraveTimer = 60000;				// 1ï¿½ï¿½
 
 	if( pPlayer->GetState() == eObjectState_Deal )
 		OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer, eObjectState_Deal );
@@ -1708,7 +1709,7 @@ void CSiegeWarMgr::CancelEngraveIdx()
 	MSG_DWORD2 msg;
 	SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_ENGRAVE_CANCEL );
 	msg.dwData1 = pPlayer->GetID();				
-	msg.dwData2 = 1;							// °ø°Ý¹Þ¾Æ¼­ ½ÇÆÐ
+	msg.dwData2 = 1;							// ï¿½ï¿½ï¿½Ý¹Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	PACKEDDATA_OBJ->QuickSend( pPlayer, &msg, sizeof(msg) );
 
 	OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer, eObjectState_Engrave );
@@ -1781,7 +1782,7 @@ void CSiegeWarMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol,void*
 
 			if( IsRegistTime( pmsg->dwData ) )
 			{
-				// °ø¼º¸Ê¿¡ ¾Ë¸°´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½.
 				MSG_DWORD smsg;
 				SetProtocol( &smsg, MP_SIEGEWAR, MP_SIEGEWAR_REGISTTIME );				
 				smsg.dwData = m_SiegeWarTime[1].value;				
@@ -1997,7 +1998,7 @@ FailedAcceptProposalGuild:
 			
 			m_TaxRate = pmsg->dwData;
 
-			// ¼º¿¡ ¼Ò¼ÓµÈ ¸Ê¼­¹öµé ÀüÃ¼¿¡ º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼Óµï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			SEND_AFFECTED_MAPLIST smsg;
 			SetProtocol( &smsg, MP_SIEGEWAR, MP_SIEGEWAR_TAXRATE );
 			smsg.Param = m_TaxRate;			// TaxRate
@@ -2005,7 +2006,7 @@ FailedAcceptProposalGuild:
 			{
 				if( m_SiegeWarMapNum[i][0] == g_pServerSystem->GetMapNum() )
 				{
-					// ÇØ´ç¸¶À»¿¡´Â º¸³¾ ÇÊ¿ä ¾øÀ¸¹Ç·Î 1ºÎÅÍ
+					// ï¿½Ø´ç¸¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ 1ï¿½ï¿½ï¿½ï¿½
 					for(int k=1; k<SIEGEWAR_MAX_AFFECTED_MAP; ++k)
 					{
 						if( m_SiegeWarMapNum[i][k] )
@@ -2022,7 +2023,7 @@ FailedAcceptProposalGuild:
 			// To DB
 			SiegeWarInfoUpdate( m_SiegeWarIdx, m_SiegeWarTime[0].value, m_SiegeWarTime[1].value, m_GateInfo.value, GetSiegeMapNum() );
 
-			// À¯Àú¿¡°Ô º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			MSGBASE msg;
 			SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_TAXRATE_ACK );
 			pPlayer->SendMsg( &msg, sizeof(msg) );
@@ -2037,18 +2038,18 @@ FailedAcceptProposalGuild:
 		break;
 	case MP_SIEGEWAR_MOVEIN_SYN:
 		{
-			// °ø¼ºÇÏ·¯ µé¾î¿À·Á°í ÇÏ¸é Ã³¸®ÇØÁØ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 			// dwData1 - GuildIdx
-			// dwData2 - 0-¼ö¼º, 1-°ø¼º, 2-¿ÉÀú¹ö
+			// dwData2 - 0-ï¿½ï¿½ï¿½ï¿½, 1-ï¿½ï¿½ï¿½ï¿½, 2-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 			if( !pPlayer )			return;
 			
 			MSG_DWORD msg;
-			// °ø¼ºÁßÀÌ¸é			
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½			
 			if( m_SiegeWarState == eSWState_SiegeWar )
 			{
-				// ¼ö¼º
+				// ï¿½ï¿½ï¿½ï¿½
 				if( pmsg->dwData2 == 0 )
 				{
 					if( m_CastleGuildIdx == pmsg->dwData1 || IsAcceptGuild( pmsg->dwData1 ) )
@@ -2062,7 +2063,7 @@ FailedAcceptProposalGuild:
 						return;
 					}
 				}
-				// °ø¼º
+				// ï¿½ï¿½ï¿½ï¿½
 				else if( pmsg->dwData2 == 1 )
 				{
 					if( IsAttackGuild( pmsg->dwData1 ) )
@@ -2076,7 +2077,7 @@ FailedAcceptProposalGuild:
 						return;
 					}
 				}
-				// ¿ÉÀú¹ö
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				else if( pmsg->dwData2 == 2 )
 				{
 					g_pServerSystem->RemovePlayer( pPlayer->GetID() );
@@ -2088,10 +2089,10 @@ FailedAcceptProposalGuild:
 					return;
 				}
 			}
-			// °ø¼ºÁßÀÌ ¾Æ´Ï¸é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 			else
 			{
-				// ¼ºµ¿¸Í¸¸ ÀÔÀå°¡´É
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½å°¡ï¿½ï¿½
 				if( pmsg->dwData2 == 0 )
 				{
 					CGuild* pGuild = GUILDMGR->GetGuild( pmsg->dwData1 );
@@ -2238,7 +2239,7 @@ PROPOSALLIST_SYN_FAILED:
 			{
 				MSG_DWORD msg;
 				SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_GUILDLIST_NACK );
-				msg.dwData = 1;				// º¼¼ö ÀÖ´Â ±â°£ÀÌ ¾Æ´Ï´Ù.
+				msg.dwData = 1;				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½â°£ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
 				pPlayer->SendMsg( &msg, sizeof(msg) );
 			}*/
 
@@ -2285,7 +2286,7 @@ PROPOSALLIST_SYN_FAILED:
 			pPlayer->SendMsg( &msg, msg.GetSize() );
 		}
 		break;
-	case MP_SIEGEWAR_LEAVE_SYN:		// °ø¼º¸Ê¿¡¼­ ¸¶À»·Î µ¹¾Æ¿ÔÀ»¶§ È£Ãâ
+	case MP_SIEGEWAR_LEAVE_SYN:		// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 		{
 			MSG_DWORD3* pmsg = (MSG_DWORD3*)pMsg;
 						
@@ -2313,11 +2314,11 @@ PROPOSALLIST_SYN_FAILED:
 			CharacterItemRareOptionInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 			CharacterAbilityInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 
-			QuestTotalInfo(pmsg->dwObjectID);		// ÃÊº¸ÀÚ Äù½ºÆ®
+			QuestTotalInfo(pmsg->dwObjectID);		// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-			// quest Á¤º¸ qurey Ãß°¡
+			// quest ï¿½ï¿½ï¿½ï¿½ qurey ï¿½ß°ï¿½
 			QUESTMGR->CreateQuestForPlayer( pPlayer );
-			// Ç×»ó ¼­ºêÄù½ºÆ® Á¤º¸ºÎÅÍ ÀÐ¾î¾ß ÇÔ...
+			// ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ ï¿½ï¿½...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);
@@ -2335,7 +2336,7 @@ PROPOSALLIST_SYN_FAILED:
 			{
 				MSG_DWORD2 msg;
 				SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_ENGRAVE_ACK );
-				msg.dwData1 = 0;			// °¢ÀÎ½ÃÀÛ
+				msg.dwData1 = 0;			// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½
 				msg.dwData2 = pPlayer->GetID();
 				PACKEDDATA_OBJ->QuickSend( pPlayer, &msg, sizeof(msg) );
 			}
@@ -2355,7 +2356,7 @@ PROPOSALLIST_SYN_FAILED:
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 			if( !pPlayer )			return;
 
-			// °ø¼º¸ÊÀÎ°¡
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½
 			MSG_DWORD msg;
 			SetProtocol( &msg, MP_SIEGEWAR, MP_SIEGEWAR_RESTRAINT_NACK );
 			if( g_pServerSystem->GetMapNum() != GetSiegeMapNum() )
@@ -2540,7 +2541,7 @@ PROPOSALLIST_SYN_FAILED:
 				else
 					m_DefenceAcceptList.Add( pGuild, pGuild->GetIdx() );
 			}
-			for(i=0; i<pmsg->AttackCount; ++i)
+			for(int i=0; i<pmsg->AttackCount; ++i)
 			{
 				pGuild = GUILDMGR->GetGuild( pmsg->GuildList[ pmsg->DefenceCount+i ].Info.GuildIdx );
 				if( !pGuild )			continue;
@@ -2729,7 +2730,7 @@ PROPOSALLIST_SYN_FAILED:
 					m_SiegeWarState = eSWState_SiegeWar;
 					SiegeWarInfoUpdate( m_SiegeWarIdx, m_SiegeWarTime[0].value, m_SiegeWarTime[1].value, m_GateInfo.value, GetSiegeMapNum() );
 
-					// ¹èÆ²¿¡ Á¤º¸¸¦ °»½Å
+					// ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					BATTLE_INFO_SIEGEWAR Info;
 					memset( &Info, 0, sizeof(BATTLE_INFO_SIEGEWAR) );
 
@@ -2740,14 +2741,14 @@ PROPOSALLIST_SYN_FAILED:
 					//
 					DWORD count = 0;
 					CGuild* pGuild = NULL;
-					// ¼º¹®ÆÄ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					if( m_CastleGuildIdx )
 					{
 						Info.GuildList[count] = m_CastleGuildIdx;
 						++Info.DefenceCount;
 						++count;
 					}
-					// ¼ö¼º¹®ÆÄ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					m_DefenceAcceptList.SetPositionHead();
 					while( pGuild = m_DefenceAcceptList.GetData() )
 					{
@@ -2755,7 +2756,7 @@ PROPOSALLIST_SYN_FAILED:
 						++Info.DefenceCount;
 						++count;
 					}
-					// °ø¼º¹®ÆÄ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					m_AttackGuildList.SetPositionHead();
 					while( pGuild = m_AttackGuildList.GetData() )
 					{
@@ -2816,13 +2817,13 @@ PROPOSALLIST_SYN_FAILED:
 
 void CSiegeWarMgr::CheckDateforFlagNPC()
 {
-	//¿äÀÏ Ã¼Å©
+	//ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	static SYSTEMTIME st;
 	GetLocalTime(&st);
 
-	if( st.wDayOfWeek != m_wCurDay ) //¿äÀÏ °»½ÅÀÌ¸é
+	if( st.wDayOfWeek != m_wCurDay ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	{
-		//±ê¹ßÁ¤º¸¸¦ AgentSrv¸¦ ÅëÇØ ÀüÆÄ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AgentSrvï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD msg;
 		msg.Category = MP_SIEGEWAR;
 		msg.Protocol = MP_SIEGEWAR_FLAGCHANGE;

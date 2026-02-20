@@ -163,10 +163,19 @@ bool ZipPlatform::GetFileModTime(LPCTSTR lpFileName, time_t & ttime)
 
 bool ZipPlatform::SetFileModTime(LPCTSTR lpFileName, time_t ttime)
 {
-	struct _utimbuf ub;
-	ub.actime = time(NULL);
-	ub.modtime = ttime == -1 ? time(NULL) : ttime; // if wrong file time, set it to the current
-	return _tutime(lpFileName, &ub) == 0;
+	// 使用Windows API设置文件修改时间
+	HANDLE hFile = CreateFile(lpFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (hFile == INVALID_HANDLE_VALUE)
+		return false;
+
+	FILETIME ft;
+	LONGLONG ll = Int32x32To64(ttime, 10000000) + 116444736000000000;
+	ft.dwLowDateTime = (DWORD)(ll & 0xFFFFFFFF);
+	ft.dwHighDateTime = (DWORD)(ll >> 32);
+
+	BOOL result = SetFileTime(hFile, NULL, NULL, &ft);
+	CloseHandle(hFile);
+	return result != FALSE;
 }
 
 

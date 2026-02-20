@@ -7,12 +7,17 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 #include "SkillObjectTargetList.h"
 
 #ifdef _MHCLIENT_
+#ifndef _MHCLIENT_LIBRARY_
 #include "Effect/EffectManager.h"
+#endif
 #endif
 
 class CSkillObject;

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "VimuManager.h"
 #include "UserTable.h"
 #include "Player.h"
@@ -65,13 +66,14 @@ BOOL CVimuManager::CanAcceptVimu( CPlayer* pApplyer, CPlayer* pAccepter )
 
 void CVimuManager::UserLogOut( CPlayer* pPlayer )
 {
-	if( pPlayer->IsVimuing() )		//ºñ¹« ½ÅÃ»ÀýÂ÷ Ã³¸®Áß
-	if( pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_NONE )
+	if( pPlayer->IsVimuing() )		// Ã» Ã³
 	{
+		if( pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_NONE )
+		{
 		CPlayer* pOpPlayer = (CPlayer*)g_pUserTable->FindUser( pPlayer->GetVimuOpPlayerID() );
 		if( !pOpPlayer ) return;
 
-		if( pPlayer->GetState() == eObjectState_BattleReady )	//½ÅÃ»ÀÚ
+		if( pPlayer->GetState() == eObjectState_BattleReady )	//Ã»
 		{
 			MSGBASE CancelMsg;
 			CancelMsg.Category = MP_BATTLE;
@@ -93,6 +95,7 @@ void CVimuManager::UserLogOut( CPlayer* pPlayer )
 			if( pOpPlayer->GetState() == eObjectState_BattleReady )
 				OBJECTSTATEMGR_OBJ->EndObjectState( pOpPlayer, eObjectState_BattleReady );
 		}
+		}
 	}
 }
 
@@ -108,7 +111,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			if( !pPlayer1 ) return;
 			CPlayer* pPlayer2 = (CPlayer*)g_pUserTable->FindUser(msg->dwData);
 
-			//¹«Àû»óÅÂ¿´´Ù¸é ³¡³½´Ù.
+			//Â¿Ù¸ .
 			if( pPlayer1->GetState() == eObjectState_Immortal )
 				OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer1, eObjectState_Immortal );			
 
@@ -118,7 +121,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 				MSG_BYTE msgError;
 				msgError.Category	= MP_BATTLE;
 				msgError.Protocol	= MP_BATTLE_VIMU_ERROR;
-				msgError.bData		= 3;	//ºñ¹«°ÅºÎ»óÅÂ
+				msgError.bData		= 3;	//ñ¹«°ÅºÎ»
 				pPlayer1->SendMsg( &msgError, sizeof( MSG_BYTE ) );
 
 				break;
@@ -130,7 +133,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 
 			if( !CanApplyVimu( pPlayer1, pPlayer2 ) )
 			{
-				//error·ÎÃ³¸®
+				//errorÃ³
 				ApplySynMsg.Protocol	= MP_BATTLE_VIMU_APPLY_NACK;
 				pPlayer1->SendMsg( &ApplySynMsg, sizeof( MSG_DWORD ) );
 				return;
@@ -139,7 +142,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			ApplySynMsg.Protocol	= MP_BATTLE_VIMU_APPLY_ACK;
 			pPlayer1->SendMsg( &ApplySynMsg, sizeof( MSG_DWORD ) );
 			
-			pPlayer1->SetVimuing( TRUE );		//ºñ¹«¸Å´ÏÁ®°¡.. ºñ¹«ÇÃ·¹ÀÌ¾î¸¦°ü¸®ÇÑ´Ù? //confirm
+			pPlayer1->SetVimuing( TRUE );		//ñ¹«¸Å´.. Ã·Ì¾î¸¦Ñ´? //confirm
 			pPlayer1->SetVimuOpPlayerID( pPlayer2->GetID() );
 			OBJECTSTATEMGR_OBJ->StartObjectState(pPlayer1, eObjectState_BattleReady, 0);
 			pPlayer2->SetVimuing( TRUE );
@@ -162,7 +165,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			if( !pPlayer1 ) return;
 			CPlayer* pPlayer2 = (CPlayer*)g_pUserTable->FindUser( pPlayer1->GetVimuOpPlayerID() );
 
-			//¹«Àû»óÅÂ¿´´Ù¸é ³¡³½´Ù.
+			//Â¿Ù¸ .
 			if( pPlayer1->GetState() == eObjectState_Immortal )
 				OBJECTSTATEMGR_OBJ->EndObjectState( pPlayer1, eObjectState_Immortal );
 
@@ -179,7 +182,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 					MSG_BYTE ErrorMsg;
 					ErrorMsg.Category	= MP_BATTLE;
 					ErrorMsg.Protocol	= MP_BATTLE_VIMU_ERROR;
-					ErrorMsg.bData		= 1;	//»ó´ë°¡ ½Â¶ôÇÒ¼ö ¾ø´Â»óÅÂ
+					ErrorMsg.bData		= 1;	//ë°¡ Â¶Ò¼ Â»
 					pPlayer2->SendMsg( &ErrorMsg, sizeof( MSG_BYTE ) );
 
 					pPlayer2->SetVimuing( FALSE );
@@ -193,14 +196,14 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			VECTOR3 vPosApplyer, vPosAccepter;
 			pPlayer2->GetPosition( &vPosApplyer );
 			pPlayer1->GetPosition( &vPosAccepter );
-			float fDist = CalcDistanceXZ( &vPosApplyer, &vPosAccepter );	//confirm ÃÖÀûÈ­
+			float fDist = CalcDistanceXZ( &vPosApplyer, &vPosAccepter );	//confirm È­
 
 			if( fDist > 1500.0f )
 			{
 				MSG_BYTE ErrorMsg;
 				ErrorMsg.Category	= MP_BATTLE;
 				ErrorMsg.Protocol	= MP_BATTLE_VIMU_ERROR;
-				ErrorMsg.bData		= 2;	//»ó´ë¿Í °Å¸®°¡ ³Ê¹« ¸Ö¾î¼­
+				ErrorMsg.bData		= 2;	// Å¸ Ê¹ Ö¾î¼­
 				pPlayer1->SendMsg( &ErrorMsg, sizeof( MSG_BYTE ) );
 				pPlayer2->SendMsg( &ErrorMsg, sizeof( MSG_BYTE ) );
 
@@ -219,7 +222,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			BattleInfo.Character[VIMUTEAM_RED]	= pPlayer2->GetID();
 			
 
-			//---ºñ¹«ÀåÀ§Ä¡°è»ê
+			//---Ä¡
 //			VECTOR3 vPos, vPos2, vStgPos;
 //			pPlayer2->GetPosition( &vPos );
 			
@@ -312,7 +315,7 @@ void CVimuManager::NetworkMsgParse(BYTE Protocol,void* pMsg)
 			CPlayer* pPlayer1		= (CPlayer*)g_pUserTable->FindUser( msg->dwObjectID );
 			if( pPlayer1 == NULL ) return;
 			
-//			if( pPlayer1->IsVimuing() == TRUE )	//ÀÌ¹Ì ½ÃÀÛµÇ¾ú´Ù.
+//			if( pPlayer1->IsVimuing() == TRUE )	//Ì¹ ÛµÇ¾.
 			if( pPlayer1->GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET )
 			{
 				MSGBASE CancelMsg = *msg;

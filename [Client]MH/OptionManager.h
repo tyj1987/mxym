@@ -26,7 +26,7 @@ struct sGAMEOPTION
 	BOOL bNameOthers;
 	BOOL bNoMemberDamage;
 	BOOL bNoGameTip;
-	BOOL bMunpaIntro;	// magi82 - ·Î±×ÀÎ½Ã¸¸ ¹®ÆÄ¼Ò°³Ã¢ ¿É¼ÇÁö¿ø 070108
+	BOOL bMunpaIntro;	// magi82 - ï¿½Î±ï¿½ï¿½Î½Ã¸ï¿½ ï¿½ï¿½ï¿½Ä¼Ò°ï¿½Ã¢ ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½ 070108
 
 	int nMacroMode;
 
@@ -55,7 +55,7 @@ struct sGAMEOPTION
 	BOOL bAutoCtrl;
 	int nLODMode;
 	int nEffectMode;
-	int nEffectSnow; // 2005.12.28ÀÏ ´«On/Off Ãß°¡ 
+	int nEffectSnow; // 2005.12.28ï¿½ï¿½ ï¿½ï¿½On/Off ï¿½ß°ï¿½ 
 
 #endif
 
@@ -64,7 +64,7 @@ struct sGAMEOPTION
 	int	nVolumnBGM;				//
 	int nVolumnEnvironment;		//
 
-	//SW060904 Ä³¸¯È¯°æ¹İ»ç°ª ¼³Á¤ ¿É¼Ç Ãß°¡
+	//SW060904 Ä³ï¿½ï¿½È¯ï¿½ï¿½İ»ç°ª ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ß°ï¿½
 	BOOL bAmbientMax;
 
 //	WORD wKyungGongIdx;
@@ -82,11 +82,8 @@ struct sGAMEOPTION
 //	BOOL bSoundCharater;
 //	BOOL bSoundMonster;
 
-#ifdef _KOR_LOCAL_
-
-	int nLoginCombo;	// magi82 - 0:¹¬Çâ 1:Â¯ÆÄÀÏ
-
-#endif
+	// ç™»å½•éš¾åº¦è®¾ç½® - 0:æ™®é€š 1:æéš¾
+	int nLoginCombo;
 
 	BOOL bIntroFlag;	// magi82 - Intro(070713)
 	BOOL bNoAvatarView;
@@ -102,12 +99,12 @@ protected:
 	BOOL			m_bBGMSoundChanged;
 	WORD			m_wSendOption;
 
-	//SW050804 ¿É¼ÇÃ¢: ¹æÆÄ µ¥¹ÌÁö º¸±â Ãß°¡
+	//SW050804 ï¿½É¼ï¿½Ã¢: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	BOOL			m_bShowMenberDamage;
 
-	//SW050825 ±×·¡ÇÈ¿É¼ÇTab: GraphicAutoCtrlProcess()
+	//SW050825 ï¿½×·ï¿½ï¿½È¿É¼ï¿½Tab: GraphicAutoCtrlProcess()
 	COptionDialog*	m_pOptionDlg;
-	cGuageBar*		m_pCammaGB;		//ÇöÀç Àû¿ëÀº ¾ÈµÊ
+	cGuageBar*		m_pCammaGB;		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½
 	cGuageBar*		m_pSightGB;
 	LONG			m_SigntGBMinValue;
 	LONG			m_SigntGBMaxValue;

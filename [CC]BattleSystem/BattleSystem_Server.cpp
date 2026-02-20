@@ -10,19 +10,20 @@
 #include "VimuStreet/BattleFactory_VimuStreet.h"
 #include "MurimField/BattleFactory_MurimField.h"
 #include "MunpaField/BattleFactory_MunpaField.h"
+#include "BattleFactory.h"
 #include "BattleFactory_Default.h"
 #include "Suryun/BattleFactory_Suryun.h"
 #include "..\[CC]BattleSystem\GTournament\BattleFactory_GTournament.h"
 #include "..\[CC]BattleSystem\SiegeWar\BattleFactory_SiegeWar.h"
 
-#include "UserTable.h"
-#include "Player.h"
-#include "PackedData.h"
+#include "../[Client]MH/UserTable.h"
+#include "../[Client]MH/Player.h"
+#include "../[Client]MH/PackedData.h"
 #include "..\[CC]Header\GameResourceManager.h"
 
-#include "CharMove.h"
+#include "../[Client]MH/CharMove.h"
 
-#include "VimuManager.h"
+#include "../[Client]MH/VimuManager.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/stdafx.h"
+#include "stdafx.h"
 
 
 #ifdef _NEED_CONFIRM

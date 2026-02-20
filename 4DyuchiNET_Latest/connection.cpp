@@ -20,7 +20,7 @@ CConnection::CConnection()
 
 BOOL CConnection::Initialize(SOCKET s,DWORD size,int max_recv_size,int max_send_size)
 {
-	//º¯¼ö ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	m_pInfo = NULL;
 	m_pNext = NULL;
 
@@ -74,7 +74,7 @@ BOOL CConnection::Initialize(SOCKET s,DWORD size,int max_recv_size,int max_send_
 
 }
 // 
-// ³Ê¹« Áß¿äÇÑ SendÇÔ¼ö
+// ï¿½Ê¹ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ Sendï¿½Ô¼ï¿½
 // 
 BOOL CConnection::Send(char* msg,DWORD length,DWORD flag)
 {
@@ -87,7 +87,11 @@ BOOL CConnection::Send(char* msg,DWORD length,DWORD flag)
 	if (!flag)
 		*(DWORD*)checkbytes = NULL;
 	else
-		g_pICode->Encode(checkbytes,&checkbytes_len,msg,length);
+	{
+		char* pEncoded;
+		g_pICode->Encode(msg, length, &pEncoded, &checkbytes_len);
+		memcpy(checkbytes, pEncoded, checkbytes_len);
+	}
 
 	total_len = checkbytes_len + length;
 	
@@ -239,14 +243,14 @@ seg_return:
 }
 CConnection::~CConnection()
 {
-	// µð½ºÆ®·°ÅÍ.º°µµ·Î ÇÒ´çÇØÁØ ¸Þ¸ð¸®°¡ ÀÖ´Ù¸é ¿©±â¼­ ÇØÁ¦ÇØÁØ´Ù.
+	// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ð¸®°ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	Release();
 }
 
 void CConnection::CloseSocket()
 {
 	//
-	// closeÇÑ ¼ÒÄÏÀº ´Ù½Ã closeÇÏÁö ¾Êµµ·Ï ÇÑ¹ø È®ÀÎÇÑ´Ù.
+	// closeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ closeï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//
 	if (m_pRecvOverlapped->GetSocket() != INVALID_SOCKET && m_pSendOverlapped->GetSocket() != INVALID_SOCKET)
 	{

@@ -3,12 +3,13 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "../[CC]Header/ServerSystem.h"
 #include "BattleTeam_SiegeWar.h"
 
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 
 #ifdef _MAPSERVER_
-#include "Object.h"
+#include "../[Client]MH/Object.h"
 #endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -45,7 +46,7 @@ BOOL CBattleTeam_SiegeWar::IsAddableTeamMember(CObject* pObject)
 				return TRUE;		
 		}
 	}
-	// 眠啊贸府秦具 窃
+	// 甙贸鼐 
 	else if( pObject->GetObjectKind() & eObjectKind_Monster )
 		return TRUE;
 

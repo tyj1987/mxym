@@ -4,14 +4,22 @@
 
 #if !defined(AFX_TACTICMANAGER_H__1DDB15D4_3E95_443D_9D35_FF717CAB00AB__INCLUDED_)
 #define AFX_TACTICMANAGER_H__1DDB15D4_3E95_443D_9D35_FF717CAB00AB__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
+// æœåŠ¡å™¨ä¸“ç”¨ï¼šç¡®ä¿åªåœ¨æœåŠ¡å™¨ç¼–è¯‘æ—¶å®šä¹‰è¿™äº›ç±»å‹
+#ifdef _MAPSERVER_
+
+#include "ServerSystem.h"
 
 #define  TACTICMGR CTacticManager::GetInstance()
 class CTaticAbilityInfo;
+class CTacticStartInfo;
+class CTacticObject;
+class CPlayer;
 
 class CTacticManager  
 {
@@ -49,12 +57,14 @@ public:
 //	DWORD	GetAttackMaxValue( CPlayer* pOperator, WORD SkillIdx );
 //	DWORD	GetAttackMinValue( CPlayer* pOperator, WORD SkillIdx );
 	void	GetRecoverValue( CPlayer* pOperator, WORD SkillIdx, WORD &Life, WORD &Naeryuk );
-	float	GetBuffRateForPhyAttack( CPlayer* pOperator, WORD SkillIdx );		// ¹°¸®°ø°İ Áõ°¡À²
-	float	GetBuffRateForPhyDefense( CPlayer* pOperator, WORD SkillIdx );		// ¹°¸®¹æ¾î Áõ°¡À²
-	float	GetBuffRateForAttrDefense( CPlayer* pOperator, WORD SkillIdx );		// ¼Ó¼º¹æ¾î Áõ°¡À²
-	DWORD	GetBuffValueForNaeryuk( CPlayer* pOperator, WORD SkillIdx );		// ³»·Â»ó½Â¾ç
-	DWORD	GetBuffValueForLife( CPlayer* pOperator, WORD SkillIdx );			// »ı¸í·Â»ó½Â¾ç
-	DWORD	GetBuffValueForShield( CPlayer* pOperator, WORD SkillIdx );			// È£½Å°­±â»ó½Â¾ç
+	float	GetBuffRateForPhyAttack( CPlayer* pOperator, WORD SkillIdx );		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float	GetBuffRateForPhyDefense( CPlayer* pOperator, WORD SkillIdx );		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float	GetBuffRateForAttrDefense( CPlayer* pOperator, WORD SkillIdx );		// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	GetBuffValueForNaeryuk( CPlayer* pOperator, WORD SkillIdx );		// ï¿½ï¿½ï¿½Â»ï¿½Â¾ï¿½
+	DWORD	GetBuffValueForLife( CPlayer* pOperator, WORD SkillIdx );			// ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½Â¾ï¿½
+	DWORD	GetBuffValueForShield( CPlayer* pOperator, WORD SkillIdx );			// È£ï¿½Å°ï¿½ï¿½ï¿½ï¿½Â¾ï¿½
 };
+
+#endif // _MAPSERVER_
 
 #endif // !defined(AFX_TACTICMANAGER_H__1DDB15D4_3E95_443D_9D35_FF717CAB00AB__INCLUDED_)

@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "SkillObjectFirstUnit.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 #include "SkillInfo.h"
 #include "..\[CC]Header\CommonCalcFunc.h"
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ void CSkillObjectFirstUnit::Init( CSkillInfo* pSkillInfo,WORD SkillLevel,CObject
 
 #ifdef _MAPSERVER_
 
-#include "StateMachinen.h"
+#include "..\[Server]Map\StateMachinen.h"
 int CSkillObjectFirstUnit::ExcuteFirstUnit(CObject* pOperator,CSkillObjectTargetList* pTargetList,
 												   MSG_SKILLOBJECT_ADD* pAddMsg,float SkillTreeAmp)
 {
@@ -89,7 +89,7 @@ void CSkillObjectFirstUnit::DefaultFirstEffect(CObject* pOperator,STLIST* pTarge
 	}
 #endif
 	
-	// 공격의욕 상실
+	// 퓻 
 	if((pTarget->pObject->GetObjectKind() & eObjectKind_Monster) &&
 		m_DispelAttackFeelRate != 0)
 	{
@@ -118,7 +118,7 @@ void CSkillObjectFirstUnit::StartFirstEffect(CObject* pOperator,CTargetList* pTL
 	
 	m_hEff = EFFECTMGR->StartEffectProcessWithTargetList(m_pSkillInfoData->EffectUse,pOperator,pTList,pMainTarget,EffectFlag);
 
-	ASSERTMSG(m_hEff,"무공 시작 이펙트에 오류가 있습니다.");
+	ASSERTMSG(m_hEff,"  트  笭求.");
 	if(m_hEff == NULL && pTList)
 	{
 		CTargetListIterator iter(pTList);

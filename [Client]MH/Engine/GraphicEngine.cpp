@@ -117,8 +117,13 @@ BOOL CGraphicEngine::CreateExecutive(HWND hWnd,DISPLAY_INFO* pDispInfo,DWORD Max
 	}
 
 	pDispInfo->dwRefreshRate = 0;
+	#ifdef USE_DX12
+	m_pExecutive->InitializeWithoutRegistry("SS3DGeometryForMuk.dll","4DYUCHIGX_RENDER_D3D12.dll",
+		hWnd, pDispInfo, 8000, 300,0,1, 0,MHErrorHandleProc);
+	#else
 	m_pExecutive->InitializeWithoutRegistry("SS3DGeometryForMuk.dll","SS3DRendererForMuk.dll",
 		hWnd, pDispInfo, 8000, 300,0,1, 0,MHErrorHandleProc);
+	#endif
 	//*/
 	
 	/*  COM »ç¿ë

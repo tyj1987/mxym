@@ -1,5 +1,6 @@
 #ifndef __STREETSTALL_MANAGER__
 #define __STREETSTALL_MANAGER__
+#include "..\[CC]Header\CommonStruct.h"
 
  
 //#define STREETSTALLMGR cStreetStallManager::GetInstance()
@@ -45,7 +46,7 @@ protected:
 	CYHHashTable<cStreetStall>			m_StallTable;
 
 	// magi82(47)
-	DWORD	m_dwSearchDelayTime[eDelay_Max];	// 노점상 검색 딜레이
+	DWORD	m_dwSearchDelayTime[eDelay_Max];	//  講 
 	CMemoryPoolTempl<STALL_DEALITEM_INFO>*		m_pDealItemPool[eFind_Max];
 	CYHHashTable<STALL_DEALITEM_INFO>				m_pDealItemTable[eFind_Max];
 	CMemoryPoolTempl<STALL_DEALER_INFO>*		m_pDealerPool[eFind_Max];
@@ -79,13 +80,13 @@ public:
 	void SendNackMsg(CPlayer* pPlayer, BYTE Protocol);
 
 	// magi82(47)
-	void	InitStallData();		// 노점상 검색 메모리풀, 테이블 초기화
-	void	ReleaseStallData();		// 노점상 검색 메모리풀, 테이블 해제
-	void	ResetStallData( DWORD dwOwnerIdx, StreetStallFindState State );	// 노점상 검색 정보 리셋
-	void	InsertStallData(  DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State, DWORD dwMoney );	// 노점상 검색에 정보 추가
-	void	DeleteStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State );	// 노점상 검색에 정보 삭제
-	DWORD	GetPrice( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallPriceState State );	// 해당 노점상의 최고가, 최저가 리턴
-	BOOL	CheckDelayTime( DWORD dwTime, StreetStallDelayState State );		// 노점상 검색관련 딜레이 체크
+	void	InitStallData();		//  講 貧풀, 遣 珂화
+	void	ReleaseStallData();		//  講 貧풀, 遣 
+	void	ResetStallData( DWORD dwOwnerIdx, StreetStallFindState State );	//  講  
+	void	InsertStallData(  DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State, DWORD dwMoney );	//  講  煞
+	void	DeleteStallData( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallFindState State );	//  講  
+	DWORD	GetPrice( DWORD dwOwnerIdx, DWORD dwItemIdx, StreetStallPriceState State );	// 娩  斂,  
+	BOOL	CheckDelayTime( DWORD dwTime, StreetStallDelayState State );		//  講  체크
 };
 EXTERNGLOBALTON(cStreetStallManager);
 

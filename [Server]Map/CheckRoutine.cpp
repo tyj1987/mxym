@@ -235,10 +235,12 @@ BOOL CCheckRoutine::ItemAquireSkillOf( CPlayer* pPlayer, WORD wSkillIdx1, WORD w
 	{
 		pInfo = pPlayer->GetMugongBaseByMugongIdx( i );
 		if( pInfo )
+		{
 		if( pInfo->Sung > 0 )
 			return TRUE;
 	}
 
+		}
 	return FALSE;
 }
 #endif

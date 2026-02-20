@@ -3,10 +3,17 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 #include "SkillObjectFirstUnit.h"
 #include "ValueInSung.h"
+
+// 前向声明
+class CPlayer;
+class CMonster;
 
 class CSkillObjectFirstUnit_Job : public CSkillObjectFirstUnit
 {
@@ -35,4 +42,4 @@ public:
 #endif
 };
 
-#endif _SKILLOBJECT_FIRSTUNIT_JOB_H
+#endif // _SKILLOBJECT_FIRSTUNIT_JOB_H

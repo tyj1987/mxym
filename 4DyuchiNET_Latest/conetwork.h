@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../4DyuchiNET_Common/INetwork_GUID.h"
-#include "../4DyuchiNET_Common/INetwork.h"
-//#include "../4DyuchiNET_Common/typedef.h"
-
-
+#include "I4DyuchiNET.h"
+#include "INetwork.h"
+#include "typedef.h"
 
 class Co4DyuchiNET : public I4DyuchiNET
 {

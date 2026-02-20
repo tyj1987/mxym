@@ -6,6 +6,7 @@
 #include "AbilityIcon.h"
 #include "Ability.h"
 #include "AbilityInfo.h"
+#ifdef _MHCLIENT_
 #include "./interface/cFont.h"
 #include "AbilityCommonHeader.h"
 #include "ObjectManager.h"
@@ -24,7 +25,7 @@ CAbilityIcon::CAbilityIcon()
 }
 
 CAbilityIcon::~CAbilityIcon()
-{	
+{
 
 }
 
@@ -38,13 +39,13 @@ void CAbilityIcon::Render()
 {
 	switch(m_State)
 	{
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// ¾Èº¸ÀÌ´Â Á¶°Ç - ÇÊ¿ä·¹º§ 100 or È­°æ±Ø¸¶ Á¶°Ç ¹ÌÇÊ
+	// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+	// ì“¸ìˆ˜ì—†ëŠ” ìŠ¤í‚¬ - ì „ì‚¬ê³„ì—´ 100 or ê¶ìˆ˜ë ¨ ê³„ì—´ì˜ ê²ƒì²˜ëŸ¼ ë³´ì„
 	case eAIS_NotUsable:
 		{
 			return;
 		}
-	// ¾îµÓ°Ô º¸ÀÌ±â - ·¹º§ Á¦ÇÑ
+	// ê·¸ë¦¼ì ì²˜ë¦¬ - ì“¸ìˆ˜ì—†ëŠ”ê²ƒ
 	case eAIS_NotAvailable:
 		{
 			SetMovable(FALSE);
@@ -54,9 +55,9 @@ void CAbilityIcon::Render()
 			return;
 		}
 		break;
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// ÂïÀ»¼ö ÀÖ´Â ½ºÅ³Àº ¸ğµÎ Á¤»óÀûÀ¸·Î º¸ÀÎ´Ù
-	// ´Ù¸¸ ¼ö·Ã ¾ÈÇÑ ½ºÅ³Àº 0À» °°ÀÌ Âï¾îÁØ´Ù
+	// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+	// ìˆ˜ë ¨ì€ ìˆëŠ”ë° ë ˆë²¨ì´ ì•ˆë˜ì„œ ìŒì˜ìœ¼ë¡œ ë³´ì„
+	// ë‹¤ìŒ ë ˆë²¨ìŠ¤í‚¬ì„ 0ìœ¼ë¡œ í‘œì‹œí•©ë‹ˆë‹¤
 	case eAIS_OnlyVisible:
 		{
 			SetMovable(FALSE);
@@ -82,7 +83,7 @@ void CAbilityIcon::Render()
 			cIcon::Render();
 
 			RenderInfo(&m_absPos);
-			
+
 			//m_pAbilityInfo->m_AbilityInfo.Ability_Grade_exp
 			/*
 			if( m_Level != 1 || (int)m_pAbilityInfo->GetAbilityGradeExp( m_Level + 1 ) != -1 )
@@ -91,7 +92,7 @@ void CAbilityIcon::Render()
 				WORD level = m_Level;
 				DWORD color = RGBA_MERGE(m_dwImageRGB, m_alpha * m_dwOptionAlpha / 100);
 
-				if( m_pAbilityInfo->GetKind() == eAGK_Battle &&					
+				if( m_pAbilityInfo->GetKind() == eAGK_Battle &&
 					HERO->GetShopItemStats()->AddSung )
 				{
 					level += HERO->GetShopItemStats()->AddSung;
@@ -100,8 +101,8 @@ void CAbilityIcon::Render()
 
 				if(m_MaxLevel > level)
 					wsprintf(num,"%2d", level);
-				// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-				// ÃÖÁ¾·¹º§ µµ´Ş½Ã èÇÀÚ Ãâ·Â
+				// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+				// ìˆ˜ë ¨ì´ ì•ˆë˜ë©´ ë©”ì„¸ì§€ë¥¼
 				else
 					wsprintf(num,"%s", CHATMGR->GetChatMsg(179));
 
@@ -112,7 +113,7 @@ void CAbilityIcon::Render()
 			CAbility* pAblilty = HERO->GetAbilityGroup()->GetAbility(m_pAbilityInfo->GetIdx());
 			if(pAblilty == NULL)
 				return;
-			
+
 
 			if( HERO )
 			if( HERO->GetKyungGongMode() )
@@ -128,7 +129,7 @@ void CAbilityIcon::Render()
 				}
 			}
 			*/
-/*	
+/*
 			if(pAblilty->IsActivating() == TRUE)
 			{
 				static int TICK_PER_IMAGE = 500;
@@ -139,10 +140,10 @@ void CAbilityIcon::Render()
 			}
 */
 
-/*			//KES ÀÌ°Å ¸ÓÇÏ´Â°ÅÁö?
+/*			//KES í™œì„±í™” í‘œì‹œí•˜ëŠ”ê±°???
 			if(m_bAbilityActive)
 			{
-				// Active Ã³¸®
+				// Active Ã³Â¿Â¿
 				static char num[3];			//KES confirm ???
 				wsprintf(num,"Active");
 				RECT rect={(LONG)m_absPos.x+2, (LONG)m_absPos.y+29, 1,1};
@@ -158,11 +159,11 @@ void CAbilityIcon::Render()
 void CAbilityIcon::Init(LONG x, LONG y, WORD wid, WORD hei, cImage * basicImage, LONG ID)
 {
 	cIcon::Init(x,y,wid,hei,basicImage,ID);
-	
+
 	m_CurScrollImage = 0;
 	SCRIPTMGR->GetImage(95, &m_ScrollImg[0], PFT_HARDPATH);
 	SCRIPTMGR->GetImage(96, &m_ScrollImg[1], PFT_HARDPATH);
-	SCRIPTMGR->GetImage(97, &m_ScrollImg[2], PFT_HARDPATH);	
+	SCRIPTMGR->GetImage(97, &m_ScrollImg[2], PFT_HARDPATH);
 }
 
 void CAbilityIcon::InitAbilityIcon(CAbilityInfo* pInfo)
@@ -171,8 +172,8 @@ void CAbilityIcon::InitAbilityIcon(CAbilityInfo* pInfo)
 	m_pAbilityInfo = pInfo;
 	m_bAbilityActive = FALSE;
 
-	// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-	// ÃÖÁ¾·¹º§ °è»ê
+	// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+	// ìµœëŒ€ ë ˆë²¨ì„ êµ¬í•¨
 	for(m_MaxLevel = 0; m_MaxLevel < MAX_ABILITY_LEVEL; m_MaxLevel++)
 	{
 		if(m_pAbilityInfo->GetInfo()->Ability_Grade_exp[m_MaxLevel] == -1)
@@ -193,7 +194,7 @@ POSTYPE	CAbilityIcon::GetPosition()
 	return m_pAbilityInfo->GetAbsPosition();
 }
 
-WORD CAbilityIcon::GetItemIdx()	//quickÀ» À§ÇÑ Àı´ë index°ªÀÌ´Ù.
+WORD CAbilityIcon::GetItemIdx()	//quickÂ¿Â¡ Â·Â¿ Â¿Â©Â·Ã indexÂ°Â¡Â´Ã™Â´Ã™.
 {
 	return m_pAbilityInfo->GetIdx() + MIN_ABILITY_INDEX;
 }
@@ -211,7 +212,7 @@ void CAbilityIcon::RenderInfo(VECTOR2* pPos)
 		WORD level = m_Level;
 		DWORD color = RGBA_MERGE(m_dwImageRGB, m_alpha * m_dwOptionAlpha / 100);
 
-		if( m_pAbilityInfo->GetKind() == eAGK_Battle &&					
+		if( m_pAbilityInfo->GetKind() == eAGK_Battle &&
 			HERO->GetShopItemStats()->AddSung )
 		{
 			level += HERO->GetShopItemStats()->AddSung;
@@ -220,8 +221,8 @@ void CAbilityIcon::RenderInfo(VECTOR2* pPos)
 
 		if(m_MaxLevel > level)
 			wsprintf(num,"%2d", level);
-		// 06. 01. ¾îºô¸®Æ¼Ã¢ ÀÎÅÍÆäÀÌ½º ¼öÁ¤ - ÀÌ¿µÁØ
-		// ÃÖÁ¾·¹º§ µµ´Ş½Ã èÇÀÚ Ãâ·Â
+		// 06. 01. ìˆ˜ë ¨ì°½ì´ í™œì„±í™” ë¹„í™œì„±í™” ì²´í¬ - ë ì•„ë¡œ
+		// ìˆ˜ë ¨ì´ ì•ˆë˜ë©´ ë©”ì„¸ì§€ë¥¼ ë³´ì—¬ì¤€ë‹¤
 		else
 			wsprintf(num,"%s", CHATMGR->GetChatMsg(179));
 
@@ -250,3 +251,4 @@ void CAbilityIcon::RenderInfo(VECTOR2* pPos)
 
 }
 
+#endif // _MHCLIENT_

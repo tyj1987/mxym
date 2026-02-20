@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "GuildTournamentMgr.h"
 #include "Guild.h"
 #include "MHFile.h"
@@ -224,7 +225,7 @@ void CGuildTournamentMgr::Reset()
 
 void CGuildTournamentMgr::Process()
 {
-	// Åä³Ê¸ÕÆ® ½ÃÀÛÇß´ÂÁö Ã¼Å©Ãß°¡
+	// ï¿½ï¿½Ê¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ß°ï¿½
 	//if( g_pServerSystem->GetMapNum() != GTMAPNUM )		return;
 	if( FALSE == g_pServerSystem->GetMap()->IsMapKind(eTournament) )		return;
 	
@@ -258,17 +259,21 @@ void CGuildTournamentMgr::Process()
 	ct.value = GetCurTime();
 	if( m_WaitTime.value && m_WaitTime > ct )					return;
 
-	// µî·Ï½Ã°£ÀÎÁö Ã¼Å©
+	// ï¿½ï¿½Ï½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	switch( m_TournamentState )
 	{
 	case eGTState_BeforeRegist:
 		{
-			if( st.wDayOfWeek < m_RegistTime[0].Day	)			return;			// µî·ÏÀü ÀÏ
+			if( st.wDayOfWeek < m_RegistTime[0].Day	)			return;			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			if( st.wDayOfWeek == m_RegistTime[0].Day )		
-			if( st.wHour < m_RegistTime[0].Hour )				return;			// µî·ÏÀü ½Ã°£
+			{
+			if( st.wHour < m_RegistTime[0].Hour )				return;			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+			}
 			if( st.wHour == m_RegistTime[0].Hour )
-			if( st.wMinute < m_RegistTime[0].Minute )			return;			// µî·ÏÀü ºÐ
+			{
+			if( st.wMinute < m_RegistTime[0].Minute )			return;			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			
+			}
 			if( m_CurTournament == eGTFight_End )
 			{
 				++m_TournamentCount;
@@ -294,7 +299,7 @@ void CGuildTournamentMgr::Process()
 			msg.dwData = m_TournamentState;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			//ÀÌ ½ÃÁ¡¿¡¼­ Á¤º¸¸¦ º¸³»ÁÒ¾ß ÇÒµí...
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½ ï¿½Òµï¿½...
 			//////////////////////////////////////////////////////////////////////////
 			MSG_DWORD msg1; 
 			//CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( m_TournamentState );
@@ -309,12 +314,16 @@ void CGuildTournamentMgr::Process()
 		break;
 	case eGTState_Regist:
 		{
-			if( st.wDayOfWeek < m_RegistTime[1].Day	)			return;			// µî·Ï ÀÏ
+			if( st.wDayOfWeek < m_RegistTime[1].Day	)			return;			// ï¿½ï¿½ï¿½ ï¿½ï¿½
 			if( st.wDayOfWeek == m_RegistTime[1].Day )
-			if( st.wHour < m_RegistTime[1].Hour )				return;			// µî·Ï ½Ã°£
+			{
+			if( st.wHour < m_RegistTime[1].Hour )				return;			// ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+			}
 			if( st.wHour == m_RegistTime[1].Hour )
-			if( st.wMinute < m_RegistTime[1].Minute )			return;			// µî·Ï ºÐ
+			{
+			if( st.wMinute < m_RegistTime[1].Minute )			return;			// ï¿½ï¿½ï¿½ ï¿½ï¿½
 
+			}
 			m_TournamentState = eGTState_BeforeEntrance;
 			m_RemainTime = 0;
 
@@ -324,7 +333,7 @@ void CGuildTournamentMgr::Process()
 			msg.dwData = m_TournamentState;
 			PACKEDDATA_OBJ->SendToBroadCastMapServer( &msg, sizeof(msg) );
 
-			//ÀÌ ½ÃÁ¡¿¡¼­ Á¤º¸¸¦ º¸³»ÁÒ¾ß ÇÒµí...
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½ ï¿½Òµï¿½...
 			//////////////////////////////////////////////////////////////////////////
 			MSG_DWORD msg1;
 			SetProtocol( &msg, MP_GTOURNAMENT, MP_GTOURNAMENT_FLAGCHANGE );
@@ -342,13 +351,13 @@ void CGuildTournamentMgr::Process()
   					m_RemainTime -= gTickTime;
   				else
   				{
-  					// È¤½Ã¶óµµ ´©±º°¡°¡ ³²¾ÆÀÖÀ¸¸é »èÁ¦ÇÑ´Ù.
+  					// È¤ï¿½Ã¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   					m_RemainTime = 0;
   					CPlayer* pData = NULL;
   					g_pUserTable->SetPositionHead();
   					while( pData = (CPlayer*)g_pUserTable->GetData() )
   						g_pServerSystem->RemovePlayer( pData->GetID(), FALSE );
-					g_pUserTable->RemoveAll();	//KES ¼öÁ¤				
+					g_pUserTable->RemoveAll();	//KES ï¿½ï¿½ï¿½ï¿½				
 
   				}
   			}
@@ -518,7 +527,7 @@ void CGuildTournamentMgr::CreateBattle()
 	if( FALSE == g_pServerSystem->GetMap()->IsMapKind(eTournament) )
 		return;
 
-	// ¹èÆ²»ý¼º
+	// ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½
 	for(DWORD i=0; i<BattleCount[m_CurTournament]; ++i)
 	{
 		m_BattleInfo[m_BattleCount].BattleKind	= eBATTLE_KIND_GTOURNAMENT;
@@ -542,7 +551,7 @@ void CGuildTournamentMgr::CreateBattle()
 			m_BattleInfo[m_BattleCount].MemberInfo.TeamGuildIdx[1] = m_GuildInfoList[Idx1].pGuild->GetIdx();
 		}
 
-		// ºÎÀü½Â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( Idx0 == -1 )
 		{
 			if( Idx1 == -1 )			continue;
@@ -577,11 +586,12 @@ void CGuildTournamentMgr::CreateBattle()
 		}
 	}
 	
-	// ´Ù¸¥¼­¹ö·Î ¹èÆ²Á¤º¸ º¸³¿
+	// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SEND_GTBATTLE_INFOBROAD msg1;
 	SetProtocol( &msg1, MP_GTOURNAMENT, MP_GTOURNAMENT_BATTLEINFO );
 	msg1.Count = (BYTE)m_BattleCount;
 	msg1.CurTournament = m_CurTournament;
+	int i;
 	for(i=0; i<m_BattleCount; ++i)
 	{
 		msg1.BattleInfo[i].BattleID = m_BattleInfo[i].BattleID;
@@ -614,7 +624,7 @@ void CGuildTournamentMgr::CreateBattle()
 
 void CGuildTournamentMgr::StartTournament()
 {
-	// Åä³Ê¸ÕÆ® ½ÃÀÛ
+	// ï¿½ï¿½Ê¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for(DWORD i=0; i<m_BattleCount; ++i)
 	{
 		CBattle_GTournament* pBattle = (CBattle_GTournament*)BATTLESYSTEM->GetBattle( m_BattleInfo[i].BattleID );
@@ -680,7 +690,7 @@ void CGuildTournamentMgr::AddPlayer( CPlayer* pPlayer )
 			return;
 	}
 
-	// ObserverÀÎÁö Ã¼Å©
+	// Observerï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	CBattle_GTournament* pBattle = NULL;
 	int BattleIdx = pPlayer->GetObserverBattleIdx();
 	if( BattleIdx )
@@ -749,7 +759,7 @@ void CGuildTournamentMgr::AddPlayer( CPlayer* pPlayer )
 			msg.FightTime = pBattle->GetFightTime();
 			msg.EntranceTime = pBattle->GetEntranceTime();
 			msg.State = m_TournamentState;
-			msg.Team = 0;			// ÀÌ°Ç ¿ÉÀú¹ö ³ª°¡±â ¹öÆ°º¸ÀÌ±â¿¡¸¸ ¾²ÀÎ´Ù.
+			msg.Team = 0;			// ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½Ì±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			pPlayer->SendMsg( &msg, sizeof(msg) );
 			return;
 		}
@@ -812,7 +822,7 @@ int CGuildTournamentMgr::GetEmptyGuildPosition()
 	memset( RandomDownpos, -1, sizeof(int)*MAXGUILD_INTOURNAMENT/2 );
 	memset( RandomPos, -1, sizeof(int)*MAXGUILD_INTOURNAMENT/2 );
 
-	// ºñ¾îÀÖ´Â ÀÚ¸®¸¦ È®ÀÎÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	for(int i=0; i<MAXGUILD_INTOURNAMENT/2; ++i)
 	{
 		BOOL bEmpty = FALSE;
@@ -835,7 +845,7 @@ int CGuildTournamentMgr::GetEmptyGuildPosition()
 		}
 	}
 
-	// 2°÷ÀÌ ºñ¾îÀÖ´Âµ¥¸¦ ¸ÕÀú Ã³¸®ÇØÁØ´Ù. ·£´ý.
+	// 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Âµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½. ï¿½ï¿½ï¿½ï¿½.
 	if( RandomCount )
 	{
 		Key = rand()%RandomCount;
@@ -849,7 +859,7 @@ int CGuildTournamentMgr::GetEmptyGuildPosition()
 		}
 	}
 	Key = rand()%2;
-	if( Key )					// RandomÇÏ°Ô À§¸¦ ¼±ÅÃ
+	if( Key )					// Randomï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		if( RandomCountUp )
 		{
@@ -862,12 +872,12 @@ int CGuildTournamentMgr::GetEmptyGuildPosition()
 			if( RandomDownpos[Key] != -1 )	return RandomDownpos[Key];
 		}
 	}
-	else if( RandomCountDown )		// ¾Æ·¡¸¦ ¼±ÅÃ
+	else if( RandomCountDown )		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		Key = rand()%RandomCountDown;
 		if( RandomDownpos[Key] != -1 )	return RandomDownpos[Key];
 	}
-	else if( RandomCountUp )		// ¾øÀ¸¸é ´Ù½Ã À§¸¦ ¼±ÅÃ
+	else if( RandomCountUp )		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		Key = rand()%RandomCountUp;
 		if( RandomUppos[Key] != -1 )	return RandomUppos[Key];
@@ -987,7 +997,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 			if( pGuild )
 			{
 				//----------------------------------------------------------------//
-				// µî·Ï½ÃµµÇÑ ±æµå ¼ýÀÚ¸¦ ¾Ë±âÀ§ÇØ--------------------------------//
+				// ï¿½ï¿½Ï½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------//
 				SYSTEMTIME time;
 				char szFile[256] = {0,};
 				GetLocalTime( &time );
@@ -1024,7 +1034,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 				msg.dwData3 = pmsg->dwData2;
 				PACKEDDATA_OBJ->SendToMapServer( dwConnectionIndex, (MAPTYPE)pmsg->dwData1, &msg, sizeof(MSG_DWORD3) );
 
-				// °¢ ¸Ê¼­¹ö·Î BroadCast				
+				// ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ BroadCast				
 				MSG_DWORD2 msg1;
 				SetProtocol( &msg1, MP_GTOURNAMENT, MP_GTOURNAMENT_REGISTACK );
 				msg1.dwData1 = pmsg->dwData3;
@@ -1116,7 +1126,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 				GuildTournamentGuildInfoDelete( pPlayer->GetGuildIdx() );
 				GuildTournamentCancelIdxInsert( m_TournamentCount, pPlayer->GetGuildIdx() );
 
-				// °¢ ¸Ê¼­¹ö·Î BroadCast
+				// ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ BroadCast
 				MSG_DWORD msg1;
 				SetProtocol( &msg1, MP_GTOURNAMENT, MP_GTOURNAMENT_REGISTCANCEL );
 				msg1.dwData = pPlayer->GetGuildIdx();
@@ -1140,7 +1150,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 			if( !pPlayer )	return;
 
-			// ¿ÉÀú¹ö ¸ðµå, ÇØ´ç ¹èÆ²ÀÇ ¹øÈ£
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½È£
 			if( pmsg->dwData != 0 )
 			{
 				for(DWORD i=0; i<m_BattleCount; ++i)
@@ -1184,7 +1194,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 				return;
 			}
 
-			//SW060719 ¹®ÇÏ»ý
+			//SW060719 ï¿½ï¿½ï¿½Ï»ï¿½
 			if( pPlayer->GetGuildMemberRank() < GUILD_MEMBER )
 			{
 				MSG_DWORD msg;
@@ -1383,11 +1393,11 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 			}*/
 		}
 		break;
-	case MP_GTOURNAMENT_LEAVE_SYN:		// Åä³Ê¸ÕÆ®¿¡¼­ ¸ÊÀ¸·Î µ¹¾Æ¿ÔÀ»¶§ È£Ãâ
+	case MP_GTOURNAMENT_LEAVE_SYN:		// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 		{
 			MSG_DWORD3* pmsg = (MSG_DWORD3*)pMsg;
 
-			// Åä³Ê¸ÕÆ® ¸ÊÀÌ¸é À¯Àú¸¦ Remove
+			// ï¿½ï¿½Ê¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Remove
 			/*//if( g_pServerSystem->GetMapNum() == GTMAPNUM )
 			if( TRUE == g_pServerSystem->GetMap()->IsMapKind(eTournament) )
 			{
@@ -1419,11 +1429,11 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 			CharacterItemRareOptionInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 			CharacterAbilityInfo(pmsg->dwObjectID, MP_USERCONN_GAMEIN_SYN);
 
-			QuestTotalInfo(pmsg->dwObjectID);		// ÃÊº¸ÀÚ Äù½ºÆ®
+			QuestTotalInfo(pmsg->dwObjectID);		// ï¿½Êºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-			// quest Á¤º¸ qurey Ãß°¡
+			// quest ï¿½ï¿½ï¿½ï¿½ qurey ï¿½ß°ï¿½
 			QUESTMGR->CreateQuestForPlayer( pPlayer );
-			// Ç×»ó ¼­ºêÄù½ºÆ® Á¤º¸ºÎÅÍ ÀÐ¾î¾ß ÇÔ...
+			// ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ ï¿½ï¿½...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);
@@ -1437,7 +1447,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 //			if( !pPlayer )			return;
 
 
-			// µî·ÏµÈ ±æµåÀÇ ¸ðµç Á¤º¸¸¦ º¸³½´Ù.
+			// ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			if( pmsg->dwData1 == 1 )
 			{
 				SEND_REGISTEDGUILDINFO msg;
@@ -1471,7 +1481,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 				g_Network.Send2Server( dwConnectionIndex, (char*)&msg, sizeof(SEND_REGISTEDGUILDINFO) );				
 				//pPlayer->SendMsg( &msg, msg.GetSize() );
 			}
-			// ±æµåÀÇ ¼øÀ§Á¤º¸¸¸ º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			/*else if( pmsg->wData == 2 )
 			{
 				SEND_GUILDRANKING msg;
@@ -1536,7 +1546,7 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 				pBattle->ReturnToMap( pPlayer->GetID() );
 		}
 		break;
-		// BroadCatingµÇ¾î¼­ ¿Â Msg
+		// BroadCatingï¿½Ç¾î¼­ ï¿½ï¿½ Msg
 	case MP_GTOURNAMENT_REGISTACK:
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
@@ -1623,7 +1633,8 @@ void CGuildTournamentMgr::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoco
 			{
 				if( m_BattleInfo[i].BattleID == pmsg->dwData )
 				{
-					for(DWORD n=i; n<m_BattleCount-1; ++n)
+					DWORD n;
+					for(n=i; n<m_BattleCount-1; ++n)
 						memcpy( &m_BattleInfo[n], &m_BattleInfo[n+1], sizeof(BATTLE_INFO_GTOURNAMENT) );
 
 					--m_BattleCount;
@@ -2042,9 +2053,9 @@ DWORD CGuildTournamentMgr::StartTournamentEvent( MSG_GT_EVENTSTART* pEventInfo )
 		m_EventBattleInfo[i].BattleState		= eBATTLE_STATE_READY;
 		m_EventBattleInfo[i].BattleTime		= 0;
 		m_EventBattleInfo[i].Ranking			= m_CurTournament;
-		m_EventBattleInfo[i].m_dwEntranceTime	= 60000;		// 1ºÐ
-		m_EventBattleInfo[i].m_dwFightTime		= 600000;		// 10ºÐ
-		m_EventBattleInfo[i].m_dwLeaveTime		= 20000;		// 20ÃÊ
+		m_EventBattleInfo[i].m_dwEntranceTime	= 60000;		// 1ï¿½ï¿½
+		m_EventBattleInfo[i].m_dwFightTime		= 600000;		// 10ï¿½ï¿½
+		m_EventBattleInfo[i].m_dwLeaveTime		= 20000;		// 20ï¿½ï¿½
 		m_EventBattleInfo[i].MemberInfo.TeamGuildIdx[0] = pGuild1->GetIdx();
 		m_EventBattleInfo[i].MemberInfo.TeamGuildIdx[1] = pGuild2->GetIdx();
 
@@ -2055,7 +2066,7 @@ DWORD CGuildTournamentMgr::StartTournamentEvent( MSG_GT_EVENTSTART* pEventInfo )
 		if( !pbattle )
 			return eGTEvent_CreateBattleFailed;
 
-		// ¼­¹ö·Î ÀÔÀå½ÃÅ°µµ·Ï º¸³½´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		MSG_DWORD3 msg;
 		SetProtocol( &msg, MP_GTOURNAMENT, MP_GTOURNAMENT_EVENT_START_ACK );
 		msg.dwData1 = pGuild1->GetIdx();
@@ -2099,7 +2110,7 @@ void CGuildTournamentMgr::AddPlayerEvent( CPlayer* pPlayer )
 		msg.FightTime = pBattle->GetFightTime();
 		msg.EntranceTime = pBattle->GetEntranceTime();
 		msg.State = eGTState_Entrance;
-		msg.Team = 0;			// ÀÌ°Ç ¿ÉÀú¹ö ³ª°¡±â ¹öÆ°º¸ÀÌ±â¿¡¸¸ ¾²ÀÎ´Ù.
+		msg.Team = 0;			// ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½Ì±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 		pPlayer->SendMsg( &msg, sizeof(msg) );
 		return;
 	}
@@ -2142,16 +2153,16 @@ int CGuildTournamentMgr::GetBattleIDEvent( CGuild* pGuild )
 	return -1;
 }
 
-//SW061205 ±ê¹ß NPC
+//SW061205 ï¿½ï¿½ï¿½ NPC
 void CGuildTournamentMgr::CheckDateforFlagNPC()
 {
-	//¿äÀÏ Ã¼Å©
+	//ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	static SYSTEMTIME st;
 	GetLocalTime(&st);
 
-	if( st.wDayOfWeek != m_wCurDay ) //¿äÀÏ °»½ÅÀÌ¸é
+	if( st.wDayOfWeek != m_wCurDay ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	{
-		//±ê¹ßÁ¤º¸¸¦ AgentSrv¸¦ ÅëÇØ ÀüÆÄ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AgentSrvï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		MSG_DWORD msg;
 		msg.Category = MP_GTOURNAMENT;
 		msg.Protocol = MP_GTOURNAMENT_FLAGCHANGE;

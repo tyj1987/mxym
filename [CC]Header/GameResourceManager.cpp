@@ -2,7 +2,15 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+// é¢„ç¼–è¯‘å¤´å¿…é¡»é¦–å…ˆåŒ…å«
 #include "stdafx.h"
+
+// å¯¹äºéï¿½æˆ·ï¿½æ„å»ºï¼Œå®šä¹‰æ‰€ï¿½çš„å†…ï¿½
+#ifndef _MHCLIENT_
+	#ifndef WIN32_LEAN_AND_MEAN
+	#define WIN32_LEAN_AND_MEAN
+	#endif
+#endif
 
 
 #ifndef _MURIMNET_
@@ -58,7 +66,7 @@ CGameResourceManager::CGameResourceManager()
 #ifdef _CLIENT_RESOURCE_FIELD_
 	m_PreLoadItemlist = NULL;
 
-	//2008. 6. 18. CBH - +10 ÀÌ»ó ¾ÆÀÌÅÆÀÇ ÀÌÆåÆ® Á¤º¸ Å×ÀÌºí ÃÊ±âÈ­
+	//2008. 6. 18. CBH - +10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ê±ï¿½È­
 	m_PlusItemEffectInfoTable.Initialize(10);
 #endif	
 	m_AvatarEquipTable.Initialize(50);
@@ -74,7 +82,7 @@ CGameResourceManager::CGameResourceManager()
 	
 	////////////////////////////////////////////////////////////////////////////////////
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	m_TitanListTable.Initialize(4);
 	//m_TitanEquipEnduranceInfo.Initialize(16);
 	//m_TitanSkillLink.Initialize(64);
@@ -89,9 +97,9 @@ CGameResourceManager::CGameResourceManager()
 
 	m_MapKindStateInfoTable.Initialize(128);
 
-	//2007. 12. 4. CBH - ½ºÅ² ¾ÆÀÌÅÆ ¸®½ºÆ® Å×ÀÌºí ÃÊ±âÈ­
+	//2007. 12. 4. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ê±ï¿½È­
 	m_NomalClothesSkinTable.Initialize(100);
-	//2008. 1. 16. CBH - ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ ¸®½ºÆ® Å×ÀÌºí ÃÊ±âÈ­
+	//2008. 1. 16. CBH - ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ê±ï¿½È­
 	m_CotumeSkinTable.Initialize(100);	
 }
 
@@ -103,7 +111,7 @@ CGameResourceManager::~CGameResourceManager()
 	ResetPetList();
 	ResetPetBuffList();
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	RemoveTitanList();
 	//RemoveTitanSkillLink();
 	//RemoveTitanEquipEnduranceInfo();
@@ -192,15 +200,15 @@ CGameResourceManager::~CGameResourceManager()
 	UNIQUE_ITEM_MIX_INFO* sUniqueItemMixTemp = NULL;
 	while(sUniqueItemMixTemp = m_UniqueItemMixTable.GetData())
 	{
-		// magi82(14) - Memory(071027) ¸Ş¸ğ¸® ´©¼ö ¼öÁ¤
+		// magi82(14) - Memory(071027) ï¿½Ş¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		SAFE_DELETE_ARRAY(sUniqueItemMixTemp->sUniqueItemMixMaterial);
 		SAFE_DELETE(sUniqueItemMixTemp);
 	}
 	m_UniqueItemMixTable.RemoveAll();
 	//////////////////////////////////////////////////////////////////////////
 
-	RemoveNomalClothesSkinList();	// 2007. 12. 4. CBH - ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ¸®½ºÆ® »èÁ¦
-	RemoveCostumeSkinList();	// 2008. 1. 16. CBH - ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ¸®½ºÆ® »èÁ¦
+	RemoveNomalClothesSkinList();	// 2007. 12. 4. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	RemoveCostumeSkinList();	// 2008. 1. 16. CBH - ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 
 	m_MapKindStateInfoTable.SetPositionHead();
 	while( stMAPKINDINFO* pMapKind = m_MapKindStateInfoTable.GetData() )
@@ -218,7 +226,7 @@ BOOL CGameResourceManager::LoadPetList()
 	if(!file.Init("./Resource/PetList.bin", "rb"))
 		return FALSE;
 #else
-	if(!file.Init("./Reource/PetList.txt", "rt))
+	if(!file.Init("./Reource/PetList.txt", "rt"))
 		return FALSE;
 #endif
 
@@ -452,7 +460,7 @@ void CGameResourceManager::ResetPetBuffList()
 	}
 }
 
-//SW070127 Å¸ÀÌÅº
+//SW070127 Å¸ï¿½ï¿½Åº
 BOOL CGameResourceManager::LoadTitanSpellCostInfo()
 {
 	CMHFile file;
@@ -518,7 +526,7 @@ BOOL CGameResourceManager::LoadTitanList()
 		SafeStrCpy(pList->TitanBaseChxName, file.GetString(), MAX_CHXNAME_LENGTH+1);
 		SafeStrCpy(pList->TitanfaceModName, file.GetString(), MAX_CHXNAME_LENGTH+1);
 		//pList->Titan2DImage = file.GetWord();
-		char tmp[64] = {0,};	//for ÆÄ½Ì½Ã ±¸ºĞ
+		char tmp[64] = {0,};	//for ï¿½Ä½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		float attAtk, attReg;
 		attAtk = attReg = 0.f;
@@ -566,7 +574,7 @@ BOOL CGameResourceManager::LoadTitanList()
 			}
 
 			pGrade->RecallReduceTime = file.GetDword();
-			pGrade->dwRecallSpellTime = file.GetDword(); //2007. 11. 19. CBH - Å¸ÀÌÅº ¼ÒÈ¯ ÁÖ¹® ½Ã°£ Ãß°¡
+			pGrade->dwRecallSpellTime = file.GetDword(); //2007. 11. 19. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ ï¿½Ã°ï¿½ ï¿½ß°ï¿½
 
 		}
 
@@ -893,7 +901,7 @@ BOOL CGameResourceManager::LoadDeveloperInfo()
 		BOOL bWindowMode = FALSE;
 		fscanf( fp, "%d", &bWindowMode );
 
-		//SW061111 ÀúÇØ»óµµ¿É¼Ç
+		//SW061111 ï¿½ï¿½ï¿½Ø»óµµ¿É¼ï¿½
 		fscanf( fp, "%d", &m_bLowResolution );
 
 		fclose(fp);	
@@ -1042,7 +1050,7 @@ void CGameResourceManager::LoadItemChangeRateofLv()
 //	if(!file.Init("./Resource/ItemChangeRateofLv.bin", "rb"))
 	if(!file.Init("./Resource/Server/ItemChangeRateofLv.bin", "rb"))
 	{
-		::MessageBox(NULL,"ItemChangeRateofLv.bin - ÆÄÀÏÀÌ ¿Ã¹Ù·Î ·ÎµåµÇÁö ¾Ê¾Ò½À´Ï´Ù.","°æ°í",MB_OK);
+		MessageBoxA(NULL,"ItemChangeRateofLv.bin - file not found!!","Error",MB_OK);
 		return;
 	}
 #else
@@ -1061,7 +1069,7 @@ void CGameResourceManager::LoadItemChangeRateofLv()
 
 		for(int i = 0; i < 10; ++i)
 		{
-			ChangeRateInfo.Rate[i] = file.GetInt();//º¯È­À² ÀúÀå
+			ChangeRateInfo.Rate[i] = file.GetInt();//ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 
 		m_ItemChangeRateofLvList.push_back(ChangeRateInfo);
@@ -1086,7 +1094,7 @@ int CGameResourceManager::CheckAttribItemIndex(WORD idx)
 
 void CGameResourceManager::LoadMonsterInfoInMapList()
 {
-	//ÆÄÀÏÀ» ·ÎµåÇÏ¿© Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	
 	m_MonsterInfoInMapList.clear();
 
@@ -1286,7 +1294,7 @@ void CGameResourceManager::LoadSMonsterInfo( int idx, char * fileName )
 		CMD_CS("#TARGETCHANGE")
 			pList->TargetChange = fp.GetWord();
 
-		// ¼öÁ¤ µÇ¾î¾ß ÇÒ ºÎºĞ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½
 		CMD_CS("#MOVEDRAMANUM")
 			pList->MoveDramaNum = FindEffectNum(fp.GetString());
 		CMD_CS("#MOTIONID");
@@ -1396,57 +1404,57 @@ BOOL CGameResourceManager::LoadMonsterList()
 			break;
 		pList = new MONSTEREX_LIST;
 		memset(pList, 0, sizeof(MONSTEREX_LIST));
-		pList->MonsterKind				= file.GetWord();		// ¹øÈ£
-//		file.GetString(pList->Name);						// ¸ó½ºÅÍÀÌ¸§
-//		file.GetString(pList->EngName);						// ¿µ¾îÀÌ¸§
+		pList->MonsterKind				= file.GetWord();		// ï¿½ï¿½È£
+//		file.GetString(pList->Name);						// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+//		file.GetString(pList->EngName);						// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 		SafeStrCpy( pList->Name, file.GetString(), MAX_MONSTER_NAME_LENGTH+1 );
 		SafeStrCpy( pList->EngName, file.GetString(), MAX_NAME_LENGTH+1 );
-		pList->Level					= file.GetLevel();		// ¸ó½ºÅÍ·¹º§	
+		pList->Level					= file.GetLevel();		// ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½	
 		pList->MoveDramaNum				= FindEffectNum(file.GetString());	
 		pList->MotionID					= file.GetDword();	
 //		file.GetString(pList->ChxName);
 		SafeStrCpy( pList->ChxName, file.GetString(), 32 );
-		pList->Scale					= file.GetFloat();// ¸ó½ºÅÍ Å©±â	
+		pList->Scale					= file.GetFloat();// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½	
 		pList->Gravity					= file.GetDword();
 #ifdef _HK_LOCAL_
 		pList->Gravity	= (DWORD)(100.f / ( ( 100.f / (float)(pList->Gravity) ) + 3.f ));
 #endif
-		pList->Weight					= file.GetFloat();// ¸ó½ºÅÍ ¹«°Ô
-		pList->MonsterRadius			= file.GetWord();// ¸ó½ºÅÍ 	
+		pList->Weight					= file.GetFloat();// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pList->MonsterRadius			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ 	
 		pList->Life						= file.GetDword();
 		pList->Shield					= file.GetDword();
-		pList->ExpPoint					= file.GetExpPoint();// °æÇèÄ¡
+		pList->ExpPoint					= file.GetExpPoint();// ï¿½ï¿½ï¿½ï¿½Ä¡
 		pList->Tall						= file.GetWord();
 
-		pList->AttackPhysicalMin		= file.GetWord();// °ø°İ ÃÖ¼Ò¹°¸® °ø°İ·Â	
-		pList->AttackPhysicalMax		= file.GetWord();// °ø°İ ÃÖ´ë¹°¸® °ø°İ·Â	
-		pList->CriticalPercent			= file.GetWord();// Å©¸®Æ¼ÄÃ ÆÛ¼¾Æ®
-		pList->PhysicalDefense			= file.GetWord();// ¹°¸® ¹æ¾î·Â	
-		pList->AttribResist.SetElement_Val(ATTR_FIRE,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(È­)% 	
-		pList->AttribResist.SetElement_Val(ATTR_WATER,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(¼ö)% 	
-		pList->AttribResist.SetElement_Val(ATTR_TREE,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(¸ñ)% 	
-		pList->AttribResist.SetElement_Val(ATTR_IRON,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(±İ)% 	
-		pList->AttribResist.SetElement_Val(ATTR_EARTH,file.GetFloat());// ¼Ó¼ºÀúÇ×·Â(Åä)% 
+		pList->AttackPhysicalMin		= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½İ·ï¿½	
+		pList->AttackPhysicalMax		= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë¹°ï¿½ï¿½ ï¿½ï¿½ï¿½İ·ï¿½	
+		pList->CriticalPercent			= file.GetWord();// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Û¼ï¿½Æ®
+		pList->PhysicalDefense			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+		pList->AttribResist.SetElement_Val(ATTR_FIRE,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(È­)% 	
+		pList->AttribResist.SetElement_Val(ATTR_WATER,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_TREE,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_IRON,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 	
+		pList->AttribResist.SetElement_Val(ATTR_EARTH,file.GetFloat());// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½×·ï¿½(ï¿½ï¿½)% 
 
-		pList->WalkMove					= file.GetWord();// ¸ó½ºÅÍ°È±âÀÌµ¿·Â	
-		pList->RunMove					= file.GetWord();// ¸ó½ºÅÍ¶Ù±âÀÌµ¿·Â	
-		pList->RunawayMove				= file.GetWord();// ¸ó½ºÅÍµµ¸ÁÀÌµ¿·Â
+		pList->WalkMove					= file.GetWord();// ï¿½ï¿½ï¿½Í°È±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+		pList->RunMove					= file.GetWord();// ï¿½ï¿½ï¿½Í¶Ù±ï¿½ï¿½Ìµï¿½ï¿½ï¿½	
+		pList->RunawayMove				= file.GetWord();// ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½
 		
-		pList->Damage1DramaNum			= FindEffectNum(file.GetString());// ¸ÂÀ½ 1 ¿¬Ãâ ¹øÈ£	
-		pList->Die1DramaNum				= FindEffectNum(file.GetString());// Á×À½ 1 ¿¬Ãâ ¹øÈ£	
-		pList->Die2DramaNum				= FindEffectNum(file.GetString());// Á×À½ 2 ¿¬Ãâ ¹øÈ£	
+		pList->Damage1DramaNum			= FindEffectNum(file.GetString());// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+		pList->Die1DramaNum				= FindEffectNum(file.GetString());// ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
+		pList->Die2DramaNum				= FindEffectNum(file.GetString());// ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£	
 
 		pList->StandTime				= file.GetDword();
 		pList->StandRate				= file.GetByte();
 		pList->WalkRate					= file.GetByte();
 		pList->RunRate					= file.GetByte();
-		pList->DomainRange				= file.GetDword();		// ¿µ¿ª ¹üÀ§ : ¹İÁö¸§
+		pList->DomainRange				= file.GetDword();		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pList->PursuitForgiveTime		= file.GetDword();
 		pList->PursuitForgiveDistance	= file.GetDword();
 		
-		pList->bForeAttack				= file.GetBool();					// ¼±°ø°İ
-		pList->SearchPeriodicTime		= file.GetDword();				// Å½»ö ÁÖ±â
-		pList->TargetSelect				= file.GetWord();					// Å¸°Ù ¼±ÅÃ : FIND_CLOSE, FIND_FIRST
+		pList->bForeAttack				= file.GetBool();					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		pList->SearchPeriodicTime		= file.GetDword();				// Å½ï¿½ï¿½ ï¿½Ö±ï¿½
+		pList->TargetSelect				= file.GetWord();					// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : FIND_CLOSE, FIND_FIRST
 		pList->SearchRange				= file.GetWord();
 		pList->SearchAngle				= file.GetByte();
 		pList->TargetChange				= file.GetWord();
@@ -1463,14 +1471,14 @@ BOOL CGameResourceManager::LoadMonsterList()
 		pList->AttackRate[0]			= file.GetWord();
 		pList->AttackRate[1]			= file.GetWord();
 
-		pList->MinDropMoney				= file.GetDword();// ÃÖ¼Òµ· ¾×¼ö	
-		pList->MaxDropMoney				= file.GetDword();// ÃÖ´ë µ· ¾×¼ö	
+		pList->MinDropMoney				= file.GetDword();// ï¿½Ö¼Òµï¿½ ï¿½×¼ï¿½	
+		pList->MaxDropMoney				= file.GetDword();// ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½×¼ï¿½	
 		ASSERT(pList->MaxDropMoney >= pList->MinDropMoney);
-		pList->DropRate[eMONEY]			= file.GetWord();// µ· È®·ü(%)	
-		pList->DropRate[eITEM1]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eITEM2]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eITEM3]			= file.GetWord();// ¾ÆÀÌÅÛ È®·ü(%)	
-		pList->DropRate[eNOITEM]			= file.GetWord();// ³ëÅÛ È®·ü(%)	
+		pList->DropRate[eMONEY]			= file.GetWord();// ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM1]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM2]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eITEM3]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
+		pList->DropRate[eNOITEM]			= file.GetWord();// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½(%)	
 
 #ifndef _MHCLIENT_
 		DWORD temp = 0;
@@ -1483,18 +1491,18 @@ BOOL CGameResourceManager::LoadMonsterList()
 		if( temp != MAX_DROP_ITEM_PERCENT )
 			ASSERTMSG( 0, "drop rate error! in MonsterList" );
 #endif
-		pList->ItemListNum1				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
-		pList->ItemListNum2				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
-		pList->ItemListNum3				= file.GetWord();// ÇØ´ç¾ÆÀÌÅÛ¸®½ºÆ®Ç¥¹øÈ£	
+		pList->ItemListNum1				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½È£	
+		pList->ItemListNum2				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½È£	
+		pList->ItemListNum3				= file.GetWord();// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½È£	
 
-		pList->MaxDropItemNum			= file.GetByte();// ÃÖ´ë¾ÆÀÌÅÛ °¹¼ö
+		pList->MaxDropItemNum			= file.GetByte();// ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		pList->fRunawayLifeRate			= file.GetFloat();
 		pList->RunawayRate				= file.GetWord();
 		pList->RunawayHelpRate			= file.GetWord();
 		pList->RunawayDistance			= file.GetWord();	//????
 
-		pList->Talk1					= file.GetWord();				// ´ë»ç 1
+		pList->Talk1					= file.GetWord();				// ï¿½ï¿½ï¿½ 1
 		pList->Talk2					= file.GetWord();				
 		pList->Talk3					= file.GetWord();
 
@@ -1545,7 +1553,7 @@ BOOL CGameResourceManager::LoadNpcList(NPC_LIST* pNpcList)
 		SafeStrCpy(pNpcList[idx].Name, fp.GetString(), MAX_NAME_LENGTH+1 );
 		pNpcList[idx].ModelNum = fp.GetWord();
 		pNpcList[idx].JobKind = fp.GetWord();
-		pNpcList[idx].Scale = fp.GetFloat(); // Npc Å©±â
+		pNpcList[idx].Scale = fp.GetFloat(); // Npc Å©ï¿½ï¿½
 		pNpcList[idx].Tall	= fp.GetWord(); // Npc Å°
 		pNpcList[idx].ShowJob = fp.GetBool();
 		
@@ -1716,17 +1724,17 @@ BOOL CGameResourceManager::CheckCorrectLoginPoint(VECTOR3* pos)
 			for(int n=0;n<m_LoginPoint[i].MapLoginPointNum;++n)
 			{
 				float dist = CalcDistanceXZ(pos,&m_LoginPoint[i].CurPoint[n]);
-				if(dist < maxdist)	//ÀÓÀÇ
+				if(dist < maxdist)	//ï¿½ï¿½ï¿½ï¿½
 					return TRUE;
 			}
 		}
 	}
-	for( i = 0; i < MAX_POINT_NUM; i++)
+	for(int i = 0; i < MAX_POINT_NUM; i++)
 	{
 		if(m_MapChangeArea[i].MoveMapNum == GetLoadMapNum())
 		{
 			float dist = CalcDistanceXZ(pos,&m_MapChangeArea[i].MovePoint);
-			if(dist < maxdist)	//ÀÓÀÇ
+			if(dist < maxdist)	//ï¿½ï¿½ï¿½ï¿½
 				return TRUE;
 		}
 	}
@@ -1854,7 +1862,7 @@ void CGameResourceManager::GetRegenPointFromEventMap( VECTOR3& pos,VECTOR3& Rand
 #endif
 
 //-----------------------------------------------------------------------------------------------------------//
-//		¼­¹ö¸¸ »ç¿ëÇÏ´Â ºÎºĞ
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 #ifdef _SERVER_RESOURCE_FIELD_
 //-----------------------------------------------------------------------------------------------------------//
 
@@ -1865,12 +1873,12 @@ void CGameResourceManager::GetMonsterStats(WORD wMonsterKind, monster_stats * st
 	stats->AttributeAttackMin2 = GetMonsterInfo(wMonsterKind)->Attack1Property;
 	stats->AttributeAttackMax2 = GetMonsterInfo(wMonsterKind)->Attack2Property;*/
 
-	stats->Attack1OccurProportion = (WORD)GetMonsterListInfo(wMonsterKind)->AttackRate[0];				// °ø°İ1 ¹ß»ı È®·ü
-	stats->PhysicalAttackMin1 = GetMonsterListInfo(wMonsterKind)->AttackPhysicalMin;						// °ø°İ1 ÃÖ¼Ò °ø°İ·Â
+	stats->Attack1OccurProportion = (WORD)GetMonsterListInfo(wMonsterKind)->AttackRate[0];				// ï¿½ï¿½ï¿½ï¿½1 ï¿½ß»ï¿½ È®ï¿½ï¿½
+	stats->PhysicalAttackMin1 = GetMonsterListInfo(wMonsterKind)->AttackPhysicalMin;						// ï¿½ï¿½ï¿½ï¿½1 ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½İ·ï¿½
 	stats->PhysicalAttackMax1 = GetMonsterListInfo(wMonsterKind)->AttackPhysicalMax;
-//	stats->PhysicalAttackMin2 = GetMonsterInfo(wMonsterKind)->Attack2PhysicalMin;						// °ø°İ1 ÃÖ¼Ò °ø°İ·Â
+//	stats->PhysicalAttackMin2 = GetMonsterInfo(wMonsterKind)->Attack2PhysicalMin;						// ï¿½ï¿½ï¿½ï¿½1 ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½İ·ï¿½
 //	stats->PhysicalAttackMax2 = GetMonsterInfo(wMonsterKind)->Attack2PhysicalMax;
-	// ¹æ¾î
+	// ï¿½ï¿½ï¿½
 	stats->PhysicalDefense = GetMonsterListInfo(wMonsterKind)->PhysicalDefense;
 	stats->AttributeResist = GetMonsterListInfo(wMonsterKind)->AttribResist;
 }
@@ -2017,7 +2025,7 @@ BOOL CGameResourceManager::LoadStaticNpc()
 
 	file.Release();
 
-	// ¿ä»õÀü °ü·Ã npcÁ¤º¸ ÀĞÀ½...
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ npcï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
 #ifdef _FILE_BIN_
 	sprintf( filename, "./Resource/Server/FortWarNpcInfo.bin" );
 	if( !file.Init( filename, "rb" ) )
@@ -2109,8 +2117,8 @@ BOOL CGameResourceManager::LoadExpPoint()
 		if(idx > MAX_CHARACTER_LEVEL_NUM-1) break;
 		if(file.IsEOF())
 			break;
-		file.GetWord();												// ·¹º§
-		m_CharacterExpPoint[idx] = file.GetExpPoint64();				// °æÇèÄ¡
+		file.GetWord();												// ï¿½ï¿½ï¿½ï¿½
+		m_CharacterExpPoint[idx] = file.GetExpPoint64();				// ï¿½ï¿½ï¿½ï¿½Ä¡
 		idx++;
 	}
 
@@ -2195,7 +2203,7 @@ BOOL CGameResourceManager::LoadPlayerxMonsterPoint()
 
 		char value[64] = {0,};
 
-		// MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1  1Àº gapÀÌ 0ÀÏ°æ¿ì¶§¹®¿¡
+		// MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1  1ï¿½ï¿½ gapï¿½ï¿½ 0ï¿½Ï°ï¿½ì¶§ï¿½ï¿½ï¿½ï¿½
 		for(int levelgap = 0 ; levelgap < MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1 ; levelgap++)
 		{
 			m_PLAYERxMONSTER_POINT[idx][levelgap] = file.GetInt();
@@ -2214,7 +2222,7 @@ BOOL CGameResourceManager::LoadPlayerxMonsterPoint()
 
 		char value[64] = {0,};
 
-		// MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1  1Àº gapÀÌ 0ÀÏ°æ¿ì¶§¹®¿¡
+		// MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1  1ï¿½ï¿½ gapï¿½ï¿½ 0ï¿½Ï°ï¿½ì¶§ï¿½ï¿½ï¿½ï¿½
 		for(int levelgap = 0 ; levelgap < MAX_MONSTERLEVELPOINTRESTRICT_NUM + MONSTERLEVELRESTRICT_LOWSTARTNUM + 1 ; levelgap++)
 		{
 			fscanf(fp, "%s", value);
@@ -2236,7 +2244,7 @@ DWORD CGameResourceManager::GetPLAYERxMONSTER_POINT(LEVELTYPE level,int levelgap
 	return m_PLAYERxMONSTER_POINT[level-1][levelgap+MONSTERLEVELRESTRICT_LOWSTARTNUM];
 }
 //-----------------------------------------------------------------------------------------------------------//
-//		¼­¹ö¸¸ »ç¿ëÇÏ´Â ºÎºĞ
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 #ifdef _SERVER_RESOURCE_FIELD_
 //-----------------------------------------------------------------------------------------------------------//
 BOOL CGameResourceManager::LoadTaticAbilityInfo()
@@ -2345,33 +2353,33 @@ BOOL CGameResourceManager::LoadAvatarEquipList()
 			//continue;
 
 		AVATARITEM* pAvatar = new AVATARITEM;
-		pAvatar->Gender = file.GetByte();					// ¼ºº°
-		pAvatar->Position = file.GetByte();					// Âø¿ëºÎÀ§
-		pAvatar->Item[eAvatar_Hat] = file.GetWord();		// ¸ğÀÚ
-		pAvatar->Item[eAvatar_Hair] = file.GetWord();		// ¸Ó¸®
-		pAvatar->Item[eAvatar_Face] = file.GetWord();		// ¾ó±¼
-		pAvatar->Item[eAvatar_Mask] = file.GetWord();		// °¡¸é
-		pAvatar->Item[eAvatar_Glasses] = file.GetWord();	// ¾È°æ
-		pAvatar->Item[eAvatar_Mustache] = file.GetWord();	// ¼ö¿°
-		pAvatar->Item[eAvatar_Dress] = file.GetWord();		// ¿Ê
-		pAvatar->Item[eAvatar_Shoulder] = file.GetWord();	// ¾î±ú
-		pAvatar->Item[eAvatar_Back] = file.GetWord();		// µî
-		pAvatar->Item[eAvatar_Shoes] = file.GetWord();		// ½Å¹ß
-		pAvatar->Item[eAvatar_Effect] = file.GetWord();		// ÀÌÆåÆ®
-		pAvatar->Item[eAvatar_Hand] = file.GetWord();		// ¼Õ
+		pAvatar->Gender = file.GetByte();					// ï¿½ï¿½ï¿½ï¿½
+		pAvatar->Position = file.GetByte();					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		pAvatar->Item[eAvatar_Hat] = file.GetWord();		// ï¿½ï¿½ï¿½ï¿½
+		pAvatar->Item[eAvatar_Hair] = file.GetWord();		// ï¿½Ó¸ï¿½
+		pAvatar->Item[eAvatar_Face] = file.GetWord();		// ï¿½ï¿½
+		pAvatar->Item[eAvatar_Mask] = file.GetWord();		// ï¿½ï¿½ï¿½ï¿½
+		pAvatar->Item[eAvatar_Glasses] = file.GetWord();	// ï¿½È°ï¿½
+		pAvatar->Item[eAvatar_Mustache] = file.GetWord();	// ï¿½ï¿½ï¿½ï¿½
+		pAvatar->Item[eAvatar_Dress] = file.GetWord();		// ï¿½ï¿½
+		pAvatar->Item[eAvatar_Shoulder] = file.GetWord();	// ï¿½ï¿½ï¿½
+		pAvatar->Item[eAvatar_Back] = file.GetWord();		// ï¿½ï¿½
+		pAvatar->Item[eAvatar_Shoes] = file.GetWord();		// ï¿½Å¹ï¿½
+		pAvatar->Item[eAvatar_Effect] = file.GetWord();		// ï¿½ï¿½ï¿½ï¿½Æ®
+		pAvatar->Item[eAvatar_Hand] = file.GetWord();		// ï¿½ï¿½
 
-		pAvatar->Item[eAvatar_Weared_Hair] = file.GetWord();		// ÀÔ´Â ¾ÆÀÌÅÛ ¸Ó¸®
-		pAvatar->Item[eAvatar_Weared_Face] = file.GetWord();		// ÀÔ´Â ¾ÆÀÌÅÛ ¾ó±¼
-		pAvatar->Item[eAvatar_Weared_Hat] = file.GetWord();			// ÀÔ´Â ¾ÆÀÌÅÛ ¸Ó¸®¶ì		
-		pAvatar->Item[eAvatar_Weared_Dress] = file.GetWord();		// ÀÔ´Â ¾ÆÀÌÅÛ ¿Ê
-		pAvatar->Item[eAvatar_Weared_Shoes] = file.GetWord();		// ÀÔ´Â ¾ÆÀÌÅÛ ½Å¹ß		
+		pAvatar->Item[eAvatar_Weared_Hair] = file.GetWord();		// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½
+		pAvatar->Item[eAvatar_Weared_Face] = file.GetWord();		// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Hat] = file.GetWord();			// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½		
+		pAvatar->Item[eAvatar_Weared_Dress] = file.GetWord();		// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Shoes] = file.GetWord();		// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½		
 
-		pAvatar->Item[eAvatar_Weared_Gum] = file.GetWord();			// Âø¿ë¹«±â °Ë
-		pAvatar->Item[eAvatar_Weared_Gwun] = file.GetWord();		// Âø¿ë¹«±â ±Ç
-		pAvatar->Item[eAvatar_Weared_Do] = file.GetWord();			// Âø¿ë¹«±â µµ
-		pAvatar->Item[eAvatar_Weared_Chang] = file.GetWord();		// Âø¿ë¹«±â Ã¢
-		pAvatar->Item[eAvatar_Weared_Gung] = file.GetWord();		// Âø¿ë¹«±â ±Ã
-		pAvatar->Item[eAvatar_Weared_Amgi] = file.GetWord();		// Âø¿ë¹«±â ¾Ï±â		
+		pAvatar->Item[eAvatar_Weared_Gum] = file.GetWord();			// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Gwun] = file.GetWord();		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Do] = file.GetWord();			// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Chang] = file.GetWord();		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ Ã¢
+		pAvatar->Item[eAvatar_Weared_Gung] = file.GetWord();		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+		pAvatar->Item[eAvatar_Weared_Amgi] = file.GetWord();		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½Ï±ï¿½		
 
 		m_AvatarEquipTable.Add( pAvatar, ItemIdx );
 	}	
@@ -2429,7 +2437,7 @@ BOOL CGameResourceManager::LoadShopItemDupList()
 
 		pDupOption->Param = file.GetDword();
 
-		// ÁÖ¼®
+		// ï¿½Ö¼ï¿½
 		file.GetString( buf );
 
 		m_ShopItemDupOptionTable.Add( pDupOption, pDupOption->Index );
@@ -2625,7 +2633,7 @@ stMAPKINDINFO* CGameResourceManager::GetMapKindInfo(DWORD dwMapNum)
 	return pInfo;
 }
 
-//2007. 12. 4. CBH - ÀÇº¹ ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã ÇÔ¼ö
+//2007. 12. 4. CBH - ï¿½Çºï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 BOOL CGameResourceManager::LoadNomalClothesSkinList()
 {
 	CMHFile file;
@@ -2723,7 +2731,7 @@ CYHHashTable<SKIN_SELECT_ITEM_INFO>* CGameResourceManager::GetNomalClothesSkinTa
 	return &m_NomalClothesSkinTable;
 }
 
-//2008. 1. 15. CBH - ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã ÇÔ¼ö
+//2008. 1. 15. CBH - ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 BOOL CGameResourceManager::LoadCostumeSkinList()
 {
 	CMHFile file;
@@ -2818,7 +2826,7 @@ CYHHashTable<SKIN_SELECT_ITEM_INFO>* CGameResourceManager::GetCostumeSkinTable()
 //////////////////////////////////////////////////////////////////
 
 //-----------------------------------------------------------------------------------------------------------//
-//		Å¬¶óÀÌ¾ğÆ®¸¸ »ç¿ëÇÏ´Â ºÎºĞ
+//		Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 #ifdef _CLIENT_RESOURCE_FIELD_
 //-----------------------------------------------------------------------------------------------------------//
 void CGameResourceManager::DeletePreLoadData()
@@ -2857,6 +2865,7 @@ void CGameResourceManager::DeletePreLoadData()
 	m_PreLoadEffectTable.SetPositionHead();
 	while( pPreLoadEffectInfo = m_PreLoadEffectTable.GetData() )
 	{
+	int n;
 		PRELOAD* pEffect = NULL;
 		PTRLISTSEARCHSTART(pPreLoadEffectInfo->Effect, PRELOAD*, pEffect);
 		delete pEffect;
@@ -2873,16 +2882,18 @@ void CGameResourceManager::DeletePreLoadData()
 #include ".\Engine\EngineObject.h"		// for PreLoadObject()
 void CGameResourceManager::PreLoadData()
 {
+	int n;  // ä¿®å¤C2086: åˆ é™¤é‡å¤å£°æ˜
 //	DWORD n;
-	// YH2DO ·Îµù¿¡ ´ëÇÑ È®Á¤ ÇÊ¿ä
+	// YH2DO ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Ê¿ï¿½
 
-	/* ÄÉ¸¯ÅÍ´Â ³Ê¹« ¸¹¾Æ¼­ ¸·¾Æ³õÀ½
+	/* ï¿½É¸ï¿½ï¿½Í´ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½
 	//////////////////////////////////////////////////////////////////////////
-	// ÄÉ¸¯ÅÍ Preload
+	// ï¿½É¸ï¿½ï¿½ï¿½ Preload
 	DIRECTORYMGR->SetLoadMode(eLM_Character);
 
 	for(int job=0;job<eJOB_Max;++job)
 	{
+	int n;
 		CEngineObject::PreLoadObject(m_ModFileList[GENDER_MALE][job].BaseObjectFile);
 		CEngineObject::PreLoadObject(m_ModFileList[GENDER_FEMALE][job].BaseObjectFile);
 		
@@ -2926,7 +2937,7 @@ BOOL CGameResourceManager::LoadModFileList(MOD_LIST pModList[GENDER_MAX])
 	DWORD idx = 0;
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ³²ÀÚ
+	// ï¿½ï¿½ï¿½ï¿½
 	idx = 0;
 #ifdef _FILE_BIN_
 //	sprintf(filename,"Resource/ModList_M.bin");
@@ -2955,7 +2966,7 @@ BOOL CGameResourceManager::LoadModFileList(MOD_LIST pModList[GENDER_MAX])
 	
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¿©ÀÚ
+	// ï¿½ï¿½ï¿½ï¿½
 	idx = 0;
 #ifdef _FILE_BIN_
 //	sprintf(filename,"Resource/ModList_W.bin");
@@ -2986,13 +2997,13 @@ BOOL CGameResourceManager::LoadModFileList(MOD_LIST pModList[GENDER_MAX])
 }
 BOOL CGameResourceManager::LoadFaceModFileList(MOD_LIST pFaceModList[GENDER_MAX]) //pjscode
 {
-	//¾ó±¼ °ü·Ã
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CMHFile file;
 	char filename[64];
 	DWORD idx = 0;
 
 		//////////////////////////////////////////////////////////////////////////
-		// ³²ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 //		sprintf(filename,"Resource/FaceList_M.bin");		
@@ -3019,7 +3030,7 @@ BOOL CGameResourceManager::LoadFaceModFileList(MOD_LIST pFaceModList[GENDER_MAX]
 
 		
 		//////////////////////////////////////////////////////////////////////////
-		// ¿©ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 //		sprintf(filename,"Resource/FaceList_W.bin");
@@ -3055,7 +3066,7 @@ BOOL CGameResourceManager::LoadBodyModFileList(MOD_LIST pBodyModList[GENDER_MAX]
 	DWORD idx = 0;
 
 		//////////////////////////////////////////////////////////////////////////
-		// ³²ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 		sprintf(filename,"Resource/BodyList_M.bin");		
@@ -3080,7 +3091,7 @@ BOOL CGameResourceManager::LoadBodyModFileList(MOD_LIST pBodyModList[GENDER_MAX]
 
 		
 		//////////////////////////////////////////////////////////////////////////
-		// ¿©ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 		sprintf(filename,"Resource/BodyList_W.bin");
@@ -3116,7 +3127,7 @@ BOOL CGameResourceManager::LoadHairModFileList(MOD_LIST pHairModList[GENDER_MAX]
 	DWORD idx = 0;
 
 		//////////////////////////////////////////////////////////////////////////
-		// ³²ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 //		sprintf(filename,"Resource/HairList_M.bin");	
@@ -3142,7 +3153,7 @@ BOOL CGameResourceManager::LoadHairModFileList(MOD_LIST pHairModList[GENDER_MAX]
 
 		
 		//////////////////////////////////////////////////////////////////////////
-		// ¿©ÀÚ
+		// ï¿½ï¿½ï¿½ï¿½
 		idx = 0;
 #ifdef _FILE_BIN_
 //		sprintf(filename,"Resource/HairList_W.bin");
@@ -3287,7 +3298,7 @@ BOOL CGameResourceManager::LoadTitanHairModList(MOD_LIST pHairModeList[TITANKIND
 
 BOOL CGameResourceManager::LoadTitanFaceModList(MOD_LIST pFaceModList[TITANKIND_MAX])
 {
-	//¾ó±¼ °ü·Ã
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CMHFile file;
 	char filename[64];
 	DWORD idx = 0;
@@ -3441,7 +3452,7 @@ BOOL CGameResourceManager::LoadGameDesc()
 			if( file.GetBool() )
 				m_GameDesc.dispInfo.dispType = WINDOW_WITH_BLT;
 			else
-				m_GameDesc.dispInfo.dispType = /*FULLSCREEN_WITH_FLIP;//*/FULLSCREEN_WITH_BLT;	//FLIPÀº Alt_TabÀÌ ¾ÈµÈ´Ù.
+				m_GameDesc.dispInfo.dispType = /*FULLSCREEN_WITH_FLIP;//*/FULLSCREEN_WITH_BLT;	//FLIPï¿½ï¿½ Alt_Tabï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
 
 //			m_GameDesc.dispInfo.bWindowed = file.GetBool();
 
@@ -3660,7 +3671,7 @@ void CGameResourceManager::LoadPreDataTable()
 			sPRELOAD_INFO* pPreLoadInfo = new sPRELOAD_INFO;
 			pPreLoadInfo->MapNum = file.GetInt();
 
-			// ÇØ´ç¸ÊÀÇ ¸ó½ºÅÍ Á¤º¸ ·Îµù
+			// ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 //			LoadPreMonsterData(pPreLoadInfo, pPreLoadInfo->MapNum);
 			
 			int Count = file.GetInt();
@@ -3672,13 +3683,13 @@ void CGameResourceManager::LoadPreDataTable()
 			for(int i=0; i<Count; i++)
 			{
 				Level = file.GetInt();
-				// ÇØ´ç ·¹º§ ¾ÆÀÌÅÛ ·Îµù
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 				ITEMMGR->SetPreItemData(pPreLoadInfo, Level);
 			}
 			*/
 
 
-			// ItemÁ¾·ù°¡ ¿ö³« ¸¹¾Æ¼­.. Â÷¶ó¸® ÀÌ°Ô ³´Áö..
+			// Itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½.. ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½..
 			Level = new int[Count];
 
 			for(int i=0; i<Count; i++)
@@ -3691,23 +3702,23 @@ void CGameResourceManager::LoadPreDataTable()
 			m_PreLoadDataTable.Add(pPreLoadInfo, pPreLoadInfo->MapNum);
 		}
 		///////////////////////////////////////////////////////////////////////////////
-		// 06. 04. PreLoadData Ãß°¡±â´É - ÀÌ¿µÁØ
-		// ¾ÆÀÌÅÛ »çÀü ·Îµå±â´É Ãß°¡
-		// #ITEM [¼ö·®] [¾ÆÀÌÅÛ ÀÎµ¦½º]...
+		// 06. 04. PreLoadData ï¿½ß°ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+		// #ITEM [ï¿½ï¿½ï¿½ï¿½] [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½]...
 		else if(strcmp(Token, "#ITEM") == 0)
 		{
-			// ÀÖÀ¸¸é Áö¿öÁØ´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 			if(m_PreLoadItemlist)
 				delete[] m_PreLoadItemlist;
 
-			// ¼ö·®À» °¡Á®¿Â´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 			int Count = file.GetInt();
 			
 			if(Count > 0)
 			{
-				// ¹öÆÛ »ı¼º
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				m_PreLoadItemlist = new WORD[Count + 1];
-				// Ã¹¹øÂ° ÀÚ¸®¿¡ ¼ö·®À» ³Ö¾îÁØ´Ù
+				// Ã¹ï¿½ï¿½Â° ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½
 				m_PreLoadItemlist[0] = Count;
 
 				WORD ItemIdx = 0;
@@ -3721,9 +3732,9 @@ void CGameResourceManager::LoadPreDataTable()
 		}
 		///////////////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////
-		// 06. 05. PreLoadData Ãß°¡±â´É - ÀÌ¿µÁØ
-		// ¸Êº° ÀÌÆåÆ® »çÀü ·Îµå±â´É Ãß°¡
-		// #MAPEFFECT [¼ö·®] [ÆÄÀÏÀÌ¸§]...
+		// 06. 05. PreLoadData ï¿½ß°ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½Êºï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+		// #MAPEFFECT [ï¿½ï¿½ï¿½ï¿½] [ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½]...
 		else if(strcmp(Token, "#MAPEFFECT") == 0)
 		{
 			sPRELOAD_EFFECT_INFO* pPreLoadInfo = new sPRELOAD_EFFECT_INFO;
@@ -3754,6 +3765,7 @@ void CGameResourceManager::LoadPreDataTable()
 
 void CGameResourceManager::LoadPreMonsterData(sPRELOAD_INFO* pPreLoadInfo, MAPTYPE MapNum)
 {
+	int i;  // ä¿®å¤C2086: åˆ é™¤é‡å¤å£°æ˜
 	CMHFile file;
 	char filename[256];
 #ifdef _FILE_BIN_
@@ -3783,11 +3795,11 @@ void CGameResourceManager::LoadPreMonsterData(sPRELOAD_INFO* pPreLoadInfo, MAPTY
 			int kind = file.GetDword();
 			if(kind)
 			{
-				// °°Àº°Ô ÀÖ´ÂÁö Ã£°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
 				for(int i=0; i<pPreLoadInfo->Count[ePreLoad_Monster]; i++)
 					if(kind == pPreLoadInfo->Kind[ePreLoad_Monster][i])		break;
 				
-				// ¾øÀ¸¸é »õ·Î¿î ¸ó½ºÅÍ Ãß°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				if(i == pPreLoadInfo->Count[ePreLoad_Monster])
 				{
 					pPreLoadInfo->Kind[ePreLoad_Monster][i] = kind;
@@ -4009,7 +4021,7 @@ PLUSITEM_EFFECT_INFO* CGameResourceManager::GetPlusItemEffectInfo(WORD wItemType
 #endif //_CLIENT_RESOURCE_FIELD_
 //-----------------------------------------------------------------------------------------------------------//
 
-// 06. 05 HIDE NPC - ÀÌ¿µÁØ
+// 06. 05 HIDE NPC - ï¿½Ì¿ï¿½ï¿½ï¿½
 #ifdef _SERVER_RESOURCE_FIELD_
 
 
@@ -4030,7 +4042,7 @@ BOOL CGameResourceManager::LoadHideNpcList()
 
 	while(!file.IsEOF())
 	{
-		// ÇöÀç ¸Ê¿¡ ÇØ´çµÇ´Â NPC¸¸ ÀĞ¾îµéÀÎ´Ù
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½Ø´ï¿½Ç´ï¿½ NPCï¿½ï¿½ ï¿½Ğ¾ï¿½ï¿½ï¿½Î´ï¿½
 		if(file.GetWord() == mapnum)
 		{
 			index = file.GetWord();

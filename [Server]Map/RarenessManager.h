@@ -4,6 +4,7 @@
 
 #if !defined(AFX_RARENESSMANAGER_H__98F09FB6_6D0C_45D2_A95A_192AA6ECDEDE__INCLUDED_)
 #define AFX_RARENESSMANAGER_H__98F09FB6_6D0C_45D2_A95A_192AA6ECDEDE__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -12,7 +13,7 @@
 #include "Player.h"
 
 #define RAREITEMMGR	USINGTON(RarenessManager)
-#define BOUNDARY_INDEX_FOR_SHOPITEM	55101	//"itemlist.bin" ±âÈ¹»ó º¯°æ ¾ø´Ù´Â °æ°è ÀÎµ¦½º.
+#define BOUNDARY_INDEX_FOR_SHOPITEM	55101	//"itemlist.bin" È¹  Ù´  Îµ.
 #define RARE_VALUE_PROB_LIST_MAX	100
 
 //enum WeaponKind{ GUM, DO, CHANG, AMGI, GOONG, WeaponKindMAX = 5 };
@@ -41,18 +42,18 @@ public:
 	void Init();
 	void Release();
 
-	bool LoadRareItemOptionInfo();	//¼¼ºÎ ¿É¼Ç °ª ¼³Á¤//ÇÔ¼ö¸íÀº ÀÌ¸§À¸·Î ±â´ÉÀ» ÇÒ ¼ö ÀÖÀ» Á¤µµ·Î!
-	bool LoadRareItemInfo();	//¾ÆÀÌÅÛ ÀÎµ¦½º(Á¾·ù) º° µå·ÓÈ®·ü
+	bool LoadRareItemOptionInfo();	// É¼  //Ô¼ Ì¸     !
+	bool LoadRareItemInfo();	// Îµ()  È®
 	bool LoadRareValueProbList();
-	void ReleaseRareItemInfo();	//·¹¾îÀÎÆ÷ Å×ÀÌºí ÇØÁ¦
-	//·¹¾î¾ÆÀÌÅÛ È®·ü ÆÇº°(·¹¾î°¡ µÇ´À³Ä ¸¶´À³Ä)
+	void ReleaseRareItemInfo();	// Ìº 
+	// È® Çº(î°¡ Ç´ )
 	bool GetRare(WORD ObtainItemIdx, ITEM_RARE_OPTION_INFO* pRareOptionInfo, CPlayer* pPlayer, BOOL bRare=FALSE);
-	//(·¹¾îÀÌ¸é)ÇØ´ç ¾ÆÀÌÅÛ Á¾·ù¿¡ ¸Â´Â ·¹¾î °ª ¼¼ÆÃ
+	//(Ì¸)Ø´   Â´   
 //	void MakeRareWeapon(ITEM_RARE_OPTION_INFO* pRareInfo);
 //	void MakeRareProtector(ITEM_RARE_OPTION_INFO* pRareInfo);
 //	void MakeRareAccessary(ITEM_RARE_OPTION_INFO* pRareInfo);
 	DWORD GetRareItemValue(DWORD RndMin, DWORD RndMax);
-	//DB¿¡ ·¹¾î Á¤º¸ µî·Ï
+	//DB   
 
 	//
 	BOOL IsRareItemAble( DWORD ItemIdx )

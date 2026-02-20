@@ -1,5 +1,6 @@
 #ifndef __CLASS_PURSE__
 #define __CLASS_PURSE__
+#include "..\[CC]Header\CommonStruct.h"
 
 
 class CPurse

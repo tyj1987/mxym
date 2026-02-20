@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "QuestMapMgr.h"
 #include "Player.h"
 #include "RecallManager.h"

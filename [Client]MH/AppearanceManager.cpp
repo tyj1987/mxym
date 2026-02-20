@@ -32,7 +32,7 @@
 #include "MHCamera.h"
 #include "OptionManager.h"
 
-// ³ëÁ¡»ó °Ë»öÀ» À§ÇÑ Ãß°¡ by Stiner(8)
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(8)
 #include "GameIn.h"
 #include "StallFindDlg.h"
 //--
@@ -183,13 +183,13 @@ BYTE CAppearanceManager::GetGenderFromMap(CPlayer* pPlayer)
 {
 	BYTE gender;
 
-	///////// 2007. 6. 18. CBH - Å¸ÀÌÅº ¸Ê ¼ºº°º¯È¯ Ãß°¡ ///////////////////
-//	if((MAP->IsTitanMap() == TRUE) && (MAP->GetMapNum() != 101))	//ÀºÃµ¸ÊÀº ¼ºº°ÀüÈ¯ÇÏÁö ¾Ê´Â´Ù
-	if((MAP->IsMapKind(eTitanMap)) && (MAP->GetMapNum() != 101))	//ÀºÃµ¸ÊÀº ¼ºº°ÀüÈ¯ÇÏÁö ¾Ê´Â´Ù
+	///////// 2007. 6. 18. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½ß°ï¿½ ///////////////////
+//	if((MAP->IsTitanMap() == TRUE) && (MAP->GetMapNum() != 101))	//ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
+	if((MAP->IsMapKind(eTitanMap)) && (MAP->GetMapNum() != 101))	//ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
 	{
-		if(pPlayer->m_CharacterInfo.Gender == GENDER_MALE)	//³²ÀÚ¸é...		
+		if(pPlayer->m_CharacterInfo.Gender == GENDER_MALE)	//ï¿½ï¿½ï¿½Ú¸ï¿½...		
 			gender = GENDER_FEMALE;		
-		else	// ¿©ÀÚ¸é...		
+		else	// ï¿½ï¿½ï¿½Ú¸ï¿½...		
 			gender = GENDER_MALE;		
 	}
 	else
@@ -219,7 +219,7 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 	}
 	else
 	{
-		//2008. 6. 17. CBH - ±¤¼±°Ë Á¾·ùÀÇ ¾ÆÀÌÅÆÀº ¾Æ¹ÙÅ¸ ²ô±â ¿É¼Ç Àû¿ë ¾È¹Þ°Ô ÇÑ´Ù.
+		//2008. 6. 17. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Þ°ï¿½ ï¿½Ñ´ï¿½.
 		for(int i = eAvatar_Weared_Gum ; i <= eAvatar_Weared_Amgi ; i++)
 		{
 			AvatarItemIdx[i] = pPlayer->GetShopItemStats()->Avatar[i];
@@ -259,7 +259,7 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 	pEngineObject->Init(DataInfo.pModList->BaseObjectFile,pPlayer,eEngineObjectType_Character);	
 	pEngineObject->ChangePart(eAppearPart_Face,"NULL.MOD");	
 
-	// È£¹Ú ÀÓ½Ã // »êÅ¸¸ðÀÚ	
+	// È£ï¿½ï¿½ ï¿½Ó½ï¿½ // ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½	
 	/*
 	if(	WearedItemIdx[eWearedItem_Hat] == 53001 || WearedItemIdx[eWearedItem_Hat] == 53002 ||
 		WearedItemIdx[eWearedItem_Hat] == 53003 || WearedItemIdx[eWearedItem_Hat] == 53006 ||
@@ -287,13 +287,13 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 
 	//BOOL rt;
 
-	SetCharacterAvatarAppearance(pPlayer, pEngineObject, &DataInfo);	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ Àåºñ ¸ðµå ¼ÂÆÃ
-	SetCharacterSkinAppearance(pPlayer, pEngineObject, &DataInfo);		//½ºÅ² ¾ÆÀÌÅÆ Àåºñ ¸ðµå ¼ÂÆÃ
-	SetCharacterWearedAppearance(pPlayer, pEngineObject, &DataInfo);	//ÀÏ¹Ý ¾ÆÀÌÅÆ Àåºñ ¸ðµå ¼ÂÆÃ
-	SetCharacterEventAppearance(pPlayer, pEngineObject, &DataInfo);		//ÀÌº¥Æ® °ü·Ã ¸ðµå ¼ÂÆÃ
+	SetCharacterAvatarAppearance(pPlayer, pEngineObject, &DataInfo);	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	SetCharacterSkinAppearance(pPlayer, pEngineObject, &DataInfo);		//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	SetCharacterWearedAppearance(pPlayer, pEngineObject, &DataInfo);	//ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	SetCharacterEventAppearance(pPlayer, pEngineObject, &DataInfo);		//ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	/*
-	// RaMa - ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ
+	// RaMa - ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for(int i=0; i<=eAvatar_Effect; i++)
 	{
 		if( AvatarItemIdx[i] )
@@ -364,7 +364,7 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 	}
 	*/
 	/*
-	// Àåºñ
+	// ï¿½ï¿½ï¿½
 	for(int n=0;n<eWearedItem_Max;++n)
 	{
 		if(WearedItemIdx[n])
@@ -383,13 +383,13 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 			if(PartType == -1)
 				continue;
 
-			// ¿©ÀÚ´Â ¸Ó¸®¸¦ ¹Ù²ÙÁö ¾Ê°í ¸Ó¸®¿¡ ºÙÀÎ´Ù.
+			// ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			if(gender == 1 && PartType == 0)
 			{
 				PartType = 6;
 			}
 
-			if(PartType == 7)// 7¹øÀº ³²ÀÚµç ¿©ÀÚµç ¸Ó¸®¸¦ ¹Ù²Û´Ù. (È£¹Ú¸Ó¸®)
+			if(PartType == 7)// 7ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½. (È£ï¿½Ú¸Ó¸ï¿½)
 			{
 				if(gender == 0)
 					pEngineObject->ChangePart(eAppearPart_Hair,"NULLHAIR_M.MOD");
@@ -399,10 +399,10 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 				PartType = 6;
 			}
 
-			if(PartType == 6)	// ¸Ó¸®¶ì
+			if(PartType == 6)	// ï¿½Ó¸ï¿½ï¿½ï¿½
 			{
 				CEngineObject* pHairBand = NULL;
-				// ¾Æ¹ÙÅ¸¿ÊÀ» ÀÔ¾úÀ»¶§ ±âº»¸Ó¸® Àå½ÄÀÇ ÀåÂø¿©ºÎ ÆÇº°
+				// ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
 				if( AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( AvatarItemIdx[eAvatar_Dress] );
@@ -431,9 +431,9 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 					pHairBand->SetMaterialIndex( 2 );
 
 			}
-			else if(PartType == 3)	//2007. 10. 1. CBH - ±Ç ¹«±â Ã³¸®
+			else if(PartType == 3)	//2007. 10. 1. CBH - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			{
-				if(AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ˜Þ¾ÆÀÌÅÆ ±Ç ¹«±â Ã³¸®
+				if(AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				{
 					ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(AvatarItemIdx[eAvatar_Weared_Gwun]);
 					if(!pInfo)
@@ -444,14 +444,14 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 				}
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pModList->ModFile[PartModelNum]);
 			}
-			else if(PartType != 5) // ¿Ö ¾È¹Ù²Ù³ª ??	// ¹«±â¶ó¼­ ¾È¹Ù²Û´Ù ¿À¹Ù(yh)
+			else if(PartType != 5) // ï¿½ï¿½ ï¿½È¹Ù²Ù³ï¿½ ??	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²Û´ï¿½ ï¿½ï¿½ï¿½ï¿½(yh)
 			{
-				// RaMa - 06.05.16  -> ¾Æ¹ÙÅ¸¾ÆÀÌÅÛ¿¡ µû¸¥ ¹«±â¿Í ¼Õ¹ßÀÇ  Hide
+				// RaMa - 06.05.16  -> ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¹ï¿½ï¿½ï¿½  Hide
 				if( AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( AvatarItemIdx[eAvatar_Dress] );
@@ -483,7 +483,7 @@ BOOL CAppearanceManager::SetCharacterAppearanceToEngineObject(CPlayer* pPlayer,C
 				}				
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pModList->ModFile[PartModelNum]);
@@ -503,7 +503,7 @@ _NotChangePart:
 	*/
 
 	/*
-	// 06.09.25 RaMa - Ãß¼®ÀÌº¥Æ®
+	// 06.09.25 RaMa - ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 	if( pPlayer->GetFullMoonEventIndex() != eFULLMOONEVENT_NONE )
 	{
 		if(gender == 0)
@@ -566,7 +566,7 @@ _NotChangePart:
 #define CHACRACTER_TALL	170
 	pPlayer->SetObjectBalloonTall( (LONG)(CHACRACTER_TALL * pPlayer->GetCharacterTotalInfo()->Height) );	
 
-	//½ºÄÉÀÏ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 scale;	
 	
 	if( pPlayer->m_CharacterInfo.Width > 1.1 ) pPlayer->m_CharacterInfo.Width = 1.1f;
@@ -591,7 +591,7 @@ _NotChangePart:
 		pPlayer->GetEngineObject()->DisablePick();
 	}
 /*	
-	// ÀÜ»ó Å×½ºÆ® ÄÚµå
+	// ï¿½Ü»ï¿½ ï¿½×½ï¿½Æ® ï¿½Úµï¿½
 	CEngineObject* pKGEffect = new CEngineObject;
 	pKGEffect->Init("jansang.MOD",NULL,eEngineObjectType_Effect);
 	pKGEffect->Attach(pEngineObject,"Bip01 Head");	
@@ -599,18 +599,18 @@ _NotChangePart:
 	pKGEffect->BeginIllusionEffect();
 */
 
-	//2007. 8. 7. CBH - ¼¼Æ®¾ÆÀÌÅÆ ÀÌÆåÆ® Ã³¸® Ãß°¡
+	//2007. 8. 7. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	ITEMMGR->SetItemEffectProcess(pPlayer);
 
 	return TRUE;
 }
 
-//2007. 11. 29. CBH - ÀÌº¥Æ® °ü·Ã Ä³¸¯ÅÍ ¸ðµå ¼¼ÆÃ ÇÔ¼ö
+//2007. 11. 29. CBH - ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineObject* pEngineObject, APPEARANCEDATA_INFO* pDataInfo)
 {
 	BOOL rt;
 
-	// 06.09.25 RaMa - Ãß¼®ÀÌº¥Æ®
+	// 06.09.25 RaMa - ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 	if( pPlayer->GetFullMoonEventIndex() != eFULLMOONEVENT_NONE )
 	{
 		if(pDataInfo->gender == 0)
@@ -642,20 +642,20 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 		if(pInfo != NULL)
 			wItemIndex = pInfo->ItemIdx;
 
-		//2007. 12. 4. CBH - ¾ó±¼À» ±×·ÁÁÖ¸é ¾ÈµÇ´Â ¾ÆÀÌÅÆÀº ¾Æ¹ÙÅ¸ ¿¹¿ÜÃ³¸® ¸®½ºÆ®¿¡ Ãß°¡ÇØ¼­ °É·¯¾ßÇÑ´Ù.
-		if( (pDataInfo->AvatarItemIdx[eAvatar_Weared_Face]) )	//ÀåÂøµÈ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ó±¼ÀÌ ±×·ÁÁöÁö ¾Ê´Â°Å¸é 0
+		//2007. 12. 4. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¼ï¿½ ï¿½É·ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		if( (pDataInfo->AvatarItemIdx[eAvatar_Weared_Face]) )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â°Å¸ï¿½ 0
 		{
 			/*
 			SKIN_SELECT_ITEM_INFO* pSkinItemInfo = GAMERESRCMNGR->GetNomalClothesSkinList(pPlayer->GetShopItemStats()->dwSkinItemIndex);		
 
-			//¿ùº´¸Ó¸®, ÆßÇÁÅ²Çìµå µî ¾ó±¼À» ±×¸®¸é ¾ÈµÇ´Â ºÎºÐ Ã³¸®
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½, ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½Îºï¿½ Ã³ï¿½ï¿½
 			AVATARITEM_EXCEPTION* pAvetarItemException = GetAvatarItemExcetion(wItemIndex);
 			if( (pAvetarItemException != NULL) && (pSkinItemInfo == NULL) )			
 			{				
-				//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¸ðÀÚµµ ¾ø°í ¸¶½ºÅ©µµ ¾øÀ¸¸é ¾È±×¸°´Ù.
+				//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È±×¸ï¿½ï¿½ï¿½.
 				BOOL bFlag = FALSE;
 
-				//pAvetarItemException->Kind °¡ 1ÀÌ¸é ¸Ó¸®¿Í ¾ó±¼ ±×·ÁÁÖ¸é ¾ÈµÇ´Â ¾ÆÀÌÅÆ
+				//pAvetarItemException->Kind ï¿½ï¿½ 1ï¿½Ì¸ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(pAvetarItemException->Kind != 0)
 					bFlag = TRUE;
 
@@ -683,18 +683,18 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 			*/
 			/*
 			AVATARITEM* pAvatarItem = NULL;
-			BOOL bFlag = FALSE;	//¾ó±¼À» ¼ÂÆÃÇÒ°ÍÀÎ°¡¸¦ Ã¼Å©ÇÏ´Â º¯¼ö
+			BOOL bFlag = FALSE;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î°ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 			WORD* wSkinItem = pPlayer->GetShopItemStats()->wSkinItem;
-			//¿ùº´¸Ó¸®, ÆßÇÁÅ²Çìµå µî ¾ó±¼À» ±×¸®¸é ¾ÈµÇ´Â ºÎºÐ Ã³¸®
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½, ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½Îºï¿½ Ã³ï¿½ï¿½
 			AVATARITEM_EXCEPTION* pAvetarItemException = GetAvatarItemExcetion(wItemIndex);
 			if( (pAvetarItemException != NULL) )
 			{
-				//pAvetarItemException->Kind °¡ 1ÀÌ¸é ¸Ó¸®¿Í ¾ó±¼ ±×·ÁÁÖ¸é ¾ÈµÇ´Â ¾ÆÀÌÅÆ
+				//pAvetarItemException->Kind ï¿½ï¿½ 1ï¿½Ì¸ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(pAvetarItemException->Kind != 0)
 					bFlag = TRUE;
 
-				//¿Ê°ú ¸Ó¸®°¡ ÀÏÃ¼Çü µÈ ¿ÊÀ» Ã¼Å©
+				//ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 				if(pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0)
 				{
 					pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -705,24 +705,24 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 					}			
 				}
 
-				//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ Ã¼Å©
+				//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 				if( (pDataInfo->AvatarItemIdx[eAvatar_Mask] > 0) || (pDataInfo->AvatarItemIdx[eAvatar_Weared_Hair] == 0) 
 					|| (pDataInfo->AvatarItemIdx[eAvatar_Hat] > 0) || (pDataInfo->AvatarItemIdx[eAvatar_Glasses] > 0))
 					bFlag = TRUE;
 
-				//½ºÅ² Ã¼Å©
+				//ï¿½ï¿½Å² Ã¼Å©
 				if(wSkinItem[eSkinItem_Hat] != 0 || wSkinItem[eSkinItem_Mask] != 0)
 				{					
 					bFlag = TRUE;
 				}
 
-				//ÇØ°ñ°¡¸é ½ºÅ²Àº ¾ó±¼À» ±×·ÁÁÖ¸é ¾ÈµÈ´Ù. ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ Á¤º¸¿¡¼­ ¼³Á¤ Á¤º¸¸¦ °¡Á®´Ù ¾²ÀÚ
+				//ï¿½Ø°ñ°¡¸ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö¸ï¿½ ï¿½ÈµÈ´ï¿½. ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(wSkinItem[eSkinItem_Mask] != 0)
 				{
 					pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( wSkinItem[eSkinItem_Mask] );
 					if( (pAvatarItem != NULL) && (pAvatarItem->Item[eAvatar_Weared_Face] == 0) )
 					{
-						//¸¸¾à ¾Æ¹ÙÅ¸ Àåºñ°¡ ÀåÂøµÇ¾î ÀÖÀ¸¸é ¾ó±¼Àº ±×¸°´Ù.
+						//ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
 						if(pDataInfo->AvatarItemIdx[eAvatar_Mask] > 0)
 							bFlag = TRUE;
 						else
@@ -733,27 +733,27 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 			*/
 			
 			AVATARITEM* pAvatarItem = NULL;
-			BOOL bFlag = TRUE;	//¾ó±¼À» ¼ÂÆÃÇÒ°ÍÀÎ°¡¸¦ Ã¼Å©ÇÏ´Â º¯¼ö
+			BOOL bFlag = TRUE;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î°ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			WORD* wSkinItem = pPlayer->GetShopItemStats()->wSkinItem;						
 
-			//½ºÅ²ÀÇ ¾ÆÀÌÅÆÀÎµ¦½º Á¤º¸·Î ¾Æ¹ÙÅ¸ Âø¿ë ºÎÀ§¼³Á¤°ªÀ» Âü°í
+			//ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( wSkinItem[eSkinItem_Mask] );
 			if( (pAvatarItem != NULL) && ((pAvatarItem->Position == 3) || (pAvatarItem->Position == 4)) )
 			{				
-				//¾ó±¼ÀÌ ±×·ÁÁö¸é ¾ÈµÇ´Â ½ºÅ² Àåºñ½Ã
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 				if( (pAvatarItem->Item[eAvatar_Weared_Face] == 0) && (wSkinItem[eSkinItem_Mask] > 0) )
 				{
-					//¾ó±¼ÀÌ ±×·ÁÁö´Â ¾Æ¹ÙÅ¸ ¾ó±¼ ÀåºñÇÏ¸é ¾ó±¼À» ±×¸°´Ù.
-					//Âø¿ëÇÑ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾È°æºÎÀ§³ª ¸¶½ºÅ©¿¡ Âø¿ë Á¤º¸°¡ ÀÖ°í ¾ó±¼¿¡ ¾Æ¹«°Íµµ Âø¿ëÁßÀÌÁö ¾ÊÀ¸¸é ±×¸°´Ù.
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ó±¼¿ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
 					if( (pDataInfo->AvatarItemIdx[eAvatar_Weared_Face] != 0) && ((pDataInfo->AvatarItemIdx[eAvatar_Mask] > 0) || (pDataInfo->AvatarItemIdx[eAvatar_Glasses] > 0)) )
 						bFlag = TRUE;
 					else
 						bFlag = FALSE;
 				}
-				else	//¾ó±¼ÀÌ ±×·ÁÁö´Â ½ºÅ² Àåºñ½Ã
+				else	//ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½
 				{
-					//¾ó±¼ÀÌ ±×·ÁÁö¸é ¾ÈµÇ´Â ¾Æ¹ÙÅ¸ ¾ó±¼À» ÀåºñÇÏ¸é ¾ó±¼À» ¾È±×¸°´Ù.
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×¸ï¿½ï¿½ï¿½.
 					if( (pDataInfo->AvatarItemIdx[eAvatar_Weared_Face] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Mask] > 0) )
 						bFlag = FALSE;					
 				}			
@@ -763,26 +763,26 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 				AVATARITEM_EXCEPTION* pAvetarItemException = GetAvatarItemExcetion(wItemIndex);
 				if( (pAvetarItemException != NULL) )
 				{
-					//pAvetarItemException->Kind °¡ 0ÀÌ¸é ¸Ó¸®¿Í ¾ó±¼À» ¾È±×·ÁÁÖ´Â ¾ÆÀÌÅÆ				
+					//pAvetarItemException->Kind ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½				
 					if( pAvetarItemException->Kind == 0)
 					{
-						//¾Æ¹ÙÅ¸ ¿ÊÀÌ Âø¿ëµÇ¾î ÀÖÀ¸¸é
+						//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						if( pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0 )
 						{
-							//¿Ê°ú ¸Ó¸®°¡ ÀÏÃ¼Çü µÈ ¿ÊÀ» Ã¼Å©
+							//ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 							pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
 							if(pAvatarItem != NULL)
 							{
-								//¸Ó¸®¿Í ÀÏÃ¼ÇüÀÌ ¾Æ´Ï¸é ¾ó±¼À» ¾È±×¸°´Ù.								
+								//ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×¸ï¿½ï¿½ï¿½.								
 								if( pAvatarItem->Item[eAvatar_Hat] == 0 )
 									bFlag = TRUE;
-								//¾Æ¹ÙÅ¸ ¸ðÀÚ, ½ºÅ² ¸ðÀÚ, ¾Æ¹ÙÅ¸ ¾ó±¼, ½ºÅ² ¾ó±¼ÀÌ Âø¿ë ¾ÈµÇ¾îÀÖÀ¸¸é ¾ó±¼À» ¾È±×¸°´Ù.
+								//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½, ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½, ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×¸ï¿½ï¿½ï¿½.
 								else if( (pDataInfo->AvatarItemIdx[eAvatar_Hat] == 0) && (wSkinItem[eSkinItem_Hat] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Mask] == 0) 
 									      && (pDataInfo->AvatarItemIdx[eAvatar_Glasses] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Hair] == 0) )
 									bFlag = FALSE;
 							}							
 						}
-						//¾Æ¹ÙÅ¸ ¸ðÀÚ, ½ºÅ² ¸ðÀÚ, ¾Æ¹ÙÅ¸ ¾ó±¼, ½ºÅ² ¾ó±¼ÀÌ Âø¿ë ¾ÈµÇ¾îÀÖ´ÂÁö °Ë»ç						
+						//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½, ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½, ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½						
 						else if( (pDataInfo->AvatarItemIdx[eAvatar_Hat] == 0) && (wSkinItem[eSkinItem_Hat] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Mask] == 0)
 							      && (pDataInfo->AvatarItemIdx[eAvatar_Glasses] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Hair] == 0) )
                             bFlag = FALSE;
@@ -804,7 +804,7 @@ void CAppearanceManager::SetCharacterEventAppearance(CPlayer* pPlayer, CEngineOb
 	}
 }
 
-//2007. 11. 29. CBH - ÀÏ¹ÝÀåºñ °ü·Ã Ä³¸¯ÅÍ ¸ðµå ¼¼ÆÃ ÇÔ¼ö
+//2007. 11. 29. CBH - ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineObject* pEngineObject, APPEARANCEDATA_INFO* pDataInfo)
 {
 	/*
@@ -831,13 +831,13 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 			if(PartType == -1)
 				continue;
 
-			// ¿©ÀÚ´Â ¸Ó¸®¸¦ ¹Ù²ÙÁö ¾Ê°í ¸Ó¸®¿¡ ºÙÀÎ´Ù.
+			// ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			if(pDataInfo->gender == 1 && PartType == 0)
 			{
 				PartType = 6;
 			}
 
-			if(PartType == 7)// 7¹øÀº ³²ÀÚµç ¿©ÀÚµç ¸Ó¸®¸¦ ¹Ù²Û´Ù. (È£¹Ú¸Ó¸®)
+			if(PartType == 7)// 7ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½. (È£ï¿½Ú¸Ó¸ï¿½)
 			{
 				if(pDataInfo->gender == 0)
 					pEngineObject->ChangePart(eAppearPart_Hair,"NULLHAIR_M.MOD");
@@ -847,10 +847,10 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 				PartType = 6;
 			}
 
-			if(PartType == 6)	// ¸Ó¸®¶ì
+			if(PartType == 6)	// ï¿½Ó¸ï¿½ï¿½ï¿½
 			{
 				CEngineObject* pHairBand = NULL;
-				// ¾Æ¹ÙÅ¸¿ÊÀ» ÀÔ¾úÀ»¶§ ±âº»¸Ó¸® Àå½ÄÀÇ ÀåÂø¿©ºÎ ÆÇº°
+				// ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
 				if( pDataInfo->AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -863,11 +863,11 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 					}
 				}
 
-				//2008. 1. 7. CBH - ¾ÆÀÌÅÆ¸ô ¾ÆÀÌÅÆ °¡¸éÀ» ¾²¸é ¾È±×·ÁÁØ´Ù
+				//2008. 1. 7. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×·ï¿½ï¿½Ø´ï¿½
 				if( pDataInfo->AvatarItemIdx[eAvatar_Mask] || pDataInfo->AvatarItemIdx[eAvatar_Glasses] > 0)
 					continue;
 
-				//2007. 12. 6. CBH - ¸Ó¸®¶ì ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+				//2007. 12. 6. CBH - ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 				if( pSkinItemInfo != NULL ) 
 				{
 					if( pSkinItemInfo->wEquipItem[eSkinItem_Hat] != 0 )
@@ -893,9 +893,9 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 				
 
 			}
-			else if(PartType == 3)	//2007. 10. 1. CBH - ±Ç ¹«±â Ã³¸®
+			else if(PartType == 3)	//2007. 10. 1. CBH - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			{
-				if(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ˜Þ¾ÆÀÌÅÆ ±Ç ¹«±â Ã³¸®
+				if(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				{
 					ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun]);
 					if(!pInfo)
@@ -906,14 +906,14 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 				}
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pDataInfo->pModList->ModFile[PartModelNum]);
 			}
-			else if(PartType != 5) // ¿Ö ¾È¹Ù²Ù³ª ??	// ¹«±â¶ó¼­ ¾È¹Ù²Û´Ù ¿À¹Ù(yh)
+			else if(PartType != 5) // ï¿½ï¿½ ï¿½È¹Ù²Ù³ï¿½ ??	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²Û´ï¿½ ï¿½ï¿½ï¿½ï¿½(yh)
 			{
-				// RaMa - 06.05.16  -> ¾Æ¹ÙÅ¸¾ÆÀÌÅÛ¿¡ µû¸¥ ¹«±â¿Í ¼Õ¹ßÀÇ  Hide
+				// RaMa - 06.05.16  -> ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¹ï¿½ï¿½ï¿½  Hide
 				if( pDataInfo->AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -941,7 +941,7 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 							if( !pDataInfo->AvatarItemIdx[eAvatar_Shoes] )
 								goto _NotChangePart;
 
-							//2007. 12. 6. CBH - ½Å¹ß ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+							//2007. 12. 6. CBH - ï¿½Å¹ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 							if( pSkinItemInfo != NULL ) 
 							{
 								if( pSkinItemInfo->wEquipItem[eSkinItem_Shoes] != 0 )
@@ -951,7 +951,7 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 					}
 				}
 
-				//2007. 12. 6. CBH - ¿Ê ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+				//2007. 12. 6. CBH - ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 				if( pSkinItemInfo != NULL ) 
 				{
 					if( pSkinItemInfo->wEquipItem[eSkinItem_Dress] != 0 )
@@ -959,7 +959,7 @@ void CAppearanceManager::SetCharacterWearedAppearance(CPlayer* pPlayer, CEngineO
 				}
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pDataInfo->pModList->ModFile[PartModelNum]);
@@ -1000,13 +1000,13 @@ _NotChangePart:
 			if(PartType == -1)
 				continue;
 
-			// ¿©ÀÚ´Â ¸Ó¸®¸¦ ¹Ù²ÙÁö ¾Ê°í ¸Ó¸®¿¡ ºÙÀÎ´Ù.
+			// ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			if(pDataInfo->gender == 1 && PartType == 0)
 			{
 				PartType = 6;
 			}
 
-			if(PartType == 7)// 7¹øÀº ³²ÀÚµç ¿©ÀÚµç ¸Ó¸®¸¦ ¹Ù²Û´Ù. (È£¹Ú¸Ó¸®)
+			if(PartType == 7)// 7ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½. (È£ï¿½Ú¸Ó¸ï¿½)
 			{
 				if(pDataInfo->gender == 0)
 					pEngineObject->ChangePart(eAppearPart_Hair,"NULLHAIR_M.MOD");
@@ -1016,10 +1016,10 @@ _NotChangePart:
 				PartType = 6;
 			}
 
-			if(PartType == 6)	// ¸Ó¸®¶ì
+			if(PartType == 6)	// ï¿½Ó¸ï¿½ï¿½ï¿½
 			{
 				CEngineObject* pHairBand = NULL;
-				// ¾Æ¹ÙÅ¸¿ÊÀ» ÀÔ¾úÀ»¶§ ±âº»¸Ó¸® Àå½ÄÀÇ ÀåÂø¿©ºÎ ÆÇº°
+				// ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
 				if( pDataInfo->AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -1032,12 +1032,12 @@ _NotChangePart:
 					}
 				}
 
-				//2008. 1. 7. CBH - ¾ÆÀÌÅÆ¸ô ¾ÆÀÌÅÆ °¡¸éÀ» ¾²¸é ¾È±×·ÁÁØ´Ù
+				//2008. 1. 7. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±×·ï¿½ï¿½Ø´ï¿½
 				if( (pDataInfo->AvatarItemIdx[eAvatar_Hair] != 0) || (pDataInfo->AvatarItemIdx[eAvatar_Mask] != 0) 
 					|| (pDataInfo->AvatarItemIdx[eAvatar_Glasses] != 0) )
 					continue;
 
-				//2007. 12. 6. CBH - ¸ðÀÚ, ¸¶½ºÅ© ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+				//2007. 12. 6. CBH - ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 				if( (wSkinItem[eSkinItem_Hat] != 0) || (wSkinItem[eSkinItem_Mask] != 0) )
 					continue;
 				
@@ -1060,9 +1060,9 @@ _NotChangePart:
 
 
 			}
-			else if(PartType == 3)	//2007. 10. 1. CBH - ±Ç ¹«±â Ã³¸®
+			else if(PartType == 3)	//2007. 10. 1. CBH - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 			{
-				if(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ˜Þ¾ÆÀÌÅÆ ±Ç ¹«±â Ã³¸®
+				if(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun] > 1 && pInfo->WeaponType > 0)	//2007. 10. 12. CBH - ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				{
 					ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(pDataInfo->AvatarItemIdx[eAvatar_Weared_Gwun]);
 					if(!pInfo)
@@ -1073,14 +1073,14 @@ _NotChangePart:
 				}
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pDataInfo->pModList->ModFile[PartModelNum]);
 			}
-			else if(PartType != 5) // ¿Ö ¾È¹Ù²Ù³ª ??	// ¹«±â¶ó¼­ ¾È¹Ù²Û´Ù ¿À¹Ù(yh)
+			else if(PartType != 5) // ï¿½ï¿½ ï¿½È¹Ù²Ù³ï¿½ ??	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²Û´ï¿½ ï¿½ï¿½ï¿½ï¿½(yh)
 			{
-				// RaMa - 06.05.16  -> ¾Æ¹ÙÅ¸¾ÆÀÌÅÛ¿¡ µû¸¥ ¹«±â¿Í ¼Õ¹ßÀÇ  Hide
+				// RaMa - 06.05.16  -> ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¹ï¿½ï¿½ï¿½  Hide
 				if( pDataInfo->AvatarItemIdx[eAvatar_Dress] > 0 )					
 				{
 					AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -1108,19 +1108,19 @@ _NotChangePart:
 							if( !pDataInfo->AvatarItemIdx[eAvatar_Shoes] )
 								goto _NotChangePart;
 
-							//2007. 12. 6. CBH - ½Å¹ß ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+							//2007. 12. 6. CBH - ï¿½Å¹ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 							if( wSkinItem[eSkinItem_Shoes] != 0 )
 								goto _NotChangePart;							
 						}
 					}
 				}
 
-				//2007. 12. 6. CBH - ¿Ê ½ºÅ²ÀÌ ÀÖÀ¸¸é ¾È¹Ù²ãÁØ´Ù
+				//2007. 12. 6. CBH - ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½
 				if( wSkinItem[eSkinItem_Dress] != 0 )
 					goto _NotChangePart;				
 
 				pEngineObject->ChangePart(
-					//¾ó±¼(±âÁ¸ 2¹ø Part)ÀÌ CHX¿¡¼­ ºüÁö´Â ¹Ù¶÷¿¡ ÇÑÄ­¾¿ ¶¯°ÜÁ³´Ù.
+					//ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Part)ï¿½ï¿½ CHXï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					//PartType>2 ? PartType : PartType - 1
 					PartType
 					,pDataInfo->pModList->ModFile[PartModelNum]);
@@ -1139,7 +1139,7 @@ _NotChangePart:
 	}
 }
 
-//2007. 11. 29. CBH - ½ºÅ² Àåºñ °ü·Ã Ä³¸¯ÅÍ ¸ðµå ¼¼ÆÃ ÇÔ¼ö
+//2007. 11. 29. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObject* pEngineObject, APPEARANCEDATA_INFO* pDataInfo)
 {
 	/*
@@ -1147,19 +1147,19 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	BOOL rt;
 
 	int nSkinIndex = pPlayer->GetShopItemStats()->dwSkinItemIndex;
-	if(nSkinIndex < 0)	//ÃÊ±â°ª -1
+	if(nSkinIndex < 0)	//ï¿½Ê±â°ª -1
 		return;
 
-	//¼±ÅÃµÈ ½ºÅ² ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÆ Á¤º¸¸¦ °¡Á®¿Â´Ù
+	//ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Å² ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 	SKIN_SELECT_ITEM_INFO* pSkinItem = GAMERESRCMNGR->GetNomalClothesSkinList(nSkinIndex);
 	if(pSkinItem == NULL)
 		return;
 
 	WORD wItemIndex = pSkinItem->wEquipItem[eSkinItem_Hat];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (¸ðÀÚ)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	if( (pDataInfo->AvatarItemIdx[eAvatar_Hat] == 0) && (wItemIndex != 0) )
 	{
-		//¿ùº´¸Ó¸®ÀÏ¶§ ¸Ó¸® ¼ÂÆÃ ¾ÈÇØÁÖ¸é ¾È³ª¿À¹Ç·Î ¿©±â¼­ ÇÑ¹ø´õ ¸Ó¸® ¼ÂÆÃ ÇØÁØ´Ù
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½Ï¶ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½
 		pEngineObject->ChangePart(eAppearPart_Hair,pDataInfo->pHairList->ModFile[pDataInfo->hair]);
 
 		ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(wItemIndex);
@@ -1177,7 +1177,7 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 
 	wItemIndex = pSkinItem->wEquipItem[eSkinItem_Dress];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (¸ö)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½ï¿½)
 	if( (pDataInfo->AvatarItemIdx[eAvatar_Dress] == 0) && (wItemIndex != 0) )
 	{
 		ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(wItemIndex);
@@ -1191,18 +1191,18 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 	
 	wItemIndex = pSkinItem->wEquipItem[eSkinItem_Shoes];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (½Å¹ß)
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀº ½Å¹ßÀÌ ¾ø°í ¸öÇÏ°í ¼ÂÆ®·Î °°ÀÌ ÀÖ´Ù.
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½Å¹ï¿½)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 	if( wItemIndex != 0 )
 	{
-		//¿Ê¿¡ ½Å¹ßÀÌ °°ÀÌ ºÙ¾îÀÖ´Â ¾ÆÀÌÅÆÀÌ¸é ¼ÂÆÃÀ» ¾ÈÇÑ´Ù.
+		//ï¿½Ê¿ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if(pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0)
 		{
 			AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
 			if(pAvatarItem == NULL)
 				return;
 
-			//µå·¹½ºÀÇ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÁß¿¡ ½Å¹ßÀÌ Æ÷ÇÑµÈ Àåºñ¸é Ã¼Å©ÇØ¼­ ¾È¹Ù²ãÁØ´Ù.
+			//ï¿½å·¹ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñµï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½.
 			if(pAvatarItem->Item[eAvatar_Shoes] == 0)
 				return;
 		}	
@@ -1220,15 +1220,15 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	int PartType,PartModelNum;
 	BOOL rt;
 
-	//½ºÅ² Àû¿ëµÈ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+	//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 	WORD* wSkinItem = pPlayer->GetShopItemStats()->wSkinItem;
 	
 	WORD wItemIndex = wSkinItem[eSkinItem_Hat];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (¸ðÀÚ)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	if( (pDataInfo->AvatarItemIdx[eAvatar_Hat] == 0) && (wItemIndex != 0) )
 	{		
 		
-		//¸ö ÀÏÃ¼Çü ¾ÆÀÌÅÆ °Ë»ç
+		//ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 		BOOL bFlag = TRUE;
 		if(pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0)
 		{
@@ -1257,7 +1257,7 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 	
 	wItemIndex = wSkinItem[eSkinItem_Mask];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (¾ó±¼)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½ï¿½)
 	if( (pDataInfo->AvatarItemIdx[eAvatar_Mask] == 0) && (pDataInfo->AvatarItemIdx[eAvatar_Glasses] == 0) && (wItemIndex != 0) )
 	{
 		ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(wItemIndex);
@@ -1273,7 +1273,7 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 
 	wItemIndex = wSkinItem[eSkinItem_Dress];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (¸ö)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½ï¿½)
 	if( (pDataInfo->AvatarItemIdx[eAvatar_Dress] == 0) && (wItemIndex != 0) )
 	{
 		ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(wItemIndex);
@@ -1287,18 +1287,18 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 
 	wItemIndex = wSkinItem[eSkinItem_Shoes];
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀÌ ¾ø°í ½ºÅ² Á¤º¸°¡ ÀÖÀ¸¸é ¼ÂÆÃÇØÁØ´Ù (½Å¹ß)
-	//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÀº ½Å¹ßÀÌ ¾ø°í ¸öÇÏ°í ¼ÂÆ®·Î °°ÀÌ ÀÖ´Ù.
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ (ï¿½Å¹ï¿½)
+	//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 	if( wItemIndex != 0 )
 	{
-		//¿Ê¿¡ ½Å¹ßÀÌ °°ÀÌ ºÙ¾îÀÖ´Â ¾ÆÀÌÅÆÀÌ¸é ¼ÂÆÃÀ» ¾ÈÇÑ´Ù.
+		//ï¿½Ê¿ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if(pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0)
 		{
 			AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
 			if(pAvatarItem == NULL)
 				return;
 
-			//µå·¹½ºÀÇ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆÁß¿¡ ½Å¹ßÀÌ Æ÷ÇÑµÈ Àåºñ¸é Ã¼Å©ÇØ¼­ ¾È¹Ù²ãÁØ´Ù.
+			//ï¿½å·¹ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Å¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñµï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½È¹Ù²ï¿½ï¿½Ø´ï¿½.
 			if(pAvatarItem->Item[eAvatar_Shoes] == 0)
 				return;
 		}	
@@ -1314,7 +1314,7 @@ void CAppearanceManager::SetCharacterSkinAppearance(CPlayer* pPlayer, CEngineObj
 	}
 }
 
-//2007. 11. 29. CBH - ¾Æ¹ÙÅ¸ Àåºñ °ü·Ã Ä³¸¯ÅÍ ¸ðµå ¼¼ÆÃ ÇÔ¼ö
+//2007. 11. 29. CBH - ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 void CAppearanceManager::SetCharacterAvatarAppearance(CPlayer* pPlayer, CEngineObject* pEngineObject, APPEARANCEDATA_INFO* pDataInfo)
 {
 	int PartType,PartModelNum;
@@ -1323,17 +1323,17 @@ void CAppearanceManager::SetCharacterAvatarAppearance(CPlayer* pPlayer, CEngineO
 	AVATARITEM_EXCEPTION* pAvetarItemException = GetAvatarItemExcetion(pDataInfo->WearedItemIdx[eWearedItem_Hat]);	
 	if( pAvetarItemException != NULL)
 	{
-		//2008. 1. 7. CBH - ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ ¿Ê°ú ¸Ó¸® ÀÏÃ¼ÇüÀÎ ¿ÊÀ» ÀÔ¾úÀ»¶§
-		//È£¹Ú¸Ó¸® ¹× ¿ùº´¸Ó¸® µîÀ» Âø¿ëÇßÀ»‹š ¸Ó¸®°¡ ¾È³ª¿À´Â ¹ö±×°¡ ÀÖ´Ù.
-		//¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ ¸Ó¸®°¡ ÀåÂøµÇ¾î ÀÖÀ¸¸é ¸Ó¸®¸¦ ±×·ÁÁØ´Ù.
-		//°¡¸éµµ ÀÌÇÏµ¿¹®		
+		//2008. 1. 7. CBH - ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½
+		//È£ï¿½Ú¸Ó¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×°ï¿½ ï¿½Ö´ï¿½.
+		//ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ø´ï¿½.
+		//ï¿½ï¿½ï¿½éµµ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½		
 		BOOL bFlag = TRUE;
 
-		//pAvetarItemException->Kind °¡ 1ÀÌ¸é ¸Ó¸®´Â ¾È±×·ÁÁÖ°í ¾ó±¼À» ±×·ÁÁÖ´Â ¾ÆÀÌÅÆ
+		//pAvetarItemException->Kind ï¿½ï¿½ 1ï¿½Ì¸ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½È±×·ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( (pAvetarItemException->Kind == 0) || (pAvetarItemException->Kind == 1) )
 			bFlag = FALSE;
 
-		//¸Ó¸®¿Í ¸ö ÀÏÃ¼Çü ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÆ °Ë»ç
+		//ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 		if(pDataInfo->AvatarItemIdx[eAvatar_Dress] != 0)
 		{
 			AVATARITEM* pAvatarItem = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pDataInfo->AvatarItemIdx[eAvatar_Dress] );
@@ -1344,12 +1344,12 @@ void CAppearanceManager::SetCharacterAvatarAppearance(CPlayer* pPlayer, CEngineO
 			}			
 		}
 
-		//¸¶½ºÅ©, ¸Ó¸®, ¸ðÀÚ, ¾È°æ °Ë»ç
+		//ï¿½ï¿½ï¿½ï¿½Å©, ï¿½Ó¸ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½È°ï¿½ ï¿½Ë»ï¿½
 		if( (pDataInfo->AvatarItemIdx[eAvatar_Mask] > 0) || (pDataInfo->AvatarItemIdx[eAvatar_Weared_Hair] == 0) 
 			|| (pDataInfo->AvatarItemIdx[eAvatar_Hat] > 0) || (pDataInfo->AvatarItemIdx[eAvatar_Glasses] > 0))		
 			bFlag = TRUE;
 
-		//½ºÅ² Ã¼Å©
+		//ï¿½ï¿½Å² Ã¼Å©
 		if(wSkinItem[eSkinItem_Hat] != 0 || wSkinItem[eSkinItem_Mask] != 0)
 			bFlag = TRUE;
 
@@ -1452,7 +1452,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 	if( !pBaseInfo )
 		return FALSE;
 
-	//Å¸ÀÌÅº ÀÌ¸§ ³ôÀÌ º¯°æ
+	//Å¸ï¿½ï¿½Åº ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	TITANINFO_GRADE* pGradeInfo = &pBaseInfo->GradeInfo[pAppearInfo->TitanGrade - 1];
 	if( !pGradeInfo )
 		return FALSE;
@@ -1476,7 +1476,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 	pEngineObject->ChangePart( eAppearPart_Face, "NULL.MOD" );
 	pEngineObject->ChangePart( 5, "NULL.MOD" );
 
-	// ±âº»¾ó±¼¼ÂÆÃ
+	// ï¿½âº»ï¿½ó±¼¼ï¿½ï¿½ï¿½
 	if( !pAppearInfo->WearedItemIdx[eTitanWearedItem_HelMet] )
 	{
 		CEngineObject* pFace = new CEngineObject;	
@@ -1504,7 +1504,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 			{
 				pEngineObject->ChangePart( PartType, pModList->ModFile[PartModelNum] );
 
-				// º¯°æµÈ ¾ó±¼ ¼ÂÆÃ _h02_  -> _h01_  ·Î º¯°æ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _h02_  -> _h01_  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				char buf[30] = { 0, };
 				SafeStrCpy( buf, pModList->ModFile[PartModelNum], strlen(pModList->ModFile[PartModelNum])+1 );
 				char* p = strstr( buf, "_h02_");
@@ -1529,7 +1529,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 			}
 			else
 			{
-				// ¹«±â´Â ¿©±â¼­ ¾ÈÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if( PartType != 5 )
 					pEngineObject->ChangePart( PartType, pModList->ModFile[PartModelNum] );
 			}
@@ -1548,7 +1548,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 		ShowWeapon(pPlayer, pEngineObject);
 
 
-	//½ºÄÉÀÏ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 scale = { 1.0f, 1.0f, 1.0f };
 	if( pAppearInfo->TitanScale > 95 )		pAppearInfo->TitanScale = 95;
 	else if( pAppearInfo->TitanScale < 85 )		pAppearInfo->TitanScale = 85;
@@ -1562,7 +1562,7 @@ BOOL CAppearanceManager::SetTitanAppearanceToEngineObject( CPlayer* pPlayer, CEn
 	if( pPlayer->GetID() == HEROID )
 		pPlayer->GetEngineObject()->DisablePick();
 
-	//2007. 8. 7. CBH - ¼¼Æ®¾ÆÀÌÅÆ ÀÌÆåÆ® Ã³¸® Ãß°¡
+	//2007. 8. 7. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	ITEMMGR->SetItemEffectProcess(pPlayer);
 
 	return TRUE;
@@ -1578,8 +1578,8 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer)
 	ShowWeapon(pPlayer,pPlayer->GetEngineObject());
 	
 	///////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	if(pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide))
 	{
 		OBJECTMGR->SetHide(pPlayer, TRUE);
@@ -1626,8 +1626,8 @@ void CAppearanceManager::HideWeapon(CPlayer* pPlayer)
 	HideWeapon(pPlayer,pPlayer->GetEngineObject());
 	
 	///////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	if(pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide))
 	{
 		OBJECTMGR->SetHide(pPlayer, TRUE);
@@ -1657,8 +1657,8 @@ void CAppearanceManager::SetCharacterAppearance(CPlayer* pPlayer)
 		pPlayer->SetState(eObjectState_Move);
 
 	/////////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	if(pPlayer->IsHide())
 		OBJECTMGR->SetHide(pPlayer, TRUE);
 	
@@ -1692,7 +1692,7 @@ void CAppearanceManager::SetBossMonsterAppearance(CBossMonster* pMonster)
 	pMonster->m_EngineObject.ApplyHeightField(TRUE);
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¸ó½ºÅÍ Å©±â Àû¿ë
+	// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 Scale;
 	// taiyo test
 	Scale.x = Scale.y = Scale.z = pList->Scale;
@@ -1706,7 +1706,7 @@ void CAppearanceManager::SetMonsterAppearance(CMonster* pMonster)
 	WORD mkind = pMonster->GetMonsterKind();
 
 	//////////////////////////////////////////////////////////////////////////
-	// »êÅ¸¿äÁ¤ Ã¼Å©¸¦ À§ÇÑ ÀÓ½Ã ÄÚµå
+	// ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½Úµï¿½
 	if(mkind == 145)
 		mkind = 145;
 	//////////////////////////////////////////////////////////////////////////
@@ -1718,7 +1718,7 @@ void CAppearanceManager::SetMonsterAppearance(CMonster* pMonster)
 
 	/////////////////////////////////////////////////////////////////////////
 	// taiyo 
-	// ¸ð¼Ç Á¤º¸ ·Îµå
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	/*
 	char chtName[255];
 //	char tmp[255]; 
@@ -1735,7 +1735,7 @@ void CAppearanceManager::SetMonsterAppearance(CMonster* pMonster)
 	MOTIONMGR->SetMotionInfo(pMonster, pList->MotionID);
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¸ó½ºÅÍ Å©±â Àû¿ë
+	// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 Scale;
 	// taiyo test
 	Scale.x = Scale.y = Scale.z = pList->Scale;
@@ -1763,7 +1763,7 @@ void CAppearanceManager::SetNpcAppearance(CNpc* pNpc)
 		pNpc->m_EngineObject.DisablePick();
 
 	//////////////////////////////////////////////////////////////////////////
-	// Npc Å©±â Àû¿ë
+	// Npc Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 Scale;
 	//
 	Scale.x = Scale.y = Scale.z = pList->Scale;
@@ -1815,7 +1815,7 @@ void CAppearanceManager::SetPetAppearance(CPetBase* pPet)
 	MOTIONMGR->SetMotionInfo(pPet, pList->MotionID);
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¸ó½ºÅÍ Å©±â Àû¿ë
+	// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	VECTOR3 Scale;
 	// taiyo test
 	Scale.x = Scale.y = Scale.z = pList->Scale;
@@ -1861,7 +1861,7 @@ void CAppearanceManager::SetMapObjectAppearance(CMapObject* pMapObject, char* st
 	pMapObject->m_EngineObject.SetScale(&Scale);
 }
 
-// magi82 - ³ëÁ¡»ó ²Ù¹Ì±â ¾÷µ¥ÀÌÆ®
+// magi82 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 void CAppearanceManager::SetDecorationAppearance(CMapObject* pMapObject, CPlayer* pPlayer, DWORD dwStreetStallKind)
 {
 	pMapObject->m_EngineObject.Release();
@@ -2008,8 +2008,9 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 	int PartModelNum = 0;
 	CEngineObject* pWeapon1 = NULL;
 	CEngineObject* pWeapon2 = NULL;
+	int n;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Žn
 
-	// Å¸ÀÌÅº Å¾½Â ¶Ç´Â ¹Ì¸®º¸±âÀÏ °æ¿ì
+	// Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if( pPlayer->InTitan() || pPlayer->IsTitanPreView() )		
 	{
 		WeaponIdx = pPlayer->GetTitanWearedItemIdx(eTitanWearedItem_Weapon);
@@ -2083,7 +2084,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 			}
 		}
 	}
-	// Ä³¸¯ÅÍ »óÅÂÀÏ °æ¿ì
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	else
 	{
 		WeaponIdx = pPlayer->GetWearedItemIdx(eWearedItem_Weapon);
@@ -2116,26 +2117,26 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 		else
 			return;
 
-		// 2007. 10. 17. CBH - ÇöÀç ÀåÂøÇÑ ¹«±âÀÇ ¾Æ¹ÙÅ¸ ±¸ºÐ Ã¼Å©
+		// 2007. 10. 17. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 		WORD wAvartarCheck = 0;
 		switch(EquipType)
 		{
-		case WP_AMGI:	//¾Ï±â
+		case WP_AMGI:	//ï¿½Ï±ï¿½
 			{
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Amgi];
 			}
 			break;
-		case WP_GUNG:	//±Ã
+		case WP_GUNG:	//ï¿½ï¿½
 			{
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Gung];
 			}
 			break;
-		case WP_GWUN:	//±Ç
+		case WP_GWUN:	//ï¿½ï¿½
 			{
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Gwun];
 			}
 			break;
-		case WP_DO:	//µµ
+		case WP_DO:	//ï¿½ï¿½
 			{
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Do];
 			}
@@ -2145,7 +2146,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Chang];
 			}
 			break;
-		case WP_GUM:	//°Ë
+		case WP_GUM:	//ï¿½ï¿½
 			{
 				wAvartarCheck = pPlayer->GetShopItemStats()->Avatar[eAvatar_Weared_Gum];
 			}
@@ -2208,7 +2209,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 					pWeapon1 = new CEngineObject;
 					pWeapon1->Init(temp,NULL,eEngineObjectType_Weapon);
 					BOOL rt = pEngineObject->AttachWeapon(pWeapon1,"Bip01 R Forearm");
-					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 
 					for(n=0;n<nLen;++n)
 					{
@@ -2225,7 +2226,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 					pWeapon2 = new CEngineObject;	
 					pWeapon2->Init(temp,NULL,eEngineObjectType_Weapon);
 					rt = pEngineObject->AttachWeapon(pWeapon2,"Bip01 L Forearm");
-					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 			else if( EquipType == WP_GUNG )
@@ -2253,7 +2254,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 					pWeapon1 = new CEngineObject;
 					pWeapon1->Init(pModList->ModFile[PartModelNum],NULL,eEngineObjectType_Weapon);
 					pEngineObject->AttachWeapon(pWeapon1,WEAPON_ATTACH_BONENAME_L);					
-					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, WEAPON_ATTACH_BONENAME_L);	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, WEAPON_ATTACH_BONENAME_L);	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 			else if( EquipType == WP_GWUN )
@@ -2261,7 +2262,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 				pWeapon1 = new CEngineObject;
 				pWeapon1->Init(pModList->ModFile[PartModelNum],NULL,eEngineObjectType_Weapon);
 				pEngineObject->AttachWeapon(pWeapon1,WEAPON_ATTACH_BONENAME_R);
-				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				
 				char temp[256],*pSrc;
 				pSrc = pModList->ModFile[PartModelNum];
@@ -2280,7 +2281,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 				pWeapon2 = new CEngineObject;
 				pWeapon2->Init(temp,NULL,eEngineObjectType_Weapon);
 				pEngineObject->AttachWeapon(pWeapon2,WEAPON_ATTACH_BONENAME_L);
-				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 			}
 			else
 			{				
@@ -2309,7 +2310,7 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 					pWeapon1 = new CEngineObject;
 					pWeapon1->Init(pModList->ModFile[PartModelNum],NULL,eEngineObjectType_Weapon);
 					pEngineObject->AttachWeapon(pWeapon1,WEAPON_ATTACH_BONENAME_R);
-					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, WEAPON_ATTACH_BONENAME_R);	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+					SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, WEAPON_ATTACH_BONENAME_R);	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 		}
@@ -2348,8 +2349,8 @@ void CAppearanceManager::ShowWeapon(CPlayer* pPlayer,CEngineObject* pEngineObjec
 			}
 			else
 			{
-				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
-				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ÀÌ»ó ¾ÆÀÌÅÆ ÀÌÆåÆ® ¼³Á¤
+				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 R Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+				SetPlusItemEffect(pPlayer, pEngineObject, WeaponIdx, "Bip01 L Forearm");	//+10 ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 			}
 		}
 /*
@@ -2384,31 +2385,31 @@ void CAppearanceManager::SetPlusItemEffect(CPlayer* pPlayer, CEngineObject* pEng
 	if(pItemInfo == NULL)
 		return;
 
-	//2008. 6. 26. CBH - ±¤¼±°Ë Á¾·ùÀÇ ¾ÆÀÌÅÆÀ» ÀÔ¾úÀ»¶§´Â ÀÌÆåÆ®¸¦ ÄÑÁö ¾Ê´Â´Ù
+	//2008. 6. 26. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
 	for(int i = eAvatar_Weared_Gum ; i <= eAvatar_Weared_Amgi ; i++)
 	{
 		if(pPlayer->GetShopItemStats()->Avatar[i] > 1)
 			return;
 	}		
 
-	//¾ÆÀÌÅÆ µî±ÞÀÌ 10 ÀÌ»óÀÌ¸é +10 ¾ÆÀÌÅÆ ÀÌ»óÀÌ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 10 ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ +10 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì´ï¿½.
 	if(pItemInfo->ItemGrade >= ePLUSITEM_EFFECT_10)
 	{
 		PLUSITEM_EFFECT_INFO* pPlusItemEffectInfo = GAMERESRCMNGR->GetPlusItemEffectInfo(pPlayer->GetWeaponEquipType());
 		if(pPlusItemEffectInfo == NULL)
 			return;
 
-		//¹è¿­Àº 0ºÎÅÍ½ÃÀÛÀÌ¹Ç·Î ¾ÆÀÌÅÆ µî±Þ¿¡¼­ -10À» ÇÑ´Ù.
+		//ï¿½è¿­ï¿½ï¿½ 0ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½ -10ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		WORD wIndex = pItemInfo->ItemGrade - ePLUSITEM_EFFECT_10;
 		if(wIndex < 0)
 			return;
 
-		//³²ÀÚ ¿©ÀÚ ÀÌÆåÆ® ÆÄÀÏÀÌ ´Ù¸£±â¶§¹®¿¡ Ã³¸®
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½â¶§ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		char szCHXName[MAX_CHXNAME_LENGTH+1];
 		memset(szCHXName, 0, sizeof(szCHXName));
-		if(pPlayer->GetGender() == GENDER_MALE)	//³²ÀÚ
+		if(pPlayer->GetGender() == GENDER_MALE)	//ï¿½ï¿½ï¿½ï¿½
 			sprintf(szCHXName, "m_%s", pPlusItemEffectInfo->szCHXName[wIndex]);
-		else //¿©ÀÚ
+		else //ï¿½ï¿½ï¿½ï¿½
 			sprintf(szCHXName, "w_%s", pPlusItemEffectInfo->szCHXName[wIndex]);
 
 		CEngineObject* pEffectObject = new CEngineObject;		
@@ -2596,12 +2597,12 @@ void CAppearanceManager::SetAvatarItem( CPlayer* pPlayer, WORD ItemIdx, BOOL bAd
 					msg.Category = MP_ITEM;
 					msg.Protocol = MP_ITEM_SHOPITEM_AVATAR_CHANGE;
 					msg.dwObjectID = HERO->GetID();
-					msg.wData1 = i;						// ¾î´ÀÀ§Ä¡ÀÇ µ¥ÀÌÅ¸ÀÎÁö
+					msg.wData1 = i;						// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½
 					msg.wData2 = pAvatarItem[i];					
 					NETWORK->Send( &msg, sizeof(msg) );
 				}
 
-				// ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¹þ°ÜÁ³À¸¸é ±âº»¾ÆÀÌÅÛÀ» ´Ù½Ã ¼ÂÆÃÇØÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				AVATARITEM* pTemp = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pAvatarItem[i] );
 				if( !pTemp )		continue;
 				for(int k=0; k<eAvatar_Max; k++)
@@ -2621,11 +2622,11 @@ void CAppearanceManager::SetAvatarItem( CPlayer* pPlayer, WORD ItemIdx, BOOL bAd
 					msg.Category = MP_ITEM;
 					msg.Protocol = MP_ITEM_SHOPITEM_AVATAR_TAKEOFF;
 					msg.dwObjectID = HERO->GetID();
-					msg.wData = ItemIdx;					// ¾î´ÀÀ§Ä¡ÀÇ µ¥ÀÌÅ¸ÀÎÁö					
+					msg.wData = ItemIdx;					// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½					
 					NETWORK->Send( &msg, sizeof(msg) );
 				}				
 				
-				// ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¹þ°ÜÁ³À¸¸é ±âº»¾ÆÀÌÅÛÀ» ´Ù½Ã ¼ÂÆÃÇØÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				AVATARITEM* pAvatarUseInfo = GAMERESRCMNGR->m_AvatarEquipTable.GetData( pAvatarItem[i] );
 				if( !pAvatarUseInfo )		continue;
 				for(int k=0; k<eAvatar_Max; k++)
@@ -3038,7 +3039,7 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 	{
 		pPlayer->RidingTitan(bInTitan);
 		pPlayer->SetTitanAppearanceInfo(&titanAppearance);
-		APPEARANCEMGR->InitAppearance(pPlayer);	// À§Ä¡ ¾îÂ¿ ¼ö ¾ø´Ù.
+		APPEARANCEMGR->InitAppearance(pPlayer);	// ï¿½ï¿½Ä¡ ï¿½ï¿½Â¿ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	}
 
 	if( pmsg->TotalInfo.bPKMode )
@@ -3055,7 +3056,7 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 		}
 	}
 
-	//SW051112 ¹«½Ö¸ðµå
+	//SW051112 ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	if((pPlayer->GetCharacterTotalInfo()->bVisible == FALSE)
 		||(!pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide)))
 	{
@@ -3065,7 +3066,7 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 			OBJECTEFFECTDESC desc(FindEffectNum("maintain_mussang.beff"));
 			pPlayer->AddObjectEffect( MUSSANG_EFFECT_ID, &desc, 1, pPlayer);
 #else
-			// 06. 03. ±¹³»¹«½Ö - ÀÌ¿µÁØ
+			// 06. 03. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 			switch(pPlayer->GetStage())
 			{
 			case eStage_Normal:	
@@ -3102,7 +3103,7 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 	}
 	else
 	{
-		// ¼±ÅÃµÈ ³ëÁ¡»óÀº »öÀ» ¹Ù²ãÁÜ by Stiner(8)
+		// ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ by Stiner(8)
 		DWORD	dwObjectIndex = GAMEIN->GetStallFindDlg()->GetSelectedObjectIndex();
 		DWORD	dwPrevType = GAMEIN->GetStallFindDlg()->GetPrevSelectedType();
 		//--
@@ -3113,12 +3114,12 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 			else if(StallKind == eSK_BUY)
 				pPlayer->ShowStreetBuyStallTitle( TRUE, StreetStallTitle );
 
-			// magi82 - ³ëÁ¡»ó ²Ù¹Ì±â ¾÷µ¥ÀÌÆ®
-			// ±×¸®µå ¾ÈÀ¸·Î ÇÃ·¹ÀÌ¾î°¡ »ý¼º µÇ¾úÀ»¶§ ±× ÇÃ·¹ÀÌ¾î°¡ ³ëÁ¡»óÁßÀÌ°í ³ëÁ¡»ó ²Ù¹Ì±â ¾ÆÀÌÅÛÀ» »ç¿ë Çß´Ù¸é ²Ù¹Ì±â¸¦ Add ÇØÁØ´Ù.
+			// magi82 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+			// ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¹Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß´Ù¸ï¿½ ï¿½Ù¹Ì±â¸¦ Add ï¿½ï¿½ï¿½Ø´ï¿½.
 			if( pPlayer->GetShopItemStats()->dwStreetStallDecoration )
 				STREETSTALLMGR->AddStreetStallDecoration(pPlayer, StallKind);
 
-			// ³ëÁ¡»ó »öÀ» ¹Ù²ãÁÜ by Stiner(8)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ by Stiner(8)
 			if( dwObjectIndex == pPlayer->GetID() )
 			{
 				if( StallKind == dwPrevType )
@@ -3144,12 +3145,12 @@ void PostProcessAddPlayer(CPlayer* pPlayer, SEND_CHARACTER_TOTALINFO* pmsg)
 			if( pPlayer->InTitan() )
 			{
 				OBJECTEFFECTDESC desc(FindEffectNum("t_eff_bmu_A_s.beff"));
-				pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HERO´Â ¿É¼Ç ¼³Á¤ ¹«°üÇÏ°Ô ÀÌÆåÆ® »ý¼ºÀ» À§ÇÑ..¼³Á¤
+				pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HEROï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½
 			}
 			else
 			{
 				OBJECTEFFECTDESC desc(FindEffectNum("eff_bmu_A_s.beff"));
-				pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HERO´Â ¿É¼Ç ¼³Á¤ ¹«°üÇÏ°Ô ÀÌÆåÆ® »ý¼ºÀ» À§ÇÑ..¼³Á¤
+				pPlayer->AddObjectEffect( BATTLE_TEAMEFFECT_ID, &desc, 1, HERO );	//SW HEROï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½
 			}
 		}
 		else if( pmsg->BaseObjectInfo.BattleTeam == eBattleTeam2 )

@@ -185,9 +185,11 @@ BOOL CQuest::ChangeSubQuestValue( DWORD dwSubQuestIdx, DWORD dwKind )
 void CQuest::OnQuestEvent( CPlayer* pPlayer, CQuestGroup* pQuestGroup, CQuestEvent* pQuestEvent, DWORD dwQuestIdx )
 {
 	if( dwQuestIdx != 0 )
+	{
 	if( m_pQuestInfo->GetQuestIdx() != dwQuestIdx )
 		return;
 
+	}
 	if( !CheckTime( pQuestEvent->m_dwQuestEventKind ) )	return;
 
 	if( m_CurSubQuestInfoArray[0] )

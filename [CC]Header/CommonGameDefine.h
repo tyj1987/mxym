@@ -1,6 +1,12 @@
 #ifndef __COMMONGAMEDEFINE_H__
 #define __COMMONGAMEDEFINE_H__
 
+// Includes standard library headers (for memset, strlen, sprintf, etc.)
+#include <cstring>
+#include <cstdio>
+
+// Note: BasicTypes.h is already included by CommonDefine.h
+// to avoid duplicate inclusion conflicts
 
 enum TACTIC_FAILED_REASON
 {
@@ -49,7 +55,7 @@ enum eEXITCODE
 };
 //
 
-#define SPEEDHACK_CHECKTIME	60000	//1¢®¡×¢®©­¢®¡×¢®E
+#define SPEEDHACK_CHECKTIME	60000	//1ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½E
 
 //for PK
 #define PKLOOTING_ITEM_NUM			20
@@ -96,46 +102,46 @@ enum eDROPITEMKIND
 #define ITEM_DISSOLVE_PRICE_VALUE	200
 enum eREINFORCEJEWELPOWER
 {
-	eRJP_GENGOL=1,		//	¡Ë¢ç¡§uU¡Ë¢ç¡§¢®n+
-	eRJP_MINCHUB,		//	¡§IoIA¢®E¢®©­+
-	eRJP_CHERYUK,		//	A¢®¡×u¡Ë¢ç¡Ë¢¥A+
-	eRJP_SIMMEK,		//	¢®¡×oE¢®E¢®©­¢®¡×¡Ë¢ç+
-	eRJP_LIFE,			//	AO¢®E¢®Ie¡Ë¢çiy¢®E¢®©­i¡Ë¢ç¡Ë¢¥A+
-	eRJP_NAERYUK,		//	AO¢®E¢®Ie¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡Ë¢¥A+
-	eRJP_SHIELD,		//	E¡Ë¢çI¢®¡×oA¡Ë¢ç¡§¢®¡Ë¢ç¡§I¡Ë¢ç¡§ua+
+	eRJP_GENGOL=1,		//	ï¿½Ë¢ç¡§uUï¿½Ë¢ç¡§ï¿½ï¿½n+
+	eRJP_MINCHUB,		//	ï¿½ï¿½IoIAï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½+
+	eRJP_CHERYUK,		//	Aï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ï¿½Ë¢ï¿½A+
+	eRJP_SIMMEK,		//	ï¿½ï¿½ï¿½ï¿½oEï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡Ë¢ï¿½+
+	eRJP_LIFE,			//	AOï¿½ï¿½Eï¿½ï¿½Ieï¿½Ë¢ï¿½iyï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½iï¿½Ë¢ï¿½Ë¢ï¿½A+
+	eRJP_NAERYUK,		//	AOï¿½ï¿½Eï¿½ï¿½Ieï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ï¿½Ë¢ï¿½A+
+	eRJP_SHIELD,		//	Eï¿½Ë¢ï¿½Iï¿½ï¿½ï¿½ï¿½oAï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ç¡§Iï¿½Ë¢ç¡§ua+
 
 #ifdef _JAPAN_LOCAL_
-	eRJP_FIREREGIST,	//	E¡Ë¢ç¡§I ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_EARTHREGIST,	//	Aa ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_GOLDREGIST,	//	¡Ë¢ç¡§uY ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_WATERREGIST,	//	¢®¡×uo ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_TREEREGIST,	//	¢®E¢®©­n ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
+	eRJP_FIREREGIST,	//	Eï¿½Ë¢ç¡§I ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_EARTHREGIST,	//	Aa ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_GOLDREGIST,	//	ï¿½Ë¢ç¡§uY ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_WATERREGIST,	//	ï¿½ï¿½ï¿½ï¿½uo ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_TREEREGIST,	//	ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½n ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
 #else
-	eRJP_FIREREGIST,	//	E¡Ë¢ç¡§I ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_WATERREGIST,	//	¢®¡×uo ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_TREEREGIST,	//	¢®E¢®©­n ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_GOLDREGIST,	//	¡Ë¢ç¡§uY ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
-	eRJP_EARTHREGIST,	//	Aa ¢®¡×uO¢®¡×u¢®¡×¢®©­ AuC¡Ë¢ç¡Ë?¡Ë¢ç¡Ë¢¥A
+	eRJP_FIREREGIST,	//	Eï¿½Ë¢ç¡§I ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_WATERREGIST,	//	ï¿½ï¿½ï¿½ï¿½uo ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_TREEREGIST,	//	ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½n ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_GOLDREGIST,	//	ï¿½Ë¢ç¡§uY ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
+	eRJP_EARTHREGIST,	//	Aa ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AuCï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½Ë¢ï¿½A
 #endif
 
-	eRJP_PHYATTACK,		//	¡§Io¡Ë¢ç¡§¢®¢®E¢®©­¢®Ec¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+
-	eRJP_CRITICAL,		//	A¢®¡×I¢®E¢®©­¢®Ec¢®¡×¡Ë¢ç¢®¡×uAA+
+	eRJP_PHYATTACK,		//	ï¿½ï¿½Ioï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+
+	eRJP_CRITICAL,		//	Aï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ç¢®ï¿½ï¿½uAA+
 
 #ifdef _JAPAN_LOCAL_
-	eRJP_FIREATTACK,	//	E¡Ë¢ç¡§I¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_EARTHATTACK,	//	Aa¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_GOLDATTACK,	//	¡Ë¢ç¡§uY¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_WATERATTACK,	//	¢®¡×uo¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_TREEATTACK,	//	¢®E¢®©­n¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
+	eRJP_FIREATTACK,	//	Eï¿½Ë¢ç¡§Iï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_EARTHATTACK,	//	Aaï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_GOLDATTACK,	//	ï¿½Ë¢ç¡§uYï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_WATERATTACK,	//	ï¿½ï¿½ï¿½ï¿½uoï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_TREEATTACK,	//	ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
 #else
-	eRJP_FIREATTACK,	//	E¡Ë¢ç¡§I¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_WATERATTACK,	//	¢®¡×uo¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_TREEATTACK,	//	¢®E¢®©­n¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_GOLDATTACK,	//	¡Ë¢ç¡§uY¢®¡×uO¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
-	eRJP_EARTHATTACK,	//	Aa¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y¡Ë¢ç¡Ë¢¥A+%
+	eRJP_FIREATTACK,	//	Eï¿½Ë¢ç¡§Iï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_WATERATTACK,	//	ï¿½ï¿½ï¿½ï¿½uoï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_TREEATTACK,	//	ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_GOLDATTACK,	//	ï¿½Ë¢ç¡§uYï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
+	eRJP_EARTHATTACK,	//	Aaï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Yï¿½Ë¢ï¿½Ë¢ï¿½A+%
 #endif
 
-	eRJP_PHYDEFENSE,	//	¡§Io¡Ë¢ç¡§¢®¢®E¢®©­¢®Ec ¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¡Ë¢ç¡Ë¢¥A+ 
+	eRJP_PHYDEFENSE,	//	ï¿½ï¿½Ioï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ec ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½Ë¢ï¿½Ë¢ï¿½A+ 
 	eRJP_MAX = eRJP_PHYDEFENSE,
 };
 
@@ -150,13 +156,13 @@ enum
 	eUSERLEVEL_SUBUSER,	
 };
 
-#define MAX_ITEMBUY_NUM		50	//CN¡§Ii¨Ïo|i¡§¡þ¢®E?¢®E¡Ëc ¡Ë¢çii¢®¡×uo AO¢®E¢®IA AO¢®E¢®Ie ¢®¡×u¢®¡×¡Ë¢çAIAU ¡Ë¢ç¡§¢®¡§I¨Ï¨£¢®¡×uo
+#define MAX_ITEMBUY_NUM		50	//CNï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½Ë¢ï¿½iiï¿½ï¿½ï¿½ï¿½uo AOï¿½ï¿½Eï¿½ï¿½IA AOï¿½ï¿½Eï¿½ï¿½Ie ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½ï¿½ï¿½uo
 #define MAX_INVENTORY_MONEY	4000000000
 #define MAX_MIX_MATERIAL	128
 #define MAX_TITANBREAK_MATERIAL	20
-#define MAX_TITAN_EQUIPITEM_NUM	40	// magi82 - Titan(070515) - ÀÎº¥Åä¸® + Å¸ÀÌÅºÀåÂøÀÎº¥
+#define MAX_TITAN_EQUIPITEM_NUM	40	// magi82 - Titan(070515) - ï¿½Îºï¿½ï¿½ä¸® + Å¸ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½
 
-#define PKMODETIME	60000			//1¢®¡×¢®©­¢®¡×¢®E : AO¢®¡×oA 10AE
+#define PKMODETIME	60000			//1ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½E : AOï¿½ï¿½ï¿½ï¿½oA 10AE
 
 
 enum eSTATUSICON
@@ -186,7 +192,7 @@ enum eSTATUSICON
 	eStatusIcon_AttrDefenceIron,
 	eStatusIcon_AttrDefenceEarth,
 				
-	eStatusIcon_MaxShieldUp,			//eStatusIcon_AttrDefenceAll,	// ¢®¡×u¢®¡×¡Ë¢çAIAU ¢®¡×u¡§I¡§¡Ì¢®¡×ui¢®¡×u¡Ë¢ç¡§I ¢®E¢®IeA¢®¡×u
+	eStatusIcon_MaxShieldUp,			//eStatusIcon_AttrDefenceAll,	// ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½Eï¿½ï¿½IeAï¿½ï¿½ï¿½ï¿½u
 #ifdef _JAPAN_LOCAL_
 	eStatusIcon_AttrCounterFire,
 	eStatusIcon_AttrCounterEarth,
@@ -225,7 +231,7 @@ enum eSTATUSICON
 	eStatusIcon_MussangMode				= 48,
 	eStatusIcon_PartyHelp				= 49,
 
-	// ShopItem¿ë IconÃß°¡
+	// ShopItemï¿½ï¿½ Iconï¿½ß°ï¿½
 	eStatusIcon_ShopItem_55101 = 50,
 	eStatusIcon_ShopItem_55102 = 51,
 	eStatusIcon_ShopItem_55103 = 52,
@@ -241,13 +247,13 @@ enum eSTATUSICON
 	eStatusIcon_ShopItem_55322 = 60,	
 
 	////////////////////////////////////////////////////////
-	//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	//ÀÌÆåÆ® »ý·«(¹«ÃÊ)
+	//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	eStatusIcon_SkipEffect	= 133,
 	////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////
-	//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	//Àº½Å/Çý¾È
+	//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	eStatusIcon_Hide = 134,
 	eStatusIcon_Detect = 135,
 	////////////////////////////////////////////////////////
@@ -295,7 +301,7 @@ enum eBOSSMONSTERTYPE
 #define RECALL_GROUP_ID			-1
 #define EVENTRECALL_GROUP_ID	-2
 #define QUESTRECALL_GROUP_ID	-3
-enum eOPTION	//¢®¡×u¡Ë¢ç¡§I¡§Ioo¢®E?I ¢®Ii¢®E?AICI¡Ë¢ç¡§¢®O ¢®E¢®©­AA¡§I¢®©­¢®¡×oA¢®E?A.
+enum eOPTION	//ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§Iï¿½ï¿½Iooï¿½ï¿½E?I ï¿½ï¿½Iiï¿½ï¿½E?AICIï¿½Ë¢ç¡§ï¿½ï¿½O ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½E?A.
 {
 	eOPT_NULL		= 0,
 	eOPT_NODEAL		= 1,
@@ -319,7 +325,7 @@ enum eOPTION	//¢®¡×u¡Ë¢ç¡§I¡§Ioo¢®E?I ¢®Ii¢®E?AICI¡Ë¢ç¡§¢®O ¢®E¢®©­AA¡§I¢®©­¢®¡×
 #define MAXPLAYROOM_IN_MURIMNET	10000
 #define MAXSERVER_IN_MURIMNET	100
 
-enum eBATTLE_TEAM	//battle team enum ¡Ë¢ç¡§¢®u AeCOCIAU CONFIRM
+enum eBATTLE_TEAM	//battle team enum ï¿½Ë¢ç¡§ï¿½ï¿½u AeCOCIAU CONFIRM
 {
 	eTEAM_LEFT,
 	eTEAM_RIGHT,
@@ -347,8 +353,8 @@ enum ePR_CHATCLASS
 
 enum eBATTLE_KIND
 {
-	eBATTLE_KIND_NONE = 0,		// Player vs Monster ¢®¡×¡Ë¢ço¢®¡×uOAC ¡Ë¢çic¡§I¨Ï¨£ECO¢®EO¡Ë¢ç¢®¢¯AC Battle
-	eBATTLE_KIND_MURIMFIELD,	// murim ¡Ë¢ç¡§¢®u munpa¢®E¢®IA ¢®E¢®IU¢®E¢®©­| ¡Ë¢ç¡§¢®A¢®EOo ¢®E?¡§Io¡Ë¢çio
+	eBATTLE_KIND_NONE = 0,		// Player vs Monster ï¿½ï¿½ï¿½×¡Ë¢ï¿½oï¿½ï¿½ï¿½ï¿½uOAC ï¿½Ë¢ï¿½icï¿½ï¿½Iï¿½Ï¨ï¿½ECOï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½AC Battle
+	eBATTLE_KIND_MURIMFIELD,	// murim ï¿½Ë¢ç¡§ï¿½ï¿½u munpaï¿½ï¿½Eï¿½ï¿½IA ï¿½ï¿½Eï¿½ï¿½IUï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½| ï¿½Ë¢ç¡§ï¿½ï¿½Aï¿½ï¿½EOo ï¿½ï¿½E?ï¿½ï¿½Ioï¿½Ë¢ï¿½io
 	eBATTLE_KIND_VIMUSTREET,
 	eBATTLE_KIND_MUNPAFIELD,
 	eBATTLE_KIND_SURYUN,
@@ -422,18 +428,18 @@ LOGIN_ERROR_PROTECTIONNUMBER_INSERT,
 #define MHSHADOW_CIRCLE	1
 #define MHSHADOW_DETAIL	2
 
-// ¡§Io¢®Ec¢®¡×¡Ë¢çACE¢®IiaAu
+// ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½ACEï¿½ï¿½IiaAu
 #define MAX_MUNPAFIELD_MEMBERNUM		30
 
 // Murim Battle
 #define	MAX_MURIMFIELD_MEMBERNUM		30
 
-// E¢®E¢®©­¢®¡×¢®©­¡§Io ¢®¡×oA¡Ë¢ç¡§¢®¡Ë¢çI
+// Eï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Io ï¿½ï¿½ï¿½ï¿½oAï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½I
 #define RECOVERTIMEUNIT					3000
-// E¢®E¢®©­¢®¡×¢®©­¡§Io ¡Ë¢ç¡§¢®¡Ë¢çI¡Ë¢ç¡§¢®Y
+// Eï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Io ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½Iï¿½Ë¢ç¡§ï¿½ï¿½Y
 #define RECOVERINTERVALUNIT				10
 
-// A¢®E¢®©­AI ¡Ë¢çicAIAi(CN A¢®E¢®©­AIAC A¢®¡×I¡Ë¢ç¡§ua)
+// Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AI ï¿½Ë¢ï¿½icAIAi(CN Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AIAC Aï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ç¡§ua)
 // titan maptest
 #define fTILE_SIZE 50.f
 //#define fTILE_SIZE 100.f
@@ -457,7 +463,7 @@ typedef BYTE AREATILE;
 #define IG_MSGBOX_STRARTINDEX			4000
 #define IG_STREETSTALLITEM_STARTINDEX	5000	//LBS 03.09.19
 #define IG_EXCHANGEITEM_STARTINDEX		6000	//KES EXCHANGE 030920
-#define IG_MENUSLOTITEM_STARTINDEX		7000	//KES 040510	//Ao¡Ë¢ç¡§uY ¢®¡×uE¢®¡×u¢®E¢®I¢®E¢®IU. Ao¢®E?i¡Ë¢ç¡§ui.
+#define IG_MENUSLOTITEM_STARTINDEX		7000	//KES 040510	//Aoï¿½Ë¢ç¡§uY ï¿½ï¿½ï¿½ï¿½uEï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Eï¿½ï¿½Iï¿½ï¿½Eï¿½ï¿½IU. Aoï¿½ï¿½E?iï¿½Ë¢ç¡§ui.
 #define IG_PKLOOTINGDLG_START			8000	//KES PKLOOTING 040720
 #define IG_DEBUG_START					10000	//KES DEBUG 040720
 #define IG_QUESTITEM_STARTINDEX			15000	//RaMa
@@ -465,13 +471,13 @@ typedef BYTE AREATILE;
 #define IG_DEALITEM_START				20000
 #define IG_MAINBARICON_START			30000
 #define IG_ABILITYICON_START			31000
-#define IG_ABILITYPOINT_START			40000	//RaMa Æ¯±âÄ¡ ÀçºÐ¹è
+#define IG_ABILITYPOINT_START			40000	//RaMa Æ¯ï¿½ï¿½Ä¡ ï¿½ï¿½Ð¹ï¿½
 #define IG_QUICKITEM_STARTINDEX			60000
 
 #define NEWOBJECT_STARTINDEX			2000001
 #define NEWRECALLOBJECT_STARTINDEX		3000001
 //////////////////////////////////////////////////////////////////////////
-// A¡§I¡§¡Ì¡§Ioy ¢®E?¢®E¡Ëc¡Ë¢ç¡Ë¢¥? AU¢®Iia
+// Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡ï¿½Ioy ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ï¿½Ë¢ï¿½? AUï¿½ï¿½Iia
 enum TACTICSTART_ERROR_CODE
 {
 	eTSEC_NotTacticableState,
@@ -491,16 +497,16 @@ enum TACTICJOIN_ERROR_CODE
 	eTJEC_NotEmptyPosition,
 };
 
-//----------------- ¡Ë¢ç¡§¢®¡§I¡Ë¢ç¢®E¢®©­A ----------------------------------
+//----------------- ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ç¢®Eï¿½ï¿½ï¿½ï¿½A ----------------------------------
 //pjs
-// ¡Ë¢ç¡§¢®E¡Ë¢çio A¢®E¢®©­AO ¢®¡×u¡Ë¢ç¡§u¢®¡×u¡§I¢®I..
+// ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ï¿½io Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AO ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½I..
 enum SEARCH_TYPE
 {
 	MP_BY_SEARCHPRICE,
 	MP_I_REGISTERED,
 	MP_I_JOINED,
 };
-// d¡Ë¢ç¡Ë¢¥A A¢®E¢®©­AO ¢®¡×u¡Ë¢ç¡§u¢®¡×u¡§I¢®I..
+// dï¿½Ë¢ï¿½Ë¢ï¿½A Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AO ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½I..
 enum SORT_TYPE
 {
 	MP_BY_WORD,
@@ -515,7 +521,7 @@ enum CANCEL_TYPE
 	MP_REG,
 	MP_JOIN,
 };
-//----------------- ¡Ë¢ç¡§¢®¡§I¡Ë¢ç¢®E¢®©­A ----------------------------------
+//----------------- ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ç¢®Eï¿½ï¿½ï¿½ï¿½A ----------------------------------
 
 
 //------------------------------------------------//
@@ -535,13 +541,13 @@ enum CANCEL_TYPE
 // CAUTION !!
 // ITEM & MUGONG SHARING POSITION VALUE 
 // ITEM ABSOLUTE POSITION	
-// define¡Ë¢ç¡§¢®¢®¡×¢®I ¡§IoU¡§I¢®Aa¢®¡×u¡Ë¢ç¡§I ¡§Io¢®Ec¢®¡×¡Ë¢çA ¢®¡×u¢®¡×¡Ë¢çAIAU ¢®¡×¡Ë¢ç¡Ë¢çAAo¢®¡×uCAI ¢®¡×¢®©­?CI¢®E¢®©­e Cy¢®¡×u¡Ë¢ç¡§uAI¢®E?¢®E¡Ëc¡Ë¢ç¡§¢®O CEE¡Ë¢çA ¢®E?¡Ë¢ç¨Ï¡©¢®EOo! <- db ¢®¡×uod
+// defineï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½I ï¿½ï¿½IoUï¿½ï¿½Iï¿½ï¿½Aaï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½A ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU ï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½AAoï¿½ï¿½ï¿½ï¿½uCAI ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½?CIï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½e Cyï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§uAIï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ç¡§ï¿½ï¿½O CEEï¿½Ë¢ï¿½A ï¿½ï¿½E?ï¿½Ë¢ï¿½Ï¡ï¿½ï¿½ï¿½EOo! <- db ï¿½ï¿½ï¿½ï¿½uod
 //CoAc PYOGUKITEM_STARTPOSITION : 586, PYOGUKITEM_ENDPOSITION : 736
 
 /*
-#define INVENTORY_STARTPOSITION		((POSTYPE)100)												// 80¡Ë¢ç¡§¢®¡§I¨Ï¨£ 
+#define INVENTORY_STARTPOSITION		((POSTYPE)100)												// 80ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½ 
 #define INVENTORY_ENDPOSITION		((POSTYPE)INVENTORY_STARTPOSITION+INVENTORY_CELL_NUM)						//80
-#define WEAR_STARTPOSITION			((POSTYPE)INVENTORY_ENDPOSITION)							//10¡Ë¢ç¡§¢®¡§I¨Ï¨£
+#define WEAR_STARTPOSITION			((POSTYPE)INVENTORY_ENDPOSITION)							//10ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½
 #define WEAR_ENDPOSITION			((POSTYPE)WEAR_STARTPOSITION+WEAR_CELL_NUM)					//10			
 #define STALL_STARTPOSITION			((POSTYPE)WEAR_ENDPOSITION)						
 #define STALL_ENDPOSITION			((POSTYPE)WEAR_ENDPOSITION+20)								//20
@@ -571,7 +577,7 @@ enum CANCEL_TYPE
 #define PYOGUKITEM_ENDPOSITION		((POSTYPE)MUNPAITEM_ENDPOSITION+MAX_PYOGUKITEM_NUM)
 */
 
-// Npc_Role¡Ë¢ç¡§u¢®E¢®©­¢®¡×¢®©­¢®¡×¢®E
+// Npc_Roleï¿½Ë¢ç¡§uï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½E
 enum NPC_ROLE
 {
 	OBJECT_ROLE = 0,
@@ -585,9 +591,9 @@ enum NPC_ROLE
 	SURYUN_ROLE = 10,
 	SYMBOL_ROLE = 11,
 	CASTLE_ROLE = 12,
-	GUIDE_ROLE = 13,	//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ
+	GUIDE_ROLE = 13,	//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
 	TITAN_ROLE = 14,	// magi82 - Titan(070117)
-	BOBUSANG_ROLE = 15,	//SW070626 º¸ºÎ»óNPC
+	BOBUSANG_ROLE = 15,	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	FORTWAR_SYMBOL_ROLE = 16,
 	BOMUL_ROLE	= 23,
 	MAPCHANGE_ROLE = 27,	
@@ -604,11 +610,11 @@ enum eMoveMode
 /*********/
 
 
-////¡§I¨Ï¨£¡Ë¢ç¡Ë?¢®¡×¡Ë¢ç¢®Ec¢®E?¡Ë¢çA ¢®¡×i¨Ïo¢®Ei¡§u¢®¡×¡Ë¢ç¢®Ec¡Ë¢ç¡Ë¢¥¡Ë¢ç¡§¢®AA¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?eCI¢®E¢®IA define  ///////////////////////////////////////////////
+////ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½ï¿½E?ï¿½Ë¢ï¿½A ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½Ë¢ï¿½Ë¢ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½AAï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?eCIï¿½ï¿½Eï¿½ï¿½IA define  ///////////////////////////////////////////////
 #define MAX_PACKEDDATA_SIZE 60000 // for SEND_PACKED_DATA
 
 
-// AI¢®¡×¢®©­I¢®¡×¢®©­¢®¡×¢®E¢®E?¢®E¡Ëc ¡Ë¢çic¢®E?e + Client Move¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+// AIï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½Eï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½Ë¢ï¿½icï¿½ï¿½E?e + Client Moveï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 enum eMONSTER_ACTION
 {
 	eMA_STAND,
@@ -628,104 +634,104 @@ enum
 };
 
 
-/// GameResource¢®E?¢®E¡Ëc ¡Ë¢çic¢®E?e¢®IiC¢®E¢®IA define ///////////////////////////////////////////////
+/// GameResourceï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½Ë¢ï¿½icï¿½ï¿½E?eï¿½ï¿½IiCï¿½ï¿½Eï¿½ï¿½IA define ///////////////////////////////////////////////
 enum eQUICKICON_KIND { eMUGONG_ICON=1, eITEM_ICON, eABILITY_ICON,};
 enum eMUGONGITEM_KIND{eMUGONGBOOK, eJINBUBBOOK, eSIMBUBBOOK, eERROR_BOOK,};
 enum eITEM_KINDBIT 
 { 
 /*
-AI¢®¡×uOCsY:
-<512 : ¢®E?¢®Ii¢®¡×ua>
-<1025~ : ¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì¢®¡×u¡Ë¢ç¡§I>
-1025 : ¡Ë¢ç¡§¢®E¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1026 : ¡Ë¢ç¡§uC¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1027 : ¢®Ii¢®Ii¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1028 : A¡Ë¢çE¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1029 : ¡Ë¢ç¡§uA¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1030 : ¢®¡×uI¡Ë¢ç¡§ua¢®E?U¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1031 : E¡Ë¢ç¡§I¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1032 : ¢®¡×ui¢®¡×¢®©­?i¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1033 : ¢®E¢®©­n¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1034 : ¡Ë¢ç¡§uY¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1035 : Aa¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1036 : ¡§Io¡Ë¢çi¡§I¨Ï¨£¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì
-1037 : ¢®¡×oE¡§Ioy
-1038 : A¡§I¡§¡Ì¡§Ioy
-1039 : ¡Ë¢ç¡§¢®¡§I¡Ë¢ç¡Ë¢ç¡§¢®¡§I¡§¡Ì
-<2049~ : AaA¡§I¡§¡Ì¢®¡×u¢®¡×¡Ë¢çAIAU>
-2049 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_¡Ë¢ç¡§¢®E
-2050 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_¡Ë¢ç¡§uC
-2051 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_¢®Ii¢®Ii
-2052 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_A¡Ë¢çE
-2053 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_¡Ë¢ç¡§uA
-2054 : ¡§Io¡Ë¢çi¡Ë¢ç¡§ua_¢®¡×uI¡Ë¢ç¡§ua
-2055 : ¢®E?E
-2056 : Ao¡Ë¢ç¡§u¢®E¢®©­
-2057 : ¢®¡×oA¡§Io¡§I¢®©­
-2058 : E¡Ë¢çI¢®E?I
-2059 : ¢®E¢®©­AAa
-2060 : Ca¢®E¢®©­¢®Ec¢®EOi
-2061 : ¢®E¢®©­n¡Ë¢ç¡§¢®EAI
-2062 : ¡§IoYAo
-<4097~ : ¡Ë¢ç¡§uaA¢®E¢®©­>
-4097 : ¢®¡×¢®©­¢®E¢®©­¢®¡×u¢®Ec¡Ë¢ç¡Ë¢¥u
-4098 : Ac¡Ë¢ç¡Ë¢¥a¡Ë¢ç¡Ë¢¥u
-4099 : ¡Ë¢ç¡§uY¢®¡×uO¡Ë¢ç¡Ë¢¥u
-4100 : ¢®¡×u¡Ë¢ç¡§IAu¡Ë¢ç¡Ë¢¥u
-4101 : ¢®¡×uaAE¡Ë¢ç¡Ë¢¥u
-4102 : ¡Ë¢ç¡§uaA¢®E¢®©­
-4103 : ¢®¡×u¢®¡×¡Ë¢çAIAU¢®Iii¡Ë¢ç¡§u¢®¡×¢®¨Ï¢®¡×u¡Ë¢ç(¢®©­n¡Ë¢ç¡§u¢®¡×¢®¨Ï¢®¡×u¡Ë¢ç¡§I
-4104 : CO¢®¡×u¢®¡×¢®©­¢®¡×¢®©­¢®E¢®©­v¢®¡×u¢®¡×¡Ë¢çAIAU
-4105 : Au¢®¡×i¨Ïo¢®Ei¡§u¢®¡×¡Ë¢ç¢®Ec
+AIï¿½ï¿½ï¿½ï¿½uOCsY:
+<512 : ï¿½ï¿½E?ï¿½ï¿½Iiï¿½ï¿½ï¿½ï¿½ua>
+<1025~ : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I>
+1025 : ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1026 : ï¿½Ë¢ç¡§uCï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1027 : ï¿½ï¿½Iiï¿½ï¿½Iiï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1028 : Aï¿½Ë¢ï¿½Eï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1029 : ï¿½Ë¢ç¡§uAï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1030 : ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§uaï¿½ï¿½E?Uï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1031 : Eï¿½Ë¢ç¡§Iï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1032 : ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½?iï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1033 : ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½nï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1034 : ï¿½Ë¢ç¡§uYï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1035 : Aaï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1036 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+1037 : ï¿½ï¿½ï¿½ï¿½oEï¿½ï¿½Ioy
+1038 : Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡ï¿½Ioy
+1039 : ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+<2049~ : AaAï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU>
+2049 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_ï¿½Ë¢ç¡§ï¿½ï¿½E
+2050 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_ï¿½Ë¢ç¡§uC
+2051 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_ï¿½ï¿½Iiï¿½ï¿½Ii
+2052 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_Aï¿½Ë¢ï¿½E
+2053 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_ï¿½Ë¢ç¡§uA
+2054 : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua_ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§ua
+2055 : ï¿½ï¿½E?E
+2056 : Aoï¿½Ë¢ç¡§uï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½
+2057 : ï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+2058 : Eï¿½Ë¢ï¿½Iï¿½ï¿½E?I
+2059 : ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AAa
+2060 : Caï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½EOi
+2061 : ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½nï¿½Ë¢ç¡§ï¿½ï¿½EAI
+2062 : ï¿½ï¿½IoYAo
+<4097~ : ï¿½Ë¢ç¡§uaAï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½>
+4097 : ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Ecï¿½Ë¢ï¿½Ë¢ï¿½u
+4098 : Acï¿½Ë¢ï¿½Ë¢ï¿½aï¿½Ë¢ï¿½Ë¢ï¿½u
+4099 : ï¿½Ë¢ç¡§uYï¿½ï¿½ï¿½ï¿½uOï¿½Ë¢ï¿½Ë¢ï¿½u
+4100 : ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§IAuï¿½Ë¢ï¿½Ë¢ï¿½u
+4101 : ï¿½ï¿½ï¿½ï¿½uaAEï¿½Ë¢ï¿½Ë¢ï¿½u
+4102 : ï¿½Ë¢ç¡§uaAï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½
+4103 : ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAUï¿½ï¿½Iiiï¿½Ë¢ç¡§uï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½uï¿½Ë¢ï¿½(ï¿½ï¿½ï¿½ï¿½nï¿½Ë¢ç¡§uï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I
+4104 : COï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU
+4105 : Auï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Ec
 */
 	eTITAN_ITEM				= 64,
-	eTITAN_ITEM_PAPER		= 65,	// Å¸ÀÌÅº ÀÎÁõ¼­
-	eTITAN_ITEM_RECIPE		= 66,	// Å¸ÀÌÅº ·¹½ÃÇÇ
-	eTITAN_ITEM_PARTS		= 67,	// Å¸ÀÌÅº ÆÄÃ÷
+	eTITAN_ITEM_PAPER		= 65,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eTITAN_ITEM_RECIPE		= 66,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eTITAN_ITEM_PARTS		= 67,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 
 	// magi82 - Titan(070206)
-	eTITAN_EQUIPITEM		= 128,	// Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛ
-	eTITAN_EQUIPITEM_HELMET	= 129,	// Å¸ÀÌÅº Åõ±¸
-	eTITAN_EQUIPITEM_ARMOR	= 130,	// Å¸ÀÌÅº °©¿Ê
-	eTITAN_EQUIPITEM_GLOVES	= 131,	// Å¸ÀÌÅº Àå°©
-	eTITAN_EQUIPITEM_LEGS	= 132,	// Å¸ÀÌÅº ´Ù¸®
-	eTITAN_EQUIPITEM_CLOAK	= 133,	// Å¸ÀÌÅº ¸ÁÅä
-	eTITAN_EQUIPITEM_SHIELD	= 134,	// Å¸ÀÌÅº ¹æÆÐ
-	eTITAN_EQUIPITEM_WEAPON	= 135,	// Å¸ÀÌÅº ¹«±â
+	eTITAN_EQUIPITEM		= 128,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eTITAN_EQUIPITEM_HELMET	= 129,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
+	eTITAN_EQUIPITEM_ARMOR	= 130,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
+	eTITAN_EQUIPITEM_GLOVES	= 131,	// Å¸ï¿½ï¿½Åº ï¿½å°©
+	eTITAN_EQUIPITEM_LEGS	= 132,	// Å¸ï¿½ï¿½Åº ï¿½Ù¸ï¿½
+	eTITAN_EQUIPITEM_CLOAK	= 133,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
+	eTITAN_EQUIPITEM_SHIELD	= 134,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
+	eTITAN_EQUIPITEM_WEAPON	= 135,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 	//////////////////////////////////////////////////////////////////////////
 
 	// RaMa - 04.11.02
 	eSHOP_ITEM				= 256,
-	eSHOP_ITEM_PREMIUM		= 257,	// ÇÁ¸®¹Ì¾ö
-	eSHOP_ITEM_CHARM		= 258,	// ºÎÀû
-	eSHOP_ITEM_HERB			= 259,	// ¹°¾à
-	eSHOP_ITEM_INCANTATION	= 260,	// ÁÖ¹®¼­
-	eSHOP_ITEM_MAKEUP		= 261,	// º¯½Å
-	eSHOP_ITEM_DECORATION	= 262,	// ²Ù¹Ì±â
-	eSHOP_ITEM_SUNDRIES		= 263,	// ÀâÈ­
-	eSHOP_ITEM_EQUIP		= 264,	// Àåºñ¾ÆÀÌÅÛ
-	eSHOP_ITEM_NOMALCLOTHES_SKIN	= 265,	// ÀÇº¹¼¼Æ® ½ºÅ² ¾ÆÀÌÅÆ
-	eSHOP_ITEM_COSTUME_SKIN			= 266,	// ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ
+	eSHOP_ITEM_PREMIUM		= 257,	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½
+	eSHOP_ITEM_CHARM		= 258,	// ï¿½ï¿½ï¿½ï¿½
+	eSHOP_ITEM_HERB			= 259,	// ï¿½ï¿½ï¿½ï¿½
+	eSHOP_ITEM_INCANTATION	= 260,	// ï¿½Ö¹ï¿½ï¿½ï¿½
+	eSHOP_ITEM_MAKEUP		= 261,	// ï¿½ï¿½ï¿½ï¿½
+	eSHOP_ITEM_DECORATION	= 262,	// ï¿½Ù¹Ì±ï¿½
+	eSHOP_ITEM_SUNDRIES		= 263,	// ï¿½ï¿½È­
+	eSHOP_ITEM_EQUIP		= 264,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSHOP_ITEM_NOMALCLOTHES_SKIN	= 265,	// ï¿½Çºï¿½ï¿½ï¿½Æ® ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSHOP_ITEM_COSTUME_SKIN			= 266,	// ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	eSHOP_ITEM_TITAN_EQUIP	= 290,	// Å¸ÀÌÅº ÀåÂø
+	eSHOP_ITEM_TITAN_EQUIP	= 290,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 
-	eSHOP_ITEM_PET			= 300,	// Æê
-	eSHOP_ITEM_PET_EQUIP	= 310,	// Æê ÀåÂø
+	eSHOP_ITEM_PET			= 300,	// ï¿½ï¿½
+	eSHOP_ITEM_PET_EQUIP	= 310,	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	eYOUNGYAK_ITEM			= 512,
-	eYOUNGYAK_ITEM_PET		= 513,	// Æê È¸º¹
-	eYOUNGYAK_ITEM_UPGRADE_PET	= 514,	// Æê ÁøÈ­
-	eYOUNGYAK_ITEM_REVIVAL_PET	= 515,	// Æê ºÎÈ°
+	eYOUNGYAK_ITEM_PET		= 513,	// ï¿½ï¿½ È¸ï¿½ï¿½
+	eYOUNGYAK_ITEM_UPGRADE_PET	= 514,	// ï¿½ï¿½ ï¿½ï¿½È­
+	eYOUNGYAK_ITEM_REVIVAL_PET	= 515,	// ï¿½ï¿½ ï¿½ï¿½È°
 
-	eYOUNGYAK_ITEM_TITAN	= 555,	// Å¸ÀÌÅº È¸º¹
+	eYOUNGYAK_ITEM_TITAN	= 555,	// Å¸ï¿½ï¿½Åº È¸ï¿½ï¿½
 
 	eMUGONG_ITEM			= 1024,	
 	eMUGONG_ITEM_SIMBUB		= 1037,
 	eMUGONG_ITEM_JINBUB		= 1038,
 	eMUGONG_ITEM_KYUNGGONG	= 1039,
 	eMUGONG_ITEM_OPTION		= 1040,
-	eMUGONG_ITEM_TITAN		= 1041,	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°øº¯È¯À¸·Î ¾²ÀÌ´ø kind¸¦ Å¸ÀÌÅº ¹«°ø¼­Àû kind·Î Àç»ç¿ë
-	eMUGONG_ITEM_JOB		= 1042,	// 2007. 7. 2. CBH - Àü¹®±â¼ú ¼­Àû
+	eMUGONG_ITEM_TITAN		= 1041,	// magi82 - Titan(070910) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ kindï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ kindï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eMUGONG_ITEM_JOB		= 1042,	// 2007. 7. 2. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	eEQUIP_ITEM				= 2048,
 	eEQUIP_ITEM_WEAPON		= 2049,
@@ -757,8 +763,8 @@ AI¢®¡×uOCsY:
 	eQUEST_ITEM			= 16384,
 	eQUEST_ITEM_START	= 16385,	//	 
 	eQUEST_ITEM_EQUIP	= 16386,	//
-	eQUEST_ITEM_PET		= 16400,	// Äù½ºÆ® Æê
-	eQUEST_ITEM_PET_EQUIP = 16410,	// Äù½ºÆ® Æê ÀåÂø
+	eQUEST_ITEM_PET		= 16400,	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½
+	eQUEST_ITEM_PET_EQUIP = 16410,	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	eCHANGE_ITEM		= 32768,	// eable to change
 	eCHANGE_ITEM_LOCK	= 32769,	// not exchange & not streetstall 
@@ -777,9 +783,9 @@ AI¢®¡×uOCsY:
 
 #define MAX_PLAYER_NUM	135
 #define MAX_PET_NUM		100
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ¸ó½ºÅÍ ¼ö È®Àå 190 -> 300
-// 300 -> 500 È®Àå RaMa - 07.01.22
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È®ï¿½ï¿½ 190 -> 300
+// 300 -> 500 È®ï¿½ï¿½ RaMa - 07.01.22
 #define MAX_MONSTER_NUM 500
 #define MAX_MONSTER_REGEN_NUM 100
 #define MAX_NPC_NUM 135
@@ -793,37 +799,37 @@ AI¢®¡×uOCsY:
 #define MAX_MONSTER_GROUPNUM	200
 #define MAX_NPC_GROUPNUM		200
 
-#define MAX_CHARACTER_LEVEL_NUM		121			//½«Íæ¼ÒµÄ×î´óµÈ¼¶ÐÞ¸ÄÎª121 ÕâÏÂ¹»ÓÃÁË°É!!!
+#define MAX_CHARACTER_LEVEL_NUM		121			//ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½Þ¸ï¿½Îª121 ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½Ë°ï¿½!!!
 
-#define MAX_PLAYERLEVEL_NUM	121 //Õâ¸öÓÐÊ²Ã´ÓÃ,¶ÁÈ¡playerxmonstpoint.bin?//Ô­À´ÊÇ100ÏÖ×´¸ÄÎª121
+#define MAX_PLAYERLEVEL_NUM	121 //ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½,ï¿½ï¿½È¡playerxmonstpoint.bin?//Ô­ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½×´ï¿½ï¿½Îª121
 #define MAX_MONSTERLEVELPOINTRESTRICT_NUM	9
 #define MONSTERLEVELRESTRICT_LOWSTARTNUM	6
 
-// ¡Ë¢çic¢®E?e¢®IiC¢®E¢®IA ¡Ë¢ç¡§¢®¡Ë¢çA : ¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì¢®E¢®©­¢®Ec¢®¡×uO¢®¡×o¢®¡×¢®©­AI¢®Ii|¢®¡×o¢®¡×¢®©­
+// ï¿½Ë¢ï¿½icï¿½ï¿½E?eï¿½ï¿½IiCï¿½ï¿½Eï¿½ï¿½IA ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½A : ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½AIï¿½ï¿½Ii|ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½
 enum WP_KIND{WP_GUM=1,WP_GWUN,WP_DO,WP_CHANG,WP_GUNG,WP_AMGI,WP_KEY,WP_EVENT,WP_EVENT_HAMMER,WP_MAX,WP_ERR,WP_WITHOUT=0};
 enum WP_ATTR{WP_FIRE=1, WP_WATER, WP_TREE, WP_GOLD, WP_EARTH, WP_NONEATTR};
 enum RE_TARGET_RANGE{TR_PERSONAL, TR_WHOLE,};
 enum MUGONG_TYPE{MUGONGTYPE_NORMAL, MUGONGTYPE_JINBUB, MUGONGTYPE_SIMBUB, MUGONGTYPE_JOB, MUGONGTYPE_MAX,};
 
-// A¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­ ¡§Io¡§I¡§¡ÌE¡Ë¢çI(1¡§Io¡§I¡§¡ÌA¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­AC ¡§Io¡§I¡§¡ÌE¡Ë¢çIAI¢®E¢®IU,2¡§Io¡§I¡§¡Ì A¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­¢®E¢®IA +1 3¡§Io¡§I¡§¡ÌA¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­¢®E¢®IA +2....)
+// Aï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Eï¿½Ë¢ï¿½I(1ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½AC ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Eï¿½Ë¢ï¿½IAIï¿½ï¿½Eï¿½ï¿½IU,2ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½IA +1 3ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½IA +2....)
 #define COMBO_GUM_MIN		1
 #define COMBO_GWUN_MIN		7
 #define COMBO_DO_MIN		13
 #define COMBO_CHANG_MIN		19
 #define COMBO_GUNG_MIN		25
 #define COMBO_AMGI_MIN		31
-#define COMBO_EVENT_MIN		50	//´«µ¢ÀÌ´øÁö±â
+#define COMBO_EVENT_MIN		50	//ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ï¿½ï¿½
 #define COMBO_EVENT_HAMMER	51
-//#define COMBO_EVENT_HARDSNOW	52	//µ¹´«µ¢ÀÌ´øÁö±â
+//#define COMBO_EVENT_HARDSNOW	52	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #define MAX_COMBO_NUM		6
 #define SKILL_COMBO_NUM		100
-#define MAX_COMBOATTACK_LIST (WP_MAX*MAX_COMBO_NUM)		 // 6(¡§Io¡Ë¢çi¡Ë¢ç¡§ua~¡Ë¢ç¡Ë¢¥u) * 6(AO¢®E¢®IeA¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­)
+#define MAX_COMBOATTACK_LIST (WP_MAX*MAX_COMBO_NUM)		 // 6(ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua~ï¿½Ë¢ï¿½Ë¢ï¿½u) * 6(AOï¿½ï¿½Eï¿½ï¿½IeAï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½)
 
-//#define SKILLNUM_TO_TITAN	10000	// Ä³¸¯ÅÍ ½ºÅ³¿¡ ´õÇÏ¸é Å¸ÀÌÅº ½ºÅ³ ÀÎµ¦½º
-// ¢®¡×o¢®¡×¢®©­A¡§I¨Ï¨£ ¡§Io¡§I¡§¡ÌE¡Ë¢çI
-#define MAX_SKILLATTACK_LIST (WP_MAX*50)				// ¡§Io¡Ë¢çi¡Ë¢ç¡§ua~¡Ë¢ç¡Ë¢¥u * ¡§Io¡Ë¢çi¡Ë¢ç¡§ua¢®E¢®©­¢®EO¢®E¢®IUAC ¢®¡×o¢®¡×¢®©­A¡§I¨Ï¨£ ¢®¡×uo
-#define MAX_SUNG_EXP 7									// 7¢®¡×u¢®¡×¢®©­¡Ë¢ç¡§uiAoAC ¡Ë¢ç¡§¢®¡§I¡Ë¢çCeA¢®E¡Ëc
+//#define SKILLNUM_TO_TITAN	10000	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Aï¿½ï¿½Iï¿½Ï¨ï¿½ ï¿½ï¿½Ioï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Eï¿½Ë¢ï¿½I
+#define MAX_SKILLATTACK_LIST (WP_MAX*50)				// ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua~ï¿½Ë¢ï¿½Ë¢ï¿½u * ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½EOï¿½ï¿½Eï¿½ï¿½IUAC ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Aï¿½ï¿½Iï¿½Ï¨ï¿½ ï¿½ï¿½ï¿½ï¿½uo
+#define MAX_SUNG_EXP 7									// 7ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§uiAoAC ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ï¿½CeAï¿½ï¿½Eï¿½ï¿½c
 #define MAX_SUNG 12									
 
 // SkillResult
@@ -845,20 +851,20 @@ enum MUGONG_TYPE{MUGONGTYPE_NORMAL, MUGONGTYPE_JINBUB, MUGONGTYPE_SIMBUB, MUGONG
 #define ATTACKTYPE_RANGE				0
 
 //////////////////////////////////////////////////////////////////////////
-// AI¡§IoY¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y or ¢®E¢®IUA¡§I¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y
+// AIï¿½ï¿½IoYï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Y or ï¿½ï¿½Eï¿½ï¿½IUAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Y
 #define ATTACKTYPE_NORMAL		0
 #define ATTACKTYPE_HALFCIRCLE	1
 #define ATTACKTYPE_CIRCLE		2
 #define ATTACKTYPE_LINE			3
 #define ATTACKTYPE_RECTANGLE	4
 
-// ¢®E¢®IUA¡§I¢®©­¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®YAC ¡§Iou'AC ¡Ë¢ç¡§uaA¢®¡×¡§¡Ìa
+// ï¿½ï¿½Eï¿½ï¿½IUAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½YAC ï¿½ï¿½Iou'AC ï¿½Ë¢ç¡§uaAï¿½ï¿½ï¿½×¡ï¿½ï¿½ï¿½a
 #define	TARGETTYPE_TARGET	0
 #define TARGETTYPE_ATTACKER 1
 #define TARGETTYPE_GROUND	2
 //////////////////////////////////////////////////////////////////////////
 
-// ¢®¡×u¢®¡×¡Ë¢çAIAU ¡Ë¢ç¡§u¢®E¢®©­¢®¡×¢®©­¡Ë¢ç¡§¢®¢®E?¢®E¡Ëc ¢®E¢®IeCN enum
+// ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU ï¿½Ë¢ç¡§uï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Eï¿½ï¿½IeCN enum
 /*
 enum ICON_GROUP_KINDS
 { 
@@ -907,10 +913,10 @@ enum eItemUse_Err
 	eItemUseErr_DontDupUse,
 	eItemUseErr_UseFull,
 	eItemUseErr_TitanPartsMake,	// magi82 - Titan(070118)
-	eItemUseErr_TitanItemTime,	// Å¸ÀÌÅº epÈ¸º¹ µô·¹ÀÌ
+	eItemUseErr_TitanItemTime,	// Å¸ï¿½ï¿½Åº epÈ¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
-/// GameResource¢®E?¢®E¡Ëc ¡Ë¢çic¢®E?e¢®IiC¢®E¢®IA define ///////////////////////////////////////////////
+/// GameResourceï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½Ë¢ï¿½icï¿½ï¿½E?eï¿½ï¿½IiCï¿½ï¿½Eï¿½ï¿½IA define ///////////////////////////////////////////////
 #define MAX_YOUNGYAKITEM_DUPNUM			20
 #ifdef _JAPAN_LOCAL_
 #define MAX_CHARACTER_NUM	5
@@ -938,19 +944,19 @@ enum eItemUse_Err
 
 #define TITAN_WALKSPEED	300
 
-//¢®¡×u¢®¡×¡Ë¢çAIAU Define
-//¡§I¨Ï¨£¡§I¢®AAU 
-#define ManBlueDress		23010 //¢®¡×¡Ë¢ço¡Ë¢çio¢®¡×¢®©­¡§Io
+//ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU Define
+//ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Iï¿½ï¿½AAU 
+#define ManBlueDress		23010 //ï¿½ï¿½ï¿½×¡Ë¢ï¿½oï¿½Ë¢ï¿½ioï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Io
 #define ManBlueNothing		23011
-#define ManDefaultShoose	27000 //¡§Io¡Ë¢çi¢®E¢®©­iE¡Ë¢ç¡§I 
-//¢®E?¢®¡×IAU 
-//#define WomanRedDress		12210 //¢®¡×¡Ë¢ço¡Ë¢çio¢®¡×¢®©­¡§Io
+#define ManDefaultShoose	27000 //ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½iEï¿½Ë¢ç¡§I 
+//ï¿½ï¿½E?ï¿½ï¿½ï¿½ï¿½IAU 
+//#define WomanRedDress		12210 //ï¿½ï¿½ï¿½×¡Ë¢ï¿½oï¿½Ë¢ï¿½ioï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Io
 #define WomanRedDress		23010
-#define WomanDefalutShoose	27000 //¡§Io¡Ë¢çi¢®E¢®©­iE¡Ë¢ç¡§I
+#define WomanDefalutShoose	27000 //ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½iEï¿½Ë¢ç¡§I
 
 //  [5/27/2003]
 
-// A¡§I¨Ï¨£¢®E¢®©­?AIA¡Ë¢çE¢®E?¢®E¡Ëc ¢®¡×¡Ë¢ç¡Ë¢çAAIAI ¡§Ioe¢®¡×¢®©­¢®¡×¢®E¡Ë¢ç¡§¢®u¡Ë¢ç¡Ë¢¥A
+// Aï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½?AIAï¿½Ë¢ï¿½Eï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½AAIAI ï¿½ï¿½Ioeï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½uï¿½Ë¢ï¿½Ë¢ï¿½A
 enum { GENGOL_POINT, SIMMEK_POINT, MINCHUB_POINT, CHERYUK_POINT, MAX_BTN_POINT};
 
 #define GENDER_MALE 0
@@ -959,7 +965,7 @@ enum { GENGOL_POINT, SIMMEK_POINT, MINCHUB_POINT, CHERYUK_POINT, MAX_BTN_POINT};
 
 #define MAX_PARTY_LISTNUM 7
 #define MAX_PARTY_LOAD_NUM 100
-#define MAX_PARTY_NAME 28		//2008. 5. 21. CBH - ¹æÆÄ Á¦¸ñ ¹®ÀÚ ±æÀÌ
+#define MAX_PARTY_NAME 28		//2008. 5. 21. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #define MAX_MUNPA_NAME 20
 #define MAX_MUNPALOAD_LIST	100
@@ -968,22 +974,22 @@ enum { GENGOL_POINT, SIMMEK_POINT, MINCHUB_POINT, CHERYUK_POINT, MAX_BTN_POINT};
 #define MAX_MUNPA_IMAGE_NUM 32
 
 #define MUNPA_MASTER		20
-#define MUNPA_NOTMEMBER		0	//¡§Io¢®Ec¢®¡×¡Ë¢çA¢®E?¡§I¡§¡ÌAI ¢®¡×u¢®¡×¡Ë¢ç¢®E¢®IN ¡Ë¢çic¢®EO¡Ë¢çA
-#define MUNPA_SEMIMEMBER	1	//¡§Io¢®Ec¢®¡×¡Ë¢çA ¡Ë¢ç¡§¢®¢®E¡ËcAO¢®¡×oAA¡Ë¢çiAI
-#define MUNPA_MEMBER		2	//¡§Io¢®Ec¢®¡×¡Ë¢çA¢®E?¡§I¡§¡Ì
-#define MUNPA_SENIOR		3	//Aa¡Ë¢ç¡Ë¢¥I
-#define MUNPA_VICE_MASTER	10	//¢®¡×¢®©­I¡§Io¢®EcAO
+#define MUNPA_NOTMEMBER		0	//ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½Aï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Eï¿½ï¿½IN ï¿½Ë¢ï¿½icï¿½ï¿½EOï¿½Ë¢ï¿½A
+#define MUNPA_SEMIMEMBER	1	//ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½A ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½cAOï¿½ï¿½ï¿½ï¿½oAAï¿½Ë¢ï¿½iAI
+#define MUNPA_MEMBER		2	//ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½Aï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½
+#define MUNPA_SENIOR		3	//Aaï¿½Ë¢ï¿½Ë¢ï¿½I
+#define MUNPA_VICE_MASTER	10	//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Iï¿½ï¿½Ioï¿½ï¿½EcAO
 
-#define MUNPA_KIND_JUNG	1	//d¢®¡×¡Ë¢çA
-#define MUNPA_KIND_SA	2	//¡Ë¢çic¢®¡×¡Ë¢çA
-#define MUNPA_KIND_WHANG	3	//E¡§I¢®A¡Ë¢ç¡§uA
-#define MUNPA_KIND_MU	4	//¡§Io¡Ë¢çi¢®¡×uO¢®¡×uO
+#define MUNPA_KIND_JUNG	1	//dï¿½ï¿½ï¿½×¡Ë¢ï¿½A
+#define MUNPA_KIND_SA	2	//ï¿½Ë¢ï¿½icï¿½ï¿½ï¿½×¡Ë¢ï¿½A
+#define MUNPA_KIND_WHANG	3	//Eï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ç¡§uA
+#define MUNPA_KIND_MU	4	//ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½ï¿½ï¿½uO
 
-#define MAX_MUNPA_BOARD_NUM	5	//¡§Io¢®Ec¢®¡×¡Ë¢çA ¡Ë¢ç¡§¢®O¢®¡×oA¢®¡×¡Ë¢çC
-#define MAX_MUNPA_BOARD_NAME 16		//¡Ë¢ç¡§¢®O¢®¡×oA¢®¡×¡Ë¢çC AI¢®E¢®©­¡Ë¢ç¢®¢¯
-#define MAX_MUNPA_REGULARMEMBERLIST_NUM 10  //¢®E¢®©­¢®Ec¢®¡×i¨Ïo¢®Ei¡§u¢®¡×¡Ë¢ç¢®Ec¢®E?¢®E¡Ëc ¢®¡×¢®©­¢®E¢®©­¢®E?¢®¡×IAo¢®E¢®IA ¡§Io¢®Ec¢®¡×¡Ë¢çA¢®E?¡§I¡§¡Ì¢®Iie ¢®¡×uo
+#define MAX_MUNPA_BOARD_NUM	5	//ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½A ï¿½Ë¢ç¡§ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½ï¿½×¡Ë¢ï¿½C
+#define MAX_MUNPA_BOARD_NAME 16		//ï¿½Ë¢ç¡§ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½oAï¿½ï¿½ï¿½×¡Ë¢ï¿½C AIï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¢®ï¿½ï¿½
+#define MAX_MUNPA_REGULARMEMBERLIST_NUM 10  //ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½E?ï¿½ï¿½ï¿½ï¿½IAoï¿½ï¿½Eï¿½ï¿½IA ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½Aï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½Iie ï¿½ï¿½ï¿½ï¿½uo
 #define MAX_MUNPA_BATTLEKIND 3
-#define MAX_MUNPA_SEMIMEMBERLIST_NUM 10 //¢®E¢®©­¢®Ec¢®¡×i¨Ïo¢®Ei¡§u¢®¡×¡Ë¢ç¢®Ec¢®E?¢®E¡Ëc ¢®¡×¢®©­¢®E¢®©­¢®E?¢®¡×IAo¢®E¢®IA ¢®¡×oAA¡Ë¢çiAI¢®Iie ¢®¡×uo
+#define MAX_MUNPA_SEMIMEMBERLIST_NUM 10 //ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½E?ï¿½ï¿½ï¿½ï¿½IAoï¿½ï¿½Eï¿½ï¿½IA ï¿½ï¿½ï¿½ï¿½oAAï¿½Ë¢ï¿½iAIï¿½ï¿½Iie ï¿½ï¿½ï¿½ï¿½uo
 #define MAX_MUNPA_BOARD_SUBJECT 64
 #define MAX_MUNPA_BOARD_CONTENT 2048
 #define MAX_MUNPA_BOARD_LIST 10
@@ -996,7 +1002,7 @@ enum { GENGOL_POINT, SIMMEK_POINT, MINCHUB_POINT, CHERYUK_POINT, MAX_BTN_POINT};
 #define MAX_LOAD_ITEM		100
 #define MAX_PETINVENLOAD_ITEM 100
 #define MAX_PINVENLOAD_ITEM 100
-#define MAX_TITANENDURANCELOAD_ITEM 100	// magi82 - Titan(071015) Ã¢°í¿¡ Å¸ÀÌÅº Àåºñ °ü·Ã
+#define MAX_TITANENDURANCELOAD_ITEM 100	// magi82 - Titan(071015) Ã¢ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define MAX_FRIEND_NUM 30
 #define MAX_FRIEND_LIST 10
 #define MAX_FRIEND_PAGE MAX_FRIEND_NUM/MAX_FRIEND_LIST // 30/10 = 10
@@ -1105,7 +1111,7 @@ enum
 	eGuild_Delete,
 	eGuild_Secede,		
 };
-//--------¢®E?¢®E¡Ëc¡Ë¢ç¡Ë¢¥? ¢®E¢®©­¢®¡×¢®¨Ï¢®¡×oAAo----------------------------------------------------------
+//--------ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ï¿½Ë¢ï¿½? ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½oAAo----------------------------------------------------------
 enum DEAL_BUY_ERROR { NOT_ERROR, NOT_MONEY = 101, NOT_SPACE, NOT_EXIST, NOT_PLAYER, NOT_OWNERMONEY, NOT_SAMEPRICE, NOT_SAMEINFO, NO_DEMANDITEM, NOT_REMAINITEM };
 enum ERROR_MUNPABOARDCONTENTS {
 	ERROR_MUNPABOARDCONTENTS_NOCONTENTS = 1,
@@ -1126,19 +1132,19 @@ enum ERROR_PARTY
 	eErr_Add_NotOurGuild,		// During Guild Tournament
 };
 
-//2008. 5. 23. CBH - ¹æÆÄ ½ÅÃ» ¿¡·¯
+//2008. 5. 23. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
 enum ERROR_PARTY_REQUEST
 {
-	eErr_Request_NotParty,			//¹æÆÄ°¡ ¾ø´Ù
-	eErr_Request_NotMaster,			//¹æÆÄÀåÀÌ ¾ø´Ù	
-	eErr_Request_PartyExistence,	//½ÅÃ»ÀÚ°¡ ÆÄÆ¼°¡ °¡ÀÔµÇ¾îÀÖ´Ù.
-	eErr_Request_Full,				//ÀÎ¿ø ÃÊ°ú
-	eErr_Request_Level,				//·¹º§ÀÌ ¸ÂÁö ¾Ê´Ù
-	eErr_Request_Public,			//ºñ°ø°³ »óÅÂ´Ù
-	eErr_Request_NotState,			//½ÅÃ»À» ¹ÞÀ» ¼ö ¾ø´Â »óÅÂ
-	eErr_Request_Progress,	//½ÅÃ» ÁøÇàÁß
-	eErr_Request_Refusal,	//½ÅÃ» °ÅÀý
-	eErr_Request_TimeExcess,		//½Ã°£ÃÊ°ú	
+	eErr_Request_NotParty,			//ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eErr_Request_NotMaster,			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
+	eErr_Request_PartyExistence,	//ï¿½ï¿½Ã»ï¿½Ú°ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½Ö´ï¿½.
+	eErr_Request_Full,				//ï¿½Î¿ï¿½ ï¿½Ê°ï¿½
+	eErr_Request_Level,				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½
+	eErr_Request_Public,			//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
+	eErr_Request_NotState,			//ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eErr_Request_Progress,	//ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eErr_Request_Refusal,	//ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
+	eErr_Request_TimeExcess,		//ï¿½Ã°ï¿½ï¿½Ê°ï¿½	
 };
 
 enum PARTY_OPTION
@@ -1147,7 +1153,7 @@ enum PARTY_OPTION
 	ePartyOpt_Damage,
 	ePartyOpt_Sequence,
 };
-//--------¢®E?¢®E¡Ëc¡Ë¢ç¡Ë¢¥? ¢®E¢®©­¢®¡×¢®¨Ï¢®¡×oAAo----------------------------------------------------------
+//--------ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ï¿½Ë¢ï¿½? ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½oAAo----------------------------------------------------------
 
 enum TABNUMBER
 {
@@ -1158,7 +1164,7 @@ enum TABNUMBER
 	TAB_ABILITY_NUM				= 4,	//SW051129 Pet 4->5
 	TAB_MENUSLOT_NUM			= 4,	//KES 040510
 	TAB_QITEMINVEN_NUM			= 4,
-	TAB_GUILDWAREHOUSE_NUM		= 2,		// 06.12.15 RaMa - º¹±¸³¡³ª¸é ¿ø·¡´ë·Î µÇµ¹·Á¾ß ÇÑ´Ù.
+	TAB_GUILDWAREHOUSE_NUM		= 2,		// 06.12.15 RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	//TAB_GUILDWAREHOUSE_NUM		= 5,		
 	TAB_SHOPITEM_NUM			= 5,
 	TAB_SHOPINVEN_NUM			= 2,
@@ -1216,17 +1222,17 @@ enum
 
 	SLOT_NPCINVEN_NUM			= 30,
 
-	// °ø¼º & ¿ä»õÃ¢°í
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 	SLOT_SEIGEFORTWARE_NUM		= 90,
 };
 
-// < ¢®E?¡§I¡§¡ÌA¡Ë¢çE > : taiyo
-// TP_INVENTORY_START¢®E¢®IA			¡§IoY¢®Iia¢®¡×oA = 0
-// TP_MUNPAWAREHOUSE_START¢®E¢®IA	¡§IoY¢®Iia¢®¡×oA = TP_SIMBUB_END
-// TP_MAX¢®E¢®IA						¡§IoY¢®Iia¢®¡×oA = TP_PYOGUK_END,
+// < ï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢ï¿½E > : taiyo
+// TP_INVENTORY_STARTï¿½ï¿½Eï¿½ï¿½IA			ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = 0
+// TP_MUNPAWAREHOUSE_STARTï¿½ï¿½Eï¿½ï¿½IA	ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_SIMBUB_END
+// TP_MAXï¿½ï¿½Eï¿½ï¿½IA						ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_PYOGUK_END,
 enum
 {
-	//ITEMTABLE¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ITEMTABLEï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_INVENTORY_START			= 0,
 	TP_INVENTORY_END			= TP_INVENTORY_START		+ SLOT_INVENTORY_NUM,	// 80
 	TP_WEAR_START				= TP_INVENTORY_END,									// 80
@@ -1239,7 +1245,7 @@ enum
 //	TP_QITEMINVEN_END			= TP_QITEMINVEN_START		+ SLOT_QITEMINVEN_NUM,
 //	TP_MAX						= TP_QITEMINVEN_END,
 
-	//ItemTableAI¢®E?U¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ItemTableAIï¿½ï¿½E?Uï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_MUNPAWAREHOUSE_START		= TP_PYOGUK_END,
 	TP_MUNPAWAREHOUSE_END		= TP_MUNPAWAREHOUSE_START	+ SLOT_MUNPAWAREHOUSE_NUM,
 
@@ -1282,7 +1288,7 @@ enum
 	TP_MUGONG2_START			= TP_MUGONG1_END,										// 625		// 580
 	TP_MUGONG2_END				= TP_MUGONG2_START			+ SLOT_MUGONG_NUM,			// 650		// 605
 
-	// °ø¼º & ¿ä»õ
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½
 	TP_SIEGEFORTWARE_START		= 10000,
 	TP_SIEGEFORTWARE_END		= TP_SIEGEFORTWARE_START + SLOT_SEIGEFORTWARE_NUM,			// 10090
 };
@@ -1322,17 +1328,17 @@ enum
 
 	SLOT_NPCINVEN_NUM			= 30,
 
-	// °ø¼º & ¿ä»õÃ¢°í
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 	SLOT_SEIGEFORTWARE_NUM		= 90,
 };
 
-// < ¢®E?¡§I¡§¡ÌA¡Ë¢çE > : taiyo
-// TP_INVENTORY_START¢®E¢®IA			¡§IoY¢®Iia¢®¡×oA = 0
-// TP_MUNPAWAREHOUSE_START¢®E¢®IA	¡§IoY¢®Iia¢®¡×oA = TP_SIMBUB_END
-// TP_MAX¢®E¢®IA						¡§IoY¢®Iia¢®¡×oA = TP_PYOGUK_END,
+// < ï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢ï¿½E > : taiyo
+// TP_INVENTORY_STARTï¿½ï¿½Eï¿½ï¿½IA			ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = 0
+// TP_MUNPAWAREHOUSE_STARTï¿½ï¿½Eï¿½ï¿½IA	ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_SIMBUB_END
+// TP_MAXï¿½ï¿½Eï¿½ï¿½IA						ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_PYOGUK_END,
 enum
 {
-	//ITEMTABLE¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ITEMTABLEï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_INVENTORY_START			= 0,
 	TP_INVENTORY_END			= TP_INVENTORY_START		+ SLOT_INVENTORY_NUM,	// 80
 	TP_WEAR_START				= TP_INVENTORY_END,									// 80
@@ -1345,7 +1351,7 @@ enum
 //	TP_QITEMINVEN_END			= TP_QITEMINVEN_START		+ SLOT_QITEMINVEN_NUM,
 //	TP_MAX						= TP_QITEMINVEN_END,
 
-	//ItemTableAI¢®E?U¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ItemTableAIï¿½ï¿½E?Uï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_MUNPAWAREHOUSE_START		= TP_PYOGUK_END,
 	TP_MUNPAWAREHOUSE_END		= TP_MUNPAWAREHOUSE_START	+ SLOT_MUNPAWAREHOUSE_NUM,
 
@@ -1389,7 +1395,7 @@ enum
 	TP_MUGONG2_END				= TP_MUGONG2_START			+ SLOT_MUGONG_NUM,			// 650		// 605
 
 
-	// °ø¼º & ¿ä»õ
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½
 	TP_SIEGEFORTWARE_START		= 10000,
 	TP_SIEGEFORTWARE_END		= TP_SIEGEFORTWARE_START + SLOT_SEIGEFORTWARE_NUM,			// 10090
 };
@@ -1429,17 +1435,17 @@ enum
 
 	SLOT_NPCINVEN_NUM			= 30,
 
-	// °ø¼º & ¿ä»õÃ¢°í
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 	SLOT_SEIGEFORTWARE_NUM		= 90,
 };
 
-// < ¢®E?¡§I¡§¡ÌA¡Ë¢çE > : taiyo
-// TP_INVENTORY_START¢®E¢®IA			¡§IoY¢®Iia¢®¡×oA = 0
-// TP_MUNPAWAREHOUSE_START¢®E¢®IA	¡§IoY¢®Iia¢®¡×oA = TP_SIMBUB_END
-// TP_MAX¢®E¢®IA						¡§IoY¢®Iia¢®¡×oA = TP_PYOGUK_END,
+// < ï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢ï¿½E > : taiyo
+// TP_INVENTORY_STARTï¿½ï¿½Eï¿½ï¿½IA			ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = 0
+// TP_MUNPAWAREHOUSE_STARTï¿½ï¿½Eï¿½ï¿½IA	ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_SIMBUB_END
+// TP_MAXï¿½ï¿½Eï¿½ï¿½IA						ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_PYOGUK_END,
 enum
 {
-	//ITEMTABLE¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ITEMTABLEï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_INVENTORY_START			= 0,
 	TP_INVENTORY_END			= TP_INVENTORY_START		+ SLOT_INVENTORY_NUM,	// 80
 	TP_WEAR_START				= TP_INVENTORY_END,									// 80
@@ -1452,7 +1458,7 @@ enum
 //	TP_QITEMINVEN_END			= TP_QITEMINVEN_START		+ SLOT_QITEMINVEN_NUM,
 //	TP_MAX						= TP_QITEMINVEN_END,
 
-	//ItemTableAI¢®E?U¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ItemTableAIï¿½ï¿½E?Uï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_MUNPAWAREHOUSE_START		= TP_PYOGUK_END,
 	TP_MUNPAWAREHOUSE_END		= TP_MUNPAWAREHOUSE_START	+ SLOT_MUNPAWAREHOUSE_NUM,
 
@@ -1501,7 +1507,7 @@ enum
 	TP_MUGONG2_END				= TP_MUGONG2_START			+ SLOT_MUGONG_NUM,			// 650		// 605
 
 
-	// °ø¼º & ¿ä»õ
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½
 	TP_SIEGEFORTWARE_START		= 10000,
 	TP_SIEGEFORTWARE_END		= TP_SIEGEFORTWARE_START + SLOT_SEIGEFORTWARE_NUM,			// 10090
 };
@@ -1529,11 +1535,11 @@ enum
 	SLOT_SHOPINVEN_NUM			= TAB_SHOPINVEN_NUM * TABCELL_SHOPINVEN_NUM,
 	SLOT_WEAR_SHOPITEM_NUM		= 10,
 
-	SLOT_STREETSTALL_NUM		= 25,	// ¹«°øÈ®ÀåÃ¢À¸·Î ¾´´Ù.
+	SLOT_STREETSTALL_NUM		= 25,	// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	SLOT_STREETBUYSTALL_NUM		= 5,	
 	SLOT_MUGONG_NUM				= 25,	
 	SLOT_JINBUB_NUM				= 5,		// 5
-	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+	// magi82 - Titan(070910) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	SLOT_TITAN_NUM				= 25,
 	SLOT_MUGONGTOTAL_NUM		= SLOT_MUGONG_NUM+SLOT_MUGONG_NUM+SLOT_JINBUB_NUM+SLOT_TITAN_NUM,		// 80	
 	
@@ -1546,20 +1552,20 @@ enum
 
 	SLOT_TITANSHOPITEM_NUM	= 4,
 
-	SLOT_TITANMUGONG_NUM	= 25,	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+	SLOT_TITANMUGONG_NUM	= 25,	// magi82 - Titan(070910) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-	// °ø¼º & ¿ä»õÃ¢°í
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½
 	SLOT_SEIGEFORTWARE_NUM		= 90,
 };
 
-// < ¢®E?¡§I¡§¡ÌA¡Ë¢çE > : taiyo
-// TP_INVENTORY_START¢®E¢®IA			¡§IoY¢®Iia¢®¡×oA = 0
-// TP_MUNPAWAREHOUSE_START¢®E¢®IA	¡§IoY¢®Iia¢®¡×oA = TP_SIMBUB_END
-// TP_MAX¢®E¢®IA						¡§IoY¢®Iia¢®¡×oA = TP_PYOGUK_END,
+// < ï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢ï¿½E > : taiyo
+// TP_INVENTORY_STARTï¿½ï¿½Eï¿½ï¿½IA			ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = 0
+// TP_MUNPAWAREHOUSE_STARTï¿½ï¿½Eï¿½ï¿½IA	ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_SIMBUB_END
+// TP_MAXï¿½ï¿½Eï¿½ï¿½IA						ï¿½ï¿½IoYï¿½ï¿½Iiaï¿½ï¿½ï¿½ï¿½oA = TP_PYOGUK_END,
 /*
 enum
 {
-	//ITEMTABLE¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ITEMTABLEï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_INVENTORY_START			= 0,
 	TP_INVENTORY_END			= TP_INVENTORY_START		+ SLOT_INVENTORY_NUM,	// 80
 	TP_WEAR_START				= TP_INVENTORY_END,									// 80
@@ -1568,7 +1574,7 @@ enum
 	TP_PYOGUK_START				= TP_WEAR_END,										// 90
 	TP_PYOGUK_END				= TP_PYOGUK_START			+ SLOT_PYOGUK_NUM,		// 240
 
-	//ItemTableAI¢®E?U¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ItemTableAIï¿½ï¿½E?Uï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_MUNPAWAREHOUSE_START		= TP_PYOGUK_END,										// 240
 	TP_MUNPAWAREHOUSE_END		= TP_MUNPAWAREHOUSE_START	+ SLOT_MUNPAWAREHOUSE_NUM,	// 555
 
@@ -1608,7 +1614,7 @@ enum
 */
 enum
 {
-	//ITEMTABLE¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çic¢®E?e
+	//ITEMTABLEï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½icï¿½ï¿½E?e
 	TP_INVENTORY_START			= 0,
 	TP_INVENTORY_END			= TP_INVENTORY_START		+ SLOT_INVENTORY_NUM,		// 80
 	TP_WEAR_START				= TP_INVENTORY_END,										// 80
@@ -1617,12 +1623,18 @@ enum
 	TP_PYOGUK_START				= TP_WEAR_END,											// 90
 	TP_PYOGUK_END				= TP_PYOGUK_START			+ SLOT_PYOGUK_NUM,			// 240
 
+	TP_MUNPAWAREHOUSE_START		= TP_PYOGUK_END,										// 240
+	TP_MUNPAWAREHOUSE_END		= TP_MUNPAWAREHOUSE_START	+ SLOT_MUNPAWAREHOUSE_NUM,	// 555
+
+	TP_MUGONG_START				= TP_MUNPAWAREHOUSE_END,								// 555
+	TP_MUGONG_END				= TP_MUGONG_START			+ SLOT_MUGONG_NUM,			// 580
+
 	TP_SHOPITEM_START			= TP_PYOGUK_END,										// 240
 	TP_SHOPITEM_END				= TP_SHOPITEM_START			+ SLOT_SHOPITEM_NUM,		// 390
 
 	TP_SHOPINVEN_START			= TP_SHOPITEM_END,										// 390
 	TP_SHOPINVEN_END			= TP_SHOPINVEN_START		+ SLOT_SHOPINVEN_NUM,		// 430
-	
+
 	TP_PETINVEN_START			= TP_SHOPINVEN_END,										// 430
 	TP_PETINVEN_END				= TP_PETINVEN_START			+ SLOT_PETINVEN_NUM,		// 490
 
@@ -1650,7 +1662,7 @@ enum
 	TP_JINBUB_START				= TP_MUGONG2_END,										// 650		// 490
 	TP_JINBUB_END				= TP_JINBUB_START			+ SLOT_JINBUB_NUM,			// 655		// 495
 
-	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+	// magi82 - Titan(070910) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	TP_TITANMUGONG_START		= TP_JINBUB_END,										// 655
 	TP_TITANMUGONG_END			= TP_TITANMUGONG_START		+ SLOT_TITANMUGONG_NUM,		// 680
 
@@ -1661,7 +1673,7 @@ enum
 	TP_ABILITY_END				= TP_ABILITY_START			+ SLOT_ABILITY_NUM,			// 905		// 805
 
 
-	// °ø¼º & ¿ä»õ
+	// ï¿½ï¿½ï¿½ï¿½ & ï¿½ï¿½ï¿½
 	TP_SIEGEFORTWARE_START		= 10000,
 	TP_SIEGEFORTWARE_END		= TP_SIEGEFORTWARE_START + SLOT_SEIGEFORTWARE_NUM,			// 10090
 };
@@ -1737,14 +1749,14 @@ enum EAPPEAR_PART
 	eAppearPart_Max
 };
 
-// ---- ¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡ÌA¡Ë¢çE ¢®¡×u¢®¡×¡Ë¢çAIAU AI¢®Ii|¢®¡×o¢®¡×¢®©­ ¢®¡×u¡§I¨Ï¨£d -----------------------------
+// ---- ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Aï¿½Ë¢ï¿½E ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU AIï¿½ï¿½Ii|ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½Ï¨ï¿½d -----------------------------
 #define MIN_MUGONG_INDEX		100
 #define MAX_MUGONG_INDEX		4000
 #define MIN_NAEGONG_INDEX		6000
 #define MAX_NAEGONG_INDEX		7000
 #define MIN_KYUNGGONG_INDEX		7000
 #define MAX_KYUNGGONG_INDEX		8000
-//----- ¢®¡×u¢®¡×u¢®¡×¢®©­I ¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡ÌAI¢®Ii|¢®¡×o¢®¡×¢®©­ ¢®¡×u¡§I¨Ï¨£d ----------------------------------
+//----- ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½I ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½Ii|ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½Ï¨ï¿½d ----------------------------------
 #define MIN_ATTACK_MUGONG_INDEX		100
 #define MAX_ATTACK_MUGONG_INDEX		2000
 #define MIN_DEFENSE_MUGONG_INDEX	2000
@@ -1759,7 +1771,7 @@ enum EAPPEAR_PART
 #define MAX_GRIDITEM_AREA		1000
 
 
-// ---- AI¢®¡×¢®©­¡Ë¢çI¢®¡×¡Ë¢ç¢®Ec¢®E¢®©­¢®EcA¡Ë¢çE ¢®¡×u¢®¡×¡Ë¢çAIAU AI¢®Ii|¢®¡×o¢®¡×¢®©­ ¢®¡×u¡§I¨Ï¨£d -----------------------------
+// ---- AIï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½Iï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½EcAï¿½Ë¢ï¿½E ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAU AIï¿½ï¿½Ii|ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½Ï¨ï¿½d -----------------------------
 #define MIN_YOUNGYAKITEM_INDEX	8000
 #define MAX_YOUNGYAKITEM_INDEX	9000
 #define MIN_MUGONGITEM_INDEX	9000
@@ -1786,7 +1798,7 @@ enum EAPPEAR_PART
 #define	MAX_CHANNELTITLE_LENGTH		64
 #define	MAX_PLAYROOMTITLE_LENGTH	64
 #define MAX_ITEMNAME_LENGTH			32
-#define MAX_PETNAME_LENGTH			32		//ÀÓ½Ã·Î ¼³Á¤ÇßÀ½	
+#define MAX_PETNAME_LENGTH			32		//ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 
 #define MAX_CHXNAME_LENGTH			32
 
@@ -1806,10 +1818,10 @@ enum EAPPEAR_PART
 
 #define MAX_TARGET_NUM		300
 
-//-----¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì ¡Ë¢ç¡§¢®¡§I¡§¡Ì¡Ë¢ç¡§¢®Y--------------------------------------
+//-----ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡Ë¢ç¡§ï¿½ï¿½Y--------------------------------------
 enum {GENERAL_ATTACK=0,MUGONG_ATTACK=1};
 //#define GENERAL_ATTACK_DISTANCE		200
-#define POINT_VALID_DISTANCE		3000			// 10m: ¢®¡×¡Ë¢ç¡Ë¢çAAI¢®¡×¡Ë¢ç¢®Ec E¡§Io¢®Ii¡§I¡Ë¢ç /E¡Ë¢çI ¡§Iou'
+#define POINT_VALID_DISTANCE		3000			// 10m: ï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½AAIï¿½ï¿½ï¿½×¡Ë¢ç¢®Ec Eï¿½ï¿½Ioï¿½ï¿½Iiï¿½ï¿½Iï¿½Ë¢ï¿½ /Eï¿½Ë¢ï¿½I ï¿½ï¿½Iou'
 
 
 #define REMOVEFADE_START_TIME		2500
@@ -1819,212 +1831,212 @@ enum {GENERAL_ATTACK=0,MUGONG_ATTACK=1};
 
 enum BASICEFFECT
 {
-	eEffect_NewCharacter=1,	//A¡§I¨Ï¨£¢®E¢®©­?AI ¢®IiiAa
-	eEffect_Standard,		//A¡§I¨Ï¨£¢®E¢®©­?AI ¡Ë¢ç¡§ua¢®¡×¢®©­¡Ë¢çi(¡§Io¡Ë¢çi¡Ë¢ç¡§ua¢®¡×u¡§I¡§¡ÌAI)
-	eEffect_Walk,	//¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua (¡§Io¡Ë¢çi¡Ë¢ç¡§ua ¢®¡×u¡§I¡§¡ÌAI)
-	eEffect_Run,	//¢®EOU¡Ë¢ç¡§ua (¡§Io¡Ë¢çi¡Ë¢ç¡§ua¢®¡×u¡§I¡§¡ÌAI)
-	eEffect_BattleWalk_Gum,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(¡Ë¢ç¡§¢®E_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleWalk_Gwun,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(¡Ë¢ç¡§uC¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleWalk_Do,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(¢®Ii¢®Ii_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleWalk_Chang,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(A¡Ë¢çE_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleWalk_Gung,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(¡Ë¢ç¡§uA_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleWalk_Amgi,		//AuAo ¡Ë¢ç¡§¢®E¡Ë¢ç¡§ua(¢®¡×uI¡Ë¢ç¡§ua_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Gum,		//AuAo ¢®EOU¡Ë¢ç¡§ua(¡Ë¢ç¡§¢®E_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Gwon,		//AuAo ¢®EOU¡Ë¢ç¡§ua(¡Ë¢ç¡§uC_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Do,		//AuAo ¢®EOU¡Ë¢ç¡§ua(¢®Ii¢®Ii_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Chang,		//AuAo ¢®EOU¡Ë¢ç¡§ua(A¡Ë¢çE¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Gung,		//AuAo ¢®EOU¡Ë¢ç¡§ua(¡Ë¢ç¡§uA_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_BattleRun_Amgi,		//AuAo ¢®EOU¡Ë¢ç¡§ua(¢®¡×uI¡Ë¢ç¡§ua_¡§Io¡Ë¢çi¡Ë¢ç¡§uaAaA¡§I¡§¡Ì)
-	eEffect_UngijosikStart,	//¢®E?i¡Ë¢ç¡§uav¢®¡×oA(¢®¡×uE¢®E¢®IA¢®Ii¢®E?AU)
-	eEffect_Ungijosik,	//¢®E?i¡Ë¢ç¡§uav¢®¡×oA
-	eEffect_Ungijosik_End,	//¢®E?i¡Ë¢ç¡§uav¢®¡×oA (¡§I¨Ï¨£¢®E¡Ëc¡§I¨Ï¨£¡Ë¢ç¡§IEA)
-	eEffect_UngijosikDamage,	//¢®E?i¡Ë¢ç¡§uav¢®¡×oA A¡§I¢®©­¢®E?¢®E¡Ëc ¢®Ii¡Ë¢çI¡§IoIAo
-	eEffect_StallStart,	//¡§I¨Ï¨£ea¡Ë¢çio ¢®Ii¢®E?AU1 (¢®¡×uE¡Ë¢ç¡§ua)
-	eEffect_Stall,	//¡§I¨Ï¨£ea¡Ë¢çio ¢®Ii¢®E?AU1 (¢®¡×uE¢®¡×u¢®¡×¡Ë¢ç AO¡Ë¢ç¡§ua)
-	eEffect_StallEnd,	//¡§I¨Ï¨£ea¡Ë¢çio ¢®Ii¢®E?AU1 (¢®¡×u¡Ë¢ç¡§I¡Ë¢ç¡§ua)
-	eEffect_Damage1,		//¢®Ii¡Ë¢çI¡§IoIAo1 (AA)
-	eEffect_Damage2,		//¢®Ii¡Ë¢çI¡§IoIAo2 (¢®E?i)
-	eEffect_Damage3,		//¢®Ii¡Ë¢çI¡§IoIAo3 (EA)
-	eEffect_Die1,		//A¡Ë¢ç¡Ë?= 1
-	eEffect_Died1,		//A¡Ë¢ç¡Ë?¢®¡×ui¢®¡×u¡Ë¢ç¡§I ¢®E¢®I¢®¡×I¢®E?o AO¢®E¢®IA ¢®E¢®©­¡§I¢®I¢®¡×oA 1
-	eEffect_Die2,		//A¡Ë¢ç¡Ë?= 2
-	eEffect_Died2,		//A¡Ë¢ç¡Ë?¢®¡×ui¢®¡×u¡Ë¢ç¡§I ¢®E¢®I¢®¡×I¢®E?o AO¢®E¢®IA ¢®E¢®©­¡§I¢®I¢®¡×oA 2
-	eEffect_LevelUpSentence,	//¡Ë¢ç¡Ë¢¥¡§Ii¨Ïo¢®Ei¡§u¡Ë¢ç¢®¢¯¢®¡×u¡Ë¢çA ¡Ë¢ç¡§uUAU
-	eEffect_MouseMovePoint,	//¢®E¢®©­¢®EO¢®E?i¢®¡×o¢®¡×¢®©­ AI¢®Ii¢®E?¢®¡×¡Ë¢ç¡Ë¢çAAI¢®¡×¡Ë¢ç¢®Ec
+	eEffect_NewCharacter=1,	//Aï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½?AI ï¿½ï¿½IiiAa
+	eEffect_Standard,		//Aï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½?AI ï¿½Ë¢ç¡§uaï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½i(ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI)
+	eEffect_Walk,	//ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua (ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ua ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI)
+	eEffect_Run,	//ï¿½ï¿½EOUï¿½Ë¢ç¡§ua (ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI)
+	eEffect_BattleWalk_Gum,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§ï¿½ï¿½E_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleWalk_Gwun,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§uCï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleWalk_Do,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(ï¿½ï¿½Iiï¿½ï¿½Ii_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleWalk_Chang,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(Aï¿½Ë¢ï¿½E_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleWalk_Gung,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§uA_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleWalk_Amgi,		//AuAo ï¿½Ë¢ç¡§ï¿½ï¿½Eï¿½Ë¢ç¡§ua(ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§ua_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Gum,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§ï¿½ï¿½E_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Gwon,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§uC_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Do,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(ï¿½ï¿½Iiï¿½ï¿½Ii_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Chang,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(Aï¿½Ë¢ï¿½Eï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Gung,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(ï¿½Ë¢ç¡§uA_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_BattleRun_Amgi,		//AuAo ï¿½ï¿½EOUï¿½Ë¢ç¡§ua(ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§ua_ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§uaAaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
+	eEffect_UngijosikStart,	//ï¿½ï¿½E?iï¿½Ë¢ç¡§uavï¿½ï¿½ï¿½ï¿½oA(ï¿½ï¿½ï¿½ï¿½uEï¿½ï¿½Eï¿½ï¿½IAï¿½ï¿½Iiï¿½ï¿½E?AU)
+	eEffect_Ungijosik,	//ï¿½ï¿½E?iï¿½Ë¢ç¡§uavï¿½ï¿½ï¿½ï¿½oA
+	eEffect_Ungijosik_End,	//ï¿½ï¿½E?iï¿½Ë¢ç¡§uavï¿½ï¿½ï¿½ï¿½oA (ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ç¡§IEA)
+	eEffect_UngijosikDamage,	//ï¿½ï¿½E?iï¿½Ë¢ç¡§uavï¿½ï¿½ï¿½ï¿½oA Aï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Iiï¿½Ë¢ï¿½Iï¿½ï¿½IoIAo
+	eEffect_StallStart,	//ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½Ë¢ï¿½io ï¿½ï¿½Iiï¿½ï¿½E?AU1 (ï¿½ï¿½ï¿½ï¿½uEï¿½Ë¢ç¡§ua)
+	eEffect_Stall,	//ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½Ë¢ï¿½io ï¿½ï¿½Iiï¿½ï¿½E?AU1 (ï¿½ï¿½ï¿½ï¿½uEï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½ AOï¿½Ë¢ç¡§ua)
+	eEffect_StallEnd,	//ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½Ë¢ï¿½io ï¿½ï¿½Iiï¿½ï¿½E?AU1 (ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§Iï¿½Ë¢ç¡§ua)
+	eEffect_Damage1,		//ï¿½ï¿½Iiï¿½Ë¢ï¿½Iï¿½ï¿½IoIAo1 (AA)
+	eEffect_Damage2,		//ï¿½ï¿½Iiï¿½Ë¢ï¿½Iï¿½ï¿½IoIAo2 (ï¿½ï¿½E?i)
+	eEffect_Damage3,		//ï¿½ï¿½Iiï¿½Ë¢ï¿½Iï¿½ï¿½IoIAo3 (EA)
+	eEffect_Die1,		//Aï¿½Ë¢ï¿½ï¿½?= 1
+	eEffect_Died1,		//Aï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½Eï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½E?o AOï¿½ï¿½Eï¿½ï¿½IA ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½oA 1
+	eEffect_Die2,		//Aï¿½Ë¢ï¿½ï¿½?= 2
+	eEffect_Died2,		//Aï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½Eï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½E?o AOï¿½ï¿½Eï¿½ï¿½IA ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½oA 2
+	eEffect_LevelUpSentence,	//ï¿½Ë¢ï¿½Ë¢ï¿½ï¿½ï¿½Iiï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½Ë¢ç¢®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ï¿½A ï¿½Ë¢ç¡§uUAU
+	eEffect_MouseMovePoint,	//ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½EOï¿½ï¿½E?iï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ AIï¿½ï¿½Iiï¿½ï¿½E?ï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½AAIï¿½ï¿½ï¿½×¡Ë¢ç¢®Ec
 	
-	eEffect_GetMoney = 28,	// ¢®E¢®©­¡Ë¢çAA¡Ë¢ç¡Ë?¢®E?¢®¡×I¢®¡×u¡Ë¢ç¡§I ¢®Ii¡Ë¢ç¡Ë¢¥ ¢®¡×uo¡Ë¢ç¡§ua
-	eEffect_GetItem_Accessory = 30,	// ¢®E¢®©­¡Ë¢çAA¡Ë¢ç¡Ë?¢®E?¢®¡×I¢®¡×u¡Ë¢ç¡§I ¢®¡×u¢®¡×¡Ë¢çAIA¢®¡×¡Ë¢ç ¢®¡×uo¡Ë¢ç¡§ua
+	eEffect_GetMoney = 28,	// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½AAï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½E?ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½Iiï¿½Ë¢ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½uoï¿½Ë¢ç¡§ua
+	eEffect_GetItem_Accessory = 30,	// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½AAï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½E?ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½AIAï¿½ï¿½ï¿½×¡Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½uoï¿½Ë¢ç¡§ua
 
-	eEffect_Emoticon_Bow,	//AI¡Ë¢çic
-	eEffect_Emoticon_Thanks,	//¡Ë¢ç¡§¢®¡Ë¢ç¢®¡¿¡Ë¢çic
-	eEffect_Emoticon_Yes,	//¡Ë¢ç¡§uad 
-	eEffect_Emoticon_No,	//¢®¡×¢®©­Id
-	eEffect_Emoticon_Pleasure,	//¡Ë¢ç¡§ua¡Ë¢çiY
-	eEffect_Emoticon_Sadness,	//¢®¡×o¢®¡×oCA
-	eEffect_Emoticon_Love,	//¡Ë¢çic¢®EOu
-	eEffect_Emoticon_Hostility,	//Au¢®E¢®Ie
-	eEffect_Emoticon_Disappoint,	//¢®¡×oC¢®E¢®©­A
-	eEffect_Emoticon_Angry,	//¢®¡×¢®©­¢®¡×¢®E¡§I¨Ï¨£e
-	eEffect_Emoticon_Suprised,	//¡§I¨Ï¨£i¢®EO¡Ë¢çA
-	eEffect_Emoticon_Evasion,	//E¢®E¢®©­CC
-	eEffect_Emoticon_Declare,	//¢®¡×u¡Ë¢ç¡§u¢®¡×u¡§I¢®I
-	eEffect_Defence_Gum,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¡Ë¢ç¡§¢®E)
-	eEffect_Defence_Gwun,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¡Ë¢ç¡§uC)
-	eEffect_Defence_Do,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¢®Ii¢®Ii)
-	eEffect_Defence_Chang,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(A¡Ë¢çE)
-	eEffect_Defence_Gung,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¡Ë¢ç¡§uA)
-	eEffect_Defence_Amgi,		//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¢®¡×uI¡Ë¢ç¡§ua)
+	eEffect_Emoticon_Bow,	//AIï¿½Ë¢ï¿½ic
+	eEffect_Emoticon_Thanks,	//ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ç¢®ï¿½ï¿½ï¿½Ë¢ï¿½ic
+	eEffect_Emoticon_Yes,	//ï¿½Ë¢ç¡§uad 
+	eEffect_Emoticon_No,	//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Id
+	eEffect_Emoticon_Pleasure,	//ï¿½Ë¢ç¡§uaï¿½Ë¢ï¿½iY
+	eEffect_Emoticon_Sadness,	//ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½oCA
+	eEffect_Emoticon_Love,	//ï¿½Ë¢ï¿½icï¿½ï¿½EOu
+	eEffect_Emoticon_Hostility,	//Auï¿½ï¿½Eï¿½ï¿½Ie
+	eEffect_Emoticon_Disappoint,	//ï¿½ï¿½ï¿½ï¿½oCï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½A
+	eEffect_Emoticon_Angry,	//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½Eï¿½ï¿½Iï¿½Ï¨ï¿½e
+	eEffect_Emoticon_Suprised,	//ï¿½ï¿½Iï¿½Ï¨ï¿½iï¿½ï¿½EOï¿½Ë¢ï¿½A
+	eEffect_Emoticon_Evasion,	//Eï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½CC
+	eEffect_Emoticon_Declare,	//ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½I
+	eEffect_Defence_Gum,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½Ë¢ç¡§ï¿½ï¿½E)
+	eEffect_Defence_Gwun,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½Ë¢ç¡§uC)
+	eEffect_Defence_Do,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½ï¿½Iiï¿½ï¿½Ii)
+	eEffect_Defence_Chang,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(Aï¿½Ë¢ï¿½E)
+	eEffect_Defence_Gung,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½Ë¢ç¡§uA)
+	eEffect_Defence_Amgi,		//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§ua)
 
-	eEffect_Mugong_GetMugong = 68,		// ¹«°ø È¹µæ
-	eEffect_UseItem_LifeYoungYak = 70,	// »ý¸í·Â È¸º¹
+	eEffect_Mugong_GetMugong = 68,		// ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_UseItem_LifeYoungYak = 70,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 	eEffect_UseItem_ManaYoungYak,
-	eEffect_GetItem_Weapon,				//¡§Ii¨Ïo|i¢®¨ú¢®¡×ui¢®Ii¢®E?AU(¢®¡×uI¡Ë¢ç¡§ua)
+	eEffect_GetItem_Weapon,				//ï¿½ï¿½Iiï¿½ï¿½o|iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½Iiï¿½ï¿½E?AU(ï¿½ï¿½ï¿½ï¿½uIï¿½Ë¢ç¡§ua)
 	eEffect_GetItem_Dress,
 	eEffect_GetItem_Quest,
 	eEffect_GetItem_Youngyak,
-	// magi82(4) - Titan(071023) Å¸ÀÌÅºÀÏ¶§ ÀÌÆåÆ® Ã³¸®(enum°ª ¼ÂÆÃ)
-	eEffect_Mugong_ChangeMugong,		// ÀýÃÊ¹«°ø È¹µæ
-	eEffect_UseItem_HosinYoungYak,		// ÀýÃÊ¹«°ø È¹µæ
-	eEffect_UseItem_FullYoungYak,		// ¿ÏÀüÈ¸º¹¹°¾à »ç¿ë
+	// magi82(4) - Titan(071023) Å¸ï¿½ï¿½Åºï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½(enumï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	eEffect_Mugong_ChangeMugong,		// ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_UseItem_HosinYoungYak,		// ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_UseItem_FullYoungYak,		// ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 	eEffect_MonRegen = 80,
-	eEffect_PK_LootExp,					// PK ·çÆÃ °æÇèÄ¡
+	eEffect_PK_LootExp,					// PK ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 	eEffect_ChangeStage_Hwa = 98,
 	eEffect_ChangeStage_Geuk = 99,
 
-	eEffect_KyungGong1 = 200,			// °æ°ø1
-	eEffect_KyungGong2 = 203,			// °æ°ø2
-	eEffect_KyungGong3 = 206,			// °æ°ø3
-	eEffect_Jackpot = 1034,				// ÀíÆÌ´çÃ·
+	eEffect_KyungGong1 = 200,			// ï¿½ï¿½ï¿½1
+	eEffect_KyungGong2 = 203,			// ï¿½ï¿½ï¿½2
+	eEffect_KyungGong3 = 206,			// ï¿½ï¿½ï¿½3
+	eEffect_Jackpot = 1034,				// ï¿½ï¿½ï¿½Ì´ï¿½Ã·
 
-	eEffect_PetSummon = 3151,			// Æê¼ÒÈ¯
-	eEffect_PetSeal		= 3152,			// ÆêºÀÀÎ
-	eEffect_FeedUp		= 3153,			// Æê¸ÔÀÌ
-	eEffect_PetWarp		= 3154,			// Æê¿öÇÁ
+	eEffect_PetSummon = 3151,			// ï¿½ï¿½ï¿½È¯
+	eEffect_PetSeal		= 3152,			// ï¿½ï¿½ï¿½ï¿½ï¿½
+	eEffect_FeedUp		= 3153,			// ï¿½ï¿½ï¿½ï¿½ï¿½
+	eEffect_PetWarp		= 3154,			// ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	eEffect_ShopItem_Life = 3200,		// ±ÝÃ¢¾à	
-	eEffect_ShopItem_Shield,			// Á×¿±Ã»	
-	eEffect_ShopItem_NaeRuyk,			// ¿ä»ó´Ü	
-	eEffect_ShopItem_Revive,			// ºÎÈ°ÁÖ¹®¼­
-	eEffect_ShopItem_Boom1,				// ÆøÁ×(³ªºñ)
-	eEffect_ShopItem_Boom2,				// ÆøÁ×(º°)
-	eEffect_ShopItem_Hair1,				// °¡¹ß1	
-	eEffect_ShopItem_Hair2,				// °¡¹ß2	
-	eEffect_ShopItem_Hair3,				// °¡¹ß3	
-	eEffect_ShopItem_Teleport1,			// ÅÚ·¹Æ÷Æ®1
-	eEffect_ShopItem_Teleport2,			// ÅÚ·¹Æ÷Æ®2
-	eEffect_ShopItem_Teleport3,			// ÅÚ·¹Æ÷Æ®3
-	eEffect_ShopItem_MaxLife,			// »ý¸íÀÇ ¹°¾à
-	eEffect_ShopItem_MaxShield,			// È£½Å°­±âÀÇ ¹°¾à
-	eEffect_ShopItem_MaxNaeRuyk,		// ³»·ÂÀÇ ¹°¾à
+	eEffect_ShopItem_Life = 3200,		// ï¿½ï¿½Ã¢ï¿½ï¿½	
+	eEffect_ShopItem_Shield,			// ï¿½×¿ï¿½Ã»	
+	eEffect_ShopItem_NaeRuyk,			// ï¿½ï¿½ï¿½ï¿½	
+	eEffect_ShopItem_Revive,			// ï¿½ï¿½È°ï¿½Ö¹ï¿½ï¿½ï¿½
+	eEffect_ShopItem_Boom1,				// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	eEffect_ShopItem_Boom2,				// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½)
+	eEffect_ShopItem_Hair1,				// ï¿½ï¿½ï¿½ï¿½1	
+	eEffect_ShopItem_Hair2,				// ï¿½ï¿½ï¿½ï¿½2	
+	eEffect_ShopItem_Hair3,				// ï¿½ï¿½ï¿½ï¿½3	
+	eEffect_ShopItem_Teleport1,			// ï¿½Ú·ï¿½ï¿½ï¿½Æ®1
+	eEffect_ShopItem_Teleport2,			// ï¿½Ú·ï¿½ï¿½ï¿½Æ®2
+	eEffect_ShopItem_Teleport3,			// ï¿½Ú·ï¿½ï¿½ï¿½Æ®3
+	eEffect_ShopItem_MaxLife,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eEffect_ShopItem_MaxShield,			// È£ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eEffect_ShopItem_MaxNaeRuyk,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	eEffect_Titan_Damage1 = 3264,		// Å¸ÀÌÅº µ¥¹ÌÁö1
-	eEffect_Titan_Damage2,				// Å¸ÀÌÅº µ¥¹ÌÁö2
-	eEffect_Titan_Damage3,				// Å¸ÀÌÅº µ¥¹ÌÁö3
-	eEffect_Titan_GetMoney = 3268,		// Å¸ÀÌÅº µ· È¹µæ
-	eEffect_Titan_GetItem_Accessory = 3270,	// Å¸ÀÌÅº ¾Ç¼¼»ç¸®¾ÆÀÌÅÛ È¹µæ
-	eEffect_TitanLevelUpSentence,			// Å¸ÀÌÅº ¹«°ø·¹º§¾÷
-	eEffect_Titan_GetMugong = 3308,		// Å¸ÀÌÅº ¹«°ø È¹µæ
-	eEffect_Titan_UseItem_LifeYoungYak = 3310,	// Å¸ÀÌÅº »ý¸í·ÂÈ¸º¹¹°¾à »ç¿ë
-	eEffect_Titan_UseItem_ManaYoungYak,			// Å¸ÀÌÅº ³»·ÂÈ¸º¹¹°¾à »ç¿ë
-	eEffect_Titan_GetItem_Weapon,				// Å¸ÀÌÅº ¹«±â¾ÆÀÌÅÛ È¹µæ
-	eEffect_Titan_GetItem_Dress,			// Å¸ÀÌÅº ¹æ¾î±¸¾ÆÀÌÅÛ È¹µæ
-	eEffect_Titan_GetItem_Quest,			// Å¸ÀÌÅº Äù½ºÆ®¾ÆÀÌÅÛ È¹µæ
-	eEffect_Titan_GetItem_Youngyak,			// Å¸ÀÌÅº ¿µ¾à¾ÆÀÌÅÛ È¹µæ
-	eEffect_Titan_ChangeMugong,				// Å¸ÀÌÅº ÀýÃÊ¹«°ø È¹µæ
-	eEffect_Titan_UseItem_HosinYoungYak,	// Å¸ÀÌÅº È£½Å°­±âÈ¸º¹¹°¾à »ç¿ë
-	eEffect_Titan_UseItem_FullYoungYak,	// Å¸ÀÌÅº ¿ÏÀüÈ¸º¹¹°¾à »ç¿ë
-	eEffect_Titan_PK_LootExp,			// Å¸ÀÌÅº pk ·çÆÃ °æÇèÄ¡
+	eEffect_Titan_Damage1 = 3264,		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	eEffect_Titan_Damage2,				// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	eEffect_Titan_Damage3,				// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	eEffect_Titan_GetMoney = 3268,		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_GetItem_Accessory = 3270,	// Å¸ï¿½ï¿½Åº ï¿½Ç¼ï¿½ï¿½ç¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_TitanLevelUpSentence,			// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eEffect_Titan_GetMugong = 3308,		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_UseItem_LifeYoungYak = 3310,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eEffect_Titan_UseItem_ManaYoungYak,			// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eEffect_Titan_GetItem_Weapon,				// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_GetItem_Dress,			// Å¸ï¿½ï¿½Åº ï¿½ï¿½î±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_GetItem_Quest,			// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_GetItem_Youngyak,			// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_ChangeMugong,				// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
+	eEffect_Titan_UseItem_HosinYoungYak,	// Å¸ï¿½ï¿½Åº È£ï¿½Å°ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eEffect_Titan_UseItem_FullYoungYak,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eEffect_Titan_PK_LootExp,			// Å¸ï¿½ï¿½Åº pk ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
 
-	eEffect_Titan_RideIn = 3624,		// Å¸ÀÌÅº ¼ÒÈ¯
+	eEffect_Titan_RideIn = 3624,		// Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯
 	eEffect_Titan_GetOff,
 	eEffect_Titan_ForcedGetOff,
 
-	eEffect_Titan_KyungGong1 = 3629,	// Å¸ÀÌÅº °æ°ø1
-	eEffect_Titan_KyungGong2 = 3632,	// Å¸ÀÌÅº °æ°ø2
-	eEffect_Titan_KyungGong3 = 3635,	// Å¸ÀÌÅº °æ°ø3
+	eEffect_Titan_KyungGong1 = 3629,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½1
+	eEffect_Titan_KyungGong2 = 3632,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½2
+	eEffect_Titan_KyungGong3 = 3635,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½3
 
-	eEffect_Titan_Shop_KyungGong1 = 3671,	// Å¸ÀÌÅº °æ°ø1(¼¥¾ÆÀÌÅÛ Âø¿ë½Ã)
-	eEffect_Titan_Shop_KyungGong2 = 3673,	// Å¸ÀÌÅº °æ°ø2(¼¥¾ÆÀÌÅÛ Âø¿ë½Ã)
-	eEffect_Titan_Shop_KyungGong3 = 3675,	// Å¸ÀÌÅº °æ°ø3(¼¥¾ÆÀÌÅÛ Âø¿ë½Ã)
+	eEffect_Titan_Shop_KyungGong1 = 3671,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½1(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
+	eEffect_Titan_Shop_KyungGong2 = 3673,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
+	eEffect_Titan_Shop_KyungGong3 = 3675,	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½3(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
 };
 
 
-// ¢®E¢®©­E AI¢®E¢®©­¡Ë¢ç¢®¢¯ ¢®¡×u¡Ë¢ç¡§u¢®¡×u¡§I¢®I
+// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½E AIï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¢®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½I
 enum
 {
-	bukkyung = 1,	//¢®¡×¢®©­I¡Ë¢ç¡§¢®¡§I¡Ë¢ç				bukkyung
-	taesan,			//AA¡Ë¢çie				taesan
-	namdae,			//¡§I¨Ï¨£¡§I¢®A¢®E¢®IeCI			namdae
-	sanhea,			//¢®E¢®©­¢®E¢®©­¢®E¢®©­¢®EcAa¢®¡×u¢®¡×¢®©­			sanhea
-	nakyang_siege,		//¡Ë¢ç¡§¢®¡§I¡§¡Ì¡§Io|				nakyang_siege
-	nakyang,		//¡§I¨Ï¨£¡Ë¢çi¢®¡×uc				nakyang
-	gaebong,		//¡Ë¢ç¡§¢®¡§I¨Ï¨£¢®¡×¢®©­A				gaebong
+	bukkyung = 1,	//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ï¿½				bukkyung
+	taesan,			//AAï¿½Ë¢ï¿½ie				taesan
+	namdae,			//ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Iï¿½ï¿½Aï¿½ï¿½Eï¿½ï¿½IeCI			namdae
+	sanhea,			//ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½EcAaï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½			sanhea
+	nakyang_siege,		//ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡ï¿½Io|				nakyang_siege
+	nakyang,		//ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½ï¿½ï¿½ï¿½uc				nakyang
+	gaebong,		//ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½A				gaebong
 	jungju,			//dAO				jungju
-	hoangsan,		//E¡§I¢®A¡Ë¢çie				hoangsan
-	sungsan,		//¢®¡×uO¢®E¢®©­¡§I¢®A¡Ë¢çic			sungsan
+	hoangsan,		//Eï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ï¿½ie				hoangsan
+	sungsan,		//ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ï¿½ic			sungsan
 
-	youngmun,		//¢®E?e¡§Io¢®Ec¢®¡×u¢®Ec¡Ë¢ç¡§u¢®¡×u			youngmun
-	jangan,			//Aa¢®¡×uE				jangan
-	hoajung,		//E¡Ë¢ç¡§IA¡Ë¢çiAo			hoajung
-	malijangsung,			//¢®E¢®Ie¢®¡×uEA¢®¡×u			malijangsung
-	jisi,			//A¡§I¡§¡Ì¢®¡×oAE¡§Ii¡§o?i¡§u¢®¡×¢®I			jisi
-	gaebong_siege,		//¡Ë¢ç¡§¢®C¢®E¢®©­¢®¡×¢®I				gaebong_siege
-	nanju,			//¡§I¨Ï¨£¡Ë¢ç¡§IAO				nanju
-	donhoang_night,		//¢®Ii¡Ë¢ç¡Ë¢¥E¡§I¢®A				donhoang
-	okmun,			//¢®E?y¢®Ec¡Ë¢ç¡§¢®u			okmun
-	myungsa,		//¢®E¢®©­i¢®¡×u¢®¡×¡Ë¢ç¡Ë¢çie			myungsa
+	youngmun,		//ï¿½ï¿½E?eï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Ecï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½u			youngmun
+	jangan,			//Aaï¿½ï¿½ï¿½ï¿½uE				jangan
+	hoajung,		//Eï¿½Ë¢ç¡§IAï¿½Ë¢ï¿½iAo			hoajung
+	malijangsung,			//ï¿½ï¿½Eï¿½ï¿½Ieï¿½ï¿½ï¿½ï¿½uEAï¿½ï¿½ï¿½ï¿½u			malijangsung
+	jisi,			//Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½oAEï¿½ï¿½Iiï¿½ï¿½o?iï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½I			jisi
+	gaebong_siege,		//ï¿½Ë¢ç¡§ï¿½ï¿½Cï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½I				gaebong_siege
+	nanju,			//ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ç¡§IAO				nanju
+	donhoang_night,		//ï¿½ï¿½Iiï¿½Ë¢ï¿½Ë¢ï¿½Eï¿½ï¿½Iï¿½ï¿½A				donhoang
+	okmun,			//ï¿½ï¿½E?yï¿½ï¿½Ecï¿½Ë¢ç¡§ï¿½ï¿½u			okmun
+	myungsa,		//ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½ie			myungsa
 
 	hyungju,		//CuAO				hyungju
-	makgogul2F,		//¢®¡×uc¢®¡×uc				makgogul2F
-	jangsa,			//Aa¡Ë¢çic				jangsa
-	bukkyung_siege,		//Au¢®¡×¢®©­¢®Ec				bukkyung_siege
-	dongjung,		//¢®Ii¢®E?dE¡Ë¢çI			dongjung
-	akyang,			//¢®¡×uC¢®¡×uc¡Ë¢ç¡Ë¢¥c			akyang
-	hangju,			//C¡Ë¢ç¡Ë?AO				hangju
-	Tournament,			//¢®¡×uOAO				Tournament
-	sangju,			//¡Ë¢çioAO				sangju
-	hogu,			//E¡Ë¢çI¡Ë¢ç¡§u¢®E¢®©­				hogu
+	makgogul2F,		//ï¿½ï¿½ï¿½ï¿½ucï¿½ï¿½ï¿½ï¿½uc				makgogul2F
+	jangsa,			//Aaï¿½Ë¢ï¿½ic				jangsa
+	bukkyung_siege,		//Auï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Ec				bukkyung_siege
+	dongjung,		//ï¿½ï¿½Iiï¿½ï¿½E?dEï¿½Ë¢ï¿½I			dongjung
+	akyang,			//ï¿½ï¿½ï¿½ï¿½uCï¿½ï¿½ï¿½ï¿½ucï¿½Ë¢ï¿½Ë¢ï¿½c			akyang
+	hangju,			//Cï¿½Ë¢ï¿½ï¿½?AO				hangju
+	Tournament,			//ï¿½ï¿½ï¿½ï¿½uOAO				Tournament
+	sangju,			//ï¿½Ë¢ï¿½ioAO				sangju
+	hogu,			//Eï¿½Ë¢ï¿½Iï¿½Ë¢ç¡§uï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½				hogu
 
-	bota,			//¢®¡×¢®©­¢®E¢®©­A¢®E¢®©­¡Ë¢çie			bota
-	hopo,			//E¡Ë¢çI¢®¡×¡Ë¢ç¡Ë¢çA				hopo
-	PKEVENTMAP,			//¢®¡×u¢®¡×¢®©­¢®Ii¢®Ii				sungdo
-	ami,			//¢®¡×u¢®¡×¡Ë¢ç¡§IoI¡Ë¢çie			ami
-	hoangha,		//E¡§I¢®ACI				hoangha
-	sunyung,		//¢®¡×u¡Ë¢ç¡§I¡§I¨Ï¨£c				sunyung
-	guul,			//¡Ë¢ç¡§¢®A¢®¡×uo¡§Io¡Ë¢çi			guul
-	hanbing,		//CN¢®¡×¢®©­uA¢®Ii¡§I¨Ï¨£a¡Ë¢ç¡§uA		hanbing
-	gonryun,		//¡Ë¢ç¡§¢®i¡Ë¢ç¡Ë¢¥u¡Ë¢çie			gonryun
-	tabi,			//A¢®¡×uAI¡Ë¢çic			tabi
+	bota,			//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ie			bota
+	hopo,			//Eï¿½Ë¢ï¿½Iï¿½ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½A				hopo
+	PKEVENTMAP,			//ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Iiï¿½ï¿½Ii				sungdo
+	ami,			//ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¡§IoIï¿½Ë¢ï¿½ie			ami
+	hoangha,		//Eï¿½ï¿½Iï¿½ï¿½ACI				hoangha
+	sunyung,		//ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§Iï¿½ï¿½Iï¿½Ï¨ï¿½c				sunyung
+	guul,			//ï¿½Ë¢ç¡§ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½uoï¿½ï¿½Ioï¿½Ë¢ï¿½i			guul
+	hanbing,		//CNï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½uAï¿½ï¿½Iiï¿½ï¿½Iï¿½Ï¨ï¿½aï¿½Ë¢ç¡§uA		hanbing
+	gonryun,		//ï¿½Ë¢ç¡§ï¿½ï¿½iï¿½Ë¢ï¿½Ë¢ï¿½uï¿½Ë¢ï¿½ie			gonryun
+	tabi,			//Aï¿½ï¿½ï¿½ï¿½uAIï¿½Ë¢ï¿½ic			tabi
 
-	hohwa,			//E¡Ë¢çIE¡Ë¢ç¡§IE¡Ë¢çI¢®¡×¡Ë¢ç?			hohwa
-	//ordos,			//¢®E?8¡Ë¢çI¢®Ii¢®Ii¢®¡×o¢®¡×¢®©­			ordos
+	hohwa,			//Eï¿½Ë¢ï¿½IEï¿½Ë¢ç¡§IEï¿½Ë¢ï¿½Iï¿½ï¿½ï¿½×¡Ë¢ï¿½?			hohwa
+	//ordos,			//ï¿½ï¿½E?8ï¿½Ë¢ï¿½Iï¿½ï¿½Iiï¿½ï¿½Iiï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½			ordos
 	SURVIVALMAP = 42,
-	daehung,		//¢®E¢®IeEi¢®¡×uE¡Ë¢ç¡Ë¢¥E			daehung
-	kan,			//A¢®E¡Ëc¡Ë¢ç¡§ua¢®¡×o¢®¡×¢®©­A¡Ë¢ç¡§IAC¢®E¢®IE		kan
-	uru,			//¢®E?i¡Ë¢ç¡Ë¢¥c¡§Io¡Ë¢çiA¢®E¡Ëc			uru
-	hwayuam,		//E¡Ë¢ç¡§I¢®E?¡Ë¢ç¡§¢®¡Ë¢çie			hwayuam
-	bokju,			//¢®¡×¢®©­¡§IoAO				bokju
-	dwang,			//¢®Iii¢®E?O¡Ë¢ç¡§¢®¡Ë¢çE			dwang
-	dery,			//¢®E¢®Ie¢®E¢®©­¢®Ec¢®¡×¢®©­¡Ë¢çi¢®¡×u¢®¡×¢®©­			dery
-	samtop,			//¡Ë¢çiiA¢®¡×u¡Ë¢çic			samtop
+	daehung,		//ï¿½ï¿½Eï¿½ï¿½IeEiï¿½ï¿½ï¿½ï¿½uEï¿½Ë¢ï¿½Ë¢ï¿½E			daehung
+	kan,			//Aï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ç¡§uaï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Aï¿½Ë¢ç¡§IACï¿½ï¿½Eï¿½ï¿½IE		kan
+	uru,			//ï¿½ï¿½E?iï¿½Ë¢ï¿½Ë¢ï¿½cï¿½ï¿½Ioï¿½Ë¢ï¿½iAï¿½ï¿½Eï¿½ï¿½c			uru
+	hwayuam,		//Eï¿½Ë¢ç¡§Iï¿½ï¿½E?ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½ie			hwayuam
+	bokju,			//ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½IoAO				bokju
+	dwang,			//ï¿½ï¿½Iiiï¿½ï¿½E?Oï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½E			dwang
+	dery,			//ï¿½ï¿½Eï¿½ï¿½Ieï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½			dery
+	samtop,			//ï¿½Ë¢ï¿½iiAï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ï¿½ic			samtop
 
-	aesan,			//¢®¡×uO¡Ë¢ç¡Ë¢¥U¡Ë¢çie			aesan
-	sussang,		//¢®¡×u¡Ë¢ç¡§I¢®¡×oO¢®¡×¡Ë¢çC¡§I¨Ï¨£¡§I¨Ï¨£			sussang
-	whangkua,		//E¡§I¢®A¡Ë¢ç¡§¢®u¢®¡×uo¢®¡×¡Ë¢ç¡§I¡§¡Ì¢®¡×¡Ë¢ç¡Ë¢çA		whangkua
-	gooknae,		//¡Ë¢ç¡§u¡§Io¡§I¨Ï¨£¡Ë¢çi¢®¡×u¢®¡×¢®©­			gooknae
-	jangbeak,		//Aa¡§Ioe¢®¡×¡Ë¢ç¡§I¡§¡Ì¢®¡×¡Ë¢ç¡Ë¢çA			jangbeak
-	janggun,		//Aa¡Ë¢ç¡§u¢®¡×¢®©­AN			janggun
-	sangkyung,		//¡Ë¢çio¡Ë¢ç¡§¢®¡§I¡Ë¢ç¢®E?eA¢®Ii¢®¡×¢®©­I		sangkyung
-	dongkyung,		//¢®Ii¢®E?¡Ë¢ç¡§¢®¡§I¡Ë¢ç¢®E?e¢®E?¡§I¡§¡Ì¢®¡×¢®©­I		dongkyung
-	jisi_mid,		//A¡§I¡§¡Ì¢®¡×oAE¡§Ii¡§o?i¡§u¢®¡×¢®IA¡§I¢®©­¢®¡×oE¢®¡×¢®©­I	jisi_mid
+	aesan,			//ï¿½ï¿½ï¿½ï¿½uOï¿½Ë¢ï¿½Ë¢ï¿½Uï¿½Ë¢ï¿½ie			aesan
+	sussang,		//ï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§Iï¿½ï¿½ï¿½ï¿½oOï¿½ï¿½ï¿½×¡Ë¢ï¿½Cï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½			sussang
+	whangkua,		//Eï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ç¡§ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½uoï¿½ï¿½ï¿½×¡Ë¢ç¡§Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½A		whangkua
+	gooknae,		//ï¿½Ë¢ç¡§uï¿½ï¿½Ioï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ï¿½iï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½			gooknae
+	jangbeak,		//Aaï¿½ï¿½Ioeï¿½ï¿½ï¿½×¡Ë¢ç¡§Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½×¡Ë¢ï¿½Ë¢ï¿½A			jangbeak
+	janggun,		//Aaï¿½Ë¢ç¡§uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½AN			janggun
+	sangkyung,		//ï¿½Ë¢ï¿½ioï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ç¢®E?eAï¿½ï¿½Iiï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½I		sangkyung
+	dongkyung,		//ï¿½ï¿½Iiï¿½ï¿½E?ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ë¢ç¢®E?eï¿½ï¿½E?ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½I		dongkyung
+	jisi_mid,		//Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½oAEï¿½ï¿½Iiï¿½ï¿½o?iï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½IAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oEï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½I	jisi_mid
 
 	//SURVIVALMAP = 42,
 	wallachun = 60,
 	RUNNINGMAP = 61,
 	jangan_siege = 62,
 	hoangha2	= 64,
-	donhoang_day=65,		//A¡§I¡§¡Ì¢®¡×oAE¡§Ii¡§o?i¡§u¢®¡×¢®IA¡§I¢®©­¢®¡×oE¢®¡×¢®©­I	donhoang_day
+	donhoang_day=65,		//Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½oAEï¿½ï¿½Iiï¿½ï¿½o?iï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½IAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oEï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½I	donhoang_day
 	
 	hwanghajubyun=66,
 	yongmunibgu = 67,
@@ -2044,7 +2056,7 @@ enum
 	TITANMAP_TRAVOK	= 102,
 	TITANMAP_GODDNESS = 104,
 	TITANMAP_RWAIN = 105,
-	//ÕâÀïÈ±Ê§²»ÉÙµØÍ¼
+	//ï¿½ï¿½ï¿½ï¿½È±Ê§ï¿½ï¿½ï¿½Ùµï¿½Í¼
 	TITANMAP_Central_Plain = 106,
 
 	Nandaihe = 108,
@@ -2057,39 +2069,39 @@ enum
 
 enum EObjectState
 {
-	eObjectState_None,						// ¢®¡×u¢®¡×¡Ë¢ç¡§Io¡Ë¢çi¡Ë¢çioAA ¢®¡×u¢®¡×¡Ë¢ç¢®E¢®IO..
-	eObjectState_Enter,						// A¡§I¨Ï¨£¢®E¢®©­?AI¡§I¨Ï¨£¢®¡×¢®I ¢®E¢®©­o¢®¡×o¢®¡×¢®©­AI¡Ë¢ç¡§¢®¢®E¡Ëc A¡§I¨Ï¨£= ¢®IiiAaCO¢®EO¡Ë¢ç¢®¢¯ AC ¡Ë¢çioAA
-	eObjectState_Move,						// AAC¡Ë¢çI AI¢®Ii¢®E? ¡Ë¢çioAA
-	eObjectState_Ungijosik,					// ¢®E?i¡Ë¢ç¡§ua ¡Ë¢çioAA
-	eObjectState_Tactic,					// A¡§I¡§¡Ì¡§Ioy ¢®¡×oAAu ¡Ë¢çioAA
-	eObjectState_Rest,						// ¢®E¢®©­o¢®¡×o¢®¡×¢®©­AIAC E¢®¡×¢®¨Ï¢®¡×oA ¡Ë¢çioAA
+	eObjectState_None,						// ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¡§Ioï¿½Ë¢ï¿½iï¿½Ë¢ï¿½ioAA ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Eï¿½ï¿½IO..
+	eObjectState_Enter,						// Aï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½?AIï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½ï¿½×¢ï¿½I ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½AIï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½c Aï¿½ï¿½Iï¿½Ï¨ï¿½= ï¿½ï¿½IiiAaCOï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½ AC ï¿½Ë¢ï¿½ioAA
+	eObjectState_Move,						// AACï¿½Ë¢ï¿½I AIï¿½ï¿½Iiï¿½ï¿½E? ï¿½Ë¢ï¿½ioAA
+	eObjectState_Ungijosik,					// ï¿½ï¿½E?iï¿½Ë¢ç¡§ua ï¿½Ë¢ï¿½ioAA
+	eObjectState_Tactic,					// Aï¿½ï¿½Iï¿½ï¿½ï¿½Ì¡ï¿½Ioy ï¿½ï¿½ï¿½ï¿½oAAu ï¿½Ë¢ï¿½ioAA
+	eObjectState_Rest,						// ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½AIAC Eï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½oA ï¿½Ë¢ï¿½ioAA
 	
-//	eObjectState_Speech,					// Npc¢®E?I ¢®E¢®IeE¡Ë¢ç¡§I ¡Ë¢çioAA
-	eObjectState_Deal,						// ¡Ë¢çioa Open ¡Ë¢çioAA
+//	eObjectState_Speech,					// Npcï¿½ï¿½E?I ï¿½ï¿½Eï¿½ï¿½IeEï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½ioAA
+	eObjectState_Deal,						// ï¿½Ë¢ï¿½ioa Open ï¿½Ë¢ï¿½ioAA
 
-	eObjectState_Exchange,					// ¡Ë¢ç¡§u¡§I¨Ï¨£E? ¡Ë¢çioAA
-	eObjectState_StreetStall_Owner,			// ¡§I¨Ï¨£ea¡Ë¢çio Open ¡Ë¢çioAA
-	eObjectState_StreetStall_Guest,			// ¡§I¨Ï¨£ea¡Ë¢çio ¢®¡×uO¢®E¢®IO ¡Ë¢çioAA
-	eObjectState_PrivateWarehouse,			// ¡Ë¢ç¡§¢®¡§I¨Ï¨£AIA¡Ë¢çE¡Ë¢ç¡§¢®i 10
-	eObjectState_Munpa,						//¡§Io¢®Ec¢®¡×¡Ë¢çA ¢®E¢®©­¢®Ec¢®¡×i¨Ïo¢®Ei¡§u¢®¡×¡Ë¢ç¢®Ec¡§I¨Ï¨£¢®¡×¢®I ¡§Io¢®Ec¢®¡×¡Ë¢çAA¡Ë¢çE
+	eObjectState_Exchange,					// ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E? ï¿½Ë¢ï¿½ioAA
+	eObjectState_StreetStall_Owner,			// ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½Ë¢ï¿½io Open ï¿½Ë¢ï¿½ioAA
+	eObjectState_StreetStall_Guest,			// ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½Ë¢ï¿½io ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½Eï¿½ï¿½IO ï¿½Ë¢ï¿½ioAA
+	eObjectState_PrivateWarehouse,			// ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½Ï¨ï¿½AIAï¿½Ë¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½i 10
+	eObjectState_Munpa,						//ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½A ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ecï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½ï¿½×¡Ë¢ç¢®Ecï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½ï¿½×¢ï¿½I ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½AAï¿½Ë¢ï¿½E
 
-	eObjectState_SkillStart,				// ¢®¡×o¢®¡×¢®©­A¡§I¨Ï¨£ ¢®¡×oAAu ¡Ë¢çioAA
+	eObjectState_SkillStart,				// ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Aï¿½ï¿½Iï¿½Ï¨ï¿½ ï¿½ï¿½ï¿½ï¿½oAAu ï¿½Ë¢ï¿½ioAA
 	eObjectState_SkillSyn,					//
 	eObjectState_SkillBinding,				//
 	eObjectState_SkillUsing,				//
-	eObjectState_SkillDelay,				// A¢®¡×¢®¨Ï¢®¡×¢®©­¢®E¢®©­¡Ë¢ç¡§¢®¢®E¡Ëc ¡§I¢®A¡Ë¢ç!¡§¢®a; ¢®EO¡Ë¢ç¢®¢¯, ¡§Io¡Ë¢çi¡Ë¢ç¡§¢®¡§I¡§¡Ì¢®¡×u¡§I¢®A¡Ë¢ç¡§¢®i¡§I¨Ï¨£¡Ë¢ç¡§IEAAC ¢®Iio¡Ë¢ç¡Ë¢¥¡§IoAI
+	eObjectState_SkillDelay,				// Aï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ï¿½!ï¿½ï¿½ï¿½ï¿½a; ï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½, ï¿½ï¿½Ioï¿½Ë¢ï¿½iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ç¡§ï¿½ï¿½iï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½Ë¢ç¡§IEAAC ï¿½ï¿½Iioï¿½Ë¢ï¿½Ë¢ï¿½ï¿½ï¿½IoAI
 	
-	eObjectState_TiedUp_CanMove,			// ¡Ë¢ç¡§¢®a¡§IoU ¡Ë¢çioAA
+	eObjectState_TiedUp_CanMove,			// ï¿½Ë¢ç¡§ï¿½ï¿½aï¿½ï¿½IoU ï¿½Ë¢ï¿½ioAA
 	eObjectState_TiedUp_CanSkill,
 	eObjectState_TiedUp,
 	
-	eObjectState_Die,						// A¡Ë¢ç¡Ë?: ¡Ë¢çioAA 20	
+	eObjectState_Die,						// Aï¿½Ë¢ï¿½ï¿½?: ï¿½Ë¢ï¿½ioAA 20	
 	
 	eObjectState_BattleReady,
-	eObjectState_Exit,						//KES 040707 A¡§I¨Ï¨£¢®E¢®©­?AI¡Ë¢ç¡§¢®¢®E¡Ëc ¡§I¨Ï¨£¢®¡×¢®I¡Ë¢ç¡§¢®¡Ë¢çI¢®EO¡Ë¢ç¢®¢¯
-	eObjectState_Immortal,					//¢®¢´I¢®¨ú¢®¢¯AI, ¡Ë¡þEAuE?, AuAa'A¡Ë¢ç ¢®ii¡§u¡§¢®¨Ï©ª¡§¡Ì¢®¨úa¡§oA ¨Ïo¢®iAu¢®ioAA
+	eObjectState_Exit,						//KES 040707 Aï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½?AIï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½ï¿½×¢ï¿½Iï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½Iï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½
+	eObjectState_Immortal,					//ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI, ï¿½Ë¡ï¿½EAuE?, AuAa'Aï¿½Ë¢ï¿½ ï¿½ï¿½iiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½aï¿½ï¿½oA ï¿½ï¿½oï¿½ï¿½iAuï¿½ï¿½ioAA
 
-	eObjectState_Society,					//KES A¢¯©öA¢¥I¨¡¨ù ¥ì¢¯AU
+	eObjectState_Society,					//KES Aï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ ï¿½ì¢¯AU
 	
 	eObjectState_ItemUse,
 
@@ -2100,25 +2112,25 @@ enum EObjectState
 
 	eObjectState_Engrave,
 
-	eObjectState_TitanRecall,	//Å¸ÀÌÅº ¼ÒÈ¯
+	eObjectState_TitanRecall,	//Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯
 
 	eObjectState_MAX,	
 };
 
-//---¡Ë¢ç¡§u¡§I¨Ï¨£E?¢®¡×u¢®¡×u¢®¡×¢®©­I¡Ë¢çioAA(CoAc ¡Ë¢çic¢®E?e¢®¡×uECI¢®E¢®IAA¡§I¢®©­)
+//---ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Iï¿½Ë¢ï¿½ioAA(CoAc ï¿½Ë¢ï¿½icï¿½ï¿½E?eï¿½ï¿½ï¿½ï¿½uECIï¿½ï¿½Eï¿½ï¿½IAAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½)
 enum eEXCHANGE_STATE
 {
 	eEXSTT_NONE,
-	eEXSTT_APPLYING,	//¡Ë¢ç¡§u¡§I¨Ï¨£E?¢®¡×oAA¡Ë¢çi; CN ¡Ë¢çioAA
-	eEXSTT_APPLIED,		//¡Ë¢ç¡§u¡§I¨Ï¨£E?¢®¡×oAA¡Ë¢çi; ¡§Io¢®¡×¢®¨Ï: ¡Ë¢çioAA
-	eEXSTT_EXCHANGEING,	//¡Ë¢ç¡§u¡§I¨Ï¨£E?; A¡§I¡§¡ÌCaA¡§I¢®©­AI ¡Ë¢çioAA : eObjectState_Exchange
+	eEXSTT_APPLYING,	//ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?ï¿½ï¿½ï¿½ï¿½oAAï¿½Ë¢ï¿½i; CN ï¿½Ë¢ï¿½ioAA
+	eEXSTT_APPLIED,		//ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?ï¿½ï¿½ï¿½ï¿½oAAï¿½Ë¢ï¿½i; ï¿½ï¿½Ioï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½: ï¿½Ë¢ï¿½ioAA
+	eEXSTT_EXCHANGEING,	//ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?; Aï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½CaAï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½AI ï¿½Ë¢ï¿½ioAA : eObjectState_Exchange
 
 	eEXSTT_MAX,
 };
 
 
 
-// ¡Ë¢ç¡§¢®¡Ë¢çE~ ID¢®E?¢®E¡Ëc ¢®E¢®IeCN [6/2/2003]
+// ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½E~ IDï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Eï¿½ï¿½IeCN [6/2/2003]
 #define EVENT_PET_ID_START		0x6fffffff
 #define PET_ID_START			0x3fffffff
 #define STATICNPC_ID_START		0xa0000000
@@ -2147,17 +2159,17 @@ enum eEXCHANGE_STATE
 #define MANA_RECOVER_EFFECTID	0xfffffff0
 #define SHIELD_RECOVER_EFFECTID	0xffffffef
 #define ALL_RECOVER_EFFECTID	0xffffffee
-// ¾Æ·¡·Î »ó´çÈ÷ ¸¹Àº ¼öÀÇ ÀÌÆåÆ®°¡ ¾²ÀÌ¹Ç·Î °£°ÝÀ» ³ÐÇô¼­ »ç¿ëÇÏ±â ¹Ù¶ø´Ï´Ù.
-#define SETITEM_STARTEFFECTID	0xf0000000		//2007. 8. 7. CBH - ¼¼Æ®¾ÆÀÌÅÆ ÀÌÆåÆ® Ãß°¡
+// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.
+#define SETITEM_STARTEFFECTID	0xf0000000		//2007. 8. 7. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
 //
 #define TITAN_MAINTAIN_EFFECTID	0xff000000
-#define TITAN_RECALL_EFFECTID	0xffff0000		//2007. 10. 24. CBH - Å¸ÀÌÅº ¼ÒÈ¯ ÀÌÆåÆ®
-#define KYUNGGONG_EFFECTID		0xffffff00		// magi82(11) - Effect(071025) °æ°ø ÀÌÆåÆ® ID ºÎ¿©
+#define TITAN_RECALL_EFFECTID	0xffff0000		//2007. 10. 24. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½Æ®
+#define KYUNGGONG_EFFECTID		0xffffff00		// magi82(11) - Effect(071025) ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ID ï¿½Î¿ï¿½
 
 #ifdef _JAPAN_LOCAL_
 #define MUSSANG_EFFECT_ID		0xffffffed
 #else
-// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
+// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #define MUSSANG_EFFECT_ID1		0xffffffed
 #define MUSSANG_EFFECT_ID2		0xffffffec
 #define MUSSANG_EFFECT_ID3		0xffffffeb
@@ -2167,7 +2179,7 @@ enum eEXCHANGE_STATE
 
 #define MAX_SKILLMAINTAIN_EFFECT	3
 
-// ¡§Io¡§I¡Ë¢çCa AI¢®Ii|¢®¡×i¨Ïo¢®Ei¡§u¢®E?¢®E¡Ëc ¢®E¢®IeCN ¢®¡×u¡§I¨Ï¨£d
+// ï¿½ï¿½Ioï¿½ï¿½Iï¿½Ë¢ï¿½Ca AIï¿½ï¿½Ii|ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½oï¿½ï¿½Eiï¿½ï¿½uï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Eï¿½ï¿½IeCN ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½Ï¨ï¿½d
 typedef BYTE DIRINDEX;
 #define MAX_DIRECTION_INDEX		32
 #define DEGTODIR(angleDeg)	(BYTE)((angleDeg)/360*MAX_DIRECTION_INDEX)
@@ -2175,20 +2187,20 @@ typedef BYTE DIRINDEX;
 #define DIRTORAD(DirIndex)	(DEGTORAD(DIRTODEG(DirIndex)))
 #define RADTODIR(angleRad)	(DEGTODIR(RADTODEG(angleRad)))
 
-// A¡Ë¢çi¢®E¢®©­¢®¡×¢®¨Ï¢®EOo ¢®¡×u¡§I¨Ï¨£d
+// Aï¿½Ë¢ï¿½iï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ï¢ï¿½EOo ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½Iï¿½Ï¨ï¿½d
 #define CAMERA_NEAR		100
 #define MAX_CHARTARGETPOSBUF_SIZE	15
 
 //system
 #define MAX_IPADDRESS_SIZE	16
 
-// type : 0->¢®¡×oA¡Ë¢ç¡§¢®¡Ë¢çI¢®EO¡Ë¢ç¢®¢¯¢®¡×¢®©­¡Ë¢ç¡§¢® ¡§I¨Ï¨£¡§I¢®A¡Ë¢ç¡§ue. 1~100->AId¡Ë¢ç¡Ë¢¥¢®Ec AI¡Ë¢çio¢®¡×¢®©­?E¡Ë¢ç¡§I¢®¡×oA ¡§I¨Ï¨£¡§I¢®A¡Ë¢ç¡§ue(¡Ë¢ç¡§¢®¢®E¡Ëc¡Ë¢çie), 101~200->(¡Ë¢ç¡§¢®¡Ë¢ç¢®¡¿¡Ë¢çie)
-// 1->¡Ë¢çioa¢®E?¢®E¡Ëc ¢®¡×¡Ë¢çC¢®E¢®©­A, 2->¡§I¨Ï¨£ea¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¢®¡×¡Ë¢çC¢®E¢®©­A, 3->¢®E¢®©­o¢®¡×o¢®¡×¢®©­AI¢®E?¢®E¡Ëc¡Ë¢ç¡§¢®O E¡§Io¢®Ii¡§I¡Ë¢ç, 4->¡Ë¢ç¡§u¡§I¨Ï¨£E?, 5->A¡Ë¢çE¡Ë¢ç¡§¢®i¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çi¡Ë¢ç¨Ï¡©¢®EO¡Ë¢ç¢®¢¯, 6->¡§Io¢®Ec¢®¡×¡Ë¢çAA¡Ë¢çE¡Ë¢ç¡§¢®i¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çi¡Ë¢ç¨Ï¡©¢®EO¡Ë¢ç¢®¢¯
-// 101->¡Ë¢çioa¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çii¢®EO¡Ë¢ç¢®¢¯, 102->¡§I¨Ï¨£ea¢®E?¢®E¡Ëc¢®¡×u¡Ë¢ç¡§I ¡Ë¢çii¢®EO¡Ë¢ç¢®¢¯, 103->A¡Ë¢ç¡Ë?¢®¡×uu;¢®EO¡Ë¢ç¢®¢¯, 104->¡Ë¢ç¡§u¡§I¨Ï¨£E?, 105->A¡Ë¢çE¡Ë¢ç¡§¢®i¢®E?¢®E¡Ëc ¡§I¨Ï¨£O=, 106->¡§Io¢®Ec¢®¡×¡Ë¢çAA¡Ë¢çE¡Ë¢ç¡§¢®i¢®E?¢®E¡Ëc ¡§I¨Ï¨£O=, 107->C¡Ë¢çI¡Ë¢ç¡§u¡§Io ¡Ë¢çii¢®EO¡Ë¢ç¢®¢¯
+// type : 0->ï¿½ï¿½ï¿½ï¿½oAï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ï¿½Iï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§ï¿½ï¿½ ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ç¡§ue. 1~100->AIdï¿½Ë¢ï¿½Ë¢ï¿½ï¿½ï¿½Ec AIï¿½Ë¢ï¿½ioï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½?Eï¿½Ë¢ç¡§Iï¿½ï¿½ï¿½ï¿½oA ï¿½ï¿½Iï¿½Ï¨ï¿½ï¿½ï¿½Iï¿½ï¿½Aï¿½Ë¢ç¡§ue(ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ï¿½ie), 101~200->(ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ç¢®ï¿½ï¿½ï¿½Ë¢ï¿½ie)
+// 1->ï¿½Ë¢ï¿½ioaï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½ï¿½×¡Ë¢ï¿½Cï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½A, 2->ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½ï¿½ï¿½×¡Ë¢ï¿½Cï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½A, 3->ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½AIï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ç¡§ï¿½ï¿½O Eï¿½ï¿½Ioï¿½ï¿½Iiï¿½ï¿½Iï¿½Ë¢ï¿½, 4->ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?, 5->Aï¿½Ë¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½iï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½iï¿½Ë¢ï¿½Ï¡ï¿½ï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½, 6->ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½AAï¿½Ë¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½iï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½iï¿½Ë¢ï¿½Ï¡ï¿½ï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½
+// 101->ï¿½Ë¢ï¿½ioaï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½iiï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½, 102->ï¿½ï¿½Iï¿½Ï¨ï¿½eaï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½uï¿½Ë¢ç¡§I ï¿½Ë¢ï¿½iiï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½, 103->Aï¿½Ë¢ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½uu;ï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½, 104->ï¿½Ë¢ç¡§uï¿½ï¿½Iï¿½Ï¨ï¿½E?, 105->Aï¿½Ë¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½iï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Iï¿½Ï¨ï¿½O=, 106->ï¿½ï¿½Ioï¿½ï¿½Ecï¿½ï¿½ï¿½×¡Ë¢ï¿½AAï¿½Ë¢ï¿½Eï¿½Ë¢ç¡§ï¿½ï¿½iï¿½ï¿½E?ï¿½ï¿½Eï¿½ï¿½c ï¿½ï¿½Iï¿½Ï¨ï¿½O=, 107->Cï¿½Ë¢ï¿½Iï¿½Ë¢ç¡§uï¿½ï¿½Io ï¿½Ë¢ï¿½iiï¿½ï¿½EOï¿½Ë¢ç¢®ï¿½ï¿½
 enum eMoneyLogtype
 {
 	eMoneyLog_Time				= 0,
-// ¡Ë¢ç¡§¢®¢®E¡Ëc¡Ë¢çie
+// ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½cï¿½Ë¢ï¿½ie
 	eMoneyLog_GetStall			= 1,
 	eMoneyLog_GetStreetStall	= 2,
 	eMoneyLog_GetMonster		= 3,
@@ -2203,7 +2215,7 @@ enum eMoneyLogtype
 	eMoneyLog_GetFromQuest		= 12,
 	eMoneyLog_GetGMTool			= 13,
 	
-// ¡Ë¢ç¡§¢®¡Ë¢ç¢®¡¿¡Ë¢çie
+// ï¿½Ë¢ç¡§ï¿½ï¿½ï¿½Ë¢ç¢®ï¿½ï¿½ï¿½Ë¢ï¿½ie
 	eMoneyLog_LoseStall			= 101,
 	eMoneyLog_LoseStreetStall	= 102,
 	eMoneyLog_LoseDie			= 103,
@@ -2242,8 +2254,8 @@ enum eLogMugong
 	eLog_MugongDestroyByGetNextLevel,		// for japan
 
 	////////////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	eLog_MugongOption,
 	eLog_MugongOptionClear,
 	eLog_MugongDestroyByOptionClear,
@@ -2261,6 +2273,9 @@ enum eLogitemmoney
 	eLog_ItemMoveInvenToGuild,
 	eLog_ItemMoveGuildToInven,
 	eLog_ItemMoveGuildToGuild,
+	eLog_ItemMoveInvenToMunpa,
+	eLog_ItemMoveMunpaToInven,
+	eLog_ItemMoveMunpaToMunpa,
 	
 	//item obtain/destory
 	eLog_ItemObtainBuy = 200,
@@ -2300,7 +2315,7 @@ enum eLogitemmoney
 	eLog_ItemDestroyMix = 800,
 	eLog_ItemDestroyReinforce,
 	eLog_ItemDestroyUpgrade,
-	eLog_ItemDestroyByWanted, // eLog_ItemDestroyByBadFame¢¬| AIAEA¢¬¡¤I ©ø¡í¡¤A¨ú©¬Ao
+	eLog_ItemDestroyByWanted, // eLog_ItemDestroyByBadFameï¿½ï¿½| AIAEAï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ao
 	eLog_ItemDestroyByBadFame, //die panelty with bad fame.
 	eLog_ItemDestroyDissolution, // dissolve base item
 	eLog_ItemDestroyGiveQuest, // by complete quest 
@@ -2362,14 +2377,14 @@ enum eLogExppoint
 	eExpLog_NoActionPanelty_Exit,
 };
 
-enum eLogToolType	// Tool A¨ú¡¤u
+enum eLogToolType	// Tool Aï¿½ï¿½ï¿½ï¿½u
 {
 	eToolLog_GM = 1,
 	eToolLog_RM,
 	eToolLog_Server,
 };
 
-enum eGMLogKind		// GMTool ¡¤I¡¾¡¿ A¨ú¡¤u
+enum eGMLogKind		// GMTool ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½u
 {
 	eGMLog_LogIn = 1,
 	eGMLog_Move,	
@@ -2394,15 +2409,15 @@ enum eGMLogKind		// GMTool ¡¤I¡¾¡¿ A¨ú¡¤u
 	eGMLog_Regen,
 };
 
-enum eRMLogKind		// RMTool ¡¤I¡¾¡¿ A¨ú¡¤u
+enum eRMLogKind		// RMTool ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½ï¿½ï¿½u
 {
 	eRMLog_OperInsert = 1,
 	eRMLog_OperDelete,
 	eRMLog_IpInsert,
 	eRMLog_IpDelete,
-	/// 060829 PKH - gmÅø Çã¿ë¾ÆÀÌÇÇ µî·Ï
+	/// 060829 PKH - gmï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	eRMLog_GMIpInsert,
-	/// 060829 PKH - gmÅø Çã¿ë ¾Æ¾ÆÇÇ »èÁ¦
+	/// 060829 PKH - gmï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Æ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	eRMLog_GMIpDelete,
 
 	eRMLog_ChangeCharacterInfo = 100,
@@ -2428,7 +2443,7 @@ enum eRMLogKind		// RMTool ¡¤I¡¾¡¿ A¨ú¡¤u
 	eRMLog_ChangeUserLevel = 300,
 	eRMLog_RecoverCharacter,
 
-	eRMLog_ChangePetInfo = 400,			//06.08.04 - pkh [Æê]rmÅø·Î±× ±â·Ï
+	eRMLog_ChangePetInfo = 400,			//06.08.04 - pkh [ï¿½ï¿½]rmï¿½ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 };
 
 enum ePetLogType
@@ -2445,44 +2460,44 @@ enum ePetLogType
 };
 
 
-// ±æµåÅä³Ê¸ÕÆ® ·Î±×
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Æ® ï¿½Î±ï¿½
 enum eGTLogKind
 {
 	eGTLogKind_None=0,
-	eGTLogKind_Regist,				// µî·Ï
-	eGTLogKind_Win,					// ½Â
-	eGTLogKind_Lose,				// ÆÐ
+	eGTLogKind_Regist,				// ï¿½ï¿½ï¿½
+	eGTLogKind_Win,					// ï¿½ï¿½
+	eGTLogKind_Lose,				// ï¿½ï¿½
 };
 
 
-// °ø¼ºÀü ·Î±×
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½
 enum eSWLogKind
 {
 	eSWLogKind_None=0,
-	eSWLogKind_DefenceProposal,			// ¼ö¼ºÂü¿© ½ÅÃ»
-	eSWLogKind_Attack,					// °ø¼º¹®ÆÄ
-	eSWLogKind_Defence,					// ¼ö¼ºÃø ¹®ÆÄ
-	eSWLogKind_DefenceAccept,			// ¼ö¼ºÂü¿© Çã¶ôÀ¸·Î ¼ö¼º¹®ÆÄ Âü¿©
-	eSWLogKind_DefenceUnion,			// µ¿¸Í°á¼ºÀ¸·Î ¼ö¼º¹®ÆÄ Âü¿©
-	eSWLogKind_CancelByCastleGuild,		// ¼º¹®ÆÄ°¡ µ¿¸ÍÅ»Åð·Î ´Ù¸¥¼º¹®ÆÄÀÇ ¼ö¼ºÂü¿© Ãë¼Ò
-	eSWLogKind_CancelByUnionSecession,	// ¼º¹®ÆÄ¿ÍÀÇ µ¿¸Í Å»Åð·Î ¼ö¼ºÂü¿© Ãë¼Ò
-	eSWLogKind_StartSiegeWar,			// °ø¼º½ÃÀÛ
-	eSWLogKind_SucceedCastleGuild,		// °ø¼º¼º°øÀ¸·Î ¼ºÀ» Â÷ÁöÇÑ ¹®ÆÄ
-	eSWLogKind_SucceedMoveToDefence,	// °ø¼º¼º°øÀ¸·Î ¼ºÀ» Â÷ÁöÇÑ ¹®ÆÄÀÇ µ¿¸ÍÀº ¼ö¼ºÀ¸·Î ÀÌµ¿
-	eSWLogKind_SucceedAttack,			// °ø¼º¼º°ø °ø¼ºÀº °ø¼º ±×´ë·ÎÀÎ ¹®ÆÄ
-	eSWLogKind_SucceedMoveToAttack,		// °ø¼ºÃøÀÇ °ø¼º¼º°øÀ¸·Î ¼ö¼º->°ø¼ºÀ¸·Î ¿Å°Ü°£ ¹®ÆÄ
-	eSWLogKind_EndCastleGuild,			// °ø¼ºÁ¾·áÈÄ ¼ºÀ» Â÷ÁöÇÑ ¹®ÆÄ
-	eSWLogKind_EndDefenceUnionGuild,	// °ø¼ºÁ¾·áÈÄ µ¿¸ÍÀÌ¾î¼­ ¼ö¼ºÀ¸·Î µî·ÏµÇ´Â ¹®ÆÄ
-	eSWLogKind_EngraveSyn,				// °¢ÀÎ½Ãµµ
-	eSWLogKind_EngraveNack,				// °¢ÀÎ½ÇÆÐ ¸Â¾Æ Á×À½
-	eSWLogKind_EngraveNackCancel,		// °¢ÀÎ½ÇÆÐ Ãë¼Ò
-	eSWLogKind_EngraveNackLogOut,		// °¢ÀÎ½ÇÆÐ ·Î±×¾Æ¿ô
-	eSWLogKind_SiegeWarSucceed,			// °¢ÀÎ¼º°ø
-	eSWLogKind_EndSiegeWar,				// °ø¼ºÁ¾·á
+	eSWLogKind_DefenceProposal,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
+	eSWLogKind_Attack,					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_Defence,					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_DefenceAccept,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_DefenceUnion,			// ï¿½ï¿½ï¿½Í°á¼ºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_CancelByCastleGuild,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eSWLogKind_CancelByUnionSecession,	// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eSWLogKind_StartSiegeWar,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_SucceedCastleGuild,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_SucceedMoveToDefence,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+	eSWLogKind_SucceedAttack,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_SucceedMoveToAttack,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_EndCastleGuild,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_EndDefenceUnionGuild,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÏµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_EngraveSyn,				// ï¿½ï¿½ï¿½Î½Ãµï¿½
+	eSWLogKind_EngraveNack,				// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ ï¿½Â¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSWLogKind_EngraveNackCancel,		// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eSWLogKind_EngraveNackLogOut,		// ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½
+	eSWLogKind_SiegeWarSucceed,			// ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
+	eSWLogKind_EndSiegeWar,				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 
-// Au¨Ï©ªI
+// Auï¿½Ï©ï¿½I
 #define MAX_JOURNAL_ITEM			100
 #define JOURNALVIEW_PER_PAGE		5
 
@@ -2551,12 +2566,12 @@ struct sPRELOAD_INFO
 	}
 };
 
-// ¡§¡þ¡Ë¡þ¡§u¡Ëc¢®¨úY
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½uï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Y
 //#define BAIL_PRICE				1000
 //#define MIN_BADFAME_FOR_BAIL	100
-// ¾Ç¸íÄ¡ °ü·Ã Á¶Á¤
+// ï¿½Ç¸ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define BAIL_PRICE				10000
-#define MIN_BADFAME_FOR_BAIL	100//0 100ÊÇÓÃÇ®Ï´¶ñÃûµÄ×îÐ¡Öµ
+#define MIN_BADFAME_FOR_BAIL	100//0 100ï¿½ï¿½ï¿½ï¿½Ç®Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
 
 //
 #define MAX_ALLOWANCE	10
@@ -2629,7 +2644,7 @@ enum eBIGMAP_ICON
 
 #define MAX_GUILD_NAME 16
 #define MAX_GUILD_INTRO		60
-// 06. 03. ¹®ÆÄ°øÁö - ÀÌ¿µÁØ
+// 06. 03. ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 #define MAX_GUILD_NOTICE	150
 #define MAX_GUILD_UNION		7
 #define MAX_GUILD_NICKNAME	16
@@ -2654,10 +2669,10 @@ enum eBIGMAP_ICON
 #define GUILD_CREATELEVEL	15
 
 #ifdef _CHINA_LOCAL_
-#define MAX_GUILDMEMBER_NUM 50	//Áß±¹Àº ÃÖ´ë 50¸í
+#define MAX_GUILDMEMBER_NUM 50	//ï¿½ß±ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ 50ï¿½ï¿½
 #else
 //#define MAX_GUILDMEMBER_NUM 30
-#define MAX_GUILDMEMBER_NUM 55 //30 + 25(±¹³»¹®ÇÏ»ý)
+#define MAX_GUILDMEMBER_NUM 55 //30 + 25(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï»ï¿½)
 #endif
 
 
@@ -2674,30 +2689,30 @@ enum
 //-----------------------------------------------------------------------------------
 enum
 {
-	eAvatar_Hat=0,			// ¸ðÀÚ
-	eAvatar_Hair,			// ¸Ó¸®
-	eAvatar_Face,			// ¾ó±¼
-	eAvatar_Mask,			// °¡¸é
-	eAvatar_Glasses,		// ¾È°æ
-	eAvatar_Mustache,		// ¼ö¿°
-	eAvatar_Dress,			// ¿Ê
-	eAvatar_Shoulder,		// ¾î±ú
-	eAvatar_Back,			// µî
-	eAvatar_Shoes,			// ½Å¹ß
-	eAvatar_Effect,			// ÀÌÆåÆ®
-	eAvatar_Hand,			// ¼Õ
+	eAvatar_Hat=0,			// ï¿½ï¿½ï¿½ï¿½
+	eAvatar_Hair,			// ï¿½Ó¸ï¿½
+	eAvatar_Face,			// ï¿½ï¿½
+	eAvatar_Mask,			// ï¿½ï¿½ï¿½ï¿½
+	eAvatar_Glasses,		// ï¿½È°ï¿½
+	eAvatar_Mustache,		// ï¿½ï¿½ï¿½ï¿½
+	eAvatar_Dress,			// ï¿½ï¿½
+	eAvatar_Shoulder,		// ï¿½ï¿½ï¿½
+	eAvatar_Back,			// ï¿½ï¿½
+	eAvatar_Shoes,			// ï¿½Å¹ï¿½
+	eAvatar_Effect,			// ï¿½ï¿½ï¿½ï¿½Æ®
+	eAvatar_Hand,			// ï¿½ï¿½
 
-	eAvatar_Weared_Hair,	// ÀÔ´Â ¾ÆÀÌÅÛ ¸Ó¸®
-	eAvatar_Weared_Face,	// ÀÔ´Â ¾ÆÀÌÅÛ ¾ó±¼
-	eAvatar_Weared_Hat,		// ÀÔ´Â ¾ÆÀÌÅÛ ¸Ó¸®¶ì	
-	eAvatar_Weared_Dress,	// ÀÔ´Â ¾ÆÀÌÅÛ ¿Ê
-	eAvatar_Weared_Shoes,	// ÀÔ´Â ¾ÆÀÌÅÛ ½Å¹ß	
-	eAvatar_Weared_Gum,		// Âø¿ë¹«±â °Ë
-	eAvatar_Weared_Gwun,	// Âø¿ë¹«±â ±Ç
-	eAvatar_Weared_Do,		// Âø¿ë¹«±â µµ
-	eAvatar_Weared_Chang,	// Âø¿ë¹«±â Ã¢
-	eAvatar_Weared_Gung,	// Âø¿ë¹«±â ±Ã
-	eAvatar_Weared_Amgi,	// Âø¿ë¹«±â ¾Ï±â	
+	eAvatar_Weared_Hair,	// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½
+	eAvatar_Weared_Face,	// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Hat,		// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½	
+	eAvatar_Weared_Dress,	// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Shoes,	// ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½	
+	eAvatar_Weared_Gum,		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Gwun,	// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Do,		// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Chang,	// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ Ã¢
+	eAvatar_Weared_Gung,	// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½ï¿½
+	eAvatar_Weared_Amgi,	// ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ ï¿½Ï±ï¿½	
     
 	eAvatar_Max,
 };
@@ -2719,87 +2734,87 @@ enum
 
 enum
 {
-	eIncantation_TownMove			= 55301,		// ¸¶À»ÀÌµ¿
-	eIncantation_MemoryMove			= 55302,		// ±â¾ïÀÌµ¿
-	eIncantation_TownMove15			= 55303,		// ¸¶À»ÀÌµ¿15ÀÏ
-	eIncantation_MemoryMove15		= 55304,		// ±â¾ïÀÌµ¿15ÀÏ
-	eIncantation_TownMove7			= 57508,		// ¸¶À»ÀÌµ¿7ÀÏ
-	eIncantation_TownMove7_NoTrade	= 57509,		// ¸¶À»ÀÌµ¿7ÀÏ ±³È¯ºÒ°¡
-	eIncantation_MemoryMove7		= 57510,		// ±â¾ïÀÌµ¿7ÀÏ
-	eIncantation_MemoryMove7_NoTrade = 57511,		// ±â¾ïÀÌµ¿7ÀÏ ±³È¯ºÒ°¡
-	eIncantation_MoneyProtect		= 55311,		// µ·ÀÇ Ãàº¹
-	eIncantation_ExpProtect			= 55312,		// »ý¸íÀÇ Ãàº¹
-	eIncantation_ProtectAll			= 55313,		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­
-	eIncantation_StatePoint			= 55299,		// ½ºÅÈÆ÷ÀÎÆ® ÀçºÐ¹è
-	eIncantation_StatePoint_30		= 55321,		// ½ºÅÈÆ÷ÀÎÆ® ÀçºÐ¹è(30)
-	eIncantation_StatePoint_50		= 57782,		// ½ºÅÈÆ÷ÀÎÆ® ÀçºÐ¹è(50)
-	eIncantation_StatePoint_100		= 57783,		// ½ºÅÈÆ÷ÀÎÆ® ÀçºÐ¹è(100)
-	eIncantation_StatusPointReset_71	= 55392,		// ½ºÅÝÆ÷ÀÎÆ® ÃÊ±âÈ­(71~)
-	eIncantation_StatusPointReset_1_50	= 55393,		// ½ºÅÝÆ÷ÀÎÆ® ÃÊ±âÈ­(1~50)
-	eIncantation_StatusPointReset_51_70	= 55394,		// ½ºÅÝÆ÷ÀÎÆ® ÃÊ±âÈ­(51~70)
-	eIncantation_SkillPoint_Reset	= 55391,		// ¼ö·ÃÄ¡Æ÷ÀÎÆ® ÃÊ±âÈ­
-	eIncantation_MixUp				= 55322,		// Á¶ÇÕÈ®·ü Çâ»ó
-	eIncantation_OtherRevive		= 55331,		// ºÎÈ°	
-	eIncantation_MemoryStone		= 55601,		// ±â¾ï¼®
+	eIncantation_TownMove			= 55301,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½
+	eIncantation_MemoryMove			= 55302,		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½
+	eIncantation_TownMove15			= 55303,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½15ï¿½ï¿½
+	eIncantation_MemoryMove15		= 55304,		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½15ï¿½ï¿½
+	eIncantation_TownMove7			= 57508,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½7ï¿½ï¿½
+	eIncantation_TownMove7_NoTrade	= 57509,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½7ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ò°ï¿½
+	eIncantation_MemoryMove7		= 57510,		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½7ï¿½ï¿½
+	eIncantation_MemoryMove7_NoTrade = 57511,		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½7ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ò°ï¿½
+	eIncantation_MoneyProtect		= 55311,		// ï¿½ï¿½ï¿½ï¿½ ï¿½àº¹
+	eIncantation_ExpProtect			= 55312,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½àº¹
+	eIncantation_ProtectAll			= 55313,		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_StatePoint			= 55299,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½
+	eIncantation_StatePoint_30		= 55321,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½(30)
+	eIncantation_StatePoint_50		= 57782,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½(50)
+	eIncantation_StatePoint_100		= 57783,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ð¹ï¿½(100)
+	eIncantation_StatusPointReset_71	= 55392,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­(71~)
+	eIncantation_StatusPointReset_1_50	= 55393,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­(1~50)
+	eIncantation_StatusPointReset_51_70	= 55394,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­(51~70)
+	eIncantation_SkillPoint_Reset	= 55391,		// ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­
+	eIncantation_MixUp				= 55322,		// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eIncantation_OtherRevive		= 55331,		// ï¿½ï¿½È°	
+	eIncantation_MemoryStone		= 55601,		// ï¿½ï¿½ï¼®
 //	eIncantation_SkPointRedist_2	= 55322,
 	eIncantation_SkPointRedist_4	= 55323,
 	eIncantation_SkPointRedist		= 55300,	
-	eIncantation_ShowPyoguk			= 55351,		// Ã¢°í¼ÒÈ¯ ÁÖ¹®¼­15ÀÏ
-	eIncantation_ShowPyoguk7		= 57506,		// Ã¢°í¼ÒÈ¯ ÁÖ¹®¼­7ÀÏ
-	eIncantation_ShowPyoguk7_NoTrade = 57507,		// Ã¢°í¼ÒÈ¯ ÁÖ¹®¼­7ÀÏ ±³È¯ºÒ°¡
-	eIncantation_ChangeName			= 55352,		// ÀÌ¸§º¯°æ
-	eIncantation_Tracking			= 55353,		// Çö»ó¹ü ÃßÀû15ÀÏ
-	eIncantation_Tracking7			= 57504,		// Çö»ó¹ü ÃßÀû7ÀÏ
-	eIncantation_Tracking7_NoTrade	= 57505,		// Çö»ó¹ü ÃßÀû7ÀÏ ±³È¯ºÒ°¡
-	eIncantation_Tracking_Jin 		= 55387,		// ÁøÃßÀûÁÖ¹®¼­
-	eIncantation_CharChange			= 55354,		// ¼ºº°ÀüÈ¯ÁÖ¹®¼­
+	eIncantation_ShowPyoguk			= 55351,		// Ã¢ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ï¿½ï¿½15ï¿½ï¿½
+	eIncantation_ShowPyoguk7		= 57506,		// Ã¢ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ï¿½ï¿½7ï¿½ï¿½
+	eIncantation_ShowPyoguk7_NoTrade = 57507,		// Ã¢ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ï¿½ï¿½7ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ò°ï¿½
+	eIncantation_ChangeName			= 55352,		// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	eIncantation_Tracking			= 55353,		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½15ï¿½ï¿½
+	eIncantation_Tracking7			= 57504,		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½
+	eIncantation_Tracking7_NoTrade	= 57505,		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ò°ï¿½
+	eIncantation_Tracking_Jin 		= 55387,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_CharChange			= 55354,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½Ö¹ï¿½ï¿½ï¿½
 	eIncantation_ShapeChange		= 55355,
-	eIncantation_ItemSeal			= 55356,		// ÀçºÀÀÎ ÁÖ¹®¼­
-	eIncantation_ProtectAll15		= 55358,		// ¼öÈ£ÀÚÀÇ ÁÖ¹®¼­(15ÀÏ)
-	eIncantation_ChangeJob			= 55360,		// È­°æ/±Ø¸¶ ÀüÁ÷ ÁÖ¹®¼­
-	eIncantation_MugongExtend		= 55361,		// ¹«°øÃ¢ È®Àå ÁÖ¹®¼­
-	eIncantation_MugongExtend2		= 57957,		// ¹«°øÃ¢ È®Àå ÁÖ¹®¼­(±³È¯ºÒ°¡)
-	eIncantation_ReinforceReset		= 55364,		// °­È­ÃÊ±âÈ¸ ÁÖ¹®¼­
-	eIncantation_MemoryMoveExtend30	= 58010,		// ±â¾ïÃ¢È®Àå ÀÌµ¿ÁÖ¹®¼­(30ÀÏ)
-	eIncantation_MemoryMoveExtend	= 55365,		// ±â¾ïÃ¢È®Àå ÀÌµ¿ÁÖ¹®¼­(15ÀÏ)
-	eIncantation_MemoryMoveExtend7	= 55390,		// ±â¾ïÃ¢È®Àå ÀÌµ¿ÁÖ¹®¼­(7ÀÏ)
-	eIncantation_MemoryMove2		= 55371,		// ±â¾ïÀÌµ¿ 2ÀÏ
-	eIncantation_ProtectAll1		= 55372,		// ¼öÈ£ÀÚ 1ÀÏ
+	eIncantation_ItemSeal			= 55356,		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_ProtectAll15		= 55358,		// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½(15ï¿½ï¿½)
+	eIncantation_ChangeJob			= 55360,		// È­ï¿½ï¿½/ï¿½Ø¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_MugongExtend		= 55361,		// ï¿½ï¿½ï¿½ï¿½Ã¢ È®ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_MugongExtend2		= 57957,		// ï¿½ï¿½ï¿½ï¿½Ã¢ È®ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½(ï¿½ï¿½È¯ï¿½Ò°ï¿½)
+	eIncantation_ReinforceReset		= 55364,		// ï¿½ï¿½È­ï¿½Ê±ï¿½È¸ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_MemoryMoveExtend30	= 58010,		// ï¿½ï¿½ï¿½Ã¢È®ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½(30ï¿½ï¿½)
+	eIncantation_MemoryMoveExtend	= 55365,		// ï¿½ï¿½ï¿½Ã¢È®ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½(15ï¿½ï¿½)
+	eIncantation_MemoryMoveExtend7	= 55390,		// ï¿½ï¿½ï¿½Ã¢È®ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½(7ï¿½ï¿½)
+	eIncantation_MemoryMove2		= 55371,		// ï¿½ï¿½ï¿½ï¿½Ìµï¿½ 2ï¿½ï¿½
+	eIncantation_ProtectAll1		= 55372,		// ï¿½ï¿½È£ï¿½ï¿½ 1ï¿½ï¿½
 
-	eIncantation_PetRevival			= 55382,		// Æê ºÎÈ° ÁÖ¹®¼­
-	eIncantation_PetGrade2 			= 55384,		// Æê ¼ºÀå ÁÖ¹®¼­ 2´Ü°è
-	eIncantation_PetGrade3 			= 55385,		// Æê ¼ºÀå ÁÖ¹®¼­ 3´Ü°è
-	eIncantation_MugongOptionReset	= 55387,		// ¹«°øº¯È¯ ÃÊ±âÈ­ ÁÖ¹®¼­
-	eIncantation_PyogukExtend 		= 57544,		// Ã¢°íÈ®ÀåÁÖ¹®¼­	
-	eIncantation_PyogukExtend2 		= 57960,		// Ã¢°íÈ®ÀåÁÖ¹®¼­(±³È¯ºÒ°¡)
-	eIncantation_CharacterSlot 		= 57543,		// Ä³¸¯ÅÍ Ãß°¡ ½½·Ô
-	eIncantation_CharacterSlot2 	= 57959,		// Ä³¸¯ÅÍ Ãß°¡ ½½·Ô(±³È¯ºÒ°¡)
-	eIncantation_InvenExtend 		= 57542,		// ÀÎº¥Åä¸®È®Àå ÁÖ¹®¼­
-	eIncantation_InvenExtend2 		= 57958,		// ÀÎº¥Åä¸®È®Àå ÁÖ¹®¼­(±³È¯ºÒ°¡)
-	eIncantation_ChangeName_Dntrade = 57799,		// ÀÌ¸§º¯°æ(°Å·¡¾ÈµÇ´Â)
-	eIncantation_Curse_Cancellation	= 55389,		// À¯´ÏÅ©¾ÆÀÌÅÛ ÀúÁÖÇØÁ¦ ÁÖ¹®¼­
+	eIncantation_PetRevival			= 55382,		// ï¿½ï¿½ ï¿½ï¿½È° ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_PetGrade2 			= 55384,		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ 2ï¿½Ü°ï¿½
+	eIncantation_PetGrade3 			= 55385,		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ 3ï¿½Ü°ï¿½
+	eIncantation_MugongOptionReset	= 55387,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ê±ï¿½È­ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_PyogukExtend 		= 57544,		// Ã¢ï¿½ï¿½È®ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½	
+	eIncantation_PyogukExtend2 		= 57960,		// Ã¢ï¿½ï¿½È®ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½(ï¿½ï¿½È¯ï¿½Ò°ï¿½)
+	eIncantation_CharacterSlot 		= 57543,		// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eIncantation_CharacterSlot2 	= 57959,		// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½È¯ï¿½Ò°ï¿½)
+	eIncantation_InvenExtend 		= 57542,		// ï¿½Îºï¿½ï¿½ä¸®È®ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
+	eIncantation_InvenExtend2 		= 57958,		// ï¿½Îºï¿½ï¿½ä¸®È®ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½(ï¿½ï¿½È¯ï¿½Ò°ï¿½)
+	eIncantation_ChangeName_Dntrade = 57799,		// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Å·ï¿½ï¿½ÈµÇ´ï¿½)
+	eIncantation_Curse_Cancellation	= 55389,		// ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 
-	eSundries_Boom_Butterfly		= 55621,		// ÆøÁ×(³ªºñ)
-	eSundries_Boom_Star				= 55622,		// ÆøÁ×(º°)
-	eSundries_Shout					= 55631,		// ¿ÜÄ¡±â
-	eSundries_Shout_Once			= 55632,		// ¿ÜÄ¡±â1È¸
-	eSundries_Shout_Once_NoTrade	= 57593,		// ¿ÜÄ¡±â1È¸ °Å·¡ºÒ°¡
+	eSundries_Boom_Butterfly		= 55621,		// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	eSundries_Boom_Star				= 55622,		// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½)
+	eSundries_Shout					= 55631,		// ï¿½ï¿½Ä¡ï¿½ï¿½
+	eSundries_Shout_Once			= 55632,		// ï¿½ï¿½Ä¡ï¿½ï¿½1È¸
+	eSundries_Shout_Once_NoTrade	= 57593,		// ï¿½ï¿½Ä¡ï¿½ï¿½1È¸ ï¿½Å·ï¿½ï¿½Ò°ï¿½
 	eSundries_RareItemCreate50		= 55640,
 	eSundries_RareItemCreate70		= 55641,
 	eSundries_RareItemCreate90		= 55642,
-	eSundries_RareItemCreate99		= 63084,		//×£¸£Ê¯,91-99¼¶ÎäÆ÷
+	eSundries_RareItemCreate99		= 63084,		//×£ï¿½ï¿½Ê¯,91-99ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 };
 
 
 enum
 {
-	eShopItemUseParam_Realtime = 1,				// ÇöÀç½Ã°£
-	eShopItemUseParam_Playtime = 2,				// ÇÃ·¹ÀÌ½Ã°£
-	eShopItemUseParam_Continue = 3,				// »ç¿ëÇØ ³õ°í ³ªÁß¿¡ È¿°ú°¡ ¹ßµ¿µÇ´Â°Í
-	eShopItemUseParam_Forever = 4,				// ¿µ±¸ ¾ÆÀÌÅÛ
+	eShopItemUseParam_Realtime = 1,				// ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	eShopItemUseParam_Playtime = 2,				// ï¿½Ã·ï¿½ï¿½Ì½Ã°ï¿½
+	eShopItemUseParam_Continue = 3,				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½Ç´Â°ï¿½
+	eShopItemUseParam_Forever = 4,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	eShopItemUseParam_EquipAvatar = 10,			// »ç¿ëÁßÀÎ ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ
+	eShopItemUseParam_EquipAvatar = 10,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 
@@ -2823,9 +2838,9 @@ enum
 };
 
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­Don't Duplication shopItem									  ¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½Don't Duplication shopItem									  ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum
 {
 	eShopItemDupType_None=0,
@@ -2864,11 +2879,11 @@ enum DONTDUP_CHARM
 	eDontDupUse_Exppoint		= 8,
 	eDontDupUse_Reinforce		= 16,
 	eDontDupUse_Kyunggong		= 32,
-	eDontDupUse_Ghost			= 64,	//2007. 10. 9. CBH - ¿ä±«ÁÖ¹®¼­
-	eDontDupUse_Woigong			= 128,	//2007. 10. 9. CBH - ¿Ü°øÁÖ¹®¼­
-	eDontDupUse_Naegong			= 256,	//2007. 10. 9. CBH - ³»°øÁÖ¹®¼­
-	eDontDupUse_Hunter			= 16384,	// »ç³É²Û ºÎÀû by Stiner(2008/06/25)
-	eDontDupUse_ExpDay			= 32768,	// °æÇèÄ¡ ºÎÀû by Stiner(2008/06/25)
+	eDontDupUse_Ghost			= 64,	//2007. 10. 9. CBH - ï¿½ä±«ï¿½Ö¹ï¿½ï¿½ï¿½
+	eDontDupUse_Woigong			= 128,	//2007. 10. 9. CBH - ï¿½Ü°ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½
+	eDontDupUse_Naegong			= 256,	//2007. 10. 9. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½
+	eDontDupUse_Hunter			= 16384,	// ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½ by Stiner(2008/06/25)
+	eDontDupUse_ExpDay			= 32768,	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ by Stiner(2008/06/25)
 };
 
 enum DONTDUP_HERB
@@ -2913,9 +2928,9 @@ enum
 
 
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­Guild Tournament									¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½Guild Tournament									ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define LIMITMEMBER_GUILDTOURNAMENT		5
 #define LIMITLEVEL_GUILDTOURNAMENT		2
 #define MAXGUILD_INTOURNAMENT			32
@@ -2950,7 +2965,7 @@ enum
 	eGTState_Entrance,
 	eGTState_Process,
 	eGTState_Leave,
-	eGTState_None,		//SW061220 »óÅÂ±ê¹ßNPC°ü·Ã Ãß°¡. //±ê¹ß Ç¥½Ã ¾ÈÇÏ±â À§ÇÑ »óÅÂ.
+	eGTState_None,		//SW061220 ï¿½ï¿½ï¿½Â±ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½. //ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 };
 
 enum
@@ -2993,10 +3008,10 @@ enum
 enum
 {
 	eGTWin_None = 0,
-	eGTWin_Unearned,		// ºÎÀü½Â
-	eGTWin_RemainPlayer,	// ³²Àº»ç¶÷¼ö
-	eGTWin_LowLevel,		// ·¹º§ÇÕÀÌ ³·´Ù
-	eGTWin_LowExp,			// °æÇèÄ¡°¡ ³·´Ù.
+	eGTWin_Unearned,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eGTWin_RemainPlayer,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eGTWin_LowLevel,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eGTWin_LowExp,			// ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 };
 
 enum
@@ -3009,7 +3024,7 @@ enum
 	eGTEvent_AlreadyJoinedGuild,
 };
 
-// 06.09.25 RaMa - Ãß¼®ÀÌº¥Æ®
+// 06.09.25 RaMa - ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 enum FULLMOONEVENTRATE
 {
 	eFULLMOONEVENT_NONE = 0,
@@ -3020,13 +3035,13 @@ enum FULLMOONEVENTRATE
 };
 
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­SiegeWar													  ¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½SiegeWar													  ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define MAX_CASTLEGATE_NUM		20
 
 
-//SW061205 ±ê¹ß NPC
+//SW061205 ï¿½ï¿½ï¿½ NPC
 enum eFlagNpc
 {
 	eGTFlg,
@@ -3034,9 +3049,9 @@ enum eFlagNpc
 	eFlgKind,
 };
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­Npcscript Param										¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½Npcscript Param										ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum
 {
 	eNpcParam_ShowpPyoguk=1,
@@ -3045,13 +3060,13 @@ enum
 
 
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­Item Parameter										¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½Item Parameter										ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define ITEM_PARAM_SEAL		0x00000001
 #define ITEM_PARAM_CHEAT	0x00000010
 #define ITEM_PARAM_PRESENT	0x00000100
-#define ITEM_PARAM_TITAN_REGIST	0x00001000	// magi82 - Titan(070423) µî·ÏµÈ Å¸ÀÌÅº Áõ¼­
+#define ITEM_PARAM_TITAN_REGIST	0x00001000	// magi82 - Titan(070423) ï¿½ï¿½Ïµï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -3078,11 +3093,11 @@ enum
 
 enum eCharacterStage
 {
-	eStage_Normal	= 0,	// ÀÏ¹Ý
-	eStage_Hwa		= 64,	// Çö°æ	  		
-	eStage_Hyun		= 65,	// Çö°æ	  		
-	eStage_Geuk		= 128,	// ±Ø¸¶	  		
-	eStage_Tal		= 129,	// Å»¸¶	  		
+	eStage_Normal	= 0,	// ï¿½Ï¹ï¿½
+	eStage_Hwa		= 64,	// ï¿½ï¿½ï¿½ï¿½	  		
+	eStage_Hyun		= 65,	// ï¿½ï¿½ï¿½ï¿½	  		
+	eStage_Geuk		= 128,	// ï¿½Ø¸ï¿½	  		
+	eStage_Tal		= 129,	// Å»ï¿½ï¿½	  		
 };
 
 enum eItemStage
@@ -3090,7 +3105,7 @@ enum eItemStage
 	eItemStage_Normal		= 0,
 	eItemStage_ChangeStage	= 32,
 	///////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
 	eItemStage_ChangeStage2	= 33,
 	///////////////////////////////
 	eItemStage_OverHwa		= 64,
@@ -3133,10 +3148,10 @@ enum eSWProfit_Err
 };
 
 
-//¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
-//¦­For Japan_Local										¦­
-//¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
-enum eCharacter_Attr	// È­->Åä->±Ý->¼ö->¸ñ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½For Japan_Local										ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+enum eCharacter_Attr	// È­->ï¿½ï¿½->ï¿½ï¿½->ï¿½ï¿½->ï¿½ï¿½
 {
 	eCA_None	= 0,
 	eCA_Fire	= 1,		
@@ -3165,10 +3180,10 @@ enum eCharacter_Attr_Relation
 {
 	eCAR_None				= -1,
 	eCAR_Same				= 0,
-	eCAR_Give_Help			= 1,	// µµ¿òÁÖ´Â »ó»ý
-	eCAR_Strong_Opposite	= 2,	// ³»°¡ °­ÇÑ »ó±Ø
-	eCAR_Weak_Opposite		= 3,	// ³»°¡ ¾àÁ¡ÀÎ »ó±Ø
-	eCAR_Need_Help			= 4,	// µµ¿ò¹Þ´Â »ó»ý	
+	eCAR_Give_Help			= 1,	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
+	eCAR_Strong_Opposite	= 2,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eCAR_Weak_Opposite		= 3,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	eCAR_Need_Help			= 4,	// ï¿½ï¿½ï¿½ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½	
 };
 
 #ifdef _JAPAN_LOCAL_
@@ -3200,30 +3215,30 @@ enum eCharacter_Attr_Relation
 #define MUGONG_SLOT_ADDCOUNT		5
 #endif
 
-#define EVENT_MONSTER_SANTA1			145			// ·¹º§ 99 »êÅ¸ÀÇ¿äÁ¤
-#define EVENT_MONSTER_SANTA2			160			// ·¹º§ 15 »êÅ¸ÀÇ¿äÁ¤
-#define EVENT_DAMAGE					2007		// ´«»ç¶÷ °ø°Ý½Ã // »êÅ¸ÀÇ¿äÁ¤À» ´«À¸·Î °ø°Ý½Ã ¶ß´Â µ¥¹ÌÁö
-#define EVENT_MONSTER_RAT1				296			// ÀÌº¥Æ®Áã1 (¼³³¯ÀÌº¥Æ®)
-#define EVENT_MONSTER_RAT2				297			// ÀÌº¥Æ®Áã2 (¼³³¯ÀÌº¥Æ®)
-#define EVENT_MONSTER_RAT3				298			// ÀÌº¥Æ®Áã3 (¼³³¯ÀÌº¥Æ®)
-#define EVENT_DAMAGE_NEWYEAR			2008		// Áãµ¹ÀÌ °ø°Ý½Ã °íÁ¤ µ¥¹ÌÁö
-#define EVENT_MONSTER_RABBIT1			187			// ÀÌº¥Æ®Åä³¢1
-#define EVENT_MONSTER_RABBIT2			188			// ÀÌº¥Æ®Åä³¢2
-#define EVENT_MONSTER_RABBIT3			189			// ÀÌº¥Æ®Åä³¢3
-#define EVENT_DAMAGE_HAMMER				50			// ÀÌº¥Æ®»Ð¸ÁÄ¡ÀÇ µ¥¹ÌÁö
-#define EVENT_DAMAGE_RABBIT				100			// ÀÌº¥Æ®Åä³¢ÇÑÅ× µé¾î°¡´Â µ¥¹ÌÁö
+#define EVENT_MONSTER_SANTA1			145			// ï¿½ï¿½ï¿½ï¿½ 99 ï¿½ï¿½Å¸ï¿½Ç¿ï¿½ï¿½ï¿½
+#define EVENT_MONSTER_SANTA2			160			// ï¿½ï¿½ï¿½ï¿½ 15 ï¿½ï¿½Å¸ï¿½Ç¿ï¿½ï¿½ï¿½
+#define EVENT_DAMAGE					2007		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý½ï¿½ // ï¿½ï¿½Å¸ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý½ï¿½ ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define EVENT_MONSTER_RAT1				296			// ï¿½Ìºï¿½Æ®ï¿½ï¿½1 (ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®)
+#define EVENT_MONSTER_RAT2				297			// ï¿½Ìºï¿½Æ®ï¿½ï¿½2 (ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®)
+#define EVENT_MONSTER_RAT3				298			// ï¿½Ìºï¿½Æ®ï¿½ï¿½3 (ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½Æ®)
+#define EVENT_DAMAGE_NEWYEAR			2008		// ï¿½ãµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define EVENT_MONSTER_RABBIT1			187			// ï¿½Ìºï¿½Æ®ï¿½ä³¢1
+#define EVENT_MONSTER_RABBIT2			188			// ï¿½Ìºï¿½Æ®ï¿½ä³¢2
+#define EVENT_MONSTER_RABBIT3			189			// ï¿½Ìºï¿½Æ®ï¿½ä³¢3
+#define EVENT_DAMAGE_HAMMER				50			// ï¿½Ìºï¿½Æ®ï¿½Ð¸ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define EVENT_DAMAGE_RABBIT				100			// ï¿½Ìºï¿½Æ®ï¿½ä³¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define EVENT_MONSTER_PUMPHEAD1			146
 #define EVENT_MONSTER_PUMPHEAD2			190
 #define EVENT_MONSTER_PUMPHEAD3			191
 #define EVENT_MONSTER_PUMPHEAD4			192
 #define EVENT_DAMAGE_PUMPHEAD			200
-#define EVENT_FIELDBOSS_SNOWMAN_SM		233			// ÀÌº¥Æ®ÇÊµåº¸½º 15LV
-#define EVENT_FIELDSUB_SNOWMAN_SM		234			// Á¹°³
-#define EVENT_FIELDBOSS_SNOWMAN_MD		235			// ÀÌº¥Æ®ÇÊµåº¸½º 30LV
+#define EVENT_FIELDBOSS_SNOWMAN_SM		233			// ï¿½Ìºï¿½Æ®ï¿½Êµåº¸ï¿½ï¿½ 15LV
+#define EVENT_FIELDSUB_SNOWMAN_SM		234			// ï¿½ï¿½ï¿½ï¿½
+#define EVENT_FIELDBOSS_SNOWMAN_MD		235			// ï¿½Ìºï¿½Æ®ï¿½Êµåº¸ï¿½ï¿½ 30LV
 #define EVENT_FIELDSUB_SNOWMAN_MD		236
-#define EVENT_FIELDBOSS_SNOWMAN_LG		237			// ÀÌº¥Æ®ÇÊµåº¸½º 99LV
+#define EVENT_FIELDBOSS_SNOWMAN_LG		237			// ï¿½Ìºï¿½Æ®ï¿½Êµåº¸ï¿½ï¿½ 99LV
 #define EVENT_FIELDSUB_SNOWMAN_LG		238
-#define EVENT_SNOWMAN_SM				193			// ´«»ç¶÷
+#define EVENT_SNOWMAN_SM				193			// ï¿½ï¿½ï¿½ï¿½ï¿½
 #define EVENT_SNOWMAN_MD				194
 #define EVENT_SNOWMAN_LG				195
 #define EVENT_MONSTER_HONEYPIG1			161
@@ -3233,22 +3248,22 @@ enum eCharacter_Attr_Relation
 #define EVENT_MONSTER_CARNATION2		302
 #define EVENT_MONSTER_CARNATION3		303
 
-#define EVENT_ITEM_GLOVE			50509			// º¡¾î¸®Àå°©	
-#define EVENT_ITEM_SNOW				50508			// ´«µ¢ÀÌ
-#define EVENT_ITEM_HARDSNOW			50513			// µ¹´«µ¢ÀÌ
-#define EVENT_ITEM_FIRECRACKER		53111			// ÆøÁ×
+#define EVENT_ITEM_GLOVE			50509			// ï¿½ï¿½ï¿½î¸®ï¿½å°©	
+#define EVENT_ITEM_SNOW				50508			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define EVENT_ITEM_HARDSNOW			50513			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define EVENT_ITEM_FIRECRACKER		53111			// ï¿½ï¿½ï¿½ï¿½
 
-#define EVENT_EFFECT_FIRECRACKER	1036			// ÆøÁ× ÀÌÆåÆ®
+#define EVENT_EFFECT_FIRECRACKER	1036			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-#define EVENT_SHOPITEM_SNOWMAN_HAT			55572	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ´«»ç¶÷(¸ðÀÚ)
-#define EVENT_SHOPITEM_SNOWMAN_DRESS		55573	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ´«»ç¶÷(¿Ê)
-#define EVENT_SHOPITEM_RUDOLP_HAT			55574	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ·çµ¹ÇÁ(¸ðÀÚ)
-#define EVENT_SHOPITEM_RUDOLP_DRESS			55575	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ·çµ¹ÇÁ(¿Ê)
+#define EVENT_SHOPITEM_SNOWMAN_HAT			55572	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+#define EVENT_SHOPITEM_SNOWMAN_DRESS		55573	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½)
+#define EVENT_SHOPITEM_RUDOLP_HAT			55574	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çµ¹ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+#define EVENT_SHOPITEM_RUDOLP_DRESS			55575	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çµ¹ï¿½ï¿½(ï¿½ï¿½)
 
-#define EVENT_SHOPITEM_SNOWMAN_HAT2			55580	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ´«»ç¶÷(¸ðÀÚ) ½Ã°£Á¦
-#define EVENT_SHOPITEM_SNOWMAN_DRESS2		55581	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ´«»ç¶÷(¿Ê) ½Ã°£Á¦
-#define EVENT_SHOPITEM_RUDOLP_HAT2			55582	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ·çµ¹ÇÁ(¸ðÀÚ) ½Ã°£Á¦
-#define EVENT_SHOPITEM_RUDOLP_DRESS2		55583	// ¾Æ¹ÙÅ¸ ¾ÆÀÌÅÛ ·çµ¹ÇÁ(¿Ê) ½Ã°£Á¦
+#define EVENT_SHOPITEM_SNOWMAN_HAT2			55580	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½Ã°ï¿½ï¿½ï¿½
+#define EVENT_SHOPITEM_SNOWMAN_DRESS2		55581	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½Ã°ï¿½ï¿½ï¿½
+#define EVENT_SHOPITEM_RUDOLP_HAT2			55582	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çµ¹ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½Ã°ï¿½ï¿½ï¿½
+#define EVENT_SHOPITEM_RUDOLP_DRESS2		55583	// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çµ¹ï¿½ï¿½(ï¿½ï¿½) ï¿½Ã°ï¿½ï¿½ï¿½
 
 #define EVENT_SHOPITEM_SNOWMAN1_HK			57760
 #define EVENT_SHOPITEM_SNOWMAN2_HK			57762
@@ -3259,7 +3274,7 @@ enum eCharacter_Attr_Relation
 #define EVENT_SHOPITEM_RUDOLP3_HK			57765
 
 
-// ±â»ó»óÅÂ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum eWeatherState
 {
 	eWS_None,	// 0
@@ -3269,8 +3284,8 @@ enum eWeatherState
 };
 
 ////////////////////////////////////////////////////////
-//06. 06 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-//ÀÌÆåÆ® »ý·«(¹«ÃÊ)
+//06. 06 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 enum eSkipEffect
 {
 	eSkipEffect_None,
@@ -3281,48 +3296,48 @@ enum eSkipEffect
 ////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// Àº½Å/Çý¾È
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 enum eSingleSpecialState
 {
 	eSingleSpecialState_None,
 	
-	eSingleSpecialState_Hide,			// Àº½Å
-	eSingleSpecialState_Detect,		// Çý¾È
-	eSingleSpecialState_DetectItem,	// Çý¾ÈÀÇ ¹°¾à
+	eSingleSpecialState_Hide,			// ï¿½ï¿½ï¿½ï¿½
+	eSingleSpecialState_Detect,		// ï¿½ï¿½ï¿½ï¿½
+	eSingleSpecialState_DetectItem,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	eSingleSpecialState_Max,
 
-	// »ç¿ë ¿¡·¯ ÄÚµå
-	eSingleSpecialState_Error,			// ¿¡·¯
-	eSingleSpecialState_Error_NaeRyuk,	// ³»·Â ºÎÁ·
-	eSingleSpecialState_Error_Delay,	// µô·¹ÀÌ
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+	eSingleSpecialState_Error,			// ï¿½ï¿½ï¿½ï¿½
+	eSingleSpecialState_Error_NaeRyuk,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSingleSpecialState_Error_Delay,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 };
 
 
 //////////////////////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// ¹«°ø º¯È¯ Ãß°¡
-#define MAX_SKILLOPTION_COUNT	8	// ÃÖ´ë ¿É¼Ç ¼ö
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
+#define MAX_SKILLOPTION_COUNT	8	// ï¿½Ö´ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½
 
 enum eSkillOption_Kind{
 	
-	eSkillOption_None,				// ¿É¼Ç ¾øÀ½
+	eSkillOption_None,				// ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	eSkillOption_Range,				// 1. »ç°Å¸®
-	eSkillOption_ReduceNaeRyuk,		// 2. ³»·Â¼Ò¸ð
-	eSkillOption_PhyAtk,			// 3. ½ºÅ³¹°¸®°ø°Ý
-	eSkillOption_BaseAtk,			// 4. ÀÏ¹Ý¹°¸®°ø°Ý
-	eSkillOption_AttAtk,			// 5. ¼Ó¼º°ø°Ý
+	eSkillOption_Range,				// 1. ï¿½ï¿½Å¸ï¿½
+	eSkillOption_ReduceNaeRyuk,		// 2. ï¿½ï¿½ï¿½Â¼Ò¸ï¿½
+	eSkillOption_PhyAtk,			// 3. ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillOption_BaseAtk,			// 4. ï¿½Ï¹Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillOption_AttAtk,			// 5. ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	eSkillOption_Life,				// 6. ÃÖ´ë»ý¸í·Â
-	eSkillOption_NaeRyuk,			// 7. ÃÖ´ë³»·Â
-	eSkillOption_Shield,			// 8. ÃÖ´ëÈ£½Å°­±â
-	eSkillOption_PhyDef,			// 9. ¹°¸®¹æ¾î
-	eSkillOption_AttDef,			// 10. ¼Ó¼º¹æ¾î
+	eSkillOption_Life,				// 6. ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillOption_NaeRyuk,			// 7. ï¿½Ö´ë³»ï¿½ï¿½
+	eSkillOption_Shield,			// 8. ï¿½Ö´ï¿½È£ï¿½Å°ï¿½ï¿½ï¿½
+	eSkillOption_PhyDef,			// 9. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillOption_AttDef,			// 10. ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½
 
-	eSkillOption_Duration,			// 11. Áö¼Ó½Ã°£
+	eSkillOption_Duration,			// 11. ï¿½ï¿½ï¿½Ó½Ã°ï¿½
 
 	eSkillOption_Max,
 };
@@ -3330,16 +3345,16 @@ enum eSkillOption_Kind{
 
 
 ////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// ¹«°ø º¯È¯
-// º¯È¯ À¯Çü - 0: º¯È¯ºÒ°¡, 1: °ø°ÝÇü, 2:º¸Á¶Çü, 3:¸ðµÎ°¡´É
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+// ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ - 0: ï¿½ï¿½È¯ï¿½Ò°ï¿½, 1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 3:ï¿½ï¿½Î°ï¿½ï¿½ï¿½
 enum eSkillChangeKind{
 	
-	eSkillChange_None,		// º¯È¯ºÒ°¡
-	eSkillChange_Offense,	// °ø°ÝÇü
-	eSkillChange_Defense,	// º¸Á¶Çü
-	eSkillChange_All,		// ¸ðµÎ °¡´É
-	eSkillChange_Job,		// Àü¹®½ºÅ³
+	eSkillChange_None,		// ï¿½ï¿½È¯ï¿½Ò°ï¿½
+	eSkillChange_Offense,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillChange_Defense,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	eSkillChange_All,		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSkillChange_Job,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³
 
 	eSkillChange_Max,
 };
@@ -3374,19 +3389,19 @@ struct GUILDPOINT_INFO
 {
 	GUILDPOINT_INFO() {memset(this,0,sizeof(GUILDPOINT_INFO));}
 
-	//¹®ÆÄÆ÷ÀÎÆ®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	int GuildPoint;
-	//»ç³É¸ó½ºÅÍÁ¡¼ö
+	//ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int GuildHuntedMonsterCount;
-	//»ç³É¸ó½ºÅÍÃÑÁ¡¼ö
+	//ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int GuildHuntedMonsterTotalCount;
-	//DB¾÷µ¥ÀÌÆ® ½Ã°£
+	//DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ã°ï¿½
 	DWORD DBProcessTime;
-	//»ç¿ë¹®ÆÄÇÃ·¯½ºÅ¸ÀÓ
+	//ï¿½ï¿½ë¹®ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 	DWORD GuildPlusTimeflg;
-	//¹®ÆÄÇÃ·¯½ºÅ¸ÀÓ Á¤º¸
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	GUILDUSING_PLUSTIME_INFO GuildUsingPlusTimeInfo[eGPT_Kind_Max];
-	//»ç¿ë¹«°øÁ¤º¸(¿¹Á¤)
+	//ï¿½ï¿½ë¹«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	//DWORD Guild
 };
 
@@ -3412,29 +3427,29 @@ enum eTitanNpcMenu
 	eTITAN_NPC_TitanBreak,
 	eTITAN_NPC_TitanRegister,
 	eTITAN_NPC_TitanDissolution,
-	// eTITAN_NPC_TitanMugongMix,	// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+	// eTITAN_NPC_TitanMugongMix,	// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 };
 
-//////////// 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ °ü·Ã Ãß°¡ /////////
+//////////// 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ /////////
 enum eSET_ITEM_KIND
 {
-	eSETITEM_GMGANG = 0,	//±Ý°­¼¼Æ®
-	eSETITEM_CHUNRYUNG,		//Ãµ·É¼¼Æ®
-	eSETITEM_YASUWANG,		//¾ß¼ö¿Õ¼¼Æ®
-	eSETITEM_UMYANGJINGI,	//À½¾çÁø±â¼¼Æ®
+	eSETITEM_GMGANG = 0,	//ï¿½Ý°ï¿½ï¿½ï¿½Æ®
+	eSETITEM_CHUNRYUNG,		//Ãµï¿½É¼ï¿½Æ®
+	eSETITEM_YASUWANG,		//ï¿½ß¼ï¿½ï¿½Õ¼ï¿½Æ®
+	eSETITEM_UMYANGJINGI,	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¼¼Æ®
 
-	MAX_SETITEM_KIND_NUM,	//¼¼Æ® ÃÑ °¹¼ö
+	MAX_SETITEM_KIND_NUM,	//ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 };
 /////////////////////////////////////////////////////////////
 
 
-#define TITANMAP_START_INDEX 100	//2007. 6. 28. CBH - Å¸ÀÌÅº ¸Ê ½ÃÀÛ ¹øÈ£
+#define TITANMAP_START_INDEX 100	//2007. 6. 28. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 
-#define MAX_JOBLEVEL_NUM 13			// 2007. 6. 28. CBH - Àü¹®±â¼ú ·¹º§ °¹¼ö
-#define MAX_JOBMOB_NUM 13			// 2007. 6. 29. CBH - Àü¹®±â¼ú ¸÷ ·¹º§ °¹¼ö
-#define JOBSKILL_DEMAGE 300			// 2007. 10. 30. CBH - Àü¹®±â¼ú Å¸°Ý½Ã µ¥¹ÌÁö (µ¥¹ÌÁö·Î È½¼ö ÁöÁ¤)
+#define MAX_JOBLEVEL_NUM 13			// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define MAX_JOBMOB_NUM 13			// 2007. 6. 29. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define JOBSKILL_DEMAGE 300			// 2007. 10. 30. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-//////////// 2007. 6. 28. CBH - Àü¹®±â¼ú ¼º°ø·ü ¸®½ºÆ® ±¸Á¶Ã¼ Ãß°¡ /////////
+//////////// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß°ï¿½ /////////
 struct JOB_SKILL_PROBABILITY_INFO
 {
 	WORD wSkillLevel;
@@ -3444,10 +3459,10 @@ struct JOB_SKILL_PROBABILITY_INFO
 
 #define UNIQUE_ITEM_MIX_RESULT_INDEX 5	// magi82 - UniqueItem(070709)
 
-//2007. 10. 25. CBH - Object.h¿¡¼­ ¿Å±è
-//¼­¹ö¿Í Å¬¶óÀÌ¾ðÆ®¿¡¼­ µû·Îµû·Î Á¤ÀÇµÇÀÖ¾î¼­ ÀÌÂÊÀ¸·Î ¿Å±â¸é
-//´ÙÀ½¿¡ KIND°ªÀ» Á¤ÀÇÇÏ¸é¼­ ¼­¹ö¿Í Å¬¶óÀÌ¾ðÆ®°¡ °ªÀ» Æ²¸®°Ô
-//Á¤ÀÇÇÏÁö ¾Êµµ·Ï ¹æÁö Â÷¿ø¿¡¼­ ÀÌÂÊÀ¸·Î ¿Å±è.
+//2007. 10. 25. CBH - Object.hï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½Ö¾î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ KINDï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½.
 enum EObjectKind
 {
 	eObjectKind_Player = 1,
@@ -3459,57 +3474,57 @@ enum EObjectKind
 	eObjectKind_BossMonster=33,
 	eObjectKind_SpecialMonster=34,
 
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 	eObjectKind_FieldBossMonster=35,
 	eObjectKind_FieldSubMonster=36,
 	eObjectKind_ToghterPlayMonster=37,
-	//2007. 7. 2. CBH - Àü¹®±â¼ú ¿ÀºêÁ§Æ® Á¾·ù Ãß°¡
+	//2007. 7. 2. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	eObjectKind_Mining	= 38,	
 	eObjectKind_Collection = 39,	
 	eObjectKind_Hunt	= 40,	
-	//2007. 10. 30. CBH - Å¸ÀÌÅº ¸ó½ºÅÍ
+	//2007. 10. 30. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½
 	eObjectKind_TitanMonster	= 41,	
 
 	eObjectKind_MapObject	= 64,
 	eObjectKind_CastleGate	= 65,
 	eObjectKind_Pet			= 128,
-	// °ªÀÌ 255 ³Ñ¾î°¡¸é ¾ÈµÊ... ¤Ñ.¤Ñ => kind¸¦ ¹Þ´Â º¯¼ö°¡ BYTEÇüÀÌ¶ó¼­
+	// ï¿½ï¿½ï¿½ï¿½ 255 ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Èµï¿½... ï¿½ï¿½.ï¿½ï¿½ => kindï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BYTEï¿½ï¿½ï¿½Ì¶ï¿½
 	eObjectKind_Titan		= 255,	
 };
 
-//2007. 10. 25. CBH - ¿ÀºêÁ§Æ® ±×·ì Á¾·ù Ãß°¡
-//¾ÕÀ¸·Î¸¦ À§ÇØ enumÀ¸·Î Àâ¾Ò»ï
+//2007. 10. 25. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ enumï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò»ï¿½
 enum eObjectKindGroup
 {
-	eOBJECTKINDGROUP_NONE,	//ÇØ´çÇÏÁö ¾Ê´Â´Ù
-	eOBJECTKINDGROUP_JOB,	//Àü¹®±â¼ú °ü·Ã ¿ÀºêÁ§Æ® ±×·ì
+	eOBJECTKINDGROUP_NONE,	//ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
+	eOBJECTKINDGROUP_JOB,	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½×·ï¿½
 };
 
-#define SKINITEM_LIST_MAX 3	//2008. 1. 15. CBH - ½ºÅ² ¸®½ºÆ® ÀÎµ¦½ºÀÇ ÃÖ´ë ¾ÆÀÌÅÆ °¹¼ö
+#define SKINITEM_LIST_MAX 3	//2008. 1. 15. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-//2007. 12. 4. CBH - ½ºÅ² ºÎÀ§ Ãß°¡
+//2007. 12. 4. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 enum eSKINITEM_EQUIP_KIND
 {
-	eSkinItem_Hat = 0,			//¸ðÀÚ
-	eSkinItem_Mask,				//¾ó±¼
-	eSkinItem_Dress,			//¿Ê
-	eSkinItem_Shoulder,			//¾î±ú
-	eSkinItem_Shoes,			//½Å¹ß
+	eSkinItem_Hat = 0,			//ï¿½ï¿½ï¿½ï¿½
+	eSkinItem_Mask,				//ï¿½ï¿½
+	eSkinItem_Dress,			//ï¿½ï¿½
+	eSkinItem_Shoulder,			//ï¿½ï¿½ï¿½
+	eSkinItem_Shoes,			//ï¿½Å¹ï¿½
 
 	eSkinItem_Max,	
 };
 
-//2007. 12. 10. CBH - ½ºÅ² °ü·Ã Ã³¸® °á°ú ¹ÝÈ¯ enum °ª
+//2007. 12. 10. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ enum ï¿½ï¿½
 enum SKIN_RESULT
 {
-	eSkinResult_Success = 0,	//¼º°ø
-	eSkinResult_Fail,			//Ã³¸® ½ÇÆÐ
-	eSkinResult_DelayFail,		//µô·¹ÀÌ ½ÇÆÐ
-	eSkinResult_LevelFail,		//·¹º§Á¦ÇÑ ½ÇÆÐ
+	eSkinResult_Success = 0,	//ï¿½ï¿½ï¿½ï¿½
+	eSkinResult_Fail,			//Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSkinResult_DelayFail,		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	eSkinResult_LevelFail,		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 };
 
 // magi82(35) MapChange State
-// ¸ÊÀÌµ¿ ÇÒ¶§ ¾î¶² »óÅÂÀÇ ¸ÊÀÌµ¿ÀÎÁö Ã¼Å© ÇÏ±â À§ÇÑ °ª
+// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ò¶ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 enum MapChange_State
 {
     eMapChange_General = 0,
@@ -3517,31 +3532,31 @@ enum MapChange_State
 	eMapChange_SOS,
 };
 
-// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
+// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum eMapKindState
 {
-	eMapView			= 64,	// ÇØ´ç ¸Êº¸±â(ÀÎÅÍÆäÀÌ½º»ó) - ¹Ì´Ï¸Ê, ºò¸Ê
+	eMapView			= 64,	// ï¿½Ø´ï¿½ ï¿½Êºï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½) - ï¿½Ì´Ï¸ï¿½, ï¿½ï¿½ï¿½
 
-	eEventMap			= 128,	// ÀÌº¥Æ®¸Ê
+	eEventMap			= 128,	// ï¿½Ìºï¿½Æ®ï¿½ï¿½
 	eRunningMap,
 
-	eSiegeWarMap		= 256,	// °ø¼º¸Ê
+	eSiegeWarMap		= 256,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	eBossMap			= 512,	// º¸½º¸Ê
+	eBossMap			= 512,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	eTitanMap			= 1024,	// ÆÇÅ¸Áö¸Ê
+	eTitanMap			= 1024,	// ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½
 
-	eQuestRoom			= 2048,	// ±â¿¬ÀÇ¹æ
+	eQuestRoom			= 2048,	// ï¿½â¿¬ï¿½Ç¹ï¿½
 
-	eTournament			= 4096,	// Åä³Ê¸ÕÆ®
+	eTournament			= 4096,	// ï¿½ï¿½Ê¸ï¿½Æ®
 
-	eSurvivalMap		= 8192, // ¼­¹ÙÀÌ¹ú
+	eSurvivalMap		= 8192, // ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½
 };
 
 enum eAutoNoteError
 {
 	eAutoNoteError_None = 0,
-	eAutoNoteError_CantUse,			// ±â´ÉÀÚÃ¼¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+	eAutoNoteError_CantUse,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	eAutoNoteError_CantUseMap,
 	eAutoNoteError_AlreadyAsking,
 	eAutoNoteError_CantFind,
@@ -3549,9 +3564,9 @@ enum eAutoNoteError
 	eAutoNoteError_NotProperState,
 };
 
-// ¿ä»õÀü
-// ¾ÆÀÌÅÛÁ¤º¸ ¹®ÆÄÀÎµ¦½º¿¡ µé¾î°¥ °ª
-// ½ÇÁ¦ µé¾î°¥ °ªÀº + °ü·Ã ¸Ê¹øÈ£ (EX - ¿ä»õ¸ÊÀÌ ¿Á¹®°üÀÌ¸é °ªÀº 2100000019)
+// ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½È£ (EX - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ 2100000019)
 #define SEIGEWARWAREIDX		2100000000
 #define	FORTWARWAREIDX_1	2100000001
 #define FORTWARWAREIDX_2	2100000002
@@ -3560,19 +3575,19 @@ enum eAutoNoteError
 enum eFortWarEngraveError
 {
 	eFortWarEngraveError_None = 0,
-	eFortWarEngraveError_NotMap,			// ¿ä»õÀü ¸ÊÀÌ ¾Æ´Ï´Ù
-	eFortWarEngraveError_NotIng,			// ¿ä»õÀü ÁøÇàÁßÀÌ ¾Æ´Ï´Ù
-	eFortWarEngraveError_AlreadyPlayer,		// ´Ù¸¥ Ä³¸¯ÅÍ°¡ °¢ÀÎÁßÀÌ´Ù
+	eFortWarEngraveError_NotMap,			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½
+	eFortWarEngraveError_NotIng,			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½
+	eFortWarEngraveError_AlreadyPlayer,		// ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 	eFortWarEngraveError_NotGuildMaster,
 };
 
 enum eFortWarWareError
 {
 	eFortWarWareError_None = 0,
-	eFortWarWareError_NotMap,				// Ã¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ¸ÊÀÌ ¾Æ´Ï´Ù.
-	eFortWarWareError_NotTime,				// Ã¢°í¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ½Ã°£ÀÌ ¾Æ´Ï´Ù.
-	eFortWarWareError_NotRight,				// Ã¢°í ÀÌ¿ë±ÇÇÑÀÌ ¾ø´Ù.
-	eFortWarWareError_NotUse,				// ÀÌ¿ëÇÒ ¼ö ¾ø´Ù.
+	eFortWarWareError_NotMap,				// Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
+	eFortWarWareError_NotTime,				// Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
+	eFortWarWareError_NotRight,				// Ã¢ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	eFortWarWareError_NotUse,				// ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 };
 

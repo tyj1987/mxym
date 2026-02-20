@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "StunState.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

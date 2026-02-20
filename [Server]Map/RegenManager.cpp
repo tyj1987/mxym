@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "RegenManager.h"
 #include "RegenPrototype.h"
 #include "AIGroupManager.h"
@@ -20,7 +21,7 @@
 #include "UserTable.h"
 #include "Player.h"
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// Êµåº¸ - 05.12 Ì¿
 #include "FieldBossMonster.h"
 #include "FieldSubMonster.h"
 //////////////////////////////////////////////////////////////////////
@@ -68,9 +69,9 @@ BOOL CRegenManager::RegenObject(DWORD groupID, DWORD dwGridID, DWORD dwObjectID,
 	CRegenObject * pRegenInfo = pGroup->GetRegenObject(dwObjectID);
 	BYTE kind = pRegenInfo->GetObjectKind();
 /*	if(pRegenInfo->GetObjectKind() == eObjectKind_BossMonster ||
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-	// ÇÊµåº¸½ºµµ ÁöÁ¤µÈ À§Ä¡Áß¿¡ ·£´ýÀ¸·Î ¸®Á¨µÇ¾î¾ß ÇÏ¹Ç·Î
-	// ·£´ý ¼³Á¤À» ²ö´Ù
+	// Êµåº¸ - 05.12 Ì¿
+	// Êµåº¸  Ä¡ß¿  Ç¾ Ï¹Ç·
+	//   
 	   pRegenInfo->GetObjectKind() == eObjectKind_FieldBossMonster)
 		bRandomPos = FALSE;
 */
@@ -105,29 +106,29 @@ void CRegenManager::RangePosAtOrig(VECTOR3 * OrigPos, int Range, VECTOR3 * OutPo
 
 CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID, WORD wObjectKind, WORD wMonsterKind, VECTOR3 * vPos, DWORD dwGroupID, WORD DropItemID /* = 0 */, DWORD dwDropRatio /* = 100  */,BOOL bRandomPos /* = TRUE */, BOOL bEventRegen /* = FALSE  */)
 {
-	/// 06. 08. ÀÌ¿µÁØ
-	/// °°Àº ¾ÆÀÌµð¸¦ »ç¿ëÇÏ´Â °´Ã¼°¡ ÀÖÀ»°æ¿ì
-	/// ¸®Á¨À» ½ÃÅ°Áö ¾Ê°í NULL°ªÀ» ¹ÝÈ¯ÇÏÀÚ!
+	/// 06. 08. Ì¿
+	///  Ìµ Ï´ Ã¼ 
+	///  Å° Ê° NULL È¯!
 	if( g_pUserTable->FindUser( dwID ) )
 	{
 		ASSERT(0);
 		return NULL;
 	}
 
-	// ÇÊµåº¸½ºÀÏ °æ¿ì
+	// Êµåº¸ 
 	int nRegenPosIndex = 0;
 	if( wObjectKind == eObjectKind_FieldBossMonster )
 	{
-		// ÇÊµåº¸½º ¸Å´ÏÀú¿¡ ¸®Á¨ À§Ä¡°¡ 1°³ ÀÌ»ó µî·ÏµÇ¾î ÀÖ´Ù¸é
+		// Êµåº¸ Å´  Ä¡ 1 Ì» ÏµÇ¾ Ö´Ù¸
 		WORD wRegenPosCount = FIELDBOSSMONMGR->GetRegenPositionCount();
 		//if( FIELDBOSSMONMGR->GetRegenPositionCount() > 0 )
 		if( wRegenPosCount > 0 )
 		{
-			// µî·ÏµÈ ¸®Á¨ À§Ä¡¿¡¼­ ·£´ýÀ¸·Î °áÁ¤ÇÑ´Ù
+			// Ïµ  Ä¡  Ñ´
 			//VECTOR3 pos = FIELDBOSSMONMGR->GetRegenPosition();
-			//2008. 4. 2. CBH - °¢ Ã¤³ÎÀÇ ÇÊº¸»ý¼º½Ã °°Àº RegenProtoTypeÀ» ÂüÁ¶ÇÏ±â ¶§¹®¿¡ ¸®Á¨ À§Ä¡°¡
-			//¸¶Áö¸· Ã¤³ÎÀÇ ¸®Á¨ À§Ä¡·Î °»½ÅµÇ¹Ç·Î ÇÊº¸ »ý¼º½Ã RegenPos ArrayÀÇ ÀÎµ¦½º¸¦ °¢°¢ ÇÊº¸ ¿ÀºêÁ§Æ®¿¡
-			//ÀúÀåÇØ¾ßÇÑ´Ù.
+			//2008. 4. 2. CBH -  Ã¤ Êº  RegenProtoType Ï±   Ä¡
+			// Ã¤  Ä¡ ÅµÇ¹Ç· Êº  RegenPos Array Îµ  Êº Æ®
+			//Ø¾Ñ´.
 			nRegenPosIndex = rand() % wRegenPosCount;
 			VECTOR3 pos = FIELDBOSSMONMGR->GetRegenPosition(nRegenPosIndex);
 			vPos->x = pos.x;
@@ -190,8 +191,8 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 		}
 		break;
 
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-	// ÇÊµåº¸½º ¸®Á¨
+	// Êµåº¸ - 05.12 Ì¿
+	// Êµåº¸ 
 	case eObjectKind_FieldBossMonster:
 		{
 			MONSTER_TOTALINFO MonsterInfo;
@@ -209,7 +210,7 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 			Baseinfo.BattleID = dwGridID;
 			SafeStrCpy(Baseinfo.ObjectName, pMonsterListInfo->Name, MAX_NAME_LENGTH+1);
 
-			// ÇÊµåº¸½º ¸®Á¨ È®ÀÎ ·Î±×±â·Ï
+			// Êµåº¸  È® Î±×±
 //			g_Console.LOG(4, "FieldBossMonster Regen Succeeded : GridID: %d, GROUPID: %d, ID: %d, NAME: %s, (x,z):(%f,%f), Time: %d", dwGridID, dwGroupID, dwID, pMonsterListInfo->Name, vOutPos.x, vOutPos.z, gCurTime / 1000);
 			//MHERROR->OutputFile("Debug.txt", MHERROR->GetStringArg("FieldBoss Regen = GridID: %d, gCurTime: %d", dwGridID, gCurTime));
 
@@ -219,16 +220,16 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 			MonsterInfo.Group = (WORD)dwGroupID;
 
 			CFieldBossMonster * pMob = g_pServerSystem->AddFieldBossMonster(dwSubID, &Baseinfo, &MonsterInfo, &vOutPos);
-			pMob->SetRegenPosIndex(nRegenPosIndex);		//2008. 4. 2. CBH - ÇÊº¸ ¸®Á¨ Æ÷Áö¼Ç À§Ä¡ ÀÎµ¦½º ÀúÀå
+			pMob->SetRegenPosIndex(nRegenPosIndex);		//2008. 4. 2. CBH - Êº   Ä¡ Îµ 
 			
-			// ÇÊµå º¸½º ¸Å´ÏÀú¿¡ µî·Ï
+			// Êµ  Å´ 
 			FIELDBOSSMONMGR->AddFieldBossMonster(pMob);
 			pMob->SetEventMob(bEventRegen);
 
 			return pMob;
 		}
 		break;
-	// ÇÊµåº¸½ººÎÇÏ ¸®Á¨
+	// Êµåº¸ 
 	case eObjectKind_FieldSubMonster:
 		{
 			MONSTER_TOTALINFO MonsterInfo;
@@ -246,7 +247,7 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 			Baseinfo.BattleID = dwGridID;
 			SafeStrCpy(Baseinfo.ObjectName, pMonsterListInfo->Name, MAX_NAME_LENGTH+1);
 
-			// ÇÊµåº¸½ººÎÇÏ ¸®Á¨ È®ÀÎ ·Î±×±â·Ï
+			// Êµåº¸  È® Î±×±
 			//g_Console.LOG(4, "FieldSubMonster Regen Succeeded : GROUPID: %d, ID: %d, NAME: %s, (x,z):(%f,%f)", dwGroupID, dwID, pMonsterListInfo->Name, vOutPos.x, vOutPos.z);
 			//MHERROR->OutputFile("Debug.txt", MHERROR->GetStringArg("FieldSub Regen = GridID: %d, gCurTime: %d", dwGridID, gCurTime));
 
@@ -290,7 +291,7 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 			pMob->SetEventMob(bEventRegen);
 		
 			/*
-			//È²¸ª¼öÈ£Àå±º ³­ÁÖ ½À°Ý ÀÌº¥Æ® ÄÚµå
+			//È²È£å±º   ÌºÆ® Úµ
 			if( pMob->GetMonsterKind() == 158 )
 			{	
 				pMob->AddSpeech(2, 7501);
@@ -299,7 +300,7 @@ CMonster* CRegenManager::RegenObject( DWORD dwID, DWORD dwSubID, DWORD dwGridID,
 				TESTMSG msg;
 				msg.Category = MP_SIGNAL;
 				msg.Protocol = MP_SIGNAL_COMMONUSER;
-				SafeStrCpy( msg.Msg, "<<ÀÌº¥Æ® ½ÃÀÛ : ³­ÁÖ ¾îµò°¡¿¡ È²¸ª¼öÈ£Àå±ºÀÌ ÃâÇöÇÏ¿´½À´Ï´Ù!!!>>", MAX_CHAT_LENGTH + 1 );
+				SafeStrCpy( msg.Msg, "<<ÌºÆ®  :  ò°¡¿ È²È£å±º Ï¿Ï´!!!>>", MAX_CHAT_LENGTH + 1 );
 				
 				g_pUserTable->SetPositionUserHead();
 				

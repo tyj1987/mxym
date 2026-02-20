@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "PKManager.h"
 #include "UserTable.h"
 #include "PackedData.h"
@@ -102,7 +103,7 @@ void CPKManager::SetPKAllowWithMsg( BOOL bAllow )
 		{
 			if( ((CPlayer*)pObject)->IsPKMode() )
 				((CPlayer*)pObject)->PKModeOffForce();
-			//·çÆÃÇÏ´ø°Íµµ Äµ½½?
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Íµï¿½ Äµï¿½ï¿½?
 		}
 
 		msg.bData		= bAllow;
@@ -122,7 +123,7 @@ void CPKManager::DiePanelty( CPlayer* pDiePlayer, CObject* pAttacker )
 	// guildfieldwar
 //	if( pDiePlayer->IsDieFromGFW() )
 //		return;
-	// PK¸ðµåÀÌ¸é ¹®ÆÄÇÊµåÀüÀ¸·Î Á×Àº°Ô ¾Æ´Ï´Ù
+	// PKï¿½ï¿½ï¿½ï¿½Ì¸ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½
 	if( pDiePlayer->IsPKMode() )
 	{
 		pDiePlayer->SetDieForGFW( FALSE );
@@ -130,27 +131,27 @@ void CPKManager::DiePanelty( CPlayer* pDiePlayer, CObject* pAttacker )
 	// partywar
 	if( PARTYWARMGR->IsEnemy( pDiePlayer, (CPlayer*)pAttacker ) )
 		return;
-	//ºñ¹«½Ã¿£ Á×´Â ÆÐ³ÎÆ¼°¡ ¾ø´Ù. ºñ¹«·Î Á¤´çÇÏ°Ô Á×¾ú´Ù.
+	//ï¿½ñ¹«½Ã¿ï¿½ ï¿½×´ï¿½ ï¿½Ð³ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ñ¹«·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½×¾ï¿½ï¿½ï¿½.
 	if( pDiePlayer->m_bNeedRevive == FALSE )
 		return;
-	// RaMa - 05.05.20 ¹®ÆÄÀü½Ã¿¡ Á×¾îµµ ÆÐ³ÎÆ¼ ¾øÀ½
+	// RaMa - 05.05.20 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½×¾îµµ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
 	if( pDiePlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_GTOURNAMENT )
 		return;
 
-	// RaMa ·º°ü·ÃÇÑ Á×À½Àº ÆÐ³ÎÆ¼ ¾øÀ½
+	// RaMa ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
 	if( pDiePlayer->IsActionPanelty() == FALSE )
 		return;
 
-	//¾Ç¸íÄ¡ ³ôÀ»¶§ Á×À¸¸é ¹Þ´Â ÆÐ³ÎÆ¼.	
+	//ï¿½Ç¸ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½Ð³ï¿½Æ¼.	
 	PKPlayerDiePanelty( pDiePlayer );
 
 	if( pAttacker->GetObjectKind() != eObjectKind_Player )
 		return;
 
-	//PKÇÏ¸é ¹Þ´Â ¾Ç¸íÄ¡
+	//PKï¿½Ï¸ï¿½ ï¿½Þ´ï¿½ ï¿½Ç¸ï¿½Ä¡
 	PKPlayerKillPanelty( pDiePlayer, (CPlayer*)pAttacker );
 
-	//Ã´»ì´çÇÏ¸é ¹Þ´Â ÆÐ³ÎÆ¼.
+	//Ã´ï¿½ï¿½ï¿½ï¿½Ï¸ï¿ ï¿½Þ´ï¿½ ï¿½Ð³ï¿½Æ¼.
 	PKPlayerKiiledByWantedPanelty( pDiePlayer, (CPlayer*)pAttacker );
 }
 
@@ -189,14 +190,14 @@ void CPKManager::PKPlayerKillPanelty( CPlayer* pDiePlayer, CPlayer* pAttacker )
 			if( dwBadFame + dwAddBadFame < 1000000000 )
 				pAttacker->SetBadFame( dwBadFame + dwAddBadFame );
 			else
-				pAttacker->SetBadFame( 1000000000 );	//10¾ï
+				pAttacker->SetBadFame( 1000000000 );	//10ï¿½ï¿½
 			
 			BadFameCharacterUpdate( pAttacker->GetID(), pAttacker->GetBadFame() );
 			FAMEMGR->SendBadFameMsg( pAttacker, pAttacker->GetBadFame() );
 		}
 
-		//Ãß°¡
-		pAttacker->AddPKContinueTime( 60000 );	//»ì±â Áö¼Ó½Ã°£ Áõ°¡
+		//ï¿½ß°ï¿½
+		pAttacker->AddPKContinueTime( 60000 );	//ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 }
 
@@ -205,9 +206,9 @@ void CPKManager::PKPlayerKiiledByWantedPanelty( CPlayer* pDiePlayer, CPlayer* pA
 	//die <--PKPlayer
 	//attack <--has wanted player
 
-	if( pAttacker->IsWantedOwner( pDiePlayer->GetWantedIdx() ) )	//Ã´»ì±ÇÀ» °¡Áø»ó´ë¿¡°Ô Á×¾ú´Ù.
+	if( pAttacker->IsWantedOwner( pDiePlayer->GetWantedIdx() ) )	//Ã´ï¿½ï¿½ï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿¡ï¿½ï¿ ï¿½×¾ï¿½ï¿½ï¿½.
 	{
-//¿ÏÈ­ : ¾Ç¸íÄ¡ °¨¼Ò ========
+//ï¿½ï¿½È­ : ï¿½Ç¸ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ========
 		DWORD dwBadFame = pDiePlayer->GetBadFame();
 
 		if( dwBadFame != 0 )
@@ -246,9 +247,9 @@ void CPKManager::PKPlayerKiiledByWantedPanelty( CPlayer* pDiePlayer, CPlayer* pA
 		}
 //==============
 
-		//Á¦Á¦ //¹«°øÀÌ ¾ø¾îÁø´Ù.	//»èÁ¦... %¸¸ 3% Ãß°¡µÇ¾î ¹«Á¶°Ç Á×¾úÀ»½Ã¿¡ Æä³ÎÆ¼¸¦ ¹Þ´Â´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.	//ï¿½ï¿½ï¿½ï¿½... %ï¿½ï¿½ 3% ï¿½ß°ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ï¿ ï¿½Þ´Â´ï¿½.
 /*
-		int nRatio = 0;	//¹«°øÆÄ±« È®·ü
+		int nRatio = 0;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ È®ï¿½ï¿½
 		
 		CItemSlot* pWear	= pDiePlayer->GetSlot( eItemTable_Weared );
 		CItemSlot* pInven	= pDiePlayer->GetSlot( eItemTable_Inventory );
@@ -296,7 +297,7 @@ void CPKManager::PKPlayerKiiledByWantedPanelty( CPlayer* pDiePlayer, CPlayer* pA
 				
 				if( ListMugong.GetCount() == 0 ) 
 				{
-					//³¯¸± ¹«°øµµ ¾ø´Ù. 
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 					return;
 				}
 				
@@ -304,7 +305,9 @@ void CPKManager::PKPlayerKiiledByWantedPanelty( CPlayer* pDiePlayer, CPlayer* pA
 				const MUGONGBASE* pMugong = ListMugong.GetAt(nIndex);
 				
 				if( pMugong )
+				{
 				if( MUGONGMNGR->RemMugong( pDiePlayer, pMugong->wIconIdx, pMugong->Position ) )
+				}
 				{
 					MSG_MUGONG_REM_ACK ToMsg;
 					ToMsg.Category		= MP_PK;
@@ -325,9 +328,9 @@ void CPKManager::PKPlayerKiiledByWantedPanelty( CPlayer* pDiePlayer, CPlayer* pA
 
 void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 {
-	//Á×¾úÀ»¶§ ±âº»ÀûÀ¸·Î ´õ °¡ÇØÁö´Â ÆÐ³ÎÆ¼
+	//ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼
 	PKModeExitPanelty( pPlayer );
-	//ÀåÂø¾ÆÀÌÅÛ ÆÄ±«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
 	DWORD dwBadFame = pPlayer->GetBadFame();
 
 	int nMinDestroyItemNum	= 0;
@@ -412,16 +415,16 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 //		nDestroyRatio = 100;
 	}
 
-	int nDestroyRatio	= dwBadFame ? (int)(0.3070f * sqrt((float)dwBadFame) + 2.6930f) : 0;	//¹«±â, ¹«°ø, Æ¯±â ¸ðµÎ ÇØ´ç
+	int nDestroyRatio	= dwBadFame ? (int)(0.3070f * sqrt((float)dwBadFame) + 2.6930f) : 0;	//ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿ ï¿½Ø´ï¿½
 	
 	BOOL bWantedPlayer = FALSE;
-	if( pPlayer->GetWantedIdx() != 0 )	//Çö»ó¹üÀÌ¸é 3%Áõ°¡
+	if( pPlayer->GetWantedIdx() != 0 )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿ 3%ï¿½ï¿½ï¿½ï¿½
 	{
 		nDestroyRatio += 3;
 		bWantedPlayer = TRUE;
 	}
 
-	if( nDestroyRatio == 0 ) return;	//ÆÄ±«È®·üÀÌ ¾øÀ¸¸é ¸®ÅÏ.
+	if( nDestroyRatio == 0 ) return;	//ï¿½Ä±ï¿½È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 	if( nDestroyRatio > 100 ) nDestroyRatio = 100;	
 
@@ -436,11 +439,11 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 			CWearSlot* pWear			= (CWearSlot*)pPlayer->GetSlot( eItemTable_Weared );
 			if( pWear->GetItemCount() )
 			{
-				//---ÀåÂø¾ÆÀÌÅÛ ¸ñ·ÏÀÛ¼º
+				//---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Û¼ï¿
 				cConstLinkedList<const ITEMBASE*> ListWearItem;
 				for( int i = TP_WEAR_START ; i < TP_WEAR_END ; ++i )
 				{
-					//±³È¯Ãë¼Ò¿Í ³ëÁ¡Ãë¼ÒµîÀ» ¸ÕÀú ½ÃÅ²ÈÄ¿¡!
+					//ï¿½ï¿½È¯ï¿½ï¿½Ò¿ï¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½Ä¿ï¿½!
 					if( !pWear->IsEmpty( i ) )
 						if( !pWear->IsLock( i ) )
 						{
@@ -448,7 +451,7 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 						}
 				}
 				
-				//---ÀåÂø¾ÆÀÌÅÛ ·£´ý ¼±ÅÃ
+				//---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				while( ListWearItem.GetCount() )
 				{
 					int nIndex		= rand()%ListWearItem.GetCount();
@@ -467,9 +470,9 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 					WORD wType = bWantedPlayer && nSeed < 3 ? eLog_ItemDestroyByWanted : eLog_ItemDestroyByBadFame;
 
 					if( wType == eLog_ItemDestroyByWanted )
-						msg.cbReason		= 1;		//Çö»ó¹üÀÌ¹Ç·Î ÆÄ±«
+						msg.cbReason		= 1;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿ ï¿½Ä±ï¿½
 					else
-						msg.cbReason		= 0;		//³ôÀº ¾Ç¸íÀ¸·Î ÆÄ±«
+						msg.cbReason		= 0;		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
 
 					if( EI_TRUE == ITEMMGR->DiscardItem( pPlayer, ItemInfo.Position, ItemInfo.wIconIdx,
 						ItemInfo.Durability ) )
@@ -489,7 +492,7 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 		}
 	}
 
-	//¹«°øÆÄ±«	(Áø¹ýµµ Æ÷ÇÔµÇ¾î ÀÖ´Â°Ç°¡?)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½	(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´Â°Ç°ï¿½?)
 
 #ifdef _CHINA_LOCAL_
 	if( dwBadFame < 60 ) return;
@@ -528,7 +531,7 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 		}
 	}
 /*
-	//Æ¯±âÆÄ±« (±âº»Æ¯±âÀÎÁö ±¸º°)
+	//Æ¯ï¿½ï¿½ï¿½Ä±ï¿½ (ï¿½âº»Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	nSeed = rand()%100;
 	if( nSeed < nDestroyRatio )
 	{
@@ -550,7 +553,9 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 			const MUGONGBASE* pMugong = ListMugong.GetAt(nIndex);
 			
 			if( pMugong )
+			{
 			if( MUGONGMNGR->RemMugong( pPlayer, pMugong->wIconIdx, pMugong->Position ) )
+			}
 			{
 				MSG_MUGONG_REM_ACK ToMsg;
 				ToMsg.Category		= MP_PK;
@@ -567,7 +572,7 @@ void CPKManager::PKPlayerDiePanelty( CPlayer* pPlayer )
 */
 }
 
-void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­Á¦ Á¾·á È¤Àº Á×¾úÀ»½Ã 
+void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¤ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ 
 {
 	DWORD dwBadFame = pPlayer->GetBadFame();
 
@@ -580,7 +585,7 @@ void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­
 	MONEYTYPE dwMoney	= 0;
 	EXPTYPE pointForLevel	= GAMERESRCMNGR->GetMaxExpPoint( pPlayer->GetLevel() );	
 
-	// 06.08.29. RaMa. È«Äá¿¡¸¸ Àû¿ë
+	// 06.08.29. RaMa. È«ï¿½á¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #ifdef _HK_LOCAL_
 #ifndef _TW_LOCAL_
 
@@ -649,7 +654,7 @@ void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­
 		dwExp	= pointForLevel * 73 / 100;
 		dwMoney = pPlayer->GetMoney() * 82 / 100;
 	}
-	else	//10¾ï±îÁö
+	else	//10ï¿½ï¿½ï¿½ï¿½ï¿
 	{
 		dwExp	= pointForLevel * 80 / 100;
 		dwMoney = pPlayer->GetMoney() * 90 / 100;
@@ -722,7 +727,7 @@ void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­
 		dwExp	= pointForLevel * 73 / 100;
 		dwMoney = pPlayer->GetMoney() * 82 / 100;
 	}
-	else	//10¾ï±îÁö
+	else	//10ï¿½ï¿½ï¿½ï¿½ï¿
 	{
 		dwExp	= pointForLevel * 80 / 100;
 		dwMoney = pPlayer->GetMoney() * 90 / 100;
@@ -796,7 +801,7 @@ void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­
 		dwExp	= pointForLevel * 73 / 100;
 		dwMoney = pPlayer->GetMoney() * 82 / 100;
 	}
-	else	//10¾ï±îÁö
+	else	//10ï¿½ï¿½ï¿½ï¿½ï¿
 	{
 		dwExp	= pointForLevel * 80 / 100;
 		dwMoney = pPlayer->GetMoney() * 90 / 100;
@@ -809,7 +814,7 @@ void CPKManager::PKModeExitPanelty( CPlayer* pPlayer, BOOL bPKModePanelty ) //°­
 		pPlayer->SetMoney( dwMoney, MONEY_SUBTRACTION, MF_LOST, eItemTable_Inventory, eMoneyLog_LosePKModeExitPanelty, 0 );
 	}
 
-	if( dwExp && pPlayer->GetLevel() >= 5 )		//5·¹º§ ÀÌ»óÀÏ¶§¸¸ ¾Ç¸íÄ¡ ÆÐ³ÎÆ¼°¡ ÀÖ´Ù.
+	if( dwExp && pPlayer->GetLevel() >= 5 )		//5ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½Ä¡ ï¿½Ð³ï¿½Æ¼ï¿½ï¿½ ï¿½Ö´ï¿½.
 	{
 //		if( pPlayer->GetPlayerExpPoint() < dwExp )
 //			dwExp = pPlayer->GetPlayerExpPoint();
@@ -832,7 +837,7 @@ void CPKManager::NetworkMsgParse( BYTE Protocol, void* pMsg )
 
 			DWORD dwChannel = pPlayer->GetChannelID();
 			
-			if( !IsPKAllow(dwChannel) )	//ÀÓ½Ã
+			if( !IsPKAllow(dwChannel) )	//ï¿½Ó½ï¿½
 			{
 				MSG_BYTE msg;				//error code?
 				msg.Category	= MP_PK;

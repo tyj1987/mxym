@@ -11,7 +11,7 @@
 
 
 #include "./Interface/cDialog.h"
-#include "../ImageNumber.h"
+#include "ImageNumber.h"
 
 
 class cStatic;

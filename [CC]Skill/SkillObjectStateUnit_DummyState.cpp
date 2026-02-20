@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "SkillObjectStateUnit_DummyState.h"
+#include "..\\[Client]MH\\Object.h"
 
 #ifdef _MHCLIENT_
 #include "StatusIconDlg.h"
@@ -32,10 +33,10 @@ void CSkillObjectStateUnit_DummyState::Init(CSkillInfo* pSkillInfo,WORD SkillLev
 	{
 #ifdef _MHCLIENT_
 /*
-maintain_damage01_S.beff	È­¼Ó¼º Áö¼Óµ¥¹ÌÁö
-maintain_damage02_S.beff	¼ö¼Ó¼º Áö¼Óµ¥¹ÌÁö
-maintain_damage03_S.beff	±Ý¼Ó¼º Áö¼Óµ¥¹ÌÁö
-maintain_gas_S.beff	µ¶¼Ó¼º Áö¼Óµ¥¹ÌÁö
+maintain_damage01_S.beff	È­ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+maintain_damage02_S.beff	ï¿½ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+maintain_damage03_S.beff	ï¿½Ý¼Ó¼ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+maintain_gas_S.beff	ï¿½ï¿½ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
 */
 		m_StateEffectNum[0] = pSkillInfo->GetSkillInfo()->EffectMineOperate;
 		if(pSkillInfo->GetAttrib() == ATTR_FIRE)
@@ -66,7 +67,7 @@ maintain_gas_S.beff	µ¶¼Ó¼º Áö¼Óµ¥¹ÌÁö
 	{
 #ifdef _MHCLIENT_
 		m_StateIconNum[1] = eStatusIcon_HealContinue;
-		// Áö¼ÓÈ¿°úÇ¥½Ã
+		// ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½Ç¥ï¿½ï¿½
 		m_StateEffectNum[1] = pSkillInfo->GetSkillInfo()->EffectMineOperate;
 #endif
 		

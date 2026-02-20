@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHANGEITEMMGR_H__94A4A82B_1B66_44EE_9965_C0BAFC2B306C__INCLUDED_)
 #define AFX_CHANGEITEMMGR_H__94A4A82B_1B66_44EE_9965_C0BAFC2B306C__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -66,7 +67,7 @@ public:
 	void	Release();
 	BOOL	LoadItemChange();
 
-	int			 UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx );	
+	int			 UseChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx );
 	int			 UseNormalChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx, ITEMBASE* pItem );
 	int			 UseMultiChangeItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx, ITEMBASE* pItem );
 	unsigned int ChangedTotalItemNum(sMULTICHANGEITEM* pMultiChangeItem,WORD wMaxSet);//060613 Add by wonju

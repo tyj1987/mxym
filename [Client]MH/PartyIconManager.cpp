@@ -15,6 +15,7 @@ GLOBALTON(CPartyIconManager)
 
 CPartyIconManager::CPartyIconManager()
 {
+int i;
 //	memset(m_MInfoIndex, 0, sizeof(DWORD)*(MAX_PARTY_LISTNUM-1));
 //	memset(m_MoveInfo, 0, sizeof(PartyIconMoveInfo)*(MAX_PARTY_LISTNUM-1));
 
@@ -30,8 +31,9 @@ CPartyIconManager::~CPartyIconManager()
 
 void CPartyIconManager::CreatePartyIcon(DWORD ID, PARTY_MEMBER* pMember)
 {
-	// ±âÁ¸¿¡ ÀÌ¹Ì ÀÖÀ»°æ¿ì¿£ À§Ä¡¸¸ ¼öÁ¤ÇØÁØ´Ù.
-	for(int i=0; i<MAX_PARTY_LISTNUM-1; i++)
+	int i;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¿£ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+	for(i=0; i<MAX_PARTY_LISTNUM-1; i++)
 	{
 		if(m_MInfoIndex[i] == ID)
 		{
@@ -42,14 +44,14 @@ void CPartyIconManager::CreatePartyIcon(DWORD ID, PARTY_MEMBER* pMember)
 		}
 	}
 	
-	// ¾øÀ¸¸é »õ·Î Ãß°¡ÇØÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	for(i=0; i<MAX_PARTY_LISTNUM-1; i++)
 	{
 		if(m_MInfoIndex[i] == 0)
 		{
 			m_MInfoIndex[i] = ID;
 
-			// Icon ÃÊ±âÀ§Ä¡ ¼³Á¤
+			// Icon ï¿½Ê±ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 			GAMEIN->GetMiniMapDialog()->AddPartyMemberIcon(pMember);
 			GAMEIN->GetMiniMapDialog()->SetPartyIconObjectPos(ID, pMember->posX, pMember->posZ);
 			m_MoveInfo[i].SetPosition(pMember->posX, pMember->posZ);

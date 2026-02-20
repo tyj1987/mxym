@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHECKROUTINE_H__1F0CA9EB_BC00_41F9_B11E_E8E021026AB2__INCLUDED_)
 #define AFX_CHECKROUTINE_H__1F0CA9EB_BC00_41F9_B11E_E8E021026AB2__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -24,15 +25,15 @@ public:
 	BOOL LevelOf(CPlayer * pPlayer, LEVELTYPE level);
 	BOOL DistanceOf(CPlayer * pPlayer, VECTOR3 *vTPos, DWORD dist);
 
-	// ¾ÆÀÌÅÛ ±â´É¼öÇà ¾îºô¸®Æ¼ ¼ö·Ã ¿©ºÎ
+	//  É¼ Æ¼  
 	BOOL AbilityOf(CPlayer * pPlayer, eABILITY_USE_JOB eKind);
-	// ¾ÆÀÌÅÛ µ¿ÀÏ¼º Ã¼Å©(À§Ä¡,Á¸Àç,¾ÆÀÌÅÛÁ¤º¸)
+	//  Ï¼ Ã¼Å©(Ä¡,,)
 	BOOL ItemOf(CPlayer * pPlayer, POSTYPE AtPos, WORD wItemIdx, DURTYPE Dura, POSTYPE QuickPos, WORD flag = CB_ALL);
 	
 	BOOL DearlerItemOf(WORD wDealerIdx, WORD wBuyItemIdx);
-	// ÀÌ¹Ì °°Àº Á¾·ùÀÇ ¹«°ø µî·Ï¿©ºÎ
-	// µî·ÏµÇ¾î ÀÖÀ¸¸é TRUE
-	// ¾Æ´Ï¸é FALSE
+	// Ì¹    Ï¿
+	// ÏµÇ¾  TRUE
+	// Æ´Ï¸ FALSE
 	BOOL MugongOf(CPlayer * pPlayer, WORD wMugongIdx);
 
 	BOOL ItemStageOf(CPlayer* pPlayer, BYTE bItemStage );

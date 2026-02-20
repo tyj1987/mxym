@@ -4,6 +4,7 @@
 
 #if !defined(AFX_TILE_H__7312558F_B883_49C4_8AAA_69CA0AE2D8F4__INCLUDED_)
 #define AFX_TILE_H__7312558F_B883_49C4_8AAA_69CA0AE2D8F4__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -56,7 +57,7 @@ public:
 		--m_Attr.uCharPreoccupied;	
 	}
 
-	inline GetPreoccupied()	{	return m_Attr.uCharPreoccupied;	}
+	inline BYTE GetPreoccupied()	{	return m_Attr.uCharPreoccupied;	}
 };
 
 #endif // !defined(AFX_TILE_H__7312558F_B883_49C4_8AAA_69CA0AE2D8F4__INCLUDED_)

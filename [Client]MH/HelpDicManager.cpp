@@ -72,7 +72,8 @@ void cHelpDicManager::LoadHelpDicInfo()
 			if((fp.GetString())[0] == '{')
 				LoadPageInfo(NULL, &fp);
 			else
-				__asm int 3;
+				// __asm int 3; // NOP for Release
+				; // Empty statement
 		CMD_EN
 	}
 }
@@ -101,7 +102,7 @@ void cHelpDicManager::LoadPageInfo(cPage* pPage, CMHFile* fp)
 		CMD_CS("$PAGE")
 			if((fp->GetString())[0] == '{')
 			{
-				cPage* pNewPage = new cPage; // »õ·Î¿î ÆäÀÌÁöÀÇ µî·Ï
+				cPage* pNewPage = new cPage; // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				AddPage( pNewPage );
 				LoadPageInfo(pNewPage, fp);
 			}

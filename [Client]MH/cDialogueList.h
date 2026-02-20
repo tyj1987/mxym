@@ -2,7 +2,7 @@
 #define __DIALOGUE_LIST__
 
 #include "PtrList.h"
-#include "../MHFile.h"
+#include "MHFile.h"
 
 #define MAX_DIALOGUE_COUNT 12800
 

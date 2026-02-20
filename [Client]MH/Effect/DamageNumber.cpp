@@ -50,30 +50,31 @@ CDamageNumber::CDamageNumber()
 
 CDamageNumber::~CDamageNumber()
 {
-	
+
 }
 
 
 BOOL CDamageNumber::LoadImage()
 {
 	char szfile[64];
+	int n;
 
 	DeleteImage();
 
 	m_pNumberImage[eDNK_Yellow] = new cImageSelf[10];
-	for(int n=0;n<10;++n)
+	for(n=0;n<10;++n)
 	{
 		sprintf(szfile,"./image/Damage/y%d.tif",n);
 		m_pNumberImage[eDNK_Yellow][n].LoadSprite(szfile);
 	}
-	
+
 	m_pNumberImage[eDNK_Green] = new cImageSelf[10];
 	for(n=0;n<10;++n)
 	{
 		sprintf(szfile,"./image/Damage/g%d.tif",n);
 		m_pNumberImage[eDNK_Green][n].LoadSprite(szfile);
 	}
-	
+
 	m_pNumberImage[eDNK_Red] = new cImageSelf[10];
 	for(n=0;n<10;++n)
 	{
@@ -151,7 +152,7 @@ void CDamageNumber::SetDamage(DWORD Damage,VECTOR3* pPos,VECTOR3* pVelocity,BYTE
 
 	m_Damage = Damage;
 
-	// ¸îÀÚ¸® ¼öÀÎÁö ±¸ÇÑ´Ù
+	// ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½
 	m_Jarisu = 0;
 	DWORD tens=1;
 	while(tens<=m_Damage)
@@ -178,7 +179,7 @@ void CDamageNumber::SetDamage(DWORD Damage,VECTOR3* pPos,VECTOR3* pVelocity,BYTE
 	ASSERT(m_Jarisu <= MAX_DAMAGE_JARISU);
 
 
-	// °¢ÀÚ¸®ÀÇ ¼ö¸¦ ±¸ÇØ¼­ image¿Í ÁÂÇ¥¸¦ ¼ÂÆÃÇÑ´Ù.
+	// ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ imageï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	tens /= 10;
 	DWORD eachnum;
 	VECTOR2 ScreenPos;
@@ -207,7 +208,7 @@ BOOL CDamageNumber::Render()
 		return FALSE;
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¿òÁ÷ÀÓ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	float fVelocity = 1.8f;
 	float TotalTime = 700.f;
 	float HighestTime = 150.f;
@@ -224,7 +225,7 @@ BOOL CDamageNumber::Render()
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¾ËÆÄ
+	// ï¿½ï¿½ï¿½ï¿½
 	if(Elapsedtime > AlphaStartTime+ 200.f)
 	{
 		float ttt = Elapsedtime - AlphaStartTime;
@@ -272,7 +273,7 @@ BOOL CDamageNumber::Render()
 
 	//////////////////////////////////////////////////////////////////////////
 	// Critical
-	// 06. 07. ³»°ø ÀûÁß(ÀÏ°Ý) - ÀÌ¿µÁØ
+	// 06. 07. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ï°ï¿½) - ï¿½Ì¿ï¿½ï¿½ï¿½
 	if(m_bCritical || m_bDecisive)
 	{
 		static float CriticalOverHeight = 45 + 20;

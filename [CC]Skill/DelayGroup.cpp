@@ -27,6 +27,9 @@ CDelayGroup::CDelayGroup()
 #else
 		m_pDelayPool->Init(16,16,"CDelayGroup");
 #endif
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 	}
 
 	++m_PoolRefCount;
@@ -44,7 +47,7 @@ CDelayGroup::~CDelayGroup()
 	{
 		static BOOL bMsgBox = TRUE;
 		if(bMsgBox)
-			MessageBox(0,"DelayGroup ÀÌ ÀÌ»óÇÏ´Ù!!",0,0);
+			MessageBox(0,"DelayGroup  Ì»Ï´!!",0,0);
 
 		return;
 	}
@@ -76,7 +79,7 @@ void CDelayGroup::Release()
 
 float CDelayGroup::CheckDelay(WORD Kind,WORD Idx, DWORD* pRemainTime)
 {
-	// magi82 - Titan(070910) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+	// magi82 - Titan(070910) Å¸Åº Æ®
 	//if(Idx >= SKILLNUM_TO_TITAN)
 	//	Idx -= SKILLNUM_TO_TITAN;
 
@@ -87,9 +90,9 @@ float CDelayGroup::CheckDelay(WORD Kind,WORD Idx, DWORD* pRemainTime)
 
 	DWORD Elapsed = gCurTime - pDelay->StartTime;
 #ifdef _MAPSERVER_
-	//2007. 11. 15. CBH - ¹«°ø µô·¹ÀÌ ¹ö±× °ü·Ã ¼öÁ¤
-	//Å¬¶óÀÌ¾ðÆ®¿¡¼­ µô·¹ÀÌ°¡ Ç®¸®°í ¹Ù·Î ¹«°øÀ» ¾²¸é ¼­¹ö¿¡¼­´Â ÀÌÀü ¹«°øÀÇ µô·¹ÀÌ°¡ ³¡³ªÁö ¾Ê¾Æ¼­
-	//¹«°øÀÌ ¸ÔÈ÷´Â ¹ö±×°¡ ÀÖ¾î¼­ 0.3ÃÊÀÇ ¿ÀÂ÷¸¦ ÁÖ±âÀ§ÇØ 300À» ´õÇØ¼­ º¸Á¤.
+	//2007. 11. 15. CBH -     
+	//Å¬Ì¾Æ® Ì° Ç® Ù·      Ì°  Ê¾Æ¼
+	//  ×° Ö¾î¼­ 0.3  Ö± 300 Ø¼ .
 	float rate = 1 - ( (Elapsed+300)/(float)pDelay->DelayTime);
 #else
 	float rate = 1 - (Elapsed/(float)pDelay->DelayTime);
@@ -103,7 +106,7 @@ float CDelayGroup::CheckDelay(WORD Kind,WORD Idx, DWORD* pRemainTime)
 			*pRemainTime = 0;
 	}
 
-	// µô·¹ÀÌ°¡ ³¡³µÀ¸¸é µô·¹ÀÌ¸¦ ¾ø¿£´Ù.
+	// Ì°  Ì¸ .
 	if(rate <= 0)
 	{
 		if( pRemainTime )
@@ -120,7 +123,7 @@ void CDelayGroup::AddDelay(WORD Kind,WORD Idx,DWORD DelayTime,DWORD ElapsedTime 
 	DWORD key = MakeKey(Kind,Idx);
 	CDelay* pDelay = m_DelayedTable.GetData(key);
 
-	// ±âÁ¸ µô·¹ÀÌ°¡ ÀÖÀ¸¸é °»½ÅÇÑÈÄ ¸®ÅÏÇÑ´Ù.
+	//  Ì°   Ñ´.
 	if(pDelay)
 	{
 		pDelay->StartTime = gCurTime;
@@ -128,7 +131,7 @@ void CDelayGroup::AddDelay(WORD Kind,WORD Idx,DWORD DelayTime,DWORD ElapsedTime 
 		return;
 	}
 
-	// ¾ø¾úÀ¸¸é »õ·Î Ãß°¡ÇÑ´Ù.
+	//   ß°Ñ´.
 	pDelay = m_pDelayPool->Alloc();
 	pDelay->Kind = Kind;
 	pDelay->Idx = Idx;
@@ -166,7 +169,7 @@ float CDelayGroup::CheckTitanPotionDelay( DWORD* pRemainTime )
 			*pRemainTime = 0;
 	}
 
-	// µô·¹ÀÌ°¡ ³¡³µÀ¸¸é µô·¹ÀÌ¸¦ ¾ø¿£´Ù.
+	// Ì°  Ì¸ .
 	if(rate <= 0)
 	{
 		if( pRemainTime )
@@ -180,7 +183,7 @@ float CDelayGroup::CheckTitanPotionDelay( DWORD* pRemainTime )
 }
 void CDelayGroup::AddTitanPotionDelay( DWORD DelayTime, DWORD ElapsedTime )
 {
-	// ±âÁ¸ µô·¹ÀÌ°¡ ÀÖÀ¸¸é °»½ÅÇÑÈÄ ¸®ÅÏÇÑ´Ù.
+	//  Ì°   Ñ´.
 	if( m_pTitanPotionDelay )
 	{
 		m_pTitanPotionDelay->StartTime = gCurTime;
@@ -188,7 +191,7 @@ void CDelayGroup::AddTitanPotionDelay( DWORD DelayTime, DWORD ElapsedTime )
 		return;
 	}
 
-	// ¾ø¾úÀ¸¸é »õ·Î Ãß°¡ÇÑ´Ù.
+	//   ß°Ñ´.
 	m_pTitanPotionDelay = m_pDelayPool->Alloc();
 
 	DWORD dwStartTime = gCurTime-ElapsedTime;

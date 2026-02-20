@@ -130,9 +130,11 @@ BOOL CDissolutionManager::CanDissolutionItem( WORD wItemIdx )
 //리스트에 있는지 확인
 	sITEM_DISSOLUTION_INFO* pInfo = m_DissolutionInfoList.GetData( wItemIdx );
 	if( pInfo )
+	{
 	if( ITEMMGR->GetItemInfo( wItemIdx )->LimitLevel != 1 )
 		return TRUE;
 
+	}
 	return FALSE;
 }
 

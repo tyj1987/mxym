@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CMONSTERSPEECHMANAGER_H__980D146A_30B9_4F0C_9A69_4E74D859217A__INCLUDED_)
 #define AFX_CMONSTERSPEECHMANAGER_H__980D146A_30B9_4F0C_9A69_4E74D859217A__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -14,20 +15,20 @@
 
 #define MON_SPEECHMGR USINGTON(cMonsterSpeechManager)
 
-//#define MONSTERLIST_MAXNUM	190		몬스터리스트 로드 에 있는 것으로 쓰자.
+//#define MONSTERLIST_MAXNUM	190		拷트 琯  獵  .
 #define MAX_SPEECHLIST_NUM	50
 
 enum Mon_SpeechState{
-		eMon_Speech_ForeAtk,	//선공격 시작 대사
-		eMon_Speech_ForgivePursuit,	//추적 포기 대사
-		eMon_Speech_Help,	//도움 요청 대사
-		eMon_Speech_AboutHelp,	//도움 요청에 대한 반응 대사
-		eMon_Speech_Death,	//죽음 대사
-		eMon_Speech_Stand,	//대기 대사
-		eMon_Speech_WalkAround,	//이동 대사
+		eMon_Speech_ForeAtk,	//  
+		eMon_Speech_ForgivePursuit,	//  
+		eMon_Speech_Help,	// 청 
+		eMon_Speech_AboutHelp,	// 청   
+		eMon_Speech_Death,	// 
+		eMon_Speech_Stand,	// 
+		eMon_Speech_WalkAround,	//絹 
 		eMon_Speech_KeepStand,
 		eMon_Speech_KeepWalkAround,
-//		eMon_Speech_Rest,	//휴식 대사 사용안함.
+//		eMon_Speech_Rest,	//聘  .
 		eMon_Speech_MAX,
 };
 
@@ -61,7 +62,7 @@ struct MonSpeech
 
 class cMonsterSpeechManager  
 {
-	CYHHashTable<MonSpeech>		m_MonSpeechInfoTable;	//몬스터 대사 정보 테이블
+	CYHHashTable<MonSpeech>		m_MonSpeechInfoTable;	//   遣
 	MonSpeechInfo				m_SpeechInfo;
 
 public:

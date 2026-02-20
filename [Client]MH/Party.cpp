@@ -16,7 +16,7 @@ CParty::CParty()
 //	m_PartyDBIdx = 0;
 	m_TacticObjectID = 0;
 	m_Option = 0;
-	//2008. 5. 21. CBH - ÆÄÆ¼ Ãß°¡ ¿É¼Ç °ü·Ã Ãß°¡
+	//2008. 5. 21. CBH - ï¿½ï¿½Æ¼ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	memset(&m_AddOption, 0, sizeof(PARTY_ADDOPTION));
 }
 
@@ -27,16 +27,17 @@ CParty::~CParty()
 
 void CParty::InitParty(PARTY_INFO* pInfo)
 {
+	int n;
 	m_TacticObjectID = 0;
 	m_Option = 0;
 	memset(&m_AddOption, 0, sizeof(PARTY_ADDOPTION));
 
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 		m_Member[n].Clear();
 
 	HERO->SetPartyIdx(pInfo->PartyDBIdx);
 	SetMaster(&pInfo->Member[0]);	
-	//2008. 5. 22. CBH - ¹æÆÄ Ãß°¡ ¿É¼Ç ¼ÂÆÃ
+	//2008. 5. 22. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SetAddOption(pInfo->PartyAddOption);
 	//SetOption(pInfo->Option);
 	
@@ -83,9 +84,10 @@ char* CParty::GetMasterName()
 }
 
 
-void CParty::AddMember(PARTY_MEMBER* pMemberInfo) 
+void CParty::AddMember(PARTY_MEMBER* pMemberInfo)
 {
-	for(int n=1;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=1;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == 0)
 		{
@@ -105,7 +107,8 @@ void CParty::AddMember(PARTY_MEMBER* pMemberInfo)
 
 void CParty::DelMember(DWORD id)
 {
-	for(int n=1;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=1;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == id)
 		{
@@ -118,7 +121,8 @@ void CParty::DelMember(DWORD id)
 
 void CParty::LogIn(PARTY_MEMBER* pMemberInfo)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == pMemberInfo->dwMemberID)
 		{
@@ -137,7 +141,8 @@ void CParty::LogIn(PARTY_MEMBER* pMemberInfo)
 
 void CParty::LogOut(DWORD PlayerID)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -151,8 +156,9 @@ void CParty::LogOut(DWORD PlayerID)
 }
 
 char* CParty::GetMemberName(DWORD MemberID)
-{	
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+{
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == MemberID)
 		{
@@ -160,7 +166,7 @@ char* CParty::GetMemberName(DWORD MemberID)
 		}
 	}
 
-	// ¾ø´Â ÆÄÆ¼¿øÀ» Ã£À¸·Á Çß´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½.
 //	ASSERT(0);
 	return "";
 }
@@ -173,7 +179,8 @@ DWORD CParty::GetMemberID(int num)
 
 void CParty::SetMemberLifePercent(DWORD PlayerID, DWORD lifePercent)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -186,7 +193,8 @@ void CParty::SetMemberLifePercent(DWORD PlayerID, DWORD lifePercent)
 
 BYTE CParty::GetMemberLifePercent(DWORD PlayerID)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -199,7 +207,8 @@ BYTE CParty::GetMemberLifePercent(DWORD PlayerID)
 
 void CParty::SetMemberShieldPercent(DWORD PlayerID, DWORD ShieldPercent)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -212,7 +221,8 @@ void CParty::SetMemberShieldPercent(DWORD PlayerID, DWORD ShieldPercent)
 
 BYTE CParty::GetMemberShieldPercent(DWORD PlayerID)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -225,7 +235,8 @@ BYTE CParty::GetMemberShieldPercent(DWORD PlayerID)
 
 void CParty::SetMemberNaeRyukPercent(DWORD PlayerID, DWORD naeryukPercent)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -238,7 +249,8 @@ void CParty::SetMemberNaeRyukPercent(DWORD PlayerID, DWORD naeryukPercent)
 
 void CParty::SetMemberLevel(DWORD PlayerID, LEVELTYPE lvl)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -251,7 +263,8 @@ void CParty::SetMemberLevel(DWORD PlayerID, LEVELTYPE lvl)
 
 BYTE CParty::GetMemberNaeRyukPercent(DWORD PlayerID)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -264,7 +277,8 @@ BYTE CParty::GetMemberNaeRyukPercent(DWORD PlayerID)
 
 LEVELTYPE CParty::GetMemberLevel(DWORD PlayerID)
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == PlayerID)
 		{
@@ -278,7 +292,8 @@ LEVELTYPE CParty::GetMemberLevel(DWORD PlayerID)
 
 void CParty::BreakUpResult()
 {
-	for(int n=0; n<MAX_PARTY_LISTNUM; ++n) 
+	int n;
+	for(n=0; n<MAX_PARTY_LISTNUM; ++n) 
 	{			
 		if(m_Member[n].GetMemberID() != 0)	
 		{
@@ -289,7 +304,8 @@ void CParty::BreakUpResult()
 
 void CParty::Clear()
 {
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		m_Member[n].Clear();
 	}
@@ -297,7 +313,8 @@ void CParty::Clear()
 
 void CParty::ChangeMaster(DWORD dwPlayerID)
 {
-	for(int n=1;n<MAX_PARTY_LISTNUM;++n)
+	int n;
+	for(n=1;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == dwPlayerID)
 		{
@@ -313,8 +330,9 @@ void CParty::ChangeMaster(DWORD dwPlayerID)
 
 BOOL CParty::IsPartyMember(DWORD dwPlayerID)
 {
+	int n;
 //	ASSERT(dwPlayerID);
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() == dwPlayerID)
 			return TRUE;
@@ -330,8 +348,9 @@ PARTY_MEMBER* CParty::GetPartyMemberInfo(int i)
 
 int CParty::GetMemberNum()
 {
+	int n;
 	int num=0;
-	for(int n=0;n<MAX_PARTY_LISTNUM;++n)
+	for(n=0;n<MAX_PARTY_LISTNUM;++n)
 	{
 		if(m_Member[n].GetMemberID() != 0)
 			++num;
@@ -339,7 +358,7 @@ int CParty::GetMemberNum()
 	return num;
 }
 
-//2008. 5. 21. CBH - ÆÄÆ¼ Ãß°¡ ¿É¼Ç °ü·Ã Ãß°¡
+//2008. 5. 21. CBH - ï¿½ï¿½Æ¼ ï¿½ß°ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 void CParty::SetAddOption(PARTY_ADDOPTION AddOption)
 {
 	m_AddOption = AddOption;

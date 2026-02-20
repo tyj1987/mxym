@@ -4,6 +4,7 @@
 
 #if !defined(AFX_PYOGUKMANAGER_H__A316F76A_DB8B_4009_B69E_ECF2DCD2F0EC__INCLUDED_)
 #define AFX_PYOGUKMANAGER_H__A316F76A_DB8B_4009_B69E_ECF2DCD2F0EC__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -26,7 +27,7 @@ public:
 	virtual ~CPyoGukManager();
 	
 	
-	PYOGUKLISTINFO* GetPyogukInfo(int i); //i개 일 때의 정보를 리턴
+	PYOGUKLISTINFO* GetPyogukInfo(int i); //i    
 	
 	void LoadPyogukList();
 	void SendPyogukItemInfo(CPlayer* pPlayer);

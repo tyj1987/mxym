@@ -1,6 +1,12 @@
 #ifndef __COMMONGAMESTRUCT_H__
 #define __COMMONGAMESTRUCT_H__
 
+// 包含标准库头文件
+#include <cstring>
+#include <cstdio>
+
+// 包含基本Windows类型定义（必须包含，因为这个文件会被单独使用）
+#include "BasicTypes.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ¼Ó¼º °ü·Ã
@@ -284,15 +290,15 @@ struct HYPERLINK
 
 struct  HYPER
 {
+	HYPERLINK	sHyper;			// ÇÏÀÌÆÛ ¸µÅ© Á¤º¸
+	DWORD		dwListItemIdx;	// ¸®½ºÆ®¿¡¼­ÀÇ À§Ä¡ÁÂÇ¥
+	BOOL		bUse;
+
 	void Init()
 	{
 		bUse = FALSE;
 		dwListItemIdx = 0;
 	}
-
-	HYPERLINK	sHyper;			// ÇÏÀÌÆÛ ¸µÅ© Á¤º¸
-	DWORD		dwListItemIdx;	// ¸®½ºÆ®¿¡¼­ÀÇ À§Ä¡ÁÂÇ¥
-	BOOL		bUse;
 };
 //////////////////////////////////////////////////////////////////////////
 

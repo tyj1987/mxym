@@ -4,6 +4,7 @@
 
 #if !defined(AFX_FIXEDTILE_H__6066A67E_DA78_4AAE_BA9F_38CDBD8B9FB1__INCLUDED_)
 #define AFX_FIXEDTILE_H__6066A67E_DA78_4AAE_BA9F_38CDBD8B9FB1__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

@@ -9,9 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 #include "SkillObjectSingleUnit.h"
-#include "PtrList.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 
 class CSkillInfo;
 class CActionTarget;
@@ -59,16 +59,16 @@ protected:
 	float m_SkillTreeAmp;
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2차 전직 - 이영준
-	// 무공 변환 추가
+	// 06. 06. 2  - 結
+	//  환 煞
 	WORD m_OptionIndex;
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 07. 스킬개선 - 이영준
+	// 06. 07. 킬 - 結
 	BOOL IsSame(CSkillObject* pSkill);
 	//////////////////////////////////////////////////////////////////////////
 public:
-	//YH임시
+	//YH擔
 	int releaseKind;
 
 	virtual ~CSkillObject();
@@ -104,12 +104,12 @@ public:
 	SKILLOBJECT_INFO* GetSkillObjectInfo() { return &m_SkillObjectInfo;	}
 	virtual BOOL Operate(CObject* pRequestor,MAINTARGET* pMainTarget,CTargetList* pTList)	{	return FALSE;	}
 
-	//// 2007. 7. 10. CBH - 전문기술 관련 함수 추가
+	//// 2007. 7. 10. CBH -   獨 煞
 	void SkillObjectFirstUnitResult();	
 	///////////////////////////////////////////////////
 	
 	//////////////////////////////////////////////////////////////////////////
-	// overriding 함수들
+	// overriding 獨
 	virtual void DoDie(CObject* pAttacker);
 	virtual DWORD GetLife();
 	virtual void SetLife(DWORD Life,BOOL bSendMsg = TRUE);

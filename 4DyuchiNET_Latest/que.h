@@ -9,8 +9,8 @@
 #ifndef QUE_H
 #define QUE_H
 
-#include "../4DyuchiNET_Common/stdafx.h"
-#include "../4DyuchiNET_Common/net_define.h"
+#include "stdafx.h"
+#include "net_define.h"
 
 
 struct HEADER

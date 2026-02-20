@@ -4,6 +4,7 @@
 
 #if !defined(AFX_MONSTER_H__00F01EA1_24D7_4E54_8F96_54AD6FF735BF__INCLUDED_)
 #define AFX_MONSTER_H__00F01EA1_24D7_4E54_8F96_54AD6FF735BF__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -40,7 +41,7 @@ class CMonster : public CObject
 	int m_SuryunGroup;
 
 	//KES
-	//¸¶Áö¸·¿¡ ÀÚ½ÅÀ» °ø°ÝÇÑ ÇÃ·¹ÀÌ¾î¸¦ ±â¾ïÇÑ´Ù.
+	// Ú½  Ã·Ì¾î¸¦ Ñ´.
 	CPlayer* m_pLastAttackPlayer;
 	
 protected:
@@ -170,8 +171,8 @@ public:
 	int GetObjectTileSize();
 	
 	void DistributePerDamage();
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-	// ÇÊµåº¸½º¿ë ¾ÆÀÌÅÛ ºÐ¹è ÇÔ¼ö È£Ãâ ÇÔ
+	// Êµåº¸ - 05.12 Ì¿
+	// Êµåº¸  Ð¹ Ô¼ È£ 
 	void DistributeItemPerDamage();
 	void DistributeDamageInit();
 	void DistributeDeleteDamagedPlayer(DWORD CharacterID);

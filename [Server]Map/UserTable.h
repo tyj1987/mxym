@@ -4,6 +4,7 @@
 
 #if !defined(AFX_USERTABLE_H__5BBB3509_10AF_4E68_9B3A_C07E9F23D2A9__INCLUDED_)
 #define AFX_USERTABLE_H__5BBB3509_10AF_4E68_9B3A_C07E9F23D2A9__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -35,8 +36,8 @@ public:
 	void RemoveAllUser();
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-	/// 06. 08. 2차 보스 - 이영준
-	/// 기존 GetTargetInRange 함수에 마지막 인자로 안전거리 추가
+	/// 06. 08. 2  - 結
+	///  GetTargetInRange 獨  米 타 煞
 	void GetTargetInRange(VECTOR3* pPivotPos,float Radius,CTargetList* pTList,float SafeRange = 0);
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	void GetTargetInArea(CSkillArea* pSkillArea,CTargetList* pTList);
@@ -57,7 +58,7 @@ public:
 BOOL DisconnectUser(DWORD dwConnectionIndex);
 BOOL DisconnectUser( DWORD dwConnectionIndex, int flag );
 
-#include "Crypt.h"
+#include "..\[Server]Agent\Crypt.h"
 
 struct aGAMEOPTION
 {
@@ -75,11 +76,11 @@ typedef struct tagUSERINFO
 	BYTE UserLevel;
 	DWORD dwMapServerConnectionIndex;
 	WORD  wUserMapNum;
-	DWORD dwCharacterIDS[4];	// 유저가 가진 캐릭번호를 비교하기위함
+	DWORD dwCharacterIDS[4];	//   캐호 歐
 	BYTE bLoginMapNum[4];
 
 #ifdef _AGENTSERVER
-	DWORD DistAuthKey;			// Distribute 서버에서 보내온 AuthKey 보관
+	DWORD DistAuthKey;			// Distribute   AuthKey 
 #else
 	DWORD State;
 	BOOL bRecvDistOut;
@@ -103,8 +104,8 @@ typedef struct tagUSERINFO
 	}
 #endif
 
-	DWORD dwUniqueConnectIdx;	// 서버에서의 고유 연결 번호
-								// dwConnectionIdx와는 다름. 계속 증가함
+	DWORD dwUniqueConnectIdx;	//    호
+								// dwConnectionIdx姑 摸.  
 
 	CCrypt crypto;
 	BYTE CheckSum;

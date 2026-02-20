@@ -2,7 +2,7 @@
 #define _HELPDICTIONARYMANAGER_
 
 #include "PtrList.h"
-#include "../MHFile.h"
+#include "MHFile.h"
 
 
 #define HELPDICMGR USINGTON(cHelpDicManager)

@@ -12,6 +12,9 @@ class CHero;
 #endif
 
 
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
 #define MAX_QUEST_PROBABILITY		10000
 
 #define	MAX_QUEST					1000
@@ -52,8 +55,8 @@ class CHero;
 
 enum eQuestEvent
 {
-	eQuestEvent_NpcTalk = 1,		// Npc´eE­
-	eQuestEvent_Hunt,				// Monster≫c³E
+	eQuestEvent_NpcTalk = 1,		// NpceE
+	eQuestEvent_Hunt,				// MonstercE
 	eQuestEvent_EndSub,
 	eQuestEvent_Count,	
 	eQuestEvent_GameEnter,	
@@ -77,7 +80,7 @@ enum eQuestExecute
 	eQuestExecute_AddCount,	
 	eQuestExecute_MinusCount,
 
-	eQuestExecute_GiveQuestItem,	// quest item 창에 들어가는 거
+	eQuestExecute_GiveQuestItem,	// quest item 창 載� 
 	eQuestExecute_TakeQuestItem,	
 	
 	eQuestExecute_GiveItem,			// inventory
@@ -89,9 +92,9 @@ enum eQuestExecute
 
 	eQuestExecute_RandomTakeItem,
 
-	eQuestExecute_TakeQuestItemFQW,	// from 특정 무기로
+	eQuestExecute_TakeQuestItemFQW,	// from 특 
 	eQuestExecute_AddCountFQW,
-	eQuestExecute_TakeQuestItemFW,	// from 무기류
+	eQuestExecute_TakeQuestItemFW,	// from 
 	eQuestExecute_AddCountFW,
 	
 	eQuestExecute_TakeMoneyPerCount,

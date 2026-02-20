@@ -9,9 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\ServerGameStruct.h"
 #include "GridUnit.h"
-#include "Status.h"
-#include "PtrList.h"
+#include "..\[CC]Skill\Status.h"
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
 
 class CBattle;
 class CStunState;
@@ -29,7 +31,7 @@ enum EObjectKind
 	eObjectKind_BossMonster=33,
 	eObjectKind_SpecialMonster=34,
 	
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 	eObjectKind_FieldBossMonster=35,
 	eObjectKind_FieldSubMonster=36,
 	eObjectKind_ToghterPlayMonster=37,
@@ -39,7 +41,7 @@ enum EObjectKind
 	eObjectKind_Pet			= 128,
 	eObjectKind_Titan		= 129,
 
-	//2007. 7. 2. CBH - Àü¹®±â¼ú ¿ÀºêÁ§Æ® Á¾·ù Ãß°¡
+	//2007. 7. 2. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	eObjectKind_Mining	= 38,	
 	eObjectKind_Collection = 39,	
 	eObjectKind_Hunt	= 40,	
@@ -52,8 +54,8 @@ enum eSpecialState
 	eSpecialState_AmplifiedPowerPhy,
 	eSpecialState_AmplifiedPowerAtt,
 	////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Çý¾ÈÀÇ¹°¾à
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 	eSpecialState_DetectItem,
 	////////////////////////////////////
 
@@ -66,7 +68,7 @@ class CObject : public CGridUnit
 {
 	CSpecialState* m_pSpecialState[eSpecialState_Max];
 
-	TILEINDEX m_dwPreoccupiedTileIndex;		// ¼±Á¡ÇÏ°í ÀÖ´Â Å¸ÀÏÀÇ ÀÎµ¦½º
+	TILEINDEX m_dwPreoccupiedTileIndex;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
 	BOOL m_bInited;
 	friend class CObjectFactory;
@@ -144,7 +146,7 @@ public:
 
 	void GetBaseObjectInfo(BASEOBJECT_INFO* pRtInfo);
 	//virtual void GetSendMoveInfo(SEND_MOVEINFO* pRtInfo,CAddableInfoList* pAddInfoList);
-	//SW071129 ¹æÇâ Ãß°¡
+	//SW071129 ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	virtual void GetSendMoveInfo(SEND_MOVEINFO* pRtInfo,CAddableInfoList* pAddInfoList,BOOL bSetDir = FALSE);
 
 	virtual void SetAddMsg(char* pAddMsg,WORD* pMsgLen,DWORD dwReceiverID,BOOL bLogin) = 0;
@@ -153,26 +155,26 @@ public:
 	virtual float GetRadius()	{	return 0;	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// »óÅÂ(State) °ü·Ã
+	// ï¿½ï¿½ï¿½ï¿½(State) ï¿½ï¿½ï¿½ï¿½
 	virtual void OnStartObjectState(BYTE State,DWORD dwParam)	{}
 	virtual void OnEndObjectState(BYTE State) {}
 	virtual void StateProcess()		{};	
 
 	//////////////////////////////////////////////////////////////////////////
-	// Å¸ÀÏ °ü·Ã
+	// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	TILEINDEX GetPreoccupiedTileIndex()		{	return m_dwPreoccupiedTileIndex;	}
 	void SetPreoccupiedTileIndex(TILEINDEX tileindex)		{	m_dwPreoccupiedTileIndex = tileindex;	}
 	virtual int GetObjectTileSize();
 	
 	//////////////////////////////////////////////////////////////////////////
-	// µ¥¹ÌÁö Á×À½ °ü·Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void Die(CObject* pAttacker);
 	virtual void DoDie(CObject* pAttacker)	{}
 	virtual void CalcRealDamage(CObject* pOperator,DWORD PhyDamage,DWORD AttrDamage,RESULTINFO* pDamageInfo);
 	virtual void CalcRealAttack(CObject* pTarget, DWORD PhyDamage, DWORD AttrDamage, RESULTINFO* pDamageInfo, BOOL bIsContinueAttack = FALSE );
 
-	// 06. 03 ±¹³»¹«½Ö - ÀÌ¿µÁØ
-	// ±¹³»¹«½Ö°ü·Ã È£½Å µ¥¹ÌÁö ÇÔ¼ö º¯°æ
+	// 06. 03 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 #ifdef _JAPAN_LOCAL_
 	virtual DWORD CalcShieldDamage(DWORD ShieldDamage);
 #else
@@ -190,7 +192,7 @@ public:
 	virtual void RemoveStatus(CStatus* pStatus);
 
 	//////////////////////////////////////////////////////////////////////////
-	// Á¤º¸ ¾ò¾î¿À´Â ÇÔ¼öµé
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½
 	virtual LEVELTYPE GetLevel()	{	return 0;	};
 	virtual void SetLevel(LEVELTYPE level)	{};	
 	virtual DWORD GetLife() {	return 0;	}
@@ -267,12 +269,12 @@ virtual var_type	Do ## func ## ()	{	return 0; }
 	//////////////////////////////////////////////////////////////////////////
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
-	// Æ¯¼ö»óÅÂº¯È­
-	// ±âÁ¸ÀÇ°Í°ú Àû¿ë¹æ½ÄÀÌ ¸¹ÀÌ ´Þ¶ó »õ·Î ¸¸µë
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+	// Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½Âºï¿½È­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 private:
-	DWORD	m_SingleSpecialStateUsedTime[eSingleSpecialState_Max];	// ¸¶Áö¸· »ç¿ëÇÑ ½Ã°£
+	DWORD	m_SingleSpecialStateUsedTime[eSingleSpecialState_Max];	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
 public:
 	void SetSingleSpecialState(WORD State, BOOL bVal) { m_BaseObjectInfo.SingleSpecialState[State] = bVal ? true : false; }

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "AutoNoteManager.h"
 #include "UserTable.h"
 #include "Player.h"
@@ -25,10 +26,10 @@ void CAutoNoteManager::Init()
 	m_pmpAutoNoteRoom = new CMemoryPoolTempl< CAutoNoteRoom >;
 	m_pmpAutoNoteRoom->Init( 100, 100, "CAutoNoteRoom" );
 
-	m_dwReplyTime = 120;	// ÃÊ
+	m_dwReplyTime = 120;	// ï¿½ï¿½
 	m_nReplyChance = 3;
 
-	//---ÀÌ¹ÌÁö·Îµå
+	//---ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½Îµï¿½
 	m_pOriRaster[0] = new BYTE[16*16*3];
 	m_pOriRaster[1] = new BYTE[16*16*3];
 	m_pOriRaster[2] = new BYTE[16*16*3];
@@ -67,7 +68,7 @@ void CAutoNoteManager::Release()
 	m_htAutoNoteRoom.RemoveAll();
 	*/
 
-	//---ÀÌ¹ÌÁöÇØÁ¦
+	//---ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	delete[] m_pOriRaster[0];
 	delete[] m_pOriRaster[1];
 	delete[] m_pOriRaster[2];
@@ -166,12 +167,12 @@ void CAutoNoteManager::BlitImage( BYTE* pDest, BYTE* pSrc, int dw, int dh, int s
 			Color[1] = *(pSrc + osx * 3 + osy * 3 * sw + 1);
 			Color[2] = *(pSrc + osx * 3 + osy * 3 * sw + 2);
 
-			if( Color[0] != 255 || Color[1] != 255 || Color[2] != 255 )	//Èò»öÀÌ ¾Æ´Ï¸é
+			if( Color[0] != 255 || Color[1] != 255 || Color[2] != 255 )	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 			{
 				if( Flag == BIF_RANDOMCOLOR )
 				{
-					//»ý»ó ·£´ý Á¶Á¤
-					Color[0] = ( rand() % 100 );	//255 µÚÁýÇôµµ »ó°ü¾øÀÚ³ª?
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+					Color[0] = ( rand() % 100 );	//255 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½?
 					Color[1] = ( rand() % 100 );
 					Color[2] = ( rand() % 100 );
 				}
@@ -192,7 +193,7 @@ void CAutoNoteManager::Process()
 		{
 			CPlayer* pAutoPlayer = (CPlayer*)g_pUserTable->FindUser( pANRoom->GetAutoCharacterIdx() );
 
-			if( pANRoom->GetAutoNoteRoomState() == eANRS_WAITANSWER )	//---´äº¯ ÀÔ·ÂÀ» ±â´Ù¸®´Â ÁßÀÌ´Ù. ´äº¯ÀÌ ´Ê¾ú´Ù.
+			if( pANRoom->GetAutoNoteRoomState() == eANRS_WAITANSWER )	//---ï¿½äº¯ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½äº¯ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½.
 			{
 				if( pAutoPlayer )
 				{
@@ -214,36 +215,36 @@ void CAutoNoteManager::Process()
 					pAutoPlayer->SendMsg( &msg1, sizeof(msg1) );
 				}
 
-				//---½Å°íÀÚ¿¡°Ô ½Å°í´ë»óÀÌ Á¦ÀçµÇ¾úÀ½À» ¾Ë¸² (¾îµð¿¡ ÀÖÀ»Áö ¸ð¸£¹Ç·Î ¸ðµç ¿¡ÀÌÀüÆ®·Î º¸³¿)
+				//---ï¿½Å°ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£¹Ç·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 				MSG_DWORD msg2;
 				msg2.Category = MP_AUTONOTE;
 				msg2.Protocol = MP_AUTONOTE_KILLAUTO;
 				msg2.dwData = pANRoom->GetAskUserIdx();
 				g_Network.Broadcast2AgentServer( (char*)&msg2, sizeof(msg2) );
 
-				//---DB ½Å°íÀÚ ¿ÀÅä¸®½ºÆ®¿¡ µî·Ï
+				//---DB ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 				AutoNoteListAdd( pANRoom->GetAskCharacterIdx(), pANRoom->GetAutoUserIdx(), pANRoom->GetAutoCharacterIdx(), pANRoom->GetAutoCharacterName() );
 
-				//---´ë»ó Á¢¼Ó ²÷±â
+				//---ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				MSG_DWORD msg3;
 				msg3.Category = MP_AUTONOTE;
 				msg3.Protocol = MP_AUTONOTE_DISCONNECT;
 				msg3.dwData = pANRoom->GetAutoUserIdx();
 				g_Network.Broadcast2AgentServer( (char*)&msg3, sizeof(msg3) );
 			}
-			else if( pANRoom->GetAutoNoteRoomState() == eANRS_FASTANSWER )	// ºü¸¥ ´äº¯ÀÇ °æ¿ì ¿ÀÅä·Î Ã¼Å©
+			else if( pANRoom->GetAutoNoteRoomState() == eANRS_FASTANSWER )	// ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			{
-				//---½Å°íÀÚ¿¡°Ô ½Å°í´ë»óÀÌ Á¦ÀçµÇ¾úÀ½À» ¾Ë¸² (¾îµð¿¡ ÀÖÀ»Áö ¸ð¸£¹Ç·Î ¸ðµç ¿¡ÀÌÀüÆ®·Î º¸³¿)
+				//---ï¿½Å°ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£¹Ç·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 				MSG_DWORD msg2;
 				msg2.Category = MP_AUTONOTE;
 				msg2.Protocol = MP_AUTONOTE_KILLAUTO;
 				msg2.dwData = pANRoom->GetAskUserIdx();
 				g_Network.Broadcast2AgentServer( (char*)&msg2, sizeof(msg2) );
 
-				//---DB ½Å°íÀÚ ¿ÀÅä¸®½ºÆ®¿¡ µî·Ï
+				//---DB ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 				AutoNoteListAdd( pANRoom->GetAskCharacterIdx(), pANRoom->GetAutoUserIdx(), pANRoom->GetAutoCharacterIdx(), pANRoom->GetAutoCharacterName() );
 
-				//---´ë»ó Á¢¼Ó ²÷±â
+				//---ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				MSG_DWORD msg3;
 				msg3.Category = MP_AUTONOTE;
 				msg3.Protocol = MP_AUTONOTE_DISCONNECT;
@@ -254,7 +255,7 @@ void CAutoNoteManager::Process()
 			if( pAutoPlayer )	pAutoPlayer->SetAutoAskPlayerIdx( 0 );
 			m_htAutoNoteRoom.Remove( pANRoom->GetAskCharacterIdx() );
 			m_pmpAutoNoteRoom->Free( pANRoom );
-			break;	//ÇÑ¹ø¿¡ ÇÏ³ª¾¿¸¸ Áö¿ìÀÚ (¾ÈÀüÇÏ°Ô)
+			break;	//ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½)
 		}
 	}
 }
@@ -264,7 +265,7 @@ void CAutoNoteManager::AutoPlayerLogOut( CPlayer* pAutoPlayer )
 	CAutoNoteRoom* pANRoom = m_htAutoNoteRoom.GetData( pAutoPlayer->GetAutoAskPlayerIdx() );
 	if( pANRoom == NULL ) return;
 
-	//---½Å°í´ë»óÀÌ ³ª°¡¹ö·È´Ù.
+	//---ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 //	MSG_DWORD msg;
 //	msg.Category = MP_AUTONOTE;
 //	msg.Protocol = MP_AUTONOTE_ANSWER_LOGOUT;
@@ -282,17 +283,17 @@ void CAutoNoteManager::AutoPlayerLogOut( CPlayer* pAutoPlayer )
 	SafeStrCpy( msg1.AutoCharacterName, pANRoom->GetAutoCharacterName(), MAX_NAME_LENGTH+1 );
 	pAutoPlayer->SendMsg( &msg1, sizeof(msg1) );
 
-	//---½Å°íÀÚ¿¡°Ô ½Å°í´ë»óÀÌ Á¦ÀçµÇ¾úÀ½À» ¾Ë¸² (¾îµð¿¡ ÀÖÀ»Áö ¸ð¸£¹Ç·Î ¸ðµç ¿¡ÀÌÀüÆ®·Î º¸³¿)
+	//---ï¿½Å°ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£¹Ç·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	MSG_DWORD msg2;
 	msg2.Category = MP_AUTONOTE;
 	msg2.Protocol = MP_AUTONOTE_KILLAUTO;
 	msg2.dwData = pANRoom->GetAskUserIdx();
 	g_Network.Broadcast2AgentServer( (char*)&msg2, sizeof(msg2) );
 
-	//---DB ½Å°íÀÚ ¿ÀÅä¸®½ºÆ®¿¡ µî·Ï
+	//---DB ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 	AutoNoteListAdd( pANRoom->GetAskCharacterIdx(), pANRoom->GetAutoUserIdx(), pANRoom->GetAutoCharacterIdx(), pANRoom->GetAutoCharacterName() );
 
-	//---¿ÀÅä Áú´ä¹æ ÇØÁ¦
+	//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	pAutoPlayer->SetAutoAskPlayerIdx( 0 );
 	m_htAutoNoteRoom.Remove( pANRoom->GetAskCharacterIdx() );
 	m_pmpAutoNoteRoom->Free( pANRoom );
@@ -311,51 +312,51 @@ void CAutoNoteManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, 
 
 			int error = eAutoNoteError_None;
 
-			if( CanUseAutoNote() == FALSE )						//---ÀÌ¹ÌÁö ÀÐ´Â ÃÊ±âÈ­¸¦ ½ÇÆÐÇÏ¿´À¸¹Ç·Î ¿ÀÅä³ëÆ® ±â´ÉÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+			if( CanUseAutoNote() == FALSE )						//---ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			{
-				error = eAutoNoteError_CantUse;					// ÀÌ¹ÌÁö ÀÐ±â ½ÇÆÐ ¹× ¼³Á¤¿¡ µû¶ó...
+				error = eAutoNoteError_CantUse;					// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
 				goto AutoNoteAskError;
 			}
 
 			if( pPlayer->GetSingleSpecialState(eSingleSpecialState_Hide) )
 			{
-				error = eAutoNoteError_CantUse;					// Àº½ÅÁß »ç¿ë¸øÇÔ...
+				error = eAutoNoteError_CantUse;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 				goto AutoNoteAskError;
 			}
 
 			if( g_pServerSystem->GetMap()->IsAutoNoteAllow() == FALSE )
 			{
-				error = eAutoNoteError_CantUseMap;				//---»ç¿ëÇÒ ¼ö ¾ø´Â ¸Ê
+				error = eAutoNoteError_CantUseMap;				//---ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				goto AutoNoteAskError;				
 			}
 
 			if( CAutoNoteRoom* pRoom = m_htAutoNoteRoom.GetData( pPlayer->GetID() ) )
 			{
-				error = eAutoNoteError_AlreadyAsking;			//---½Å°íÁß(ÇÑ¹ø¿¡ ÇÑÄ³¸¯ÅÍ¸¸ ½Å°íÇÒ ¼ö ÀÖ´Ù)
+				error = eAutoNoteError_AlreadyAsking;			//---ï¿½Å°ï¿½ï¿½ï¿½(ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½)
 				goto AutoNoteAskError;
 			}
 
 			CPlayer* pAutoPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwData1 );
 			if( pAutoPlayer == NULL )
 			{
-				error = eAutoNoteError_CantFind;				//---»ó´ë°¡ ¾ø´Ù
+				error = eAutoNoteError_CantFind;				//---ï¿½ï¿½ë°¡ ï¿½ï¿½ï¿½ï¿½
 				goto AutoNoteAskError;
 			}
 
 			if( pAutoPlayer->GetAutoAskPlayerIdx() )		
 			{
-				error = eAutoNoteError_AlreadyAsked;			//---´©°¡ ¹ú½á ½Å°íÇÑ Ä³¸¯ÅÍ´Ù
+				error = eAutoNoteError_AlreadyAsked;			//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í´ï¿½
 				goto AutoNoteAskError;
 			}
 
 			if( gCurTime > pAutoPlayer->GetLastAttackTimeForAutoNote() + 10*1000 )
 			{
-				error = eAutoNoteError_NotProperState;			//---»ó´ë°¡ ¸¶Áö¸· ½ºÅ³ »ç¿ë ÈÄ 10ÃÊ°¡ Áö³µ´Ù. ½Å°íÇÒ ¼ö ¾ø´Â »óÅÂ.
+				error = eAutoNoteError_NotProperState;			//---ï¿½ï¿½ë°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ ï¿½ï¿½ 10ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				goto AutoNoteAskError;
 			}
 
 			CAutoNoteRoom* pANRoom = m_pmpAutoNoteRoom->Alloc();
-			if( pANRoom == NULL )								//---¹æ»ý¼º ½ÇÆÐ
+			if( pANRoom == NULL )								//---ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				goto AutoNoteAskError;
 			}
@@ -385,55 +386,55 @@ AutoNoteAskError:
 			CAutoNoteRoom* pANRoom = m_htAutoNoteRoom.GetData( pAutoPlayer->GetAutoAskPlayerIdx() );
 			if( pANRoom == NULL ) return;	//ACK MSG?
 
-			//---Á¤´ä Ã¼Å©
+			//---ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			BOOL bCorrect = pANRoom->CheckAnswerFromAuto( pmsg->dwData1, pmsg->dwData2, pmsg->dwData3, pmsg->dwData4 );
 
-			if( bCorrect )	//---Á¤´ä
+			if( bCorrect )	//---ï¿½ï¿½ï¿½ï¿½
 			{
-				//---´äº¯½Ã°£ Ã¼Å©
+				//---ï¿½äº¯ï¿½Ã°ï¿½ Ã¼Å©
 				DWORD dwAnswerTime = 0;
 				if( pANRoom->GetChance() == 3 )
                     dwAnswerTime = pANRoom->GetAnswerTime();
 				else
                     dwAnswerTime = pANRoom->GetLastAnswerTime();
-				if( dwAnswerTime <= 2000 ) //2ÃÊ³»·Î ´äº¯À» Çß´Ù. º¸ÅëÀÇ °æ¿ì¿£ ºÒ°¡´É
+				if( dwAnswerTime <= 2000 ) //2ï¿½Ê³ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ß´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿£ ï¿½Ò°ï¿½ï¿½ï¿½
 				{
-					//---¿ÀÅä¿¡°Õ ¸ÂÃß¾ú´Ù°í ¾Ë¸®°í ¾È½É½ÃÅ²´Ù.
-					//---½Å°í´ë»ó¿¡°Ô ´äº¯À» ¸ÂÃß¾ú´Ù°í ¾Ë¸²
+					//---ï¿½ï¿½ï¿½ä¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ï¿½Ù°ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½È½É½ï¿½Å²ï¿½ï¿½.
+					//---ï¿½Å°ï¿½ï¿½ï¿½ó¿¡°ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ï¿½Ù°ï¿½ ï¿½Ë¸ï¿½
 					MSG_DWORD msg;
 					msg.Category = MP_AUTONOTE;
 					msg.Protocol = MP_AUTONOTE_ANSWER_ACK;
 					msg.dwData = pANRoom->GetAskUserIdx();
 					pAutoPlayer->SendMsg( &msg, sizeof(msg) );
 
-					pANRoom->FastAnswer();	//Àû´çÇÑ ½Ã°£ÀÌ ÈÄ ¿ÀÅä¸¦ ²÷¾î¹ö¸°´Ù. process()ÇÔ¼ö¿¡¼­ Ã³¸®ÇÑ´Ù.
+					pANRoom->FastAnswer();	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. process()ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 					return;
 				}
 
-				//---½Å°íÇÑ »ç¶÷¿¡°Ô ´ë»óÀÌ ¿ÀÅä°¡ ¾Æ´ÔÀ» ¾Ë¸² (´Ù¸¥ ¸ÊÀ¸·Î °¬À» ¼öµµ ÀÖÀ¸´Ï, ¸ðµç ¿¡ÀÌÁ¯Æ®·Î ³¯·ÁÁØ´Ù.)
+				//---ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä°¡ ï¿½Æ´ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ (ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.)
 				MSG_DWORD msg1;
 				msg1.Category = MP_AUTONOTE;
 				msg1.Protocol = MP_AUTONOTE_NOTAUTO;
 				msg1.dwData = pANRoom->GetAskUserIdx();
 				g_Network.Broadcast2AgentServer( (char*)&msg1, sizeof(msg1) );
 
-				//---½Å°í´ë»ó¿¡°Ô ´äº¯À» ¸ÂÃß¾ú´Ù°í ¾Ë¸²
+				//---ï¿½Å°ï¿½ï¿½ï¿½ó¿¡°ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ï¿½Ù°ï¿½ ï¿½Ë¸ï¿½
 				MSG_DWORD msg2;
 				msg2.Category = MP_AUTONOTE;
 				msg2.Protocol = MP_AUTONOTE_ANSWER_ACK;
 				msg2.dwData = pANRoom->GetAskUserIdx();
 				pAutoPlayer->SendMsg( &msg2, sizeof(msg2) );
 
-				//---¿ÀÅä Áú´ä¹æ ÇØÁ¦
+				//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				pAutoPlayer->SetAutoAskPlayerIdx( 0 );
 				m_htAutoNoteRoom.Remove( pANRoom->GetAskCharacterIdx() );
 				m_pmpAutoNoteRoom->Free( pANRoom );
 			}
-			else	//---¿À´ä
+			else	//---ï¿½ï¿½ï¿½ï¿½
 			{
-				if( pANRoom->GetChance() <= 0 )							//---3¹ø ¸ðµÎ Æ²·È´Ù.
+				if( pANRoom->GetChance() <= 0 )							//---3ï¿½ï¿½ ï¿½ï¿½ï¿½ Æ²ï¿½È´ï¿½.
 				{
-					//---´ë»ó¿¡°Ô ´äº¯ ½ÇÆÐÇßÀ½À» ¾Ë¸²
+					//---ï¿½ï¿½ó¿¡°ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
 //					MSG_DWORD msg1;
 //					msg1.Category = MP_AUTONOTE;
 //					msg1.Protocol = MP_AUTONOTE_ANSWER_FAIL;
@@ -451,24 +452,24 @@ AutoNoteAskError:
 					SafeStrCpy( msg1.AutoCharacterName, pANRoom->GetAutoCharacterName(), MAX_NAME_LENGTH+1 );
 					pAutoPlayer->SendMsg( &msg1, sizeof(msg1) );
 
-					//---´ë»ó Á¢¼Ó ²÷±â
+					//---ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					MSG_DWORD msg2;
 					msg2.Category = MP_AUTONOTE;
 					msg2.Protocol = MP_AUTONOTE_DISCONNECT;
 					msg2.dwData	= pANRoom->GetAutoUserIdx();
-					pAutoPlayer->SendMsg( &msg2, sizeof(msg2) );	//---¿¡ÀÌÁ¯Æ®·Î º¸³»Áø´Ù
+					pAutoPlayer->SendMsg( &msg2, sizeof(msg2) );	//---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-					//---½Å°íÀÚ¿¡°Ô ½Å°í´ë»óÀÌ Á¦ÀçµÇ¾úÀ½À» ¾Ë¸² (¾îµð¿¡ ÀÖÀ»Áö ¸ð¸£¹Ç·Î ¸ðµç ¿¡ÀÌÀüÆ®·Î º¸³¿)
+					//---ï¿½Å°ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£¹Ç·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 					MSG_DWORD msg3;
 					msg3.Category = MP_AUTONOTE;
 					msg3.Protocol = MP_AUTONOTE_KILLAUTO;
 					msg3.dwData	= pANRoom->GetAskUserIdx();
 					g_Network.Broadcast2AgentServer( (char*)&msg3, sizeof(msg3) );
 
-					//---DB ½Å°íÀÚ ¿ÀÅä¸®½ºÆ®¿¡ µî·Ï
+					//---DB ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 					AutoNoteListAdd( pANRoom->GetAskCharacterIdx(), pANRoom->GetAutoUserIdx(), pANRoom->GetAutoCharacterIdx(), pANRoom->GetAutoCharacterName() );
 
-					//---¿ÀÅä Áú´ä¹æ ÇØÁ¦
+					//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					pAutoPlayer->SetAutoAskPlayerIdx( 0 );
 					m_htAutoNoteRoom.Remove( pANRoom->GetAskCharacterIdx() );
 					m_pmpAutoNoteRoom->Free( pANRoom );

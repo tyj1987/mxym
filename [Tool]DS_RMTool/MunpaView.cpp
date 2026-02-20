@@ -121,7 +121,7 @@ void CMunpaView::OnInitialUpdate()
 		return;
 	}
 
-	for(i=eMunPage_Max-1;i>=0;--i)
+	for(int i=eMunPage_Max-1;i>=0;--i)
 	{
 		m_pSheet->SetActivePage(i);
 		m_pPageList[i]->InitPage((void*)pDoc);

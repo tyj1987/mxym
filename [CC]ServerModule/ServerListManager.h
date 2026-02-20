@@ -9,7 +9,13 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../[Lib]YHLibrary/PtrList.h"
+#include <winsock2.h>
+#include <windows.h>
+#include <stdio.h>
+#include "D:\mxym\[Lib]YHLibrary\PtrList.h"
+#include "D:\mxym\[Lib]YHLibrary\hashtable.h"
+#include "..\[CC]Header\ServerGameStruct.h"
+#include "..\[CC]Header\CommonDefine.h"
 
 #define SERVERLISTMGR USINGTON(CServerListManager)
 

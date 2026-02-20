@@ -6,7 +6,7 @@
 #include "AbilityUpdater_CheckLevelUp.h"
 #include "AbilityGroup.h"
 #include "AbilityCommonHeader.h"
-#include "Player.h"
+#include "..\[Server]Map\Player.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -41,13 +41,13 @@ void CAbilityUpdater_CheckLevelUp::Update(DWORD& UpdateCmd,DWORD Param,CAbilityG
 	pInfoTable->SetPositionHead();
 	while(pAbilityInfo = pInfoTable->GetData())
 	{
-		// ·¹º§ÀÌ 0ÀÎ Æ¯±â¿¡ ´ëÇØ¼­¸¸ °Ë»ç ÇÑ´Ù.
+		//  0 Æ¯â¿¡ Ø¼ Ë» Ñ´.
 		if(pGroup->GetAbility(pAbilityInfo->GetIdx()))
 			continue;
 
 		pInfo = pAbilityInfo->GetInfo();
 
-		// ÄÉ¸¯ÀÇ ·¹º§ÀÌ º¯È­ÇßÀ»¶§
+		// É¸  È­
 		if( UpdateCmd == ABILITYUPDATE_CHARACTERLEVEL_CHANGED &&
 			pInfo->Ability_AcquireKind == eAAK_CharacterLevel )
 		{
@@ -56,7 +56,7 @@ void CAbilityUpdater_CheckLevelUp::Update(DWORD& UpdateCmd,DWORD Param,CAbilityG
 				bAbilityLevelChanged |= GetAbility(pGroup,pAbilityInfo);
 		}
 
-		// ´Ù¸¥ Æ¯±âÀÇ ·¹º§ÀÌ º¯È­ÇßÀ»¶§
+		// Ù¸ Æ¯  È­
 		if( UpdateCmd == ABILITYUPDATE_ABILITYLEVEL_CHANGED &&
 			pInfo->Ability_AcquireKind == eAAK_OtherAbility )
 		{
@@ -69,7 +69,7 @@ void CAbilityUpdater_CheckLevelUp::Update(DWORD& UpdateCmd,DWORD Param,CAbilityG
 				bAbilityLevelChanged |= GetAbility(pGroup,pAbilityInfo);
 		}
 		
-		// ¾ÆÀÌÅÆ ½èÀ»°æ¿ì
+		//  
 		if( UpdateCmd == ABILITYUPDATE_ABILITYUPITEM_USE &&
 			pInfo->Ability_AcquireKind == eAAK_Item )
 		{
@@ -79,7 +79,7 @@ void CAbilityUpdater_CheckLevelUp::Update(DWORD& UpdateCmd,DWORD Param,CAbilityG
 				bAbilityLevelChanged |= GetAbility(pGroup,pAbilityInfo);
 		}
 
-		// Äù½ºÆ®... -_-a
+		// Æ®... -_-a
 	}
 
 	if(bAbilityLevelChanged)

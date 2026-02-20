@@ -1,6 +1,13 @@
 #ifndef __COMMONDEFINE_H__
 #define __COMMONDEFINE_H__
 
+// 包含标准库头文件（提供memset, strlen, sprintf等函数声明）
+#include <cstring>
+#include <cstdio>
+
+// 包含基本类型定义（提供memset, strcpy等函数声明）
+#include "BasicTypes.h"
+
 
 
 
@@ -26,7 +33,7 @@
 //////////////////////////////////////////////////////////////////////////
 #define ySWITCH(a)			{	\
 								switch((a))	{		\
-									case -1:	{	// COMMAND �� -1�� �ɸ��� �����Ƿ�...//�־�����..
+									case -1:	{	// COMMAND �� -1�� �ɸ��� �����Ƿ�...//�־�����..
 #define yCASE(a)									}	\
 									break;		\
 									case (a):	{
@@ -66,7 +73,7 @@ void WriteAssertMsg(char* str,int line,void* p);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 #else	// RELEASE
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "ErrorMsg.h"
+#include "..\[CC]ServerModule\ErrorMsg.h"
 #define ASSERT(a)				{ if(0 == (a)) { WriteAssertMsg(__FILE__,__LINE__,NULL); } }
 #define ASSERTMSG(a,b)			{ if(0 == (a)) { WriteAssertMsg(__FILE__,__LINE__,b); } }
 #define CRITICALASSERT(a)		void(0)
@@ -139,11 +146,16 @@ void WriteAssertMsg(char* str,int line,void* p);
 
 #define VECTORTORAD(vec)		( (float)(atan2(vec.z, vec.x) + gPHI/2.f) )
 
-typedef unsigned int	UINT;
+// UINT类型定义 - 添加条件保护避免与Windows SDK冲突
+#ifndef UINT
+typedef unsigned int UINT;
+#endif
 
 //taiyo
-#define max( x, y) (((x) > (y)) ? (x) : (y))
-#define abs( x ) (((x) < 0) ? -(x) : (x))
+// 注意：max/abs宏已禁用，使用标准库的 std::max 和 std::abs
+// 如果需要使用内联版本，请使用以下内联函数：
+// template<typename T> inline T my_max(T x, T y) { return (x > y) ? x : y; }
+// template<typename T> inline T my_abs(T x) { return (x < 0) ? -x : x; }
 #define sign( x ) ((x) > 0 ? 1 : ((x) == 0 ? 0: (-1)))
 
 
@@ -154,5 +166,20 @@ typedef unsigned int	UINT;
 #define MAKEDWORD(a, b)		((DWORD)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
 
 #define WRITEDEBUGFILE(str)	{WriteDebugFile(__FILE__,__LINE__,str);}
+
+//////////////////////////////////////////////////////////////////////////
+// 默认ASSERT宏定义（如果前面的条件编译都没有定义）
+// 确保ASSERT总是可用
+#ifndef ASSERT
+#define ASSERT(condition) ((void)0)
+#endif
+
+#ifndef ASSERTMSG
+#define ASSERTMSG(condition, msg) ((void)0)
+#endif
+
+#ifndef CRITICALASSERT
+#define CRITICALASSERT(condition) ((void)0)
+#endif
 
 #endif //__COMMONDEFINE_H__

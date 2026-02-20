@@ -6,8 +6,8 @@
 #include "SkillObjectSingleUnit_Heal.h"
 
 #ifdef _MAPSERVER_
-#include "PackedData.h"
-#include "AttackManager.h"
+#include "..\[Server]Map\PackedData.h"
+#include "..\[Server]Map\AttackManager.h"
 #include "SkillObject_server.h"
 #else
 #include "ObjectManager.h"

@@ -45,8 +45,8 @@ enum PICK_ENABLE_TYPE
 // 9 bit /////////////////////////////////////////////
 
 
-// ÃÖ»óÀ§ 1ºñÆ®´Â z¹öÆÛ ¾²±â °¡´É/ºÒ°¡´É
-// ±× ´ÙÀ½ 7ºñÆ®´Â ·»´õ¸µ ¿ì¼±¼øÀ§ 128´Ü°è
+// ï¿½Ö»ï¿½ï¿½ï¿½ 1ï¿½ï¿½Æ®ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½Ò°ï¿½ï¿½ï¿½
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 7ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ 128ï¿½Ü°ï¿½
 #define RENDER_ZPRIORITY_DEFAULT	0
 #define RENDER_ZPRIORITY_UNIT		-10.0f
 #define RENDER_ZPRIORITY_MASK			0x7f000000
@@ -65,8 +65,8 @@ public:
 
 	int					GetRenderZPriorityValue() 
 	{
-		// ÃÖ»óÀ§ 1ºñÆ®´Â z¹öÆÛ¾²±â °¡´É/ºÒ°¡´É, ±× ´ÙÀ½ 7ºñÆ®´Â ·»´õ¸µ ¼ø¼­·Î »ç¿ëÇÑ´Ù.
-		// 7ºñÆ®Áß ÃÖ»óÀ§ºñÆ®´Â ½ÎÀÎºñÆ®·Î »ç¿ëÇÑ´Ù.
+		// ï¿½Ö»ï¿½ï¿½ï¿½ 1ï¿½ï¿½Æ®ï¿½ï¿½ zï¿½ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½Ò°ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 7ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		// 7ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Îºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int		iZOrder =  (m_dwFlag & RENDER_ZPRIORITY_MASK)>>24;
 		int		sign_mask = ( 0 - ( (iZOrder & 0x00000040)>>6 ) ) & 0xffffffc0;
 		iZOrder = iZOrder | sign_mask;
@@ -93,7 +93,10 @@ public:
 	PICK_ENABLE_TYPE	GetPickEnable() {return (PICK_ENABLE_TYPE)(m_dwFlag & PICK_ENABLE_TYPE_MASK);}
 	void				SetPickEnable(PICK_ENABLE_TYPE type) {m_dwFlag = (m_dwFlag & PICK_ENABLE_TYPE_MASK_INVERSE) | type;}
 
-	
+	// è·å–å®Œæ•´çš„æ ‡å¿—å€¼
+	DWORD				GetFlag() {return m_dwFlag;}
+	void				SetFlag(DWORD dwFlag) {m_dwFlag = dwFlag;}
+
 	CMeshFlag()			{m_dwFlag = 0;}
 };
 enum DYNAMIC_LIGHT_APPLY_TYPE

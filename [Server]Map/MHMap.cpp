@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "MHMap.h"
 #include "TileManager.h"
 #include "MHFile.h"

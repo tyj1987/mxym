@@ -640,6 +640,27 @@ struct TMSG_CHARACTER_INVENINFO : public TMSGBASE
 	ITEM_TOTALINFO	m_sIteminfo;
 };
 
+// TMSG_CHARACTER_INVENINFO2 - 扩展版本，包含更多信息
+struct TMSG_CHARACTER_INVENINFO2 : public TMSGBASE
+{
+	ITEM_TOTALINFO	m_sIteminfo;
+	char			NickName[MAX_NAME_LENGTH+1];
+	WORD			Stage;
+	DWORD			m_dwCount;		// 额外物品数量
+	ITEMBASE		m_ExtraItems[100]; // 存储额外的物品
+
+	void			Add(ITEMBASE* pItem)
+	{
+		if(m_dwCount < 100)
+		{
+			m_ExtraItems[m_dwCount] = *pItem;
+			m_dwCount++;
+		}
+	}
+
+	int				GetSize() { return sizeof(TMSG_CHARACTER_INVENINFO2); }
+};
+
 // InvenÀÇ ¸ðµç Á¤º¸ °¡Á®¿À±âÀ§ÇØ
 struct TMSG_CHARACTER_ITEMBASE : public TMSGBASE
 {
@@ -1022,11 +1043,11 @@ struct TMSG_CHARACTER_UPDATEBASEINFO : public TMSGBASE
 	MONEYTYPE	Money;
 	DWORD		AbilityExp;
 
-//	char		NickName[MAX_NAME_LENGTH+1];
-//	char		MunpaName[MAX_MUNPA_NAME+1];
-//	BYTE		PositionInMunpa;
-//	BYTE		Stage;
-//	DWORD		PartyID;
+	char		NickName[MAX_NAME_LENGTH+1];
+	char		MunpaName[MAX_MUNPA_NAME+1];
+	BYTE		PositionInMunpa;
+	BYTE		Stage;
+	//	DWORD		PartyID;
 };
 
 struct TMSG_PET_UPDATEBASEINFO : public TMSGBASE

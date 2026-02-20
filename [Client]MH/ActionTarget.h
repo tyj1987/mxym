@@ -9,6 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "../[CC]Header/ClientGameStruct.h"
+
 class CHero;
 class CSkillInfo;
 class CSkillArea;

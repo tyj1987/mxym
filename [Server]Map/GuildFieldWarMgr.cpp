@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "GuildFieldWarMgr.h"
 #include "UserTable.h"
 #include "Player.h"
@@ -569,8 +570,8 @@ void CGuildFieldWarMgr::GuildFieldWarDeclare( void* pMsg )
 	if( pSender && pReceiver )
 	{
 		if( dwMoney )
-		if( dwMoney > pSender->GetMoney() )
 		{
+		if( dwMoney > pSender->GetMoney() )
 			SendDeclareNackMsg( pmsg->dwData1, 98 );
 			return;
 		}
@@ -590,8 +591,8 @@ void CGuildFieldWarMgr::GuildFieldWarDeclare( void* pMsg )
 	else if( pSender && !pReceiver )
 	{
 		if( dwMoney )
-		if( dwMoney > pSender->GetMoney() )
 		{
+		if( dwMoney > pSender->GetMoney() )
 			SendDeclareNackMsg( pmsg->dwData1, 98 );
 			return;
 		}
@@ -1189,7 +1190,7 @@ void CGuildFieldWarMgr::PenaltyForGuildFieldWarEnd( DWORD dwKind, DWORD dwGuildI
 	{
 	case 0:		// fight
 		{
-// ÀÓ½Ã·Î ¸·À½...---------------------------------------------------------------------------
+// Ó½Ã· ...---------------------------------------------------------------------------
 /*			pPlayer = (CPlayer*)g_pUserTable->FindUser( pGuildLoser->GetMasterIdx() );
 			if( pPlayer )
 			{
@@ -1215,7 +1216,7 @@ void CGuildFieldWarMgr::PenaltyForGuildFieldWarEnd( DWORD dwKind, DWORD dwGuildI
 		break;
 	case 1:		// surrend
 		{
-// ÀÓ½Ã·Î ¸·À½...---------------------------------------------------------------------------
+// Ó½Ã· ...---------------------------------------------------------------------------
 /*			pPlayer = (CPlayer*)g_pUserTable->FindUser( pGuildLoser->GetMasterIdx() );
 			if( pPlayer )
 			{

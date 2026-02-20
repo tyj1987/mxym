@@ -1,18 +1,19 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 #include "object.h"
 #include "..\[CC]Header\GameResourceStruct.h"
 
 class CPlayer;
 struct BASE_PET_LIST;
 
-//enum{ePET_FROM_DB, ePET_FROM_ITEM};		//DB·ÎºÎÅÍ Æê»ý¼º, ¼ÒÈ¯¾ÆÀÌÅÛ Ã¹»ç¿ëÀ¸·Î ÆÖ»ý¼º
-#define PET_DEFAULT_FRIENDLY 3000000		//Æê ±âº» Ä£¹Ðµµ, 3000/10000
-#define PET_REVIVAL_FRIENDLY 2000000		//Æê ºÎÈ°ÈÄ Ä£¹Ðµµ
-#define PET_MAX_FRIENDLY	10000000		//Æê ÃÖ´ë Ä£¹Ðµµ 100%, Á¤¼ö·Î °è»êÇÑ´Ù. Å¬¶óÀÌ¾ðÆ® Ç¥½Ã¸¸ ¼Ò¼ö·Î..
-//#define PET_FRIENDSHIP_PER_SKILL_GRADE1		10	//Æê ½ºÅ³ ½ÃÀü½Ã Ä£¹Ðµµ Áõ°¡·®
-//#define PET_FRIENDSHIP_PER_SKILL_GRADE2		5	//Æê ½ºÅ³ ½ÃÀü½Ã Ä£¹Ðµµ Áõ°¡·®
+//enum{ePET_FROM_DB, ePET_FROM_ITEM};		//DBÎº , È¯ Ã¹ Ö»
+#define PET_DEFAULT_FRIENDLY 3000000		// âº» Ä£Ðµ, 3000/10000
+#define PET_REVIVAL_FRIENDLY 2000000		// È° Ä£Ðµ
+#define PET_MAX_FRIENDLY	10000000		// Ö´ Ä£Ðµ 100%,  Ñ´. Å¬Ì¾Æ® Ç¥Ã¸ Ò¼..
+//#define PET_FRIENDSHIP_PER_SKILL_GRADE1		10	// Å³  Ä£Ðµ 
+//#define PET_FRIENDSHIP_PER_SKILL_GRADE2		5	// Å³  Ä£Ðµ 
 
-#define PET_STATE_CHECK_TIME 10000		//Æê »óÅÂ Ã¼Å© ½Ã°£, ½ºÅ×¹Ì³Ê °ü·Ã
+#define PET_STATE_CHECK_TIME 10000		//  Ã¼Å© Ã°, ×¹Ì³ 
 
 #define PET_MAX_GRADE		3
 
@@ -26,26 +27,26 @@ enum eFRIENDSHIP_INCREASE_AMOUNT	//eFIA
 	//eFIA_GRADE2_SKILLOPER = 5,
 	//eFIA_GRADE2_PLAY1HOUR = 10,
 	eFIA_MASTER_DIE		= -1000000,
-//	eFIA_STAMINA_ZERO	= -100,		//10ºÐ¸¶´Ù
-	eFIA_STAMINA_ZERO	= -2000,		//10ÃÊ¸¶´Ù
+//	eFIA_STAMINA_ZERO	= -100,		//10Ð¸
+	eFIA_STAMINA_ZERO	= -2000,		//10Ê¸
 	eFIA_TRADE			= -1000000,
 	eFIA_UPGRADE_FAIL	= -1000000,
 };
 
-enum ePET_MOTION		//chx ÆÄÀÏ³» ani ¼ø¼­.. ANIMATION INDEX
+enum ePET_MOTION		//chx Ï³ ani .. ANIMATION INDEX
 {
-	ePM_STAND = 1,		//±âº»
-	ePM_MOVE,			//ÀÌµ¿
-	ePM_SUBSTAND,		//º¸Á¶
-	ePM_KGONG,			//°æ°øÀÌµ¿
-	ePM_UNGI,			//Ä³¸¯ ¿î±â½Ã
-	ePM_MASTER_SKILL,	//Ä³¸¯ °ø°Ý½Ã ÀÀ¿ø
-	ePM_MASTER_DIE,		//Ä³¸¯ Á×À½½Ã
-	ePM_SKILL,			//Æê½ºÅ³ »ç¿ë½Ã
-	ePM_DIE,			//ÆêÁ×À½
-	ePM_STAMINA_ZERO,	//½ºÅÂ¹Ì³ª 0ÀÏ ¶§ (´ë»ç¸¸)
-	ePM_DIED = 10,		//ÆêÁ×À½»óÅÂ È¦µù(Client¿¡¼­¸¸ »ç¿ë)
-	//±âÈ¹¿¡¼­ Æê ³ªÁß¿¡ Ãß°¡ÀÛ¾÷À¸·Î ½ºÅÂ¹Ì³ª 0ÀÏ¶§ ´ë»çÃß°¡. ½ÇÁ¦ ¾Ö´Ïµ¥ÀÌÅÍ´Â 'Á×Àº»óÅÂ'°¡ µé¾îÀÖÀ½.
+	ePM_STAND = 1,		//âº»
+	ePM_MOVE,			//Ìµ
+	ePM_SUBSTAND,		//
+	ePM_KGONG,			//Ìµ
+	ePM_UNGI,			//Ä³ 
+	ePM_MASTER_SKILL,	//Ä³ Ý½ 
+	ePM_MASTER_DIE,		//Ä³ 
+	ePM_SKILL,			//ê½ºÅ³ 
+	ePM_DIE,			//
+	ePM_STAMINA_ZERO,	//Â¹Ì³ 0  (ç¸¸)
+	ePM_DIED = 10,		// È¦(Client )
+	//È¹  ß¿ ß°Û¾ Â¹Ì³ 0Ï¶ ß°.  Ö´ÏµÍ´ '' .
 
 };
 
@@ -68,13 +69,13 @@ class CPet : public CObject
 	DWORD			m_dwMaxStamina;
 //	sPetState		m_PetState;
 
-	DWORD			m_dwStateCheckTime;		//Æê »óÅÂ ¼³Á¤ Ã¼Å©	> È®·ü¿¡ ÀÇÇØ ¸ð¼Ç°ú ´ë»ç Á¤º¸¸¦ º¸³½´Ù.
-	DWORD			m_dwRndGapTime;			//Æê »óÅÂ ·£´ý ÅÒ.	10ÃÊ¿¡¼­ 60ÃÊ±îÁö.. > ¼³Á¤ Ã¼Å©ÀÇ Â÷ÀÌ¸¦ µÐ´Ù.
-	BYTE			m_CurBasicState;		//Æê 3°¡Áö ±âº» »óÅÂ
+	DWORD			m_dwStateCheckTime;		//   Ã¼Å©	> È®  Ç°   .
+	DWORD			m_dwRndGapTime;			//   .	10Ê¿ 60Ê±.. >  Ã¼Å© Ì¸ Ð´.
+	BYTE			m_CurBasicState;		// 3 âº» 
 
-	DWORD			m_dwInfoCheckTime;		//Æê Á¤º¸ Ã¼Å©
-	DWORD			m_dwStaminaDecrease;	//10ÃÊ°£ Æê ½ºÅÂ¹Ì³ª ¼Ò¸ð·®
-	WORD			m_wFrameCounter;		//10ÃÊ°£ ÇÁ·¹ÀÓ Ä«¿îÅÍ
+	DWORD			m_dwInfoCheckTime;		//  Ã¼Å©
+	DWORD			m_dwStaminaDecrease;	//10Ê°  Â¹Ì³ Ò¸
+	WORD			m_wFrameCounter;		//10Ê°  Ä«
 
 	CPlayer*		m_pMaster;
 	BASE_PET_LIST*	m_pBaseInfo;
@@ -94,8 +95,8 @@ public:
 
 	virtual float DoGetMoveSpeed();
 
-	//ÃÊ±âÈ­
-	//Á¤º¸ ¼¼ÆÃ
+	//Ê±È­
+	// 
 	void	InitPet(PET_TOTALINFO* pTotalinfo);
 	void	SetMaster(CPlayer* pPlayer) {m_pMaster=pPlayer;}
 	CPlayer*	GetMaster() {	return m_pMaster;	}
@@ -110,13 +111,13 @@ public:
 	void	SetPetFriendShip(DWORD dwFriendShip);
 	void	SetPetAlive(BOOL bVal)	{	m_PetTotalInfo.bAlive = bVal;	}
 
-	//SW060509 GM ¼±ÅÃÆêÄ¡Æ®
+	//SW060509 GM Ä¡Æ®
 	DWORD	GetPetFriendShip()	{ return m_PetTotalInfo.PetFriendly; }
-	//ºÀÀÎ»óÅÂ
+	//Î»
 //	BOOL	IsPetSealed()	{	return m_bSeal;	}
 //	void	SetPetSeal(BOOL bSeal)	{m_bSeal=bSeal;}
 
-	//Æê»óÅÂ
+	//
 	void	PetGradeUp(WORD wPetLevel);
 	DWORD	GetPetCurGrade()	{	return m_PetTotalInfo.PetGrade;	}
 	void	CheckPetMoving();
@@ -128,8 +129,8 @@ public:
 	void	SetPetBasicState(BYTE basicstate) {	m_CurBasicState = basicstate;	}
 	BYTE	GetPetBasicState()	{	return m_CurBasicState;	}
 	BYTE	GetMotionNumFromBasicState();
-	void	GetPetMotionFromBasicState();		//¸îÃÊ ¸¶´Ù ¼¼°¡Áö »óÅÂ¿¡¼­ÀÇ ¸ð¼Ç ±¸ÇÔ.
-	void	GetRandMotionNSpeech(DWORD state=0, BYTE frequency=ePMF_RANDOM);	//¸ð¼Ç°ú ´ë»ç´Â Ç×»ó °°ÀÌ.. ¸ð¼Ç¸¸ ³ª¿Ã ¼ö ÀÖÀ½.
+	void	GetPetMotionFromBasicState();		//   Â¿  .
+	void	GetRandMotionNSpeech(DWORD state=0, BYTE frequency=ePMF_RANDOM);	//Ç°  ×» .. Ç¸   .
 
 //	void	SetPetActionState(DWORD state)	{	m_PetState.stateOld=m_PetState.stateCur;m_PetState.stateCur=state;	}
 //	DWORD	GetPetCurActionState()	{	return m_PetState.stateCur;	}
@@ -137,9 +138,9 @@ public:
 	void	Process();
 	const BASE_PET_LIST* GetPetBaseInfo() {	return m_pBaseInfo;	}
 
-	//Æê½ºÅÈ
+	//ê½º
 	void	CalcPetMaxStamina();
-	void	CalcStamina();					//½ºÅ×¹Ì³ª 0ÀÌ¸é 10ºÐ ¸¶´Ù Ä£¹Ðµµ 1% °¨¼Ò
+	void	CalcStamina();					//×¹Ì³ 0Ì¸ 10  Ä£Ðµ 1% 
 	void	AddStamina(int stamina, BOOL bSendMsg = FALSE);
 	//void	PlusStamina(DWORD amount);
 	void	AddFriendship(int friendship, BOOL bSendMsg = FALSE);
@@ -149,10 +150,10 @@ public:
 	BOOL	IsPetStaminaZero()		{	return (0 == m_PetTotalInfo.PetStamina);	}
 	BOOL	IsPetStaminaFull();
 
-	//Æê ±³È¯	//¸Þ´ÏÁ®·Î ¿Å±âÀÚ...
+	// È¯	//Þ´ Å±...
 	//BOOL	IsCanExchange()	{	return (m_PetTotalInfo.PetFriendly>PET_DEFAULT_FRIENDLY);	}
 
-	//Æê ½ºÅ³
+	// Å³
 	BOOL	UsePetSkill();
 
 	void	SendPetInfoMsg();

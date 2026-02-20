@@ -4,6 +4,7 @@
 
 #if !defined(AFX_SURYUNREGENGROUPINFO_H__9FE85A75_39F6_4BDB_98C8_5B43FBEA90F1__INCLUDED_)
 #define AFX_SURYUNREGENGROUPINFO_H__9FE85A75_39F6_4BDB_98C8_5B43FBEA90F1__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -21,12 +22,12 @@ class CSuryunRegenGroupInfo
 {
 	int m_GroupID;
 	char m_GroupName[17];
-	int m_MonsterKind;	// 0~4  0:최강~4:최약
-	int m_Count; // 나오는 총 몬스터 수
-	float m_x; //좌표
+	int m_MonsterKind;	// 0~4  0:斂~4:羚
+	int m_Count; //    
+	float m_x; //표
 	float m_z;
 	float m_Range; 
-	DWORD m_RegenTime; //시작후 m_RegenTime후에 나온다.
+	DWORD m_RegenTime; // m_RegenTime커 쨈.
 
 	SEQINFO m_SeqArray[5];
 	

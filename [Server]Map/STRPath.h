@@ -4,6 +4,7 @@
 
 #if !defined(AFX_STRPATH_H__620980BD_DB7E_4812_B62C_23F31D0A8D1F__INCLUDED_)
 #define AFX_STRPATH_H__620980BD_DB7E_4812_B62C_23F31D0A8D1F__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

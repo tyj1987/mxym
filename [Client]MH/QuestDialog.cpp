@@ -784,7 +784,8 @@ DWORD CQuestDialog::QuestItemUpdate(DWORD type, DWORD ItemIdx, DWORD data)
 }
 
 void CQuestDialog::RefreshQuestItem(DWORD Page)
-{	
+{
+int i;
 	cIcon* pIcon = NULL;
 	int Count = 0;
 	int Pos = 0;
@@ -792,7 +793,7 @@ void CQuestDialog::RefreshQuestItem(DWORD Page)
 	int	nStart = Page*VIEW_QUESTITEM_PERPAGE;
 
 	// PageButton PushState Setting
-	for(int i=0; i<MAX_QUEST_PAGEBTN; ++i)
+	for( i=0; i<MAX_QUEST_PAGEBTN; ++i)
 		m_pPageBtn[i]->SetPush(FALSE);
 	m_pPageBtn[Page]->SetPush(TRUE);
 

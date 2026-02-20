@@ -7,9 +7,9 @@
 
 
 #ifdef _MAPSERVER_
-#include "AttackManager.h"
+#include "..\[Server]Map\AttackManager.h"
 #include "skillmanager_server.h"
-#include "TacticManager.h"
+#include "..\[Server]Map\TacticManager.h"
 #endif
 
 #ifdef _MHCLIENT_
@@ -36,8 +36,8 @@ CSkillObjectAttachUnit_AttackUp::~CSkillObjectAttachUnit_AttackUp()
 
 void CSkillObjectAttachUnit_AttackUp::Init( CSkillInfo* pSkillInfo,WORD SkillLevel,CObject* pOper/* =NULL */)
 {
-	//지속효과표시
-	//maintain_attup_S.beff	공격력 상승
+	//효표
+	//maintain_attup_S.beff	賦 
 
 #ifdef _MHCLIENT_
 	m_PhyAttackUp = pSkillInfo->GetUpPhyAttack(SkillLevel);
@@ -90,11 +90,11 @@ CSkillObjectAttachUnit_AttackDown::~CSkillObjectAttachUnit_AttackDown()
 
 void CSkillObjectAttachUnit_AttackDown::Init(CSkillInfo* pSkillInfo,WORD SkillLevel,CObject* pOper/* =NULL */)
 {
-	m_AttAttackDown = 0;		// 속성 공격력 올려주는건 아직 없음
+	m_AttAttackDown = 0;		// 憺 賦 첨獵째  
 	m_PhyAttackDown = pSkillInfo->GetDownPhyAttack(SkillLevel);
 
 #ifdef _MHCLIENT_
-	//지속효과표시
+	//효표
 	m_AttachEffectNum[0] = FindEffectNum("maintain_attackdown_s.beff");;
 	m_AttachEffectNum[1] = 0;
 	m_AttachEffectNum[2] = 0;
@@ -117,7 +117,7 @@ void CSkillObjectAttachUnit_AttackDown::GetPhyAttackPowerMax(DWORD Original,DWOR
 
 
 //////////////////////////////////////////////////////////////////////////
-// LastUpRate //최종공격력에서 %증가
+// LastUpRate //賦쩔 %
 //////////////////////////////////////////////////////////////////////////
 
 CSkillObjectAttachUnit_AttackLastUpRate::CSkillObjectAttachUnit_AttackLastUpRate()
@@ -135,7 +135,7 @@ void CSkillObjectAttachUnit_AttackLastUpRate::Init(CSkillInfo* pSkillInfo,WORD S
 	m_fAttackLastUpRate = pSkillInfo->GetAttackRate(SkillLevel);
 	
 #ifdef _MHCLIENT_
-	//지속효과표시
+	//효표
 //	m_AttachEffectNum[0] = FindEffectNum("maintain_attackdown_s.beff");;
 //	m_AttachEffectNum[1] = 0;
 //	m_AttachEffectNum[2] = 0;
@@ -151,7 +151,7 @@ void CSkillObjectAttachUnit_AttackLastUpRate::GetAttackDamage(DWORD Original,DWO
 
 
 //////////////////////////////////////////////////////////////////////////
-// LastPhyUp //최종 외공 공격력에서 +증가
+// LastPhyUp // 丙 賦쩔 +
 //////////////////////////////////////////////////////////////////////////
 
 CSkillObjectAttachUnit_AttackLastPhyUp::CSkillObjectAttachUnit_AttackLastPhyUp()
@@ -169,7 +169,7 @@ void CSkillObjectAttachUnit_AttackLastPhyUp::Init(CSkillInfo* pSkillInfo,WORD Sk
 	m_fAttackPhyLastUp = (DWORD)pSkillInfo->GetAttackPhyLastUp((int)SkillLevel);
 	
 #ifdef _MHCLIENT_
-	//지속효과표시
+	//효표
 //	m_AttachEffectNum[0] = FindEffectNum("maintain_attackdown_s.beff");;
 //	m_AttachEffectNum[1] = 0;
 //	m_AttachEffectNum[2] = 0;
@@ -190,7 +190,7 @@ void CSkillObjectAttachUnit_AttackLastPhyUp::GetAttackPhyDamagePlus(DWORD Origin
 
 
 //////////////////////////////////////////////////////////////////////////
-// LastAttrUp //최종 외공 공격력에서 +증가
+// LastAttrUp // 丙 賦쩔 +
 //////////////////////////////////////////////////////////////////////////
 
 CSkillObjectAttachUnit_AttackLastAttrUp::CSkillObjectAttachUnit_AttackLastAttrUp()
@@ -208,7 +208,7 @@ void CSkillObjectAttachUnit_AttackLastAttrUp::Init(CSkillInfo* pSkillInfo,WORD S
 	m_fAttackAttLastUp = (DWORD)pSkillInfo->GetAttackAttLastUp((int)SkillLevel);
 	
 #ifdef _MHCLIENT_
-	//지속효과표시
+	//효표
 //	m_AttachEffectNum[0] = FindEffectNum("maintain_attackdown_s.beff");;
 //	m_AttachEffectNum[1] = 0;
 //	m_AttachEffectNum[2] = 0;

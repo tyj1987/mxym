@@ -50,7 +50,7 @@ void cDialogueList::LoadDialogueListFile(char* filePath, char* mode)
 				LoadDialogueList(dwMsgId, &fp);
 			}
 			else
-				__asm int 3;
+				; // __asm int 3; // NOP for Release
 		CMD_CS("#TEXTCOLOR")
 			m_dwDefaultColor = RGB( fp.GetDword(), fp.GetDword(), fp.GetDword() );
 			m_dwStressColor = RGB( fp.GetDword(), fp.GetDword(), fp.GetDword() );

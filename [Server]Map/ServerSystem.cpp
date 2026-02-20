@@ -56,7 +56,7 @@
 #include "StreetSTallManager.h "
 #include "PyogukManager.h"
 #include "FriendManager.h"
-#include "./Condition/ConditionManager.h"
+// #include "./Condition/ConditionManager.h" // Conditionæ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼Œæš‚æ—¶æ³¨é‡Š
 #include "FameManager.h"
 #include "BootManager.h"
 #include "PathManager.h"
@@ -104,15 +104,15 @@
 // PetManager
 #include "PetSpeechManager.h"
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 #include "FieldBossMonsterManager.h"
 #include "FieldBossMonster.h"
 #include "FieldSubMonster.h"
 
-//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå
+//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½
 #include "SurvivalModeManager.h"
 
-//SW070626 º¸ºÎ»óNPC
+//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 #include "BobusangManager.h"
 #include "ItemLimitManager.h"
 #include "GameEventManager.h"
@@ -120,7 +120,7 @@
 #include "FortWarManager.h"
 
 
-// ¸Ê µå¶ø ¾ÆÀÌÅÛ Ãß°¡ by Stiner(2008/05/29)-MapDropItem
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapDropItem
 #include "MapItemDrop.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -192,7 +192,7 @@ CServerSystem::CServerSystem()
 	m_mpWaitExitPlayer->Init( 100, 10, "WAIT_EXIT_PLAYER_INFO" );
 	
 #ifdef _CHINA_LOCAL_
-//»ç¹æ
+//ï¿½ï¿½ï¿½
  	m_NoP[0] = 0;
  	m_NoPCode = 'n'+ 'o'+ 'p';
 //
@@ -230,14 +230,14 @@ void CServerSystem::Start(WORD ServerNum)
 	m_wMapNum = ServerNum;
 
 	SetMapKind(ServerNum);
-//AO¨öA ¡¤IAA
+//AOï¿½ï¿½A ï¿½ï¿½IAA
 	SetNation();
 
 	BOOTMNGR->AddSelfBootList(MAP_SERVER, ServerNum, g_pServerTable);
 
 	//////////////////////////////////////////////////////////////////////////
-	// AU¡§uO AE¢®¨úaE¢®¨Ï
-	// ¨Ïoo¡§¢®¢®¨¡ ¡§u¨Ï©ªd.¡Ë?U¡§¡þIAO¢®¢´A¡Ë?e ¨Ïoo¡§¢®¢®¨¡AI 28¢®¨¡¨Ï©ª A¡§¨£¡§¡þn¡ÍiC¡§uiAO¡Ë¡ÍU.CN¢®¨¡¨Ï©ª¡Íi¡Íi ¢®ic¡Ë?eCIAo ¡§uE; ¢®¨¡¨Ï¢®¡Ë?i pCustomButton CE¡Íia¡Ë¡þ| NULL¢®¢´I A¡Ë¢¥¡Ë?i¡Ë¡ÍU.
+	// AUï¿½ï¿½uO AEï¿½ï¿½ï¿½ï¿½aEï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½Ï©ï¿½d.ï¿½ï¿½?Uï¿½ï¿½ï¿½ï¿½IAOï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½?e ï¿½ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI 28ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½iCï¿½ï¿½uiAOï¿½Ë¡ï¿½U.CNï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½i ï¿½ï¿½icï¿½ï¿½?eCIAo ï¿½ï¿½uE; ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½?i pCustomButton CEï¿½ï¿½iaï¿½Ë¡ï¿½| NULLï¿½ï¿½ï¿½ï¿½I Aï¿½Ë¢ï¿½ï¿½ï¿½?iï¿½Ë¡ï¿½U.
 	MENU_CUSTOM_INFO pMenu[3];
 	strcpy(pMenu[0].szMenuName, "Assert MsgBox");
 	pMenu[0].cbMenuCommand = ButtonProc1;
@@ -270,7 +270,7 @@ void CServerSystem::Start(WORD ServerNum)
 	STARTLOG(GAMERESRCMNGR->LoadPetRule());
 	STARTLOG(GAMERESRCMNGR->LoadPetBuffList());
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	STARTLOG(GAMERESRCMNGR->LoadTitanList());
 	STARTLOG(GAMERESRCMNGR->LoadTitanRule());
 	STARTLOG(GAMERESRCMNGR->LoadTitanSpellCostInfo());
@@ -284,18 +284,18 @@ void CServerSystem::Start(WORD ServerNum)
 	STARTLOG(BOSSMONMGR->LoadBossMonsterInfoList());
 	STARTLOG(BOSSREWARDSMGR->LoadBossRewardsInfo());
 	
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 	STARTLOG(FIELDBOSSMONMGR->Init());
 
-	//¹ØÓÚnpc²¿·Ö,ÑÃÒÛÐÞ¸Ä¶ñÃûµÄ½âÊÍ
-	//MP_CHAR_BADFAME_SYN  == Õâ¸öÏûÏ¢¾ÍÊÇ×öÕâ¸öµÄ
-	//MIN_BADFAME_FOR_BAIL = 100 ¾ÍÊÇ±íÊ¾ÄÇÇ®Ï´¶ñÃûµÄ×îÐ¡Öµ,ÆäËûµÄ¶ñÃûÖ»ÄÜÍ¨¹ýweb½ð±ÒÀ´Ï´
+	//ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä¶ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½
+	//MP_CHAR_BADFAME_SYN  == ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//MIN_BADFAME_FOR_BAIL = 100 ï¿½ï¿½ï¿½Ç±ï¿½Ê¾ï¿½ï¿½Ç®Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ,ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Í¨ï¿½ï¿½webï¿½ï¿½ï¿½ï¿½ï¿½Ï´
 
 
 	STARTLOG(GAMERESRCMNGR->LoadNpcList(GAMERESRCMNGR->m_NpcList));
 	STARTLOG(GAMERESRCMNGR->LoadNpcRegen(REGENNPC_OBJ->m_NpcRegen));
 	STARTLOG(GAMERESRCMNGR->LoadStaticNpc());
-	// 06. 05 HIDE NPC - ÀÌ¿µÁØ
+	// 06. 05 HIDE NPC - ï¿½Ì¿ï¿½ï¿½ï¿½
 	STARTLOG(GAMERESRCMNGR->LoadHideNpcList());	
 	STARTLOG(GAMERESRCMNGR->LoadExpPoint());
 	STARTLOG(GAMERESRCMNGR->LoadPlayerxMonsterPoint());
@@ -311,7 +311,7 @@ void CServerSystem::Start(WORD ServerNum)
 	STARTLOG(PYOGUKMGR->LoadPyogukList());
 	STARTLOG(ITEMMGR->LoadItemList());
 	STARTLOG(ITEMMGR->LoadMixList());
-	STARTLOG(ITEMMGR->LoadSetItemOption());		//2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ½ºÅ©¸³Æ® ·Îµå
+	STARTLOG(ITEMMGR->LoadSetItemOption());		//2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Îµï¿½
 	STARTLOG(TITANITEMMGR->LoadTitanMixList());			// magi82 - Titan(070201)
 	STARTLOG(TITANITEMMGR->LoadTitanPartsKindList());	// magi82 - Titan(070201)
 	STARTLOG(TITANITEMMGR->LoadTitanUpgradeInfoList());	// magi82 - Titan(070201)
@@ -326,11 +326,11 @@ void CServerSystem::Start(WORD ServerNum)
 	STARTLOG(GAMERESRCMNGR->LoadUniqueItemOptionList());	// magi82 - UniqueItem(070626)
 	STARTLOG(GAMERESRCMNGR->LoadUniqueItemMixList());		// magi82 - UniqueItem(070709)
 
-	//¾ÆÀÌÅÛ º¯È­À² ÆÄÀÏ ·Îµå
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	STARTLOG(GAMERESRCMNGR->LoadItemChangeRateofLv()); //Add 060705 by wonju
 	STARTLOG(GAMERESRCMNGR->LoadItemChangeRateofAttrib()); //Add 060707 wonju
 
-	//SW061205 ±ê¹ß NPC
+	//SW061205 ï¿½ï¿½ï¿½ NPC
 	STARTLOG(GAMERESRCMNGR->LoadFlagNpcInfo());
 
 	// TitanMap Monster DropInfo
@@ -358,63 +358,63 @@ void CServerSystem::Start(WORD ServerNum)
 	
 	STARTLOG(m_Map.InitMap(ServerNum));	
 	STARTLOG(PATHMGR->SetMap(&m_Map, ServerNum, m_Map.GetTileWidth(ServerNum)));
-	STARTLOG(PKMGR->Init( m_Map.IsPKAllow() ));	//map InitCN EA¡Ë?¡Ë¢ç ¨ÏoY¡Íia¡§oA E¢®IAaCI¡§oA¡Ë?A.
+	STARTLOG(PKMGR->Init( m_Map.IsPKAllow() ));	//map InitCN EAï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½oYï¿½ï¿½iaï¿½ï¿½oA Eï¿½ï¿½IAaCIï¿½ï¿½oAï¿½ï¿½?A.
 	STARTLOG(PKMGR->InitForChannel() );
 
 
-	//¹ØÓÚÉ±¹Ö»ñµÃµÄ¾­ÑéµãµÄ¼ÆËã,ÓÐ¼¸¸ö²¿·Ö×é³É (Ö÷ÒªÔÚDistributer.cpp ÖÐ CalcObtainExp()ÊµÏÖ)
-	//µÚÒ»²¿·Ö
-	//monsterlist.binµÚ13ÐÐÊÇ¹ÖÎïµÄ»ù±¾¾­ÑéµãÊôÐÔ,²¢Ã»ÓÐÒ»¿ªÊ¼Ö±½Ó²ÎÓë·þÎñÆ÷¼ÆËã(·ü±Ê)
-	//·þÎñÆ÷¾­¹ý µÈ¼¶¼Ó³ÉËã·¨ ¼ÆËãºó´æÈëplayerxMonsterPoint.binÎÄ¼þ,ÓÃÒÔ¼Ó¿ì¼ÆËã(²é±í·¨).[100][16]
-	//Èç¹ûµ±Ç°µØÍ¼>100£¬Ôò±íÃ÷ÊÇÊôÓÚÌ©Ì¹µØÍ¼,ÄÇÃ´½øÐÐÌ©Ì¹µØÍ¼µÄ¾­Ñé±í²éÑ¯TitanMapMonsterDrop.bin.
-	//--------Ì©Ì¹µØÍ¼¾­ÑéºÍ×é¶ÓÓÐ¹ØÏµ×î¶à7ÈË×é¶Ó,ÖÐ¼äÓÐÒ»¸ö[¼õÉÙ¾­ÑéµÄËã·¨¹ý³Ì](Î´Öª×÷ÓÃ)
-	//--------×é¶ÓÓÐpartyexp¼Ó³É,Õâ¸öÖµÊÇÔÚdroprate.binÀïÃæÉèÖÃ,Ä¬ÈÏÊÇ2±¶
+	//ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö»ï¿½ÃµÄ¾ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½,ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Òªï¿½ï¿½Distributer.cpp ï¿½ï¿½ CalcObtainExp()Êµï¿½ï¿½)
+	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+	//monsterlist.binï¿½ï¿½13ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ã»ï¿½ï¿½Ò»ï¿½ï¿½Ê¼Ö±ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ï¿½Ó³ï¿½ï¿½ã·¨ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½playerxMonsterPoint.binï¿½Ä¼ï¿½,ï¿½ï¿½ï¿½Ô¼Ó¿ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½).[100][16]
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Í¼>100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì©Ì¹ï¿½ï¿½Í¼,ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½Ì©Ì¹ï¿½ï¿½Í¼ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯TitanMapMonsterDrop.bin.
+	//--------Ì©Ì¹ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½Ïµï¿½ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ð¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½[ï¿½ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½](Î´Öªï¿½ï¿½ï¿½ï¿½)
+	//--------ï¿½ï¿½ï¿½ï¿½ï¿½partyexpï¿½Ó³ï¿½,ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½droprate.binï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ä¬ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½
 
 
-	//Èç¹ûÍæ¼ÒµÈ¼¶>=¹ÖÎïµÈ¼¶+6£¬Ò²¾ÍÊÇËµÍæ¼ÒµÈ¼¶¸ßÓÚ¹ÖÎïµÈ¼¶6¼¶ÒÔÉÏ,»ñµÃ¾­ÑéµãÎª0.
-	//Èç¹ûÍæ¼ÒµÈ¼¶<=¹ÖÎïµÈ¼¶-9£¬Ò²¾ÍÊÇËµÍæ¼ÒµÈ¼¶µÍÓÚ¹ÖÎïµÈ¼¶9¼¶ÒÔÏÂ,¹ÖÎïµÈ¼¶±äÎªÍæ¼ÒµÈ¼¶+9£¬½øÈë²é±í¼ÆËã
-	//Íæ¼ÒµÈ¼¶ºÍ¹ÖÎïµÈ¼¶ÔÚ9¼¶ÒÔÄÚ,Ôò¹ÖÎïµÈ¼¶²»±ä,½øÈë²é±í¼ÆËã
-	//²é±í¼ÆËãµÄº¯Êý±äÁ¿Îª(¹ÖÎïµÈ¼¶,¹ÖÎïµÈ¼¶-Íæ¼ÒµÈ¼¶)
-	//Èç¹û ¹ÖÎïµÈ¼¶ == 99 Ôò»ñµÃ¾­ÑéµãÎª0 (ÕâÀïÐÞ¸ÄÎªµÈ¼¶ÉÏÏÞµÄºê)
-	//Èç¹û ¹ÖÎïµÈ¼¶-Íæ¼ÒµÈ¼¶ < -6 Ôò²é[¹ÖÎïµÈ¼¶-1][-6+6]
-	//Èç¹û ¹ÖÎïµÈ¼¶-Íæ¼ÒµÈ¼¶ >  9 Ôò²é[¹ÖÎïµÈ¼¶-1][ 9+6]
-	//ÆäËû,Ôò²é[¹ÖÎïµÈ¼¶-1][(¹ÖÎïµÈ¼¶-Íæ¼ÒµÈ¼¶)+6]
-	//µÚ¶þ²¿·Ö
-	//¸ù¾ÝÍæ¼Ò¶Ô¹ÖÎïµÄÉËÑªÖµ¼ÆËã°Ù·Ö±È(Damage/TotalLife)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÈ¼ï¿½>=ï¿½ï¿½ï¿½ï¿½È¼ï¿½+6ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ÒµÈ¼ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½È¼ï¿½6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½Îª0.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÈ¼ï¿½<=ï¿½ï¿½ï¿½ï¿½È¼ï¿½-9ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ÒµÈ¼ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½È¼ï¿½9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½Îªï¿½ï¿½ÒµÈ¼ï¿½+9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ÒµÈ¼ï¿½ï¿½Í¹ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª(ï¿½ï¿½ï¿½ï¿½È¼ï¿½,ï¿½ï¿½ï¿½ï¿½È¼ï¿½-ï¿½ï¿½ÒµÈ¼ï¿½)
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¼ï¿½ == 99 ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½Îª0 (ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Îªï¿½È¼ï¿½ï¿½ï¿½ï¿½ÞµÄºï¿½)
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¼ï¿½-ï¿½ï¿½ÒµÈ¼ï¿½ < -6 ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½È¼ï¿½-1][-6+6]
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¼ï¿½-ï¿½ï¿½ÒµÈ¼ï¿½ >  9 ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½È¼ï¿½-1][ 9+6]
+	//ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½È¼ï¿½-1][(ï¿½ï¿½ï¿½ï¿½È¼ï¿½-ï¿½ï¿½ÒµÈ¼ï¿½)+6]
+	//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑªÖµï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½(Damage/TotalLife)
 	/*	[0%,20%) = 0
-		[20%,40%) =  µÚÒ»²¿·Ö*0.2
-		[40%,60%) =  µÚÒ»²¿·Ö*0.4
-		[60%,80%) =  µÚÒ»²¿·Ö*0.6
-		[80%,100%) = µÚÒ»²¿·Ö*0.8
-		[100%,*) =   µÚÒ»²¿·Ö*1.0
+		[20%,40%) =  ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½*0.2
+		[40%,60%) =  ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½*0.4
+		[60%,80%) =  ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½*0.6
+		[80%,100%) = ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½*0.8
+		[100%,*) =   ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½*1.0
 	*/
 	
-	//µÚÈý²¿·Ö
-	//¸ù¾Ýdroprate.binÀïÃæµÄexp×Ö¶Î,À´¼ÆËãÒ»¸öÌØÊâÊÂ¼þÏÂµÄ¾­Ñé±¶ÂÊ,Ä¬ÈÏÊÇ2.5±¶
-	//»ñµÃ¾­Ñé = (µÚ¶þ²¿·Ö»ñµÃµÄ¾­Ñé) * gEventRate[eEvent_ExpRate]
-	//µÚËÄ²¿·Ö
-	//°ïÅÉ¼Ó³É AddExpFromGuildPlustime
-	//µÚÎå²¿·Ö
-	//ÉÌµêÎïÆ·¼Ó³É pReceivePlayer->GetShopItemStats()->AddExp
-	//µÚÁù²¿·Ö
-	//ÉÌµêÎïÆ·time¼Ó³É  pReceivePlayer->GetShopItemStats()->PlustimeExp
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½droprate.binï¿½ï¿½ï¿½ï¿½ï¿½expï¿½Ö¶ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ÂµÄ¾ï¿½ï¿½é±¶ï¿½ï¿½,Ä¬ï¿½ï¿½ï¿½ï¿½2.5ï¿½ï¿½
+	//ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ = (ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ÃµÄ¾ï¿½ï¿½ï¿½) * gEventRate[eEvent_ExpRate]
+	//ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½É¼Ó³ï¿½ AddExpFromGuildPlustime
+	//ï¿½ï¿½ï¿½å²¿ï¿½ï¿½
+	//ï¿½Ìµï¿½ï¿½ï¿½Æ·ï¿½Ó³ï¿½ pReceivePlayer->GetShopItemStats()->AddExp
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½Ìµï¿½ï¿½ï¿½Æ·timeï¿½Ó³ï¿½  pReceivePlayer->GetShopItemStats()->PlustimeExp
 
-	//µÚÆß²¿·Ö
-	//ÒÔÉÏÁù²¿·Ö»ñµÃµÄ¾­Ñé×ÜºÍ ÔÙ ¼ÓÉÏ Íæ¼Òµ±Ç°µÄ¾­Ñéµã(GetPlayerExpPoint()) ½øÈëÍæ¼ÒÊÇ·ñÉý¼¶µÄÅÐ¶ÏÖÐ
+	//ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ÃµÄ¾ï¿½ï¿½ï¿½ï¿½Üºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Òµï¿½Ç°ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½(GetPlayerExpPoint()) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
 
-	//±¸×¢: Éý¼¶ÊÇÔÚplayer.cpp ÀïÃæµÄ SetPlayerExpPoint()´¦Àí.
-	//Ô­À´µÈ¼¶ÉÏÏÞÊÇ99¼¶,ÏÖÔÚ¸ÄÎª121¼¶,µ«Ã»ÓÐÔö¼ÓÏàÓ¦µÄplayerxmonstpoint.binÀïÃæµÄ±íÏî,Ä¿Ç°ÈÔÊÇ100*16(=6+9)Ïî
+	//ï¿½ï¿½×¢: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½player.cpp ï¿½ï¿½ï¿½ï¿½ï¿½ SetPlayerExpPoint()ï¿½ï¿½ï¿½ï¿½.
+	//Ô­ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½99ï¿½ï¿½,ï¿½ï¿½ï¿½Ú¸ï¿½Îª121ï¿½ï¿½,ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½playerxmonstpoint.binï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½,Ä¿Ç°ï¿½ï¿½ï¿½ï¿½100*16(=6+9)ï¿½ï¿½
 
-	//×¢Òâ:bossreward.binÀïÃæ´æµÄÊÇboss¹ÖµÄÉý¼¶¾­Ñé½±Àø,boss¹ÖµÄkind = 33 eObjectKind_BossMonster
-	//boss¹Öµ¥¶À¼ÆËã
+	//×¢ï¿½ï¿½:bossreward.binï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bossï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é½±ï¿½ï¿½,bossï¿½Öµï¿½kind = 33 eObjectKind_BossMonster
+	//bossï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//¹ØÓÚÉý¼¶µÄ¼ÆËã·½·¨,Ö÷ÒªÔÚplayer.cppÀïÃæÊµÏÖ
-	//Ê×ÏÈ,ÅÐ¶ÏÍæ¼ÒµÈ¼¶ÊÇ·ñµÈÓÚ×î´ó¿ÉÉý¼¶ÊýMAX_CHARACTER_LEVEL_NUM,Èç¹ûµÈÓÚ¾Í·µ»Ø,²»Ö´ÐÐÉý¼¶.
-	//·ñÔòÅÐ¶Ï,µ±Ç°Ëù»ñµÃµÄ×Ü¾­ÑéµãÊýÊÇ·ñ´óÓÚµÈÓÚÉý¼¶¸ÃµÈ¼¶ËùÐèÒªµÄ¾­Ñé
-	//1.Èç¹ûÐ¡ÓÚ,Ôò²»¹»Éý¼¶Ìõ¼þ,ÄÇÃ´ÅÐ¶Ïµ±Ç°µÈ¼¶ÊÇ·ñµÈÓÚÔø¾­´ïµ½µÄ×î´óµÈ¼¶(ÒòÎªËÀÍö¿Û¾­Ñé,¿ÉÄÜ½µ¼¶)
-	//µÈÓÚ³ÉÁ¢,ÔòÖ´ÐÐSetNormalStatPoint()
-	//µÈÓÚ²»³ÉÁ¢ÔòÏò¿Í»§¶Ë·¢ËÍMP_CHAR_EXPPOINT_ACKÏûÏ¢,ÆäÖÐ¸ù¾ÝÍæ¼ÒÊÇ·ñËÀÍö,·Ö±ð·¢ËÍÏûÏ¢
-	//2.Èç¹ûµ±Ç°»ñµÃµÄ×Ü¾­Ñé´óÓÚµÈÓÚµ±Ç°µÈ¼¶Éý¼¶ËùÐèÒª¾­ÑéµÄÊ±ºò,Ö´ÐÐÉý¼¶³ÌÐò.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ã·½ï¿½ï¿½,ï¿½ï¿½Òªï¿½ï¿½player.cppï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½,ï¿½Ð¶ï¿½ï¿½ï¿½ÒµÈ¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MAX_CHARACTER_LEVEL_NUM,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾Í·ï¿½ï¿½ï¿½,ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½,ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÈ¼ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä¾ï¿½ï¿½ï¿½
+	//1.ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½,ï¿½ò²»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ã´ï¿½Ð¶Ïµï¿½Ç°ï¿½È¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ïµ½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½(ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Û¾ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½)
+	//ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½,ï¿½ï¿½Ö´ï¿½ï¿½SetNormalStatPoint()
+	//ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½MP_CHAR_EXPPOINT_ACKï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	//2.ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ãµï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Úµï¿½Ç°ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½,Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 
 
@@ -429,15 +429,15 @@ void CServerSystem::Start(WORD ServerNum)
 
 	SWPROFITMGR->LoadMapInfo( ServerNum );
 
-	//2007. 12. 5. CBH - ÀÏ¹ÝÀÇº¹ ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ·Îµå
+	//2007. 12. 5. CBH - ï¿½Ï¹ï¿½ï¿½Çºï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	STARTLOG(GAMERESRCMNGR->LoadNomalClothesSkinList());
-	//2008. 1. 21. CBH - ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ·Îµå
+	//2008. 1. 21. CBH - ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	STARTLOG(GAMERESRCMNGR->LoadCostumeSkinList());
 
-	// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
+	// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	STARTLOG(GAMERESRCMNGR->LoadMapKindInfo());
 
-	// itemlimitinfo ·Îµå
+	// itemlimitinfo ï¿½Îµï¿½
 	STARTLOG(ITEMLIMITMGR->LoadItemLimitInfo());
 	STARTLOG(GAMEEVENTMGR->LoadGameEventInfo());
 
@@ -450,9 +450,9 @@ void CServerSystem::Start(WORD ServerNum)
 
 	char TitleText[128];
 	//sprintf(TitleText, "MAP%d(%s)", ServerNum, GetMapName(ServerNum) );
-	//SW070727 ¾Æ¹«µµ ½Å°æ¾²Áö ¾Ê´ø ÇÑ ÁÙ Ãß°¡. (specially for KES)
+	//SW070727 ï¿½Æ¹ï¿½ï¿½ï¿½ ï¿½Å°æ¾²ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½. (specially for KES)
 	DWORD Pid = GetCurrentProcessId();
-	// magi82(37) ¸Ê ¼Ó¼º µ¥ÀÌÅÍ
+	// magi82(37) ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//sprintf(TitleText, "MAP%d(%s) [PID_%d]", ServerNum, GetMapName(ServerNum), Pid );
 	sprintf(TitleText, "MAP%d(%s) [PID_%d]", ServerNum, GetMap()->GetMapName(), Pid );
 
@@ -466,17 +466,17 @@ void CServerSystem::Start(WORD ServerNum)
 #endif
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¢®¨¡OAO ¡§oA¡§o¡§¡þAU AE¢®¨úaE¢®¨Ï
+	// ï¿½ï¿½ï¿½ï¿½OAO ï¿½ï¿½oAï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AU AEï¿½ï¿½ï¿½ï¿½aEï¿½ï¿½ï¿½ï¿½
 	//ITEMDROP_OBJ->Init();
 	
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ¨Ï©ª¢®¢¯¡§¢®¡Ëc¡Ë?oA¡§I ¡§u¨Ï©ªd
+	// ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?oAï¿½ï¿½I ï¿½ï¿½uï¿½Ï©ï¿½d
 
-	/// ¨Ï©ª¢®¢¯¡§¢®¡Ëc¡Ë?oA¡§I ¡§¢®A¡§u¢®¨Ï ¡§u¨Ï©ªd-------------------------------
+	/// ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?oAï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½Ï©ï¿½d-------------------------------
 	for(int i=0 ; i<MP_MAX ; ++i)
 		g_pServerMsgParser[i] = NULL;
-	for(i=0 ; i<MP_MAX ; ++i)
+	for(int i=0 ; i<MP_MAX ; ++i)
 		g_pUserMsgParser[i] = NULL;
 	g_pServerMsgParser[MP_SERVER] = MP_MAPSERVERMsgParser;
 	g_pServerMsgParser[MP_POWERUP] = MP_POWERUPMsgParser;
@@ -508,11 +508,11 @@ void CServerSystem::Start(WORD ServerNum)
 //KES EXCHANGE 030922
 	g_pServerMsgParser[MP_EXCHANGE] = MP_EXCHANGEMsgParser;
 	
-// LBS 03.09.25 ¨Ï©ªea¢®io
+// LBS 03.09.25 ï¿½Ï©ï¿½eaï¿½ï¿½io
 	g_pServerMsgParser[MP_STREETSTALL] = MP_STREETSTALLMsgParser;
 	g_pServerMsgParser[MP_OPTION] = MP_OPTIONMsgParser;
 
-// LBS 03.12.24 NPC¡Ë?IAC ¢®ioE¢®IAU¡Ë?e
+// LBS 03.12.24 NPCï¿½ï¿½?IAC ï¿½ï¿½ioEï¿½ï¿½IAUï¿½ï¿½?e
 	g_pServerMsgParser[MP_NPC] = MP_NPCMsgParser;
 	
 	g_pServerMsgParser[MP_MURIMNET] = MP_MurimnetMsgParser;
@@ -558,7 +558,7 @@ void CServerSystem::Start(WORD ServerNum)
 	// channel for normal, eventmap, questmap
 	STARTLOG( CHANNELSYSTEM->Init( ServerNum ) );
 
-	// AI CwI¡§u¡§u¡§u¢®¨Ï
+	// AI CwIï¿½ï¿½uï¿½ï¿½uï¿½ï¿½uï¿½ï¿½ï¿½ï¿½
 	g_pAISystem = new CAISystem;
 	STARTLOG(g_pAISystem->LoadAIGroupList());
 
@@ -617,7 +617,7 @@ void CServerSystem::Start(WORD ServerNum)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// DB ¡§u¨Ï©ªd
+	// DB ï¿½ï¿½uï¿½Ï©ï¿½d
 	DWORD maxthread = 4;
 	DWORD maxqueryinsametime = 1024;
 	FILE* fp = fopen("MapDBInfo.txt","r");
@@ -648,21 +648,21 @@ void CServerSystem::Start(WORD ServerNum)
 	WEATHERMGR->Init();
 	SVVMODEMGR->Init();	
 
-	// ¨Ïo¡Ëc¡§¢®A¡Ë¡þ¡Ëc¡§o¡§¡þ¡§¢®¡Ëc
+	// ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Aï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
 	WantedLoad(0);
 
-	//2008. 6. 19. CBH - DB µ¥ÀÌÅÍÀÇ ¹æÆÄ Á¤º¸¸¦ ÀüºÎ °¡Á®¿À¹Ç·Î
-	//ÇÊ¿ä°¡ ¾ø´Ù. 
+	//2008. 6. 19. CBH - DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+	//ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½. 
 	//PartyLoad(0);
 	
 	REINFORCEMGR->Init();
 	DISSOLUTIONMGR->Init();
 
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	STARTLOG(BOBUSANGMGR->BobusangMgr_Init());
 
-	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/29)-MapItemDrop
-	// ¹Ýµå½Ã DB¸¦ ÃÊ±âÈ­ ÇØÁØ ÈÄ¿¡ ÇØ¾ßÇÔ.
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapItemDrop
+	// ï¿½Ýµï¿½ï¿½ DBï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.
 	STARTLOG(MAPITEMDROP_OBJ->Init());
 
 	m_dwQuestTime = gCurTime;
@@ -677,10 +677,10 @@ void CServerSystem::Start(WORD ServerNum)
 
 	g_Console.LOG(4, "-----------   MAP SERVER START  -----------------");
 	g_Console.LOG(4, "-----------   Map Number %d     -----------------", GAMERESRCMNGR->GetLoadMapNum());
-	// AI ¡§¡þI¡§¡þ¡§¡Ë: )¡Íi¡Íi¡Ë?iAC ¡Ë¡þ¡§¡©¡§oAAo ¢®¢´cCA.CONSOLE; ¢®ic¡Ë?eCI¡Íic )¡Íi¡Íi¡Ë?i ¡Ë¡þ¡§¡©¡§oAAo ¢®¨úa¨ÏoY8¢®¢´I A¢®I¡Íic ¡§ui¡ËO¨Ï¡À¡§oA8¢®¢´I¡Íic AI¡§¡þ¢®I¡§¢®¡Ëc¡Ë¡þ| ¡Ë¡Íe¢®¨úaC¡§¨£¡§u¨Ï¡þCI
-	// CI¨ÏoC¢®¢´I ¢®¨úIAu: ¡Ë¡þ¡§¡©¡§oAAo ¢®¢´cCA AU¡§u¡§¡þ; CI¢®¨¡i ¡§oIAo ¡§uE¡Ë¡ÍU¡Ë¡þe AI ¡Ë¡þ¡§¡©¡§uO¡Íia¡Ë¡þ| ¢®ic¡Ë?eCN¡Ë¡ÍU.¢®¨ú¢®¢¯ ¡Ë¡Ía¢®¨¡i ¡Ë¡Ía: ¡Ë¡þ¡§¡©¡§oAAo ¢®¢´cCI ¡Íi¡Ë?AICN ¢®¨úa¡Ë¡ÍE; 
-	// ¡§uoCaCN¡Ë¡ÍU.AI ¡Ë¡þ¡§¡©¡§uO¡Íia¡Ë¡ÍA I4DyuchiCONSOLE ¡Ë¡ÍUAI¡§uo¢®¢´I¢®¨ú¢®¢¯AC x¨Ïoo¡§¢®¢®¨¡; ¡Ë¡Í¡§I¡Ë¡þ|¡ËO¢®¡¿¢®¨úiAo ¡Ë¡þ¡ËcAICIAo ¡§uE¡Ë¡ÍA¡Ë¡ÍU.AI ¡Ë¡þ¡§¡©¡§uO¡Íia¢®¨¡¡Ë¢ç ¡Ë¡þ¡ËcAICN¡Ë¡ÍU¡Ë¡þe CA
-	// ¢®¢´I¢®¨ú¢®¢¯¢®¢´¢®IAI ~¢®¢´aCI¡Ë¡ÍA ¢®¨¡IAI¡Ë¡ÍU.
+	// AI ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: )ï¿½ï¿½iï¿½ï¿½iï¿½ï¿½?iAC ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAo ï¿½ï¿½ï¿½ï¿½cCA.CONSOLE; ï¿½ï¿½icï¿½ï¿½?eCIï¿½ï¿½ic )ï¿½ï¿½iï¿½ï¿½iï¿½ï¿½?i ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAo ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½oY8ï¿½ï¿½ï¿½ï¿½I Aï¿½ï¿½Iï¿½ï¿½ic ï¿½ï¿½uiï¿½ï¿½Oï¿½Ï¡ï¿½ï¿½ï¿½oA8ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ic AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½Ë¡ï¿½| ï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½aCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½Ï¡ï¿½CI
+	// CIï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ï¿½ï¿½IAu: ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAo ï¿½ï¿½ï¿½ï¿½cCA AUï¿½ï¿½uï¿½ï¿½ï¿½ï¿½; CIï¿½ï¿½ï¿½ï¿½i ï¿½ï¿½oIAo ï¿½ï¿½uEï¿½Ë¡ï¿½Uï¿½Ë¡ï¿½e AI ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½iaï¿½Ë¡ï¿½| ï¿½ï¿½icï¿½ï¿½?eCNï¿½Ë¡ï¿½U.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¡ï¿½aï¿½ï¿½ï¿½ï¿½i ï¿½Ë¡ï¿½a: ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oAAo ï¿½ï¿½ï¿½ï¿½cCI ï¿½ï¿½iï¿½ï¿½?AICN ï¿½ï¿½ï¿½ï¿½aï¿½Ë¡ï¿½E; 
+	// ï¿½ï¿½uoCaCNï¿½Ë¡ï¿½U.AI ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½iaï¿½Ë¡ï¿½A I4DyuchiCONSOLE ï¿½Ë¡ï¿½UAIï¿½ï¿½uoï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AC xï¿½ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½; ï¿½Ë¡Í¡ï¿½Iï¿½Ë¡ï¿½|ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iAo ï¿½Ë¡ï¿½ï¿½ï¿½cAICIAo ï¿½ï¿½uEï¿½Ë¡ï¿½Aï¿½Ë¡ï¿½U.AI ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uOï¿½ï¿½iaï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½ï¿½ï¿½cAICNï¿½Ë¡ï¿½Uï¿½Ë¡ï¿½e CA
+	// ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAI ~ï¿½ï¿½ï¿½ï¿½aCIï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½IAIï¿½Ë¡ï¿½U.
 
 	g_bReady = TRUE;
 
@@ -700,19 +700,19 @@ void CServerSystem::End()
 	{	
 		if(pObject->GetObjectKind() == eObjectKind_Player)
 			g_pServerSystem->RemovePlayer(pObject->GetID(), FALSE);
-			//FALSE: ½ÇÁ¦·Î UserTable¿¡¼­´Â Áö¿ìÁö ¾Ê´Â´Ù.
+			//FALSE: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UserTableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	}
 	g_pUserTable->RemoveAll();
 	*/
 
 	//SW060608 DBUpdate Safely
 	if( TRUE != GetCharUpdateCompletion() )
-	{//ÀÌ°÷¿¡¼­ÀÇ Ã³¸®´Â Àå´ãÇÒ ¼ö ¾ø´Ù. Äõ¸® Å¥ ¸®½ºÆ®¿¡ ³²Àº Ã¤·Î ¼Ë´Ù¿î °¡´ÉÇÏ´Ù°í º»´Ù.
+	{//ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ Å¥ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½Ë´Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		HandlingBeforeServerEND();	//(in) g_DB.Release();
 	}
 
 	SKILLMGR->Release();
-	// magi82(14) - Memory(071027) ¸Þ¸ð¸® ´©¼ö ¼öÁ¤
+	// magi82(14) - Memory(071027) ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BOBUSANGMGR->BobusangMgr_Release();
 
 //	m_objectIdxGen.Release();
@@ -788,7 +788,7 @@ void CServerSystem::Process()
 		if(pObject->GetInited() == FALSE)
 			continue;
 		if(pObject->GetObjectKind() == eObjectKind_Pet )
-			continue;	//ÁÖÀÎÀÇ ÇÁ·Î¼¼½º¿¡¼­ Ã³¸®. Á¾¼ÓÀû.
+			continue;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 		OBJECTSTATEMGR_OBJ->StateProcess(pObject);
 		CCharMove::MoveProcess(pObject);
@@ -832,11 +832,11 @@ void CServerSystem::Process()
 		
 	}
 
-	// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
+	// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
 	FIELDBOSSMONMGR->Process();
 
-	//dbÅ¥¿¡ ³¯¸± Äõ¸®°¡ ÀÖ´Ù¸é...
-	g_DB.ProcessingQueue();	//ProcessingDBMessage()¸¦ ÇÑ¹ø¾¿ ÇØÁÖ¸é ¾î¶³±î?
+	//dbÅ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½...
+	g_DB.ProcessingQueue();	//ProcessingDBMessage()ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½î¶³ï¿½ï¿½?
 //	g_DB.ProcessingDBMessage();
 	
 	SKILLMGR->Process();
@@ -846,9 +846,9 @@ void CServerSystem::Process()
 
 	if(g_pAISystem)
 		g_pAISystem->Process();
-	//MonsterStateProc();		// ¡Ë¡þo¡§o¡§¡þAI ¢®ioAA ¡Íi¨Ïo¡Ë¡þ¡Ëc¡Ë¡ÍA CO¡§uo
+	//MonsterStateProc();		// ï¿½Ë¡ï¿½oï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AI ï¿½ï¿½ioAA ï¿½ï¿½iï¿½ï¿½oï¿½Ë¡ï¿½ï¿½ï¿½cï¿½Ë¡ï¿½A COï¿½ï¿½uo
 	
-	LOOTINGMGR->ProcessTimeOutCheck();	//¡§oA¢®¨¡¢®IAI ¡Ë¡ÍU¡ÍiE PK¢®¢´c¡§¢®A ~¢®¢´aCI¢®¨úa
+	LOOTINGMGR->ProcessTimeOutCheck();	//ï¿½ï¿½oAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAI ï¿½Ë¡ï¿½Uï¿½ï¿½iE PKï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A ~ï¿½ï¿½ï¿½ï¿½aCIï¿½ï¿½ï¿½ï¿½a
 	QUESTMGR->Process();
 
 	EVENTMAPMGR->Process();
@@ -861,7 +861,7 @@ void CServerSystem::Process()
 //COMMENT:JACKPOT
 	JACKPOTMGR->Process();
 
-	//SW060719 ¹®ÆÄÆ÷ÀÎÆ®
+	//SW060719 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	GUILDMGR->GUILDMGR_Process();
 
 	// Guild Tournament
@@ -877,7 +877,7 @@ void CServerSystem::Process()
 	WEATHERMGR->Process();
 
 
-	//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå
+	//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½
 	//if( CheckMapKindIs(eSurvival) )
 	if( g_pServerSystem->GetMap()->IsMapKind(eSurvivalMap) )
 		SVVMODEMGR->Process();
@@ -982,7 +982,7 @@ void CServerSystem::SetMapKind(WORD wMapNum)
 		m_iMapKind = eSurvival;
 	else if(wMapNum == Tournament)
 		m_iMapKind = eGTMap;
-	else if(wMapNum == nakyang_siege)	//SW °ø¼º¸Ê Áõ°¡ÇÏ¸é ±ê¹ß°ü·Ã ÀÛ¾÷ Ãß°¡ ÇÊ¿ä.
+	else if(wMapNum == nakyang_siege)	//SW ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ß°ï¿½ ï¿½Ê¿ï¿½.
 		m_iMapKind = eSGMap;
 	else
 		m_iMapKind = eNormalMap;
@@ -1026,7 +1026,7 @@ CPlayer* CServerSystem::AddPlayer(DWORD dwPlayerID,DWORD dwAgentNum,DWORD Unique
 //	g_Console.LOG(4, "User Connected : ID %d, Total(%d)", pPlayer->GetID(), g_pUserTable->GetUserCount());
 
 	//SW050719	//NeedConfirm
-//	JACKPOTMGR->SendMsgAddUserTotalMoney(pPlayer);	//SW050729 AGENT¿¡¼­
+//	JACKPOTMGR->SendMsgAddUserTotalMoney(pPlayer);	//SW050729 AGENTï¿½ï¿½ï¿½ï¿½
 	return pPlayer;
 }
 
@@ -1107,12 +1107,12 @@ void CServerSystem::CreateNewPet( CPlayer* pMaster, DWORD dwItemIdx, DWORD Summo
 		return;
 
 	PET_TOTALINFO TotalInfo;
-	TotalInfo.PetSummonItemDBIdx = SummonItemDBIdx;			//¾ÆÀÌÅÛÀÇ DBID	//Ã¹»ý¼º ÀÏ¶§ ¼¼ÆÃ.
-	TotalInfo.PetKind		= wPetKind;	//Á¾·ù
-	TotalInfo.PetStamina	= pPetListInfo->StaminaMax[PetGrade-1];	//½ºÅ×¹Ì³ª ÃÖ´ëÄ¡
-	TotalInfo.PetFriendly = GAMERESRCMNGR->GetPetRule()->DefaultFriendship;		//ÆÖ±âº»Ä£¹Ðµµ
-	TotalInfo.PetGrade	= PetGrade;	//´Ü°è
-	TotalInfo.PetMasterUserID	= pMaster->GetUserID();	//ÇÊ¿ä? ÇÊ¿ä DB°ü·Ã
+	TotalInfo.PetSummonItemDBIdx = SummonItemDBIdx;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBID	//Ã¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	TotalInfo.PetKind		= wPetKind;	//ï¿½ï¿½ï¿½ï¿½
+	TotalInfo.PetStamina	= pPetListInfo->StaminaMax[PetGrade-1];	//ï¿½ï¿½ï¿½×¹Ì³ï¿½ ï¿½Ö´ï¿½Ä¡
+	TotalInfo.PetFriendly = GAMERESRCMNGR->GetPetRule()->DefaultFriendship;		//ï¿½Ö±âº»Ä£ï¿½Ðµï¿½
+	TotalInfo.PetGrade	= PetGrade;	//ï¿½Ü°ï¿½
+	TotalInfo.PetMasterUserID	= pMaster->GetUserID();	//ï¿½Ê¿ï¿½? ï¿½Ê¿ï¿½ DBï¿½ï¿½ï¿½ï¿½
 	TotalInfo.bAlive		= TRUE;
 	TotalInfo.bSummonning	= FALSE;
 	TotalInfo.bRest			= TRUE;
@@ -1169,7 +1169,7 @@ CPet* CServerSystem::AddPet( CPlayer* pMaster, DWORD dwPetObjID, PET_TOTALINFO* 
 //
 //	CPet* pPet = NULL;
 //
-//	if(flag == ePET_FROM_ITEM)	//Ã¹ »ý¼º.
+//	if(flag == ePET_FROM_ITEM)	//Ã¹ ï¿½ï¿½ï¿½ï¿½.
 //	{
 ////		PET_TOTALINFO	PetInfo;
 //		BASEOBJECT_INFO BaseInfo;
@@ -1182,18 +1182,18 @@ CPet* CServerSystem::AddPet( CPlayer* pMaster, DWORD dwPetObjID, PET_TOTALINFO* 
 //		BaseInfo.dwObjectID = dwPetObjID;
 //		SafeStrCpy(BaseInfo.ObjectName, pPetListInfo->Name, MAX_NAME_LENGTH+1);
 //
-//		PetInfo.PetSummonItemID = SummonItemID;			//¾ÆÀÌÅÛÀÇ DBID	//Ã¹»ý¼º ÀÏ¶§ ¼¼ÆÃ.
-//		PetInfo.PetKind		= wPetKind;	//Á¾·ù
-//		PetInfo.PetStamina	= pPetListInfo->StaminaMax[0];	//½ºÅ×¹Ì³ª ÃÖ´ëÄ¡
-//		PetInfo.PetFriendly = PET_DEFAULT_FRIENDLY;		//ÆÖ±âº»Ä£¹Ðµµ
-//		PetInfo.PetGrade	= 1;	//1´Ü°è
-//		PetInfo.PetMasterUserID	= pMaster->GetID();	//ÇÊ¿ä?
+//		PetInfo.PetSummonItemID = SummonItemID;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBID	//Ã¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½.
+//		PetInfo.PetKind		= wPetKind;	//ï¿½ï¿½ï¿½ï¿½
+//		PetInfo.PetStamina	= pPetListInfo->StaminaMax[0];	//ï¿½ï¿½ï¿½×¹Ì³ï¿½ ï¿½Ö´ï¿½Ä¡
+//		PetInfo.PetFriendly = PET_DEFAULT_FRIENDLY;		//ï¿½Ö±âº»Ä£ï¿½Ðµï¿½
+//		PetInfo.PetGrade	= 1;	//1ï¿½Ü°ï¿½
+//		PetInfo.PetMasterUserID	= pMaster->GetID();	//ï¿½Ê¿ï¿½?
 //		PetInfo.bAlive		= TRUE;
-//		//PetInfo.MapNum		ÇÊ¿ä?
+//		//PetInfo.MapNum		ï¿½Ê¿ï¿½?
 //
 //		PetInsertToDB(pMaster->GetID(), &PetInfo);
 //
-//		//PetInsertToDB ¸®ÅÏ µÚ Ã³¸®.
+//		//PetInsertToDB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½.
 //		pPet = (CPet*)g_pObjectFactory->MakeNewObject(eObjectKind_Pet, 0, &BaseInfo);
 //		pPet->InitPet(pTotalInfo);
 //	}
@@ -1218,11 +1218,11 @@ CMonster* CServerSystem::AddMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectI
 	
 	if(wObjectKind == eObjectKind_SpecialMonster)objectkind = eObjectKind_SpecialMonster;
 	else if(wObjectKind == eObjectKind_ToghterPlayMonster)objectkind = eObjectKind_ToghterPlayMonster;
-	//2007. 7. 5. CBH - Àü¹®±â¼ú Àü¿ë ¸ó½ºÅÍ Á¾·ù ¼³Á¤ Ãß°¡
+	//2007. 7. 5. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	else if(wObjectKind == eObjectKind_Mining)	objectkind = eObjectKind_Mining;
 	else if(wObjectKind == eObjectKind_Collection)	objectkind = eObjectKind_Collection;
 	else if(wObjectKind == eObjectKind_Hunt)	objectkind = eObjectKind_Hunt;
-	//2007. 10. 30. CBH - Å¸ÀÌÅº Àü¿ë ¸ó½ºÅÍ Á¾·ù ¼³Á¤ Ãß°¡
+	//2007. 10. 30. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	else if(wObjectKind == eObjectKind_TitanMonster)	objectkind = eObjectKind_TitanMonster;
 
 	CMonster* pMonster = (CMonster*)g_pObjectFactory->MakeNewObject(objectkind,0, pBaseObjectInfo);
@@ -1274,8 +1274,8 @@ CBossMonster* CServerSystem::AddBossMonster(DWORD dwSubID, BASEOBJECT_INFO* pBas
 	return pBossMonster;
 }
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ÇÊµåº¸½º Ãß°¡ ÇÔ¼ö
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ô¼ï¿½
 CFieldBossMonster* CServerSystem::AddFieldBossMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos)
 {
 	ASSERT(g_pUserTable->FindUser(pBaseObjectInfo->dwObjectID) == NULL);
@@ -1299,8 +1299,8 @@ CFieldBossMonster* CServerSystem::AddFieldBossMonster(DWORD dwSubID, BASEOBJECT_
 	return pFieldBossMonster;
 }
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ÇÊµåº¸½º ºÎÇÏ Ãß°¡ ÇÔ¼ö
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ô¼ï¿½
 CFieldSubMonster* CServerSystem::AddFieldSubMonster(DWORD dwSubID, BASEOBJECT_INFO* pBaseObjectInfo,MONSTER_TOTALINFO* pTotalInfo,VECTOR3* pPos)
 {
 	ASSERT(g_pUserTable->FindUser(pBaseObjectInfo->dwObjectID) == NULL);
@@ -1332,7 +1332,7 @@ CNpc* CServerSystem::AddNpc(BASEOBJECT_INFO* pBaseObjectInfo,NPC_TOTALINFO* pTot
 	pNpc->InitNpc(pTotalInfo);
 	pNpc->SetGridID(pBaseObjectInfo->BattleID);
 
-	pNpc->SetNpcAngle(angle);	//SW070704 Ãß°¡
+	pNpc->SetNpcAngle(angle);	//SW070704 ï¿½ß°ï¿½
 
 	pNpc->SetInited();
 	CCharMove::InitMove(pNpc,pPos);
@@ -1421,21 +1421,21 @@ CItemObject* CServerSystem::AddItemObject(ITEMBASE* pItemInfo,VECTOR3* pPos)
 //SW060608 DBUpdate Safely
 void CServerSystem::HandlingBeforeServerEND()
 {
-	//SetUnableProcess(TRUE);				//1. Process ¸®ÅÏ & DBReturnMsg Ã³¸® ¾ÈÇÔ.
+	//SetUnableProcess(TRUE);				//1. Process ï¿½ï¿½ï¿½ï¿½ & DBReturnMsg Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 	//g_Console.LOG(4, "[0/4]Start Working For Map Server Shutdown" );
 
-	RemoveServerForKind(AGENT_SERVER);	//2. AgentSrv ²÷±â.
+	RemoveServerForKind(AGENT_SERVER);	//2. AgentSrv ï¿½ï¿½ï¿½ï¿½.
 	//g_Console.LOG(4, "[1/4]Agent Disconnecting...Done" );
 
-	//3. =======Object Ã³¸®
+	//3. =======Object Ã³ï¿½ï¿½
 	g_pUserTable->SetPositionHead();
 	CObject* pObject;
 	while(pObject = g_pUserTable->GetData())
 	{	
 		if(pObject->GetObjectKind() == eObjectKind_Player)
 			g_pServerSystem->RemovePlayer(pObject->GetID(), FALSE);
-			//FALSE: ½ÇÁ¦·Î UserTable¿¡¼­´Â Áö¿ìÁö ¾Ê´Â´Ù.
+			//FALSE: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UserTableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 		else
 		{
 			CCharMove::ReleaseMove(pObject);
@@ -1481,7 +1481,7 @@ void CServerSystem::RemovePlayer(DWORD dwPlayerID, BOOL bRemoveFromUserTable )
 	BOSSMONMGR->UserLogOut(pPlayer->GetID(), pPlayer->GetGridID());
 	SIEGEWARMGR->UserLogOut(pPlayer);
 	
-	// YH d¡§¡þ¡Ë¡þ ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc¡Ë¡ÍA AE¢®¨úaE¢®¨Ï¢®¨¡¡Ë¢ç f¡Ë¡Íe¢®¢´I ¡ÍiE /Au¢®¨¡¡Ë¢ç ¨Ï©ª¡§¡Ì¢®¨¡¢®I¡ËO¢®¡¿¡Ë¡þ¡Ë¡þ C¡§¨£A¡§¨£¡Ë¡ÍU.
+	// YH dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½Ë¡ï¿½A AEï¿½ï¿½ï¿½ï¿½aEï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ fï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½iE /Auï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ ï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ì¢ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ Cï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 	if(pPlayer->GetInited() == TRUE)
 	{
 		if(pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SURYUN)
@@ -1491,8 +1491,8 @@ void CServerSystem::RemovePlayer(DWORD dwPlayerID, BOOL bRemoveFromUserTable )
 			pPlayer->SetNaeRyuk(pPlayer->GetMaxNaeRyuk(),FALSE);
 		}		
 
-		//Ac¢®iy ¢®¨¡u¢®¢´A ¢®¨¡¨Ï¢®CeA¡Ë¢ç, ¢®iy¡Ë¡þi¢®¢´A, ¨Ï©ª¢®i¢®¢´A ¢®¨úiAO. (Data¡Ë¡þ| AuAaCI¢®¨úa Au¡Ë?¡Ë¢ç ¢®¨¡¨Ï¢®CeA¡Ë¢ç¡Ë?¡Ë¢ç ¡Ë¡ÍeCN ¡§¡þI¡§¡þ¡§¡Ë; A¨Ï©ª¡Ë¡þ¡ËcC¡§¨£¡§u¨Ï¡þ CO¡Íii.)
-		//Result¡ÍiC¡§ui¡§u¢®¨Ï KINE_NONEAI ¡ÍiC¡§uu¡Ë¡ÍU¡Ë¡þe?
+		//Acï¿½ï¿½iy ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½CeAï¿½Ë¢ï¿½, ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A, ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½iAO. (Dataï¿½Ë¡ï¿½| AuAaCIï¿½ï¿½ï¿½ï¿½a Auï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½CeAï¿½Ë¢ï¿½ï¿½?ï¿½Ë¢ï¿½ ï¿½Ë¡ï¿½eCN ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½; Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½cCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½Ï¡ï¿½ COï¿½ï¿½ii.)
+		//Resultï¿½ï¿½iCï¿½ï¿½uiï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ KINE_NONEAI ï¿½ï¿½iCï¿½ï¿½uuï¿½Ë¡ï¿½Uï¿½Ë¡ï¿½e?
 		if(pPlayer->GetState() == eObjectState_Die)
 		{
 #ifdef _KOR_LOCAL_
@@ -1509,14 +1509,14 @@ void CServerSystem::RemovePlayer(DWORD dwPlayerID, BOOL bRemoveFromUserTable )
 				{
 					pPlayer->ReviveLogInPenelty();
 				}
-				else	//¡§¡þn¨Ïo¢®iA¨Ï¡þ A¢®¢¯¡§uu¡Ë¡ÍU.	//¡§¡þn¨Ïo¢®iA¨Ï¡þ ¡Ë¡þo¡§o¡§¡þAI¡Ë?¡Ë¢ç¢®¨¡O A¢®¢¯; ¡§uo¡Íi¡Íi AO¡Ë¡ÍU. confirm
+				else	//ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½oï¿½ï¿½iAï¿½Ï¡ï¿½ Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uuï¿½Ë¡ï¿½U.	//ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½oï¿½ï¿½iAï¿½Ï¡ï¿½ ï¿½Ë¡ï¿½oï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½?ï¿½Ë¢ç¢®ï¿½ï¿½O Aï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½uoï¿½ï¿½iï¿½ï¿½i AOï¿½Ë¡ï¿½U. confirm
 				{
-					pPlayer->ReviveAfterVimu( FALSE );	//¡Æa¡ÆuA©ø¢¬¢ç¢¬¢¬.. msg¨¬¢¬©ø¡íAo ¨úE¢¥A¢¥U.6
+					pPlayer->ReviveAfterVimu( FALSE );	//ï¿½ï¿½aï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½ï¿½ç¢¬ï¿½ï¿½.. msgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ao ï¿½ï¿½Eï¿½ï¿½Aï¿½ï¿½U.6
 				}
 			}
 		}
 
-		// A¨Ï©ª¡Ë¡þ?d¡§¡þ¡Ë¡þ ¡§u¢®A¡Íi¢®IAI¡§¢®¡Ëc///////////////////////
+		// Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½?dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½uï¿½ï¿½Aï¿½ï¿½iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c///////////////////////
 		if( pPlayer->IsPKMode() )
 			pPlayer->SetPKModeEndtime();
 
@@ -1541,7 +1541,7 @@ void CServerSystem::RemovePlayer(DWORD dwPlayerID, BOOL bRemoveFromUserTable )
 
 	CHANNELSYSTEM->DecreasePlayerNum(pPlayer->GetChannelID());
 
-	//SW061019 ¼­¹ÙÀÌ¹ú¸ðµå 
+	//SW061019 ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ 
 	//if( CheckMapKindIs(eSurvival) )
 	if( g_pServerSystem->GetMap()->IsMapKind(eSurvivalMap) )
 		SVVMODEMGR->RemoveSVModeUser(pPlayer);
@@ -1550,7 +1550,7 @@ void CServerSystem::RemovePlayer(DWORD dwPlayerID, BOOL bRemoveFromUserTable )
 		g_pUserTable->RemoveUser(dwPlayerID);
 
 	g_pObjectFactory->ReleaseObject(pPlayer);
-	UnRegistLoginMapInfo(dwPlayerID); //db¡Ë?¡Ë¢ç CoAc ¡Ë¡þE¨Ïo¨Ï¨£E¢®I 08¢®¢´I ¡§uA¡§¢®A
+	UnRegistLoginMapInfo(dwPlayerID); //dbï¿½ï¿½?ï¿½Ë¢ï¿½ CoAc ï¿½Ë¡ï¿½Eï¿½ï¿½oï¿½Ï¨ï¿½Eï¿½ï¿½I 08ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A
 	
 	EVENTMAPMGR->RemoveMember( pPlayer, 0, pPlayer->GetChannelID() );
 	PARTYWARMGR->RemovePlayer( pPlayer );
@@ -1691,7 +1691,7 @@ void CServerSystem::ReloadResourceData()	// case MP_CHEAT_RELOADING:
 	SKILLMGR->Init();
 	
 	//////////////////////////////////////////////////////////////////////////
-	//¢®¨¡¨Ï¢®CeA¡Ë¢ç
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½CeAï¿½Ë¢ï¿½
 	GAMERESRCMNGR->LoadPlayerxMonsterPoint();
 
 	//////////////////////////////////////////////////////////////////////////
@@ -1701,7 +1701,7 @@ void CServerSystem::ReloadResourceData()	// case MP_CHEAT_RELOADING:
 
 	//////////////////////////////////////////////////////////////////////////
 	//Regen
-	//¡Ë¡þo¡§o¡§¡þAI Remove
+	//ï¿½Ë¡ï¿½oï¿½ï¿½oï¿½ï¿½ï¿½ï¿½AI Remove
 	g_pUserTable->SetPositionUserHead();
 	CObject* pObject;
 	while(pObject = (CObject*)g_pUserTable->GetUserData())
@@ -1743,7 +1743,7 @@ void CServerSystem::ReloadResourceData()	// case MP_CHEAT_RELOADING:
 	GAMERESRCMNGR->ResetPetBuffList();
 	GAMERESRCMNGR->LoadPetBuffList();
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸ï¿½ï¿½Åº
 	GAMERESRCMNGR->RemoveTitanList();
 	GAMERESRCMNGR->LoadTitanList();
 	GAMERESRCMNGR->LoadTitanRule();
@@ -1770,15 +1770,15 @@ void CServerSystem::ReloadResourceData()	// case MP_CHEAT_RELOADING:
 //	MON_SPEECHMGR->LoadSpeechList();
 	//////////////////////////////////////////////////////////////////////////
 
-    // 2007. 12. 5. CBH - ÀÏ¹Ý ÀÇº¹ ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ·Îµå
+    // 2007. 12. 5. CBH - ï¿½Ï¹ï¿½ ï¿½Çºï¿½ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	GAMERESRCMNGR->LoadNomalClothesSkinList();
-	// 2008. 1. 21. CBH - ÄÚ½ºÆ¬ ½ºÅ² ¾ÆÀÌÅÆ ¸ñ·Ï ·Îµå
+	// 2008. 1. 21. CBH - ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	GAMERESRCMNGR->LoadCostumeSkinList();
 
 	//ItemDrop
 	ITEMDROP_OBJ->Init();
 
-	// ¸Ê µå¶ø ¾ÆÀÌÅÛ Ãß°¡ by Stiner(2008/05/29)-MapDropItem
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapDropItem
 	MAPITEMDROP_OBJ->Init();
 	
 	// reload
@@ -1803,7 +1803,7 @@ void CServerSystem::ProcessWaitExitPlayer()
 	WAIT_EXIT_PLAYER_INFO* pInfo = (WAIT_EXIT_PLAYER_INFO*)m_listWaitExitPlayer.GetHead();
 	if( pInfo )
 	{
-		if( gCurTime - pInfo->dwStartTime >= 5*1000 )	//10ÃÊ--->5ÃÊ·Î º¯°æ(2005.11.1)
+		if( gCurTime - pInfo->dwStartTime >= 5*1000 )	//10ï¿½ï¿½--->5ï¿½Ê·ï¿½ ï¿½ï¿½ï¿½ï¿½(2005.11.1)
 		{
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pInfo->dwPlayerID );
 			if( pPlayer )
@@ -1914,10 +1914,10 @@ void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid)
 		BOOTMNGR->SendConnectSynMsg(&g_Network, dwConnectionIndex, g_pServerTable);
 		g_Console.LOG(4, "Connected to the Server : %s, %d, (%d)", info->szIPForServer, info->wPortForServer, dwConnectionIndex);
 	}
-	/*/// Ao¡Ë?i¢®¨¡IAO taiyo
+	/*/// Aoï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½IAO taiyo
 	if(!dwConnectionIndex) return;
 
-	info->dwConnectionIndex = dwConnectionIndex;					// AI¢®¨¡O f¡Ë¡Íe¢®¢´I ¡Íi¡Ë?AUCI¨Ï©ª¡§¡Ì? A¡§uA¡§I
+	info->dwConnectionIndex = dwConnectionIndex;					// AIï¿½ï¿½ï¿½ï¿½O fï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½iï¿½ï¿½?AUCIï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½? Aï¿½ï¿½uAï¿½ï¿½I
 	MSG_WORD msg;
 	msg.Category = MP_SERVER;
 	msg.Protocol = MP_SERVER_PWRUP;
@@ -1925,7 +1925,7 @@ void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid)
 	g_Network.Send2Server(dwConnectionIndex, (char*)&msg, sizeof(msg));
 	//*/
 
-	//PACKDATA¡Ë?¡Ë¢ç¡§u¢®¨Ï ¢®ic¡Ë?eCI¡Ë¡ÍA ¡§¡þ?¡§uo
+	//PACKDATAï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½icï¿½ï¿½?eCIï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½uo
 	if(g_pServerTable->GetMaxServerConnectionIndex() < dwConnectionIndex)
 			g_pServerTable->SetMaxServerConnectionIndex(dwConnectionIndex);
 }
@@ -2043,7 +2043,7 @@ void _5minGameProcess()
 {
 	g_pServerSystem->_5minProcess();
 
-	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/29)-MapItemDrop
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/29)-MapItemDrop
 	MAPITEMDROP_OBJ->Process();
 }
 
@@ -2183,7 +2183,7 @@ BOOL LoadEventRate(char* strFileName)
 
 	file.Release();
 
-	for(i=0; i<eEvent_Max; ++i)	
+	for(int i=0; i<eEvent_Max; ++i)
 		gEventRate[i] = gEventRateFile[i];
 
 	return TRUE;

@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Guild.h"
 #include "Player.h"
 #include "UserTable.h"
@@ -23,7 +24,7 @@ CGuild::CGuild(GUILDINFO* pInfo, MONEYTYPE GuildMoney)
 	m_GuildInfo.UnionIdx = pInfo->UnionIdx;
 	m_GuildInfo.GuildLevel = pInfo->GuildLevel;
 
-	//SW070103 ¹®ÆÄÆ÷ÀÎÆ®°³¼±
+	//SW070103 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
 	m_GuildInfo.LvUpCounter = pInfo->LvUpCounter;
 	m_GuildInfo.bNeedMasterChecking = pInfo->bNeedMasterChecking;
 
@@ -42,7 +43,7 @@ CGuild::CGuild(GUILDINFO* pInfo, MONEYTYPE GuildMoney)
 	m_bItemInfoInited = FALSE;
 	m_bWaitingItemInfoFromDB = FALSE;
 
-	m_nStudentCount = 0;	//¹®ÇÏ»ý ÀÎ¿ø Ä«¿îÆ®
+	m_nStudentCount = 0;	//ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½Î¿ï¿½ Ä«ï¿½ï¿½Æ®
 
 	memset(&m_GuildPoint, 0, sizeof(GUILDPOINT_INFO));
 	m_nMemberOnConnectingThisMap = 0;
@@ -50,7 +51,7 @@ CGuild::CGuild(GUILDINFO* pInfo, MONEYTYPE GuildMoney)
 
 CGuild::~CGuild()
 {
-//KES deleteÃß°¡ MEM
+//KES deleteï¿½ß°ï¿½ MEM
 	PTRLISTPOS pos = m_MemberList.GetHeadPosition();
 	GUILDMEMBERINFO* pInfo = NULL;
 	while(pos)
@@ -149,7 +150,7 @@ BOOL CGuild::AddMember(GUILDMEMBERINFO* pMemberInfo)
 		}
 	}
 
-	//SW00713 ¹®ÇÏ»ý
+	//SW00713 ï¿½ï¿½ï¿½Ï»ï¿½
 	if(pInfo->Rank == GUILD_STUDENT)
 	{
 		++m_nStudentCount;
@@ -270,10 +271,12 @@ BOOL CGuild::IsMember(DWORD MemberIDX)
 			GUILDMEMBERINFO* pInfo = (GUILDMEMBERINFO*)m_MemberList.GetNext(pos);
 
 			if(pInfo)
+			{
 			if(pInfo->MemberIdx == MemberIDX)
 				return TRUE;
 		}
 	}
+			}
 	return FALSE;
 }
 
@@ -450,7 +453,7 @@ BOOL CGuild::DoChangeMemberRank(DWORD MemberIdx, int Pos, BYTE Rank)
 	{
 		--m_nStudentCount;
 	}
-	//¾ø´Â°æ¿ìÀÌ´Ù.
+	//ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½Ì´ï¿½.
 	//else if(pMemberInfo->Rank != GUILD_STUDENT && Rank == GUILD_STUDENT)
 	//{
 	//	++m_nStudentCount;
@@ -711,7 +714,7 @@ void CGuild::SetGuildPoint( int TotalPoint )
 {
 	m_GuildPoint.GuildPoint = TotalPoint;
 
-	//¹®ÆÄ¿ø ÀüÆÄ
+	//ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_POINT;
@@ -733,7 +736,7 @@ void CGuild::AddConnectingMapMemberCount( int Val )
 
 void CGuild::SendGuildPointAddInfoToAll( DWORD AddPoint, DWORD TotalPoint, int eAddKind, DWORD AddData )
 {
-	//¸Ê ÀüÆÄ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD4 msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_POINT_ADD;
@@ -742,16 +745,16 @@ void CGuild::SendGuildPointAddInfoToAll( DWORD AddPoint, DWORD TotalPoint, int e
 	msg.dwData3 = eAddKind;
 	msg.dwData4 = AddData;
 	//pAdditionalData
-	//¹®¿ø·¾¾÷ -> ·¹º§
-	//Åä³Ê¸ÕÆ® -> ¼øÀ§
-	//¸ó½ºÅÍÄ«¿îÆ® -> ÃÑÄ«¿îÆ®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½Ê¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½Æ® -> ï¿½ï¿½Ä«ï¿½ï¿½Æ®
 
 	SendMsgToAll(&msg, sizeof(MSG_DWORD4));
 }
 
 void CGuild::SendGuildPointUseInfoToAll( DWORD TotalPoint, int eUseKind, DWORD KindIdx, DWORD EndTime )
 {
-	//¹®¿ø ÀüÆÄ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD4 msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_POINT_USEINFO;
@@ -765,7 +768,7 @@ void CGuild::SendGuildPointUseInfoToAll( DWORD TotalPoint, int eUseKind, DWORD K
 
 void CGuild::AddGuildPlustime( DWORD plustimeIdx, DWORD endTime )
 {
-	//Áßº¹ Ã¼Å©
+	//ï¿½ßºï¿½ Ã¼Å©
 	if( TRUE == IsUsingPlustimeIdx(plustimeIdx) )
 	{
 		char buf[128] = {0,};
@@ -773,7 +776,7 @@ void CGuild::AddGuildPlustime( DWORD plustimeIdx, DWORD endTime )
 		ASSERTMSG(0, buf);
 	}
 
-	//¹®ÆÄ¿øÀüÆÄ
+	//ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD2 msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_PLUSTIME_ADD;
@@ -806,7 +809,7 @@ void CGuild::RemoveGuildPlustime( DWORD plustimeIdx )
 		return;
 	}
 
-	//¹®ÆÄ¿øÀüÆÄ
+	//ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	MSG_DWORD msg;
 	msg.Category = MP_GUILD;
 	msg.Protocol = MP_GUILD_PLUSTIME_END;
@@ -846,15 +849,17 @@ void CGuild::CheckPlustimeEnd( DWORD CurTime )
 	for( int i = 0; i < eGPT_Kind_Max; ++i )
 	{
 		if(m_GuildPoint.GuildUsingPlusTimeInfo[i].PlusTimeIdx)
-		if( m_GuildPoint.GuildUsingPlusTimeInfo[i].PlusTimeEndTime < CurTime )
 		{
-			//DB Á¤º¸ ÃÊ±âÈ­
-			GuildPlustimeEnd( m_GuildInfo.GuildIdx, m_GuildPoint.GuildUsingPlusTimeInfo[i].PlusTimeIdx );
+			if( m_GuildPoint.GuildUsingPlusTimeInfo[i].PlusTimeEndTime < CurTime )
+			{
+				//DB ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+				GuildPlustimeEnd( m_GuildInfo.GuildIdx, m_GuildPoint.GuildUsingPlusTimeInfo[i].PlusTimeIdx );
+			}
 		}
 	}
 }
 
-//magi82 - ¹®ÇÏ»ý °¡ÀÔÆí¸®½Ã½ºÅÛ
+//magi82 - ï¿½ï¿½ï¿½Ï»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
 void CGuild::SendMsgAgentStudentJoin(DWORD studentIdx, char* studentName, char* Intro)
 {
 	PTRLISTPOS pos = m_MemberList.GetHeadPosition();
@@ -880,10 +885,10 @@ void CGuild::SendMsgAgentStudentJoin(DWORD studentIdx, char* studentName, char* 
 }
 
 void CGuild::SetStudentLvUpCountInfo(DWORD LvUpCount, BOOL bNeedCheck)
-{//´Ù¸¥¸ÊÀ¸·ÎºÎÅÍ
+{//ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½
 	m_GuildInfo.LvUpCounter = (BYTE)LvUpCount;
 
-	//Ã¼Å©º¯¼ö°¡ À¯È¿°ªÀ¸·Î ¹Ù²î¾úÀ¸¸é Á¢¼ÓÁßÀÎ ¹®ÁÖ¸¦ Ã£´Â´Ù.
+	//Ã¼Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¸ï¿½ Ã£ï¿½Â´ï¿½.
 	if( 0 == m_GuildInfo.bNeedMasterChecking && bNeedCheck )
 	{
 		SendMsgForMasterChecking();

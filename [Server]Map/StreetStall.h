@@ -1,5 +1,6 @@
 #ifndef __STREETSTALL__
 #define __STREETSTALL__
+#include "..\[CC]Header\CommonStruct.h"
 
 
 #define MAX_STREETSTALL_CELLNUM 25
@@ -69,7 +70,7 @@ public:
 	void SetMoney( WORD pos, DWORD money );
 	void SetVolume( WORD pos, WORD Volume );
 
-	// LYJ ±∏¿‘≥Î¡° √ﬂ∞°
+	// LYJ ‘≥ ﬂ∞
 	WORD GetStallKind() { return m_wStallKind; }
 	void SetStallKind(WORD wStallKind) { m_wStallKind = wStallKind; }
 

@@ -1,11 +1,12 @@
 #pragma once
 
-#include <afx.h>
-
+#include <winsock2.h>
+#include <windows.h>
 #include <ole2.h>
 #include <initguid.h>
-#include <windows.h>
-#include <winsock2.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <crtdbg.h>
 
 #if !defined(_DLLEXPORT_)
 

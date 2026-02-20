@@ -143,10 +143,10 @@ void CharacterBaseInfo(WORD wConnectIdx, WORD wTempIdx, DWORD dwCharIdx)
 void UpdateCharacterBaseInfo(WORD wConnectIdx, WORD wTempIdx, TMSG_CHARACTER_UPDATEBASEINFO* Info)
 {
 //	char txt[128];
-	sprintf(txt, "EXEC RP_UpdateCharacterInfo %d,\'%s\', \'%s\', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d", 
-													Info->CharIdx, Info->ObjectName, Info->NickName, Info->Stage, 
-													Info->Level, Info->Fame, Info->ExpPoint, Info->wGenGol, 
-													Info->wMinChub, Info->wCheRyuk, Info->wSimMek, Info->LevelUpPoint, 
+	sprintf(txt, "EXEC RP_UpdateCharacterInfo %d,\'%s\', \'%s\', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
+													Info->CharIdx, Info->ObjectName, Info->NickName, Info->Stage,
+													Info->Level, Info->BadFame, Info->ExpPoint, Info->wGenGol,
+													Info->wMinChub, Info->wCheRyuk, Info->wSimMek, Info->LevelUpPoint,
 													Info->Money, Info->AbilityExp);
 	if(g_DB.Query(eQueryType_FreeQuery, eCharacterUpdateBaseInfo, MAKEDWORD(wConnectIdx, wTempIdx), txt) == FALSE)
 	{

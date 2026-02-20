@@ -4,6 +4,7 @@
 
 #if !defined(AFX_GUILDWAREHOUSE_H__8391ADAF_23A8_4CC2_8889_AFB06E62943E__INCLUDED_)
 #define AFX_GUILDWAREHOUSE_H__8391ADAF_23A8_4CC2_8889_AFB06E62943E__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -14,7 +15,7 @@
 
 class CGuildWarehouse : public CMunpaWareSlot  
 {
-	cPtrList m_WarehousePlayerList[TAB_GUILDWAREHOUSE_NUM]; //창고 보고 있는 사람들
+	cPtrList m_WarehousePlayerList[TAB_GUILDWAREHOUSE_NUM]; //창  獵 
 	ITEMBASE	m_TotalItemBase[SLOT_GUILDWAREHOUSE_NUM];
 	SLOTINFO	m_TotalSlotInfo[SLOT_GUILDWAREHOUSE_NUM];
 	void AddWarehousePlayer(DWORD PlayerID, BYTE TabNum);
@@ -33,7 +34,7 @@ public:
 	virtual ERROR_ITEM DeleteItemAbs(CPlayer * pPlayer, POSTYPE absPos, ITEMBASE * pItemOut, WORD state=SS_NONE);
 	virtual BOOL IsEmpty(POSTYPE absPos);
 	virtual ITEMBASE const * GetItemInfoAbs(POSTYPE absPos);
-	//SW050920 수정 Rare
+	//SW050920  Rare
 	virtual ERROR_ITEM UpdateItemAbs(CPlayer * pPlayer, POSTYPE whatAbsPos, DWORD dwDBIdx, WORD wItemIdx, POSTYPE position, POSTYPE quickPosition, DURTYPE Dur, WORD flag=UB_ALL, WORD state=SS_NONE, DWORD RareDBIdx=0);
 
 	void Init(MONEYTYPE GuildMoney);
@@ -54,7 +55,7 @@ public:
 	
 	BOOL	IsEmptyAndMoney();
 
-	//SW060526 문파창고 아이템 정보저장 시점 변경
+	//SW060526 창    
 	void AddItemInfoWaitingMember(CPlayer* pPlayer, BYTE TabNum);
 	void SendItemInfoToAllWaitingMembers();
 };

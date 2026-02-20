@@ -1,8 +1,8 @@
-// ÀÌ ¼­¹ö ÇÁ·Î±×·¥Àº Å©°Ô µÎ ÁÙ±â·Î º¼ ¼ö ÀÖ´Ù.¼ÒÄÏ io¸¦ Ã³¸®ÇÏ´Â worker½º·¹µå Áý´Ü°ú 
-// ¼ö½ÅµÈ ¸Þ½ÃÁö¸¦ Ã³¸®ÇÏ°í ´Éµ¿ÀûÀ¸·Î ¼­¹ö°¡ ÇØ¾ßÇÒ ÀÏÀ» °üÀåÇÏ´Â ¸ÞÀÎ ½º·¹µåÀÌ´Ù.
-// ÀÌ°ÍÀº ¸ÞÀÎ ½º·¹µå¿Í ÀÌ¿¡ °ü·ÃµÈ ±Û·Î¹ú ÇÔ¼öÀÇ ¼Ò½ºÀÌ´Ù.
+ï»¿// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù±ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.ï¿½ï¿½ï¿½ï¿½ ioï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ workerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü°ï¿½ 
+// ï¿½ï¿½ï¿½Åµï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+// ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½Û·Î¹ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ï¿½Ì´ï¿½.
 
-#include "../4DyuchiNET_Common/net_define.h"
+#include "net_define.h"
 #include "cpio.h"
 #include "mainthread.h"
 #include "que.h"
@@ -13,17 +13,16 @@
 #include "log.h"
 #include <process.h>
 #include "pre_connect.h"
+#include "typedef.h"
 
-//#include "typedef.h"
-
-OnIntialFunc 					g_pOnInitialFunc = NULL;			// ¸ÞÀÎ ½º·¹µå°¡ »ý¼ºµÇÀÚ¸¶ÀÚ ½ÇÇàÇÒ ÇÔ¼ö
-HANDLE	g_hMainThreadEvent[MAX_MAIN_THREAD_EVENT_NUM];				// ¸ÞÀÎ ½º·¹µå°¡ »ç¿ëÇÒ ÀÌº¥Æ® °´Ã¼ ÇÚµé ¹è¿­
-HANDLE	g_hMainThread			=	NULL;							// ¸ÞÀÎ ¾²·¹µå ÇÚµé.
-DWORD	g_dwMainThreadEventNum	=	MIM_MAIN_THREAD_EVENT_NUM;		// ¸ÞÀÎ ½º·¹µå°¡ Ã¼Å©ÇÒ ÀÌº¥Æ®ÀÇ °¹¼ö.
+OnIntialFunc 					g_pOnInitialFunc = NULL;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+HANDLE	g_hMainThreadEvent[MAX_MAIN_THREAD_EVENT_NUM];				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ ï¿½Úµï¿½ ï¿½è¿­
+HANDLE	g_hMainThread			=	NULL;							// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½.
+DWORD	g_dwMainThreadEventNum	=	MIM_MAIN_THREAD_EVENT_NUM;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å°¡ Ã¼Å©ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 HANDLE	g_hCheckBreakEvent		=	NULL;
 
 //typedef void (*VOIDFUNC)(void);
-EVENTCALLBACK pEventFunc[MAX_MAIN_THREAD_USER_DEFINE_EVENT_NUM];	// À¯Á® Á¤ÀÇ ÀÌº¥Æ®¿¡ ÀÛµ¿µÉ ÇÔ¼ö Æ÷ÀÎÅÍ ¹è¿­.
+EVENTCALLBACK pEventFunc[MAX_MAIN_THREAD_USER_DEFINE_EVENT_NUM];	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­.
 																	// Modified by chan78 at 2001/10/17
 
 struct EVENT_DESC
@@ -33,7 +32,7 @@ struct EVENT_DESC
 };
 
 // 2007/12/19 by yuchi
-// À¯Á® ÀÌº¥Æ®ÀÇ ÀÎµ¦½º¿Í ÀÌº¥Æ® ÇÚµéÀÇ ¸ÊÇÎ Å×ÀÌºí
+// ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 DWORD		g_dwUserEventNum = 0;
 EVENT_DESC g_userEventDescList[MAX_MAIN_THREAD_USER_DEFINE_EVENT_NUM];
 
@@ -44,38 +43,38 @@ void SetOnInitialFunc(OnIntialFunc pFunc)
 	g_pOnInitialFunc = pFunc;
 }
 
-// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®¸¦ ¸¸µé¾úÀ»¶§ ÀÌº¥Æ® ¹ß»ý½Ã ¼öÇàÇÒ ÇÔ¼ö¸¦ ¼³Á¤ÇØÁØ´Ù.
-// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®¸¦ ¸¸µé¶© ¹Ýµå½Ã ¼¼ÆÃÇØÁà¾ß ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½é¶© ï¿½Ýµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 // Modified by chan78 at 2001/10/17
 void SetMainThreadUserDefineEventFunc(DWORD index,EVENTCALLBACK pFunc)
 {
 	pEventFunc[index] = pFunc;
 }
 
-// ¸ÞÀÎ ½º·¹µå¸¦ Àá½Ã ¸ØÃç¾ß ÇÒ¶§ »ç¿ëÇÑ´Ù.
-// npc¸¦ ³ÖÀ»¶§¶ó´ø°¡...±âÅ¸ µîµî
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// npcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½
 void BreakMainThread()
 {
 	SetEvent(g_hMainThreadEvent[EVENT_INDEX_BREAK]);
 	WaitForSingleObject(g_hCheckBreakEvent,INFINITE);
 }
 
-// ¸ØÃè´ø ¸ÞÀÎ ½º·¹µå¸¦ ´Ù½Ã µ¹¸±¶§ »ç¿ëÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 void ResumeMainThread()
 {
 	SetEvent(g_hMainThreadEvent[EVENT_INDEX_RESUME]);
 }
-// ¸ÞÀÎ ½º·¹µå°¡ ¸Þ½ÃÁö¸¦ Ã³¸®ÇØ¾ßÇÔÀ» worker½º·¹µå°¡ ¾Ë¸±¶§ setÇÒ ÀÌº¥Æ® °´Ã¼ÀÇ ÇÚµéÀ» ¸®ÅÏ.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ï¿½ï¿½ workerï¿½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½Ë¸ï¿½ï¿½ï¿½ setï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 HANDLE	GetMainThreadMsgEvent()
 {
 	return g_hMainThreadEvent[EVENT_INDEX_MSG_EVENT];
 }
-// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®ÀÇ ÇÚµéÀ» ¸®ÅÏ.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 
 HANDLE	GetMainThreadUserDefineEvent(DWORD index)
 {
-	// 2007/12/19 ÇÔ¼ö ³»¿ë ¼öÁ¤ by yuchi
+	// 2007/12/19 ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ by yuchi
 	//return g_hMainThreadEvent[index+EVENT_INDEX_USER_DEFINE_0];
 
 	HANDLE		hEvent = NULL;
@@ -96,13 +95,13 @@ void ProcessPreConnectedItem()
 	SetEvent(g_hMainThreadEvent[EVENT_INDEX_PRE_CONNECT]);
 
 }
-// ¸ÞÀÎ ½º·¹µå ½ÃÀÛ.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 // Modified by chan78 at 2002/07/22
 BOOL StartMainThread(DWORD dwFlag)
 {
 	UINT ThreadID = 0;
 	
-	// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®¸¦ Á¦¿ÜÇÑ ±âº»ÀûÀÎ ÀÌº¥Æ® °´Ã¼ »ý¼º.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 	g_hMainThreadEvent[EVENT_INDEX_MSG_EVENT]			= CreateEvent(NULL,FALSE,FALSE,NULL);
 	g_hMainThreadEvent[EVENT_INDEX_DESTROY]			= CreateEvent(NULL,FALSE,FALSE,NULL);
 	g_hMainThreadEvent[EVENT_INDEX_BREAK]				= CreateEvent(NULL,FALSE,FALSE,NULL);
@@ -110,7 +109,7 @@ BOOL StartMainThread(DWORD dwFlag)
 	g_hMainThreadEvent[EVENT_INDEX_PRE_CONNECT]		= CreateEvent(NULL,FALSE,FALSE,NULL);
 	g_hCheckBreakEvent								= CreateEvent(NULL,FALSE,FALSE,NULL);
 
-	// ½º·¹µå »ý¼º.½ºÅ¸Æ® 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½Å¸Æ® 
 	g_hMainThread = (HANDLE)_beginthreadex(NULL,NULL,ProcessMsgThread,NULL,NULL,&ThreadID);
 	
 
@@ -123,10 +122,10 @@ BOOL StartMainThread(DWORD dwFlag)
 	return FALSE;
 
 }
-// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®¸¦ »ç¿ëÇÏ±â Àü¿¡ ±× °¹¼ö¸¦ ¹Ì¸® ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 void SetMainThreadUserDefineEventNum(DWORD num)
 {
-	// »ç¿ëÇÒ »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ® °¹¼ö¸¸Å­ ÀÌº¥Æ® °´Ã¼¸¦ ¸¸µç´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 	g_dwMainThreadEventNum = MIM_MAIN_THREAD_EVENT_NUM + num;
 	memset(pEventFunc,0,sizeof(VOIDFUNC)*MAX_MAIN_THREAD_USER_DEFINE_EVENT_NUM);
@@ -147,16 +146,16 @@ void SetMainThreadUserDefineEventNum(DWORD num)
 	
 }
 
-// ¸ÞÀÎ ½º·¹µå¸¦ Á¾·áÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 void EndMainThread()
 {
 	ResumeMainThread();
 
-	// ¸ÞÀÎ ½º·¹µå°¡ Á¾·áÇÒ ¼ö ÀÖµµ·Ï ÀÌº¥Æ®¸¦ ¼¼ÆÃÇØÁÖ°í ¿ÏÀüÈ÷ Á¾·áÇÒ¶§±îÁö ±â´Ù¸°´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½.
 	SetEvent(g_hMainThreadEvent[EVENT_INDEX_DESTROY]);
 	WaitForSingleObject(g_hMainThread,INFINITE);
 
-	// ÀÌº¥Æ® °´Ã¼µéÀÇ ÇÚµéÀ» ´Ý´Â´Ù.
+	// ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½Ý´Â´ï¿½.
 	for (DWORD i=0; i<g_dwMainThreadEventNum; i++)
 	{
 		CloseHandle(g_hMainThreadEvent[i]);
@@ -167,16 +166,16 @@ void EndMainThread()
 
 
 //
-// ÀÌ°ÍÀÌ ¹Ù·Î ¸ÞÀÎ ½º·¹µåÀÇ ½ÇÃ¼ÀÌ´Ù.
+// ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ì´ï¿½.
 //
 UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 {	
 
 
-	DWORD dwEventIndex	= 0;		// ÀÌº¥Æ®°¡ ¾î¶² Á¾·ùÀÎÁö ÆÇº°ÇÒ ¼ö ÀÖ´Â ÀÎµ¦½º¸¦ ¹Þ¾Æ¿Ã º¯¼ö.
-	CMsgQue* pQ			= NULL;		// readable Å¥ÀÇ Æ÷ÀÎÅÍ¸¦ ¹Þ¾Æ¿Ã Æ÷ÀÎÅÍ º¯¼ö.
-	MSG_CONTAINER*	pmc = NULL;		// ¸Þ½ÃÁö¸¦ ±Ü¾î¿Ã ¸Þ½ÃÁö ÄÁÅ×ÀÌ³ÊÀÇ Æ÷ÀÎÅÍ º¯¼ö.
-	CConnection*	con = NULL;		// ¾î´À ÄÁ³Ø¼Ç¿¡¼­ ³¯¾Æ¿Ô´ÂÁö¸¦ ¹Þ¾Æ¿Ã CConnection Æ÷ÀÎÅÍ º¯¼ö.
+	DWORD dwEventIndex	= 0;		// ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	CMsgQue* pQ			= NULL;		// readable Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	MSG_CONTAINER*	pmc = NULL;		// ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¾ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	CConnection*	con = NULL;		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼Ç¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ CConnection ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 
 	if (g_pOnInitialFunc)
@@ -192,17 +191,17 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 			INFINITE)
 			) == WAIT_FAILED)
 		{
-			// ¿©±â¼­ ¿¡·¯°¡ ¹ß»ýÇß´Ù¸é ÀÌº¥Æ® °´Ã¼°¡ ¸¸µé¾îÁöÁö ¾Ê¾Ò°Å³ª ¸¸µé¾îÁø ÀÌº¥Æ® °´Ã¼µé °¹¼öº¸´Ù ¿äÃ»ÇÑ °¹¼ö°¡ ¸¹Àº°ÍÀÌ´Ù.
+			// ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß´Ù¸ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			MessageBox(GetActiveWindow(),"Fail WaitForMultipleObject","Error",MB_OK);
 		}
 
-		if (dwEventIndex == EVENT_INDEX_DESTROY)	// ½º·¹µå Á¾·á
-			goto seg_destroy;							// Á¾·áÄÚµå·Î Á¡ÇÁ
+		if (dwEventIndex == EVENT_INDEX_DESTROY)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			goto seg_destroy;							// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 
-		if (dwEventIndex == EVENT_INDEX_BREAK)		// ¸ÞÀÎ ½º·¹µå¿¡ ºê·¹ÀÌÅ©¸¦ °É¾ú´Ù.
+		if (dwEventIndex == EVENT_INDEX_BREAK)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ ï¿½ê·¹ï¿½ï¿½Å©ï¿½ï¿½ ï¿½É¾ï¿½ï¿½ï¿½.
 		{
-			// ¸®ÁÜÇÒ¶§±îÁö ´ë±â.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 			SetEvent(g_hCheckBreakEvent);
 			WaitForSingleObject(g_hMainThreadEvent[EVENT_INDEX_RESUME],INFINITE);
 			continue;
@@ -216,7 +215,7 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 
 		if (dwEventIndex >= EVENT_INDEX_USER_DEFINE_0)
 		{
-			// »ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®°¡ ¹ß»ýÇß´Ù.»ç¿ëÀÚ Á¤ÀÇ ÀÌº¥Æ®¿¡ ÇØ´çÇÏ´Â ÇÔ¼ö¸¦ ¼öÇàÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß´ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			// Modified by chan78 at 2002/05/09
 
 			// 2007/12/19 by yuchi
@@ -234,9 +233,9 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 					pEventFunc[dwUserEventIndex](dwUserEventIndex);
 
 					
-					// ±â¾ÆÇö»óÀ» ¹æÁöÇÏ±â À§ÇØ¼­  ÀÌ¹ø¿¡ ¼¼Æ®µÈ ÀÌº¥Æ®¸¦ °¡Àå µÚ·Î À§Ä¡½ÃÅ²´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½  ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å²ï¿½ï¿½.
 					DWORD		dwNum = g_dwMainThreadEventNum - dwEventIndex - 1;
-					// ÀÌ¹ø¿¡ ¼¼Æ®µÈ ÀÌº¥Æ®°¡ ¸Ç µÚ¿¡ À§Ä¡ÇÏ´Â ³ðÀÌ¶ó¸é ¹Ù²Ü ÇÊ¿ä¾ø´Ù.
+					// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½.
 					if (dwNum)
 					{
 						
@@ -253,21 +252,21 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 			continue;
 		}
 	
-		// ¿ÀÁ÷ ½ºÀ§Ä¡ ¿Ï·á ÀÌº¥Æ®¿¡ µû¶ó¼­¸¸ ¸Þ½ÃÁö¸¦ Ã³¸®ÇÑ´Ù.
-		pQ = g_pQueManager->GetReadableQue();	// ¸ÕÀú readable queueÀÇ Æ÷ÀÎÅÍ¸¦ ¾ò¾î¿Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ï·ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ó¼­¸ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+		pQ = g_pQueManager->GetReadableQue();	// ï¿½ï¿½ï¿½ï¿½ readable queueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 				
-		// ¸Þ½ÃÁö Å¥¿¡ µé¾îÀÖ´Â ¸¸Å­ ÇÑ²¨¹ø¿¡ ´Ù Ã³¸®ÇÑ´Ù.
+		// ï¿½Þ½ï¿½ï¿½ï¿½ Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å­ ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 		for (DWORD i=0; i<pQ->GetMsgNum(); i++)
 		{
-			// ¸Þ½ÃÁö ÄÁÅ×ÀÌ³Ê¸¦ ÅëÇØ ¸Þ½ÃÁö Á¾·ù¸¦ ÆÇº°ÇÏ°í ±×¿¡ ¸Â´Â Ã³¸®¸¦ ÇÑ´Ù.
+			// ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½ï¿½Ï°ï¿½ ï¿½×¿ï¿½ ï¿½Â´ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			pmc = GetMsgContainer(pQ);	
 			if (pmc->GetActionType() == ACTION_TYPE_DISCONNECT)
 			{
-				// disconnectÀÌº¥Æ®ÀÌ´Ù.¸Þ½ÃÁö ÇüÅÂ·Î ³¯¾Æ¿ÔÁö¸¸ ÀÌ°Ç ¾î¶² ¼ÒÄÏ Á¢¼ÓÀÌ ²÷±ä°ÍÀÌ´Ù.
+				// disconnectï¿½Ìºï¿½Æ®ï¿½Ì´ï¿½.ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				if (pmc->GetActorType() == ACTOR_TYPE_USER)
 				{
-					// Á¢¼Ó ²÷±ä°Ô À¯Á®ÃøÀÌ¶ó¸é À¯ÃÄÃø ³×Æ®¿öÅ© Å¬·¡½º¿¡¼­ ÇØ´ç ÄÁ³Ø¼ÇÀ» Á¦°ÅÇÑ´Ù.
-					// Á¦°ÅÇÏ±â Àü¿¡ Á¢¼ÓÀÌ ²÷±æ¶§ ¼öÇàµÉ ÇÔ¼ö´Â ¼öÇàÇØÁÖÀÚ.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å© Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¶§ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					g_pNetworkForUser->GetConnection(&con,pmc->GetConnectionIndex());
 					if (con)
 					{
@@ -277,8 +276,8 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 				}
 				else if (pmc->GetActorType() == ACTOR_TYPE_SERVER)
 				{
-					// Á¢¼Ó ²÷±ä°Ô ¼­¹öÃøÀÌ¶ó¸é ¼­¹öÃø ³×Æ®¿öÅ© Å¬·¡½º¿¡¼­ ÇØ´ç ÄÁ³Ø¼ÇÀ» Á¦°ÅÇÑ´Ù.
-					// Á¦°ÅÇÏ±â Àü¿¡ Á¢¼ÓÀÌ ²÷±æ¶§ ¼öÇàµÉ ÇÔ¼ö´Â ¼öÇàÇØÁÖÀÚ.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å© Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¶§ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					g_pNetworkForServer->GetConnection(&con,pmc->GetConnectionIndex());
 					if (con)
 					{
@@ -289,19 +288,19 @@ UINT WINAPI ProcessMsgThread(LPVOID lpVoid)
 			}
 			else if (pmc->GetActionType() == ACTION_TYPE_TCP)
 			{
-				// TCPÆÐÅ¶À» ¼ö½ÅÇÑ °æ¿ìÀÌ´Ù.
+				// TCPï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				if (pmc->GetActorType() == ACTOR_TYPE_USER)
 				{
-					// À¯Á®ÃøÀ¸·ÎºÎÅÍ TCPÆÐÅ¶À» ¹Þ¾Ò´Ù¸é...¾î´À connection¿¡¼­ º¸³Â´ÂÁö Ã£¾Æ¼­ 
-					// tcpÆÐÅ¶À» Ã³¸®ÇÏ´Â ÇÔ¼ö¿¡ ³Ñ±ä´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ TCPï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Þ¾Ò´Ù¸ï¿½...ï¿½ï¿½ï¿½ connectionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ 
+					// tcpï¿½ï¿½Å¶ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
 					g_pNetworkForUser->GetConnection(&con,pmc->GetConnectionIndex());
 					if (con)
 						g_pNetworkForUser->OnRecvTCP(pmc->GetConnectionIndex(),pmc->GetMsg(),pmc->GetMsgLength());
 				}
 				else if (pmc->GetActorType() == ACTOR_TYPE_SERVER)
 				{
-					// ¼­¹öÃøÀ¸·ÎºÎÅÍ TCPÆÐÅ¶À» ¹Þ¾Ò´Ù¸é ¿ª½Ã ¾î´À ¼­¹öconnectionÀÎÁö Ã£¾Æ¼­ 
-					// tcpÆÐÅ¶À» Ã³¸®ÇÏ´Â ÇÔ¼ö¿¡ ³Ñ±ä´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ TCPï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Þ¾Ò´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½connectionï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ 
+					// tcpï¿½ï¿½Å¶ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
 					g_pNetworkForServer->GetConnection(&con,pmc->GetConnectionIndex());
 					if (con)
 						g_pNetworkForServer->OnRecvTCP(pmc->GetConnectionIndex(),pmc->GetMsg(),pmc->GetMsgLength());

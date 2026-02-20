@@ -6,17 +6,17 @@
 
 #ifdef _MAPSERVER_
 #include "SuryunManager_server.h"
-#include "UserTable.h"
-#include "Player.h"
-#include "CharMove.h"
-#include "RecallManager.h"
-#include "MapDBMsgParser.h"
-#include "SkillManager_server.h"
+#include "../[Client]MH/UserTable.h"
+#include "../[Client]MH/Player.h"
+#include "../[Client]MH/CharMove.h"
+#include "../[Client]MH/RecallManager.h"
+#include "../[Client]MH/MapDBMsgParser.h"
+#include "../[CC]Skill/SkillManager_server.h"
 
 #include "..\[CC]BattleSystem\BattleSystem_Server.h"
 #include "..\[CC]BattleSystem\Suryun\Battle_Suryun.h"
 
-#include "Network.h"
+#include "../[CC]ServerModule/Network.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -89,7 +89,7 @@ void CSuryunManager::OnGoSuryunSyn(CPlayer* pPlayer,WORD MugongIdx)
 	OnError(pSuryunInfo->RegenNum == 0,7,OnGoSuryunSyn_NACK);
 	OnError(pSuryunInfo->MonNum == 0,8,OnGoSuryunSyn_NACK);
 	OnError(pSkillInfo == NULL,9,OnGoSuryunSyn_NACK);
-	// magi82 - Titan(070911) 타이탄 무공업데이트
+	// magi82 - Titan(070911) 타탄 트
 	OnError(pSkillInfo->GetSkillKind() == SKILLKIND_TITAN,10,OnGoSuryunSyn_NACK);
 	OnError(
 		pPlayer->GetWeaponEquipType() != pSkillInfo->GetWeaponType() &&
@@ -156,7 +156,7 @@ void CSuryunManager::NetworkMsgParse(DWORD dwConnectionIndex, BYTE Protocol,void
 
 			ASSERT(pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SURYUN);
 
-			//베틀이 잘못되었다. 끊어버리자.
+			//틀 蔘퓸. .
 			if( pPlayer->GetBattle()->GetBattleKind() != eBATTLE_KIND_SURYUN )
 			{
 				MSG_DWORD msg;
@@ -210,8 +210,8 @@ void CSuryunManager::NetworkMsgParse(DWORD dwConnectionIndex, BYTE Protocol,void
 				PLAYERINITSTATE_TITAN_INFO,
 				MP_SURYUN_LEAVE_SYN);
 
-// MP_USERCONN_GAMEIN_SYN에서 처럼 quest정보 얻기....(jsd04.09.16)
-			// 항상 서브퀘스트 정보부터 읽어야 함...
+// MP_USERCONN_GAMEIN_SYN 처 quest ....(jsd04.09.16)
+			// 瘤 트  棘 ...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);

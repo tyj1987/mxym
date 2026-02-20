@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "BattleFactory_Default.h"
 #include "GridSystem.h"
 #include "TileManager.h"

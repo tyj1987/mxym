@@ -4,6 +4,7 @@
 
 #if !defined(AFX_CHARMOVE_H__50E4C329_4F72_4B84_8EC6_9BE4326B42B7__INCLUDED_)
 #define AFX_CHARMOVE_H__50E4C329_4F72_4B84_8EC6_9BE4326B42B7__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

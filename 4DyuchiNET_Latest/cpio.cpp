@@ -9,7 +9,7 @@
 #include "cpio.h"
 #include "quemanager.h"
 #include "network.h"
-#include "../4DyuchiNET_Common/net_define.h"
+#include "net_define.h"
 #include "overlapped_udp.h"
 #include "net_global.h"
 #include "switch_que.h"

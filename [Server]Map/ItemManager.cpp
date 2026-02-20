@@ -6,6 +6,7 @@
 #include "ItemManager.h"
 #include "ItemSlot.h"
 #include "Player.h"
+#include "ServerSystem.h"
 #include "Pet.h"
 #include "Purse.h"
 #include "ItemContainer.h"
@@ -65,7 +66,7 @@ CItemManager::CItemManager()
 	m_DealerTable.Initialize(32);
 	m_AvatarEquipTable.Initialize(50);
 	m_Key = 0;
-	m_SetItemOptionList.Initialize(MAX_SETITEM_KIND_NUM); //2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ¸®½ºÆ® ÃÊ±âÈ­ Ãß°¡
+	m_SetItemOptionList.Initialize(MAX_SETITEM_KIND_NUM); //2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­ ï¿½ß°ï¿½
 #ifdef _HK_LOCAL_
 	ZeroMemory( m_nItemMixBal, sizeof( m_nItemMixBal ) );
 #endif
@@ -140,7 +141,7 @@ CItemManager::~CItemManager()
 	m_ItemArrayPool.Release();
 	m_ArrayIndexCreator.Release();
 
-	////////// 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ ¸®½ºÆ® »èÁ¦ //////////
+	////////// 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ //////////
 	SET_ITEM_OPTION* pSetItemOption = NULL;
 	m_SetItemOptionList.SetPositionHead();
 	while(pSetItemOption = m_SetItemOptionList.GetData())
@@ -242,9 +243,9 @@ BOOL CItemManager::IsDupItem( WORD wItemIdx )
 			ITEM_INFO* pItem = GetItemInfo( wItemIdx );
 			if( !pItem )			return FALSE;
 			
-			if( pItem->SimMek )			// ShopItem¿¡¼­ ChangeItem ÀÎ°Íµé
+			if( pItem->SimMek )			// ShopItemï¿½ï¿½ï¿½ï¿½ ChangeItem ï¿½Î°Íµï¿½
 				return FALSE;
-			else if( pItem->CheRyuk )	// ³ëÁ¡
+			else if( pItem->CheRyuk )	// ï¿½ï¿½ï¿½ï¿½
 				return FALSE;
 			else if( wItemIdx == eSundries_Shout )
 				return FALSE;			
@@ -329,7 +330,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 	if(!CHKRT->ItemOf(pPlayer, ToPos, ToItemIdx,0,0,CB_ICONIDX))
 		return 3;
 	
-	// RaMa - 04.01.24  ->¾ÆÀÌÅÛ¸ôÃ¢°í¿¡ ¾ÆÀÌÅÛ ³Ö´Â°Ô °¡´ÉÇÏµµ·Ï º¯°æ
+	// RaMa - 04.01.24  ->ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pToSlot == pPlayer->GetSlot(eItemTable_Shop) )
 	{
 		if( (pFromSlot != pPlayer->GetSlot(eItemTable_Shop)) &&
@@ -339,27 +340,27 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 
 	const ITEMBASE * pItem = pFromSlot->GetItemInfoAbs(FromPos);
 	if( !pItem )		return eItemUseErr_Err;
-	// ±â°£Á¦ ÁÖ¹®¼­´Â »ç¿ëÁßÀÏ¶§ ÀÌµ¿ºÒ°¡
+	// ï¿½â°£ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½Ìµï¿½ï¿½Ò°ï¿½
 	ITEM_INFO* pInfo = GetItemInfo( FromItemIdx );
 	if( !pInfo )		return eItemUseErr_Err;
 
-	// ¿¡·¯Ã¼Å©´Â »ç¿ëÇÏ´Âµ¥¼­
+	// ï¿½ï¿½ï¿½ï¿½Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½ï¿½ï¿½
 	ITEM_INFO* pToInfo = GetItemInfo( ToItemIdx );
 
 	// magi82 - Titan(070222)
 	if(pInfo->ItemKind & eTITAN_EQUIPITEM)
 	{
-		// ÆêÀÎº¥, Ã¢°í¿¡¼­ Å¸ÀÌÅº ¾ÆÀÌÅÛÀ» ÀåÂøÇÒ¼ø¾øÀ½
+		// ï¿½ï¿½ï¿½Îºï¿½, Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½
 		if((pFromSlot == pPlayer->GetSlot(eItemTable_PetInven) && pToSlot == pPlayer->GetSlot(eItemTable_Titan))
 			|| (pFromSlot == pPlayer->GetSlot(eItemTable_Pyoguk) && pToSlot == pPlayer->GetSlot(eItemTable_Titan)))
 			return eItemUseErr_Err;
 
 		// magi82 - Titan(071018)
-		// Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛÀº ¹®ÆÄÃ¢°í¿¡ µé¾î°¥¼ö ¾ø´Ù.
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		if( pToSlot == pPlayer->GetSlot(eItemTable_MunpaWarehouse) )
 			return eItemUseErr_Err;
 		
-		//2007. 10. 25. CBH - Å¸ÀÌÅº Àåºñ Âø¿ë½Ã ·¹º§Á¦ÇÑ Ã¼Å© (Ç¥±¹ ÀÌµ¿Àº ·¹º§Á¦ÇÑ Ã¼Å©¸¦ ¾ÈÇÑ´Ù)
+		//2007. 10. 25. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© (Ç¥ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½)
 		if( pToSlot == pPlayer->GetSlot(eItemTable_Titan) )
 		{
 			if(pInfo->LimitLevel > pPlayer->GetLevel())
@@ -372,8 +373,10 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 		if( pInfo->ItemKind != eSHOP_ITEM_MAKEUP && pInfo->ItemKind != eSHOP_ITEM_DECORATION && pInfo->ItemKind != eSHOP_ITEM_EQUIP && pInfo->ItemKind != eSHOP_ITEM_PET && pInfo->ItemKind != eSHOP_ITEM_PET_EQUIP  && pInfo->ItemKind != eSHOP_ITEM_TITAN_EQUIP)	// magi82(26)
 		{
 			if( !(pItem->ItemParam & ITEM_PARAM_SEAL) )
-			if( pFromSlot != pToSlot )
-				return eItemUseErr_Err;
+			{
+				if( pFromSlot != pToSlot )
+					return eItemUseErr_Err;
+			}
 		}
 	}
 	if( pInfo->ItemKind == eSHOP_ITEM_EQUIP && pToSlot == pPlayer->GetSlot(eItemTable_Weared) ||
@@ -398,23 +401,29 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 			}
 		}
 	}
-	//¼ÒÈ¯Æê ´Ù¸¥ ½½·Ô ÀÌµ¿ ¸·±â
+	//ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pFromSlot != pToSlot )
 	{
 		if( TRUE == IsPetSummonItem(FromItemIdx) )
-		if( TRUE == pPlayer->GetPetManager()->IsCurPetSummonItem(pItem->dwDBIdx) )
-			return eItemUseErr_Err;
+		{
+			if( TRUE == pPlayer->GetPetManager()->IsCurPetSummonItem(pItem->dwDBIdx) )
+				return eItemUseErr_Err;
+		}
 	}
 
 	const ITEMBASE* pToItem = pToSlot->GetItemInfoAbs(ToPos);
 	if( pToItem )
 	{
 		if( pToInfo && pToInfo->ItemType == 11 )
-		if( pToInfo->ItemKind != eSHOP_ITEM_MAKEUP && pToInfo->ItemKind != eSHOP_ITEM_DECORATION && pToInfo->ItemKind != eSHOP_ITEM_EQUIP && pToInfo->ItemKind != eSHOP_ITEM_PET && pToInfo->ItemKind != eSHOP_ITEM_PET_EQUIP && pToInfo->ItemKind != eSHOP_ITEM_TITAN_EQUIP )
 		{
-			if( !(pToItem->ItemParam & ITEM_PARAM_SEAL) )
-			if( pFromSlot != pToSlot )
-				return eItemUseErr_Err;
+			if( pToInfo->ItemKind != eSHOP_ITEM_MAKEUP && pToInfo->ItemKind != eSHOP_ITEM_DECORATION && pToInfo->ItemKind != eSHOP_ITEM_EQUIP && pToInfo->ItemKind != eSHOP_ITEM_PET && pToInfo->ItemKind != eSHOP_ITEM_PET_EQUIP && pToInfo->ItemKind != eSHOP_ITEM_TITAN_EQUIP )
+			{
+				if( !(pToItem->ItemParam & ITEM_PARAM_SEAL) )
+				{
+					if( pFromSlot != pToSlot )
+						return eItemUseErr_Err;
+				}
+			}
 		}
 		if( pToInfo && (pToInfo->ItemKind & eSHOP_ITEM_EQUIP) )
 		{
@@ -426,17 +435,19 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 		}
 		
 	}
-	//¼ÒÈ¯Æê ´Ù¸¥ ½½·Ô ÀÌµ¿ ¸·±â
+	//ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pFromSlot != pToSlot )
 	{
 		if( TRUE == IsPetSummonItem(ToItemIdx) )
-		if( TRUE == pPlayer->GetPetManager()->IsCurPetSummonItem(pToItem->dwDBIdx) )
-			return eItemUseErr_Err;
+		{
+			if( TRUE == pPlayer->GetPetManager()->IsCurPetSummonItem(pToItem->dwDBIdx) )
+				return eItemUseErr_Err;
+		}
 	}
 
 	if(!CanbeMoved(pItem->wIconIdx,ToPos,pPlayer))
 	{
-		ASSERT(0); //A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç¡§u¢®¨Ï A¨Ï©ª¡Ë¡þ¡Ëc C¨Ï¡þ¡Ë¡ÍA¡Íi¢®I.
+		ASSERT(0); //Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½c Cï¿½Ï¡ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I.
 		return 9;
 	}
 	if(!pToSlot->IsEmpty(ToPos))
@@ -444,8 +455,8 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 		pItem = pToSlot->GetItemInfoAbs(ToPos);
 		if(pItem)
 		{
-			// ShopÀåºñ¾ÆÀÌÅÛ°ú ÀÏ¹ÝÀåºñ¾ÆÀÌÅÛÀÇ ±³È¯Àº µû·Î Ã¼Å©ÇÑ´Ù.
-			// CanbeMoved¿¡¼­ ÇÏ·Á´Ï Èûµé´Ù.
+			// Shopï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+			// CanbeMovedï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 			ITEM_INFO* pInfo = GetItemInfo( FromItemIdx );
 			ITEM_INFO* pToInfo = GetItemInfo( ToItemIdx );
 			if( !pInfo || !pToInfo )			return 10;
@@ -465,22 +476,22 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 			}
 			else if(CanbeMoved(pItem->wIconIdx, FromPos, pPlayer) == FALSE)
 			{
-				ASSERT(0); //A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç¡§u¢®¨Ï A¨Ï©ª¡Ë¡þ¡Ëc C¨Ï¡þ¡Ë¡ÍA¡Íi¢®I.
+				ASSERT(0); //Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½c Cï¿½Ï¡ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I.
 				return 10;
 			}
 		}
 	}
-	// From A¢®¢¯AI¡§¡þi¡Ë?¡Ë¢ç¡§u¢®¨Ï ¡§u¡§¢®AIAU Ao¡Ë?o
+	// From Aï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½iï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU Aoï¿½ï¿½?o
 	// 1.
 	ITEMBASE DelFromItem;
 	if(pFromSlot->DeleteItemAbs(pPlayer, FromPos, &DelFromItem) != EI_TRUE)
 	{
-		// Ao¡Ë?i¢®¢´tA ¡§u¡§¢®AIAU(FromPosition)AI ¡§u¨Ï¨£¡Ë¡ÍU 
+		// Aoï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½tA ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU(FromPosition)AI ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U 
 		return 5;
 	}
 
 	ClearQuickPos(&DelFromItem, ToPos);
-	// ToTable¡Ë?¡Ë¢ç¡§u¢®¨Ï ¡§u¡§¢®AIAU Ao¡Ë?o
+	// ToTableï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU Aoï¿½ï¿½?o
 	// 2.`
 	ITEMBASE DelToItem;
 	DelToItem.dwDBIdx = 0;
@@ -491,8 +502,8 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 		// 3.
 		if(pToSlot->InsertItemAbs(pPlayer, ToPos, &DelFromItem) != EI_TRUE)
 		{
-			//AI¨ÏoI ITEM ¡Íie¡§ui AO¡Ë¡ÍU.
-			// 1.8¢®¢´I RollBack
+			//AIï¿½ï¿½oI ITEM ï¿½ï¿½ieï¿½ï¿½ui AOï¿½Ë¡ï¿½U.
+			// 1.8ï¿½ï¿½ï¿½ï¿½I RollBack
 			DelFromItem.Position = FromPos;
 			if(pFromSlot->InsertItemAbs(pPlayer, FromPos, &DelFromItem) != EI_TRUE)
 				ASSERT(0);
@@ -502,7 +513,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 	else
 	{
 		// 1<->1
-		// Pos¨ÏoU¨Ï¡ÀU¡ÍiU ¢®¨¡¢®E¢®¨¡¢®E Insert
+		// Posï¿½ï¿½oUï¿½Ï¡ï¿½Uï¿½ï¿½iU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½E Insert
 		// 4.
 		SWAPVALUE(DelFromItem.Position, DelToItem.Position);
 		ClearQuickPos(&DelToItem, FromPos);
@@ -518,7 +529,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 				ASSERT(0);
 			return 7;
 		}
-		// ÀåÂøÃ¢¿¡¼­ ÀÏ¹Ý¾ÆÀÌÅÛÀÌ ¶³¾îÁú °æ¿ì ¾ÆÀÌÅÛ¸ô°ú ±¸ºÐÇØÁà¾ß ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹Ý¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		ITEM_INFO* pToInfo = GetItemInfo( ToItemIdx );
 		if( pToInfo->ItemKind == eSHOP_ITEM_EQUIP )
 		{
@@ -551,15 +562,15 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 		}
 	}
 
-	// DB¡Ë?¡Ë¢ç DBIndex¢®¢´I d¡§¡þ¡Ë¡þ update
-	// position¡Ë¡þ¡Ë¡þ ¡§¡þ?E¢®¨Ï¡ÍiE¡Ë¡ÍU
-	// ToItemBase->dwDBIdx == 0 AI¡Ë¡þe ToItem: ¡§uE¨ÏoU¨Ï¡ÀU¡Ë¡ÍU.
+	// DBï¿½ï¿½?ï¿½ï¿½ï¿½ DBIndexï¿½ï¿½ï¿½ï¿½I dï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ update
+	// positionï¿½Ë¡ï¿½ï¿½Ë¡ï¿½ ï¿½ï¿½ï¿½ï¿½?Eï¿½ï¿½ï¿½Ï¡ï¿½iEï¿½Ë¡ï¿½U
+	// ToItemBase->dwDBIdx == 0 AIï¿½Ë¡ï¿½e ToItem: ï¿½ï¿½uEï¿½ï¿½oUï¿½Ï¡ï¿½Uï¿½Ë¡ï¿½U.
 	if(TP_GUILDWAREHOUSE_START <= FromPos && FromPos < TP_GUILDWAREHOUSE_END)
-	{	//RemoveGuildItemOption ·¹¾î¿É¼Çµµ °°ÀÌ ÇØÁØ´Ù.
+	{	//RemoveGuildItemOption ï¿½ï¿½ï¿½ï¿½É¼Çµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 		RemoveGuildItemOption(ToPos, pToSlot->GetItemInfoAbs(ToPos), pPlayer);
 	}
 
-    // 06.12.06 RaMa - ¹öÇÁ·Î³²´Â ¾ÆÀÌÅÛÀÇ Ä³¸¯ÅÍ»ç¿ëÁ¤º¸°¡ ¹Ù²î´Â Çö»ó
+    // 06.12.06 RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( TP_SHOPINVEN_START <= DelFromItem.Position && DelFromItem.Position < TP_SHOPINVEN_END )
 	{
 		if( pInfo->ItemType == 11 && DelFromItem.ItemParam == 0 )
@@ -568,7 +579,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 
 
 	//
-	// RaMa - º¸ºÎ»óÆÇ¸Å¾ÆÀÌÅÛÁß ¹«±â·ù - ÇÔ¼ö·Î¶óµµ »©°í½ÍÁö¸¸ ±ÍÂú´Ù.. ³ªÁß¿¡ º¸´Â»ç¶÷ÀÌ »©Áà¿ä.. ¾Æ.. ³ªÁ×´Â´Ù.
+	// RaMa - ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ç¸Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ô¼ï¿½ï¿½Î¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½.. ï¿½ï¿½ï¿½×´Â´ï¿½.
 	BOOL bAvatarChange = FALSE;
 	WORD AvatarIdx = 0;
 	WORD AvatarPos = 0;
@@ -576,7 +587,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 	{
 		if( pInfo->ItemKind == eEQUIP_ITEM_WEAPON || pInfo->ItemKind == eSHOP_ITEM_EQUIP || pInfo->ItemKind == eEQUIP_ITEM_UNIQUE)
 		{
-			// magi82(12) - Item(071026) ÀÌº¥Æ®¹«±â(»Ð¸ÁÄ¡, º¡¾î¸®Àå°© µî) ¿¹¿ÜÃ³¸®¸¦ ÇØÁÜ. ¾ÈÇØÁÖ¸é ¸Þ¸ð¸® Ãæµ¹ÀÌ ÀÏ¾î³²
+			// magi82(12) - Item(071026) ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½(ï¿½Ð¸ï¿½Ä¡, ï¿½ï¿½ï¿½î¸®ï¿½å°© ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Þ¸ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³²
 			if( pToInfo && pInfo->WeaponType != pToInfo->WeaponType 
 				&& pToInfo->WeaponType != WP_EVENT && pToInfo->WeaponType != WP_EVENT_HAMMER )
 			{
@@ -599,7 +610,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 						pPlayer->GetShopItemStats()->Avatar[avatarpos] = 1;
 
 					bAvatarChange = TRUE;
-					if (psItem)//×°±¸ÎäÆ÷±ÀÀ£?
+					if (psItem)//×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 					{
 						AvatarIdx = psItem->ShopItem.ItemBase.wIconIdx;
 						AvatarPos = psItem->ShopItem.ItemBase.Position;
@@ -613,7 +624,7 @@ int CItemManager::MoveItem( CPlayer * pPlayer, WORD FromItemIdx, POSTYPE FromPos
 	{
 		if( pInfo->ItemKind == eEQUIP_ITEM_WEAPON || pInfo->ItemKind == eSHOP_ITEM_EQUIP || pInfo->ItemKind == eEQUIP_ITEM_UNIQUE)
 		{
-			// magi82(12) - Item(071026) ÀÌº¥Æ®¹«±â(»Ð¸ÁÄ¡, º¡¾î¸®Àå°© µî) ¿¹¿ÜÃ³¸®¸¦ ÇØÁÜ. ¾ÈÇØÁÖ¸é ¸Þ¸ð¸® Ãæµ¹ÀÌ ÀÏ¾î³²
+			// magi82(12) - Item(071026) ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½(ï¿½Ð¸ï¿½Ä¡, ï¿½ï¿½ï¿½î¸®ï¿½å°© ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Þ¸ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³²
 			if( pInfo->WeaponType != WP_EVENT && pInfo->WeaponType != WP_EVENT_HAMMER )
 			{
 				SHOPITEMWITHTIME* psItem = NULL;
@@ -692,7 +703,7 @@ int CItemManager::DivideItem( CPlayer* pPlayer, WORD ItemIdx,  POSTYPE FromPos, 
 	if(!CHKRT->ItemOf(pPlayer, FromPos, ItemIdx, FromDur+ToDur, 0, CB_EXIST|CB_ICONIDX|CB_DURA))
 		return 2;
 
-	// ¡§u¡§¢®AIAU xAcCIAo ¡§uE¡Ë¡ÍA A¡§uA¡§I
+	// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU xAcCIAo ï¿½ï¿½uEï¿½Ë¡ï¿½A Aï¿½ï¿½uAï¿½ï¿½I
 	if(CHKRT->ItemOf(pPlayer, ToPos,0,0,0,CB_EXIST))
 		return 3;
 
@@ -783,11 +794,11 @@ int CItemManager::CombineItem( CPlayer* pPlayer, WORD ItemIdx, POSTYPE FromPos, 
 	CItemSlot * pFromSlot = pPlayer->GetSlot(FromPos);
 	CItemSlot * pToSlot = pPlayer->GetSlot(ToPos);
 
-	// A¡§uA¡§I
+	// Aï¿½ï¿½uAï¿½ï¿½I
 	const ITEMBASE * FromItemBase = pFromSlot->GetItemInfoAbs( FromPos );
 	const ITEMBASE * ToItemBase = pToSlot->GetItemInfoAbs( ToPos );
 
-	// ºÀÀÎÃß°¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
 	if( (FromItemBase->ItemParam & ITEM_PARAM_SEAL) ||
 		(ToItemBase->ItemParam & ITEM_PARAM_SEAL ) )
 	{
@@ -900,7 +911,7 @@ int CItemManager::DiscardItem(CPlayer* pPlayer, POSTYPE whatPos, WORD whatItemId
 		ItemDeleteToDB(DelItemOut.dwDBIdx);
 		if(IsOptionItem(DelItemOut.wIconIdx, DelItemOut.Durability))
 		{
-			// ·Î±×Ãß°¡
+			// ï¿½Î±ï¿½ï¿½ß°ï¿½
 			ITEM_OPTION_INFO* pInfo = pPlayer->GetItemOption(DelItemOut.Durability);
 			if( pInfo )
 			{
@@ -922,7 +933,7 @@ int CItemManager::DiscardItem(CPlayer* pPlayer, POSTYPE whatPos, WORD whatItemId
 		//SW050920 Rare
 		if(IsRareOptionItem(DelItemOut.wIconIdx, DelItemOut.RareIdx))
 		{
-			// ·Î±×Ãß°¡
+			// ï¿½Î±ï¿½ï¿½ß°ï¿½
 			ITEM_RARE_OPTION_INFO* pInfo = pPlayer->GetItemRareOption(DelItemOut.RareIdx);
 			if( pInfo )
 			{
@@ -956,7 +967,7 @@ int CItemManager::DiscardItem(CPlayer* pPlayer, POSTYPE whatPos, WORD whatItemId
 		{
 			pPlayer->GetTitanManager()->DeleteTitanEquip(DelItemOut.dwDBIdx);
 		}
-		//2007. 12. 11. CBH - ½ºÅ² ¾ÆÀÌÅÆ °ü·Ã Ã³¸®
+		//2007. 12. 11. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		if( (pItemInfo->ItemKind == eSHOP_ITEM_NOMALCLOTHES_SKIN) || (pItemInfo->ItemKind == eSHOP_ITEM_COSTUME_SKIN) )
 			pPlayer->GetShopItemManager()->DiscardSkinItem( whatItemIdx );					
 	}
@@ -986,7 +997,7 @@ int CItemManager::SellItem( CPlayer* pPlayer, POSTYPE whatPos, WORD wSellItemIdx
 		return 1;
 	//////////////////////////////////////////////////////////////////////////
 	
-	//SW050920 ¼öÁ¤
+	//SW050920 ï¿½ï¿½ï¿½ï¿½
 	if( IsDupItem(wSellItemIdx) && !IsOptionItem(wSellItemIdx, sellItemDur) )
 		money = pItemInfo->SellPrice * sellItemDur;
 	else
@@ -994,7 +1005,7 @@ int CItemManager::SellItem( CPlayer* pPlayer, POSTYPE whatPos, WORD wSellItemIdx
 
 	money = SWPROFITMGR->AddProfitFromItemSell( money );
 
-	// ¿ä»õÀü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½
 	money = FORTWARMGR->AddProfitMoneyFromItemSell( money );
 
 	if( !pPlayer->IsEnoughAdditionMoney(money) )
@@ -1007,7 +1018,7 @@ int CItemManager::SellItem( CPlayer* pPlayer, POSTYPE whatPos, WORD wSellItemIdx
 
 	if(Item.dwDBIdx == pPlayer->GetTitanManager()->GetRegistTitanCallItemDBIdx())
 	{
-		// µî·ÏµÈ Å¸ÀÌÅº Áõ¼­´Â »èÁ¦ ºÒ°¡
+		// ï¿½ï¿½Ïµï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½
 		return 11;
 	}
 
@@ -1032,14 +1043,14 @@ int CItemManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD buyItemNum, W
 	if(!CHKRT->StateOf(pPlayer, eObjectState_Deal))
 		return 1;
 	
-	//DealerIdx¡Ë?¡Ë¢ç¡§u¢®¨Ï ¡§¢®A¡Ë¡ÍA ¡§u¡§¢®AIAUAI¢®¨¡¡Ë¢ç??
+	//DealerIdxï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Aï¿½Ë¡ï¿½A ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAUAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½??
 	if(!CHKRT->DearlerItemOf(DealerIdx, buyItemIdx))
 		return 2;
 
-	if( buyItemNum == 0 ) return EI_TRUE;	//0AI¡Ë¡þe¢®¨ú¢®¢¯¨Ï©ªE~¢®¢´a
+	if( buyItemNum == 0 ) return EI_TRUE;	//0AIï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½E~ï¿½ï¿½ï¿½ï¿½a
 
-	//SW070626 º¸ºÎ»óNPC
-	//º¸ºÎ»ó¿¡¼­ÀÇ ¹°Ç°°¹¼ö Ã³¸®.	// ¹°Ç° Ä«¿îÆ® ´Ù¿î. ´ëÈ­Áß À¯Àú¿¡°Ô Á¤º¸ º¸³¿.	
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
+	//ï¿½ï¿½ï¿½Î»ó¿¡¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.	// ï¿½ï¿½Ç° Ä«ï¿½ï¿½Æ® ï¿½Ù¿ï¿½. ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 	if( DealerIdx == BOBUSANG_wNpcUniqueIdx )
 	if( FALSE == BOBUSANGMGR->BuyItem( pPlayer, buyItemIdx, buyItemNum ) )
 		return NOT_REMAINITEM;
@@ -1051,29 +1062,29 @@ int CItemManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD buyItemNum, W
 	if( !pItemInfo )
 		return 3;
 
-	// RaMa - ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀ» NPC¿¡¼­ ±¸ÀÔÇÒ¶§.
+	// RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½.
 	CItemSlot * pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 	if( pItemInfo->ItemKind & eSHOP_ITEM )
 		pSlot = pPlayer->GetSlot(eItemTable_ShopInven);
 
 	WORD obtainItemNum = 0;
 	MONEYTYPE ItemPrice = pItemInfo->BuyPrice;
-	if(g_pServerSystem->GetMap()->IsVillage() == FALSE)		// ¸¶À»ÀÌ ¾Æ´Ï¸é 1.2¹è
+	if(g_pServerSystem->GetMap()->IsVillage() == FALSE)		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ 1.2ï¿½ï¿½
 		ItemPrice = (MONEYTYPE)(ItemPrice*1.2);
 
 	ItemPrice = SWPROFITMGR->AddProfitFromItemBuy( ItemPrice );
 
-	// ¿ä»õÀü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½
 	ItemPrice = FORTWARMGR->AddProfitMoneyFromItemBuy( ItemPrice );
 
 	obtainItemNum = GetCanBuyNumInMoney(pPlayer, buyItemNum, ItemPrice);
 	if(obtainItemNum == 0)
-		return NOT_MONEY; //¡Íi¢®¢´AI ¡Ë¡þ¨Ï¡ÌAU¡Ë¡þ¢®I¡Ë¡ÍU.
+		return NOT_MONEY; //ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½AI ï¿½Ë¡ï¿½ï¿½Ï¡ï¿½AUï¿½Ë¡ï¿½ï¿½ï¿½Iï¿½Ë¡ï¿½U.
 	WORD EmptyCellPos[255];
 	WORD EmptyCellNum;
 	obtainItemNum = GetCanBuyNumInSpace(pPlayer, pSlot, buyItemIdx, obtainItemNum, EmptyCellPos, EmptyCellNum);
 	if(obtainItemNum == 0)
-		return NOT_SPACE;	//AU¡Ë¡þ¡Ëc¢®¨¡¡Ë¢ç ¡§u¨Ï¨£¡Ë¡ÍU.
+		return NOT_SPACE;	//AUï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½Ë¡ï¿½U.
 
 	int rt;
 	
@@ -1084,7 +1095,7 @@ int CItemManager::BuyItem( CPlayer* pPlayer, WORD buyItemIdx, WORD buyItemNum, W
 
 	if( rt == EI_TRUE )
 	{
-		// ¡Íi¢®¢´¢®¨¡e¢®ie
+		// ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ie
 		ITEM_INFO * pTargetItem = ITEMMGR->GetItemInfo(buyItemIdx);
 		pPlayer->SetMoney( ItemPrice*obtainItemNum, MONEY_SUBTRACTION, 0, eItemTable_Inventory, eMoneyLog_LoseStall, DealerIdx );
 	}
@@ -1097,12 +1108,12 @@ void CItemManager::BuyItemDBResult(CPlayer * pPlayer, WORD ArrayID )
 	ObtainItemDBResult(pPlayer, ArrayID);
 }
 
-// ÇÊµåº¸½º - 05.12 ÀÌ¿µÁØ
-// ±âÁ¸ ¸ó½ºÅÍ´Â ¹«Á¶°Ç ¾ÆÀÌÅÛ ÇÏ³ª¾¿¸¸ µå¶øÇÏ°Ô µÇ¾îÀÖ´Â°ÍÀ»
-// ÇÊµåº¸½º°¡ ¿©·¯°³ÀÇ ¾ÆÀÌÅÛÀ» µå¶øÇÏ¹Ç·Î ¼ö·®À» ¹ÞÀ»¼ö ÀÖ°Ô Á¶Á¤
+// ï¿½Êµåº¸ï¿½ï¿½ - 05.12 ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´Â°ï¿½ï¿½ï¿½
+// ï¿½Êµåº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CItemManager::MonsterObtainItem(CPlayer * pPlayer, WORD obtainItemIdx, DWORD dwFurnisherIdx, WORD ItemNum)
 {
-	// ÇÊµåº¸½º ¾ÆÀÌÅÛ µå¶ø½Ã ¹öÆÛ »çÀÌÁî¶§¹®¿¡ ¿À·ù³ª¼­ È®Àå 2 -> 128
+	// ï¿½Êµåº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 2 -> 128
 	WORD EmptyCellPos[128];
 	WORD EmptyCellNum;
 	CItemSlot * pSlot = pPlayer->GetSlot(eItemTable_Inventory);
@@ -1123,7 +1134,7 @@ void CItemManager::MonsterObtainItem(CPlayer * pPlayer, WORD obtainItemIdx, DWOR
 		WORD obtainItemNum = GetCanBuyNumInSpace(pPlayer, pSlot, obtainItemIdx, ItemNum, EmptyCellPos, EmptyCellNum);
 		if(obtainItemNum == 0)
 		{
-			//ºó ½½·Ô ¾øÀ½ °æ°í ¸Þ½ÃÁö
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
 			MSGBASE msg;
 			msg.Category = MP_ITEM;
 			msg.Protocol = MP_ITEM_FULLINVEN_ALERT;
@@ -1139,7 +1150,7 @@ void CItemManager::MonsterObtainItem(CPlayer * pPlayer, WORD obtainItemIdx, DWOR
 		{
 			if( FALSE == bRare )
 			{				
-				// ¿ä»õÀü Ã³¸®
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 				if( FORTWARMGR->AddProfitItemFromMonster( pPlayer, obtainItemIdx, 1 ) == FALSE )
                     rt = ObtainItemEx(pPlayer, Alloc(pPlayer, MP_ITEM, MP_ITEM_MONSTER_OBTAIN_NOTIFY, pPlayer->GetID(), dwFurnisherIdx, eLog_ItemObtainMonster, obtainItemNum, (DBResult)(ObtainItemDBResult), NULL), obtainItemIdx, obtainItemNum, EmptyCellPos, EmptyCellNum, EmptyCellNum, 0);
 			}
@@ -1258,7 +1269,7 @@ int CItemManager::ObtainItemEx(CPlayer * pPlayer, ITEMOBTAINARRAYINFO * pArrayIn
 	//POSTYPE EndPos = startPos +  pSlot->GetSlotNum();
 	POSTYPE i = 0;
 	
-	ITEMBASE NewItemBase;  /* AI¡Ë¡ÍU ¡§u¨Ïi¨ö?i¢¥¨Ïo¢®¨úa¢®¨¡¡§¡Ì8¢®¢´I ¡§uA¡§¢®A */
+	ITEMBASE NewItemBase;  /* AIï¿½Ë¡ï¿½U ï¿½ï¿½uï¿½ï¿½iï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½uAï¿½ï¿½ï¿½ï¿½A */
 	NewItemBase.dwDBIdx			= 9;
 	NewItemBase.wIconIdx		= 9;
 	NewItemBase.Position		= 9;
@@ -1307,7 +1318,7 @@ int CItemManager::ObtainItemEx(CPlayer * pPlayer, ITEMOBTAINARRAYINFO * pArrayIn
 			}
 			else if( !bIsEmpty &&
 				pItemBase->wIconIdx == obtainItemIdx && 
-				pItemBase->Durability < MAX_YOUNGYAKITEM_DUPNUM )	//$ Áßº¹ ¾ÆÀÌÅÛ Ã¤¿ì±â
+				pItemBase->Durability < MAX_YOUNGYAKITEM_DUPNUM )	//$ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½
 			{				
 				if( pItemBase->Durability + obtainItemNum > MAX_YOUNGYAKITEM_DUPNUM )
 				{
@@ -1329,9 +1340,9 @@ int CItemManager::ObtainItemEx(CPlayer * pPlayer, ITEMOBTAINARRAYINFO * pArrayIn
 					ItemUpdateToDB(pPlayer->GetID(), pItemBase->dwDBIdx, pItemBase->wIconIdx, 
 								pItemBase->Durability, pItemBase->Position, pItemBase->QuickPosition );
 					
-					// '¡Ë?¡Ë¢ç¡§u¢®¨Ï UpdateCI¡Ë¡ÍA ¡§u¨Ï¨£¢®¨¡¢®I¡Ë?¡Ë¢ç ¢®¨¡¡§¡ÌAI ¨ÏoU¨Ï¡Ài¢®¨¡i 
-					// ¨ÏoU¨Ï¡Ài ¡§u¡§¢®AIAUAC ¡Ë¡þ¡§¡©¡Ë¡þ¨Ï¡Ì¡Ë¡þ¡ËcAO¡§uO¡Ë¡þ| ¡§uo¡§ui ¡Ë?I¡§u¢®¨Ï 
-					// ¡§u¡§¢®¢®¢´¡Ë¢çAC ¨Ïoo¢®¨ú¢®¢¯¡Ë¡þ| ¡§uc¢®ieC¨Ï¡þ= 
+					// 'ï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ UpdateCIï¿½Ë¡ï¿½A ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½?ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI ï¿½ï¿½oUï¿½Ï¡ï¿½iï¿½ï¿½ï¿½ï¿½i 
+					// ï¿½ï¿½oUï¿½Ï¡ï¿½i ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAUAC ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ï¡Ì¡Ë¡ï¿½ï¿½ï¿½cAOï¿½ï¿½uOï¿½Ë¡ï¿½| ï¿½ï¿½uoï¿½ï¿½ui ï¿½ï¿½?Iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ 
+					// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AC ï¿½ï¿½ooï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½| ï¿½ï¿½ucï¿½ï¿½ieCï¿½Ï¡ï¿½= 
 				}
 				else
 				{
@@ -1365,7 +1376,7 @@ int CItemManager::ObtainItemEx(CPlayer * pPlayer, ITEMOBTAINARRAYINFO * pArrayIn
 			return 0;
 		}
 	}
-	else	//$ Áßº¹ºÒ°¡ ¾ÆÀÌÅÛ Ã³¸®
+	else	//$ ï¿½ßºï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	{
 		for( i = 0 ; i < EmptyCellNum ; ++i )
 		{
@@ -1440,13 +1451,13 @@ void CItemManager::ObtainItemDBResult(CPlayer * pPlayer, WORD ArrayID)
 			}
 		}
 
-		//SW070127 Å¸ÀÌÅº
+		//SW070127 Å¸ï¿½ï¿½Åº
 		if( pInfo->ItemKind == eTITAN_ITEM_PAPER )
 		{
 			TITAN_TOTALINFO* pTitanInfo = pPlayer->GetTitanManager()->GetTitanTotalInfo(ItemInfo->dwDBIdx);
 			if( !pTitanInfo )
 			{
-				//Ã¹»ý¼º & DBµî·Ï
+				//Ã¹ï¿½ï¿½ï¿½ï¿½ & DBï¿½ï¿½ï¿½
 				pPlayer->GetTitanManager()->CreateNewTitan(pPlayer, pInfo->ItemIdx, ItemInfo->dwDBIdx, pInfo->Plus_MugongIdx, pInfo->Plus_Value);
 			}
 		}
@@ -1461,7 +1472,7 @@ void CItemManager::ObtainItemDBResult(CPlayer * pPlayer, WORD ArrayID)
 				ItemInfo->wIconIdx, ItemInfo->dwDBIdx, 0, ItemInfo->Position, ItemInfo->Durability, pPlayer->GetPlayerExpPoint());
 
 
-		// 06.09.12 RaMa - Ä¡Æ®·Î ¾òÀº ¾ÆÀÌÅÛ ·Î±× Ãß°¡
+		// 06.09.12 RaMa - Ä¡Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ß°ï¿½
 		if( pArrayInfo->wType == eLog_ItemObtainCheat )
 		{
 			LogGMToolUse( pPlayer->GetID(), eGMLog_Item, eLog_ItemObtainCheat, 
@@ -1479,7 +1490,7 @@ void CItemManager::ObtainItemDBResult(CPlayer * pPlayer, WORD ArrayID)
 
 unsigned int CItemManager::GetTotalEmptySlotNum(CItemSlot* pSlot)
 {
-	//³²¾Æ ÀÖ´Â °ø°£À» °è»êÇÑ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
 	POSTYPE startPos = pSlot->GetStartPos();
 	POSTYPE EndPos = startPos +  pSlot->GetSlotNum();
@@ -1494,7 +1505,7 @@ unsigned int CItemManager::GetTotalEmptySlotNum(CItemSlot* pSlot)
 	return totalemptyNum;
 }
 
-// rt : ¡§¡þo¢®¨¡¨Ï¨£¢®¨¡¢®I8¢®¢´I ¢®ii ¡§uo AO¡Ë¡ÍA ¢®¨¡¨Ï©ª¡§uo
+// rt : ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I8ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ii ï¿½ï¿½uo AOï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½uo
 WORD CItemManager::GetCanBuyNumInSpace(CPlayer * pPlayer, CItemSlot * pSlot, WORD whatItemIdx, DURTYPE whatItemNum, WORD * EmptyCellPos, WORD & EmptyCellNum)
 {
 	DURTYPE EstItemNum = whatItemNum;
@@ -1549,12 +1560,12 @@ WORD CItemManager::GetCanBuyNumInSpace(CPlayer * pPlayer, CItemSlot * pSlot, WOR
 
 	return (WORD)(whatItemNum - EstItemNum);
 }
-// rt : ¡§uOAoCN ¡Íi¢®¢´8¢®¢´I ¢®ii ¡§uo AO¡Ë¡ÍA ¢®¨¡¨Ï©ª¡§uo
+// rt : ï¿½ï¿½uOAoCN ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½ii ï¿½ï¿½uo AOï¿½Ë¡ï¿½A ï¿½ï¿½ï¿½ï¿½ï¿½Ï©ï¿½ï¿½ï¿½uo
 WORD CItemManager::GetCanBuyNumInMoney(CPlayer * pPlayer, WORD buyNum, MONEYTYPE Price)
 {
 	MONEYTYPE money = pPlayer->GetMoney();
 
-	if( money >= (MONEYTYPE)(buyNum * Price) )	//buynum¡Ë?¡Ë¢ç ¡§u¨Ïi¨ö?i¢¥¨Ïo¢®¨úa¢®¨¡¡§¡Ì(¡Ë¡þA¡Ë?iA¢®i¢®¨¡¡§¡Ì)AI ¡Íie¡§ui¢®¨¡¡Ë¢ç¡§u¢®¨Ï...¨Ïo¡Ëcf¢®¨¡¡Ë¢ç ¢®iy¢®¨úaAuAI AO¡Ë¡ÍU.
+	if( money >= (MONEYTYPE)(buyNum * Price) )	//buynumï¿½ï¿½?ï¿½ï¿½ï¿½ ï¿½ï¿½uï¿½ï¿½iï¿½ï¿½?iï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ë¡ï¿½Aï¿½ï¿½?iAï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)AI ï¿½ï¿½ieï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½...ï¿½ï¿½oï¿½ï¿½cfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½iyï¿½ï¿½ï¿½ï¿½aAuAI AOï¿½Ë¡ï¿½U.
 	{
 		return buyNum;
 	}
@@ -1596,7 +1607,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			)
 			return eItemUseErr_Err;
 
-		//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+		//SW061129 È«ï¿½ï¿½ï¿½ß°ï¿½ï¿½ï¿½Ã»ï¿½Û¾ï¿½ - ï¿½ï¿½ë°¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//if( 8000 <= pItemInfo->ItemIdx && pItemInfo->ItemIdx <= 8013 )
 		if( pItemInfo->ItemKind == eYOUNGYAK_ITEM )
 		{
@@ -1608,7 +1619,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 	if(pItemInfo->ItemKind & eYOUNGYAK_ITEM)
 	{
-		//ÅÂ±¹Àº.. ¸¶À»¿¡¼­ ºñ¹«Áß¿¡ ¹°¾à ¸ø¸Ô¾î!
+		//ï¿½Â±ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¾ï¿½!
 #ifdef _TL_LOCAL_
 		if( g_pServerSystem->GetMap()->IsVillage() )
 		if( pPlayer->GetBattle()->GetBattleKind() ==eBATTLE_KIND_VIMUSTREET || PARTYWARMGR->IsMemberInPartyWar( pPlayer ) > 0 )
@@ -1624,8 +1635,8 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			return eItemUseErr_Err;
 
 		////////////////////////////////////////////////////////
-		// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-		// Çý¾ÈÀÇ¹°¾à
+		// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½
 		if(pItemInfo->ItemIdx == 10700)
 		{
 			if(pPlayer->GetSingleSpecialState(eSingleSpecialState_Detect))
@@ -1670,9 +1681,9 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			return eItemUseSuccess;
 		}		
 
-		BYTE bEffectKind = 0;	//ºñ¹«½Ã ´Ù¸¥Ä³¸¯ÅÍ¿¡°Ôµµ ÀÌÆåÆ® º¸³»ÁÖ±â À§ÇØ
+		BYTE bEffectKind = 0;	//ï¿½ñ¹«½ï¿½ ï¿½Ù¸ï¿½Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ôµï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-		//2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ È¸º¹·ü ¿É¼Ç¿¡ µû¸¥ Ã³¸® Ãß°¡ ¼öÁ¤
+		//2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½É¼Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(pItemInfo->LifeRecover>0)
 		{
 			WORD plusLife = pItemInfo->LifeRecover;
@@ -1680,12 +1691,12 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			if( (pPlayer->GetAvatarOption()->RecoverRate) || (pPlayer->GetSetItemStats()->fLifeRecoverRate) )
 			{
 				WORD wSetItemLifeRate = (WORD)(pPlayer->GetSetItemStats()->fLifeRecoverRate * 100);
-				// 0.01f¸¦ ÇÏÁö ¾Ê°í 0.01À» ÇÑ ÀÌÀ¯´Â 0.01f·Î float ¿¬»êÀ» ÇÏ¸é 0.01ÀÌ ¾Æ´Ï¶ó 0.0099999998·Î µÇ¹Ç·Î Á¤È®ÇÑ °ªÀÌ ¾È³ª¿Â´Ù.
-				// 0.01·Î ÇÏ¸é 0.10000000000000001 ·Î ¿¬»êµÇ¾î¼­ Á¤»óÀûÀÎ °ªÀÌ ³ª¿Â´Ù.
+				// 0.01fï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ 0.01ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.01fï¿½ï¿½ float ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ 0.01ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ 0.0099999998ï¿½ï¿½ ï¿½Ç¹Ç·ï¿½ ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½Â´ï¿½.
+				// 0.01ï¿½ï¿½ ï¿½Ï¸ï¿½ 0.10000000000000001 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 				plusLife += (WORD)(plusLife*((pPlayer->GetAvatarOption()->RecoverRate + wSetItemLifeRate)*0.01));
 			}
 
-			//2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ Ã¼·ÂÈ¸º¹ (°íÁ¤)
+			//2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 			if(pPlayer->GetSetItemStats()->wLifeRecover > 0)
 			{
 				plusLife += pPlayer->GetSetItemStats()->wLifeRecover;
@@ -1693,7 +1704,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 			CCharacterCalcManager::StartUpdateLife( pPlayer, plusLife );
 
-			bEffectKind = 1;//»ý¸í·Â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
  		if(pItemInfo->LifeRecoverRate>0)
 		{
@@ -1705,7 +1716,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 				plusLife += (WORD)(plusLife*((pPlayer->GetAvatarOption()->RecoverRate + wSetItemLifeRate)*0.01));
 			}
 
-			//2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ Ã¼·ÂÈ¸º¹ (°íÁ¤)
+			//2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 			if(pPlayer->GetSetItemStats()->wLifeRecover > 0)
 			{
 				plusLife += pPlayer->GetSetItemStats()->wLifeRecover;
@@ -1713,10 +1724,10 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 			CCharacterCalcManager::StartUpdateLife( pPlayer, plusLife );
 
-			bEffectKind = 1;//»ý¸í·Â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
 
-		if(pItemInfo->NaeRyukRecover>0)		//¨Ï©ª¢®i¢®¢´A+(E¡Ë¡þ¡§¡þ¨Ïo) ¢®¨¡id¡§uoA¡Ë¢ç	 
+		if(pItemInfo->NaeRyukRecover>0)		//ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½A+(Eï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o) ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½uoAï¿½ï¿½ï¿½	 
 		{
 			WORD plusNaeryuk = pItemInfo->NaeRyukRecover;
 
@@ -1726,13 +1737,13 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 				plusNaeryuk += (WORD)(plusNaeryuk*((pPlayer->GetAvatarOption()->RecoverRate+wSetItemNaeRyuk)*0.01));
 			}
 
-			//2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ ³»·ÂÈ¸º¹ (°íÁ¤)
+			//2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 			if(pPlayer->GetSetItemStats()->wNaeRyukRecover > 0)
 			{
 				plusNaeryuk += pPlayer->GetSetItemStats()->wNaeRyukRecover;
 			}
 
-			// 06.08.30. RaMa // ³»·ÂÈ¸º¹½Ã Ãß°¡ È£½Å°­±â È¸º¹
+			// 06.08.30. RaMa // ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 			if( pPlayer->GetAvatarOption()->ShieldRecoverRate )
 			{
 				WORD addshield = (WORD)(pItemInfo->NaeRyukRecover*(pPlayer->GetAvatarOption()->ShieldRecoverRate*0.01));
@@ -1741,9 +1752,9 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 			CCharacterCalcManager::StartUpdateNaeRyuk( pPlayer, plusNaeryuk );
 
-			bEffectKind = 2;//³»·Â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 2;//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
-		if(pItemInfo->NaeRyukRecoverRate>0)		//¨Ï©ª¢®i¢®¢´A+(E¡Ë¡þ¡§¡þ¨Ïo)%
+		if(pItemInfo->NaeRyukRecoverRate>0)		//ï¿½Ï©ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½A+(Eï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o)%
 		{
 			WORD plusNaeryuk = (WORD)(pPlayer->GetMaxNaeRyuk()*pItemInfo->NaeRyukRecoverRate);
 			
@@ -1753,13 +1764,13 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 				plusNaeryuk += (WORD)(plusNaeryuk*((pPlayer->GetAvatarOption()->RecoverRate+wSetItemNaeRyuk)*0.01));
 			}
 
-			//2007. 6. 13. CBH - ¼¼Æ®¾ÆÀÌÅÆ ³»·ÂÈ¸º¹ (°íÁ¤)
+			//2007. 6. 13. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 			if(pPlayer->GetSetItemStats()->wNaeRyukRecover > 0)
 			{
 				plusNaeryuk += pPlayer->GetSetItemStats()->wNaeRyukRecover;
 			}
 
-			// 06.08.30. RaMa // ³»·ÂÈ¸º¹½Ã Ãß°¡ È£½Å°­±â È¸º¹
+			// 06.08.30. RaMa // ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 			if( pPlayer->GetAvatarOption()->ShieldRecoverRate )
 			{
 				WORD addshield = (WORD)((pPlayer->DoGetMaxNaeRyuk()*pItemInfo->NaeRyukRecoverRate)*(pPlayer->GetAvatarOption()->ShieldRecoverRate*0.01));
@@ -1768,11 +1779,11 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 			CCharacterCalcManager::StartUpdateNaeRyuk( pPlayer, plusNaeryuk );
 
-			bEffectKind = 2;//³»·Â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 2;//ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
 		}
 
-		// 06.09.25 RaMa - Ãß¼®ÀÌº¥Æ®
+		// 06.09.25 RaMa - ï¿½ß¼ï¿½ï¿½Ìºï¿½Æ®
 		if( pItemInfo->ItemIdx == 53216 || pItemInfo->ItemIdx == 53222 )
 		{
 #ifdef _HK_LOCAL_
@@ -1781,27 +1792,27 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			WORD addshied = (WORD)(pPlayer->GetMaxShield() - pPlayer->GetShield());
 			CCharacterCalcManager::StartUpdateShield( pPlayer, addshied, 5, 1500 );
 #endif
-			bEffectKind = 3;		//È£½Å°­±â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 3;		//È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
 
 		if(pItemInfo->NaeRyuk>0)
 			pPlayer->SetMaxNaeRyuk(pPlayer->GetMaxNaeRyuk()+pItemInfo->NaeRyuk);
 		
-		if(pItemInfo->GenGol>0)		//¢®¨úU¢®¨¡n+(¡Ë?¡Íi¢®¨ú¡Ë¡þ)	
+		if(pItemInfo->GenGol>0)		//ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½n+(ï¿½ï¿½?ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½)	
 			pPlayer->AddGenGol(pItemInfo->GenGol);
 		
-		if(pItemInfo->MinChub>0)		//¨ÏoIA¡Ë¡þ+(¡Ë?¡Íi¢®¨ú¡Ë¡þ)	
+		if(pItemInfo->MinChub>0)		//ï¿½ï¿½oIAï¿½Ë¡ï¿½+(ï¿½ï¿½?ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½)	
 			pPlayer->AddMinChub(pItemInfo->MinChub);
 		
-		if(pItemInfo->CheRyuk>0)		//A¡§u¢®¢´A+(¡Ë?¡Íi¢®¨ú¡Ë¡þ)	
+		if(pItemInfo->CheRyuk>0)		//Aï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A+(ï¿½ï¿½?ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½)	
 			pPlayer->AddCheRyuk(pItemInfo->CheRyuk);
 		
-		if(pItemInfo->SimMek>0)		//¡§oE¡Ë¡þ¡§¢®+(¡Ë?¡Íi¢®¨ú¡Ë¡þ)	
+		if(pItemInfo->SimMek>0)		//ï¿½ï¿½oEï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½+(ï¿½ï¿½?ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½)	
 			pPlayer->AddSimMek(pItemInfo->SimMek);
-		if(pItemInfo->Life>0)			//¢®iy¡Ë¡þi¢®¢´A+(¡Ë?¡Íi¢®¨ú¡Ë¡þ)	
+		if(pItemInfo->Life>0)			//ï¿½ï¿½iyï¿½Ë¡ï¿½iï¿½ï¿½ï¿½ï¿½A+(ï¿½ï¿½?ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½)	
 		{
 			pPlayer->SetMaxLife(pPlayer->GetMaxLife()+pItemInfo->Life);
-			ASSERTMSG(0, "AI¢®¨¡A f¡Ë¡Íe¢®¢´I A¨Ï©ª¡Ë¡þ¡Ëc ¡§uE¡ÍiCAoAI~ ~( -0-)~");
+			ASSERTMSG(0, "AIï¿½ï¿½ï¿½ï¿½A fï¿½Ë¡ï¿½eï¿½ï¿½ï¿½ï¿½I Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½c ï¿½ï¿½uEï¿½ï¿½iCAoAI~ ~( -0-)~");
 		}
 		//for event - hs//
 		if( pItemInfo->ItemIdx == 53102 || pItemInfo->ItemIdx == 53232 || pItemInfo->ItemIdx == 53234 )
@@ -1826,12 +1837,12 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			pPlayer->SetShield(pPlayer->GetShield()+wPlus);
 			pPlayer->SetNaeRyuk(pPlayer->GetNaeRyuk()+wPlus);
 
-			bEffectKind = 4;//¿Ã È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 4;//ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
 		else if(pItemInfo->ItemIdx == EVENTITEM_SHIELD_RECOVER || pItemInfo->ItemIdx == 53094 || pItemInfo->ItemIdx == 53109 )
 		{
 			pPlayer->SetShield(pPlayer->GetMaxShield());
-			bEffectKind = 3;//È£½Å°­±â È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 3;//È£ï¿½Å°ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
 		else if(pItemInfo->ItemIdx == EVENTITEM_ALL_RECOVER || pItemInfo->ItemIdx == 53095
 			|| pItemInfo->ItemIdx == 53103 || pItemInfo->ItemIdx == 53217 || pItemInfo->ItemIdx == 53223 )
@@ -1839,7 +1850,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			pPlayer->SetLife(pPlayer->GetMaxLife());
 			pPlayer->SetShield(pPlayer->GetMaxShield());
 			pPlayer->SetNaeRyuk(pPlayer->GetMaxNaeRyuk());
-			bEffectKind = 4;//¿Ã È¸º¹ ÀÌÆåÆ®
+			bEffectKind = 4;//ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		}
 		else if(pItemInfo->ItemIdx == 53074 )
 		{
@@ -1852,7 +1863,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			PACKEDDATA_OBJ->QuickSend( pPlayer, &msgEvent, sizeof(msgEvent) );			
 		}
         //for event//
-		// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ® ÄÚµå
+		// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½Úµï¿½
 		else if(pItemInfo->ItemIdx == EVENT_ITEM_FIRECRACKER )
 		{
 			MSG_DWORD2 msgEvent;
@@ -1864,7 +1875,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			PACKEDDATA_OBJ->QuickSend( pPlayer, &msgEvent, sizeof(msgEvent) );			
 		}
 
-		// 06. 03. È­ÀÌÆ®µ¥ÀÌ ÀÌº¥Æ®
+		// 06. 03. È­ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
 		else if(pItemInfo->ItemIdx == 53151 )
 		{
 			MSG_DWORD2 msgEvent;
@@ -1876,11 +1887,11 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			PACKEDDATA_OBJ->QuickSend( pPlayer, &msgEvent, sizeof(msgEvent) );			
 		}
 
-		//ºñ¹«½Ã¿¡ ´Ù¸¥ Ä³¸¯ÅÍ¿¡ ¸Þ¼¼Áö º¸³»±â
+		//ï¿½ñ¹«½Ã¿ï¿½ ï¿½Ù¸ï¿½ Ä³ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( bEffectKind != 0 )
-		if( pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET )	//ºñ¹«Áß
+		if( pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_VIMUSTREET )	//ï¿½ï¿½ï¿½ï¿½
 		{
-/*//»ó´ë¿¡°Ô¸¸ º¸³»±â
+/*//ï¿½ï¿½ë¿¡ï¿½Ô¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			CPlayer* pOtherPlayer = g_pUserTable->FindUser( pPlayer->GetVimuOpPlayerID() );
 			if( pOtherPlayer )
 			{
@@ -1893,7 +1904,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 				pOtherPlayer->SendMsg( &msg, sizeof(msg) );
 			}
 */
-//±×¸®µå ÀüÃ¼¿¡ º¸³»±â
+//ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			MSG_DWORDBYTE msg;
 			msg.Category	= MP_ITEM;
 			msg.Protocol	= MP_ITEM_USE_NOTIFY;
@@ -1903,10 +1914,10 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			PACKEDDATA_OBJ->QuickSend( pPlayer, &msg, sizeof(msg) );
 		}
 	}
-	// ¨Ïo¢®i¢®¨¡¨Ï¨£A¢®I
+	// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½I
 	else if(pItemInfo->ItemKind & eMUGONG_ITEM)
 	{
-		//LEVEL A¡§uA¡§I
+		//LEVEL Aï¿½ï¿½uAï¿½ï¿½I
 		if(!CHKRT->LevelOf(pPlayer, pItemInfo->LimitLevel))
 			return eItemUseErr_Err;
 		if(!CHKRT->ItemStageOf(pPlayer, (BYTE)pItemInfo->LimitJob))
@@ -1920,7 +1931,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 				return eItemUseErr_Err;
 		}
 #endif
-		// ¨Ïo¢®i¢®¨¡¨Ï¨£¡Íii¢®¢´I¡Ë?¡§I¡§¡þI
+		// ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½?ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½I
 		if(CHKRT->MugongOf(pPlayer, pItemInfo->ItemIdx))
 			return eItemUseErr_PreInsert;
 		
@@ -1931,7 +1942,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			ABILITYMGR->UpdateAbilityState(ABILITYUPDATE_ABILITYUPITEM_USE,pItemInfo->ItemIdx,pPlayer->GetAbilityGroup());
 		}
 
-		// magi82 - Titan(070914) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
+		// magi82 - Titan(070914) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		if( pItemInfo->ItemKind == eMUGONG_ITEM_TITAN )
 		{
 			if( pPlayer->InTitan() == FALSE )
@@ -1963,9 +1974,9 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 	{
 		if( pItemInfo->ItemIdx == EVENT_ITEM_SNOW || pItemInfo->ItemIdx == EVENT_ITEM_HARDSNOW )
 		{
-			pPlayer->SetEventSnowIdx(pItemInfo->ItemIdx);	//½ÌÅ© º¸ÀåÀÌ ¾ÈµÈ´Ùº¸°í ÃÊ±âÈ­ ¾ÈÇÏ°Ú´Ù.
+			pPlayer->SetEventSnowIdx(pItemInfo->ItemIdx);	//ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÈ´Ùºï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Ï°Ú´ï¿½.
 		}
-		// ¡Íii¢®¨ú¡§¡©¡§u¢®A ¡§¡þn¢®¨ú¡§¡©¡§u¢®¨Ï ¢®ic¡Ë?e
+		// ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½A ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½icï¿½ï¿½?e
 		if(EI_TRUE != DiscardItem(pPlayer, TargetPos, wItemIdx, 1))
 		{
 			return eItemUseErr_Err;
@@ -1984,7 +1995,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			{
 				return eItemUseErr_Err;
 			}
-			//Æê Ã³À½ »ý¼ºÀÌ¸é Æê »ý¼ºÇÏ°í -> Äù½ºÆ®Æê¾ÆÀÌÅÛ È¹µæ½Ã Æêµµ »ý¼ºÀ¸·Î º¯°æ.
+			//ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ -> ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ ï¿½êµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			pPlayer->GetPetManager()->SummonPet(pItemBase->dwDBIdx);
 			//pPlayer->GetPetManager()->SummonPet(PET_ID_START);
 			return eItemUseSuccess;
@@ -2015,7 +2026,7 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 			if(pPlayer->GetState() != eObjectState_None)
 				return eItemUseErr_Err;
 
-			//2007. 10. 19. CBH - ¹«½Ö ¸ðµåÀÏ¶§ Å¸ÀÌÅº Å¾½Â ½ÇÆÐ
+			//2007. 10. 19. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ Å¸ï¿½ï¿½Åº Å¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			CHARACTER_TOTALINFO CTInfo;
 			pPlayer->GetCharacterTotalInfo( &CTInfo );
 			if(CTInfo.bMussangMode == TRUE)
@@ -2065,14 +2076,14 @@ int CItemManager::UseItem( CPlayer* pPlayer, WORD TargetPos, WORD wItemIdx )
 
 
 /*
-(1)	¨Ïo¢®i¢®¨úa / ¨Ïi©ö|i¡¾¡§ui¢®¨ú¡Ë¡þ / ¡§u¢®¢¯¡§u¡§u¡§u¢®¨Ï¡Ë¡þ¡Ëc : [fv ¡§u¡§¡þ¢®¨¡¨Ï¨£ E¡Ëc¢®¢´u] + [¡§¢®?¢®¨úa¡Íii¢®¨ú¡§¡©]
-(2)	¢®¨ú¢®¢¯¡Ë?U : [fv ¡§u¡§¡þ¢®¨¡¨Ï¨£ E¡Ëc¢®¢´u] + [¡§¢®?¢®¨úa¡Íii¢®¨ú¡§¡©] * 2
-(3)	¡§¢®Cd
-¢®¨¡¡Ë¢ç)	¡§u¡§¡þ¢®¨¡¨Ï¨£ : [¡§u¡§¡þ¢®¨¡¨Ï¨£ E¡Ëc¢®¢´u] < random(0~100)
-¨Ï©ª¡§¡Ì)	¡§oC¡§¢®¡§¡Ë : [¡§u¡§¡þ¢®¨¡¨Ï¨£ E¡Ëc¢®¢´u] > random(0~100) AI¢®¨¡i ¡§u¡§¡þ¢®¨¡¨Ï¨£E¡Ëc¢®¢´u - random(0~100) < 30
-¡Ë¡ÍU)	¡Ë¡Íe¡§oC¡§¢®¡§¡Ë : [¡§u¡§¡þ¢®¨¡¨Ï¨£ E¡Ëc¢®¢´u] > random(0~100) AI¢®¨¡i ¡§u¡§¡þ¢®¨¡¨Ï¨£E¡Ëc¢®¢´u - random(0~100) > 30
-// Ac¢®¢´a ¢®ief : ¡§u¡§¡þ¢®¨¡¨Ï¨£, ¡§oC¡§¢®¡§¡Ë, ¡Ë¡Íe¡§oC¡§¢®¡§¡Ë
-// ¢®¨úa¡§¡þ¢®i¡§u¡§¢®AIAU ¢®ief : ¡§u¡§¡þ¢®¨¡¨Ï¨£, ¡Ë¡Íe¡§oC¡§¢®¡§¡Ë
+(1)	ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½ï¿½ï¿½a / ï¿½ï¿½iï¿½ï¿½|iï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ / ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½uï¿½ï¿½uï¿½ï¿½ï¿½Ï¡Ë¡ï¿½ï¿½ï¿½c : [fv ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u] + [ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
+(2)	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?U : [fv ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u] + [ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] * 2
+(3)	ï¿½ï¿½ï¿½ï¿½Cd
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : [ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u] < random(0~100)
+ï¿½Ï©ï¿½ï¿½ï¿½ï¿½ï¿½)	ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : [ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u] > random(0~100) AIï¿½ï¿½ï¿½ï¿½i ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u - random(0~100) < 30
+ï¿½Ë¡ï¿½U)	ï¿½Ë¡ï¿½eï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : [ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u] > random(0~100) AIï¿½ï¿½ï¿½ï¿½i ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½cï¿½ï¿½ï¿½ï¿½u - random(0~100) > 30
+// Acï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½ief : ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¡ï¿½eï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ief : ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¡ï¿½eï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 BOOL CItemManager::EnoughMixMaterial(WORD needItemIdx, WORD needItemNum, MATERIAL_ARRAY * pMaterialArray, WORD wMaterialNum)
 {
@@ -2085,7 +2096,7 @@ BOOL CItemManager::EnoughMixMaterial(WORD needItemIdx, WORD needItemNum, MATERIA
 		{
 			if(pMaterialArray[i].Dur < deNeedItemNum)
 			{
-				//hs vCOAI ¡§uE¡ÍiC¡§u¢®¨Ï ¡§uod
+				//hs vCOAI ï¿½ï¿½uEï¿½ï¿½iCï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½uod
 				if(!IsDupItem(pMaterialArray[i].wItemIdx))
 					deNeedItemNum = deNeedItemNum -1;
 				else 
@@ -2375,7 +2386,7 @@ BOOL CItemManager::EnoughDissolveInvSpace(CPlayer * pPlayer, WORD wJewelNum)
 
 int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicItemPos, POSTYPE ResultIdx, MATERIAL_ARRAY * pMaterialArray, WORD wMaterialNum, WORD ShopItemIdx, WORD ShopItemPos, BOOL bTitan)	// magi82 - Titan(070118)
 {
-	// magi82 - Titan(070403) Å¸ÀÌÅºÀ» Á¶ÇÕÇÒ¶§´Â Á¶ÇÕ½ºÅ³À» ¹è¿ü´ÂÁö Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
+	// magi82 - Titan(070403) Å¸ï¿½ï¿½Åºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Õ½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	if(!bTitan)
 	{
 		if(!CHKRT->AbilityOf(pPlayer, eAUKJOB_Mix))
@@ -2386,14 +2397,14 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 		return 2;
 
 	// magi82 - UniqueItem(070627)
-	// À¯´ÏÅ©¾ÆÀÌÅÛÀÌ°í Á¶ÇÕÀÌ ºÒ°¡´ÉÇÑ À¯´ÏÅ©¶ó¸é..
+	// ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ï¿½..
 	eITEM_KINDBIT eBit = GetItemKind(wBasicItemIdx);
 	if(eBit == eEQUIP_ITEM_UNIQUE && GAMERESRCMNGR->GetUniqueItemOptionList(wBasicItemIdx)->MixFlag == 0)
 	{
 		return 2;
 	}
 
-	// ShopItemÀÌ ÀÖ´Â°¡
+	// ShopItemï¿½ï¿½ ï¿½Ö´Â°ï¿½
 	ITEM_INFO* pShopItem = NULL;
 	if( ShopItemIdx )
 	{
@@ -2405,7 +2416,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 
 	for(int i = 0 ; i < wMaterialNum ; ++i)
 	{
-		//º»Àç·á°¡ ÀÖ´Â °÷ÀÎÁö Ã¼Å© ÇØ¾ßÇÑ´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 		if( BasicItemPos == pMaterialArray[i].ItemPos )
 			return 3;
 		if(!CHKRT->ItemOf(pPlayer, pMaterialArray[i].ItemPos, pMaterialArray[i].wItemIdx, pMaterialArray[i].Dur,0, CB_EXIST|CB_ICONIDX|CB_ENOUGHDURA))
@@ -2414,9 +2425,9 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 
 	// magi82 - Titan(070118) ////////////////////////////////////////////////
 	ITEM_MIX_INFO * pMixInfo = NULL;
-	if(bTitan)	// Å¸ÀÌÅº ÆÄÃ÷ ¾ÆÀÌÅÛ Á¶ÇÕ
+	if(bTitan)	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         pMixInfo = TITANITEMMGR->GetTitanMixItemInfo(wBasicItemIdx);
-	else	// ÀÏ¹Ý ¾ÆÀÌÅÛ Á¶ÇÕ
+	else	// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pMixInfo = GetMixItemInfo(wBasicItemIdx);
 	//////////////////////////////////////////////////////////////////////////
 
@@ -2444,11 +2455,11 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	if( pPlayer->GetMoney() < money )
 		return 6;
 
-	// ¡§u¢®¨Ï¨Ïoi¡§¡þ¡§ui¢®¨ú¡§u¢®¨Ï Ac¢®¢´a ¡§uo reA¡§uA¡§I
+	// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½oiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ Acï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½uo reAï¿½ï¿½uAï¿½ï¿½I
 	WORD needItemIdx=0;
 	WORD needItemNum=0;
-
-	for(i = 0 ; i < pMixInfo->psResultItemInfo[ResultIdx].wMaterialItemNum ; ++i)
+		int i;
+		for(i = 0 ; i < pMixInfo->psResultItemInfo[ResultIdx].wMaterialItemNum ; ++i)
 	{
 		needItemIdx = pMixInfo->psResultItemInfo[ResultIdx].psMaterialItemInfo[i].wMatItemIdx;
 		needItemNum = pMixInfo->psResultItemInfo[ResultIdx].psMaterialItemInfo[i].wMatItemNum;
@@ -2458,7 +2469,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 			return 5;
 	}
 
-	// ¸¸µé·Á´Â ¾ÆÀÌÅÛÀÌ ·¹º§ÀÌ ¸Â´Â ¾ÆÀÌÅÛÀÎÁö Ã¼Å© 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© 
 	ITEM_INFO* pNewItemInfo = GetItemInfo( pMixInfo->psResultItemInfo[ResultIdx].wResItemIdx );
 	if( ShopItemIdx )
 	{
@@ -2472,12 +2483,12 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	WORD mixGrade = ABILITYMGR->GetAbilityLevel(ABILITYINDEX_ITEMMIX, pPlayer->GetAbilityGroup());
 	WORD per = MAX_MIX_PERCENT/100;
 
-	// +10ÅÛ Á¶ÇÕ ±â´É Ãß°¡ ÀÛ¾÷ by Stiner(2008/06/13)-10+MixItem
-	// pMixInfoÀÇ Á¤º¸¿¡¼­ °á°úÅÛÀÌ +10ÀÏ°æ¿ì Á¶ÇÕ·ü °è»êÀ» ´Ù¸¥ ½ÄÀ¸·Î ÇØ ÁØ´Ù.
+	// +10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½ by Stiner(2008/06/13)-10+MixItem
+	// pMixInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +10ï¿½Ï°ï¿½ï¿½ ï¿½ï¿½ï¿½Õ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½.
 	ITEM_INFO* pResItemInfo = GetItemInfo(pMixInfo->psResultItemInfo[ResultIdx].wResItemIdx);
 	if( pResItemInfo->ItemGrade >= 10 )
 	{
-		// TODO: È®·ü °è»ê
+		// TODO: È®ï¿½ï¿½ ï¿½ï¿½ï¿½
 		HILEVEL_ITEM_MIX_RATE_INFO* pRateInfo = m_HiLevelItemMixRateInfoList.GetData( pResItemInfo->ItemGrade );
 
 		ratio = pRateInfo->dwBaseRate + ( mixGrade * 10000 / pRateInfo->dwModulate );
@@ -2486,7 +2497,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 		ratio = (pMixInfo->psResultItemInfo[ResultIdx].SuccessRatio + mixGrade*per);
 
 #ifdef _HK_LOCAL_
-	//¸¸¾à +1 ÀåÂø¾ÆÀÌÅÛÀÇ °æ¿ì¿£ ratio°¡ º¯°æµÈ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ +1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ratioï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 	if( pNewItemInfo )
 	if( pNewItemInfo->ItemGrade > 0 && pNewItemInfo->ItemGrade <= 9 )
 	if( pNewItemInfo->LimitLevel > 0 && pNewItemInfo->LimitLevel <= 99 )
@@ -2504,12 +2515,12 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	ITEM_INFO* pItem = GetItemInfo( wBasicItemIdx );
 	if( pItem )
 	{
-		// ¾ÆÀÌÅÛ°ú ÇÃ·¹ÀÌ¾î ·¹º§ °Ë»ç
-		if( pItem->LimitLevel > pPlayer->GetMaxLevel() )	// ³ôÀ»¶§
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+		if( pItem->LimitLevel > pPlayer->GetMaxLevel() )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			ratio = ratio / 100 * ( 100 - ( pItem->LimitLevel - pPlayer->GetMaxLevel() ) );
 		}
-		// ¾ÆÀÌÅÛ ·¹º§ÀÌ 60ÀÌ»óÀÌ³Ä °Ë»ç
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 60ï¿½Ì»ï¿½ï¿½Ì³ï¿½ ï¿½Ë»ï¿½
 		if( pItem->LimitLevel > 60 )
 		{
 			ratio = ratio / 100 * ( 100 - ( pItem->LimitLevel - 60 ) * 2 );
@@ -2528,26 +2539,26 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	memset( &Item, 0, sizeof(ITEMBASE) );
 	char NameKey[MAX_NAME_LENGTH+1];
 	sprintf(NameKey, "%d", Key);
-	CItemSlot * pSlot = pPlayer->GetSlot(0); //ÀÎº¥ÀÏÅ×´Ï
+	CItemSlot * pSlot = pPlayer->GetSlot(0); //ï¿½Îºï¿½ï¿½ï¿½ï¿½×´ï¿½
 
-	// ¼º°ø, ½ÇÆÐ¸¦ ¸ÕÀú °¡¸°´Ù.
+	// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ð¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	BOOL bUseMixUp = FALSE;
 	BOOL bSuccess = FALSE;
 	BOOL bProtection = FALSE;
 	DWORD Seed;
-	// +10ÅÛ Á¶ÇÕ ±â´É Ãß°¡ ÀÛ¾÷ by Stiner(2008/06/13)-10+MixItem
-	// °á°úÅÛÀÌ +10ÀÏ°æ¿ì 100¸¸ ´ÜÀ§·Î Seed°ª »êÃâ
+	// +10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Û¾ï¿½ by Stiner(2008/06/13)-10+MixItem
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +10ï¿½Ï°ï¿½ï¿½ 100ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Seedï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pResItemInfo->ItemGrade >= 10 )
 		Seed = LargeRandom( 0, MAX_MIX_LARGE_PERCENT );
 	else
 		Seed = random(0, MAX_MIX_PERCENT);
 
-	// RaMa - 04.12.28   -> ShopItem»ç¿ë½Ã Á¶ÇÕÈ®·üÀ» 10%¿Ã·ÁÁØ´Ù.
+	// RaMa - 04.12.28   -> ShopItemï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½ï¿½ 10%ï¿½Ã·ï¿½ï¿½Ø´ï¿½.
 	if( pPlayer->GetShopItemStats()->ItemMixSuccess )
 	{
 		ratio += (WORD)(MAX_MIX_PERCENT*0.1f);
 
-		// ¼º°øÈ®·üÀ» 0À¸·Î ¹Ù²ãÁÖ°í Å¬¶óÀÌ¾ðÆ®¿¡ »ç¿ëÇßÀ½À» º¸³»¾ß ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ö°ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		pPlayer->GetShopItemManager()->CalcShopItemOption( eIncantation_MixUp, FALSE );
 		pPlayer->GetShopItemManager()->SendMsgDwordToPlayer( MP_ITEM_SHOPITEM_MIXUP, eIncantation_MixUp );
 		pPlayer->GetShopItemManager()->DeleteUsingShopItem( eIncantation_MixUp );
@@ -2555,10 +2566,10 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 		bUseMixUp = TRUE;
 	}
 
-	if(Seed < ratio)		// ¼º°ø
+	if(Seed < ratio)		// ï¿½ï¿½ï¿½ï¿½
 		bSuccess = TRUE;
 
-	//Èç¹û×éºÏÎïÆ·µÄµÈ¼¶>=10µÄÊ±ºò,Ç¿ÖÆ³É¹¦100%
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ÄµÈ¼ï¿½>=10ï¿½ï¿½Ê±ï¿½ï¿½,Ç¿ï¿½Æ³É¹ï¿½100%
 	if ( pResItemInfo->ItemGrade >= 10)
 	{
 		bSuccess = TRUE;
@@ -2570,7 +2581,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	}
 	else
 	{
-		//1. Àç·á ¾ÆÀÌÅÛ »èÁ¦
+		//1. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		for(i = 0 ; i < wMaterialNum ; ++i)
 		{
 			Item = *pSlot->GetItemInfoAbs(pMaterialArray[i].ItemPos);
@@ -2581,12 +2592,12 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 				Item.Durability, Item.Durability - pMaterialArray[i].Dur, pMaterialArray[i].Dur, Item.wIconIdx, Item.dwDBIdx, 
 				Item.Position, 0, Item.Durability, pPlayer->GetPlayerExpPoint());
 		}
-		//2.µ· ±ðÀ½
+		//2.ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pPlayer->SetMoney(money, MONEY_SUBTRACTION);
 	}
 //
 
-	// ShopItem »èÁ¦
+	// ShopItem ï¿½ï¿½ï¿½ï¿½
 	if( ShopItemIdx )
 	{
 		const ITEMBASE* pShop = GetItemInfoAbsIn( pPlayer, ShopItemPos );
@@ -2609,9 +2620,9 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	}
 		
 	if( bSuccess )
-	{//¼º°ø
+	{//ï¿½ï¿½ï¿½ï¿½
 
-		//1. ±âº»->°á°ú¾ÆÀÌÅÛÀ¸·Î º¯°æ
+		//1. ï¿½âº»->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		ITEM_INFO* pinfo = GetItemInfo( pMixInfo->psResultItemInfo[ResultIdx].wResItemIdx );
 		if( !pinfo )
 			return 2;
@@ -2640,7 +2651,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 
 			const ITEMBASE * pItemBase = pSlot->GetItemInfoAbs(BasicItemPos);
 
-			//!!!SW051017 ¿ì¼± ¸·ÀÚ
+			//!!!SW051017 ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
 			if(pItemBase->RareIdx < 0)
 			{
 				char temp[128];
@@ -2680,7 +2691,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 	}
 	else
 	{
-		// YH ½ÇÆÐ½Ã 20%ÀÇ È®·ü·Î ´ë½ÇÆÐ°¡ ³ª¿À°Ô ÇÔ [8/24/2004]
+		// YH ï¿½ï¿½ï¿½Ð½ï¿½ 20%ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ [8/24/2004]
 		Seed = random(0, MAX_MIX_PERCENT);
 		ItemBase = *pSlot->GetItemInfoAbs(BasicItemPos);
 	
@@ -2743,8 +2754,8 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 
 //		if( !bUseMixUp && Seed <= MAX_MIX_PERCENT*0.2)
 		if( !bUseMixUp && Seed <= MAX_MIX_PERCENT*fBicFail_Prob)
-		{// ´ë½ÇÆÐ
-			//1. ±âº» ¾ÆÀÌÅÛ »èÁ¦
+		{// ï¿½ï¿½ï¿½ï¿½ï¿½
+			//1. ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(EI_TRUE != DiscardItem(pPlayer, BasicItemPos, wBasicItemIdx, 9999))
 				return 8;
 			LogItemMoney(pPlayer->GetID(), NameKey, pPlayer->GetID(), pPlayer->GetObjectName(), eBigFail_Kind, 
@@ -2757,7 +2768,7 @@ int CItemManager::MixItem(CPlayer* pPlayer, WORD wBasicItemIdx, POSTYPE BasicIte
 				return 1000;
 		}
 		else
-		{//½ÇÆÐ
+		{//ï¿½ï¿½ï¿½ï¿½
 			LogItemMoney(pPlayer->GetID(), NameKey, pPlayer->GetID(), pPlayer->GetObjectName(), eFail_Kind, 
 				pPlayer->GetMoney(), ResultIdx, money, ItemBase.wIconIdx, ItemBase.dwDBIdx, ItemBase.Position, 
 				ItemBase.Position, dwOptionIdx, pPlayer->GetPlayerExpPoint());
@@ -2781,16 +2792,17 @@ const ITEMBASE * CItemManager::GetItemInfoAbsIn(CPlayer* pPlayer, POSTYPE Pos)
 
 int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE TargetPos, ITEM_JEWEL_POS_EX * pJewelInfo, WORD wJewelNum)
 {
-//--Æ¯±â ¼ö·Ã ¿©ºÎ Ã¼Å©
+//--Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(!CHKRT->AbilityOf(pPlayer, eAUKJOB_Reinforce))
 		return 1;
 
-//--°­È­ÇÒ ¾ÆÀÌÅÛ Á¸Àç Ã¼Å©
+//--ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(!CHKRT->ItemOf(pPlayer, TargetPos, wTargetItemIdx, 0,0, CB_EXIST|CB_ICONIDX))
 		return 2;
 
-//---°­È­ÇÒ Àç·á ¾ÆÀÌÅÛ Á¸Àç Ã¼Å©
-	for(int i = 0 ; i < wJewelNum ; ++i)
+//---ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
+	int i;
+	for(i = 0 ; i < wJewelNum ; ++i)
 	{
 		if(!CHKRT->ItemOf(pPlayer, pJewelInfo[i].pos, pJewelInfo[i].wItemIdx, pJewelInfo[i].Dur,0, CB_EXIST|CB_ICONIDX))
 			return 3;
@@ -2798,9 +2810,9 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 	
 	const ITEMBASE * pTargetItemBase = GetItemInfoAbsIn(pPlayer, TargetPos);
 
-	int eOptKind = eIOK_Normal;	//Å¸°Ù ¾ÆÀÌÅÛÀÇ ¿É¼Ç Á¾·ù. ÀÏ¹Ý(°­È­)/·¹¾î
+	int eOptKind = eIOK_Normal;	//Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Ï¹ï¿½(ï¿½ï¿½È­)/ï¿½ï¿½ï¿½ï¿½
 
-	if(IsRareOptionItem(pTargetItemBase->wIconIdx, pTargetItemBase->RareIdx))	//·¹¾î °­È­ÀÏ °æ¿ì
+	if(IsRareOptionItem(pTargetItemBase->wIconIdx, pTargetItemBase->RareIdx))	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		eOptKind = eIOK_Rare;
 	}
@@ -2812,13 +2824,18 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 	{
 		const ITEMBASE * pJewelItemBase = GetItemInfoAbsIn(pPlayer, pJewelInfo[i].pos);
 		
-		if( REINFORCEMGR->CheckValidMaterial( pTargetItemBase->wIconIdx, pJewelItemBase->wIconIdx, eOptKind ) == FALSE )	//@´ë»ó ¾ÆÀÌÅÛÀÇ °­È­ ¿É¼Ç¿¡ ¸Â´Â Àç·áÀÎÁö È®ÀÎ
+		if( REINFORCEMGR->CheckValidMaterial( pTargetItemBase->wIconIdx, pJewelItemBase->wIconIdx, eOptKind ) == FALSE )	//@ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½É¼Ç¿ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+		{
 			return 8;
+		}
 
-		if( REINFORCEMGR->CheckMaterialTotalGravity( pJewelItemBase->wIconIdx, (WORD)pJewelItemBase->Durability, eOptKind) == FALSE )	//Àç·áÀÇ ÃÑºñÁßÀ» Ã¼Å©
+		if( REINFORCEMGR->CheckMaterialTotalGravity( pJewelItemBase->wIconIdx, (WORD)pJewelItemBase->Durability, eOptKind) == FALSE )	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
+		{
 			return 20;
+		}
 
-		for(int j = 0 ; j < jnum ; ++j)
+		int j;
+		for(j = 0 ; j < jnum ; ++j)
 		{
 			if(jewelExInfo[j].wItemIdx == pJewelInfo[i].wItemIdx)
 			{
@@ -2832,7 +2849,7 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 			jewelExInfo[j].Dur += pJewelItemBase->Durability;
 			//++jnum;
 
-			//max Ã¼Å© ÇÏÀÚ
+			//max Ã¼Å© ï¿½ï¿½ï¿½ï¿½
 			if( pJewelItemBase->Durability > MAX_YOUNGYAKITEM_DUPNUM || jewelExInfo[j].Dur > 100 )
 				return 6;
 
@@ -2846,14 +2863,14 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 			++jnum;
 		}
 	}
-	REINFORCEMGR->InitGravity();	//ºñÁß Ã¼Å© »ç¿ëÇÑ ÃÑºñÁß 0 ÃÊ±âÈ­.
+	REINFORCEMGR->InitGravity();	//ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñºï¿½ï¿½ï¿½ 0 ï¿½Ê±ï¿½È­.
 
 
 	ITEM_OPTION_INFO OptionInfo;
 	memset(&OptionInfo, 0, sizeof(OptionInfo));
 	WORD reinforceGrade = ABILITYMGR->GetAbilityLevel(ABILITYINDEX_ITEMREINFORCE, pPlayer->GetAbilityGroup());
 
-	//Æ¯±â Ã¼Å© Ãß°¡
+	//Æ¯ï¿½ï¿½ Ã¼Å© ï¿½ß°ï¿½
 	if( reinforceGrade == 0 || reinforceGrade > 30 )
 		return 7;
 
@@ -2869,7 +2886,7 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 		
 		//sITEM_REINFORCE_INFO * pReInforceInfo = REINFORCEMGR->GetReinforceInfo( jewelExInfo[i].wItemIdx );
 		//SW051021
-		sITEM_REINFORCE_INFO* pReInforceInfo = NULL;		//pReInforceInfo SWÀÌ°Å º¯¼ö¸í ¿¡·¯;
+		sITEM_REINFORCE_INFO* pReInforceInfo = NULL;		//pReInforceInfo SWï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 		if(eOptKind == eIOK_Normal)
 		{
 			pReInforceInfo = REINFORCEMGR->GetReinforceInfo( jewelExInfo[i].wItemIdx );
@@ -2878,7 +2895,7 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 		{
 			pReInforceInfo = (sITEM_REINFORCE_INFO*)REINFORCEMGR->GetRareReinforceInfo( jewelExInfo[i].wItemIdx );	//(cast)sITEM_RAREREINFORCE_INFO*
 		}
-		ASSERTMSG(pReInforceInfo, "¸Ê ¼­¹ö»ó¿¡ °­È­ Á¤º¸°¡ ¾ø´Ù");
+		ASSERTMSG(pReInforceInfo, "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 //		WORD wValue1 = REINFORCEMGR->GetValueForAbility( reinforceGrade );
 //		WORD wValue2 = REINFORCEMGR->GetValueForMaterialNum( jewelExInfo[i].Dur );
 //		WORD wValue3 = REINFORCEMGR->GetValueForItemLevel( pBaseItemInfo->LimitLevel );
@@ -2900,7 +2917,7 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 			plusValue = plusValue / 100 * (100 - nLevel * nLevel / 5 );
 			if( plusValue < 0.0f )	plusValue = 0.0f;
 		}
-		if( plusValue < 1.0f )	plusValue = 0.0f;	//SW060628 ¼Ó¼º°ª°ü·Ã.. 
+		if( plusValue < 1.0f )	plusValue = 0.0f;	//SW060628 ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.. 
 #endif
 
 		switch(pReInforceInfo->ReinforceType)
@@ -3079,9 +3096,9 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 	memset( &Item, 0, sizeof(ITEMBASE) );
 	char NameKey[MAX_NAME_LENGTH+1];
 	sprintf(NameKey, "%d", Key);
-	CItemSlot * pSlot = pPlayer->GetSlot(0); //ÀÎº¥ÀÏÅ×´Ï
-
-	//2. Ac¢®¢´a ¡§u¡§¢®AIAU ¢®ief
+	CItemSlot * pSlot = pPlayer->GetSlot(0); //ï¿½Îºï¿½ï¿½ï¿½ï¿½×´ï¿½
+	
+		//2. Acï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ief
 	for(i = 0 ; i < wJewelNum ; ++i)
 	{
 		Item = *pSlot->GetItemInfoAbs(pJewelInfo[i].pos);
@@ -3095,12 +3112,12 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 	
 	if(bConvert)
 	{
-		// ¡§u¡§¡þ¢®¨¡¨Ï¨£
-		//3. ¡Ë?E¡§uC ¢®ief TO DB
+		// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//3. ï¿½ï¿½?Eï¿½ï¿½uC ï¿½ï¿½ief TO DB
 		if(pTargetItemBase->Durability != 0)
 			CharacterItemOptionDelete(pTargetItemBase->Durability, pTargetItemBase->dwDBIdx);
 		
-		//4. ¡Ë?¨Ï¨£¢®¢´a Dura update & preinsert
+		//4. ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a Dura update & preinsert
 		CItemSlot * pTargetSlot = pPlayer->GetSlot(TargetPos);
 		if( pTargetSlot->UpdateItemAbs(pPlayer, TargetPos, 0, 0, 0, 0, 0, UB_DURA, SS_PREINSERT ) != EI_TRUE )
 		{
@@ -3115,7 +3132,7 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 	}
 	else            
 	{
-		// ¡§oC¡§¢®¡§¡Ë
+		// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		LogItemMoney(pPlayer->GetID(), NameKey, pPlayer->GetID(), pPlayer->GetObjectName(), eLog_ItemReinforceFail, 
 			pPlayer->GetMoney(), pPlayer->GetMoney(), 0, pTargetItemBase->wIconIdx, pTargetItemBase->dwDBIdx, 
 			pTargetItemBase->Position, pTargetItemBase->Position, pTargetItemBase->Durability, pPlayer->GetPlayerExpPoint());
@@ -3128,27 +3145,27 @@ int CItemManager::ReinforceItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE T
 
 int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemIdx, POSTYPE TargetPos, WORD wShopItemIdx, POSTYPE ShopItemPos, ITEM_JEWEL_POS_EX * pJewelInfo, WORD wJewelNum)
 {
-//--Æ¯±â ¼ö·Ã ¿©ºÎ Ã¼Å©
+//--Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(!CHKRT->AbilityOf(pPlayer, eAUKJOB_Reinforce))
 		return 1;
-//--°­È­ÇÒ ¾ÆÀÌÅÛÀÌ °­È­¾ÆÀÌÅÛÀÎÁö Ã¼Å©
+//--ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	const ITEMBASE* pTargetItemBase = GetItemInfoAbsIn( pPlayer, TargetPos );
 	if( !pTargetItemBase )			return 2;
 	ITEM_OPTION_INFO* pOptionInfo = pPlayer->GetItemOption( pTargetItemBase->Durability );
 	if( pOptionInfo->GetOptionType() == 0 )
 		return 3;
 
-//-- ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎ
+//-- ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	if( !CHKRT->ItemOf( pPlayer, ShopItemPos, wShopItemIdx, 0, 0, CB_EXIST|CB_ICONIDX ) )
 		return 12;
 	
-//---°­È­ÇÒ Àç·á ¾ÆÀÌÅÛ Á¸Àç Ã¼Å©
+//---ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	for(int i = 0 ; i < wJewelNum ; ++i)
 	{
 		if(!CHKRT->ItemOf(pPlayer, pJewelInfo[i].pos, pJewelInfo[i].wItemIdx, pJewelInfo[i].Dur,0, CB_EXIST|CB_ICONIDX))
 			return 13;
 	}
-//---·¹º§ÀÌ ¸Â´Â ¾ÆÀÌÅÛÀÎÁö Ã¼Å© 
+//---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© 
 	ITEM_INFO* pShopItem = GetItemInfo( wShopItemIdx );
 	if( !pShopItem )		return 12;
 	ITEM_INFO* pBaseItemInfo = GetItemInfo( wTargetItemIdx );
@@ -3156,13 +3173,13 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	if( pBaseItemInfo->LimitLevel < pShopItem->GenGol || pBaseItemInfo->LimitLevel > pShopItem->MinChub )
 		return 4;
 
-	// 06.09.25 RaMa - ÀÌº¥Æ® ¾ÆÀÌÅÛÀÌ °­È­, ·¹¾î ±ÝÁö
+	// 06.09.25 RaMa - ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( pBaseItemInfo->WeaponType > WP_KEY )
 		return 12;
 
-	int eOptKind = eIOK_Normal;	//Å¸°Ù ¾ÆÀÌÅÛÀÇ ¿É¼Ç Á¾·ù. ÀÏ¹Ý(°­È­)/·¹¾î
+	int eOptKind = eIOK_Normal;	//Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Ï¹ï¿½(ï¿½ï¿½È­)/ï¿½ï¿½ï¿½ï¿½
 
-	if(IsRareOptionItem(pTargetItemBase->wIconIdx, pTargetItemBase->RareIdx))	//·¹¾î °­È­ÀÏ °æ¿ì
+	if(IsRareOptionItem(pTargetItemBase->wIconIdx, pTargetItemBase->RareIdx))	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		eOptKind = eIOK_Rare;
 	}
@@ -3172,7 +3189,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 //	if( !pReinforceInfo )			return 2;
 
 	//SW051021
-	sITEM_REINFORCE_INFO* pReinforceInfo = NULL;		//pReInforceInfo SWÀÌ°Å º¯¼ö¸í ¿¡·¯;
+	sITEM_REINFORCE_INFO* pReinforceInfo = NULL;		//pReInforceInfo SWï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	if(eOptKind == eIOK_Normal)
 	{
 		pReinforceInfo = REINFORCEMGR->GetReinforceInfo( pJewelInfo[0].wItemIdx );
@@ -3181,13 +3198,14 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	{
 		pReinforceInfo = (sITEM_REINFORCE_INFO*)REINFORCEMGR->GetRareReinforceInfo( pJewelInfo[0].wItemIdx );	//(cast)sITEM_RAREREINFORCE_INFO*
 	}
-	ASSERTMSG(pReinforceInfo, "¸Ê ¼­¹ö»ó¿¡ °­È­ Á¤º¸°¡ ¾ø´Ù");
+	ASSERTMSG(pReinforceInfo, "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	if( !pReinforceInfo )	return 2;
 
 	int jnum = 0;
 	BOOL bFound = FALSE;
 	DWORD jewelIdx = 0;
 	float ReinforceBackup = -1;
+	int i;
 	ITEM_JEWEL_POS_EX jewelExInfo[MAX_ITEM_OPTION_NUM];
 	for( i = 0 ; i < wJewelNum ; ++i)
 	{
@@ -3195,30 +3213,31 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 		//
 //		if( REINFORCEMGR->CheckValidMaterial( pTargetItemBase->wIconIdx, pJewelItemBase->wIconIdx ) == FALSE )
 //			return 11;
-		if( REINFORCEMGR->CheckValidMaterial( pTargetItemBase->wIconIdx, pJewelItemBase->wIconIdx, eOptKind ) == FALSE )	//@´ë»ó ¾ÆÀÌÅÛÀÇ °­È­ ¿É¼Ç¿¡ ¸Â´Â Àç·áÀÎÁö È®ÀÎ
+		if( REINFORCEMGR->CheckValidMaterial( pTargetItemBase->wIconIdx, pJewelItemBase->wIconIdx, eOptKind ) == FALSE )	//@ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½É¼Ç¿ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			return 11;
 
-		if( REINFORCEMGR->CheckMaterialTotalGravity( pJewelItemBase->wIconIdx, (WORD)pJewelItemBase->Durability, eOptKind) == FALSE )	//Àç·áÀÇ ÃÑºñÁßÀ» Ã¼Å©
+		if( REINFORCEMGR->CheckMaterialTotalGravity( pJewelItemBase->wIconIdx, (WORD)pJewelItemBase->Durability, eOptKind) == FALSE )	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			return 20;
 
-		// °­È­°¡ °¡´ÉÇÑÁö »ìÇÇ°í ÇöÀç °­È­µÈ ¼öÄ¡¸¦ ¸®ÅÏ¹Þ´Â´Ù.
+		// ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹Þ´Â´ï¿½.
 		float res = REINFORCEMGR->GetReinforceWithMetariel( pOptionInfo, pJewelItemBase->wIconIdx, eOptKind);
 		if( res == 0 )						return 11;
-		// È¤½Ã³ª ´Ù¸£¸é ½ÇÆÐ
+		// È¤ï¿½Ã³ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( ReinforceBackup != res )		
 		{
-			// °­È­µÈ ¼öÄ¡¸¦ ÀúÀåÇØ³õ°í
+			// ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
 			if( ReinforceBackup == -1 )			ReinforceBackup = res;
 			else								return 5;
 		}
 
-		// ³ÖÀº º¸¼®ÀÇ Á¾·ù°¡ ´Þ¶óµµ ½ÇÆÐ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if( jewelIdx && jewelIdx != pJewelItemBase->wIconIdx )
 			return 6;
 		else if( !jewelIdx )
 			jewelIdx = pJewelItemBase->wIconIdx;
 
-		for(int j=0; j<jnum; ++j)
+		int j;
+		for(j=0; j<jnum; ++j)
 		{
 			if(jewelExInfo[j].wItemIdx == pJewelInfo[i].wItemIdx)
 			{
@@ -3232,7 +3251,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 			jewelExInfo[j].Dur += pJewelItemBase->Durability;
 			//++jnum;
 
-			//max Ã¼Å© ÇÏÀÚ
+			//max Ã¼Å© ï¿½ï¿½ï¿½ï¿½
 			if( pJewelItemBase->Durability > MAX_YOUNGYAKITEM_DUPNUM || jewelExInfo[j].Dur > 100 )
 				return 6;
 
@@ -3252,7 +3271,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	memset(&OptionInfo, 0, sizeof(OptionInfo));
 	WORD reinforceGrade = ABILITYMGR->GetAbilityLevel(ABILITYINDEX_ITEMREINFORCE, pPlayer->GetAbilityGroup());
 
-	//Æ¯±â Ã¼Å© Ãß°¡
+	//Æ¯ï¿½ï¿½ Ã¼Å© ï¿½ß°ï¿½
 	if( reinforceGrade == 0 || reinforceGrade > 30 )
 		return 7;
 
@@ -3275,7 +3294,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	if(successSeed < 0)	successSeed = 0;
 	plusValue = pReInforceInfo->fw*jewelExInfo[0].Dur*successSeed/100;
 
-	// ¼öÄ¡°¡ ³·ÀºÁö È®ÀÎÇØ º»´Ù.
+	// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	switch( pReinforceInfo->ReinforceType )
 	{
 		case eRJP_FIREREGIST:
@@ -3295,7 +3314,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	}
 
 	BOOL bProtection = FALSE;
-	// BackupData¿Í ºñ±³ÇØ¼­ ¼öÄ¡°¡ ÀÛÀ¸¸é °»½Å
+	// BackupDataï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( plusValue <= ReinforceBackup )
 	{
 		plusValue = ReinforceBackup;
@@ -3467,9 +3486,8 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	memset( &Item, 0, sizeof(ITEMBASE) );
 	char NameKey[MAX_NAME_LENGTH+1];
 	sprintf(NameKey, "%d", Key);
-	CItemSlot * pSlot = pPlayer->GetSlot(0); //ÀÎº¥ÀÏÅ×´Ï
-
-	//2. Ac¢®¢´a ¡§u¡§¢®AIAU ¢®ief
+	CItemSlot * pSlot = pPlayer->GetSlot(0); //ï¿½Îºï¿½ï¿½ï¿½ï¿½×´ï¿½
+		//2. Acï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ief
 	for(i = 0 ; i < wJewelNum ; ++i)
 	{
 		Item = *pSlot->GetItemInfoAbs(pJewelInfo[i].pos);
@@ -3481,7 +3499,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 			Item.Durability, pPlayer->GetPlayerExpPoint());
 	}
 
-	// ÇØ´ç °­È­ º¸È£ÀÇ µ¹À» Áö¿öÁØ´Ù.
+	// ï¿½Ø´ï¿½ ï¿½ï¿½È­ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	const ITEMBASE* pShop = GetItemInfoAbsIn( pPlayer, ShopItemPos );
 	if( pShopItem )
 	{
@@ -3510,12 +3528,12 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	}	
 	else if( bConvert )
 	{
-		// ¡§u¡§¡þ¢®¨¡¨Ï¨£
-		//3. ¡Ë?E¡§uC ¢®ief TO DB
+		// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//3. ï¿½ï¿½?Eï¿½ï¿½uC ï¿½ï¿½ief TO DB
 		if(pTargetItemBase->Durability != 0)
 			CharacterItemOptionDelete(pTargetItemBase->Durability, pTargetItemBase->dwDBIdx);
 		
-		//4. ¡Ë?¨Ï¨£¢®¢´a Dura update & preinsert
+		//4. ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a Dura update & preinsert
 		CItemSlot * pTargetSlot = pPlayer->GetSlot(TargetPos);
 		if( pTargetSlot->UpdateItemAbs(pPlayer, TargetPos, 0, 0, 0, 0, 0, UB_DURA, SS_PREINSERT ) != EI_TRUE )
 		{
@@ -3530,7 +3548,7 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 	}
 	else
 	{
-		// ¡§oC¡§¢®¡§¡Ë
+		// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		LogItemMoney(pPlayer->GetID(), NameKey, pPlayer->GetID(), pPlayer->GetObjectName(), eLog_ItemReinforceFailWithShopItem, 
 			pPlayer->GetMoney(), pPlayer->GetMoney(), wShopItemIdx, pTargetItemBase->wIconIdx, pTargetItemBase->dwDBIdx, 
 			pTargetItemBase->Position, pTargetItemBase->Position, pTargetItemBase->Durability, pPlayer->GetPlayerExpPoint());
@@ -3542,11 +3560,11 @@ int CItemManager::ReinforceItemWithShopItem(CPlayer* pPlayer, WORD wTargetItemId
 
 void CItemManager::ReinforceItemDBResult(CPlayer * pPlayer, WORD wItemIdx, POSTYPE TargetPos, ITEM_OPTION_INFO * pOptionInfo)
 {
-	// ¡Ë?¨Ï¨£¢®¢´a ¡§u¡§¢®AIAU update
+	// ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU update
 	CItemSlot * pTargetSlot = pPlayer->GetSlot(TargetPos);
 	if( pTargetSlot->UpdateItemAbs(pPlayer, TargetPos, 0, 0, 0, 0, pOptionInfo->dwOptionIdx, UB_DURA) != EI_TRUE )
 	{
-		ASSERTMSG(0, "¨ÏoI¡Ë?i; ¡§¡þO¢®¢´? ¡§¡þ¡Ë¡þ¡§u¡§¢®¡Ë?a!-¡§u¡§¢®AIAU ¢®¨¡¢®¨ÏE¢®¨Ï PREINSERT¡ÍiE ¡§u¡§¢®AIAU¡Ë?¡Ë¢ç dura update ¡Ë?¡Ë¢ç¢®¢´?");
+		ASSERTMSG(0, "ï¿½ï¿½oIï¿½ï¿½?i; ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?a!-ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ PREINSERTï¿½ï¿½iE ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAUï¿½ï¿½?ï¿½ï¿½ï¿½ dura update ï¿½ï¿½?ï¿½Ë¢ï¿½ï¿½ï¿½?");
 		return ;
 	}
 	const ITEMBASE * pItemBase = pTargetSlot->GetItemInfoAbs(TargetPos);
@@ -3582,7 +3600,7 @@ void CItemManager::RareItemDBResult(CPlayer* pPlayer, WORD ArrayID, ITEM_RARE_OP
 //		return;
 //	}
 	
-	//SW070821 º¯°æ ItemInfo->Durability => ItemInfo->RareIdx,
+	//SW070821 ï¿½ï¿½ï¿½ï¿½ ItemInfo->Durability => ItemInfo->RareIdx,
 	LogItemMoney(pArrayInfo->dwFurnisherIdx, "", pPlayer->GetID(), pPlayer->GetObjectName(),
 		pArrayInfo->wType, 0, pPlayer->GetMoney(eItemTable_Inventory), 0,
 		ItemInfo->wIconIdx, ItemInfo->dwDBIdx, 0, ItemInfo->Position, ItemInfo->RareIdx, pPlayer->GetPlayerExpPoint());
@@ -3627,7 +3645,7 @@ void CItemManager::TitanUpgradeItemDBResult(CPlayer* pPlayer, WORD ArrayID)
 
 	pPlayer->SendMsg( &pArrayInfo->ItemArray, pArrayInfo->ItemArray.GetSize() );
 
-	// Å¸ÀÌÅº Áõ¼­ ÆÄ¶ó¸ÞÅÍ¸¦ DB¿¡ °»½Å
+	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ItemInfo->ItemParam |= ITEM_PARAM_TITAN_REGIST;
 	ShopItemParamUpdateToDB(pPlayer->GetID(), ItemInfo->dwDBIdx, ItemInfo->ItemParam);
 
@@ -3651,7 +3669,7 @@ int CItemManager::UpgradeItem(CPlayer* pPlayer, WORD & TargetItemIdx, POSTYPE Ta
 	ITEM_INFO * pTargetItem = GetItemInfo(TargetItemIdx);
 	WORD upgradeGrade = ABILITYMGR->GetAbilityLevel(ABILITYINDEX_ITEMUPGRADE, pPlayer->GetAbilityGroup());
 
-	// ¡Íii¢®¨ú¡§¡©AI 30¢®¨úiAo ¡Ë?8¢®I¢®¨úa¡ËO¢®¡¿¨Ïo¢®i¡Ë?¡Ë¢ç *10->*5¢®¢´I ¨ÏoU¨Ï¡À¡§¡©.
+	// ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI 30ï¿½ï¿½ï¿½ï¿½iAo ï¿½ï¿½?8ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½aï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½iï¿½ï¿½?ï¿½ï¿½ï¿½ *10->*5ï¿½ï¿½ï¿½ï¿½I ï¿½ï¿½oUï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½.
 	int tmpValue = (int)((20 - ( (pTargetItem->LimitLevel / 2) + (pTargetItem->ItemGrade*18) ) + random(0, 300) + upgradeGrade*0.2 ));
 	if(tmpValue<0)
 		tmpValue -= 100;
@@ -3663,7 +3681,7 @@ int CItemManager::UpgradeItem(CPlayer* pPlayer, WORD & TargetItemIdx, POSTYPE Ta
 	}
 	else if(gradeUp > 3)
 	{
-		// ¡§u¡§¢®AIAU ¡§ui¡§¡þo¡Ë¡þ¡Ëc¡§¢®¡§u ¡Íii¢®¨ú¡§¡©AI ¢®iy¢®¨úa¢®¨¡i ¨Ï©ª¡§¡Ì¡§u¢®¨Ï ¡§¡þIAI >3 ¡§¡þ¡Ë¡þ¡Ë¡ÍU A¢®i¢®¨¡O ¨Ï©ª¡§¡Ì¡Ë?E
+		// ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½uiï¿½ï¿½ï¿½ï¿½oï¿½Ë¡ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½u ï¿½ï¿½iiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AI ï¿½ï¿½iyï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½i ï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ì¡ï¿½uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½IAI >3 ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ë¡ï¿½U Aï¿½ï¿½iï¿½ï¿½ï¿½ï¿½O ï¿½Ï©ï¿½ï¿½ï¿½ï¿½Ì¡ï¿½?E
 		// IF > 3 , then = 3
 		gradeUp = 3;
 	}
@@ -3679,12 +3697,12 @@ int CItemManager::UpgradeItem(CPlayer* pPlayer, WORD & TargetItemIdx, POSTYPE Ta
 		var = gradeUp;
 
 	TargetItemIdx += var;
-	// AI¡§¡þ¢®IAa¡Ë¡þ¡Ëc ¡§u¢®%i¢®IAI¡§¢®¡Ëc & DB 
+	// AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IAaï¿½Ë¡ï¿½ï¿½ï¿½c ï¿½ï¿½uï¿½ï¿½%iï¿½ï¿½IAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c & DB 
 	
 	if(EI_TRUE != DiscardItem(pPlayer, MatItemPos, MatItemIdx, 9999))
 		return 5;
 	
-	// Log ±â´É µé¾î°¡Áö ¾ÊÀ½. È¤½Ã³ªÇØ¼­ ³²°Üº½.
+	// Log ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. È¤ï¿½Ã³ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½Üºï¿½.
 	LogItemMoney(pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
 		eLog_ItemDestroyUpgrade, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 		TargetItemIdx , 0, MatItemPos, 0, 0, pPlayer->GetPlayerExpPoint());
@@ -3955,7 +3973,7 @@ void CItemManager::LoadReinforceItemInfo()
 }
 void CItemManager::SetItemInfo(WORD ItemIdx,ITEM_INFO* pInfo,CMHFile* pFile)
 {
-	// ItemIdx¡Ë¡ÍA ¨ÏoI¡Ë¡þ¡Ëc A¡§¡Ë¡§uiAa¡§u¨Ï¡þCO
+	// ItemIdxï¿½Ë¡ï¿½A ï¿½ï¿½oIï¿½Ë¡ï¿½ï¿½ï¿½c Aï¿½ï¿½ï¿½Ë¡ï¿½uiAaï¿½ï¿½uï¿½Ï¡ï¿½CO
 	pInfo->ItemIdx = ItemIdx;
 	SafeStrCpy( pInfo->ItemName, pFile->GetString(), MAX_ITEMNAME_LENGTH+1 );
 //	strcpy(pInfo->ItemName, pFile->GetString());
@@ -4020,7 +4038,7 @@ void CItemManager::SetItemInfo(WORD ItemIdx,ITEM_INFO* pInfo,CMHFile* pFile)
 	pInfo->wDeleteSkillIdx = pFile->GetWord();
 #endif
 
-	pInfo->wSetItemKind = pFile->GetWord();	// 2007. 6. 7. CBH ¼¼Æ®ÀÌ¾ÆÅÆ °ü·Ã Ãß°¡
+	pInfo->wSetItemKind = pFile->GetWord();	// 2007. 6. 7. CBH ï¿½ï¿½Æ®ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 }
 
 void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void* pMsg )
@@ -4032,7 +4050,7 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 	if( BATTLESYSTEM->GetBattle(pPlayer)->GetBattleKind() == eBATTLE_KIND_SURYUN )
 	{
 		char buf[128];
-		sprintf(buf, "¼ö·ÃÀå¿¡¼­ ¾ÆÀÌÅÛ ¸Þ½ÃÁö¸¦ º¸³Â½À´Ï´Ù. character_Idx: %d, Protocol : %d", pmsg->dwObjectID, pmsg->Protocol);
+		sprintf(buf, "ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ï´ï¿½. character_Idx: %d, Protocol : %d", pmsg->dwObjectID, pmsg->Protocol);
 		ASSERTMSG(0, buf);
 		return;
 	}
@@ -4176,7 +4194,7 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 				return;
 			}
 
-			//SW070626 º¸ºÎ»óNPC
+			//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 			if( FALSE == CheckDemandItem( pPlayer, pmsg ) )
 			{
 				MSG_ITEM_ERROR msg;
@@ -4275,19 +4293,19 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 			CItemSlot * pSlot = NULL;
 			MSG_ITEM msgAck;
 
-			//AI¨¬¡ÍAa¢¬¢ç A¡¿AI¨¬iAC 'A¢®AIAo
+			//AIï¿½ï¿½ï¿½ï¿½Aaï¿½ï¿½ï¿½ï¿½ Aï¿½ï¿½AIï¿½ï¿½iAC 'Aï¿½ï¿½AIAo
 			if( GetTableIdxPosition( pmsg->ItemInfo.Position ) != eItemTable_Inventory )
 			{
 				wErrorCode = 1;
 				goto go_MIX_ADDITEM_NACK;				
 			}			
-			//d¨¬¢¬¡Æ¢® ¨ù¡©©öo¢¯I AIA¢®CI¢¥AAo
+			//dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½I AIAï¿½ï¿½CIï¿½ï¿½AAo
 			if(!CHKRT->ItemOf(pPlayer, pmsg->ItemInfo.Position, pmsg->ItemInfo.wIconIdx, 0,0, CB_EXIST|CB_ICONIDX))
 			{
 				wErrorCode = 2;
 				goto go_MIX_ADDITEM_NACK;
 			}
-			//¢ÒoAI ¡ÆE¡¤A AO¢¥AAo
+			//ï¿½ï¿½oAI ï¿½ï¿½Eï¿½ï¿½A AOï¿½ï¿½AAo
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 			if( pSlot )
 			if( pSlot->IsLock( pmsg->ItemInfo.Position ) )
@@ -4295,7 +4313,7 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 				wErrorCode = 3;
 				goto go_MIX_ADDITEM_NACK;
 			}
-			// ¢¯E¨ùC ¨ú¨¡AIAU ¨úE¥ìE
+			// ï¿½ï¿½Eï¿½ï¿½C ï¿½ï¿½ï¿½ï¿½AIAU ï¿½ï¿½Eï¿½ï¿½E
 			if(ITEMMGR->IsOptionItem( pmsg->ItemInfo.wIconIdx, pmsg->ItemInfo.Durability ) )
 			{
 				wErrorCode = 4;
@@ -4317,7 +4335,7 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 				goto go_MIX_ADDITEM_NACK;
 			}
 
-			//¿µ¾à¾ÆÀÌÅÛÀÌ ¾Æ´Ñ Àç·á¾ÆÀÌÅÛÀÏ°æ¿ì ÇÏ³ª¹Û¿¡ ¾È¿Ã¶ó°£´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Û¿ï¿½ ï¿½È¿Ã¶ó°£´ï¿½.
 			if( GetItemKind(pmsg->ItemInfo.wIconIdx) != eYOUNGYAK_ITEM &&
 				GetItemKind(pmsg->ItemInfo.wIconIdx) != eEXTRA_ITEM_JEWEL &&
 				pmsg->ItemInfo.Durability > 1 )
@@ -4326,8 +4344,8 @@ void CItemManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protocol, void
 				goto go_MIX_ADDITEM_NACK;
 			}
 			
-			//////////Ae¡ÆuOK
-			pSlot->SetLock( pmsg->ItemInfo.Position, TRUE );//¢Òo; ¡ÆC¢¥U.
+			//////////Aeï¿½ï¿½uOK
+			pSlot->SetLock( pmsg->ItemInfo.Position, TRUE );//ï¿½ï¿½o; ï¿½ï¿½Cï¿½ï¿½U.
 
 			msgAck.Category		= MP_ITEM;
 			msgAck.Protocol		= MP_ITEM_MIX_ADDITEM_ACK;
@@ -4376,7 +4394,7 @@ go_MIX_ADDITEM_NACK:
 				{
 				case 1000:
 					{
-						// ¡Ë¡Íe¡§oC¡§¢®¡§¡Ë
+						// ï¿½Ë¡ï¿½eï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						MSG_ITEM_MIX_ACK msg;
 						memcpy(&msg, pmsg, sizeof(MSG_ITEM_MIX_SYN));
 						msg.Protocol = MP_ITEM_MIX_BIGFAILED_ACK;
@@ -4385,7 +4403,7 @@ go_MIX_ADDITEM_NACK:
 					break;
 				case 1001:
 					{
-						// ¡§oC¡§¢®¡§¡Ë
+						// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						MSG_ITEM_MIX_ACK msg;
 						memcpy(&msg, pmsg, sizeof(MSG_ITEM_MIX_SYN));
 						msg.Protocol = MP_ITEM_MIX_FAILED_ACK;
@@ -4408,10 +4426,10 @@ go_MIX_ADDITEM_NACK:
 					break;
 				default:
 					{
-						if( rt != 2 )	//2¹ø ASSERT°¡ Á¦ÀÏ ¸¹´Ù. DB´À·Á ¼­¹ö¿Í Å¬¶óÀÌ¾ðÆ®ÀÇ ¾ÆÀÌÅÛÁ¤º¸°¡ ²¿ÀÎ´Ù.
+						if( rt != 2 )	//2ï¿½ï¿½ ASSERTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 						{
 							char temp[256];
-							sprintf(temp,"¾ÆÀÌÅÛ Á¶ÇÕ ¿¡·¯ %d",rt);
+							sprintf(temp,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ %d",rt);
 							ASSERTMSG(0, temp);
 						}
 						MSG_ITEM_ERROR msg;
@@ -4500,7 +4518,7 @@ go_MIX_ADDITEM_NACK:
 			pPlayer->GetTitanManager()->SetTitanScale( pmsg->wTitanScale );
 
 			// magi1127
-			// ÆÄÃ÷µé »èÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			for( int i = 0; i < 4; i++ )
 			{
 				Item = *pSlot->GetItemInfoAbs(pmsg->iconInfo[i].itempos);
@@ -4526,7 +4544,7 @@ go_MIX_ADDITEM_NACK:
 				}
 			}
 
-			// ¾ÆÀÌÅÛ »ý¼º
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			WORD EmptyCellPos[255];
 			WORD EmptyCellNum;
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
@@ -4549,17 +4567,17 @@ go_MIX_ADDITEM_NACK:
 				return;
 
 
-			// Å¸ÀÌÅº¿¡ Å¾½ÂÁßÀÌ¸é ¾÷±×·¹ÀÌÆ® ºÒ°¡
+			// Å¸ï¿½ï¿½Åºï¿½ï¿½ Å¾ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½Æ® ï¿½Ò°ï¿½
 			if(pPlayer->GetTitanManager()->GetCurRidingTitan() != NULL)
 			{
 				break;
 			}
 
-			// Áõ¼­ À¯¹« Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			if(!CHKRT->ItemOf(pPlayer, pmsg->wBasicItemPos, pmsg->wBasicItemIdx, 0,0, CB_EXIST|CB_ICONIDX))
 				break;
 
-			// °¢ Àç·á À¯¹« Ã¼Å©
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			for( int i = 0; i < pmsg->wMaterialNum; i++ )
 			{
 				if(!CHKRT->ItemOf(pPlayer, pmsg->Material[i].ItemPos, pmsg->Material[i].wItemIdx, pmsg->Material[i].Dur,0, CB_EXIST|CB_ICONIDX))
@@ -4575,7 +4593,7 @@ go_MIX_ADDITEM_NACK:
 
 			TITAN_UPGRADEINFO* pTitanUpgrade = TITANITEMMGR->GetTitanUpgradeInfoItemInfo(pmsg->wBasicItemIdx);
 
-			// Å¸ÀÌÅºÀÌ 3´Ü°è¸é ´õÀÌ»ó ¾÷±×·¹ÀÌµåÇÒÀÏÀÌ ¾øÀ½
+			// Å¸ï¿½ï¿½Åºï¿½ï¿½ 3ï¿½Ü°ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(pTitanUpgrade->dwNextTitanIdx == 0)
 			{
 				MSG_BYTE errorMsg;
@@ -4586,7 +4604,7 @@ go_MIX_ADDITEM_NACK:
 				break;
 			}
 
-			// µ· ±ïÀ½
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(pPlayer->GetMoney() < pTitanUpgrade->dwMoney)
 			{
 				MSG_BYTE errorMsg;
@@ -4603,7 +4621,7 @@ go_MIX_ADDITEM_NACK:
 			CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 
 			// magi1127
-			// ÆÄÃ÷µé »èÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			for( int i = 0; i < pmsg->wMaterialNum; i++ )
 			{
 				Item = *pSlot->GetItemInfoAbs(pmsg->Material[i].ItemPos);
@@ -4630,7 +4648,7 @@ go_MIX_ADDITEM_NACK:
 			}
 
 			/*
-			// DB Å¸ÀÌÅº Á¤º¸ °»½Å
+			// DB Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			ITEMBASE* pBase = GetItemInfoAbsIn(pPlayer, pmsg->wBasicItemPos);
 			if(!pBase)
 			{
@@ -4641,7 +4659,7 @@ go_MIX_ADDITEM_NACK:
 				pPlayer->GetTitanManager()->UpgradeTitan(pBase->dwDBIdx);
 			}*/
 
-			// ¿ø·¡ ÀÖ´ø Å¸ÀÌÅº Áõ¼­´Â »èÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			Item = *pSlot->GetItemInfoAbs(pmsg->wBasicItemPos);
 			if(EI_TRUE == DiscardItem(pPlayer, pmsg->wBasicItemPos, pmsg->wBasicItemIdx, 1))
 			{
@@ -4662,7 +4680,7 @@ go_MIX_ADDITEM_NACK:
 					Item.Durability, pPlayer->GetPlayerExpPoint());
 			}
 
-			// ¾÷±×·¹ÀÌµåµÈ Å¸ÀÌÅº Áõ¼­ »ý¼º
+			// ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			WORD EmptyCellPos[255];
 			WORD EmptyCellNum;
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
@@ -4791,7 +4809,7 @@ go_MIX_ADDITEM_NACK:
 				{
 				case 99:
 					{
-						// ¡§oC¡§¢®¡§¡Ë
+						// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						pmsg->Protocol = MP_ITEM_REINFORCE_FAILED_ACK;
 						SendAckMsg(pPlayer, pmsg, pmsg->GetSize());
 					}
@@ -4829,7 +4847,7 @@ go_MIX_ADDITEM_NACK:
 				{
 				case 99:
 					{
-						// ¡§oC¡§¢®¡§¡Ë
+						// ï¿½ï¿½oCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						pmsg->Protocol = MP_ITEM_REINFORCE_FAILED_ACK;
 						SendAckMsg(pPlayer, pmsg, pmsg->GetSize());
 					}
@@ -4859,7 +4877,7 @@ go_MIX_ADDITEM_NACK:
 			if( CheckHackNpc( pPlayer, pmsg->wData ) == FALSE )
 				return;
 
-			// AO¡§oA
+			// AOï¿½ï¿½oA
 			MSG_WORD msg;
 			msg.Category = MP_ITEM;
 			msg.Protocol = MP_ITEM_DEALER_ACK;
@@ -4870,7 +4888,7 @@ go_MIX_ADDITEM_NACK:
 		}
 		break;
 	//////////////////////////////////////////////////////////////////////////
-	//¨Ïo¡Ëc¡§¢®A		
+	//ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½A		
 	case MP_ITEM_GUILD_WAREHOUSE_INFO_SYN:
 		{
 			MSG_BYTE* pmsg = (MSG_BYTE*)pMsg;
@@ -4888,7 +4906,7 @@ go_MIX_ADDITEM_NACK:
 			
 			if(!CanMovetoGuildWare(pmsg->FromPos, pmsg->ToPos, pPlayer))
 			{				
-				ASSERT(0); //A¢®©­¡ËOoAI¡§u¨Ï¡Ì¡§¢®¡Ëc¡Ë?¡Ë¢ç¡§u¢®¨Ï A¨Ï©ª¡Ë¡þ¡Ëc C¨Ï¡þ¡Ë¡ÍA¡Íi¢®I.
+				ASSERT(0); //Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OoAIï¿½ï¿½uï¿½Ï¡Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ Aï¿½Ï©ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½c Cï¿½Ï¡ï¿½ï¿½Ë¡ï¿½Aï¿½ï¿½iï¿½ï¿½I.
 				SendGuildErrorMsg(pPlayer, MP_ITEM_GUILD_MOVE_NACK, 4);
 				return;
 			}
@@ -4918,7 +4936,7 @@ go_MIX_ADDITEM_NACK:
 		}
 		break;
 	//////////////////////////////////////////////////////////////////////////
-	//C¢®I¢®¨ú¨Ïo
+	//Cï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½o
 	case MP_ITEM_PYOGUK_ITEM_INFO_SYN:
 		{
 			MSG_WORD2* pmsg = (MSG_WORD2*)pMsg;
@@ -4928,9 +4946,9 @@ go_MIX_ADDITEM_NACK:
 
 			if( CheckHackNpc( pPlayer, pmsg->wData1, pmsg->wData2 ) == FALSE )
 				return;
-			//SW °­È­/·¹¾î Á¤º¸ ¹Þ°í º£ÀÌ½º Á¤º¸ ¹Þ´Â´Ù. ¼ø¼­ÀÇ ÀÌÀ¯´Â?
+			//SW ï¿½ï¿½È­/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 
-			if( pPlayer->IsGotWarehouseItems() == TRUE )	//¾ÆÀÌÅÛÀ» ¹Þ´ÂÁßÀÌ°Å³ª ÀÌ¹Ì ¹Þ¾Ò´Ù.
+			if( pPlayer->IsGotWarehouseItems() == TRUE )	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½Ì¹ï¿½ ï¿½Þ¾Ò´ï¿½.
 				return;
 
 			pPlayer->SetGotWarehouseItems( TRUE );
@@ -4945,7 +4963,7 @@ go_MIX_ADDITEM_NACK:
 
 			if( !pPlayer )	return;
 
-			//!!!Æê ¼ÒÈ¯ÁßÀÎÁö Ã¼Å©
+			//!!!ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			if(!pPlayer->GetPetManager()->GetCurSummonPet())	return;
 
 			PetInvenItemOptionInfo(pPlayer->GetID(), pPlayer->GetUserID(), TP_PETINVEN_START, TP_PETINVEN_END);
@@ -5193,7 +5211,7 @@ SAVEPOINT_ADD_FAILED:
 			CPlayer * pPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(pPlayer == NULL) return;
 
-			// ºÎÈ° ½ÃÅ³ »ó´ë¹æ  RevivePlayer
+			// ï¿½ï¿½È° ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½  RevivePlayer
 			CPlayer * pTargetPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwData1);
 			if( pTargetPlayer == NULL ||
 				pTargetPlayer->GetState() != eObjectState_Die )
@@ -5206,10 +5224,10 @@ SAVEPOINT_ADD_FAILED:
 				return;
 			}
 
-			//°ø¼ºÀü¿¡¼­´Â ºÎÈ° ¾ÈµÇ°Ô..
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È° ï¿½ÈµÇ°ï¿½..
 			if( pPlayer->GetBattle()->GetBattleKind() == eBATTLE_KIND_SIEGEWAR )
 			{
-				if( pPlayer->GetBattleTeam() == 2 ) //°ü¶÷¸ðµå
+				if( pPlayer->GetBattleTeam() == 2 ) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					ITEM_INFO * pItemInfo = GetItemInfo((WORD)pmsg->dwData2);
 					if( pItemInfo && ( pItemInfo->ItemKind & eSHOP_ITEM ) )
@@ -5253,11 +5271,11 @@ SAVEPOINT_ADD_FAILED:
 	case MP_ITEM_SHOPITEM_REVIVEOTHER_ACK:
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
-			// »ì¾Æ³ª¾ßÇÒ ÇÃ·¹ÀÌ¾î   RevivePlayer
+			// ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½   RevivePlayer
 			CPlayer * pPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(pPlayer == NULL)				return;
 
-			// ¾ÆÀÌÅÛÀ» »ç¿ëÇÑ »ó´ë   ItemUsePlayer
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½   ItemUsePlayer
 			CPlayer * pTargetPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwData1);
 			if(pTargetPlayer == NULL)		return;
 
@@ -5311,7 +5329,7 @@ SAVEPOINT_ADD_FAILED:
 				SHOPITEMWITHTIME* pShopItem = pTargetPlayer->GetShopItemManager()->GetUsingItemInfo( pData->ItemIdx );
 				if( !pShopItem )
 				{
-					// ±â°£Á¦
+					// ï¿½â°£ï¿½ï¿½
 					if( pItemInfo->SellPrice )
 						goto Revive_Failed;
 					if( EI_TRUE != DiscardItem( pTargetPlayer, ItemUseBase.ShopItemPos, ItemUseBase.ShopItemIdx, 1 ) )
@@ -5356,7 +5374,7 @@ Revive_Failed:
 			CPlayer * pPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if(pPlayer == NULL)				return;
 
-			// ¾ÆÀÌÅÛÀ» »ç¿ëÇÑ »ó´ë		ItemUsePlayer
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½		ItemUsePlayer
 			CPlayer * pTargetPlayer = (CPlayer *)g_pUserTable->FindUser(pmsg->dwData1);
 			if(pTargetPlayer == NULL)		return;
 
@@ -5416,7 +5434,7 @@ Revive_Failed:
 			if( pPlayer->GetState() != eObjectState_None && pPlayer->GetState() != eObjectState_Immortal )
 				goto _Avataruse_failed;
 			
-			//»ç¿ëÇÑ ¾ÆÀÌÅÆÀÌ ÀÎº¥¿¡ µé¾îÀÖ´ÂÁö Ã¼Å©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©
 			if( !IsUseAbleShopItem( pPlayer, pmsg->wData1, pmsg->wData2 ) )
 				goto _Avataruse_failed;
 
@@ -5425,7 +5443,7 @@ Revive_Failed:
 			if( !pItembase )
 				goto _Avataruse_failed;
 
-			//2007. 10. 15. CBH - ¹«±â Àåºñ ½½·Ô¿¡ ¾ÆÀÌÅÆÀÌ ¾øÀ¸¸é ½ÇÆÐ.
+			//2007. 10. 15. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if(CheckWeaponToShopItem(pPlayer,  pmsg->wData1) == FALSE)
 			{
 				goto _Avataruse_failed;
@@ -5551,8 +5569,9 @@ _Avataruse_failed:
 			if( !pPlayer )			return;
 
 			const ITEMBASE* pItemBase = NULL;
-			// Item Position È®ÀÎ
-			for(int i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
+			// Item Position È®ï¿½ï¿½
+			int i;
+			for(i=0; i<SLOT_SHOPINVEN_NUM/2; i++)
 			{
 				pItemBase = GetItemInfoAbsIn( pPlayer, i+TP_SHOPINVEN_START );
 				if( !pItemBase )	continue;
@@ -5666,7 +5685,7 @@ _Avataruse_failed:
 			SetProtocol( &msg1, MP_ITEM, MP_ITEM_SHOPITEM_CHARCHANGE_ACK );
 			pPlayer->SendMsg( &msg1, sizeof(msg1) );
 
-			// LogÃß°¡
+			// Logï¿½ß°ï¿½
 			LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
 				eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 				pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint());
@@ -5737,7 +5756,7 @@ _Avataruse_failed:
 				return;
 			}
 
-			// SealItem»èÁ¦
+			// SealItemï¿½ï¿½ï¿½ï¿½
 			if( EI_TRUE != DiscardItem( pPlayer, (POSTYPE)pmsg->dwData2, (WORD)pmsg->dwData1, 1 ) )
 			{
 				msg.dwData = 9;
@@ -5749,7 +5768,7 @@ _Avataruse_failed:
 				eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 				pSealItem->wIconIdx, pSealItem->dwDBIdx, pSealItem->Position, 0, pSealItem->Durability, pPlayer->GetPlayerExpPoint());
 
-			// AvatarItemºÀÀÎ
+			// AvatarItemï¿½ï¿½ï¿½ï¿½
 			DWORD Param = pTargetItem->ItemParam;
 			Param |= ITEM_PARAM_SEAL;
 			pTargetItem->ItemParam = Param;
@@ -5786,13 +5805,13 @@ _Avataruse_failed:
 			DWORD changestage = 0;
 			MSG_DWORD msg;
 
-			// È­°æ, ±Ø¸¶ Ã¼Å©
+			// È­ï¿½ï¿½, ï¿½Ø¸ï¿½ Ã¼Å©
 			if( stage != eStage_Hwa && stage != eStage_Geuk )
 			{
 				msg.dwData = 1;
 				goto JobChangeFailed;
 			}
-			// ¾ÆÀÌÅÛÃ¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼Å©
 			if( !pSlot || !pItem )
 			{
 				msg.dwData = 2;
@@ -5881,7 +5900,7 @@ JobChangeFailed:
 				return;
 			}
 
-			// ShopItem»èÁ¦
+			// ShopItemï¿½ï¿½ï¿½ï¿½
 			if( EI_TRUE != DiscardItem( pPlayer, (POSTYPE)pmsg->dwData2, (WORD)pmsg->dwData1, 1 ) )
 			{
 				msg.dwData = 9;
@@ -5893,7 +5912,7 @@ JobChangeFailed:
 				eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 				pShopItem->wIconIdx, pShopItem->dwDBIdx, pShopItem->Position, 0, pShopItem->Durability, pPlayer->GetPlayerExpPoint());
 
-			// °­È­Á¤º¸»èÁ¦
+			// ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( FALSE == pPlayer->RemoveItemOption( pTargetItem->Durability ) )
 			{
 				char szBuf[128];
@@ -6004,7 +6023,7 @@ JobChangeFailed:
 				return;
 			}
 
-			// ShopItem»èÁ¦
+			// ShopItemï¿½ï¿½ï¿½ï¿½
 			if( EI_TRUE != DiscardItem( pPlayer, (POSTYPE)pmsg->dwData2, (WORD)pmsg->dwData1, 1 ) )
 			{
 				msg.dwData = 11;
@@ -6012,14 +6031,14 @@ JobChangeFailed:
 				return;
 			}
 
-			// DB¿¡ RareÁ¤º¸ ±â·Ï
+			// DBï¿½ï¿½ Rareï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			ShopItemRareInsertToDB( pPlayer->GetID(), pTargetItem->wIconIdx, pTargetItem->Position, pTargetItem->dwDBIdx, &rareoption );
 
 			LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), pTargetItem->dwDBIdx, "",
 				eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 				pShopItem->wIconIdx, pShopItem->dwDBIdx, pShopItem->Position, 0, pShopItem->Durability, pPlayer->GetPlayerExpPoint());
 
-			// Client·Î º¸³¿
+			// Clientï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			SEND_SHOPITEM_BASEINFO usemsg;
 			SetProtocol( &usemsg, MP_ITEM, MP_ITEM_SHOPITEM_USE_ACK );
 			usemsg.ShopItemPos = (POSTYPE)pmsg->dwData2;
@@ -6059,7 +6078,7 @@ JobChangeFailed:
 				ITEMMGR->SendAckMsg(pPlayer, &msg, sizeof(msg));	
 			}
 
-			// Agent·Î º¸³½´Ù.
+			// Agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			SEND_SHOUTBASE msg;
 			SetProtocol( &msg, MP_ITEM, MP_ITEM_SHOPITEM_SHOUT_ACK );			
 			SafeStrCpy( msg.ShoutMsg[0].Msg, pmsg->Msg, MAX_SHOUT_LENGTH+1 );
@@ -6097,7 +6116,7 @@ JobChangeFailed:
 	//		CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser( pmsg->dwObjectID );
 	//		if( !pPlayer )			return;
 
-	//		// TITANITEMMGR->TitanMugongChange(pPlayer, pmsg);	// magi82 - Titan(070611) Å¸ÀÌÅº ¹«°øº¯È¯ ÁÖ¼®Ã³¸®
+	//		// TITANITEMMGR->TitanMugongChange(pPlayer, pmsg);	// magi82 - Titan(070611) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 	//	}
 	//	break;
 		// magi82 - Titan(070413)
@@ -6189,22 +6208,22 @@ void CItemManager::NetworkMsgParseExt( DWORD dwConnectionIndex, BYTE Protocol, v
 			WORD wErrorCode = 0;
 			CItemSlot * pSlot = NULL;
 
-			// ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é ¿¡·¯
+			// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( GetTableIdxPosition( pmsg->ItemInfo.Position ) != eItemTable_Inventory )
 				wErrorCode = 1;
 
-			// ¼­¹ö¿Í Å¬¶óÀÇ ¾ÆÀÌÅÛÁ¤º¸°¡ °°ÀºÁö Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			if(!CHKRT->ItemOf(pPlayer, pmsg->ItemInfo.Position, pmsg->ItemInfo.wIconIdx, 0,0, CB_EXIST|CB_ICONIDX))
 				wErrorCode = 2;
 
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 			if( pSlot )
 			{
-				// ÇØ´ç ½½·ÔÀÌ ÀÌ¹Ì Àá°ÜÀÖÀ¸¸é ¿¡·¯
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if( pSlot->IsLock( pmsg->ItemInfo.Position ) )
 					wErrorCode = 3;
 
-				// Á¤»óÀÏ¶§ Ã³¸®
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ Ã³ï¿½ï¿½
 				if(wErrorCode == 0)
 				{
 					pSlot->SetLock( pmsg->ItemInfo.Position, TRUE );
@@ -6251,14 +6270,14 @@ void CItemManager::NetworkMsgParseExt( DWORD dwConnectionIndex, BYTE Protocol, v
 			MSG_DWORD msg;
 			SetProtocol( &msg, MP_ITEMEXT, MP_ITEMEXT_SHOPITEM_CURSE_CANCELLATION_NACK );
 
-			// ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ´ÂÁö Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ Ã¼Å©
 			if(!CHKRT->ItemOf(pPlayer, pmsg->wData1, (WORD)pmsg->dwData, 0,0, CB_EXIST|CB_ICONIDX))
 			{
 				msg.dwData = 1;
 				goto UniqueItemCurseCancellation;
 			}
 
-			// À¯´ÏÅ© ¾ÆÀÌÅÛ Á¤º¸
+			// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			UNIQUE_ITEM_OPTION_INFO* pInfo = GAMERESRCMNGR->GetUniqueItemOptionList(pmsg->dwData);
 			if( !pInfo )
 			{
@@ -6266,14 +6285,14 @@ void CItemManager::NetworkMsgParseExt( DWORD dwConnectionIndex, BYTE Protocol, v
 				goto UniqueItemCurseCancellation;
 			}
 
-			// ÀúÁÖ°¡ °É¸° À¯´ÏÅ© ¾ÆÀÌÅÛÀÎÁö Ã¼Å©
+			// ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½É¸ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			if( pInfo->dwCurseCancellation == 0 )
 			{
 				msg.dwData = 2;
 				goto UniqueItemCurseCancellation;
 			}
 
-			// ShopItem »èÁ¦
+			// ShopItem ï¿½ï¿½ï¿½ï¿½
 			ITEMBASE* pItem = (ITEMBASE*)GetItemInfoAbsIn( pPlayer, (POSTYPE)pmsg->wData2 );
 			if( EI_TRUE != DiscardItem( pPlayer, (POSTYPE)pmsg->wData2, pItem->wIconIdx, 1 ) )
 			{
@@ -6288,13 +6307,13 @@ void CItemManager::NetworkMsgParseExt( DWORD dwConnectionIndex, BYTE Protocol, v
 				msg.ShopItemIdx = pItem->wIconIdx;
 				SendAckMsg( pPlayer, &msg, sizeof(msg) );
 
-				// LogÃß°¡
+				// Logï¿½ß°ï¿½
 				LogItemMoney( pPlayer->GetID(), pPlayer->GetObjectName(), 0, "",
 					eLog_ShopItemUse, pPlayer->GetMoney(eItemTable_Inventory), 0, 0,
 					pItem->wIconIdx, pItem->dwDBIdx, pItem->Position, 0, pItem->Durability, pPlayer->GetPlayerExpPoint());
 			}
 
-			// ÀúÁÖ¹ÞÀº À¯´ÏÅ© ¾ÆÀÌÅÛ »èÁ¦
+			// ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			//memset( pItem, 0, sizeof(ITEMBASE) );
 			pItem = (ITEMBASE*)GetItemInfoAbsIn( pPlayer, (POSTYPE)pmsg->wData1 );
 			if(EI_TRUE == DiscardItem(pPlayer, pmsg->wData1, (WORD)pmsg->dwData, 1))
@@ -6317,7 +6336,7 @@ void CItemManager::NetworkMsgParseExt( DWORD dwConnectionIndex, BYTE Protocol, v
 					pItem->Durability, pPlayer->GetPlayerExpPoint());
 			}
 
-			// ÀúÁÖÇØÁ¦µÈ À¯´ÏÅ© ¾ÆÀÌÅÛ »ý¼º
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			WORD EmptyCellPos[255];
 			WORD EmptyCellNum;
 			CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
@@ -6342,22 +6361,22 @@ UniqueItemCurseCancellation:
 			WORD wErrorCode = 0;
 			CItemSlot * pSlot = NULL;
 
-			// ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é ¿¡·¯
+			// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if( GetTableIdxPosition( pmsg->ItemInfo.Position ) != eItemTable_Inventory )
 				wErrorCode = 1;
 
-			// ¼­¹ö¿Í Å¬¶óÀÇ ¾ÆÀÌÅÛÁ¤º¸°¡ °°ÀºÁö Ã¼Å©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 			if(!CHKRT->ItemOf(pPlayer, pmsg->ItemInfo.Position, pmsg->ItemInfo.wIconIdx, 0,0, CB_EXIST|CB_ICONIDX))
 				wErrorCode = 2;
 
 			pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 			if( pSlot )
 			{
-				// ÇØ´ç ½½·ÔÀÌ ÀÌ¹Ì Àá°ÜÀÖÀ¸¸é ¿¡·¯
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if( pSlot->IsLock( pmsg->ItemInfo.Position ) )
 					wErrorCode = 3;
 
-				// Á¤»óÀÏ¶§ Ã³¸®
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ Ã³ï¿½ï¿½
 				if(wErrorCode == 0)
 				{
 					pSlot->SetLock( pmsg->ItemInfo.Position, TRUE );
@@ -6407,11 +6426,11 @@ UniqueItemCurseCancellation:
 			CopyMemory( sMaterial, pmsg->Material, sizeof(MATERIAL_ARRAY) * MAX_MIX_MATERIAL );
 
 
-			// ¿øº» ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ´Â°¡?
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½?
 			if(!CHKRT->ItemOf(pPlayer, wBasicItemPos, wBasicItemIdx, 0, 0, CB_EXIST|CB_ICONIDX))
 				break;
 
-			// Àç·á ¾ÆÀÌÅÛÀÌ ¸ðµÎ Á¸ÀçÇÏ´Â°¡?
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½?
 			for( int i = 0; i < wMaterialNum; i++ )
 			{
 				if(pmsg->wBasicItemPos == sMaterial[i].ItemPos)
@@ -6421,7 +6440,7 @@ UniqueItemCurseCancellation:
 					break;
 			}
 
-			// À¯´ÏÅ© ¾ÆÀÌÅÛ Á¶ÇÕ Á¤º¸
+			// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			UNIQUE_ITEM_MIX_INFO* pInfo = GAMERESRCMNGR->GetUniqueItemMixList(wBasicItemIdx);
 			if( !pInfo )
 				break;
@@ -6433,7 +6452,7 @@ UniqueItemCurseCancellation:
 				dwNeedItemIdx = pInfo->sUniqueItemMixMaterial[i].dwMaterialIdx;
 				wNeedItemDur = pInfo->sUniqueItemMixMaterial[i].wMaterialNum;
 
-				// Àç·á°¡ ¸ðµÎ ÀÖ´ÂÁö Ã¼Å©
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©
                 if(!EnoughMixMaterial( (WORD)dwNeedItemIdx, wNeedItemDur, sMaterial, wMaterialNum) )
 					break;
 			}
@@ -6441,7 +6460,7 @@ UniqueItemCurseCancellation:
 			ITEMBASE Item;
 			memset( &Item, 0, sizeof(ITEMBASE) );
 			CItemSlot* pSlot = pPlayer->GetSlot(eItemTable_Inventory);
-			// Àç·á ¾ÆÀÌÅÛµé »èÁ¦
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½
 			for( int i = 0; i < wMaterialNum; i++ )
 			{
 				Item = *pSlot->GetItemInfoAbs(sMaterial[i].ItemPos);
@@ -6467,7 +6486,7 @@ UniqueItemCurseCancellation:
 				}
 			}
 
-			// Base ¾ÆÀÌÅÛ »èÁ¦
+			// Base ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			Item = *pSlot->GetItemInfoAbs(wBasicItemPos);
 			if(EI_TRUE == ITEMMGR->DiscardItem(pPlayer, wBasicItemPos, wBasicItemIdx, 1))
 			{
@@ -6490,7 +6509,7 @@ UniqueItemCurseCancellation:
 					Item.Durability, pPlayer->GetPlayerExpPoint());
 			}
 
-			// À¯´ÏÅ© ¾ÆÀÌÅÛ Á¶ÇÕ È®·ü °è»ê
+			// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½
 			WORD wSeed = random(1, 100);
 			WORD wResultItemIdx = 0;
 			WORD wMinRate = 0, wMaxRate = 0;
@@ -6507,8 +6526,8 @@ UniqueItemCurseCancellation:
 				}
 			}
 
-			// Á¶ÇÕµÈ ¾ÆÀÌÅÛ »ý¼º
-			// ¾ÆÀÌÅÛ »ý¼º
+			// ï¿½ï¿½ï¿½Õµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			WORD EmptyCellPos[255];
 			WORD EmptyCellNum;
 
@@ -6519,22 +6538,22 @@ UniqueItemCurseCancellation:
 			ITEMMGR->ObtainItemEx( pPlayer, ITEMMGR->Alloc(pPlayer, MP_ITEMEXT, MP_ITEMEXT_UNIQUEITEM_MIX_ACK, pPlayer->GetID(), 0, eLog_ItemObtainTitan, obtainItemNum, (DBResult)(ITEMMGR->ObtainItemDBResult)), wResultItemIdx, obtainItemNum, EmptyCellPos, EmptyCellNum, EmptyCellNum );
 		}
 		break;
-	case MP_ITEMEXT_SKINITEM_SELECT_SYN:	//2007. 12. 5. CBH - ½ºÅ² ¾ÆÀÌÅÆ Ã³¸®
+	case MP_ITEMEXT_SKINITEM_SELECT_SYN:	//2007. 12. 5. CBH - ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		{
 			MSG_DWORD2* pmsg = (MSG_DWORD2*)pMsg;
 			CPlayer* pPlayer = (CPlayer*)g_pUserTable->FindUser(pmsg->dwObjectID);
 			if( pPlayer == NULL ) 
 				return;
 			
-			//ÀÏ¹ÝÀÇº¹ ½ºÅ²Àº ¸®½ºÆ® ÀÎµ¦½º·Î »ç¿ëÇÏ°í ÄÚ½ºÆ¬ ½ºÅ²Àº ¾ÆÀÌÅÆ ÀÎµ¦½º·Î »ç¿ë			
+			//ï¿½Ï¹ï¿½ï¿½Çºï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ú½ï¿½Æ¬ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½			
 			if(pmsg->dwData1 > 0)	
 			{
 				DWORD dwResult = pPlayer->GetShopItemManager()->PutSkinSelectItem(pmsg);
 
 				if(dwResult == eSkinResult_Success)
 				{
-					pPlayer->InitSkinDelay();	//½ºÅ² µô·¹ÀÌ ½Ã°£ ÃÊ±âÈ­
-					pPlayer->StartSkinDelay();	//½ºÅ² µô·¹ÀÌ ½ÃÀÛ
+					pPlayer->InitSkinDelay();	//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
+					pPlayer->StartSkinDelay();	//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 					SEND_SKIN_INFO msg;
 					msg.Category = MP_ITEMEXT;
@@ -6552,17 +6571,17 @@ UniqueItemCurseCancellation:
 					MSG_DWORD3 msg;
 					SetProtocol( &msg, MP_ITEMEXT, MP_ITEMEXT_SKINITEM_SELECT_NACK );
 					msg.dwObjectID = pPlayer->GetID();
-					msg.dwData1 = dwResult;						//¿À·ù ¸®ÅÏ °á°ú
-					msg.dwData2 = pPlayer->GetSkinDelayTime();	//³²Àº µô·¹ÀÌ ½Ã°£
+					msg.dwData1 = dwResult;						//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+					msg.dwData2 = pPlayer->GetSkinDelayTime();	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 					msg.dwData3 = pSkinInfo->dwLimitLevel;
 
 					pPlayer->SendMsg(&msg, sizeof(MSG_DWORD3));
 				}
 			}
-			else if(pmsg->dwData1 == 0)	//¿ø·¡´ë·Î ¹öÆ° Å¬¸¯½Ã Ã³¸®( pmsg->dwData °ªÀÌ 0ÀÌ¸é ¿ø·¡´ë·Î )
+			else if(pmsg->dwData1 == 0)	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½( pmsg->dwData ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
 			{
-				pPlayer->InitSkinDelay();	//½ºÅ² µô·¹ÀÌ ½Ã°£ ÃÊ±âÈ­
-				pPlayer->StartSkinDelay();	//½ºÅ² µô·¹ÀÌ ½ÃÀÛ
+				pPlayer->InitSkinDelay();	//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
+				pPlayer->StartSkinDelay();	//ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 				pPlayer->GetShopItemManager()->RemoveEquipSkin(pmsg->dwData2);				
 
@@ -6582,7 +6601,7 @@ UniqueItemCurseCancellation:
 			if( pPlayer == NULL ) 
 				return;
 
-			// ´Ù¸¥»ç¶÷µé¿¡°Ô ¾ÆÀÌÅÛ Âø¿ë Á¤º¸¸¦ º¸³½´Ù.
+			// ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			MSG_DWORD2 msg;
 			msg.Category = MP_ITEMEXT;
 			msg.Protocol = MP_ITEMEXT_SHOPITEM_DECORATION_ON;
@@ -6628,13 +6647,13 @@ BOOL CItemManager::ItemMoveUpdateToDBbyTable(CPlayer* pPlayer, DWORD dwfromDBIdx
 	// magi82 - Titan(070207)
 	else if(TP_TITANWEAR_START <= frompos && frompos < TP_TITANWEAR_END)
 	{
-		// Å¸ÀÌÅº ÀåÂø¾ÆÀÌÅÛÀÌÁö¸¸ Æê°ú µ¿ÀÏÇÏ¹Ç·Î Æê ÇÔ¼ö¸¦ ¾¸
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½
 		ItemMovePetInvenUpdateToDB(pPlayer->GetID(), dwfromDBIdx, frompos, dwtoDBIdx, topos);
 	}
 	// magi82 - Titan(070228)
 	else if(TP_TITANSHOPITEM_START <= frompos && frompos < TP_TITANSHOPITEM_END)
 	{
-		// Å¸ÀÌÅº ¼¥¾ÆÀÌÅÛÀÌÁö¸¸ Æê°ú µ¿ÀÏÇÏ¹Ç·Î Æê ÇÔ¼ö¸¦ ¾¸
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½
 		ItemMovePetInvenUpdateToDB(pPlayer->GetID(), dwfromDBIdx, frompos, dwtoDBIdx, topos);
 	}
 	else
@@ -6674,10 +6693,10 @@ BOOL CItemManager::CanMovetoGuildWare(POSTYPE FromPos, POSTYPE ToPos, CPlayer* p
 	CItemSlot * pFromSlot		= pPlayer->GetSlot(FromPos);
 	CItemSlot * pToSlot			= pPlayer->GetSlot(ToPos);
 
-	//¡Ë¡ÍU¡Ë¡þ¢®IA¢®E¡Ë?¡Ë¢ç¡§u¢®¨Ï ¨Ïo¡Ëc¡§¢®AA¢®E8¢®¢´I AI¡Íi¡Ë?CO¡ËO¢®¡¿
+	//ï¿½Ë¡ï¿½Uï¿½Ë¡ï¿½ï¿½ï¿½IAï¿½ï¿½Eï¿½ï¿½?ï¿½Ë¢ç¡§uï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½oï¿½ï¿½cï¿½ï¿½ï¿½ï¿½AAï¿½ï¿½E8ï¿½ï¿½ï¿½ï¿½I AIï¿½ï¿½iï¿½ï¿½?COï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
 	if(TP_GUILDWAREHOUSE_START <= ToPos && ToPos < TP_GUILDWAREHOUSE_END)
 	{
-		//ToPos¡§u¡§¢®AIAUAI AO8¡Ë¡þe AI¡Íi¡Ë? ¡Ë¡þ¨Ï¨£CO
+		//ToPosï¿½ï¿½uï¿½ï¿½ï¿½ï¿½AIAUAI AO8ï¿½Ë¡ï¿½e AIï¿½ï¿½iï¿½ï¿½? ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½CO
 		if(!pToSlot->IsEmpty(ToPos)) 
 			return FALSE;
 		return TRUE;
@@ -6708,7 +6727,7 @@ void CItemManager::LoadDealerItem()
 	BOOL IsItem = FALSE;
 	WORD ItemIdx;
 
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	int	ItemCount = 0;
 	
 	DealerItem* pItem;
@@ -6750,8 +6769,8 @@ void CItemManager::LoadDealerItem()
 		token = strtok( NULL, seps );
 		ItemIdx = atoi(token);
 
-		//SW070626 º¸ºÎ»óNPC
-		// ¾ÆÀÌÅÛ ÆÇ¸Å·® Ãß°¡	-1: ¹«Á¦ÇÑ 0: ÆÇ¸ÅºÒ°¡ 1~: °¹¼ö(5±îÁö..°ãÄ¡´Â ¾ÆÀÌÅÛ Ç¥½ÃºÎºÐ¿¡ Á¦ÇÑÀÌ °É·ÁÀÖ´Ù)
+		//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸Å·ï¿½ ï¿½ß°ï¿½	-1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0: ï¿½Ç¸ÅºÒ°ï¿½ 1~: ï¿½ï¿½ï¿½ï¿½(5ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃºÎºÐ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ï¿½Ö´ï¿½)
 		token = strtok( NULL, seps );
 		ItemCount = atoi(token);
 
@@ -6785,8 +6804,8 @@ void CItemManager::LoadDealerItem()
 			token = strtok( NULL, seps );
 			ItemIdx = atoi(token);
 			
-			//SW070626 º¸ºÎ»óNPC
-			// ¾ÆÀÌÅÛ ÆÇ¸Å·® Ãß°¡	-1: ¹«Á¦ÇÑ 0: ÆÇ¸ÅºÒ°¡ 1~: °¹¼ö(5±îÁö..°ãÄ¡´Â ¾ÆÀÌÅÛ Ç¥½ÃºÎºÐ¿¡ Á¦ÇÑÀÌ °É·ÁÀÖ´Ù)
+			//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸Å·ï¿½ ï¿½ß°ï¿½	-1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0: ï¿½Ç¸ÅºÒ°ï¿½ 1~: ï¿½ï¿½ï¿½ï¿½(5ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃºÎºÐ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ï¿½Ö´ï¿½)
 			token = strtok( NULL, seps );
 			ItemCount = atoi(token);
 
@@ -6844,7 +6863,7 @@ int CItemManager::ObtainItemFromChangeItem( CPlayer* pPlayer, WORD wItemKind, WO
 	if( obtainItemNum == 0 )
 		return 1;
 
-	// 06.12.13 RaMa - ¾òÀº°¹¼ö¶û ½ÇÁ¦ °¹¼ö¶û ´Ù¸£¸é ¿¡·¯
+	// 06.12.13 RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( obtainItemNum != wItemNum )
 		return 2;
 
@@ -6975,7 +6994,7 @@ BOOL CItemManager::CanbeMoved(WORD wIconIdx,POSTYPE pos, CPlayer* pPlayer)
 	}
 	else if(TP_GUILDWAREHOUSE_START <= pos && pos < TP_GUILDWAREHOUSE_END)
 	{
-		// 06.12.15 RaMa - º¹±¸³¡³ª¸é ¿ø·¡´ë·Î µÇµ¹·Á¾ß ÇÑ´Ù.
+		// 06.12.15 RaMa - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //		if( pos > 560 )
 //			return FALSE;
 		return TRUE;
@@ -6996,7 +7015,7 @@ BOOL CItemManager::CanbeMoved(WORD wIconIdx,POSTYPE pos, CPlayer* pPlayer)
 			return FALSE;		
 		return TRUE;
 	}
-	//!!!Æê ¼ÒÈ¯ ¿©ºÎ´Â ¾îµð¼­ Ã¼Å©ÇØÁà¾ßÇÒ±î
+	//!!!ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½
 	else if(TP_PETINVEN_START <= pos && pos < TP_PETINVEN_END)
 	{
 		ITEM_INFO* pInfo = ITEMMGR->GetItemInfo(wIconIdx);
@@ -7020,7 +7039,7 @@ BOOL CItemManager::CanbeMoved(WORD wIconIdx,POSTYPE pos, CPlayer* pPlayer)
 		if(!pInfo) return FALSE;
 		if( pInfo->ItemKind & eTITAN_EQUIPITEM )
 		{
-			if(pos - TP_TITANWEAR_START == pInfo->ItemKind - eTITAN_EQUIPITEM_HELMET)	// º´±¹¾¾ ÀÌ°Ô ¹¹¾î¾î¾î¾î¾ß~~
+			if(pos - TP_TITANWEAR_START == pInfo->ItemKind - eTITAN_EQUIPITEM_HELMET)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~~
 				return TRUE;
 		}
 		return FALSE;
@@ -7053,7 +7072,7 @@ BOOL CItemManager::CanEquip(ITEM_INFO* pInfo, CPlayer* pPlayer)
 		else
 			return FALSE;
 	}	
-	// ¢®¨úU¢®¢´A.¨ÏoIA¡Ë¡þ,¡§oE¡Ë¡þ¡§¢®,A¡§u¢®¢´A
+	// ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½A.ï¿½ï¿½oIAï¿½Ë¡ï¿½,ï¿½ï¿½oEï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½,Aï¿½ï¿½uï¿½ï¿½ï¿½ï¿½A
 	if(pInfo->LimitGenGol > pPlayer->GetGenGol())
 	{
 		return FALSE;
@@ -7367,13 +7386,13 @@ void CItemManager::ShopItemUseUpgrade( ITEM_INFO* pShopItemInfo, CPlayer* pPlaye
 	DWORD tdw = pSrcItem->wIconIdx%10;
 	if(tdw >= 9)
 	{
-		// ´õÀÌ»ó °­È­ÇÒ ¼ö ¾øÀ½
+		// ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		return;
 	}
 
 	DWORD plusoption = 0;
-	// °¢°¢ÀÇ È®·üÀ» Àû¿ëÇÏ°í,
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
 
 	if( (plusoption+tdw) > 9 )
 		plusoption = 1;
@@ -7381,7 +7400,7 @@ void CItemManager::ShopItemUseUpgrade( ITEM_INFO* pShopItemInfo, CPlayer* pPlaye
 	wItemIdx = (WORD)(pSrcItem->wIconIdx + plusoption);
 
 
-	// »õ·Î¿î ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
+	// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 	CItemSlot * pSlot = pPlayer->GetSlot(ItemPos);
 	WORD flag = UB_ICONIDX;		
 	if( !IsDupItem( (WORD)(pSrcItem->wIconIdx+plusoption) ) )
@@ -7399,42 +7418,42 @@ void CItemManager::ShopItemUseUpgrade( ITEM_INFO* pShopItemInfo, CPlayer* pPlaye
 		pPlayer->GetPlayerExpPoint());		
 
 		/*
-	// ¸¶À» ÀÌµ¿ ÁÖ¹®¼­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 3 )
 	{
-		// dwParam -> ¸Ê³Ñ¹ö
+		// dwParam -> ï¿½Ê³Ñ¹ï¿½
 	}
-	// ±ÍÈ¯ ÁÖ¹®¼­
+	// ï¿½ï¿½È¯ ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 4 )
 	{
-		// dwParam -> ¸Ê³Ñ¹ö
+		// dwParam -> ï¿½Ê³Ñ¹ï¿½
 	}
-	// ¹æÆÄ ÅÚ·¹Æ÷Æ® ÁÖ¹®¼­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ® ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 5 )
 	{
-		// dwParam -> ¸Ê³Ñ¹ö
+		// dwParam -> ï¿½Ê³Ñ¹ï¿½
 	}
-	// ¹®ÆÄ ÅÚ·¹Æ÷Æ® ÁÖ¹®¼­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ® ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 6 )
 	{
-		// dwParam -> ¸Ê³Ñ¹ö
+		// dwParam -> ï¿½Ê³Ñ¹ï¿½
 	}
-	// µ·ÀÇ Ãàº¹
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½àº¹
 	else if( pShopItemInfo->ItemGrade == 8 )
 	{
 	}
-	// »ý¸íÀÇ Ãàº¹
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½àº¹
 	else if( pShopItemInfo->ItemGrade == 9 )
 	{
 	}
-	// Á¶ÇÕ È®·ü Çâ»ó ÁÖ¹®¼­
+	// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 10 )
 	{
 	}
-	// ºÎÈ°ÁÖ¹®¼­
+	// ï¿½ï¿½È°ï¿½Ö¹ï¿½ï¿½ï¿½
 	else if( pShopItemInfo->ItemGrade == 11 )
 	{
-		// dwParam -> ºÎÈ° ½ÃÅ°·Á´Â »ó´ë¹æÀÇ Idx
+		// dwParam -> ï¿½ï¿½È° ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Idx
 	}
 	*/
 }
@@ -7457,9 +7476,9 @@ BOOL CItemManager::ItemUnsealing(CPlayer* pPlayer, POSTYPE absPos)
 		ITEM_INFO* pItemInfo = GetItemInfo( pItemBase->wIconIdx );
 		if( pItemInfo )
 		{
-			// º¯ÇüÀÌ³ª ²Ù¹Ì±â´Â ºÀÀÎÀ» ÇØÁ¦ÇÔ°ú µ¿½Ã¿¡ »ç¿ë½ÃÀÛ
-			// ÀÌµ¿ÁÖ¹®¼­ ±â°£Á¦µµ ºÀÀÎÇØÁ¦¿Í µ¿½Ã¿¡ »ç¿ë½ÃÀÛ
-			// ºÀÀÎÇ®¸é »ç¿ë°¡´ÉÇÑ ¾ÆÀÌÅÛ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Ù¹Ì±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½Ìµï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½â°£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( pItemInfo->ItemType == 11 )
 			{
 				SHOPITEMWITHTIME* pItem = NULL;
@@ -7480,8 +7499,8 @@ BOOL CItemManager::ItemUnsealing(CPlayer* pPlayer, POSTYPE absPos)
 				startime.SetTime(systime.wYear-2000, systime.wMonth, systime.wDay, systime.wHour, systime.wMinute, 0);
 				
 				endtime = startime;
-				// ÀÓ½Ã·Î
-				if( pItemInfo->Rarity >= 525600 )	// 365ÀÏ
+				// ï¿½Ó½Ã·ï¿½
+				if( pItemInfo->Rarity >= 525600 )	// 365ï¿½ï¿½
 				{
 					DWORD day = pItemInfo->Rarity/(24*60) - 365;
 					usetime.SetTime(1, 0, day, 0, 0, 0);
@@ -7537,10 +7556,10 @@ BOOL CItemManager::ItemUnsealing(CPlayer* pPlayer, POSTYPE absPos)
 
 			//SW051129 Pet
 			/*
-			if( pItemInfo->ItemKind == eSHOP_ITEM_PET )	//GM Cheat ·Î ÀÎÇÑ ¾ÆÀÌÅÛ¸ô Æê ¾ÆÀÌÅÛ¿¡ ¾²ÀÎ´Ù.
-			{	//ºÀÀÎ ÇØÁ¦½Ã Ã¹ »ý¼º.
-				//´Ü! ÀçºÀÀÎ °¡´ÉÇÏ¹Ç·Î ±âÁ¸ Æê À¯¹« È®ÀÎ
-				//Æê ID °è»ê( ¸®ÅÏ¹ÞÀº DBID + PET_ID_START )
+			if( pItemInfo->ItemKind == eSHOP_ITEM_PET )	//GM Cheat ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
+			{	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½ï¿½ï¿½.
+				//ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+				//ï¿½ï¿½ ID ï¿½ï¿½ï¿½( ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½ï¿½ DBID + PET_ID_START )
 				PET_TOTALINFO* pPetInfo = pPlayer->GetPetManager()->GetPetTotalInfo(pItemBase->dwDBIdx, eWithNULL );
 				if( NULL == pPetInfo )
 				{
@@ -7563,7 +7582,7 @@ BOOL CItemManager::CheckHackNpc( CPlayer* pPlayer, WORD wNpcIdx, WORD wParam )
 	if( wParam == eNpcParam_ShowpPyoguk )
 		return TRUE;
 
-	//SW070626 º¸ºÎ»óNPC
+	//SW070626 ï¿½ï¿½ï¿½Î»ï¿½NPC
 	if( wNpcIdx == BOBUSANG_wNpcUniqueIdx )
 	{
 		return BOBUSANGMGR->CheckHackBobusangDist(pPlayer);
@@ -7718,7 +7737,7 @@ void CItemManager::SetItemOptionsInfoMsg( CPlayer* pItemOwner, ITEMBASE* pItemBa
 
 }
 
-///// 2007. 6. 8. CBH - ¼¼Æ®¾ÆÀÌÅÆ °ü·Ã ÇÔ¼ö Ãß°¡ ///////////////////////////
+///// 2007. 6. 8. CBH - ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½ ///////////////////////////
 BOOL CItemManager::LoadSetItemOption()
 {
 	CMHFile file;
@@ -7850,7 +7869,7 @@ BOOL CItemManager::CheckDemandItem( CPlayer* pPlayer, MSG_ITEM_BUY_SYN* pmsg )
 
 	if(bNotEnough)
 		return FALSE;
-	else	// ¼Ò¸ðÇÏ¶ó.
+	else	// ï¿½Ò¸ï¿½ï¿½Ï¶ï¿½.
 	{
 		BYTE rt = FALSE;
 		for( WORD i = 0; i < pmsg->slotNum; ++i )
@@ -7861,7 +7880,7 @@ BOOL CItemManager::CheckDemandItem( CPlayer* pPlayer, MSG_ITEM_BUY_SYN* pmsg )
 			{
 				MSG_ITEM_USE_ACK msg;
 				msg.Category = MP_ITEM;
-				msg.Protocol = MP_ITEM_USE_ACK;		//MP_ITEM_DISCARD_ACK Àº °¹¼ö ÁöÁ¤ÀÌ ¾ÈµÇ¾î Áßº¹ ¾ÆÀÌÅÛÀÌ ¿ä±¸¾ÆÀÌÅÛÀÏ ¶§ ºÎÀûÀýÇÏ´Ù.
+				msg.Protocol = MP_ITEM_USE_ACK;		//MP_ITEM_DISCARD_ACK ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ä±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 				msg.TargetPos = pmsg->demandItem[i].demandItemPos;
 				msg.wItemIdx = pmsg->demandItem[i].demandItemIdx;
 				SendAckMsg(pPlayer, &msg, sizeof(msg));
@@ -7877,17 +7896,17 @@ BOOL CItemManager::CheckDemandItem( CPlayer* pPlayer, MSG_ITEM_BUY_SYN* pmsg )
 	return TRUE;
 }
 
-// 2007. 10. 15. CBH - ¹«±â ÀåÂø ½½·ÔÀÇ ¹«±â¿Í ÀåÂøÇÒ ˜Þ¾ÆÀÌÅÆ°ú Ã¼Å© ////////////
+// 2007. 10. 15. CBH - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ï¿½Æ°ï¿½ Ã¼Å© ////////////
 BOOL CItemManager::CheckWeaponToShopItem(CPlayer* pPlayer, WORD wItemIndex)
 {	
 	ITEM_INFO * pItemInfo = GetItemInfo(wItemIndex);
 
-	//¾ÆÀÌÅÆÀÌ ¹«±âÀÌ¸é
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	if(pItemInfo->WeaponType != 0)
 	{
 		const ITEMBASE * pItem = GetItemInfoAbsIn(pPlayer, TP_WEAR_START+1);
 		
-		if(pItem->wIconIdx == 0) //ÀåÂø¹«±â°¡ ¾ø´Ù.
+		if(pItem->wIconIdx == 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½.
 		{
 			return FALSE;
 		}
@@ -7901,11 +7920,11 @@ WORD CItemManager::ObtainItemFromGameEvent( CPlayer* pPlayer, DWORD dwItemIdx, W
 {
 	ITEM_INFO* pItemInfo = GetItemInfo( dwItemIdx );
 	if( NULL == pItemInfo )
-		return 0;			// ¾ÆÀÌÅÛÀÌ ¾ø´Ù.
+		return 0;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	
 	CItemSlot* pSlot = NULL;
 	WORD wSeal = 0;
-	if( pItemInfo->ItemKind & eSHOP_ITEM )	// ¾ò´Â ¾ÆÀÌÅÛÀÌ shopitemÀÌ³Ä?
+	if( pItemInfo->ItemKind & eSHOP_ITEM )	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ shopitemï¿½Ì³ï¿½?
 	{		
 		pSlot = pPlayer->GetSlot(eItemTable_ShopInven);
 		wSeal = 1;
@@ -7921,12 +7940,12 @@ WORD CItemManager::ObtainItemFromGameEvent( CPlayer* pPlayer, DWORD dwItemIdx, W
 	WORD wCanObtainItemNum = GetCanBuyNumInSpace( pPlayer, pSlot, dwItemIdx, wItemNum, wEmptyCellPos, wEmptyCellNum );
 	if( 0 == wCanObtainItemNum )
 	{
-		//ºó ½½·Ô ¾øÀ½ °æ°í ¸Þ½ÃÁö
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
 		MSGBASE msg;
 		msg.Category = MP_ITEM;
 		msg.Protocol = MP_ITEM_FULLINVEN_ALERT;
 		pPlayer->SendMsg( &msg, sizeof(msg) );
-		return 0;			// ºó°ø°£ÀÌ ¾ø´Ù.
+		return 0;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	}
 
 	ObtainItemEx( pPlayer, Alloc(pPlayer, MP_ITEM, MP_ITEM_MONSTER_OBTAIN_NOTIFY,

@@ -4,6 +4,7 @@
 
 #if !defined(AFX_WEARSLOT_H__AB13B8D4_8C19_43C5_A507_62C3BC88896C__INCLUDED_)
 #define AFX_WEARSLOT_H__AB13B8D4_8C19_43C5_A507_62C3BC88896C__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once

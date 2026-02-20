@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "SkillObjectStateUnit_AmplifiedPower.h"
-#include "Object.h"
+#include "..\[Server]Map\Object.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -67,8 +67,8 @@ void CSkillObjectStateUnit_AmplifiedPower::DoEndState(CObject* pObject)
 	if(m_AmplifiedPowerPhy)
 		pObject->EndSpecialState(eSpecialState_AmplifiedPowerPhy);
 
-	// YH 속성 증폭이 중복 되었을때의 문제 때문에 주석처리
-	// DISPEL 같은 기능이 들어갔을시에 문제 소지 있음
+	// YH 憺  揷 퓸   玲처
+	// DISPEL   載�첼   
 //	if(m_AmplifiedPowerAtt)
 //		pObject->EndSpecialState(eSpecialState_AmplifiedPowerAtt);
 	

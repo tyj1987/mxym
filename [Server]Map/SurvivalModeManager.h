@@ -1,4 +1,5 @@
 #pragma once
+#include "..\[CC]Header\CommonStruct.h"
 
 #define SVVMODEMGR USINGTON(CSurvivalModeManager)
 
@@ -25,9 +26,9 @@ class CSurvivalModeManager
 
 	int		m_nUserAlive;
 
-	CYHHashTable<CObject>	m_SVModeUserTable;	//GM Á¦¿Ü
-	CYHHashTable<DWORD>		m_SVItemUsingCounter;	//SVModeUserÀÇ ¾ÆÀÌÅÛ »ç¿ëÈ½¼ö Á¦ÇÑ.
-	cPtrList				m_SVModeAliveUserList;	//GM Á¦¿Ü
+	CYHHashTable<CObject>	m_SVModeUserTable;	//GM 
+	CYHHashTable<DWORD>		m_SVItemUsingCounter;	//SVModeUser  È½ .
+	cPtrList				m_SVModeAliveUserList;	//GM 
 
 public:
 	CSurvivalModeManager(void);
@@ -43,12 +44,12 @@ public:
 	void	SendNackMsg(CPlayer* pGM, BYTE Protocol, BYTE errstate);
 
 	BOOL	CheckRemainTime();
-	//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+	//SW061129 È«ß°Ã»Û¾ - ë°¹
 	void	SetUsingCountLimit(DWORD limit);
-	BOOL	AddItemUsingCount(CPlayer* pPlayer);	//Á¦ÇÑ Ä«¿îÆ® ¾È³Ñ¾úÀ¸¸é TRUE ¹ÝÈ¯
+	BOOL	AddItemUsingCount(CPlayer* pPlayer);	// Ä«Æ® È³Ñ¾ TRUE È¯
 
 	void	ChangeStateTo(WORD nextState);
-	//¼­¹ÙÀÌ¹ú ¸ÊÀÇ ¸ðµç À¯Àú¸¦ »ì¸®°í °ÔÀÌÁö Ç®.
+	//Ì¹    ì¸®  Ç®.
 	void	ReadyToSurvivalMode();
 	void	ReturnToMap();
 

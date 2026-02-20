@@ -1,5 +1,6 @@
 #ifndef _CLASS_QUEST_BASE_
 #define _CLASS_QUEST_BASE_
+#include "..\[CC]Header\CommonStruct.h"
 
 // Äù½ºÆ®¿¡ °üÇÑ ±âº»Å¬·¡½º
 

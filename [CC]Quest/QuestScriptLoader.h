@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "StrTokenizer.h"
+#include "D:\\mxym\\[Lib]YHLibrary\\StrTokenizer.h"
 
 class CMHFile;
 class CQuestInfo;

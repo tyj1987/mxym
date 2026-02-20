@@ -3,13 +3,14 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "Distribute_Damage.h"
 #include "ItemDrop.h"
 #include "ItemManager.h"
 #include "Player.h"
 #include "Monster.h"
 #include "..\[CC]Header\GameResourceManager.h"
-#include "MapItemDrop.h"	// ¸Ê ¾ÆÀÌÅÛ µå¶ø Ãß°¡ by Stiner(2008/05/30)-MapItemDrop
+#include "MapItemDrop.h"	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ by Stiner(2008/05/30)-MapItemDrop
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ void CDistribute_Damage::SendAbil(LEVELTYPE MonsterLevel, PARTY_RECEIVE_MEMBER* 
 	if(pRealMember->count == 0)
 		return;
 
-	//ÀûÇÕÇÑ ÆÄÆ¼ ¸â¹ö ¾ÆÀÌµð(·Î±×ÀÎÇØ ÀÖ°í ¸ó½ºÅÍ Á×Àº ÀÚ¸® ±ÙÃ³¿¡ ÀÖ´Â), ¸ó½ºÅÍ ·¹º§, °¢ÀÚ°¡ ÁØ µ¥¹ÌÁö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½(ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ö´ï¿½), ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ASSERT(pRealMember->count <= MAX_PARTY_LISTNUM);
 	DWORD BigDamage;
 	BigDamage = 0;
@@ -72,7 +73,7 @@ void CDistribute_Damage::SendItem( PARTY_RECEIVE_MEMBER* pRealMember, WORD DropI
 		}
 		else*/
 			money = ITEMDROP_OBJ->MoneyItemNoItemPercentCalculator(pMonInfo, pReceivePlayer, MonsterKind);
-			// ¸Ê ¾ÆÀÌÅÛ µå¶ø °è»ê by Stiner(2008/05/30)-MapItemDrop
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ by Stiner(2008/05/30)-MapItemDrop
 			MAPITEMDROP_OBJ->CalculateDropRate( pReceivePlayer, MonsterKind );
 
 		if(money)
@@ -106,10 +107,12 @@ void CDistribute_Damage::SendItem( PARTY_RECEIVE_MEMBER* pRealMember, WORD DropI
 		CPlayer* pReceivePlayer = (CPlayer*)pRealMember->pPlayer[num];
 		if( !pReceivePlayer )	return;
 
-		//·£´ýÇÔ¼ö --; ¾î¶²°Å ½á¾ßÇÏÁö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ --; ï¿½î¶²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( DropItemRatio )
-		if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
-			ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		{
+			if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
+				ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		}
 	}
 }
 
@@ -158,10 +161,12 @@ void CDistribute_Damage::SendItem( PARTY_RECEIVE_MEMBER* pRealMember, WORD DropI
 	}
 	else
 	{
-		//·£´ýÇÔ¼ö --; ¾î¶²°Å ½á¾ßÇÏÁö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ --; ï¿½î¶²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( DropItemRatio )
-		if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
-			ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		{
+			if( ( rand()%100 ) % ( 100 / DropItemRatio ) == 0 )
+				ITEMMGR->MonsterObtainItem(pReceivePlayer,DropItemId,MonsterKind);
+		}
 	}
 }
 */

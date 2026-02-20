@@ -1,10 +1,12 @@
 #ifndef _EXCHANGEMANAGER_H
 #define _EXCHANGEMANAGER_H
+#include "..\[CC]Header\CommonStruct.h"
 
 
 #define EXCHANGEMGR CExchangeManager::GetInstance()
 
 class CExchangeRoom;
+class CPlayer;  // 前向声明
 
 struct sEXCHANGECONTAINER
 {

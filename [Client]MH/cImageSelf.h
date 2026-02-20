@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include "interface/cWindowDef.h"
-#include "../Engine/GraphicEngine.h"
+#include "Engine/GraphicEngine.h"
 
 class cImageSelf
 {  

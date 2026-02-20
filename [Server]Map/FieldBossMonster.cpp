@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "fieldbossmonster.h"
 #include "PackedData.h"
 #include "ObjectStateManager.h"
@@ -27,7 +28,7 @@ BOOL CFieldBossMonster::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* p
 {
 	CMonster::Init(kind, AgentNum, pBaseObjectInfo);
 	
-	// ºÐ¹è ½Ã½ºÅÛ ÃÊ±âÈ­
+	// ï¿½Ð¹ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	DistributeDamageInit();
 
 	m_nRegenPosIndex = 0;
@@ -37,12 +38,12 @@ BOOL CFieldBossMonster::Init(EObjectKind kind,DWORD AgentNum, BASEOBJECT_INFO* p
 
 void CFieldBossMonster::DoDie(CObject* pAttacker)
 {
-	// ¼ö·ÃÄ¡ °æÇèÄ¡ µ·À» ºÐ¹èÇÑ´Ù
+	// ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ï¿½Ñ´ï¿½
 	DistributePerDamage();
-	// ¾ÆÀÌÅÛÀ» ºÐ¹èÇÑ´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¹ï¿½ï¿½Ñ´ï¿½
 	DistributeItemPerDamage();
 
-	// ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¿¡ Á×À½À» ¿¬ÃâÇØÁØ´Ù
+	// ï¿½Ï´ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
 	DWORD AttackerID;
 	if(pAttacker == NULL)
 		AttackerID = 0;
@@ -55,7 +56,7 @@ void CFieldBossMonster::DoDie(CObject* pAttacker)
 	SetTObject(NULL);
 	SetLastAttackPlayer( NULL );
 
-	// CFieldBossMonsterManager¿¡ Á×¾ú´Ù´Â°ÍÀ» Åëº¸ÇØÁØ´Ù
+	// CFieldBossMonsterManagerï¿½ï¿½ ï¿½×¾ï¿½ï¿½Ù´Â°ï¿½ï¿½ï¿½ ï¿½ëº¸ï¿½ï¿½ï¿½Ø´ï¿½
 	FIELDBOSSMONMGR->BossDead(this);
 
 	//CMonster::DoDie(pAttacker);	
@@ -95,16 +96,16 @@ void CFieldBossMonster::SetShield(DWORD Shield,BOOL bSendMsg)
 
 BOOL CFieldBossMonster::IsBattle()
 {
-	// ÆòÈ­ ¸ðµå ÀÏ¶§ FALSE ¸®ÅÏ
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 	if( m_stateParam.stateCur < eMA_PERSUIT )
 		return FALSE;
 
-	// ÀüÅõ ¸ðµå ÀÏ¶§ ¼Ò¸ê½Ã°£ Ä«¿îÆ® ¸®¼Â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½Ò¸ï¿½Ã°ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	m_Info.m_dwCountTime = m_Info.m_dwDistructTime;
-	// È¸º¹½Ã°£µµ ¸®¼Â
+	// È¸ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_Info.m_dwPieceTime = gCurTime;
 
-	// TRUE ¸®ÅÏ
+	// TRUE ï¿½ï¿½ï¿½ï¿½
 	return TRUE;
 }
 
@@ -112,7 +113,7 @@ BOOL CFieldBossMonster::IsDistruct()
 {
 	BOOL rt = FALSE;
 	
-	// ¸¶Áö¸· Ã¼Å© ½Ã°£ÀÌ 0ÀÏ °æ¿ì ÇöÀç ½Ã°£À¸·Î ¼³Á¤ÇÏ°í FALSE ¸®ÅÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ã°ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ FALSE ï¿½ï¿½ï¿½ï¿½
 	if( m_Info.m_dwLastCheckTime != 0 )
 	{
 		if( ( gCurTime - m_Info.m_dwLastCheckTime )  <  m_Info.m_dwCountTime )
@@ -149,9 +150,9 @@ void CFieldBossMonster::Recover()
 				SetLife(curlife + pluslife, TRUE);
 				m_LifeRecoverTime.lastCheckTime = gCurTime;
 
-				// Life¸¦ ¸ðµÎ È¸º¹ÇßÀ¸¸é
+				// Lifeï¿½ï¿½ ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(curlife + pluslife >= maxlife)
-					// ºÐ¹è ½Ã½ºÅÛ ÃÊ±âÈ­
+					// ï¿½Ð¹ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 					DistributeDamageInit();
 			}
 			if(curshield < maxshield)
@@ -191,7 +192,7 @@ BOOL CFieldBossMonster::DoWalkAround()
 	else if(Target.z > 51200.0f)
 		Target.z = 51200.0f;
 
-	//taiyo ÀÓ½ÃÃ³¸® 
+	//taiyo ï¿½Ó½ï¿½Ã³ï¿½ï¿½ 
 	VECTOR3 CollisonPos;
 
 	MAPTYPE MapNum = GAMERESRCMNGR->GetLoadMapNum();

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "UserTable.h"
 #include "Player.h"
 #include "Network.h"
@@ -30,7 +31,7 @@ void CSurvivalModeManager::Init()
 	m_dwStateRemainTime = 0;
 	m_nUserAlive = 0;
 
-	m_dwUsingCountLimit = 5;	//±âº» 5
+	m_dwUsingCountLimit = 5;	//âº» 5
 }
 
 void CSurvivalModeManager::Release()
@@ -54,12 +55,12 @@ void CSurvivalModeManager::Process()
 	{
 	case eSVVMode_None:
 		{
-			//GM ¿¡ ÀÇÇØ Ready ·Î º¯È­
+			//GM   Ready  È­
 		}
 		break;
 	case eSVVMode_Ready:
 		{
-			//10ÃÊ Ä«¿îÆ® ÈÄ Fight ·Î º¯È­
+			//10 Ä«Æ®  Fight  È­
 			if( CheckRemainTime() )
 			{
 				ChangeStateTo(eSVVMode_Fight);
@@ -68,12 +69,12 @@ void CSurvivalModeManager::Process()
 		break;
 	case eSVVMode_Fight:
 		{
-			//1¸í »ì¾Æ³²À» ½Ã End ·Î º¯È­
+			//1 Æ³  End  È­
 		}
 		break;
 	case eSVVMode_End:
 		{
-			//10ÃÊ Ä«¿îÆ® ÈÄ Ready ·Î º¯È­
+			//10 Ä«Æ®  Ready  È­
 			if( CheckRemainTime() )
 			{
 				ChangeStateTo(eSVVMode_None);
@@ -120,7 +121,7 @@ void CSurvivalModeManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoc
 		break;
 	case MP_SURVIVAL_MAPOFF_SYN:
 		{
-			//À¯Àúµé ¸ÕÀú ¸ÊÀ¸·Î µÇµ¹¸®±â.
+			//   Çµ.
 			ReturnToMap();
 		}
 		break;
@@ -155,7 +156,7 @@ void CSurvivalModeManager::NetworkMsgParse( DWORD dwConnectionIndex, BYTE Protoc
 			QuestTotalInfo(pmsg->dwObjectID);
 
 			QUESTMGR->CreateQuestForPlayer( pPlayer );
-			// Ç×»ó ¼­ºêÄù½ºÆ® Á¤º¸ºÎÅÍ ÀÐ¾î¾ß ÇÔ...
+			// ×» Æ®  Ð¾ ...
 //			QuestMainQuestLoad(pmsg->dwObjectID);
 			QuestSubQuestLoad(pmsg->dwObjectID);
 //			QuestItemload(pmsg->dwObjectID);			
@@ -212,7 +213,7 @@ void CSurvivalModeManager::SendNackMsg(CPlayer* pGM, BYTE Protocol, BYTE errstat
 }
 
 BOOL CSurvivalModeManager::CheckRemainTime()
-{// »óÅÂº° À¯È¿ ½Ã°£À» Ã¼Å©ÇÑ´Ù.
+{// Âº È¿ Ã° Ã¼Å©Ñ´.
 	if(m_dwStateRemainTime)
 	{
 		if(gCurTime > m_dwStateRemainTime)
@@ -259,7 +260,7 @@ BOOL CSurvivalModeManager::AddItemUsingCount( CPlayer* pPlayer )
 }
 
 void CSurvivalModeManager::ChangeStateTo( WORD nextState )
-{// »óÅÂ º¯È­¿Í ÇØ´ç Ã³¸®
+{//  È­ Ø´ Ã³
 	if(m_wModeState == nextState)
 		return;
 	
@@ -271,7 +272,7 @@ void CSurvivalModeManager::ChangeStateTo( WORD nextState )
 		{
 			m_dwStateRemainTime = 0;
 
-			//»ç¶÷ ´Ù »ì¸®°í ÃÊ±âÈ­.
+			//  ì¸® Ê±È­.
 			ReadyToSurvivalMode();
 
 			SendAliveUserCount();
@@ -310,17 +311,17 @@ void CSurvivalModeManager::ChangeStateTo( WORD nextState )
 		{
 			m_dwStateRemainTime = gCurTime + eSVVMD_TIME_END;
 
-			//»ì¾ÆÀÖ´Â ÇÑ¸íÀ» Ã£¾Æ ¸¸ÇÇ ¼¼ÆÃÇØÁÖ°í
+			//Ö´ Ñ¸ Ã£  Ö°
 			PTRLISTPOS pos = m_SVModeAliveUserList.GetHeadPosition();
 
 			CPlayer* pTheWinner = (CPlayer*)m_SVModeAliveUserList.GetAt(pos);
 
 			if(pTheWinner)
 			{
-				//Áö¼Ó½ºÅ³·Î Á×´Â°Í ¸·ÀÚ. -_-;
+				//Ó½Å³ ×´Â° . -_-;
 				pTheWinner->SetLife(pTheWinner->GetMaxLife());
 
-				////ÀÌÆåÆ® Ã³¸® -> MSG_SVVMODE_ENDINFO ÇÏ³ª·Î Ã³¸®ÇÏÀÚ.
+				////Æ® Ã³ -> MSG_SVVMODE_ENDINFO Ï³ Ã³.
 				//MSG_DWORD Msg;
 				//Msg.Category = MP_SURVIVAL;
 				//Msg.Protocol = MP_SURVIVAL_WINNER_EFFECT;
@@ -333,7 +334,7 @@ void CSurvivalModeManager::ChangeStateTo( WORD nextState )
 				msg.Category = MP_SURVIVAL;
 				msg.Protocol = MP_SURVIVAL_END_ACK;
 				msg.WinnerID = pTheWinner->GetID();
-				//ID Ã³¸® ¾ÈÇÏ´Â ÀÌÀ¯´Â ´Ù¸¥ À¯ÀúÀÇ ±×¸®µå ¹ÛÀÏ ¼ö ÀÖ±â ¶§¹®!
+				//ID Ã³ Ï´  Ù¸  ×¸   Ö± !
 				SafeStrCpy( msg.WinnerName, pTheWinner->GetObjectName(), MAX_NAME_LENGTH+1);
 
 				SendMsgToAllSVModeUser(&msg, sizeof(msg));
@@ -347,7 +348,7 @@ void CSurvivalModeManager::ChangeStateTo( WORD nextState )
 }
 
 void CSurvivalModeManager::ReadyToSurvivalMode()
-{// ¸ðµç À¯Àú¸¦ »ì¸®°í ÁØºñ »óÅÂ¿¡ µé¾î°£´Ù.
+{//   ì¸® Øº Â¿ î°£.
 	m_SVModeAliveUserList.RemoveAll();
 
 	DWORD* pCounter = NULL;
@@ -358,7 +359,7 @@ void CSurvivalModeManager::ReadyToSurvivalMode()
 	{
 		if(pObj->GetObjectKind() == eObjectKind_Player)
 		{
-			//»ì¸®±â
+			//ì¸®
 			CPlayer* pPlayer = ((CPlayer*)pObj);
 
 			if( OBJECTSTATEMGR_OBJ->GetObjectState(pObj) == eObjectState_Die )
@@ -370,7 +371,7 @@ void CSurvivalModeManager::ReadyToSurvivalMode()
 
 			m_SVModeAliveUserList.AddTail(pObj);
 
-			//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+			//SW061129 È«ß°Ã»Û¾ - ë°¹
 			pCounter = m_SVItemUsingCounter.GetData(pObj->GetID());
 			if(pCounter)
 				*pCounter = 0;
@@ -421,7 +422,7 @@ void CSurvivalModeManager::AddSVModeUser( CObject* pObject )
 
 	AddAliveUser(pObject);
 
-	//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+	//SW061129 È«ß°Ã»Û¾ - ë°¹
 	DWORD* pCounter = new DWORD;
 	*pCounter = 0;
 	m_SVItemUsingCounter.Add( pCounter, pObject->GetID() );
@@ -432,7 +433,7 @@ void CSurvivalModeManager::AddSVModeUser( CObject* pObject )
 	msg.dwData = m_dwUsingCountLimit;
 	((CPlayer*)pObject)->SendMsg(&msg, sizeof(msg));
 
-	//if( pObject->GetLife() )	//DB¼¼ÆÃÀÌÀüÀÌ¶ó 0°ª.	//Inited ÀÌÈÄ·Î º¯°æ?
+	//if( pObject->GetLife() )	//DBÌ¶ 0.	//Inited Ä· ?
 		//AddAliveUserCount(TRUE);
 }
 
@@ -455,10 +456,10 @@ void CSurvivalModeManager::RemoveSVModeUser( CObject* pObject )
 
 		m_SVModeUserTable.Remove( pObject->GetID() );
 
-		//if( pObj->GetLife() )	//ÀÌ°Å »¬°¡..
+		//if( pObj->GetLife() )	//Ì° ..
 		RemoveAliveUser(pObj);
 
-		//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+		//SW061129 È«ß°Ã»Û¾ - ë°¹
 		DWORD* pCounter = m_SVItemUsingCounter.GetData( pObj->GetID() );
 		if(pCounter)
 			delete pCounter;
@@ -471,7 +472,7 @@ void CSurvivalModeManager::RemoveSVModeUser( CObject* pObject )
 }
 
 void CSurvivalModeManager::AddAliveUser( CObject* pObject )
-{	//»ýÁ¸ÀÚ ¸®½ºÆ®
+{	// Æ®
 	m_SVModeAliveUserList.AddTail(pObject);
 
 	SendAliveUserCount();
@@ -501,7 +502,7 @@ void CSurvivalModeManager::RemoveAliveUser( CObject* pObject )
 //	else		//-
 //		m_nUserAlive--;
 //
-//	//¸ðµç À¯Àú¿¡°Ô Ä«¿îÆ® Á¤º¸ º¸³»±â
+//	//  Ä«Æ®  
 //	MSG_DWORD msg;
 //	msg.Category = MP_SURVIVAL;
 //	msg.Protocol = MP_SURVIVAL_ALIVEUSER_COUNT;

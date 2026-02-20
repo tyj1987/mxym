@@ -26,6 +26,9 @@ CBattle* CBattleFactory_MurimField::CreateBattle( BATTLE_INFO_BASE* pCreateInfo,
 #endif
 
 	// team1 setting
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 	CBattleTeam_MurimField* pBattleTeam1 = new CBattleTeam_MurimField;
 	pBattleTeam1->Initialize( pInfo->BattleID, &pInfo->TeamInfo[eBattleTeam1] );
 

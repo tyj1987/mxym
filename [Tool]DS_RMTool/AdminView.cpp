@@ -108,7 +108,7 @@ void CAdminView::OnInitialUpdate()
 	}
 
 	//
-	for(i=eAdminPage_Max-1;i>=0;--i)
+	for(int i=eAdminPage_Max-1;i>=0;--i)
 		m_pSheet->SetActivePage(i);
 
 //	DWORD style = m_pSheet->GetTabControl()->GetStyle();

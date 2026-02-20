@@ -8,6 +8,7 @@
 	title	:	
 */
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "RegenNPC.h"
 #include "Npc.h"
 

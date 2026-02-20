@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "QuestEvent.h"
 
-#include "StrTokenizer.h"
+#include "D:\\mxym\\[Lib]YHLibrary\\StrTokenizer.h"
 #include "QuestScriptLoader.h"
 
 //////////////////////////////////////////////////////////////////////

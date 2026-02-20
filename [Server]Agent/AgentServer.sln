@@ -1,44 +1,37 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AgentServer", "AgentServer.vcproj", "{517698C9-FF3A-4D06-B801-1FE1DE5C566A}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AgentServer", "AgentServer.vcxproj", "{517698C9-FF3A-4D06-B801-1FE1DE5C566A}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccProjectName0 = Perforce\u0020Project
-		SccLocalPath0 = ..
-		SccProvider0 = MSSCCI:Perforce\u0020SCM
-		CanCheckoutShared = true
-		SccProjectFilePathRelativizedFromConnection0 = [Server]Agent\\
-		SolutionUniqueID = {6E2C534E-B353-4C0F-AEDC-404F37EB8BF1}
-		SccProjectUniqueName1 = AgentServer.vcproj
-		SccLocalPath1 = ..
-		CanCheckoutShared = true
-		SccProjectFilePathRelativizedFromConnection1 = [Server]Agent\\
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_CHINA|x86 = Debug_CHINA|x86
+		Debug_HK|x86 = Debug_HK|x86
+		Debug_JAPAN|x86 = Debug_JAPAN|x86
+		Debug_TL|x86 = Debug_TL|x86
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Debug_CHINA = Debug_CHINA
-		Debug_JAPAN = Debug_JAPAN
-		Debug_TL = Debug_TL
-		Release = Release
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_CHINA|x86.ActiveCfg = Debug_CHINA|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_CHINA|x86.Build.0 = Debug_CHINA|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_HK|x86.ActiveCfg = Debug_HK|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_HK|x86.Build.0 = Debug_HK|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_JAPAN|x86.ActiveCfg = Debug_JAPAN|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_JAPAN|x86.Build.0 = Debug_JAPAN|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_TL|x86.ActiveCfg = Debug_TL|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_TL|x86.Build.0 = Debug_TL|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug|x86.ActiveCfg = Debug|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug|x86.Build.0 = Debug|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Release|x86.ActiveCfg = Release|Win32
+		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug.ActiveCfg = Debug|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug.Build.0 = Debug|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_CHINA.ActiveCfg = Debug_CHINA|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_CHINA.Build.0 = Debug_CHINA|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_JAPAN.ActiveCfg = Debug_JAPAN|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_JAPAN.Build.0 = Debug_JAPAN|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_TL.ActiveCfg = Debug_TL|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Debug_TL.Build.0 = Debug_TL|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Release.ActiveCfg = Release|Win32
-		{517698C9-FF3A-4D06-B801-1FE1DE5C566A}.Release.Build.0 = Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {1D4F870A-C9F7-4A3F-BE38-460E7FC258CA}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

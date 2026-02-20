@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "HashTable.h"
+#include "D:\mxym\[Lib]YHLibrary\hashtable.h"
 #include "AbilityInfo.h"
 class CAbilityGroup;
 

@@ -3,25 +3,26 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "../[CC]Header/ServerSystem.h"
 
 #ifdef _MAPSERVER_
 
 #include "SkillManager_server.h"
 
-#include "UserTable.h"
-#include "CharMove.h"
+#include "../[Client]MH/UserTable.h"
+#include "../[Client]MH/CharMove.h"
 
-#include "Player.h"
-#include "Monster.h"
-#include "Pet.h"
-#include "PackedData.h"
+#include "../[Client]MH/Player.h"
+#include "../[Client]MH/Monster.h"
+#include "../[Client]MH/Pet.h"
+#include "../[Client]MH/PackedData.h"
 
-#include "BattleSystem_Server.h"
-#include "MapDBMsgParser.h"
-#include "MugongManager.h"
-#include "ItemManager.h"
+#include "../[CC]BattleSystem/BattleSystem_Server.h"
+#include "../[Client]MH/MapDBMsgParser.h"
+#include "../[Client]MH/MugongManager.h"
+#include "../[Client]MH/ItemManager.h"
 
-#include "ObjectStateManager.h"
+#include "../[Client]MH/ObjectStateManager.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -41,14 +42,14 @@ CSkillManager::CSkillManager()
 	m_GeukMaSkillTable.Initialize(30);
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	m_SkillOptionTable.Initialize(30);
 	m_SkillOptionByItemTable.Initialize(30);
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	m_SpecialStateInfoTable.Initialize(3);
 	//////////////////////////////////////////////////////////////////////////	
 }
@@ -72,8 +73,8 @@ void CSkillManager::Init()
 	m_ICHandle = ICCreate();
 	ICInitialize(m_ICHandle,SKILLOBJECT_ID_MAX);
 
-	m_JobSkillProbabilityTable.Initialize(MAX_JOBLEVEL_NUM);	// 2007. 6. 28. CBH - Àü¹®±â¼ú È®·ü Å×ÀÌºí ÃÊ±âÈ­ /////////////////
-	LoadJobSkillProbability();				// 2007. 6. 28. CBH - Àü¹®±â¼ú È®·ü ¸®¼Ò½º ·Îµù /////////////////	
+	m_JobSkillProbabilityTable.Initialize(MAX_JOBLEVEL_NUM);	// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ê±ï¿½È­ /////////////////
+	LoadJobSkillProbability();				// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½Îµï¿½ /////////////////	
 }
 void CSkillManager::Release()
 {
@@ -110,8 +111,8 @@ void CSkillManager::Release()
 	m_GeukMaSkillTable.RemoveAll();
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	SKILLOPTION* pSOpt = NULL;
 
 	m_SkillOptionTable.SetPositionHead();
@@ -123,8 +124,8 @@ void CSkillManager::Release()
 	m_SkillOptionByItemTable.RemoveAll();
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// Àº½Å/Çý¾È
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	SPECIAL_STATE_INFO* pStateInfo = NULL;
 
 	m_SpecialStateInfoTable.SetPositionHead();
@@ -135,7 +136,7 @@ void CSkillManager::Release()
 	m_SpecialStateInfoTable.RemoveAll();
 	//////////////////////////////////////////////////////////////////////////
 
-	////// 2007. 6. 28. CBH - Àü¹®±â¼ú È®·ü ¸®½ºÆ® »èÁ¦ /////////////////
+	////// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ /////////////////
 	JOB_SKILL_PROBABILITY_INFO* pJobSkillInfo = NULL;
 
 	m_JobSkillProbabilityTable.SetPositionHead();
@@ -158,7 +159,7 @@ void CSkillManager::LoadSkillInfoList()
 #endif
 	if(file.IsInited() == FALSE)
 	{
-		ASSERTMSG(0,"SkillList¸¦ ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù.");
+		ASSERTMSG(0,"SkillListï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 		return;
 	}
 
@@ -199,16 +200,16 @@ void CSkillManager::LoadSkillInfoList()
 
 	LoadSkillTreeList();
 
-	// È­°æ, ±Ø¸¶ ½ºÅ³¸®½ºÆ®
+	// È­ï¿½ï¿½, ï¿½Ø¸ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Æ®
 	LoadJobSkillList();
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	LoadSkillOptionList();
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	LoadStateList();
 	//////////////////////////////////////////////////////////////////////////
 }
@@ -223,7 +224,7 @@ void CSkillManager::LoadSkillChangeInfoList()
 #endif
 	if(file.IsInited() == FALSE)
 	{
-		ASSERTMSG(0,"SkillChangeList¸¦ ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù.");
+		ASSERTMSG(0,"SkillChangeListï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 		return;
 	}
 
@@ -332,8 +333,8 @@ void CSkillManager::LoadJobSkillList()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// ¹«°ø º¯È¯ Ãß°¡
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 void CSkillManager::LoadSkillOptionList()
 {
 	CMHFile file;
@@ -344,7 +345,7 @@ void CSkillManager::LoadSkillOptionList()
 #endif
 	if(file.IsInited() == FALSE)
 	{
-		ASSERTMSG(0,"SkillOptionList¸¦ ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù.");
+		ASSERTMSG(0,"SkillOptionListï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 		return;
 	}
 
@@ -426,8 +427,8 @@ void CSkillManager::LoadSkillOptionList()
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-// Àº½Å/Çý¾È
+// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 void CSkillManager::LoadStateList()
 {
 	CMHFile file;
@@ -438,7 +439,7 @@ void CSkillManager::LoadStateList()
 #endif
 	if(file.IsInited() == FALSE)
 	{
-		ASSERTMSG(0,"StateList¸¦ ·ÎµåÇÏÁö ¸øÇß½À´Ï´Ù.");
+		ASSERTMSG(0,"StateListï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 		return;
 	}
 
@@ -465,7 +466,7 @@ void CSkillManager::LoadStateList()
 
 DWORD CSkillManager::GetNewSkillObjectID()
 {
-	static tempID = SKILLOBJECT_ID_START;
+	static DWORD tempID = SKILLOBJECT_ID_START;
 	if(++tempID >= SKILLOBJECT_ID_MAX)
 		tempID = SKILLOBJECT_ID_START;
 	return tempID;
@@ -491,15 +492,15 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	float skillTreeAmp;
 	BYTE Err = 0;
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	WORD SkillOptionIndex = 0;
 	SKILLOPTION* pSkillOption = NULL;
 	//////////////////////////////////////////////////////////////////////////
 	
 	CObject* pOperator = g_pUserTable->FindUser(pmsg->Operator);
 
-	/// ÀÓ½Ã/////////
+	/// ï¿½Ó½ï¿½/////////
 	if(pmsg->Operator > 1000000)
 	{
 		/*
@@ -510,7 +511,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 
 		char Strtemp[256];
 		FILE* fpstart = fopen(szFile,"a+");
-		fprintf(fpstart, "[SkillSyn Object ID Over] - [OperatorID : %u] [SkillIndex : %d] [ObjectID : %u] [%2d:%02d:%02d]\n", pmsg->Operator, pmsg->SkillIdx, pmsg->dwObjectID, systime.wHour, systime.wMinute, systime.wSecond);
+		fprintf(fpstart, "[SkillSyn Object ID Over] - [OperatorID : %u] [SkillIndex : %d] [ObjectID : %u] [%2d:%02d:%02d]/n", pmsg->Operator, pmsg->SkillIdx, pmsg->dwObjectID, systime.wHour, systime.wMinute, systime.wSecond);
 		fclose(fpstart);
 		*/
 
@@ -521,7 +522,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	if(pOperator == NULL)
 	{
 		/*
-		/// ÀÓ½Ã/////////
+		/// ï¿½Ó½ï¿½/////////
 		SYSTEMTIME systime;
 		char szFile[256] = {0,};
 		GetLocalTime( &systime );		
@@ -529,7 +530,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 
 		char Strtemp[256];
 		FILE* fpstart = fopen(szFile,"a+");
-		fprintf(fpstart, "[SkillSyn Object ID Error] - [OperatorID : %u] [SkillIndex : %d] [ObjectID : %u] [%2d:%02d:%02d]\n", pmsg->Operator, pmsg->SkillIdx, pmsg->dwObjectID, systime.wHour, systime.wMinute, systime.wSecond);
+		fprintf(fpstart, "[SkillSyn Object ID Error] - [OperatorID : %u] [SkillIndex : %d] [ObjectID : %u] [%2d:%02d:%02d]/n", pmsg->Operator, pmsg->SkillIdx, pmsg->dwObjectID, systime.wHour, systime.wMinute, systime.wSecond);
 		fclose(fpstart);		
 		////////////		
 		*/
@@ -549,15 +550,15 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	if(pOperator->GetObjectKind() == eObjectKind_Player)
 	{
 		//KES HACK CHECK
-		//¸¶Áö¸·¿¡ »ç¿ëÇÑ ½ºÅ³ÀÇ ¾Ö´Ï¸ÞÀÌ¼Ç ±æÀÌ¸¦ ÀúÀåÇÑ´Ù.
-		//ÇöÀç ½Ã°£À» ÀúÀåÇÑ´Ù.
-		//¸¶Áö¸·¿¡ »ç¿ëÇÑ ½ºÅ³ÀÇ ¿¡´Ï¸ÞÀÌ¼Ç ±æÀÌ ½Ã°£ÀÌ Áö³µ´ÂÁö °Ë»çÇÑ´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 		CPlayer* pPlayer = (CPlayer*)pOperator;
 
 		DWORD dwLSAT = pPlayer->GetLastSkillAnimationTime();
 
 		BOOL bHack = FALSE;
-		if( gCurTime + 2000 < pPlayer->GetSkillDelayStartTime() + dwLSAT )	//2ÃÊ±îÁö´Â ·ºÀ» °í·ÁÇÏ¿© ºÁÁØ´Ù.
+		if( gCurTime + 2000 < pPlayer->GetSkillDelayStartTime() + dwLSAT )	//2ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 		{
 			pPlayer->SpeedHackCheck();
 			bHack = TRUE;
@@ -565,9 +566,9 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 
 		pPlayer->SetSkillDelayStartTime( gCurTime );
 		//////////////////////////////////////////////////
-		// 06. 07. SAT º¯°æ - ÀÌ¿µÁØ
-		// ³²¿© ±¸ºÐÀÇ ÀÇ¹Ì°¡ ¾øÀ¸¹Ç·Î
-		// ¿©ÄÉ¸¯ µ¥ÀÌÅÍ¸¦ È°¿ë ¹«ÃÊ µô·¹ÀÌ °¨¼Ò¿¡ ¾´´Ù
+		// 06. 07. SAT ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+		// ï¿½ï¿½ï¿½É¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 		//int nAT = pSkillInfo->GetSkillOperateAnimationTime( pPlayer->GetGender() );
 		int nAT = pSkillInfo->GetSkillOperateAnimationTime( 0 );
 		//////////////////////////////////////////////////
@@ -585,22 +586,22 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		//	SkillLevel = pPlayer->GetMugongLevel(pmsg->SkillIdx - SKILLNUM_TO_TITAN);
 		//else
 			SkillLevel = pPlayer->GetMugongLevel(pmsg->SkillIdx);
-		if(SkillLevel == 0 || SkillLevel == -1)	// ¹«°øÀÌ ¾ø´Â °æ¿ìÀÌ°Å³ª 0¼ºÀÎ °æ¿ì
+		if(SkillLevel == 0 || SkillLevel == -1)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
 			Err = eErr_SkillLvl0;
 			goto SkillStartNack;
 		}
 
 		//////////////////////////////////////////////////////////////////////////
-		// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-		// ¹«°ø º¯È¯ Ãß°¡	
+		// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½	
 		SkillOptionIndex = pPlayer->GetSkillOptionIndex(pmsg->SkillIdx);
 
 		if(SkillOptionIndex)
 			pSkillOption = m_SkillOptionTable.GetData(SkillOptionIndex);
 		//////////////////////////////////////////////////////////////////////////
 
-		// RaMa - È­°æ, ±Ø¸¶ Ã¼Å© Ãß°¡
+		// RaMa - È­ï¿½ï¿½, ï¿½Ø¸ï¿½ Ã¼Å© ï¿½ß°ï¿½
 		if( pPlayer->GetStage() & eStage_Hwa )
 		{
 			if( m_GeukMaSkillTable.GetData( pSkillInfo->GetSkillIndex() ) )
@@ -629,7 +630,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		}
 
 		/*
-		// 2005 Å©¸®½º¸¶½º ÀÌº¥Æ®
+		// 2005 Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
 		if( pPlayer->GetWeaponEquipType() == WP_EVENT )
 		{
 			if( pTargetObject->GetObjectKind() == eObjectKind_Monster )
@@ -644,8 +645,8 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		}
 		*/
 
-		// magi82 - Titan(070912) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
-		// ÀÌÁ¦ Å¸ÀÌÅº ¹«±â¿Í Ä³¸¯ÅÍÀÇ ¹«±â´Â º°°³ÀÌ´Ù.(¹«±â°¡ ¼­·Î ´Ù¸£´Ù°í ÇØ¼­ ½ºÅ³ÀÌ ¾È³ª°¡´Â°Ô ¾Æ´Ô)
+		// magi82 - Titan(070912) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+		// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.(ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ù°ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´ï¿½)
 		//if(pPlayer->InTitan())
 		//{
 		//	WORD weapon = pPlayer->GetWeaponEquipType();
@@ -683,14 +684,14 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		goto SkillStartNack;
 	}
 
-	if(GetMainTargetPos(&pmsg->MainTarget,&TargetPos, &pTargetObject) == FALSE)	// Å¸°ÙÀÌ ¾ø´Ù.
+	if(GetMainTargetPos(&pmsg->MainTarget,&TargetPos, &pTargetObject) == FALSE)	// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	{
 		Err = eErr_NoTarget;
 		goto SkillStartNack;
 	}
 
 	//KES
-	//Å¸°ÙÆÃ ¹æ½ÄÀÌ »ó´ë¹æÀÎµ¥ ÀÚ½ÅÀ» Å¸°ÙÀ¸·Î Á¤Çß´Ù.
+	//Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½.
 	if( pSkillInfo->GetSkillInfo()->TargetKind == 0 && pTargetObject == pOperator )
 	{
 		Err = eErr_NoTarget;
@@ -705,7 +706,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		goto SkillStartNack;
 	}
 
-	// 2007. 7. 3. CBH - Àü¹®½ºÅ³¹ßµ¿½Ã ¸ó½ºÅÍ¿ÍÀÇ °ü°è Ã³¸® ÇÔ¼ö Ãß°¡	
+	// 2007. 7. 3. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½	
 	CObject* pTarget = g_pUserTable->FindUser(pmsg->MainTarget.dwMainTargetID);
 	if(pTarget != NULL)
 	{
@@ -735,24 +736,24 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		goto SkillStartNack;
 	}
 	
-	//½ºÅ³ »ý¼º Àü¿¡ ÀýÃÊ È¹µæ
+	//ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
 	MUGONGBASE* pCurMugong;	
 	pCurMugong = ((CPlayer*)pOperator)->GetMugongBaseByMugongIdx(pmsg->SkillIdx);
 	if(pCurMugong)
 	if( pCurMugong->Sung == 12 )
 	{
-		// ÀýÃÊ°¡ ÀÖ´Â ¹«°øÀÌ¸é
+		// ï¿½ï¿½ï¿½Ê°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 		DWORD RandRate;
 		PTRLISTSEARCHSTART(m_SkillChangeList,SKILL_CHANGE_INFO*,pChangeInfo)
 			if(pChangeInfo->wMugongIdx == pmsg->SkillIdx)
 			{
 #ifdef _CHINA_LOCAL_
-				RandRate = random(0, 15000);	//Áß±¹ÀÇ °æ¿ì ÀýÃÊ È®·ü 1/15000
+				RandRate = random(0, 15000);	//ï¿½ß±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 1/15000
 #else
 				RandRate = random(0, 10000);
 #endif
 //				if( g_pServerSystem->GetNation() == eNATION_CHINA )
-//					RandRate = random(0, 15000);	//Áß±¹ÀÇ °æ¿ì ÀýÃÊ È®·ü 1/15000
+//					RandRate = random(0, 15000);	//ï¿½ß±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 1/15000
 //				else
 //					RandRate = random(0, 10000);
 				
@@ -765,7 +766,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 		PTRLISTSEARCHEND
 	}
 
-	// ½ºÅ³ ¿ÀºêÁ§Æ® »ý¼º
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	pSObj = pSkillInfo->GetSkillObject();
 
 	info.SkillIdx = pmsg->SkillIdx;
@@ -785,8 +786,8 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	info.BattleKind = pBattle->GetBattleKind();
 
 	//////////////////////////////////////////////////////////////////////////
-	// 06. 06. 2Â÷ ÀüÁ÷ - ÀÌ¿µÁØ
-	// ¹«°ø º¯È¯ Ãß°¡
+	// 06. 06. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ß°ï¿½
 	info.Option = SkillOptionIndex;
 	//////////////////////////////////////////////////////////////////////////
 
@@ -811,7 +812,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	pSObj->SetBattle(pOperator->GetBattleID(),pOperator->GetBattleTeam());
 	pSObj->SetGridID(pOperator->GetGridID());
 
-	// Å×ÀÌºí¿¡ µî·Ï
+	// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	m_SkillObjectTable.Add(pSObj,pSObj->GetID());
 	g_pServerSystem->AddSkillObject(pSObj,&info.Pos);
 
@@ -836,7 +837,7 @@ void CSkillManager::OnSkillStartSyn(MSG_SKILL_START_SYN* pmsg)
 	if( pOperator->GetObjectKind() == eObjectKind_Player )
 	{
 		if( pTargetObject )
-        if( pTargetObject->GetObjectKind() & eObjectKind_Monster )		//---Å¸°ÙÀÌ ¸ó½ºÅÍÀÏ °æ¿ì¸¸
+        if( pTargetObject->GetObjectKind() & eObjectKind_Monster )		//---Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¸
 			((CPlayer*)pOperator)->SetLastAttackTimeForAutoNote( gCurTime );		
 	}
 	//
@@ -899,7 +900,7 @@ void CSkillManager::ReleaseSkillObject(CSkillObject* pSkillObject,int ReleaseKin
 //	ASSERT(pSInfo);
 	if(!pSInfo)
 	{
-		ASSERTMSG(0,"»à!!!!!! Áß¿äÇÑ°÷ ÀÌ°Å º¸¸é À±È£ÇÑÅ× ²À ¿¬¶ô¹Ù¶÷!!!");
+		ASSERTMSG(0,"ï¿½ï¿½!!!!!! ï¿½ß¿ï¿½ï¿½Ñ°ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½!!!");
 
 		CSkillObject* ptemp = m_SkillObjectTable.GetData(pSkillObject->GetID());
         if( ptemp == pSkillObject )
@@ -911,7 +912,7 @@ void CSkillManager::ReleaseSkillObject(CSkillObject* pSkillObject,int ReleaseKin
 		return;
 	}
 
-	/// 2007 .7 .10. CBH - Àü¹®±â¼ú ¿ÀºêÁ§Æ® µå·Ó °ü·Ã Ã³¸® Ãß°¡
+	/// 2007 .7 .10. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 	pSkillObject->SkillObjectFirstUnitResult();
 
 	m_SkillObjectTable.Remove(pSkillObject->GetID());
@@ -1032,7 +1033,7 @@ void CSkillManager::MonsterAttack(WORD SkillIdx,CObject* pMonster,CObject* pTarg
 	DIRINDEX diridx = RADTODIR(VECTORTORAD(dir));
 
 
-	// ½ºÅ³ ¿ÀºêÁ§Æ® »ý¼º
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	SKILLOBJECT_INFO info;
 	CSkillObject* pSObj = pSkillInfo->GetSkillObject();
 
@@ -1061,7 +1062,7 @@ void CSkillManager::MonsterAttack(WORD SkillIdx,CObject* pMonster,CObject* pTarg
 	iter.AddTargetWithNoData(pTarget->GetID(),SKILLRESULTKIND_NEGATIVE);
 	iter.Release();
 
-	// Å×ÀÌºí¿¡ µî·Ï
+	// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	pSObj->Init(&info,&TList);
 	pSObj->SetBattle(pMonster->GetBattleID(),pMonster->GetBattleTeam());
 	pSObj->SetGridID(pMonster->GetGridID());
@@ -1087,7 +1088,7 @@ void CSkillManager::MonsterAttack(WORD SkillIdx,CObject* pMonster,VECTOR3* pTarg
 	DIRINDEX diridx = RADTODIR(VECTORTORAD(dir));
 
 
-	// ½ºÅ³ ¿ÀºêÁ§Æ® »ý¼º
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	SKILLOBJECT_INFO info;
 	CSkillObject* pSObj = pSkillInfo->GetSkillObject();
 
@@ -1115,29 +1116,29 @@ void CSkillManager::MonsterAttack(WORD SkillIdx,CObject* pMonster,VECTOR3* pTarg
 	WORD AreaNum = pSkillInfo->GetSkillInfo()->TargetAreaIdx;
 
 	/////////////////////////////////////////////////////
-	/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-	/// ¾ÈÀü°Å¸® 
-	/// ÀÌ °Å¸® ¾ÈÂÊÀº Å¸°ÙÀ¸·Î ÁöÁ¤µÇÁö ¾Ê´Â´Ù
+	/// 06. 08. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ 
+	/// ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
 	WORD SafeRange = pSkillInfo->GetSafeRange();
 	/////////////////////////////////////////////////////
 	
 	if(AreaNum != 0)
 	{
-		CSkillArea* pSkillArea = GetSkillArea(pMonPos,pTargetPos,pSkillInfo);	// AreaÀÇ Áß½ÉÁÂÇ¥±îÁö ¼ÂÆÃµÇ¾îÁ® ¿Â´Ù.
+		CSkillArea* pSkillArea = GetSkillArea(pMonPos,pTargetPos,pSkillInfo);	// Areaï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.
 		g_pUserTable->GetTargetInArea(pSkillArea,&tlist);
 	}
 	else if(Radius != 0)
 	{
 		/////////////////////////////////////////////////////
-		/// 06. 08. 2Â÷ º¸½º - ÀÌ¿µÁØ
-		/// ¾ÈÀü°Å¸® 
-		///	±âÁ¸ GetTargetInRange ÇÔ¼ö¿¡ ¾ÈÀü°Å¸®¸¦ ÀÎÀÚ·Î ¸¶Áö¸·¿¡ Ãß°¡Çß´Ù
+		/// 06. 08. 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì¿ï¿½ï¿½ï¿½
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ 
+		///	ï¿½ï¿½ï¿½ï¿½ GetTargetInRange ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ß´ï¿½
 		g_pUserTable->GetTargetInRange(pSkillInfo->GetTargetAreaPivotPos(pMonPos,pTargetPos),Radius,&tlist,SafeRange);
 		/////////////////////////////////////////////////////
 	}
 	
 	
-	// Å×ÀÌºí¿¡ µî·Ï
+	// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	pSObj->Init(&info,&tlist);
 	pSObj->SetBattle(pMonster->GetBattleID(),pMonster->GetBattleTeam());
 	pSObj->SetGridID(pMonster->GetGridID());
@@ -1160,7 +1161,7 @@ void CSkillManager::PetOperSkill(WORD SkillIdx,CPet* pPet,CObject* pTarget)
 	VECTOR3 dir = *pTargetPos - *pPetPos;
 	DIRINDEX diridx = RADTODIR(VECTORTORAD(dir));
 
-	// ½ºÅ³ ¿ÀºêÁ§Æ® »ý¼º
+	// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	SKILLOBJECT_INFO info;
 	CSkillObject* pSObj = pSkillInfo->GetSkillObject();
 
@@ -1185,7 +1186,7 @@ void CSkillManager::PetOperSkill(WORD SkillIdx,CPet* pPet,CObject* pTarget)
 	iter.AddTargetWithNoData(pTarget->GetID(),SKILLRESULTKIND_NEGATIVE);
 	iter.Release();
 
-	// Å×ÀÌºí µî·Ï
+	// ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½
 	pSObj->Init(&info,&TList);
 	pSObj->SetBattle(pPet->GetBattleID(),pPet->GetBattleTeam());
 	pSObj->SetGridID(pPet->GetGridID());
@@ -1201,7 +1202,7 @@ CSkillArea* CSkillManager::GetSkillArea(VECTOR3* pObjPos, VECTOR3* pTargetPos, C
 	DIRINDEX dir = RADTODIR(fRad);
 	CSkillArea* pArea = GetSkillArea(dir,pSkillInfo->GetSkillAreaIndex());
 	
-	// AreaÀÇ Áß½ÉÁÂÇ¥±îÁö ¼ÂÆÃµÇ¾îÁ® ¿Â´Ù.
+	// Areaï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.
 	VECTOR3* pPos;
 	pPos = pSkillInfo->GetTargetAreaPivotPos(pObjPos,pTargetPos);
 	pArea->SetCenterPos(pPos);
@@ -1261,7 +1262,7 @@ SKILL_CHANGE_INFO * CSkillManager::GetSkillChangeInfobyDeadlyMugongIdx(WORD wDea
 	return NULL;
 }
 
-////////// 2007. 6. 28. CBH - Àü¹®±â¼ú °ü·Ã ÇÔ¼ö Ãß°¡ ////////////////////
+////////// 2007. 6. 28. CBH - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ß°ï¿½ ////////////////////
 BOOL CSkillManager::LoadJobSkillProbability()
 {
 	CMHFile file;
@@ -1290,9 +1291,9 @@ BOOL CSkillManager::LoadJobSkillProbability()
 
 BOOL CSkillManager::IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* pSkillInfo)
 {	
-	// Å¸°ÙÀÌ Àü¹®±â¼ú ¿ÀºêÁ§Æ®¸é ÀÏ¹Ý ½ºÅ³ ¸·´Â´Ù	
-	// Àü¹®±â¼ú ·¹º§º¸´Ù ¿ÀºêÁ§Æ®ÀÇ ·¹º§ÀÌ ³ôÀ¸¸é ¸·´Â´Ù. (¸Þ¼¼Áö Ã³¸®)
-	// Å¸°ÙÀÌ ÀÏ¹Ý ¸÷ÀÌ°í Àü¹®½ºÅ³ ½ÃÀü½Ã ½ÃÀü ¸øÇÏ°Ô ¸·´Â´Ù.
+	// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Â´ï¿½	
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½. (ï¿½Þ¼ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½)
+	// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 	WORD wSkillKind = pSkillInfo->GetSkillKind();
 
 	if( pTarget->GetObjectKind() == eObjectKind_Player )
@@ -1307,7 +1308,7 @@ BOOL CSkillManager::IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* p
 		}
 	}	
 	
-	//¼º¹®¿¡¼­ »¶³ª´Â ºÎºÐ Ã³¸®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ Ã³ï¿½ï¿½
 	if(pTarget->GetObjectKind() == eObjectKind_MapObject)
 	{
 		return TRUE;
@@ -1324,17 +1325,17 @@ BOOL CSkillManager::IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* p
 			return FALSE;
 		}
 
-		//Å¸ÀÌÅº Å¾½Â½Ã Àü¹®½ºÅ³ ¹ßµ¿ ºÒ°¡ Ã³¸®
+		//Å¸ï¿½ï¿½Åº Å¾ï¿½Â½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ßµï¿½ ï¿½Ò°ï¿½ Ã³ï¿½ï¿½
 		if(pPlayer->InTitan() == TRUE)
 		{			
 			return FALSE;
 		}
 
-		//½ºÅ³Á¾·ù¿Í ¸ó½ºÅÍ Á¾·ù¿ÍÀÇ ºñ±³		
+		//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½		
 		BOOL bJobSkillSuccess = FALSE;
 		switch(wSkillKind)
 		{
-		case SKILLKIND_MINING:	// Ã¤±¤
+		case SKILLKIND_MINING:	// Ã¤ï¿½ï¿½
 			{			
 				if( wObjectKind == eObjectKind_Mining )
 				{
@@ -1342,7 +1343,7 @@ BOOL CSkillManager::IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* p
 				}				
 			}
 			break;
-		case SKILLKIND_COLLECTION:	// Ã¤Áý
+		case SKILLKIND_COLLECTION:	// Ã¤ï¿½ï¿½
 			{
 				if( wObjectKind == eObjectKind_Collection )
 				{
@@ -1350,7 +1351,7 @@ BOOL CSkillManager::IsJobSkill(CPlayer* pPlayer, CObject* pTarget, CSkillInfo* p
 				}				
 			}
 			break;
-		case SKILLKIND_HUNT:	// »ç³É
+		case SKILLKIND_HUNT:	// ï¿½ï¿½ï¿½
 			{
 				if( wObjectKind == eObjectKind_Hunt )
 				{
@@ -1399,7 +1400,7 @@ WORD CSkillManager::GetJobSkillProbability(WORD wSkillLevel, WORD wTargetLevel)
 
 	for(WORD i = 0 ; i < MAX_JOBMOB_NUM ; i++)
 	{
-		if(i+1 == wTargetLevel) //·¹º§Àº 1ºÎÅÍ ½ÃÀÛ i°ªÀº ¹è¿­ ÀÎµ¦½º....
+		if(i+1 == wTargetLevel) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ iï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ ï¿½Îµï¿½ï¿½ï¿½....
 		{
 			wProbability = pJobSkillInfo->ProbabilityArray[i];
 			return wProbability;
@@ -1420,13 +1421,13 @@ BOOL CSkillManager::CheckSkillKind(WORD wSkillKind)
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-///// 2007. 10. 15. CBH - Å¸ÀÌÅº ¹«°ø°ú ¹«±â Ã¼Å©(SkillInfo¿¡¼­ ÀÌµ¿) /////////////
+///// 2007. 10. 15. CBH - Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©(SkillInfoï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½) /////////////
 BOOL CSkillManager::CheckTitanWeapon(CObject* pObject, SKILLINFO* SkillInfo)
 {
-	// magi82 - Titan(070912) Å¸ÀÌÅº ¹«°ø¾÷µ¥ÀÌÆ®
-	if(((CPlayer*)pObject)->InTitan())	// Å¸ÀÌÅº¿¡ Å¾½ÂÁßÀÏ¶§..
+	// magi82 - Titan(070912) Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	if(((CPlayer*)pObject)->InTitan())	// Å¸ï¿½ï¿½Åºï¿½ï¿½ Å¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½..
 	{
-		// Å¸ÀÌÅº ¹«°øÀÌ¸é Å¸ÀÌÅº ¹«±â¸¦ Ã¼Å©ÇÑ´Ù.
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½â¸¦ Ã¼Å©ï¿½Ñ´ï¿½.
 		if(SkillInfo->SkillKind == SKILLKIND_TITAN)
 		{
 			if( SkillInfo->WeaponKind != 0 )
@@ -1438,19 +1439,19 @@ BOOL CSkillManager::CheckTitanWeapon(CObject* pObject, SKILLINFO* SkillInfo)
 					return FALSE;
 			}
 		}
-		else	// Å¸ÀÌÅº ¹«°øÀÌ ¾Æ´Ï¸é ¿¡·¯
+		else	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		{
 			return FALSE;
 		}
 	}
-	else	// Å¸ÀÌÅº¿¡ Å¾½ÂÁßÀÌÁö ¾ÊÀ»¶§..
+	else	// Å¸ï¿½ï¿½Åºï¿½ï¿½ Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 	{
-		// Å¸ÀÌÅº ¹«°øÀÌ¸é ¿¡·¯
+		// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(SkillInfo->SkillKind == SKILLKIND_TITAN)
 		{
 			return FALSE;
 		}
-		else	// Å¸ÀÌÅº ¹«°øÀÌ ¾Æ´Ï¸é Ä³¸¯ÅÍ ¹«±â¸¦ Ã¼Å©ÇÑ´Ù.
+		else	// Å¸ï¿½ï¿½Åº ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ Ã¼Å©ï¿½Ñ´ï¿½.
 		{
 			if( SkillInfo->WeaponKind != 0 )
 			{

@@ -4,7 +4,7 @@
 #include "network.h"
 #include "timer.h"
 #include "net_global.h"
-#include "../4DyuchiNET_Common/code_GUID.h"
+#include "code_GUID.h"
 #include "log.h"
 #include "quemanager.h"
 #include "switch_que.h"

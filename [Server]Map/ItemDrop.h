@@ -4,13 +4,13 @@
 
 #if !defined(AFX_ITEMDROP_H__59770A47_500D_485D_89F1_9835D4500264__INCLUDED_)
 #define AFX_ITEMDROP_H__59770A47_500D_485D_89F1_9835D4500264__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-//#include "Player.h"
-//class CPlayer;
+#include "Player.h"
 
 #define ITEMDROP_OBJ CItemDrop::GetInstance()
 class MONSTEREX_LIST;
@@ -18,10 +18,10 @@ class MONSTEREX_LIST;
 struct MONSTER_ITEM
 {
 #ifdef _DEBUG
-	char Name[MAX_ITEMNAME_LENGTH+1];			// ¾ÆÀÌÅÛ ÀÌ¸§
+	char Name[MAX_ITEMNAME_LENGTH+1];			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 #endif
-	WORD wItemIdx;							// ¾ÆÀÌÅÛ ¹øÈ£
-	DWORD dwDropPercent;						// µå·ÓÈ®·ü
+	WORD wItemIdx;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	DWORD dwDropPercent;						// ï¿½ï¿½ï¿½È®ï¿½ï¿½
 };
 /*
 struct MONSTER_ITEM_DROP

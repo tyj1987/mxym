@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "BattleTeam_Suryun.h"
 
-#include "Player.h"
+#include "../[Client]MH/Player.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

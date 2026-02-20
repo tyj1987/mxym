@@ -28,12 +28,13 @@
 
 CMixDialog::CMixDialog()
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜Ži
 	m_pMixDlg = NULL;
 	m_pMixGridDlg = NULL;
 	
 	cImage imgToolTip;
 	SCRIPTMGR->GetImage( 63, &imgToolTip, PFT_HARDPATH );
-	for(int i = 0 ; i < eMixPos_Max ; ++i)
+	for(i = 0 ; i < eMixPos_Max ; ++i)
 	{
 		m_VirtualItem[i].SetToolTip( "", RGB_HALF( 255, 255, 255), &imgToolTip );
 		m_VirtualItem[i].SetMovable(FALSE);
@@ -67,7 +68,7 @@ void CMixDialog::Release(eMixReleaseOpt op, BOOL bMsg)
 		pVItem->GetLinkItem()->SetLock(FALSE);
 		if( bMsg )
 		{
-			///¼­¹ö¿¡µµ º¸³»Áà¾ßÁö!!!! KES
+			///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!!! KES
 			MSG_WORD msg;
 			msg.Category	= MP_ITEM;
 			msg.Protocol	= MP_ITEM_MIX_RELEASEITEM;
@@ -85,7 +86,7 @@ void CMixDialog::Release(eMixReleaseOpt op, BOOL bMsg)
 		pVItem->GetLinkItem()->SetLock(FALSE);
 		if( bMsg )
 		{
-			///¼­¹ö¿¡µµ º¸³»Áà¾ßÁö!!!! KES
+			///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!!! KES
 			MSG_WORD msg;
 			msg.Category	= MP_ITEM;
 			msg.Protocol	= MP_ITEM_MIX_RELEASEITEM;
@@ -160,21 +161,21 @@ BOOL CMixDialog::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 	CItem * pOrigItem = (CItem *)pOrigIcon;
 	if( pOrigItem->IsLocked() ) return FALSE;
 	
-	// ÀÎº¥Åä¸®ÀÌ¿Ü¿¡ ¾ÆÀÌÅÛ FALSE
+	// ï¿½Îºï¿½ï¿½ä¸®ï¿½Ì¿Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FALSE
 	if(!ITEMMGR->IsEqualTableIdxForPos(eItemTable_Inventory, pOrigItem->GetPosition()))
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg( 612 ) );
 		return FALSE;
 	}
 	
-	// ¿É¼Ç ¾ÆÀÌÅÛ ¾ÈµÊ
+	// ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½
 	if(ITEMMGR->IsOptionItem(pOrigItem->GetItemIdx(), pOrigItem->GetDurability()))
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(202) );
 		return FALSE;
 	}
 	
-//	//!!!ÀÓ½Ã SW051007 ·¹¾î ¾ÆÀÌÅÛ ¾ÈµÊ
+//	//!!!ï¿½Ó½ï¿½ SW051007 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½
 //	if(ITEMMGR->IsRareOptionItem(pOrigItem->GetItemIdx(), pOrigItem->GetRareness()))
 //	{
 //		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(202) );
@@ -191,7 +192,7 @@ BOOL CMixDialog::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 	}
 
 	// magi82 - UniqueItem(070627)
-	// À¯´ÏÅ©¾ÆÀÌÅÛÀÌ°í Á¶ÇÕÀÌ ºÒ°¡´ÉÇÑ À¯´ÏÅ©¶ó¸é..
+	// ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ï¿½..
 	if(bits == eEQUIP_ITEM_UNIQUE && GAMERESRCMNGR->GetUniqueItemOptionList(pOrigItem->GetItemIdx())->MixFlag == 0)
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1625) );
@@ -206,7 +207,7 @@ BOOL CMixDialog::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 		return FALSE;
 	}
 
-	//¿µ¾à¾ÆÀÌÅÛÀÌ ¾Æ´Ñ Àç·á¾ÆÀÌÅÛÀÏ°æ¿ì ÇÏ³ª¹Û¿¡ ¾È¿Ã¶ó°£´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Û¿ï¿½ ï¿½È¿Ã¶ó°£´ï¿½.
 	if( GetItemKind(pOrigItem->GetItemIdx() ) != eYOUNGYAK_ITEM && 
 		GetItemKind(pOrigItem->GetItemIdx() ) != eEXTRA_ITEM_JEWEL && 
 		pOrigItem->GetDurability() > 1 )
@@ -230,9 +231,9 @@ BOOL CMixDialog::FakeMoveIcon(LONG x, LONG y, cIcon * pOrigIcon)
 	}
 
 	//LOCK ITEM
-	pOrigItem->SetLock(TRUE);///¼­¹ö¿¡µµ ¶ôÀ» °É¾î¾ßÁö!!!!!! KES
+	pOrigItem->SetLock(TRUE);///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¾ï¿½ï¿½ï¿½ï¿½!!!!!! KES
 
-//---¿©±â¼­ ¸Þ¼¼Áöº¸³»°í
+//---ï¿½ï¿½ï¿½â¼­ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	MSG_ITEM	msgItem;
 	msgItem.Category	= MP_ITEM;
 	msgItem.Protocol	= MP_ITEM_MIX_ADDITEM_SYN;
@@ -272,7 +273,7 @@ void CMixDialog::ViewMaterialsDesc(ITEM_MIX_RES * pResultItem)
 	{		
 		/*
 #ifndef TAIWAN_LOCAL
-		wsprintf( szDescText, "%s ¡¿ %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
+		wsprintf( szDescText, "%s ï¿½ï¿½ %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
 #else
 //		wsprintf( szDescText, "%s X %d^n^n", pResultItem->szResItemName, pBasicItem->GetSrcDurability() );
 		wsprintf( szDescText, "%s X %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
@@ -287,7 +288,7 @@ void CMixDialog::ViewMaterialsDesc(ITEM_MIX_RES * pResultItem)
 #elif defined _TL_LOCAL_
 		wsprintf( szDescText, "%s X %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
 #else
-		wsprintf( szDescText, "%s ¡¿ %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
+		wsprintf( szDescText, "%s ï¿½ï¿½ %d^n^n", ITEMMGR->GetItemInfo(pResultItem->wResItemIdx)->ItemName, pBasicItem->GetSrcDurability() );
 #endif
 	}
 	else
@@ -311,7 +312,7 @@ void CMixDialog::ViewMaterialsDesc(ITEM_MIX_RES * pResultItem)
 #elif defined _TL_LOCAL_
 			wsprintf(line, " X %d", pBasicItem->GetSrcDurability());
 #else
-			wsprintf(line, " ¡¿ %d", pBasicItem->GetSrcDurability());
+			wsprintf(line, " ï¿½ï¿½ %d", pBasicItem->GetSrcDurability());
 			
 #endif
 			strcat(szDescText, line);
@@ -350,7 +351,7 @@ void CMixDialog::ViewResultItemList(ITEM_MIX_INFO * pMixItemInfo)
 		//m_ViewShowItem[i].SetToolTip( ToolTipText, RGB_HALF( 255, 255, 255) );
 		
 		//ITEMMGR->SetToolTipIcon((cIcon*)&m_ViewShowItem[i]);
-		//SW051012 ·¹¾î Á¶ÇÕ
+		//SW051012 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		ITEMMGR->SetToolTipIcon( (cIcon*)&m_ViewShowItem[i], NULL, ITEMMGR->GetItemRareOption(m_VirtualItem[eMixPos_Basic].GetRareness()) );
 
 		m_pMixGridDlg->AddIcon(i, (cIcon*)&m_ViewShowItem[i]);
@@ -377,7 +378,7 @@ BOOL CMixDialog::AddVirtualItemWrap(POSTYPE relPos, CItem * pItem)
 	//m_VirtualItem[relPos].SetToolTip( ToolTipText, RGB_HALF( 255, 255, 255) );
 //	if(pItem->GetDurability() != 0 && !ITEMMGR->IsDupItem(pItem->GetItemIdx()))
 //		ITEMMGR->SetToolTipIcon((cIcon*)&m_VirtualItem[relPos], ITEMMGR->GetItemOption(pItem->GetDurability()));
-	//!!!NULL È®ÀÎ SW050920 Rare
+	//!!!NULL È®ï¿½ï¿½ SW050920 Rare
 	if( pItem->GetDurability() != 0 && !ITEMMGR->IsDupItem(pItem->GetItemIdx()) )
 	{
 		ITEMMGR->SetToolTipIcon((cIcon*)&m_VirtualItem[relPos], ITEMMGR->GetItemOption(pItem->GetDurability())
@@ -389,7 +390,7 @@ BOOL CMixDialog::AddVirtualItemWrap(POSTYPE relPos, CItem * pItem)
 }
 BOOL CMixDialog::AddVirtualItem(POSTYPE relPos, CVirtualItem * pItem)
 {
-	//empty Ã¼Å©ÈÄ 
+	//empty Ã¼Å©ï¿½ï¿½ 
 	if(m_pMixDlg->IsAddable(relPos))
 	{
 		m_pMixDlg->AddIcon(relPos, (cIcon *)pItem);
@@ -404,11 +405,11 @@ CVirtualItem * CMixDialog::GetVirtualItem(POSTYPE relPos)
 
 void CMixDialog::MixOkBtn(CMixDialog * pThis)
 {
-	//Á¶ÇÕÀ» ´©¸£°í °á°ú¸¦ ±â´Ù¸®´Â Áß
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½
 	if( pThis->IsNowMixing() == TRUE )
 		return;
 
-	// ±âº» ¾ÆÀÌÅÛ Á¸Àç?
+	// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
 	CVirtualItem * pBasicItem = (CVirtualItem *)pThis->m_pMixDlg->GetIconForIdx(eMixPos_Basic);
 	if(NULL == pBasicItem)
 	{
@@ -416,7 +417,7 @@ void CMixDialog::MixOkBtn(CMixDialog * pThis)
 		return ;
 	}
 
-	// °á°ú¼±ÅÃ ok?
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ok?
 	if(-1 == pThis->m_pMixGridDlg->GetCurSelCellPos())
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(203) );
@@ -453,7 +454,7 @@ void CMixDialog::MixOkBtn(CMixDialog * pThis)
 				msg.ShopItemPos = (WORD)pThis->m_ShopItemPos;
 			}
 
-			// ÇÊ¿äÇÑ µ·Àº ÀÖ´Â°¡?
+			// ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 			DWORD dwMoney;
 			if(ITEMMGR->IsDupItem(pBasicItem->GetSrcItemIdx()))
 			{
@@ -471,8 +472,8 @@ void CMixDialog::MixOkBtn(CMixDialog * pThis)
 			}
 				
 
-			// Àç·á enough?
-//			MATERIAL_ARRAY ItemOut[MAX_MIXGRID_NUM]; //¹ö±×!!!
+			// ï¿½ï¿½ï¿½ enough?
+//			MATERIAL_ARRAY ItemOut[MAX_MIXGRID_NUM]; //ï¿½ï¿½ï¿½ï¿½!!!
 			MATERIAL_ARRAY ItemOut[TP_INVENTORY_END-TP_INVENTORY_START];
 			
 			WORD ItemPosNum;
@@ -555,7 +556,7 @@ BOOL CMixDialog::EnoughMaterial(WORD wItemIdx, WORD ItemNum, MATERIAL_ARRAY * It
 
 void CMixDialog::MixCancelBtn(CMixDialog * pThis)
 {
-	// ¸ðµç ¸µÅ© »èÁ¦
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
 	pThis->Release();
 	pThis->SetActiveRecursive(FALSE);
 	CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(206));

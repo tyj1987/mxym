@@ -89,13 +89,13 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 // taiyo 
-// Á¶±ÝÀÌ³ª¸¶ ¼ÓµµÇâ»óÀ» º¸±â À§ÇØ Àü¿ª º¯¼ö·Î~!
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~!
 CServerSystem * g_pServerSystem = NULL;
 CMemoryPoolTempl<USERINFO> g_UserInfoPool;
 
 CServerSystem::CServerSystem()
 {
-	// servertable usertable ÃÊ±âÈ­ ---------------------
+	// servertable usertable ï¿½Ê±ï¿½È­ ---------------------
 	g_UserInfoPool.Init(3000, 500,"USERINFO");
 	g_pUserTable = new CUserTable;
 	g_pUserTable->Init(3000/3);
@@ -119,11 +119,11 @@ extern DWORD g_dwMaxUser;
 
 void CServerSystem::Start(WORD ServerNum)
 {	
-//AO¨öA ¡¤IAA
+//AOï¿½ï¿½A ï¿½ï¿½IAA
 	SetNation();
 
 #ifdef _HK_LOCAL_
-	g_Encrypt0 = g_Encrypt1 = GetTickCount() % 100;	//·£´ýÇÏ°Ô..
+	g_Encrypt0 = g_Encrypt1 = GetTickCount() % 100;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½..
 #endif
 
 	FILE* fpMC = fopen( "MaxUserCount.txt", "r" );
@@ -134,14 +134,14 @@ void CServerSystem::Start(WORD ServerNum)
 	}
 
 	BOOTMNGR->AddSelfBootList(DISTRIBUTE_SERVER, ServerNum, g_pServerTable);
-	gUserMGR.LoadDistributeDesc();	//ÀÌ°É ÀÐ±âÀ§ÇØ¼­ À§¿§ÁÙÀÌ ÇÊ¿äÇÑ°Å¶ó±¸.
+	gUserMGR.LoadDistributeDesc();	//ï¿½Ì°ï¿½ ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ñ°Å¶ï¿½.
 
 //	m_IdxCreater = ICCreate();
 //	ICInitialize(m_IdxCreater,5000);
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ÄÜ¼Ö ÃÊ±âÈ­
-	// ¹öÆ° ¼³Á¤.¿ÜºÎÀÔ·Â¿ë ¹öÆ°ÀÌ 28°³ ÁØºñµÇ¾îÀÖ´Ù.ÇÑ°³µµ »ç¿ëÇÏÁö ¾ÊÀ» °æ¿ì pCustomButton ÇÊµå¸¦ NULL·Î Ã¤¿î´Ù.
+	// ï¿½Ü¼ï¿½ ï¿½Ê±ï¿½È­
+	// ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½.ï¿½Üºï¿½ï¿½Ô·Â¿ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ 28ï¿½ï¿½ ï¿½Øºï¿½Ç¾ï¿½ï¿½Ö´ï¿½.ï¿½Ñ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ pCustomButton ï¿½Êµå¸¦ NULLï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½.
 	
 	MENU_CUSTOM_INFO pMenu[3];
 	strcpy(pMenu[0].szMenuName, "Button1");
@@ -170,13 +170,13 @@ void CServerSystem::Start(WORD ServerNum)
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ³×Æ®¿öÅ© ¼³Á¤
+	// ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
 
-	/// ³×Æ®¿öÅ© ÆÄ¼­ ¼³Á¤-------------------------------
+	/// ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½-------------------------------
 	g_pServerMsgParser[0] = NULL;
 	for(int i=1 ; i<MP_MAX ; ++i)
 		g_pServerMsgParser[i] = ErrorMsgParser;
-	for(i=1 ; i<MP_MAX ; ++i)
+	for(int i=1 ; i<MP_MAX ; ++i)
 		g_pUserMsgParser[i] = ErrorMsgParser;
 	g_pServerMsgParser[MP_SERVER] = MP_DISTRIBUTESERVERMsgParser;
 	g_pServerMsgParser[MP_POWERUP] = MP_POWERUPMsgParser;
@@ -188,7 +188,7 @@ void CServerSystem::Start(WORD ServerNum)
 
 
 
-	// ServerList ÀÐ¾îµéÀÓ ------------------------
+	// ServerList ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ ------------------------
 
 	//g_pListCollect = new CListCollect;
 	//g_pListCollect->LoadServerInfo();
@@ -234,7 +234,7 @@ void CServerSystem::Start(WORD ServerNum)
 	//g_Network.Start();
 	
 	// Booting
-//	BOOTMNGR->AddSelfBootList(DISTRIBUTE_SERVER, ServerNum, g_pServerTable);//À§·Î ¿Å°Ü³õ±¸--;
+//	BOOTMNGR->AddSelfBootList(DISTRIBUTE_SERVER, ServerNum, g_pServerTable);//ï¿½ï¿½ï¿½ï¿½ ï¿½Å°Ü³ï¿½ï¿½ï¿½--;
 	if(!BOOTMNGR->StartServer(&g_Network, g_pServerTable->GetSelfServer()))
 	{
 		MessageBox(NULL,"Server Initialize Failed (StartServer)",NULL,NULL);
@@ -248,7 +248,7 @@ void CServerSystem::Start(WORD ServerNum)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// DB ¼³Á¤
+	// DB ï¿½ï¿½ï¿½ï¿½
 	DWORD maxthread = 2;
 	DWORD maxqueryinsametime = 1024;
 	FILE* fp = fopen("DistributeDBInfo.txt","r");
@@ -266,7 +266,7 @@ void CServerSystem::Start(WORD ServerNum)
 #endif
 	
 	
-	// ·Î±×ÀÎ Ã¼Å© Å×ÀÌºí ÃÊ±âÈ­
+	// ï¿½Î±ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ê±ï¿½È­
 	LoginCheckInit();
 #ifdef _HK_LOCAL_
 	LoadSAT();
@@ -289,10 +289,10 @@ void CServerSystem::Start(WORD ServerNum)
 
 
 	g_Console.LOG(4, "-----------   DISTRIBUTE SERVER START  -----------------");
-	// ÀÌ ºÎºÐÀº À©µµ¿ìÀÇ ¸Þ½ÃÁö ·çÇÁ.CONSOLEÀ» »ç¿ëÇÏµç À©µµ¿ì ¸Þ½ÃÁö ±â¹ÝÀ¸·Î Â¥µç ¾î¶²½ÄÀ¸·Îµç ÀÌº¥Æ®¸¦ ´ë±âÇØ¾ßÇÏ
-	// ÇÏ¹Ç·Î ±ÍÂúÀº ¸Þ½ÃÁö ·çÇÁ ÀÛ¼ºÀ» ÇÏ°í ½ÍÁö ¾Ê´Ù¸é ÀÌ ¸Þ¼Òµå¸¦ »ç¿ëÇÑ´Ù.±× ´â°í ´âÀº ¸Þ½ÃÁö ·çÇÁ¿Í µ¿ÀÏÇÑ ±â´ÉÀ» 
-	// ¼öÇàÇÑ´Ù.ÀÌ ¸Þ¼Òµå´Â I4DyuchiCONSOLE ´ÙÀÌ¾ó·Î±×ÀÇ x¹öÆ°À» ´©¸¦¶§±îÁö ¸®ÅÏÇÏÁö ¾Ê´Â´Ù.ÀÌ ¸Þ¼Òµå°¡ ¸®ÅÏÇÑ´Ù¸é ÇÁ
-	// ·Î±×·¥ÀÌ Á¾·áÇÏ´Â °ÍÀÌ´Ù.
+	// ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.CONSOLEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Â¥ï¿½ï¿½ ï¿½î¶²ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+	// ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.ï¿½ï¿½ ï¿½Þ¼Òµï¿½ï¿½ I4DyuchiCONSOLE ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ï¿½ï¿½ xï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.ï¿½ï¿½ ï¿½Þ¼Òµå°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½ ï¿½ï¿½
+	// ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 	
 	g_bReady = TRUE;
 
@@ -376,7 +376,7 @@ void CServerSystem::LoadFireWallIP()
 }
 
 void CServerSystem::ConnectionCheck()
-{	// YH ÇöÀç 30ÃÊ¸¶´Ù ÇÑ¹ø¾¿ µé¾î¿È
+{	// YH ï¿½ï¿½ï¿½ï¿½ 30ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	DWORD _60sec = 60*1000;
 	USERINFO* pInfo;
 	DWORD elapsedtime;
@@ -386,7 +386,7 @@ void CServerSystem::ConnectionCheck()
 	
 #ifdef _HK_LOCAL_
 	static DWORD nLastEncryptCheck = gCurTime;
-	if( gCurTime - nLastEncryptCheck >= 1000*60*60 )	//1½Ã°£
+	if( gCurTime - nLastEncryptCheck >= 1000*60*60 )	//1ï¿½Ã°ï¿½
 	{
 		g_Encrypt0 = g_Encrypt1;
 		g_Encrypt1 = ( g_Encrypt1 + 1 ) % 100;
@@ -402,14 +402,14 @@ void CServerSystem::ConnectionCheck()
 	{
 		if(pInfo->dwConnectionIndex != 0)
 		{
-			// ¾ÆÁ÷ Á¢¼ÓÀÌ Á¦´ë·Î ÀÌ·ïÁöÁö ¾ÊÀº °æ¿ì
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			elapsedtime = gCurTime - pInfo->dwLastConnectionCheckTime;
 			if( elapsedtime > _60sec * 2 )
 			{
 				if(pInfo->bConnectionCheckFailed)
 				{
-					//!!Å×½ºÆ® ÈÄ 30ÃÊ ¸¶´Ù µé¾î¿À°Ô ¹Ù²Ù°í Áö¿ï°Í~!
-					//pInfo->dwLastConnectionCheckTime += 1000 * 10;	//OnDisconnectUser( ¸®ÅÏ ¹Þ±â Àü¿¡ ¹Ýº¹ ¹æÁö.
+					//!!ï¿½×½ï¿½Æ® ï¿½ï¿½ 30ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½~!
+					//pInfo->dwLastConnectionCheckTime += 1000 * 10;	//OnDisconnectUser( ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½ï¿½ï¿½.
 					removelist.AddTail(pInfo);
 					continue;
 				}
@@ -428,7 +428,7 @@ void CServerSystem::ConnectionCheck()
 	{
 		USERINFO* p = (USERINFO*)removelist.GetNext(pos);
 		ASSERT(p->dwConnectionIndex);
-//		LoginCheckDelete(p->dwUserID);		// ·Î±×ÀÎÃ¼Å© Å×ÀÌºí¿¡¼­ »èÁ¦
+//		LoginCheckDelete(p->dwUserID);		// ï¿½Î±ï¿½ï¿½ï¿½Ã¼Å© ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		g_pServerSystem->ReleaseAuthKey(p->dwUniqueConnectIdx);
 //		g_pUserTable->RemoveUser(p->dwConnectionIndex);
 //		memset(p,0,sizeof(USERINFO));
@@ -538,7 +538,7 @@ void OnConnectServerSuccess(DWORD dwConnectionIndex, void* pVoid)
 	SERVERINFO* info = (SERVERINFO*)pVoid;
 	if(!dwConnectionIndex) return;
 
-	info->dwConnectionIndex = dwConnectionIndex;					// ÀÌ°Ô Á¦´ë·Î µ¿ÀÛÇÏ³ª? Ã¼Å©
+	info->dwConnectionIndex = dwConnectionIndex;					// ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½? Ã¼Å©
 	MSG_WORD msg;
 	msg.Category = MP_SERVER;
 	msg.Protocol = MP_SERVER_PWRUP;
@@ -553,11 +553,11 @@ void OnDisconnectServer(DWORD dwConnectionIndex)
 {
 	g_Console.LOG(4, "Server Disconnected : ConnectionIndex %d", dwConnectionIndex);//pjslocal
 
-	// ¼­¹öÁ¤º¸ Áö¿ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SERVERINFO * delInfo = g_pServerTable->RemoveServer(dwConnectionIndex);
 	if(!delInfo)
 	{
-		//BootManagerÀÛµ¿ÀÌ ¿Ï·áÇÏÁö ¾Ê¾ÒÀ» ¶§ ¼­¹ö°¡ ²¨Áú °æ¿ì ¹ß»ý,(¿Ã¹Ù¸¥ ¿¡·¯)
+		//BootManagerï¿½Ûµï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß»ï¿½,(ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½)
 		ASSERT(0);
 		return;
 	}
@@ -583,7 +583,7 @@ void OnConnectServerFail(void* pVoid)
 void OnAcceptServer(DWORD dwConnectionIndex)
 {// not used
 	char strr[255];
-	wsprintf(strr, "%d ¹ø connectionIndex ¼­¹ö Á¢¼Ó ", dwConnectionIndex);//pjslocal
+	wsprintf(strr, "%d ï¿½ï¿½ connectionIndex ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ", dwConnectionIndex);//pjslocal
 
 	g_Console.LOG(4, strr);
 }
@@ -592,7 +592,7 @@ void OnAcceptUser(DWORD dwConnectionIndex)
 {	
 	if(g_bReady == FALSE)
 	{
-		// ÃÊ±âÈ­°¡ ¿ÏÀüÈ÷ ¾ÈµÆ´Âµ¥ µé¾î¿Â°æ¿ì.
+		// ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÆ´Âµï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½.
 		MSGBASE send;
 		send.Category = MP_USERCONN;
 		send.Protocol = MP_USERCONN_SERVER_NOTREADY;
@@ -616,7 +616,7 @@ void OnAcceptUser(DWORD dwConnectionIndex)
 	memset(info, 0, sizeof(USERINFO));
 	info->dwConnectionIndex = dwConnectionIndex;
 	info->dwUniqueConnectIdx = authkey;
-	info->dwLastConnectionCheckTime = gCurTime;	//SW051107 Ãß°¡
+	info->dwLastConnectionCheckTime = gCurTime;	//SW051107 ï¿½ß°ï¿½
 	g_pUserTable->AddUser(info,dwConnectionIndex);
 
 #ifndef _HK_LOCAL_
@@ -673,7 +673,7 @@ void ReceivedMsgFromUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength)
 	g_pUserMsgParser[pTempMsg->Category](dwConnectionIndex, pMsg, dwLength);
 }
 
-//SW051107 Ãß°¡
+//SW051107 ï¿½ß°ï¿½
 void fConnectionCheck()
 {
 	g_pServerSystem->ConnectionCheck();
@@ -717,10 +717,10 @@ BOOL CServerSystem::IsInvalidCharInclude( char* pStr )
 		}
 		else
 		{
-			//¿µ¹®
+			//ï¿½ï¿½ï¿½ï¿½
 			if( ( *pStr >= 'A' && *pStr <= 'Z' ) || ( *pStr >= 'a' && *pStr <= 'z' ) )
 				bOk = TRUE;
-			//¼ýÀÚ
+			//ï¿½ï¿½ï¿½ï¿½
 			else if( *pStr >= '0' && *pStr <= '9' )
 				bOk = TRUE;
 		}

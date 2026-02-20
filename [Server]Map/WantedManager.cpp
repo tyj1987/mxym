@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "WantedManager.h"
 #include "MapDBMsgParser.h"
 #include "UserTable.h"
@@ -519,7 +520,7 @@ BOOL CWantedManager::IsOwner(CPlayer* pPlayer, WANTEDTYPE WantedIDX)
 	if(!pWantedInfo)
 	{
 		char buf[32];
-		sprintf(buf, "현상금 인덱스: %d", WantedIDX);
+		sprintf(buf, " 琯: %d", WantedIDX);
 		ASSERTMSG(0, buf);
 		return FALSE;
 	}
@@ -538,7 +539,7 @@ void CWantedManager::GetOrderType(BYTE ordertype, char* type)
 	case eWan_Volunteer:
 		strcpy(type, "VolunteerNum"); break;
 	default:
-		ASSERTMSG(0, "현상범 정렬 타입이 없습니다. No Sort Type in Wanted List"); break;		
+		ASSERTMSG(0, "  타 求. No Sort Type in Wanted List"); break;		
 	}
 }
 

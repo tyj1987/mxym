@@ -1,6 +1,11 @@
 #ifndef _SURYUNDEFINE_H_
 #define _SURYUNDEFINE_H_
 
+// 包含必要的类型定义
+#include "..\[CC]Header\CommonStruct.h"
+#include "..\[CC]Header\CommonGameFunc.h"
+#include "..\[CC]Header\CommonGameDefine.h"
+
 #define SURYUNMAP		44
 
 #define MAX_MUGONG_PRACTICE  3

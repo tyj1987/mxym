@@ -13,6 +13,7 @@
 #include "./Interface/cWindowManager.h"
 #include "./Interface/cResourceManager.h"
 #include "SkillManager_Client.h"
+#include "Effect/EffectManager.h"
 #include "./Input/Mouse.h"
 #include "./Input/Keyboard.h"
 #include "PathManager.h"

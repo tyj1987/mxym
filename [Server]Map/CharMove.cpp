@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "ServerSystem.h"
 #include "CharMove.h"
 
 #include "PackedData.h"
@@ -82,8 +83,8 @@ BOOL CCharMove::CheckVaildStop(CObject* pObject,DWORD CurTime,VECTOR3* EndPos)
 	return TRUE;
 }
 
-// ÇöÀç À§Ä¡¸¦ °è»êÇØ¼­ EndPos¿Í Â÷ÀÌ°¡ ¸¹ÀÌ ³ª¸é Á¶Ä¡-_-;¸¦ ÃëÇÑ´Ù.
-// ÀÌµ¿ÀÌ ³¡³µÀ½À» Ç¥½ÃÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ EndPosï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡-_-;ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ñ´ï¿½.
 void CCharMove::EndMove(CObject* pObject,DWORD CurTime,VECTOR3* EndPos)
 {	
 	ASSERTVALID_POSITION(*EndPos);
@@ -119,7 +120,7 @@ void CCharMove::StartMoveEx(CObject* pObject,DWORD CurTime,VECTOR3* StartPos,VEC
 
 	//KES HACK CHECK
 	if( pObject->GetObjectKind() == eObjectKind_Player )
-	if( CalcDistanceXZ(&pMoveInfo->CurPosition,StartPos) > 10*100 ) //5m ÀÚÁÖ °É·È³× ±×·³ 10m
+	if( CalcDistanceXZ(&pMoveInfo->CurPosition,StartPos) > 10*100 ) //5m ï¿½ï¿½ï¿½ï¿½ ï¿½É·È³ï¿½ ï¿½×·ï¿½ 10m
 	{
 		((CPlayer*)pObject)->SpeedHackCheck();		
 	}
@@ -156,7 +157,7 @@ void CCharMove::StartMoveEx(CObject* pObject,DWORD CurTime,VECTOR3* StartPos,VEC
 	
 	ASSERTVALID_POSITION(pMoveInfo->CurPosition);
 	//////////////////////////////////////////////////////////////////////////
-	// YH2DO ¿©±â¿¡ Ãæµ¹°Ë»ç°°Àº°É ³Ö´Â´Ù.
+	// YH2DO ï¿½ï¿½ï¿½â¿¡ ï¿½æµ¹ï¿½Ë»ç°°ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 	//////////////////////////////////////////////////////////////////////////	
 
 	pObject->m_bNeededToCalcGrid = TRUE;
@@ -172,7 +173,7 @@ void CCharMove::StartMoveEx(CObject* pObject,DWORD CurTime,VECTOR3* StartPos,VEC
 
 VECTOR3* CCharMove::CalcPositionEx(CObject* pObject,DWORD CurTime)
 {
-	//Áö±Ý object°¡ Á¤Áö»óÅÂÀÎµ¥µµ  pMoveInfo->bMovingd= TRUEÀÎ °æ¿ì°¡ ÀÖ´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ objectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½  pMoveInfo->bMovingd= TRUEï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
 	MOVE_INFO * pMoveInfo = &pObject->m_MoveInfo;
 	ASSERTVALID_POSITION(pMoveInfo->CurPosition);
 	if(pMoveInfo->bMoving)
@@ -193,7 +194,7 @@ VECTOR3* CCharMove::CalcPositionEx(CObject* pObject,DWORD CurTime)
 		if(pMoveInfo->Move_EstimateMoveTime < fMoveTime)
 		{
 			ASSERTVALID_POSITION(pMoveInfo->CurPosition);
-			// ´ÙÀ½ Å¸°ÙÀ¸·Î º¯°æ
+			// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(pMoveInfo->GetCurTargetPosIdx() < pMoveInfo->GetMaxTargetPosIdx()- 1)
 			{				
 				ASSERTVALID_POSITION(pMoveInfo->CurPosition);
@@ -294,7 +295,7 @@ BOOL CCharMove::SetKyungGong(CObject* pObject,WORD KGIdx)
 			CPlayer* pPlayer = (CPlayer*)pObject;
 
 			WORD AbilIdx = 0;
-			if( KGIdx == 2600 ) AbilIdx = 201;			//ÇÏµåÄÚµù!!!
+			if( KGIdx == 2600 ) AbilIdx = 201;			//ï¿½Ïµï¿½ï¿½Úµï¿½!!!
 			else if( KGIdx == 2602 ) AbilIdx = 204;
 			else if( KGIdx == 2604 ) AbilIdx = 207;
 
@@ -318,17 +319,17 @@ BOOL CCharMove::SetKyungGong(CObject* pObject,WORD KGIdx)
 		pObject->m_MoveInfo.AbilityKyungGongLevel = 0;
 	}
 
-	pObject->m_KyungGongNaeRyuk_LastCheckTime = 0;	// ½ÃÀÛºÎÅÍ ±ïÀÌ°Ô ÇÏ±â À§ÇØ¼­
+	pObject->m_KyungGongNaeRyuk_LastCheckTime = 0;	// ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
 
 	return TRUE;
 }
 
 BOOL CCharMove::IsValidKyungGong(CObject* pObject,WORD KGIdx)
 {
-	if(KGIdx == 0)		// °æ°ø ÇØÁ¦´Â Ç×»ó OK
+	if(KGIdx == 0)		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×»ï¿½ OK
 		return TRUE;
 
-	// YH2DO »ç¶÷¸¸ °æ°ø ¾²³ª? -_-a
+	// YH2DO ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½? -_-a
 	if(pObject->GetObjectKind() != eObjectKind_Player)
 		return FALSE;
 

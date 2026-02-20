@@ -71,6 +71,7 @@ DWORD CSOSDlg::ActionEvent(CMouse* mouseInfo)
 
 void CSOSDlg::SOSMemberInfo()
 {
+	int i;  // 修复C2065: 在函数作用域声明i
 	m_pListDlg->RemoveAll();
 
 	cPtrList* pList = GUILDMGR->GetGuild()->GetMemberList();
@@ -91,7 +92,7 @@ void CSOSDlg::SOSMemberInfo()
 
 			SafeStrCpy(membername, pInfo->MemberName, MAX_NAME_LENGTH+1);
 			nNamelen = strlen(pInfo->MemberName);
-			for( int i = nNamelen; i < MAX_NAME_LENGTH; i++ )
+			for( i = nNamelen; i < MAX_NAME_LENGTH; i++ )
 			{
 				membername[i] = 0x20;
 			}

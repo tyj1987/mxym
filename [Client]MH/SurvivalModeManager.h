@@ -1,5 +1,5 @@
 #pragma once
-#include "../ImageNumber.h"
+#include "ImageNumber.h"
 
 #define SVVMODEMGR USINGTON(CSurvivalModeManager)
 
@@ -49,9 +49,9 @@ public:
 	BOOL	CheckRemainTime();
 	void	ChangeStateTo(WORD nextState);
 
-	//SW061129 È«ÄáÃß°¡¿äÃ»ÀÛ¾÷ - »ç¿ë°¹¼öÁ¦ÇÑ
+	//SW061129 È«ï¿½ï¿½ï¿½ß°ï¿½ï¿½ï¿½Ã»ï¿½Û¾ï¿½ - ï¿½ï¿½ë°¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void	SetUsingCountLimit(DWORD limit) {	m_dwUsingCountLimit = limit;	}
-	BOOL	AddItemUsingCount();	//Á¦ÇÑ Ä«¿îÆ® ¾È³Ñ¾úÀ¸¸é TRUE ¹ÝÈ¯
+	BOOL	AddItemUsingCount();	//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½È³Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ TRUE ï¿½ï¿½È¯
 
 	int		AddAliveUserCount(BOOL bPlus);
 

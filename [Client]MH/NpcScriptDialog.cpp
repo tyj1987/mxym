@@ -57,6 +57,7 @@ void cNpcScriptDialog::Linking()
 BOOL cNpcScriptDialog::OpenDialog( DWORD dwNpcId )
 {
 	// ÃÊ±âÈ­
+	int j;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜j
 	for(int i=0 ; i< MAX_REGIST_HYPERLINK;++i)
 		m_sHyper[i].Init();
 
@@ -150,7 +151,7 @@ BOOL cNpcScriptDialog::OpenDialog( DWORD dwNpcId )
 	if( data == 0 || data == 30 )
 		aa = TRUE;
 */
-	for( int j = 0 ; j < nLinkCount ; ++j )
+	for( j = 0 ; j < nLinkCount ; ++j )
 	{
 		pLink = pMainPage->GetHyperText(j);
 		if( pLink == NULL ) break;
@@ -195,6 +196,7 @@ BOOL cNpcScriptDialog::OpenDialog( DWORD dwNpcId )
 
 BOOL cNpcScriptDialog::OpenLinkPage( DWORD dwPageId )
 {
+	int j;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜j
 	// ÃÊ±âÈ­
 	for(int i=0 ; i< MAX_REGIST_HYPERLINK;++i)
 		m_sHyper[i].Init();
@@ -280,7 +282,7 @@ BOOL cNpcScriptDialog::OpenLinkPage( DWORD dwPageId )
 		}
 	}
 /*
-	for( int j = 0 ; j < nLinkCount ; ++j )
+	for( j = 0 ; j < nLinkCount ; ++j )
 	{
 		pLink = pPage->GetHyperText(j);
 		if( pLink == NULL ) break;
@@ -306,7 +308,7 @@ BOOL cNpcScriptDialog::OpenLinkPage( DWORD dwPageId )
 */	
 	// ÇùÇà º¸ÀÏÁö ¸»Áö °áÁ¤
 	BOOL bQuest = QUESTMGR->IsNpcRelationQuest( m_dwCurNpc );
-	for( int j = 0 ; j < nLinkCount ; ++j )
+	for( j = 0 ; j < nLinkCount ; ++j )
 	{
 		pLink = pPage->GetHyperText(j);
 		if( pLink == NULL ) break;
@@ -544,6 +546,7 @@ void cNpcScriptDialog::DisActiveEx()
 void cNpcScriptDialog::OpenQuestLinkPage( DWORD dwPageId )
 {
 	// ÃÊ±âÈ­
+	int j;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜j
 	for( int i = 0; i < MAX_REGIST_HYPERLINK; ++i )
 		m_sHyper[i].Init();
 
@@ -623,7 +626,7 @@ void cNpcScriptDialog::OpenQuestLinkPage( DWORD dwPageId )
 	BOOL bCheck = FALSE;
 	// ¿©±â¼­ ÇùÇà Á¶°Ç °Ë»ö ÈÄ º¸¿©ÁÙ ¸µÅ©¿¡ ´ëÇÑ Ç¥½Ã
 	// ¼öÇà°¡´ÉÇÑ ÇùÇà
-	for( int j = 0; j < nLinkCount; ++j )
+	for( j = 0; j < nLinkCount; ++j )
 	{
 		pLink = pPage->GetHyperText(j);
 		if( pLink == NULL ) break;

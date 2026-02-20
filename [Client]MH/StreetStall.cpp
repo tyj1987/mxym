@@ -56,7 +56,7 @@ CStreetStall::~CStreetStall()
 
 void CStreetStall::Linking()
 {
-	// LBS Ãß°¡ 03.09.18
+	// LBS ï¿½ß°ï¿½ 03.09.18
 	m_pStallGrid = (cIconGridDialog*)GetWindowForID(SSI_ICONGRID);
 
 	m_pTitleEdit = (cEditBox *)GetWindowForID(SSI_TITLEEDIT);
@@ -109,7 +109,7 @@ DWORD CStreetStall::ActionEvent(CMouse * mouseInfo)
 	return we;	
 }
 
-// LBS 03.09.24 »óÁ¡´İ±â
+// LBS 03.09.24 ï¿½ï¿½ï¿½ï¿½ï¿½İ±ï¿½
 void CStreetStall::OnCloseStall(BOOL bDelOption)
 {
 	STREETSTALLMGR->SetStallKind(eSK_NULL);
@@ -120,11 +120,11 @@ void CStreetStall::OnCloseStall(BOOL bDelOption)
 	m_pMoneyEdit->SetReadOnly( TRUE );
 	m_pMoneyEdit->SetFocusEdit( FALSE );
 
-	// ÀüÃ¼ Icon »èÁ¦ 
+	// ï¿½ï¿½Ã¼ Icon ï¿½ï¿½ï¿½ï¿½ 
 	WORD num = m_pStallGrid->GetCellNum();
 	DeleteItemAll(bDelOption);
 
-	// °¢ º¯¼ö ÃÊ±âÈ­
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	m_pStallGrid->SetCurSelCellPos(-1);
 	m_nCurSelectedItem = -1;
 	m_dwCurSelectedItemDBIdx = 0;
@@ -150,7 +150,7 @@ void CStreetStall::OnCloseStall(BOOL bDelOption)
 	}
 	m_pData = NULL;
 
-	// ³ª´©±â Ã¢ÀÌ µî·Ï µÇ¾î ÀÖ´Â°æ¿ì Áö¿î´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½Ö´Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	cDivideBox * pDivideBox = (cDivideBox *)WINDOWMGR->GetWindowForID( DBOX_DIVIDE_STREETSTALL );
 	if( pDivideBox )
 	{
@@ -183,7 +183,7 @@ void CStreetStall::ShowSellStall()
 
 	m_pEnterBtn->SetDisable(FALSE);
 
-	if( m_pStallGrid->GetCurSelCellPos() == -1 ) // ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§
+	if( m_pStallGrid->GetCurSelCellPos() == -1 ) // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		//m_pMoneyEdit->SetReadOnly( TRUE );
 		//m_pMoneyEdit->SetFocusEdit( FALSE );
@@ -223,8 +223,9 @@ void CStreetStall::ShowBuyStall()
 
 int CStreetStall::AddItem( cIcon* pItem )
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	POSTYPE pos;
-	for(int i=0;i<m_pStallGrid->GetCellNum();++i)
+	for(i=0;i<m_pStallGrid->GetCellNum();++i)
 	{
 		if( !m_pStallGrid->m_pIconGridCell[i].use )
 			break;
@@ -244,7 +245,7 @@ cIcon* CStreetStall::GetItem( DWORD dwDBIdx )
 	{
 		pItem = ( CExchangeItem* )m_pStallGrid->m_pIconGridCell[i].icon;
 		if(pItem == NULL)
-			return NULL; //ÇÏÁöµµ ¾ÊÀº ³ëÁ¡ ¸Ş½ÃÁö°¡ ³¯¶ó¿Í¼­ »¶³ª°Ô µÇ¼­ Ãß°¡ hs 
+			return NULL; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¼ï¿½ ï¿½ß°ï¿½ hs 
 		if( pItem->GetDBId() == dwDBIdx )
 			return pItem;
 	}
@@ -255,16 +256,17 @@ cIcon* CStreetStall::GetItem( DWORD dwDBIdx )
 
 void CStreetStall::DeleteItem( ITEMBASE* pbase )
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	CExchangeItem* pItem;
 	POSTYPE pos;
 
-	for(int i=0;i<m_pStallGrid->GetCellNum();++i)
+	for(i=0;i<m_pStallGrid->GetCellNum();++i)
 	{
 		pItem = (CExchangeItem*)m_pStallGrid->m_pIconGridCell[i].icon;
 
 		if( pItem == NULL ) 
 		{
-//			ASSERTMSG(0, "¼­¹ö¿¡ ÀÖ´Â Á¤º¸°¡ Å¬¶óÀÌ¾ğÆ®¿¡´Â ¾øÀ½..");
+//			ASSERTMSG(0, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..");
 			continue;
 		}
 
@@ -307,7 +309,7 @@ void CStreetStall::DeleteItem( ITEMBASE* pbase )
 
 			((CExchangeItem*)pIcon)->SetPosition( i );
 
-			if( ((CExchangeItem*)pIcon)->GetLinkItem() )	//»ç´Â »ç¶÷Àº ¸µÅ©°¡ ¾ø´Ù.
+			if( ((CExchangeItem*)pIcon)->GetLinkItem() )	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				((CExchangeItem*)pIcon)->GetLinkItem()->SetLinkPosition( i );
 
 			m_pStallGrid->AddIcon( i, pIcon );
@@ -345,16 +347,17 @@ CExchangeItem* CStreetStall::FindItem( DWORD dwDBIdx )
 
 void CStreetStall::ResetItemInfo( DWORD dwDBIdx, DWORD count )
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	CExchangeItem* pItem;
 	POSTYPE pos;
 
-	for(int i=0;i<m_pStallGrid->GetCellNum();++i)
+	for(i=0;i<m_pStallGrid->GetCellNum();++i)
 	{
 		pItem = (CExchangeItem*)m_pStallGrid->m_pIconGridCell[i].icon;
 		
 		if( pItem == NULL ) 
 		{
-			ASSERTMSG(0, "¼­¹ö¿¡ ÀÖ´Â Á¤º¸°¡ Å¬¶óÀÌ¾ğÆ®¿¡´Â ¾øÀ½..");
+			ASSERTMSG(0, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..");
 			continue;
 		}
 
@@ -428,24 +431,24 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////
-	//// ¾ÆÀÌÅÛ¿¡´ëÇÑ À¯È¿¼º Ã¼Å©
+	//// ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ Ã¼Å©
 	if( icon->GetType() != WT_ITEM )
 		return FALSE;
 	
-	// ¹®ÆÄÂÊÁö °Å·¡¿¡·¯ ±ä±Ş¼öÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ş¼ï¿½ï¿½ï¿½
 /*	if(((CItem*)icon)->GetItemKind() == eEXTRA_ITEM_USABLE)
 	{
 		CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(349) );
 		return FALSE;
 	}
 */
-    // changeitem Áß¿¡ °Å·¡¾ÈµÇ´Â°Å
+    // changeitem ï¿½ß¿ï¿½ ï¿½Å·ï¿½ï¿½ÈµÇ´Â°ï¿½
 	if( ((CItem*)icon)->GetItemKind() == eCHANGE_ITEM_LOCK )
 	{
 		return FALSE;
 	}
 	
-	// ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÎÁö Ã¼Å©ÇÑ´Ù.
+	// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 	if( ( GetTableIdxPosition( ((CItem*)icon)->GetPosition() ) != eItemTable_Inventory ) &&
 		( GetTableIdxPosition( ((CItem*)icon)->GetPosition() ) != eItemTable_ShopInven ) )
 	{
@@ -463,7 +466,7 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 		return FALSE;
 	}
 
-	// magi82(17) - Titan(07.11.01) °è¾àµÈ Å¸ÀÌÅºÀº ³ëÁ¡»ó¿¡¼­ ÆÇ¸Å°¡ ¾ÈµÇ°Ô ¼öÁ¤
+	// magi82(17) - Titan(07.11.01) ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Åºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ó¿¡¼ï¿½ ï¿½Ç¸Å°ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if( bits == eTITAN_ITEM_PAPER )
 	{
 		BOOL bFlag = TITANMGR->IsRegistedTitan(((CItem*)icon)->GetDBIdx());
@@ -476,7 +479,7 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 
 	if( ((CItem*)icon)->GetItemKind() & eSHOP_ITEM )
 	{
-		// ±â°£Á¦¿¡ »ç¶óÁöÁö ¾Ê´Â ¾ÆÀÌÅÛÀº ºÀÀÎÇ®¸é °Å·¡ ¾ÈµÇµµ·Ï
+		// ï¿½â°£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ ï¿½Å·ï¿½ ï¿½ÈµÇµï¿½ï¿½ï¿½
 		if( ((CItem*)icon)->GetItemInfo()->ItemType == 11 )
 		{
 			if( !(((CItem*)icon)->GetItemParam() & ITEM_PARAM_SEAL) )
@@ -485,7 +488,7 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 				return FALSE;
 			}
 		}
-		// °Å·¡ ¾ÈµÇ´Â ¾ÆÀÌÅÛ
+		// ï¿½Å·ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( ((CItem*)icon)->GetItemKind() == eSHOP_ITEM_EQUIP || ((CItem*)icon)->GetItemKind() == eSHOP_ITEM_PET_EQUIP )
 		{
 			if( ((CItem*)icon)->GetItemInfo()->BuyPrice )
@@ -503,21 +506,21 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 
 	if( ITEMMGR->IsPetSummonItem( ((CItem*)icon)->GetItemIdx() ) )
 	{
-		//ÇØ´ç Æê Á¤º¸ Áß Ä£¹Ğµµ °Ë»ç. 30%ÀÌÇÏÀÎÁö..
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä£ï¿½Ğµï¿½ ï¿½Ë»ï¿½. 30%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 		const ITEMBASE* itembase = ((CItem*)icon)->GetItemBaseInfo();
 		if(!PETMGR->CheckDefaultFriendship(itembase->dwDBIdx))
 		{
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1275) );
 			return FALSE;
 		}
-		//¼ÒÈ¯ ÁßÀÎ Æê ¾ÆÀÌÅÛÀÎÁö
+		//ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( PETMGR->IsCurPetSummonItem(itembase->dwDBIdx) )
 		{
 			CHATMGR->AddMsg( CTC_SYSMSG, CHATMGR->GetChatMsg(1247) );
 			return FALSE;
 		}
 	}
-	// Äü´ÙÀÌ¾ó·Î±×¿¡ ¸µÅ©°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½Î±×¿ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 	if( ((CItem*)icon)->GetItemKind() == eYOUNGYAK_ITEM ||
 		((CItem*)icon)->GetItemKind() == eSHOP_ITEM_INCANTATION ||
 		((CItem*)icon)->GetItemKind() == eSHOP_ITEM_HERB ||
@@ -539,17 +542,17 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 		}
 	}
 
-	// ¸µÅ©¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÑ´Ù.
+	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if( icon->GetIconType() == eIconType_LinkedItem ) return FALSE;
 
 	if( !m_pStallGrid->PtInWindow( x, y ) ) return FALSE;
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 	CItem* item = (CItem*)icon;
-	if( item->GetLinkPosition() ) return FALSE; // ¾ÆÀÌÅÛÀÇ ¸µÅ©»óÅÂ È®ÀÎ
+	if( item->GetLinkPosition() ) return FALSE; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	item->SetLock( TRUE );
 	
-//	if( m_pData ) // µî·Ï ÁßÀÎ ±âÁ¸ ¾ÆÀÌÅÛ¿¡ ´ëÇØ¼­ LOCKÀ» Ç¬´Ù.
+//	if( m_pData ) // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ LOCKï¿½ï¿½ Ç¬ï¿½ï¿½.
 //	{
 //		CItem* pCurItem = (CItem*)m_pData;
 //		pCurItem->SetLock(FALSE);
@@ -564,7 +567,7 @@ BOOL CStreetStall::FakeMoveIcon(LONG x, LONG y, cIcon * icon)
 	}
 	else
 	{
-		// ¾ÆÀÌÅÛÀ» °¡°İ°ú ÇÔ²² µî·Ï ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½İ°ï¿½ ï¿½Ô²ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		STREETSTALLMGR->RegistItemEx( item, 0 );
 		m_dwCurSelectedItemDBIdx = item->GetDBIdx();
 		SetDisable( TRUE );
@@ -593,7 +596,7 @@ void CStreetStall::FakeDeleteItem( POSTYPE pos )
 	NETWORK->Send( &msg, sizeof( MSG_LINKITEM ) );
 }
 
-// LBS Ãß°¡  03.09.22
+// LBS ï¿½ß°ï¿½  03.09.22
 DWORD CStreetStall::ActionEventWindow(CMouse * mouseInfo)
 {
 	DWORD we = WE_NULL;
@@ -613,7 +616,7 @@ DWORD CStreetStall::ActionEventWindow(CMouse * mouseInfo)
 	return we;
 }
 
-// LBS Ãß°¡ 03.09.18
+// LBS ï¿½ß°ï¿½ 03.09.18
 void CStreetStall::OnActionEvnet(LONG lId, void * p, DWORD we)
 {
 	if( we == WE_LBTNCLICK || we == WE_LBTNDBLCLICK )
@@ -621,7 +624,7 @@ void CStreetStall::OnActionEvnet(LONG lId, void * p, DWORD we)
 		POSTYPE pos = (POSTYPE)m_pStallGrid->GetCurSelCellPos();
 		CExchangeItem * pItem = (CExchangeItem*)m_pStallGrid->GetIconForIdx( pos );
 
-		if( !pItem ) // ¼±ÅÃµÈ °÷¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Â°æ¿ì
+		if( !pItem ) // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½
 		{
 //			m_pMoneyEdit->SetEditText( DEFAULT_MONEY_TEXT );
 			m_nCurSelectedItem = -1;
@@ -637,7 +640,7 @@ void CStreetStall::OnActionEvnet(LONG lId, void * p, DWORD we)
 
 			if( m_DlgState == eSDS_BUY )
 			{
-				if( !pItem->IsLocked() && we == WE_LBTNDBLCLICK ) // DoubleClickÀ¸·Î ¹°°Ç ±¸ÀÔ
+				if( !pItem->IsLocked() && we == WE_LBTNDBLCLICK ) // DoubleClickï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				{
 					if( ITEMMGR->IsDupItem( (WORD)pItem->GetData() ) )
 					{
@@ -782,18 +785,19 @@ void CStreetStall::ChangeItemStatus( POSTYPE pos, DWORD money, BOOL bLock )
 //	if( bLock )
 //		m_pMoneyEdit->SetFocusEdit( FALSE );
 
-	// °¡°İÇ¥¿¡ ´ëÇÑ Ã³¸® 
+	// ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ 
 	ResetDlgData();
 }
 
 void CStreetStall::ChangeItemStatus( ITEMBASE* pbase, DWORD money, BOOL bLock, int nDivideKind )
 {
+	int i;  // ä¿®å¤C2065: åœ¨å‡½æ•°ä½œç”¨åŸŸå£°æ˜i
 	CExchangeItem* pItem = NULL;
 	POSTYPE pos;
 	char buf[128] = {0,};
 	char buf2[128] = {0,};
 
-	for(int i=0;i<m_pStallGrid->GetCellNum();++i)
+	for(i=0;i<m_pStallGrid->GetCellNum();++i)
 	{
 		if( m_pStallGrid->m_pIconGridCell[i].use )
 		{
@@ -873,11 +877,11 @@ void CStreetStall::ChangeItemStatus( ITEMBASE* pbase, DWORD money, BOOL bLock, i
 //	if( bLock )
 //		m_pMoneyEdit->SetFocusEdit( FALSE );
 
-	// °¡°İÇ¥¿¡ ´ëÇÑ Ã³¸® 
+	// ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ 
 	ResetDlgData();
 }
 
-// Lock»óÅÂ¿Í °ãÄ¡±â¾ÆÀÌÅÛÀÎÁö¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+// Lockï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 BOOL CStreetStall::SelectedItemCheck()
 {
 	m_pStallGrid->SetShowGrid( TRUE );	//?
@@ -990,11 +994,11 @@ void CStreetStall::OnDivideItem( LONG iId, void* p, DWORD param1, void * vData1,
 {
 	CStreetStall* pStall = (CStreetStall*)vData1;
 
-	// º¯¼öÀÇ ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	if( param1 == 0 )
 	{
 		pStall->SetDisable(FALSE);
-		return; // °¹¼ö°¡ 0ÀÌ¸é 
+		return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ 
 	}
 
 	cDivideBox* pDivideBox = (cDivideBox*)p;
@@ -1017,7 +1021,7 @@ void CStreetStall::OnDivideItem( LONG iId, void* p, DWORD param1, void * vData1,
 	if( pExItem == NULL )
 	{
 		OnDivideItemCancel( iId, p, param1, vData1, vData2 );
-		//¸Ş¼¼Áö Ç¥½ÃÇØÁÖ±â
+		//ï¿½Ş¼ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 		return;		
 	}
 
@@ -1032,13 +1036,13 @@ void CStreetStall::OnDivideItem( LONG iId, void* p, DWORD param1, void * vData1,
 	{
 		OnDivideItemCancel( iId, p, param1, vData1, vData2 );
 		
-		//¸Ş¼¼Áö Ç¥½Ã
-		return; // »ç·Á´Â ¼ö·®º¸´Ù ÀûÀ¸¸é..
+		//ï¿½Ş¼ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+		return; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 	}
 
 	POSTYPE pos = pExItem->GetPosition();
 
-// ¸Å´ÏÁ®¿¡ ¿µ¾à ¾ÆÀÌÅÛ »ç±â È£Ãâ ..
+// ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ..
 	STREETSTALLMGR->BuyItemDur( pos, param1 );
 
 //	pStall->SetData( NULL );
@@ -1078,7 +1082,7 @@ void CStreetStall::OnFakeRegistItem( LONG iId, void* p, DWORD param1, void * vDa
 			return;
 		}
 
-		//pStall->RegistMoney( pStall->GetCurSelectedItemNum(), param1 );//ÀÌ·¯¸é ²¿ÀÏ¼öµµ.
+		//pStall->RegistMoney( pStall->GetCurSelectedItemNum(), param1 );//ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.
 		pStall->RegistMoney( pExItem->GetPosition(), param1 );
 		STREETSTALLMGR->ItemStatus( pExItem, TRUE );
 	}

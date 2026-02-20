@@ -4,6 +4,7 @@
 
 #if !defined(AFX_ATTACKMANAGER_H__90EBFECC_751A_4C43_AF61_AA0C5F5BAD34__INCLUDED_)
 #define AFX_ATTACKMANAGER_H__90EBFECC_751A_4C43_AF61_AA0C5F5BAD34__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -26,7 +27,7 @@ enum eATTACKABS_KIND
 class CAttackManager  
 {
 	CAttackCalc m_ATTACKCALC;
-	float m_nDamageRate;	// magi82 cheat damage 데미지 관련 치트키
+	float m_nDamageRate;	// magi82 cheat damage   치트키
 
 	DWORD GetComboPhyDamage(CObject* pAttacker,CObject* pTargetObject,float PhyAttackRate,float fCriticalRate,
 		RESULTINFO* pDamageInfo,DWORD AmplifiedPower,float fDecreaseDamageRate );
@@ -40,7 +41,7 @@ public:
 	CAttackManager();
 	virtual ~CAttackManager();
 
-	// 최종 데미지를 넘겨준다. 다만 죽었을 경우엔 DIE 메세지를 뿌려준다.
+	//   璣娩. 摸 類 荑� DIE 氷 祈娩.
 	void Attack(BOOL bMugong, CObject* pAttacker,CObject* pTarget,DWORD AmplifiedPower,
 				float PhyAttackRate,
 				WORD Attrib,DWORD AttAttackMin,DWORD AttAttackMax,float AttAttackRate,
@@ -66,7 +67,7 @@ public:
 	DWORD GetJinbubDamage(CObject* pAttacker,CObject* pTargetObject,DWORD AttackPower,
 			RESULTINFO* pDamageInfo,float fDecreaseDamageRate);
 
-	//2007. 10. 30. CBH - 데미지 패널티 처리 함수
+	//2007. 10. 30. CBH -  均티 처 獨
 	DWORD GetPenaltyDemege(CObject* pAttacker,CObject* pTargetObject, DWORD dwDemage);
 };
 

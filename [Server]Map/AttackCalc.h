@@ -4,6 +4,7 @@
 
 #if !defined(AFX_ATTACKCALC_H__EB8D1663_38B7_43EA_A9AA_07FB8ACC1B01__INCLUDED_)
 #define AFX_ATTACKCALC_H__EB8D1663_38B7_43EA_A9AA_07FB8ACC1B01__INCLUDED_
+#include "..\[CC]Header\CommonStruct.h"
 
 #if _MSC_VER > 1000
 #pragma once
@@ -27,7 +28,7 @@ class CAttackCalc
 	double	getMonsterPhysicalAttackPower(CMonster * pMonster, float PhyAttackRate, BOOL bCritical);
 	double	getMonsterAttributeAttackPower(CMonster * pMonster, WORD Attrib, DWORD AttAttackMin,DWORD AttAttackMax);
 
-	//SW070127 Å¸ÀÌÅº
+	//SW070127 Å¸Åº
 	double	getTitanPhysicalAttackPower(CTitan* pTitan, CPlayer* pPlayer, float PhyAttackRate, BOOL bCritical);
 	double	getTitanAttributeAttackPower(CTitan* pTitan, CPlayer* pPlayer, WORD Attrib, DWORD AttAttackMin, DWORD AttAttackMax, float AttAttackRate);
 
@@ -36,7 +37,7 @@ public:
 	virtual ~CAttackCalc();
 
 	DWORD GetPlayerPoint(LEVELTYPE level1, int leve_gab);
-	//SW050806 ±âÁ¸ µ¥ÀÌÅ¸ Å×ÀÌºí ÆÄ½Ì¿¡¼­ °ø½ÄÈ­·Î º¯°æ
+	//SW050806  Å¸ Ìº Ä½Ì¿ È­ 
 	DWORD GetPlayerExpPoint(int level_gap,DWORD MonsterExp);
 
 	double	getPhysicalAttackPower(CObject * pObject, float PhyAttackRate, BOOL bCritical );

@@ -7,6 +7,9 @@
 
 #if _MSC_VER > 1000
 #pragma once
+#include "../[CC]Header/CommonStruct.h"
+#include "../[CC]Header/CommonGameFunc.h"
+#include "../[CC]Header/CommonGameDefine.h"
 #endif // _MSC_VER > 1000
 
 #include "..\Battle.h"
@@ -16,8 +19,8 @@ class CPlayer;
 class CSuryunRegen;
 struct SURYUNINFO;
 
-#ifdef _MHCLIENT_	
-#include "../ImageNumber.h"
+#ifdef _MHCLIENT_
+#include "../[Client]MH/ImageNumber.h"
 #define MSGBOXTIME 4000
 #endif
 
@@ -59,14 +62,14 @@ public:
 	void Initialize(BATTLE_INFO_BASE* pCreateInfo, CBattleTeam* pTeam1, CBattleTeam* pTeam2);
 	
 	//////////////////////////////////////////////////////////////////////////
-	// { start virtual func 반드시 오버라이딩 해야함
+	// { start virtual func 訃 絹 瞞
 
-	// Battle 정보 관련
+	// Battle  
 #ifdef _MAPSERVER_
 	virtual void GetBattleInfo(char* pInfo,WORD* size);
 #endif
 
-	// 적,아군 구별
+	// ,튿 
 	virtual BOOL IsEnemy(CObject* pOperator,CObject* pTarget);
 	virtual BOOL IsFriend(CObject* pOperator,CObject* pTarget);
 	
@@ -84,14 +87,14 @@ public:
 
 	virtual void OnTick();
 	
-	// 승패 판정
-	virtual BOOL Judge();		// Judge에서 Victory나 Draw 함수를 호출해주어야 한다.
+	//  
+	virtual BOOL Judge();		// Judge Victory Draw 獨 호羚 磯.
 	virtual void Victory(int WinnerTeamNum,int LoserTeamNum);
 	virtual void Draw();
 
 	
 #ifdef _MHCLIENT_
-	// Render		(클라이언트만 사용함)
+	// Render		(클潔트 )
 	virtual void Render();
 #endif
 

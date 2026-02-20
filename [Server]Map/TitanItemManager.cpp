@@ -847,13 +847,13 @@ void CTitanItemManager::TitanPartsMakeAddItem( CPlayer* pPlayer, MSG_ITEM* pmsg 
 	CItemSlot * pSlot = NULL;
 	MSG_ITEM msgAck;
 
-	//AI¨¬¡ÍAa¢¬¢ç A¡¿AI¨¬iAC 'A¢®AIAo
+	//AI¨¬¡ÍAa¢ç A¡¿AI¨¬iAC 'A®AIAo
 	if( GetTableIdxPosition( pmsg->ItemInfo.Position ) != eItemTable_Inventory )
 	{
 		wErrorCode = 1;
 		goto go_TPM_ADDITEM_NACK;				
 	}			
-	//d¨¬¢¬¡Æ¢® ¨ù¡©©öo¢¯I AIA¢®CI¢¥AAo
+	//d¨¬¡Æ ¡©öo¯I AIA®CI¢¥AAo
 	if(!CHKRT->ItemOf(pPlayer, pmsg->ItemInfo.Position, pmsg->ItemInfo.wIconIdx, 0,0, CB_EXIST|CB_ICONIDX))
 	{
 		wErrorCode = 2;
@@ -862,12 +862,12 @@ void CTitanItemManager::TitanPartsMakeAddItem( CPlayer* pPlayer, MSG_ITEM* pmsg 
 	//¢ÒoAI ¡ÆE¡¤A AO¢¥AAo
 	pSlot = pPlayer->GetSlot(eItemTable_Inventory);
 	if( pSlot )
+	{
 		if( pSlot->IsLock( pmsg->ItemInfo.Position ) )
-		{
 			wErrorCode = 3;
 			goto go_TPM_ADDITEM_NACK;
 		}
-		// ¢¯E¨ùC ¨ú¨¡AIAU ¨úE¥ìE
+		// ¯EùC ¨¡AIAU úE¥ìE
 		if(ITEMMGR->IsOptionItem( pmsg->ItemInfo.wIconIdx, pmsg->ItemInfo.Durability ) )
 		{
 			wErrorCode = 4;
@@ -932,7 +932,7 @@ void CTitanItemManager::TitanPartsMake( CPlayer* pPlayer, MSG_ITEM_MIX_SYN* pmsg
 		{
 		case 1000:
 			{
-				// ¡Ë¡Íe¡§oC¡§¢®¡§¡Ë
+				// ¡Ë¡Íe¡§oC¡§¡§¡Ë
 				MSG_ITEM_MIX_ACK msg;
 				memcpy(&msg, pmsg, sizeof(MSG_ITEM_MIX_SYN));
 				msg.Protocol = MP_ITEM_TPM_BIGFAILED_ACK;
@@ -941,7 +941,7 @@ void CTitanItemManager::TitanPartsMake( CPlayer* pPlayer, MSG_ITEM_MIX_SYN* pmsg
 			break;
 		case 1001:
 			{
-				// ¡§oC¡§¢®¡§¡Ë
+				// ¡§oC¡§¡§¡Ë
 				MSG_ITEM_MIX_ACK msg;
 				memcpy(&msg, pmsg, sizeof(MSG_ITEM_MIX_SYN));
 				msg.Protocol = MP_ITEM_TPM_FAILED_ACK;
