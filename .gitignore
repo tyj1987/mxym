@@ -631,3 +631,7 @@ DeveloperWorking/
 !restore_database.ps1
 !setup_database.sql
 !SETUP.md
+!TEST_REPORT.md
+!test_servers.bat
+!test_servers_verbose.bat
+!test_run.bat
